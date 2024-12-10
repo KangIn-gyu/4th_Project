@@ -1,7 +1,6 @@
 #pragma once
-#pragma once
 #include <mutex>
-#include <iostream>
+#include <memory>
 
 template<typename T>
 class SingletonBase

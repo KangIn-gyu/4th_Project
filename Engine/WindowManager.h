@@ -1,7 +1,10 @@
 #pragma once
 #include <windows.h>
-#include <string_view>
 
+#include <string>
+#include <string_view>
+#include <memory>
+class Console;
 //목적 : 기반 클래스 이걸 상속해서 윈도우 생성
 class WindowManager
 {
@@ -22,6 +25,9 @@ private:
 
 //변수 
 public:
+
+protected:
+	std::unique_ptr<Console> m_pConsole {};
 
 private:
 	int	m_fScreenWidth {};

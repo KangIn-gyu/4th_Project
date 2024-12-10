@@ -14,29 +14,32 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="Client">
-      <UniqueIdentifier>{7742b04b-1d43-462e-9205-4dd2ac940e86}</UniqueIdentifier>
+      <UniqueIdentifier>{d2cd5e39-1da4-4087-888a-472c9a316388}</UniqueIdentifier>
     </Filter>
-    <Filter Include="oddments">
-      <UniqueIdentifier>{2cf4e708-f49e-48fc-9ca5-8de5969d500e}</UniqueIdentifier>
+    <Filter Include="Client\pch">
+      <UniqueIdentifier>{79249e8d-63bf-45d5-8fe8-3efb6a3493f3}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Client.cpp">
-      <Filter>Client</Filter>
-    </ClCompile>
-    <ClCompile Include="pch.cpp">
-      <Filter>oddments</Filter>
-    </ClCompile>
-    <ClCompile Include="Main.cpp">
-      <Filter>Client</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
       <Filter>Client</Filter>
     </ClInclude>
     <ClInclude Include="pch.h">
-      <Filter>oddments</Filter>
+      <Filter>Client\pch</Filter>
     </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>Client\pch</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="4th_Project.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Client.cpp">
+      <Filter>Client</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Client\pch</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
