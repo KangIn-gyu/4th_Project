@@ -7,9 +7,9 @@
 WindowManager::WindowManager(HINSTANCE hInstance, std::wstring_view GameName, int ScreenWidth, int ScreenHeight, bool isFullScreen) : \
     m_hInstance(hInstance), m_strGamName(GameName), m_fScreenWidth(ScreenWidth), m_fScreenHeight(ScreenHeight), m_isFullScreen(isFullScreen)
 {
-    Engine::GetInstance().get()->SetWindow(this);
+    ENGINE->SetWindow(this);
     WindowsRegistration();
-    Initialize();
+    Initialize(); 
 }
 
 WindowManager::~WindowManager()
@@ -74,31 +74,26 @@ bool WindowManager::Initialize()
     int midX = (GetSystemMetrics(SM_CXSCREEN) - m_fScreenWidth) / 2;
     int midY = (GetSystemMetrics(SM_CYSCREEN) - m_fScreenHeight) / 2;
 
+    DWORD dwStyle = WS_OVERLAPPEDWINDOW & ~WS_THICKFRAME;
+
     if(true == m_isFullScreen)
     {
-        DEVMODE dm = {};
-        dm.dmSize = sizeof(DEVMODE);
-        dm.dmPelsWidth = m_fScreenWidth;
-        dm.dmPelsHeight = m_fScreenHeight;
-        dm.dmFields = DM_PELSWIDTH | DM_PELSHEIGHT;
-
-        if (ChangeDisplaySettings(&dm, CDS_FULLSCREEN) != DISP_CHANGE_SUCCESSFUL)
-        {
-            return FALSE; // 디스플레이 설정 실패
-        }
+        m_fScreenWidth = GetSystemMetrics(SM_CXSCREEN);
+        m_fScreenHeight = GetSystemMetrics(SM_CYSCREEN);
 
         m_hWnd = CreateWindowEx(0, L"4th_Project", m_strGamName.c_str(), WS_POPUP,
-            1, 0, midX, midY, NULL, NULL, m_hInstance, NULL);
+            0, 0, GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN), NULL, NULL, m_hInstance, NULL);
     }
     else
     {
-        m_hWnd = CreateWindowEx(0, L"4th_Project", m_strGamName.c_str(), WS_OVERLAPPEDWINDOW,
+        m_hWnd = CreateWindowEx(0, L"4th_Project", m_strGamName.c_str(), dwStyle,
             midX, midY, rcClient.right - rcClient.left, rcClient.bottom - rcClient.top,
             NULL, NULL, m_hInstance, NULL);
     }
 
     if (!m_hWnd) { return FALSE; }
-
+   
+    SetWindowLongPtr(m_hWnd, GWL_STYLE, dwStyle);   // 창 크기 조정 비활성화: 창 스타일 변경
     ShowWindow(m_hWnd, SW_SHOW);
     UpdateWindow(m_hWnd);
 

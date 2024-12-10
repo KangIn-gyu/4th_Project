@@ -1,7 +1,64 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "E:\\4th_Project\\",
-  "Documents": [],
+  "WorkspaceRootPath": "C:\\Users\\K2301160065\\Desktop\\4QProject\\4th_Project\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|C:\\Users\\K2301160065\\Desktop\\4QProject\\4th_Project\\Engine\\WindowManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\WindowManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|C:\\Users\\K2301160065\\Desktop\\4QProject\\4th_Project\\Engine\\WindowManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\WindowManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B9AAEE5-BB8C-42D9-8B74-4581EEE22004}|4th_Project\\4th_Project.vcxproj|C:\\Users\\K2301160065\\Desktop\\4QProject\\4th_Project\\4th_Project\\pch.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2B9AAEE5-BB8C-42D9-8B74-4581EEE22004}|4th_Project\\4th_Project.vcxproj|solutionrelative:4th_Project\\pch.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B9AAEE5-BB8C-42D9-8B74-4581EEE22004}|4th_Project\\4th_Project.vcxproj|C:\\Users\\K2301160065\\Desktop\\4QProject\\4th_Project\\4th_Project\\pch.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2B9AAEE5-BB8C-42D9-8B74-4581EEE22004}|4th_Project\\4th_Project.vcxproj|solutionrelative:4th_Project\\pch.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B9AAEE5-BB8C-42D9-8B74-4581EEE22004}|4th_Project\\4th_Project.vcxproj|C:\\Users\\K2301160065\\Desktop\\4QProject\\4th_Project\\4th_Project\\4th_Project.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2B9AAEE5-BB8C-42D9-8B74-4581EEE22004}|4th_Project\\4th_Project.vcxproj|solutionrelative:4th_Project\\4th_Project.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|C:\\Users\\K2301160065\\Desktop\\4QProject\\4th_Project\\Engine\\Engine.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\Engine.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|C:\\Users\\K2301160065\\Desktop\\4QProject\\4th_Project\\Engine\\SingletonBase.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\SingletonBase.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|C:\\Users\\K2301160065\\Desktop\\4QProject\\4th_Project\\Engine\\Engine.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\Engine.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B9AAEE5-BB8C-42D9-8B74-4581EEE22004}|4th_Project\\4th_Project.vcxproj|C:\\Users\\K2301160065\\Desktop\\4QProject\\4th_Project\\4th_Project\\framework.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2B9AAEE5-BB8C-42D9-8B74-4581EEE22004}|4th_Project\\4th_Project.vcxproj|solutionrelative:4th_Project\\framework.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B9AAEE5-BB8C-42D9-8B74-4581EEE22004}|4th_Project\\4th_Project.vcxproj|C:\\Users\\K2301160065\\Desktop\\4QProject\\4th_Project\\4th_Project\\Client.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2B9AAEE5-BB8C-42D9-8B74-4581EEE22004}|4th_Project\\4th_Project.vcxproj|solutionrelative:4th_Project\\Client.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B9AAEE5-BB8C-42D9-8B74-4581EEE22004}|4th_Project\\4th_Project.vcxproj|C:\\Users\\K2301160065\\Desktop\\4QProject\\4th_Project\\4th_Project\\Client.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2B9AAEE5-BB8C-42D9-8B74-4581EEE22004}|4th_Project\\4th_Project.vcxproj|solutionrelative:4th_Project\\Client.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|C:\\Users\\K2301160065\\Desktop\\4QProject\\4th_Project\\Engine\\pch.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\pch.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|C:\\Users\\K2301160065\\Desktop\\4QProject\\4th_Project\\Engine\\pch.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\pch.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|C:\\Users\\K2301160065\\Desktop\\4QProject\\4th_Project\\Engine\\framework.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\framework.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,11 +66,188 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "WindowManager.cpp",
+              "DocumentMoniker": "C:\\Users\\K2301160065\\Desktop\\4QProject\\4th_Project\\Engine\\WindowManager.cpp",
+              "RelativeDocumentMoniker": "Engine\\WindowManager.cpp",
+              "ToolTip": "C:\\Users\\K2301160065\\Desktop\\4QProject\\4th_Project\\Engine\\WindowManager.cpp",
+              "RelativeToolTip": "Engine\\WindowManager.cpp",
+              "ViewState": "AgIAADkAAAAAAAAAAAAAAFsAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-12-10T00:59:42.155Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Client.h",
+              "DocumentMoniker": "C:\\Users\\K2301160065\\Desktop\\4QProject\\4th_Project\\4th_Project\\Client.h",
+              "RelativeDocumentMoniker": "4th_Project\\Client.h",
+              "ToolTip": "C:\\Users\\K2301160065\\Desktop\\4QProject\\4th_Project\\4th_Project\\Client.h",
+              "RelativeToolTip": "4th_Project\\Client.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-10T03:41:35.323Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Client.cpp",
+              "DocumentMoniker": "C:\\Users\\K2301160065\\Desktop\\4QProject\\4th_Project\\4th_Project\\Client.cpp",
+              "RelativeDocumentMoniker": "4th_Project\\Client.cpp",
+              "ToolTip": "C:\\Users\\K2301160065\\Desktop\\4QProject\\4th_Project\\4th_Project\\Client.cpp",
+              "RelativeToolTip": "4th_Project\\Client.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-12-10T03:41:43.036Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "pch.h",
+              "DocumentMoniker": "C:\\Users\\K2301160065\\Desktop\\4QProject\\4th_Project\\4th_Project\\pch.h",
+              "RelativeDocumentMoniker": "4th_Project\\pch.h",
+              "ToolTip": "C:\\Users\\K2301160065\\Desktop\\4QProject\\4th_Project\\4th_Project\\pch.h",
+              "RelativeToolTip": "4th_Project\\pch.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-10T03:39:22.822Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "4th_Project.cpp",
+              "DocumentMoniker": "C:\\Users\\K2301160065\\Desktop\\4QProject\\4th_Project\\4th_Project\\4th_Project.cpp",
+              "RelativeDocumentMoniker": "4th_Project\\4th_Project.cpp",
+              "ToolTip": "C:\\Users\\K2301160065\\Desktop\\4QProject\\4th_Project\\4th_Project\\4th_Project.cpp",
+              "RelativeToolTip": "4th_Project\\4th_Project.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-12-10T03:39:18.069Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "pch.cpp",
+              "DocumentMoniker": "C:\\Users\\K2301160065\\Desktop\\4QProject\\4th_Project\\Engine\\pch.cpp",
+              "RelativeDocumentMoniker": "Engine\\pch.cpp",
+              "ToolTip": "C:\\Users\\K2301160065\\Desktop\\4QProject\\4th_Project\\Engine\\pch.cpp",
+              "RelativeToolTip": "Engine\\pch.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-12-10T00:57:42.266Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "framework.h",
+              "DocumentMoniker": "C:\\Users\\K2301160065\\Desktop\\4QProject\\4th_Project\\4th_Project\\framework.h",
+              "RelativeDocumentMoniker": "4th_Project\\framework.h",
+              "ToolTip": "C:\\Users\\K2301160065\\Desktop\\4QProject\\4th_Project\\4th_Project\\framework.h",
+              "RelativeToolTip": "4th_Project\\framework.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-10T03:39:22.222Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Engine.h",
+              "DocumentMoniker": "C:\\Users\\K2301160065\\Desktop\\4QProject\\4th_Project\\Engine\\Engine.h",
+              "RelativeDocumentMoniker": "Engine\\Engine.h",
+              "ToolTip": "C:\\Users\\K2301160065\\Desktop\\4QProject\\4th_Project\\Engine\\Engine.h",
+              "RelativeToolTip": "Engine\\Engine.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-10T00:58:39.268Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "WindowManager.h",
+              "DocumentMoniker": "C:\\Users\\K2301160065\\Desktop\\4QProject\\4th_Project\\Engine\\WindowManager.h",
+              "RelativeDocumentMoniker": "Engine\\WindowManager.h",
+              "ToolTip": "C:\\Users\\K2301160065\\Desktop\\4QProject\\4th_Project\\Engine\\WindowManager.h",
+              "RelativeToolTip": "Engine\\WindowManager.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-10T00:57:20.343Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "SingletonBase.h",
+              "DocumentMoniker": "C:\\Users\\K2301160065\\Desktop\\4QProject\\4th_Project\\Engine\\SingletonBase.h",
+              "RelativeDocumentMoniker": "Engine\\SingletonBase.h",
+              "ToolTip": "C:\\Users\\K2301160065\\Desktop\\4QProject\\4th_Project\\Engine\\SingletonBase.h",
+              "RelativeToolTip": "Engine\\SingletonBase.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-10T01:09:13.051Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "pch.cpp",
+              "DocumentMoniker": "C:\\Users\\K2301160065\\Desktop\\4QProject\\4th_Project\\4th_Project\\pch.cpp",
+              "RelativeDocumentMoniker": "4th_Project\\pch.cpp",
+              "ToolTip": "C:\\Users\\K2301160065\\Desktop\\4QProject\\4th_Project\\4th_Project\\pch.cpp",
+              "RelativeToolTip": "4th_Project\\pch.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-12-10T03:39:24.492Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Engine.cpp",
+              "DocumentMoniker": "C:\\Users\\K2301160065\\Desktop\\4QProject\\4th_Project\\Engine\\Engine.cpp",
+              "RelativeDocumentMoniker": "Engine\\Engine.cpp",
+              "ToolTip": "C:\\Users\\K2301160065\\Desktop\\4QProject\\4th_Project\\Engine\\Engine.cpp",
+              "RelativeToolTip": "Engine\\Engine.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-12-10T00:58:40.59Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "pch.h",
+              "DocumentMoniker": "C:\\Users\\K2301160065\\Desktop\\4QProject\\4th_Project\\Engine\\pch.h",
+              "RelativeDocumentMoniker": "Engine\\pch.h",
+              "ToolTip": "C:\\Users\\K2301160065\\Desktop\\4QProject\\4th_Project\\Engine\\pch.h",
+              "RelativeToolTip": "Engine\\pch.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-10T00:57:42.861Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "framework.h",
+              "DocumentMoniker": "C:\\Users\\K2301160065\\Desktop\\4QProject\\4th_Project\\Engine\\framework.h",
+              "RelativeDocumentMoniker": "Engine\\framework.h",
+              "ToolTip": "C:\\Users\\K2301160065\\Desktop\\4QProject\\4th_Project\\Engine\\framework.h",
+              "RelativeToolTip": "Engine\\framework.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-10T00:58:36.03Z"
             }
           ]
         }
