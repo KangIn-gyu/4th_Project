@@ -1,2 +1,11 @@
-﻿  WindowManager.cpp
+﻿  pch.cpp
+  Console.cpp
+  D3DClass.cpp
+  DirectXInput.cpp
+  Engine.cpp
+  Graphics.cpp
+  Helper.cpp
+  WindowApp.cpp
+  코드를 생성하고 있습니다...
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\xutility(4672,18): warning C4244: '=': 'const wchar_t'에서 'char'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   Engine.vcxproj -> E:\4th_Project\x64\Debug\Engine.lib
