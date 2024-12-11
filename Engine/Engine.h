@@ -26,4 +26,6 @@ public:
 private:
 	WindowManager* m_pWindowManager {};
 };
+
+
 // 게임 루프에 대해서는 고민좀 더 하도록
