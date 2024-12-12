@@ -1,11 +1,9 @@
 #pragma once
 #include "SingletonBase.h"
 
-#define ENGINE Engine::GetInstance()
+#define ENGINE Engine::GetInstance().get()
 
-class WindowApp;
-class DirectXInput;
-class Graphics;
+class WindowManager;
 class Engine : public SingletonBase<Engine>
 {
 	friend class SingletonBase<Engine>;
@@ -17,18 +15,17 @@ public:
 	void Initialize();
 	void Loop();
 
-	void SetWindowApp(WindowApp* window) { clientApp = window; }
+	void SetWindow(WindowManager* window) { m_pWindowManager = window; }
 private:
 	Engine() = default;
 	~Engine() = default;
 
-	void Update(const float _deltaTime);
 // 변수
 public:
 
 private:
-	WindowApp* clientApp {}; // 더블 프리 때문에 포인터로 처리함
-	std::shared_ptr<Graphics> graphicsSystem {};
-	std::shared_ptr<DirectXInput> inputSystem {};
+	WindowManager* m_pWindowManager {};
 };
 
+
+// 게임 루프에 대해서는 고민좀 더 하도록

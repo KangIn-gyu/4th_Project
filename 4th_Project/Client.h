@@ -1,12 +1,12 @@
 #pragma once
-#include "../Engine/WindowApp.h"
+#include "../Engine/WindowManager.h"
 #include <string_view>
 
-class Client : public WindowApp
+class Client : public WindowManager
 {
 	// ÇÔ¼ö
 public:
-	Client(HINSTANCE hInstance, std::string_view GameName, int ScreenWidth, int ScreenHeight, bool isFullScreen);
+	Client(HINSTANCE hInstance, std::wstring_view GameName, int ScreenWidth, int ScreenHeight, bool isFullScreen);
 	~Client();
 
 private:

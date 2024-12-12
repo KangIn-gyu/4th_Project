@@ -9,12 +9,12 @@ void Console::CreateConsole(int posx, int posy, int width, int height)
 	freopen_s(&fp, "CONIN$", "r", stdin);
 	freopen_s(&fp, "CONOUT$", "w", stderr);
 
-	consoleHwnd = GetConsoleWindow(); // 콘솔 창 핸들 가져오기
-	SetWindowPos(consoleHwnd, nullptr , posx, posy, width, height, SWP_NOZORDER);
+	hConsoleWindow = GetConsoleWindow(); // 콘솔 창 핸들 가져오기
+	SetWindowPos(hConsoleWindow, nullptr , posx, posy, width, height, SWP_NOZORDER);
 
-	LONG style = GetWindowLong(consoleHwnd, GWL_STYLE);
+	LONG style = GetWindowLong(hConsoleWindow, GWL_STYLE);
 	style &= ~(WS_CAPTION | WS_THICKFRAME);  // 타이틀 바와 사이즈 조정 프레임 제거
-	SetWindowLong(consoleHwnd, GWL_STYLE, style);
+	SetWindowLong(hConsoleWindow, GWL_STYLE, style);
 }
 
 void Console::DestroyConsole()

@@ -21,18 +21,10 @@
 #include <memory>
 
 // 스레드
-
+#include <mutex>
 
 // 입출력 
 #include <iostream>
-
-// Direct
-#include <d3d11.h>
-#include <directxtk/SimpleMath.h>
-#include <d3dcompiler.h>
-
-#pragma comment (lib, "d3d11.lib")
-#pragma comment(lib,"d3dcompiler.lib")
 
 // 여기에 미리 컴파일하려는 헤더를 추가하세요
 #ifdef _DEBUG

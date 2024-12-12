@@ -11,8 +11,8 @@ public:
 	void DestroyConsole();
 	void SetFontSize(int width, int height);
 
-	const HWND GetConsoleHwnd() { return consoleHwnd; }
+	const HWND GetConsoleHwnd() { return hConsoleWindow; }
 private:
-	HWND consoleHwnd {};
+	HWND hConsoleWindow {};
 };
 
