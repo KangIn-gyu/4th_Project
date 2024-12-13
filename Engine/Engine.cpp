@@ -2,19 +2,22 @@
 #include "pch.h"
 #include "Engine.h"
 #include "WindowApp.h"
-#include "DirectXInput.h"
-#include "Graphics.h"
+
+#include "SystemHeader.h"
 #include "Helper.h"
+#include "Declare.h"
 void Engine::Initialize()
 {
     inputSystem = DXINPUT;
     graphicsSystem = GRAPHICS;
-
+    timeSystem = TIMESYSTEM;
     if (nullptr != clientApp)
     {
-        inputSystem->Initialize(clientApp->GetWindowHandle());
+        inputSystem->Initialize(clientApp->GetWindowInfo()->hWnd);
+        graphicsSystem->Initialize(clientApp->GetWindowInfo());
+        timeSystem->Initialize();
     }
-   
+
 }
 
 void Engine::Loop()
@@ -36,7 +39,9 @@ void Engine::Loop()
         }
         else
         {
-          
+            timeSystem->Update();
+            Update(timeSystem->GetFloatDeltaTime());
+            Render(timeSystem->GetFloatDeltaTime());
         }
     }
 
@@ -50,4 +55,11 @@ void Engine::Update(const float _deltaTime)
 {
     inputSystem->Update(_deltaTime);
 }
+
+void Engine::Render(const float _deltaTime)
+{
+    graphicsSystem->Render();
+}
+
+
 

@@ -19,7 +19,8 @@
 
 // 포인터 관련
 #include <memory>
-
+#include <wrl/client.h>
+using namespace Microsoft::WRL;
 // 스레드
 
 
@@ -28,12 +29,15 @@
 
 // Direct
 #include <d3d11.h>
-#include <directxtk/SimpleMath.h>
-#include <d3dcompiler.h>
+#include <directxtk/SimpleMath.h>  // #pragma comment(lib, "d3dx11.lib") 대체됨
+#include <d3dcompiler.h>  // 일단 보류
 
-#pragma comment (lib, "d3d11.lib")
+#pragma comment(lib, "d3d11.lib")
+#pragma comment(lib, "dxgi.lib")
 #pragma comment(lib,"d3dcompiler.lib")
 
+namespace DX = DirectX;
+namespace DXMath = DirectX::SimpleMath;
 // 여기에 미리 컴파일하려는 헤더를 추가하세요
 #ifdef _DEBUG
 #define _CRTDBG_MAP_ALLOC

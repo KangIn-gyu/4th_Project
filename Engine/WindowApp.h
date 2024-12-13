@@ -8,17 +8,19 @@
 #include "Console.h"
 
 //목적 : 기반 클래스 이걸 상속해서 윈도우 생성
+struct WindowInfo;
 class WindowApp
 {
 // 함수
 public:
-	WindowApp(HINSTANCE hInstance, std::string_view GameName, int ScreenWidth, int ScreenHeight, bool isFullScreen);
+	WindowApp(HINSTANCE _hInstance, std::string_view _GameName, int _screenWidth, int _screenHeight, bool _windoweMode);
 	~WindowApp();
 
 	static LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
-	HWND GetWindowHandle() { return hWnd; }
 	HINSTANCE& GethInstance() { return hInstance; }
 	std::string GetWindowClassName() { return windowClassName; }
+	WindowInfo* GetWindowInfo();
+
 protected:
 	bool Initialize();
 
@@ -32,13 +34,9 @@ protected:
 	std::unique_ptr<Console> console {};
 
 private:
-	int	screenWidth {};
-	int	screenHeight {};
-
-	HWND hWnd = nullptr;  // 메인 핸들
 	HINSTANCE hInstance = nullptr;
+	WindowInfo*	windowInfo {};
 
 	std::string windowClassName = "4th_Project";
 	std::string GamName;
-	bool isFullScreen = false;
 };

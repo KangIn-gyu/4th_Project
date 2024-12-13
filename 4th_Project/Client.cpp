@@ -1,8 +1,8 @@
 #include "pch.h"
 #include "Client.h"
 
-Client::Client(HINSTANCE hInstance, std::string_view GameName, int ScreenWidth, int ScreenHeight, bool isFullScreen) :
-	WindowApp(hInstance, GameName, ScreenWidth, ScreenHeight, isFullScreen)
+Client::Client(HINSTANCE _hInstance, std::string_view _GameName, int _screenWidth, int _screenHeight, bool _windoweMode) :
+	WindowApp(_hInstance, _GameName, _screenWidth, _screenHeight, _windoweMode)
 {
 
 }

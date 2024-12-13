@@ -32,6 +32,24 @@
     <Filter Include="99_ClassDiagram">
       <UniqueIdentifier>{14f17d26-715b-44d8-bad9-492f44410cd4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2_System\Graphics\NewFilter1">
+      <UniqueIdentifier>{22359faf-1502-4627-8c66-042baa7a3506}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_System\Time">
+      <UniqueIdentifier>{19c8583c-7b9e-435e-b89c-98ad821d678e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3_Object">
+      <UniqueIdentifier>{0a472d1f-dfee-4659-a46f-fcaff400de79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3_Object\Compoent">
+      <UniqueIdentifier>{41a87d35-fabd-4b02-a9cc-12eb7cec8fb2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3_Object\Compoent\Camera">
+      <UniqueIdentifier>{cefeb000-53c8-4e79-888d-d2a4e3f4c6d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3_Object\Compoent\Transform">
+      <UniqueIdentifier>{79c4a4b1-bd1e-4f11-8d4c-dcd5a3ac8c8a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowApp.h">
@@ -64,6 +82,36 @@
     <ClInclude Include="Helper.h">
       <Filter>0_Utility\UtilityHeader</Filter>
     </ClInclude>
+    <ClInclude Include="StringHelper.h">
+      <Filter>0_Utility\UtilityHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="Viewport.h">
+      <Filter>2_System\Graphics\NewFilter1</Filter>
+    </ClInclude>
+    <ClInclude Include="SafeExtinction.h">
+      <Filter>0_Utility\UtilityHeader</Filter>
+    </ClInclude>
+    <ClInclude Include="Declare.h">
+      <Filter>0_Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeSystem.h">
+      <Filter>2_System\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemHeader.h">
+      <Filter>2_System</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>3_Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>3_Object\Compoent</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraCompoent.h">
+      <Filter>3_Object\Compoent\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="TransformComponent.h">
+      <Filter>3_Object\Compoent\Transform</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WindowApp.cpp">
@@ -87,8 +135,20 @@
     <ClCompile Include="D3DClass.cpp">
       <Filter>2_System\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Helper.cpp">
-      <Filter>0_Utility\UtilityHeader</Filter>
+    <ClCompile Include="Viewport.cpp">
+      <Filter>2_System\Graphics\NewFilter1</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeSystem.cpp">
+      <Filter>2_System\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>3_Object</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraCompoent.cpp">
+      <Filter>3_Object\Compoent\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="TransformComponent.cpp">
+      <Filter>3_Object\Compoent\Transform</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

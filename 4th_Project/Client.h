@@ -6,7 +6,7 @@ class Client : public WindowApp
 {
 	// ÇÔ¼ö
 public:
-	Client(HINSTANCE hInstance, std::string_view GameName, int ScreenWidth, int ScreenHeight, bool isFullScreen);
+	Client(HINSTANCE _hInstance, std::string_view _GameName, int _screenWidth, int _screenHeight, bool _windoweMode);
 	~Client();
 
 private:

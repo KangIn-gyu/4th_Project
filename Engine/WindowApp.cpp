@@ -3,7 +3,7 @@
 #include "Console.h"
 #include "Engine.h"
 #include "Helper.h"
-
+#include "Declare.h"
 // 다이렉트
 #include <directxtk/Mouse.h>
 #include <directxtk/Keyboard.h>
@@ -13,23 +13,27 @@
 // 용도 : WindowManager를 파생 클래스가 생성이 되면 풀스크린이 아니고 디버그 모드면 콘솔창을 생성한다.
 static Console* g_Console {}; 
 
-WindowApp::WindowApp(HINSTANCE hInstance, std::string_view GameName, int ScreenWidth, int ScreenHeight, bool isFullScreen) : \
-    hInstance(hInstance), GamName(GameName), screenWidth(ScreenWidth), screenHeight(ScreenHeight), isFullScreen(isFullScreen)
+WindowApp::WindowApp(HINSTANCE _hInstance, std::string_view _GameName, int _screenWidth, int _screenHeight, bool _windoweMode) : \
+    hInstance(_hInstance), GamName(_GameName)
 {
+    windowInfo = new WindowInfo;
+    windowInfo->screenWidth = _screenWidth;
+    windowInfo->screenHeight = _screenHeight;
+    windowInfo->windoweMode = _windoweMode;
     ENGINE->SetWindowApp(this);
     WindowsRegistration();
     Initialize(); 
 
-#if(_DEBUG) // 풀스크린 모드에서는 콘솔창이 안나옴
-    if(false == isFullScreen)
+#if(_DEBUG) // 창모드일 경우 안나오게
+    if(true == _windoweMode)
     {
         console = std::make_unique<Console>();
         g_Console = console.get();
         RECT mainWindowRect {};
 
-        if (nullptr != hWnd)
+        if (nullptr != windowInfo->hWnd)
         {
-            GetWindowRect(hWnd, &mainWindowRect);
+            GetWindowRect(windowInfo->hWnd, &mainWindowRect);
         }
   
         int consoleX = mainWindowRect.right;                            // 메인 창의 오른쪽 끝
@@ -43,9 +47,9 @@ WindowApp::WindowApp(HINSTANCE hInstance, std::string_view GameName, int ScreenW
 
 WindowApp::~WindowApp()
 {
-    if (nullptr != hWnd)
+    if (nullptr != windowInfo)
     {
-        DestroyWindow(hWnd);
+        delete windowInfo;
     }
 }
 
@@ -111,44 +115,49 @@ LRESULT WindowApp::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam
     return 0;
 }
 
+WindowInfo* WindowApp::GetWindowInfo()
+{
+    return windowInfo;
+}
+
 bool WindowApp::Initialize()
 {
-    RECT rcClient = { 0,0, screenWidth , screenHeight };
+    RECT rcClient = { 0,0, windowInfo->screenWidth , windowInfo->screenHeight };
     AdjustWindowRect(&rcClient, WS_OVERLAPPEDWINDOW, FALSE);
 
-    int midX = (GetSystemMetrics(SM_CXSCREEN) - screenWidth) / 2;
-    int midY = (GetSystemMetrics(SM_CYSCREEN) - screenHeight) / 2;
+    int midX = (GetSystemMetrics(SM_CXSCREEN) - windowInfo->screenWidth) / 2;
+    int midY = (GetSystemMetrics(SM_CYSCREEN) - windowInfo->screenHeight) / 2;
 
     DWORD dwStyle = WS_OVERLAPPEDWINDOW & ~WS_THICKFRAME;
       
-    if(true == isFullScreen)
+    if(true == windowInfo->windoweMode)
     {
-        screenWidth = GetSystemMetrics(SM_CXSCREEN);
-        screenHeight = GetSystemMetrics(SM_CYSCREEN);
-
-        hWnd = CreateWindowEx(0, StringConverter::StringToWide(windowClassName).c_str(), 
-                                 StringConverter::StringToWide(GamName).c_str(), 
-                                 WS_EX_TOPMOST | WS_POPUP,  0, 0, 
-                                 GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN), 
-                                 NULL, NULL, hInstance, NULL);
+        windowInfo->hWnd = CreateWindowEx(0, StringConverter::StringToWide(windowClassName).c_str(),
+            StringConverter::StringToWide(GamName).c_str(), dwStyle,
+            midX, midY, rcClient.right - rcClient.left,
+            rcClient.bottom - rcClient.top, NULL, NULL, hInstance, NULL);
     }
     else
     {
-        hWnd = CreateWindowEx(0, StringConverter::StringToWide(windowClassName).c_str(), 
-                                 StringConverter::StringToWide(GamName).c_str(), dwStyle,
-                                 midX, midY, rcClient.right - rcClient.left, 
-                                 rcClient.bottom - rcClient.top, NULL, NULL, hInstance, NULL);
+        windowInfo->screenWidth = GetSystemMetrics(SM_CXSCREEN);
+        windowInfo->screenHeight = GetSystemMetrics(SM_CYSCREEN);
+
+        windowInfo->hWnd = CreateWindowEx(0, StringConverter::StringToWide(windowClassName).c_str(),
+            StringConverter::StringToWide(GamName).c_str(),
+            WS_EX_TOPMOST | WS_POPUP, 0, 0,
+            GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN),
+            NULL, NULL, hInstance, NULL);
     }
 
-    if (!hWnd) { return FALSE; }
+    if (!windowInfo->hWnd) { return FALSE; }
    
-    SetWindowLongPtr(hWnd, GWL_STYLE, dwStyle);   // 창 크기 조정 비활성화: 창 스타일 변경
-    ShowWindow(hWnd, SW_SHOW);
-    UpdateWindow(hWnd);
+    SetWindowLongPtr(windowInfo->hWnd, GWL_STYLE, dwStyle);   // 창 크기 조정 비활성화: 창 스타일 변경
+    ShowWindow(windowInfo->hWnd, SW_SHOW);
+    UpdateWindow(windowInfo->hWnd);
 
     // 윈도우를 화면에 표시하고 포커스를 지정
-    SetFocus(hWnd);
-    SetForegroundWindow(hWnd);
+    SetFocus(windowInfo->hWnd);
+    SetForegroundWindow(windowInfo->hWnd);
     return TRUE;
 }
 

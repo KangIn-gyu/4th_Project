@@ -1,5 +1,41 @@
 #pragma once
+#include <d3d11.h>
+#include <dxgi.h>
+#include <d3dcommon.h>
+#include <directxtk/SimpleMath.h>
+
+class Viewport;
+struct WindowInfo;
 class D3DClass
 {
+public:
+	D3DClass();
+	~D3DClass();
+
+	void Initialize(WindowInfo* windowInfo);
+	void BeginDraw(DXMath::Color _BackgroundColor); // 렌더링 파이프라인에서 렌더링 작업을 시작하는 단계
+	void EndDraw();
+private:
+	void InitD3D(WindowInfo* windowInfo);
+	void InitDXGI();
+public:
+
+private:
+	ComPtr<ID3D11Device>		   D3DDevice {};        // 디바이스	                      
+	ComPtr<ID3D11DeviceContext>	   D3DDeviceContext {}; // 즉시 디바이스 컨텍스트
+	ComPtr<IDXGISwapChain>		   swapChain {};        // 스왑체인
+
+	ComPtr<ID3D11RenderTargetView> renderTargetView {};   // 렌더링 타겟뷰
+	ComPtr<ID3D11DepthStencilView> depthStencilView{};  // 깊이값 처리를 위한 뎊스스텐실 뷰 
+	ComPtr<ID3D11Texture2D>		   depthStencilBuffer {};  // 뎊스스텐실 버퍼
+
+	ComPtr<ID3D11SamplerState>     samplerLinear{}; // 샘플러 상태
+	ComPtr<ID3D11BlendState>       alphaBlendState{};
+
+	Viewport* viewport;
+	bool presentEnabled;
 };
 
+// 항상 그래픽 파이프 라인을 생각하자
+// IA[Input_Assember] -> VS[Vertex Shader] -> (생략가능)HS[HullShader]/TS[Tessellator]/DS[Domain Sader]/ 
+// GS[Geometry Sader]-> RS[Rasterizer] -> PS[Pixel Shader] -> OM[Output-Merger]
