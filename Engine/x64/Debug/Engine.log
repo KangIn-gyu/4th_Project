@@ -1,12 +1,7 @@
-﻿  Object.cpp
-C:\Users\K2301160065\Documents\GitHub\4th_Project\Engine\Object.cpp(7,2): error C2672: 'Object::CreateComponent': 일치하는 오버로드된 함수가 없습니다.
-  (소스 파일 '/Object.cpp'을(를) 컴파일하는 중)
-      C:\Users\K2301160065\Documents\GitHub\4th_Project\Engine\Object.h(18,7):
-      'void Object::CreateComponent(void)'일 수 있습니다.
-          C:\Users\K2301160065\Documents\GitHub\4th_Project\Engine\Object.cpp(7,2):
-          관련 제약 조건이 충족되지 않았습니다.
-              C:\Users\K2301160065\Documents\GitHub\4th_Project\Engine\Object.h(28,10):
-              개념 'ComponentType<int>'이(가) false로 평가되었습니다.
-                  C:\Users\K2301160065\Documents\GitHub\4th_Project\Engine\Component.h(23,25):
-                  제약 조건이 충족되지 않았습니다.
-  
+﻿  Engine.cpp
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\xutility(4672,18): warning C4244: '=': 'const wchar_t'에서 'char'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  ModelComponent.cpp
+  Object.cpp
+  코드를 생성하고 있습니다...
+E:\4th_Project\Engine\Object.h(51,1): warning C4715: 'Object::GetComponent<TransformComponent>': 모든 제어 경로에서 값을 반환하지는 않습니다.
+  Engine.vcxproj -> E:\4th_Project\x64\Debug\Engine.lib

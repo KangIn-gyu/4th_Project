@@ -7,8 +7,11 @@ public:
 	Component() {}
 	virtual ~Component() {}
 
+protected:
+	Object* owner{}; // 게임 오브젝트
+
 private:
-	Object* owner {}; // 게임 오브젝트
+
 
 public:
 	const void SetComponentOwner(Object* _Owner) { owner = _Owner; }
@@ -21,4 +24,3 @@ public:
 
 template<class T>
 concept ComponentType = std::is_base_of<Component, T>::value;
-// 라이트랑 카메라도 컴포너트로 생각해야 한다.

@@ -21,6 +21,10 @@
 #include <memory>
 #include <wrl/client.h>
 using namespace Microsoft::WRL;
+
+// 타입 관련
+#include <typeindex>
+
 // 스레드
 
 

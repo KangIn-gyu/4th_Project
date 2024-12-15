@@ -1,8 +1,9 @@
 #include "pch.h"
 #include "CameraCompoent.h"
-
+#include "Declare.h"
 CameraCompoent::CameraCompoent()
 {
+//	cameraInfo->camerTransform = 
 //	projectionMatrix = DX::XMMatrixPerspectiveFovLH();
 }
 

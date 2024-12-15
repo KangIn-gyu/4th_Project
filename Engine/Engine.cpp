@@ -6,6 +6,7 @@
 #include "SystemHeader.h"
 #include "Helper.h"
 #include "Declare.h"
+
 void Engine::Initialize()
 {
     inputSystem = DXINPUT;
@@ -17,7 +18,6 @@ void Engine::Initialize()
         graphicsSystem->Initialize(clientApp->GetWindowInfo());
         timeSystem->Initialize();
     }
-
 }
 
 void Engine::Loop()

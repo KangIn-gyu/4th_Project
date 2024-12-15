@@ -32,9 +32,6 @@
     <Filter Include="99_ClassDiagram">
       <UniqueIdentifier>{14f17d26-715b-44d8-bad9-492f44410cd4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2_System\Graphics\NewFilter1">
-      <UniqueIdentifier>{22359faf-1502-4627-8c66-042baa7a3506}</UniqueIdentifier>
-    </Filter>
     <Filter Include="2_System\Time">
       <UniqueIdentifier>{19c8583c-7b9e-435e-b89c-98ad821d678e}</UniqueIdentifier>
     </Filter>
@@ -49,6 +46,12 @@
     </Filter>
     <Filter Include="3_Object\Compoent\Transform">
       <UniqueIdentifier>{79c4a4b1-bd1e-4f11-8d4c-dcd5a3ac8c8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_System\Graphics\GraphicsData">
+      <UniqueIdentifier>{22359faf-1502-4627-8c66-042baa7a3506}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3_Object\Compoent\Model">
+      <UniqueIdentifier>{ce02b990-2a8d-477a-9bd1-c070d8d8711b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -86,7 +89,7 @@
       <Filter>0_Utility\UtilityHeader</Filter>
     </ClInclude>
     <ClInclude Include="Viewport.h">
-      <Filter>2_System\Graphics\NewFilter1</Filter>
+      <Filter>2_System\Graphics\GraphicsData</Filter>
     </ClInclude>
     <ClInclude Include="SafeExtinction.h">
       <Filter>0_Utility\UtilityHeader</Filter>
@@ -112,6 +115,9 @@
     <ClInclude Include="TransformComponent.h">
       <Filter>3_Object\Compoent\Transform</Filter>
     </ClInclude>
+    <ClInclude Include="ModelComponent.h">
+      <Filter>3_Object\Compoent\Model</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WindowApp.cpp">
@@ -136,7 +142,7 @@
       <Filter>2_System\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="Viewport.cpp">
-      <Filter>2_System\Graphics\NewFilter1</Filter>
+      <Filter>2_System\Graphics\GraphicsData</Filter>
     </ClCompile>
     <ClCompile Include="TimeSystem.cpp">
       <Filter>2_System\Time</Filter>
@@ -150,10 +156,24 @@
     <ClCompile Include="TransformComponent.cpp">
       <Filter>3_Object\Compoent\Transform</Filter>
     </ClCompile>
+    <ClCompile Include="ModelComponent.cpp">
+      <Filter>3_Object\Compoent\Model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd">
       <Filter>99_ClassDiagram</Filter>
     </None>
+    <None Include="Header.hlsli">
+      <Filter>리소스 파일</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="PixelShader.hlsl">
+      <Filter>리소스 파일</Filter>
+    </FxCompile>
+    <FxCompile Include="VertexShader.hlsl">
+      <Filter>리소스 파일</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

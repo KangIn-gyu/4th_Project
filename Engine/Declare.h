@@ -11,12 +11,14 @@ struct WindowInfo
 	~WindowInfo() { DestroyWindow(hWnd); }
 };
 
+class TransformComponent;
 struct CameraInfo
 {
 	float Speed = 400.f;
 	float RotationSpeed = 0.004f;
 
 	// 트랜스폼 고민중
+	TransformComponent* camerTransform;
 
 	// 투영 관련 변수
 	float FovAngleY = 1.0f;

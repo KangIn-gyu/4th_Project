@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Console" Collapsed="true">
-    <Position X="12.5" Y="4.75" Width="1.5" />
+    <Position X="5" Y="2.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AICAAAAIAAAAACAAAAAAAAAAAAAAAAAAAAAAAAIAAAg=</HashCode>
       <FileName>Console.h</FileName>
@@ -15,9 +15,9 @@
     </TypeIdentifier>
   </Class>
   <Class Name="WindowApp" Collapsed="true">
-    <Position X="10.75" Y="4.75" Width="1.5" />
+    <Position X="3.5" Y="2.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>IAAAAAQAwBhAAQAAAAAQIAAABAAAAAAIAAIAQAAAAAA=</HashCode>
+      <HashCode>IAAAAAQAwBAAAQAAAAAAAAAAABAAAAoIAAIAwAAAAAA=</HashCode>
       <FileName>WindowApp.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -38,7 +38,7 @@
   <Class Name="Engine" Collapsed="true">
     <Position X="7.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AEQgAgAIQAQAAQAAAAAAAAAAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <HashCode>AkQgAgAIQAQAAQAAAAAAAAAAAAAAAAAABBAAAAAAAAA=</HashCode>
       <FileName>Engine.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -49,5 +49,68 @@
       <FileName>DirectXInput.h</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="CameraCompoent" Collapsed="true">
+    <Position X="13" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIACAAAABCFAAEAgAAAAABAQAAAAAAAAgAAAA=</HashCode>
+      <FileName>CameraCompoent.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransformComponent" Collapsed="true">
+    <Position X="15" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgEEFFAAAABEEACEIAECAAAFAAQAAEAAAgBAgQA=</HashCode>
+      <FileName>TransformComponent.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Component" Collapsed="true">
+    <Position X="14" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAgAAAEAAEAAAAAAABAACAAABAAAIAAAA=</HashCode>
+      <FileName>Component.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Object" Collapsed="true">
+    <Position X="14" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAyAAAAAgAACAJAAAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>Object.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimeSystem" Collapsed="true">
+    <Position X="4.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>kIQAEAAAgCABAQAIACAAFAAAACJBAQIAIDAAABIAAAA=</HashCode>
+      <FileName>TimeSystem.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="D3DClass" Collapsed="true">
+    <Position X="6.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gACCAIAAIAAAAQgAFAABQAAAgAAAAAAgEgBAAAAgAAA=</HashCode>
+      <FileName>D3DClass.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Viewport" Collapsed="true">
+    <Position X="6.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAEBABAAABgCgAAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Viewport.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="WindowInfo" Collapsed="true">
+    <Position X="15" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEABAAAAAAAAEIAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Declare.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="CameraInfo" Collapsed="true">
+    <Position X="13.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAQIAAAAgAAAAAAAAAACAAABAAAQAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>Declare.h</FileName>
+    </TypeIdentifier>
+  </Struct>
   <Font Name="맑은 고딕" Size="9" />
 </ClassDiagram>
