@@ -8,11 +8,11 @@
     <Filter Include="Client">
       <UniqueIdentifier>{d2cd5e39-1da4-4087-888a-472c9a316388}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Client\pch">
-      <UniqueIdentifier>{79249e8d-63bf-45d5-8fe8-3efb6a3493f3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Main">
       <UniqueIdentifier>{d34088c1-72fc-45fb-8093-a124d0834fb2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="pch">
+      <UniqueIdentifier>{79249e8d-63bf-45d5-8fe8-3efb6a3493f3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -20,10 +20,10 @@
       <Filter>Client</Filter>
     </ClInclude>
     <ClInclude Include="pch.h">
-      <Filter>Client\pch</Filter>
+      <Filter>pch</Filter>
     </ClInclude>
     <ClInclude Include="framework.h">
-      <Filter>Client\pch</Filter>
+      <Filter>pch</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -31,7 +31,7 @@
       <Filter>Client</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
-      <Filter>Client\pch</Filter>
+      <Filter>pch</Filter>
     </ClCompile>
     <ClCompile Include="4th_Project.cpp">
       <Filter>Main</Filter>

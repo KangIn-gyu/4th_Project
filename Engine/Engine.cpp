@@ -5,7 +5,7 @@
 
 #include "SystemHeader.h"
 #include "Helper.h"
-#include "Declare.h"
+#include "Declare.h" // 윈도우 정보때문에
 
 void Engine::Initialize()
 {
@@ -49,6 +49,10 @@ void Engine::Loop()
     {
         UnregisterClass(StringConverter::StringToWide(clientApp->GetWindowClassName()).c_str(), clientApp->GethInstance());  
     }
+}
+
+Engine::~Engine()
+{
 }
 
 void Engine::Update(const float _deltaTime)
