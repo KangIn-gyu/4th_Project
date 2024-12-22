@@ -5,4 +5,5 @@
 {  public 함수 -> protected 함수 -> private 함수 -> public 변수 -> protected 변수 -> private 변수 }
 4. 인터페이스일 경우 I를 표시한다
 5. 함수 파라미터 _표시 하기
-6. 오브젝트를 
+6. D3D 같은 경우 앞에 대문자로 된게 몇개 있음
+7. 매크로 같은 경우 대문자로 작성

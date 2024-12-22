@@ -47,10 +47,7 @@ WindowApp::WindowApp(HINSTANCE _hInstance, std::string_view _GameName, int _scre
 
 WindowApp::~WindowApp()
 {
-    if (nullptr != windowInfo)
-    {
-        delete windowInfo;
-    }
+    SafeExtinction::SAFE_DELETE(windowInfo);
 }
 
 LRESULT WindowApp::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)

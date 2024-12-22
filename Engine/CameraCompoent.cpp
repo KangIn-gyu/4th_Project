@@ -1,10 +1,12 @@
 #include "pch.h"
 #include "CameraCompoent.h"
+#include "Object.h"
+#include "TransformComponent.h"
 #include "Declare.h"
 CameraCompoent::CameraCompoent()
 {
-//	cameraInfo->camerTransform = 
-//	projectionMatrix = DX::XMMatrixPerspectiveFovLH();
+	cameraInfo->camerTransform = owner->GetComponent<TransformComponent>(0);
+//	projectionMatrix = DX::XMMatrixPerspectiveFovLH(cameraInfo->FovAngleY, , cameraInfo->Near, cameraInfo->Far);
 }
 
 CameraCompoent::~CameraCompoent()
@@ -15,10 +17,3 @@ void CameraCompoent::ComponentInitialize()
 {
 }
 
-void CameraCompoent::ComponentUpdate(float _deltaTime)
-{
-}
-
-void CameraCompoent::ComponentRender()
-{
-}

@@ -11,8 +11,8 @@ private:
 
 public:
 	virtual void ComponentInitialize() override;
-	virtual void ComponentUpdate(float _deltaTime) override;
-	virtual void ComponentRender() override;
+	virtual void ComponentUpdate(float _deltaTime) override {};
+	virtual void ComponentRender() override {};
 
 private:
 	float clientWidth  {};

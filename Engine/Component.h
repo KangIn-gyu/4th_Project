@@ -12,7 +12,6 @@ protected:
 
 private:
 
-
 public:
 	const void SetComponentOwner(Object* _Owner) { owner = _Owner; }
 	Object* ComponentOwner() { return owner; }

@@ -6,7 +6,6 @@
 #include "StringHelper.h"
 #include "SafeExtinction.h"
 
-
 // D3D 컴객체 확인용
 LPCWSTR GetComErrorString(HRESULT hr);
 // Helper class for COM exceptions

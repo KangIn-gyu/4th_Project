@@ -8,7 +8,7 @@ public:
 	ModelComponent();
 	virtual ~ModelComponent();
 
-	virtual void ComponentInitialize() override;              // 초기화용
+	virtual void ComponentInitialize() override;                 // 초기화용
 	virtual void ComponentUpdate(float _deltaTime) override {};  // 업데이트
 	virtual void ComponentRender() override {};					 // 렌더용
 private:

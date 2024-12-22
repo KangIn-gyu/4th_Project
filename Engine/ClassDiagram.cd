@@ -73,7 +73,7 @@
   <Class Name="Object" Collapsed="true">
     <Position X="14" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAAAAAyAAAAAgAACAJAAAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <HashCode>AAQAAAAAAyAAAAAgAACAJAAAAAAAAAAAAAAAACAABAA=</HashCode>
       <FileName>Object.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -87,7 +87,7 @@
   <Class Name="D3DClass" Collapsed="true">
     <Position X="6.5" Y="5.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>gACCAIAAIAAAAQgAFAABQAAAgAAAAAAgEgBAAAAgAAA=</HashCode>
+      <HashCode>gACCAIAAIAAAAQgAFAABQAAAgABAAAAgEgBAAAAgAAA=</HashCode>
       <FileName>D3DClass.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -96,6 +96,20 @@
     <TypeIdentifier>
       <HashCode>AAAAAAIAAAAEBABAAABgCgAAAACAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Viewport.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Mesh" Collapsed="true">
+    <Position X="6.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Mesh.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VertexBuffer" Collapsed="true">
+    <Position X="6.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QBAQAAAAgAAAAAAAAAAAAAAAAAAQAEAAAAAAAAAAEAA=</HashCode>
+      <FileName>Vertex.h</FileName>
     </TypeIdentifier>
   </Class>
   <Struct Name="WindowInfo" Collapsed="true">
@@ -110,6 +124,13 @@
     <TypeIdentifier>
       <HashCode>gAQIAAAAgAAAAAAAAAACAAABAAAQAAAAAAAAAAAAQAA=</HashCode>
       <FileName>Declare.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Vertex" Collapsed="true">
+    <Position X="6.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAAAIAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Vertex.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Font Name="맑은 고딕" Size="9" />

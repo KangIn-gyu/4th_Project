@@ -15,9 +15,17 @@ public:
 	void Initialize(WindowInfo* windowInfo);
 	void BeginDraw(DXMath::Color _BackgroundColor); // 렌더링 파이프라인에서 렌더링 작업을 시작하는 단계
 	void EndDraw();
+
+	void ChangeWindowSize(WindowInfo* windowInfo);
+
+	std::unique_ptr<Viewport>& GetVieport() { return viewport; }
 private:
 	void InitD3D(WindowInfo* windowInfo);
-	void InitDXGI();
+	void InitDXGI(WindowInfo* windowInfo);
+	void InitInputLayout();
+
+	DXGI_SWAP_CHAIN_DESC CreateSwapDesc(WindowInfo* windowInfo);
+	void CreateDepthStencilBuffer(WindowInfo* windowInfo);
 public:
 
 private:
@@ -26,14 +34,20 @@ private:
 	ComPtr<IDXGISwapChain>		   swapChain {};        // 스왑체인
 
 	ComPtr<ID3D11RenderTargetView> renderTargetView {};   // 렌더링 타겟뷰
-	ComPtr<ID3D11DepthStencilView> depthStencilView{};  // 깊이값 처리를 위한 뎊스스텐실 뷰 
+	ComPtr<ID3D11DepthStencilView> depthStencilView{};    // 깊이값 처리를 위한 뎊스스텐실 뷰 
 	ComPtr<ID3D11Texture2D>		   depthStencilBuffer {};  // 뎊스스텐실 버퍼
 
-	ComPtr<ID3D11SamplerState>     samplerLinear{}; // 샘플러 상태
+	ComPtr<ID3D11SamplerState>     samplerLinear{};        // 샘플러 상태
 	ComPtr<ID3D11BlendState>       alphaBlendState{};
 
-	Viewport* viewport;
+	D3D11_INPUT_ELEMENT_DESC*  inputLayuout{};
+	
+	std::unique_ptr<Viewport> viewport;
 	bool presentEnabled;
+
+	ComPtr<IDXGIFactory> DXGIFactory;
+	ComPtr<IDXGIAdapter> DXGIAdapter;
+	ComPtr<IDXGIDevice> DXGIDevice;
 };
 
 // 항상 그래픽 파이프 라인을 생각하자
