@@ -21,7 +21,7 @@ public:
 	void SetWindowApp(WindowApp* window) { clientApp = window; }
 private:
 	Engine() = default;
-	~Engine();
+	~Engine() = default;
 
 	void Update(const float _deltaTime);
 	void Render(const float _deltaTime);

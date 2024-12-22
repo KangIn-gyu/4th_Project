@@ -8,6 +8,9 @@
     <Filter Include="0_Utility">
       <UniqueIdentifier>{8b2102bf-9ac7-48f9-a425-f72ab939ec75}</UniqueIdentifier>
     </Filter>
+    <Filter Include="0_Utility\pch">
+      <UniqueIdentifier>{87545f9d-cb84-45f8-9539-8d582f28c070}</UniqueIdentifier>
+    </Filter>
     <Filter Include="0_Utility\Window">
       <UniqueIdentifier>{933bf859-895a-4538-9f92-197aaee8fc95}</UniqueIdentifier>
     </Filter>
@@ -50,22 +53,16 @@
     <Filter Include="3_Object\Compoent\Model">
       <UniqueIdentifier>{ce02b990-2a8d-477a-9bd1-c070d8d8711b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="pch">
-      <UniqueIdentifier>{87545f9d-cb84-45f8-9539-8d582f28c070}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2_System\Resource">
-      <UniqueIdentifier>{5e3f9e6d-12ab-4450-9f7b-ace2db7a5bfc}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowApp.h">
       <Filter>0_Utility\Window</Filter>
     </ClInclude>
     <ClInclude Include="pch.h">
-      <Filter>pch</Filter>
+      <Filter>0_Utility\pch</Filter>
     </ClInclude>
     <ClInclude Include="framework.h">
-      <Filter>pch</Filter>
+      <Filter>0_Utility\pch</Filter>
     </ClInclude>
     <ClInclude Include="Engine.h">
       <Filter>1_Engine</Filter>
@@ -121,22 +118,13 @@
     <ClInclude Include="ModelComponent.h">
       <Filter>3_Object\Compoent\Model</Filter>
     </ClInclude>
-    <ClInclude Include="Mesh.h">
-      <Filter>2_System\Graphics\GraphicsData</Filter>
-    </ClInclude>
-    <ClInclude Include="Vertex.h">
-      <Filter>2_System\Graphics\GraphicsData</Filter>
-    </ClInclude>
-    <ClInclude Include="ResourceSystem.h">
-      <Filter>2_System\Resource</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WindowApp.cpp">
       <Filter>0_Utility\Window</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
-      <Filter>pch</Filter>
+      <Filter>0_Utility\pch</Filter>
     </ClCompile>
     <ClCompile Include="Engine.cpp">
       <Filter>1_Engine</Filter>
@@ -170,15 +158,6 @@
     </ClCompile>
     <ClCompile Include="ModelComponent.cpp">
       <Filter>3_Object\Compoent\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="Mesh.cpp">
-      <Filter>2_System\Graphics\GraphicsData</Filter>
-    </ClCompile>
-    <ClCompile Include="Vertex.cpp">
-      <Filter>2_System\Graphics\GraphicsData</Filter>
-    </ClCompile>
-    <ClCompile Include="ResourceSystem.cpp">
-      <Filter>2_System\Resource</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

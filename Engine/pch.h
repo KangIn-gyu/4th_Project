@@ -42,7 +42,6 @@ using namespace Microsoft::WRL;
 
 namespace DX = DirectX;
 namespace DXMath = DirectX::SimpleMath;
-
 // 여기에 미리 컴파일하려는 헤더를 추가하세요
 #ifdef _DEBUG
 #define _CRTDBG_MAP_ALLOC

@@ -18,7 +18,6 @@ public:
 private:
 	void InitD3D(WindowInfo* windowInfo);
 	void InitDXGI();
-	void InitInputLayout();
 public:
 
 private:
@@ -32,9 +31,6 @@ private:
 
 	ComPtr<ID3D11SamplerState>     samplerLinear{}; // 샘플러 상태
 	ComPtr<ID3D11BlendState>       alphaBlendState{};
-
-	D3D11_INPUT_ELEMENT_DESC*  inputLayuout[2]{};
-	
 
 	Viewport* viewport;
 	bool presentEnabled;

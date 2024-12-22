@@ -52,7 +52,6 @@ void D3DClass::InitD3D(WindowInfo* windowInfo)
 		swapDesc.Windowed = windowInfo->windoweMode;		// 창 모드 여부 설정.
 		swapDesc.BufferDesc.Width = windowInfo->screenWidth;
 		swapDesc.BufferDesc.Height = windowInfo->screenHeight;
-		swapDesc.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH; // 창모드, 전체모드 전환을 허용할 것인가
 		// 화면 주사율 설정.
 		swapDesc.BufferDesc.RefreshRate.Numerator = 60; // 최대 프레임 갯수 144 모니터가 좋아서 가능
 		swapDesc.BufferDesc.RefreshRate.Denominator = 1; // 갱순 주기, 프레임의 분자
@@ -104,7 +103,6 @@ void D3DClass::InitD3D(WindowInfo* windowInfo)
 	//6. 뎊스&스텐실 뷰 생성 (깊이 버퍼 생성)
 	D3D11_TEXTURE2D_DESC depthStencilDesc = {};
 	{
-		ZeroMemory(&depthStencilDesc, sizeof(D3D11_TEXTURE2D_DESC));
 		depthStencilDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_DEPTH_STENCIL;
 		depthStencilDesc.Format = DXGI_FORMAT::DXGI_FORMAT_D24_UNORM_S8_UINT;
 		depthStencilDesc.Usage = D3D11_USAGE::D3D11_USAGE_DEFAULT;
@@ -117,7 +115,6 @@ void D3DClass::InitD3D(WindowInfo* windowInfo)
 
 		// 뷰 생성
 		D3D11_DEPTH_STENCIL_VIEW_DESC descDSV = {};
-		ZeroMemory(&descDSV, sizeof(D3D11_DEPTH_STENCIL_VIEW_DESC));
 		descDSV.Format = depthStencilDesc.Format;
 		descDSV.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
 		descDSV.Texture2D.MipSlice = 0;
@@ -129,36 +126,4 @@ void D3DClass::InitD3D(WindowInfo* windowInfo)
 void D3DClass::InitDXGI()
 {
 
-}
-
-void D3DClass::InitInputLayout()
-{
-	// float4 -> R32G32B32A32 / float3 -> R32G32B32 / float2 -> R32G32
-	struct Layuout
-	{
-		enum class Value
-		{
-			Int = 4,
-			Float = 4,
-			Vector2 = 8,
-			Vector3 = 12,
-			Vector4 = 16,
-			Color = 16
-		};
-
-		UINT AlignedByteOffset {};
-		UINT Byte(Value _byte) 
-		{ 
-			UINT value = AlignedByteOffset; 
-		    AlignedByteOffset += static_cast<UINT>(_byte); 
-			return value; 
-		}
-	};
-
-	Layuout offset;
-	D3D11_INPUT_ELEMENT_DESC layout[] =
-	{
-		{"POSITION", 0 ,DXGI_FORMAT_R32G32B32_FLOAT, 0, offset.Byte(Layuout::Value::Vector3), D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{"COLOR", 0 ,DXGI_FORMAT_R32G32B32_FLOAT, 0, offset.Byte(Layuout::Value::Color), D3D11_INPUT_PER_VERTEX_DATA, 0 }
-	};
 }
