@@ -59,6 +59,21 @@
     <Filter Include="1_Engine\ObjectManager">
       <UniqueIdentifier>{f3dee966-f608-4638-93ea-8523c893b141}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2_System\Graphics\GraphicsData\Buffer">
+      <UniqueIdentifier>{0be67079-b22f-4065-869d-6afc2e6f59fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_System\Graphics\GraphicsData\Mesh">
+      <UniqueIdentifier>{71c8f464-1b62-48a5-b0d7-da6c6fdfe1a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_System\Graphics\GraphicsData\Shader">
+      <UniqueIdentifier>{b11d75f4-65b5-4696-90fc-59c62e47db5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_System\Graphics\GraphicsData\InputLayout">
+      <UniqueIdentifier>{87a5cb4a-3bb3-4f10-ab60-2443558cf078}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_System\Graphics\GraphicsData\Viewport">
+      <UniqueIdentifier>{2ac39156-86ae-4888-99f2-fbb9ac4845de}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowApp.h">
@@ -94,9 +109,6 @@
     <ClInclude Include="StringHelper.h">
       <Filter>0_Utility\UtilityHeader</Filter>
     </ClInclude>
-    <ClInclude Include="Viewport.h">
-      <Filter>2_System\Graphics\GraphicsData</Filter>
-    </ClInclude>
     <ClInclude Include="SafeExtinction.h">
       <Filter>0_Utility\UtilityHeader</Filter>
     </ClInclude>
@@ -124,12 +136,6 @@
     <ClInclude Include="ModelComponent.h">
       <Filter>3_Object\Compoent\Model</Filter>
     </ClInclude>
-    <ClInclude Include="Mesh.h">
-      <Filter>2_System\Graphics\GraphicsData</Filter>
-    </ClInclude>
-    <ClInclude Include="Vertex.h">
-      <Filter>2_System\Graphics\GraphicsData</Filter>
-    </ClInclude>
     <ClInclude Include="ResourceSystem.h">
       <Filter>2_System\Resource</Filter>
     </ClInclude>
@@ -138,6 +144,24 @@
     </ClInclude>
     <ClInclude Include="ObjectManager.h">
       <Filter>1_Engine\ObjectManager</Filter>
+    </ClInclude>
+    <ClInclude Include="IndexBuffer.h">
+      <Filter>2_System\Graphics\GraphicsData\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Vertex.h">
+      <Filter>2_System\Graphics\GraphicsData\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>2_System\Graphics\GraphicsData\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>2_System\Graphics\GraphicsData\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="InputLayout.h">
+      <Filter>2_System\Graphics\GraphicsData\InputLayout</Filter>
+    </ClInclude>
+    <ClInclude Include="Viewport.h">
+      <Filter>2_System\Graphics\GraphicsData\Viewport</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -162,9 +186,6 @@
     <ClCompile Include="D3DClass.cpp">
       <Filter>2_System\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Viewport.cpp">
-      <Filter>2_System\Graphics\GraphicsData</Filter>
-    </ClCompile>
     <ClCompile Include="TimeSystem.cpp">
       <Filter>2_System\Time</Filter>
     </ClCompile>
@@ -180,17 +201,29 @@
     <ClCompile Include="ModelComponent.cpp">
       <Filter>3_Object\Compoent\Model</Filter>
     </ClCompile>
-    <ClCompile Include="Mesh.cpp">
-      <Filter>2_System\Graphics\GraphicsData</Filter>
-    </ClCompile>
-    <ClCompile Include="Vertex.cpp">
-      <Filter>2_System\Graphics\GraphicsData</Filter>
-    </ClCompile>
     <ClCompile Include="ResourceSystem.cpp">
       <Filter>2_System\Resource</Filter>
     </ClCompile>
     <ClCompile Include="ObjectManager.cpp">
       <Filter>1_Engine\ObjectManager</Filter>
+    </ClCompile>
+    <ClCompile Include="IndexBuffer.cpp">
+      <Filter>2_System\Graphics\GraphicsData\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="Vertex.cpp">
+      <Filter>2_System\Graphics\GraphicsData\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>2_System\Graphics\GraphicsData\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>2_System\Graphics\GraphicsData\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="InputLayout.cpp">
+      <Filter>2_System\Graphics\GraphicsData\InputLayout</Filter>
+    </ClCompile>
+    <ClCompile Include="Viewport.cpp">
+      <Filter>2_System\Graphics\GraphicsData\Viewport</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -202,10 +235,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="PixelShader.hlsl">
+    <FxCompile Include="PixelShaderPS.hlsl">
       <Filter>리소스 파일</Filter>
     </FxCompile>
-    <FxCompile Include="VertexShader.hlsl">
+    <FxCompile Include="VertexShaderVS.hlsl">
       <Filter>리소스 파일</Filter>
     </FxCompile>
   </ItemGroup>

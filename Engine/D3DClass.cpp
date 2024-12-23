@@ -4,6 +4,10 @@
 #include "Viewport.h"
 #include "Declare.h"
 
+// 정적변수랑은 스태틱은 의미가 달라서 g_표시 안함
+ComPtr<ID3D11Device>        D3DClass::D3DDevice =        nullptr; 
+ComPtr<ID3D11DeviceContext> D3DClass::D3DDeviceContext = nullptr;
+
 D3DClass::D3DClass()
 {
 }
@@ -111,34 +115,7 @@ void D3DClass::InitDXGI(WindowInfo* windowInfo)
 
 void D3DClass::InitInputLayout()
 {
-	// float4 -> R32G32B32A32 / float3 -> R32G32B32 / float2 -> R32G32
-	struct Layuout
-	{
-		enum class Value
-		{
-			Int = 4,
-			Float = 4,
-			Vector2 = 8,
-			Vector3 = 12,
-			Vector4 = 16,
-			Color = 16
-		};
 
-		UINT AlignedByteOffset {};
-		UINT Byte(Value _byte) 
-		{ 
-			UINT value = AlignedByteOffset; 
-		    AlignedByteOffset += static_cast<UINT>(_byte); 
-			return value; 
-		}
-	};
-
-	Layuout offset;
-	D3D11_INPUT_ELEMENT_DESC layout[] =
-	{
-		{"POSITION", 0 ,DXGI_FORMAT_R32G32B32_FLOAT, 0, offset.Byte(Layuout::Value::Vector3), D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{"COLOR", 0 ,DXGI_FORMAT_R32G32B32_FLOAT, 0, offset.Byte(Layuout::Value::Color), D3D11_INPUT_PER_VERTEX_DATA, 0 }
-	};
 }
 
 DXGI_SWAP_CHAIN_DESC D3DClass::CreateSwapDesc(WindowInfo* windowInfo)

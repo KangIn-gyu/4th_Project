@@ -2,6 +2,7 @@
 #include "ResourceSystem.h"
 #include <filesystem>
 #include "IResources.h"
+#include "Shader.h"
 
 std::shared_ptr<IResources> ResourceSystem::Load(std::type_index _key, std::wstring_view _filePath)
 {
@@ -33,7 +34,7 @@ std::shared_ptr<IResources> ResourceSystem::Load(std::type_index _key, std::wstr
 
     // 없을 경우 처리 확장자마다의 로드 구현해야 됨.
     std::wstring extension = relativePath.extension();
-    if (extension == L".png" || extension == L".jpg")
+    if (extension == L".png" || extension == L".jpg") // 추후 텍스쳐 추가하면 처리
     {
 
     }
@@ -41,14 +42,20 @@ std::shared_ptr<IResources> ResourceSystem::Load(std::type_index _key, std::wstr
     {
 
     }
-    else if (extension == L".cso")
-    {
-
-    }
     else if (extension == L".dds")
     {
 
     }
+    else if (extension == L".hlsl" || extension == L".cso")
+    {
+        std::shared_ptr<Shader> newShader = std::make_shared<Shader>();
+        newShader->CreateShader(_filePath);
+        std::type_index shaderType = typeid(Shader);      // 타입 인덱스 가져오기
+        auto& resourceVec = resources[shaderType];        // 해당 타입의 Resource_vec_pair 가져오기
+        resourceVec.emplace_back(_filePath, newShader);   // 새로운 리소스 추가
+        return newShader;
+    }
+    // 추후 사운드도 추가 해야 한다.
 }
 
 void ResourceSystem::AllLoadFile(std::wstring_view filePath)
@@ -58,6 +65,7 @@ void ResourceSystem::AllLoadFile(std::wstring_view filePath)
     if (!std::filesystem::exists(fs)) // 경로에 파일이 있는지 확인
     {
         // 추후 조치가 필요 로그 시스템 이용이 필요
+        std::cout << "파일 전부 로드 실패" << '\n';
         return;
     }
 

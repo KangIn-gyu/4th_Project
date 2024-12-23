@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "Vertex.h"
+#include "Helper.h"
 
+#include "D3DClass.h"
 VertexBuffer::VertexBuffer()
 {
 	
@@ -28,7 +30,7 @@ void VertexBuffer::Create(const std::vector<Vertex>& vertees)
 	D3D11_SUBRESOURCE_DATA vbData = {};
 	vbData.pSysMem = vertices.data(); // 배열 데이터 할당.
 
-	// HR_T(hr = D3DMODULE->GetDevice()->CreateBuffer(&vbDesc, &vbData, &m_pVertexBuffer)); // 버퍼 만들기
+	HR_T(hr = D3DClass::GetD3DDevice()->CreateBuffer(&vbDesc, &vbData, &vertexBuffer)); // 버퍼 만들기
 	
 	vertextBufferStride = sizeof(Vertex);
 	vertextBufferOffset = 0;

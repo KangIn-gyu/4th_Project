@@ -1,6 +1,8 @@
 #pragma once
 #include "SingletonBase.h"
 
+#define RESOURCESYSTEM ResourceSystem::GetInstance()
+
 class IResources;
 class ResourceSystem : public SingletonBase<ResourceSystem>
 {
@@ -22,6 +24,5 @@ public:
 private:
 	std::unordered_map<std::type_index, Resource_vec_pair> resources;
 };
-
 
 // 매쉬에 있는 인덱스버퍼랑 버덱스 버퍼는 한번만 만들면 매쉬를 내주면 되니깐 문제 없다

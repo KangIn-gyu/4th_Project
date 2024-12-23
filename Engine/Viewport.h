@@ -4,8 +4,9 @@ namespace DXMath = DirectX::SimpleMath;
 
 class Viewport 
 {
-	struct ViewportSize;
 public:
+	struct ViewportSize;
+
 	Viewport(float _x, float _y, float _width, float _height, float _minDepth, float _maxDepth);
 	~Viewport() {}
 

@@ -151,6 +151,8 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Helper.h" />
+    <ClInclude Include="IndexBuffer.h" />
+    <ClInclude Include="InputLayout.h" />
     <ClInclude Include="IResources.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="ModelComponent.h" />
@@ -159,6 +161,7 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="ResourceSystem.h" />
     <ClInclude Include="SafeExtinction.h" />
+    <ClInclude Include="Shader.h" />
     <ClInclude Include="SingletonBase.h" />
     <ClInclude Include="StringHelper.h" />
     <ClInclude Include="SystemHeader.h" />
@@ -175,6 +178,8 @@
     <ClCompile Include="DirectXInput.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Graphics.cpp" />
+    <ClCompile Include="IndexBuffer.cpp" />
+    <ClCompile Include="InputLayout.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="ModelComponent.cpp" />
     <ClCompile Include="Object.cpp" />
@@ -186,6 +191,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="ResourceSystem.cpp" />
+    <ClCompile Include="Shader.cpp" />
     <ClCompile Include="TimeSystem.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
     <ClCompile Include="Vertex.cpp" />
@@ -197,7 +203,7 @@
     <None Include="Header.hlsli" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="PixelShader.hlsl">
+    <FxCompile Include="PixelShaderPS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
@@ -205,7 +211,7 @@
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
-    <FxCompile Include="VertexShader.hlsl">
+    <FxCompile Include="VertexShaderVS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
