@@ -50,11 +50,11 @@ WindowApp::~WindowApp()
     SafeExtinction::SAFE_DELETE(windowInfo);
 }
 
-LRESULT WindowApp::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+LRESULT WindowApp::WndProc(HWND _hWnd, UINT _message, WPARAM _wParam, LPARAM _lParam)
 {
 //    if (ImGui_ImplWin32_WndProcHandler(hWnd, message, wParam, lParam))
 //        return true;
-    switch (message)
+    switch (_message)
     {
     case WM_DESTROY:
         PostQuitMessage(0);
@@ -65,7 +65,7 @@ LRESULT WindowApp::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam
         {
             // 메인 윈도우의 현재 위치를 가져옵니다.
             RECT mainRect;
-            GetWindowRect(hWnd, &mainRect);
+            GetWindowRect(_hWnd, &mainRect);
 
             // 콘솔 창을 메인 윈도우 오른쪽으로 이동시킵니다.
             int consoleX = mainRect.right;    // 메인 윈도우 오른쪽 끝
@@ -81,8 +81,8 @@ LRESULT WindowApp::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam
     case WM_ENTERSIZEMOVE:
         break;
     case WM_ACTIVATEAPP:
-        DirectX::Keyboard::ProcessMessage(message, wParam, lParam);
-        DirectX::Mouse::ProcessMessage(message, wParam, lParam);
+        DirectX::Keyboard::ProcessMessage(_message, _wParam, _lParam);
+        DirectX::Mouse::ProcessMessage(_message, _wParam, _lParam);
         break;
 
     case WM_INPUT:
@@ -97,17 +97,17 @@ LRESULT WindowApp::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam
     case WM_XBUTTONDOWN:
     case WM_XBUTTONUP:
     case WM_MOUSEHOVER:
-        DirectX::Mouse::ProcessMessage(message, wParam, lParam);
+        DirectX::Mouse::ProcessMessage(_message, _wParam, _lParam);
         break;
 
     case WM_KEYDOWN:
     case WM_KEYUP:
     case WM_SYSKEYUP:
-        DirectX::Keyboard::ProcessMessage(message, wParam, lParam);
+        DirectX::Keyboard::ProcessMessage(_message, _wParam, _lParam);
         break;
 
     default:
-        return DefWindowProc(hWnd, message, wParam, lParam);
+        return DefWindowProc(_hWnd, _message, _wParam, _lParam);
     }
     return 0;
 }

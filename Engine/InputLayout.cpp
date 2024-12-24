@@ -10,7 +10,6 @@ void InputLayout::IASetInputLayout(const std::initializer_list<D3D11_INPUT_ELEME
         return;
     }
 
-
     HR_T(D3DClass::GetD3DDevice()->CreateInputLayout(_elements.begin(),
                                                      static_cast<UINT>(_elements.size()),
                                                      _shaderBuffer->GetBufferPointer(),

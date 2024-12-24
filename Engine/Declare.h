@@ -1,6 +1,8 @@
 #pragma once
 #include "windows.h"
 
+// 용도 : 각 클래스에서 전달할 정보들 모음 객체
+
 struct WindowInfo
 {
 	HWND hWnd = nullptr;

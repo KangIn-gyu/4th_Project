@@ -18,6 +18,7 @@ void Engine::Initialize()
         graphicsSystem->Initialize(clientApp->GetWindowInfo());
         timeSystem->Initialize();
     }
+
 }
 
 void Engine::Loop()

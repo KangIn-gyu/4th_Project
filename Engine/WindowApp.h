@@ -16,7 +16,7 @@ public:
 	WindowApp(HINSTANCE _hInstance, std::string_view _GameName, int _screenWidth, int _screenHeight, bool _windoweMode);
 	~WindowApp();
 
-	static LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+	static LRESULT CALLBACK WndProc(HWND _hWnd, UINT _message, WPARAM _wParam, LPARAM _lParam);
 	HINSTANCE& GethInstance() { return hInstance; }
 	std::string GetWindowClassName() { return windowClassName; }
 	WindowInfo* GetWindowInfo();

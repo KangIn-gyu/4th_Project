@@ -41,14 +41,12 @@ private:
 	ComPtr<ID3D11SamplerState>		   samplerLinear{};        // 샘플러 상태
 	ComPtr<ID3D11BlendState>		   alphaBlendState{};
 
-	D3D11_INPUT_ELEMENT_DESC*  inputLayuout{};
-	
 	std::unique_ptr<Viewport> viewport;
 	bool presentEnabled;
 
 	ComPtr<IDXGIFactory> DXGIFactory;
 	ComPtr<IDXGIAdapter> DXGIAdapter;
-	ComPtr<IDXGIDevice> DXGIDevice;
+	ComPtr<IDXGIDevice>  DXGIDevice;
 };
 
 // 항상 그래픽 파이프 라인을 생각하자

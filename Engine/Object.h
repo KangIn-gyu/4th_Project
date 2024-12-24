@@ -43,7 +43,15 @@ inline  T* Object::GetComponent(int _index)
 	auto it = components.find(typeid(T));
 	if (it != components.end()) 
 	{
-		return dynamic_cast<T*>(it->second[_index]);
+		// dynamic_cast을 하면 안전성을 더욱 보장하지만 어차피 템플릿을 통해서 
+		// 확실한 타입을 알 수 있기 때문에 static_cast으로 처리함 그럼 더욱 성능 최적화가 된다.
+		return static_cast<T*>(it->second[_index]); 
 	}
 	return nullptr; // 나중에 로그 시스템으로 처리를 하자
 }
+
+// dynamic_cast
+// 런타임에 타입의 안정성을 검사하는 동적 캐스팅
+
+// static_cast
+// 컴파일 타임에 수행하는 정적 캐스팅을 수행

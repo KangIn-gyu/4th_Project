@@ -5,6 +5,7 @@ class ObjectManager
 public:
 	void Updata(float _deltaTime);
 	void Render();
+
 private:
 
 public:

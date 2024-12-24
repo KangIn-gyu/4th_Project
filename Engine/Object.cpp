@@ -2,6 +2,7 @@
 #include "Object.h"
 #include "TransformComponent.h"
 #include "ModelComponent.h"  // 테스용 
+#include "Helper.h"
 
 Object::Object()
 {
@@ -14,7 +15,7 @@ void Object::ClearComponents()
     {
         for (Component* component : pair.second)
         {
-            delete component; // 동적 할당된 메모리 해제
+            SafeExtinction::SAFE_DELETE(component); // 동적 할당된 메모리 해제
         }
         pair.second.clear(); 
     }
