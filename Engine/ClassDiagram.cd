@@ -36,7 +36,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Engine" Collapsed="true">
-    <Position X="7.5" Y="3.5" Width="1.5" />
+    <Position X="12" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AkQgAgAIQAQAAQAAAAAAAAAAAAAAAAAABBAAAAAAAAA=</HashCode>
       <FileName>Engine.h</FileName>
@@ -87,7 +87,7 @@
   <Class Name="D3DClass" Collapsed="true">
     <Position X="6.25" Y="5.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>gACGAoAEIAAAAQgAFAABYAAAsABAAEAkFgBAAAAgAEA=</HashCode>
+      <HashCode>gACGAoAEIAAAAQgAFAABYAAAsABAAAAkFgBAAAAgAEA=</HashCode>
       <FileName>D3DClass.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -106,7 +106,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="VertexBuffer" Collapsed="true">
-    <Position X="21.25" Y="8.25" Width="1.5" />
+    <Position X="21.25" Y="6.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>QBAQAAAAgAAAAAAAAAAAAAAAAAAQAEAAAAAAAAAAEAA=</HashCode>
       <FileName>Vertex.h</FileName>
@@ -134,7 +134,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="IndexBuffer" Collapsed="true">
-    <Position X="9.5" Y="10.5" Width="1.5" />
+    <Position X="22.75" Y="6.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAQAAAAAAAAAAAAAAAEAABABAAAEAAAAAAAAAAAAA=</HashCode>
       <FileName>IndexBuffer.h</FileName>
@@ -148,10 +148,17 @@
     </TypeIdentifier>
   </Class>
   <Class Name="InputLayout" Collapsed="true">
-    <Position X="19.5" Y="7.25" Width="1.5" />
+    <Position X="24.25" Y="6.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAACIAAAAAAAAAAAACAAAAAgAAAAA=</HashCode>
       <FileName>InputLayout.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectManager" Collapsed="true">
+    <Position X="15.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAEAABAAAAAAAAA=</HashCode>
+      <FileName>ObjectManager.h</FileName>
     </TypeIdentifier>
   </Class>
   <Struct Name="WindowInfo" Collapsed="true">

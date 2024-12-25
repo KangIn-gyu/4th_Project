@@ -36,6 +36,7 @@ inline std::shared_ptr<T> ResourceSystem::Load(const std::wstring_view& _filePat
     // 파일 존재 여부 확인
     if (!std::filesystem::exists(relativePath))
     {
+        // 추후 로그 시스템 필요
         throw std::runtime_error("File does not exist: " + std::string(relativePath.string()));
         return nullptr;
     }
@@ -47,12 +48,13 @@ inline std::shared_ptr<T> ResourceSystem::Load(const std::wstring_view& _filePat
     if (it != resources.end()) // 같은게 있으면?
     {
         std::unordered_map<std::wstring, std::weak_ptr<IResources>>& resourceUnMap = it->second; // std::unordered_map<std::wstring, std::weak_ptr<IResources>>
-        auto it2 = resourceUnMap.find(_filePath.data());
+        auto& it2 = resourceUnMap.find(_filePath.data());
         if (it2 != resourceUnMap.end())
         {
             auto weak_ptr = it2->second;
             return std::static_pointer_cast<T>(weak_ptr.lock());
         }
+        return nullptr; // 추후 로그 시스템 추가 필요
     }
 
     // 없을 경우 처리 확장자마다의 로드 구현해야 됨.

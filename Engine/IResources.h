@@ -12,4 +12,4 @@ public:
 template<class T>
 concept ResourcesType = std::is_base_of<IResources, T>::value;
 
-// 이것을 통해서 리소스를 로드를 할 예정
+// 로드 함수의 기능이 애매한 부분이 많다. 좀 더 고민이 필요
