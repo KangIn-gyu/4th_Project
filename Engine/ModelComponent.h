@@ -16,6 +16,6 @@ private:
 public:
 
 private:
-	std::shared_ptr<TransformComponent> objectTransform;
+	std::shared_ptr<TransformComponent> objectTransform; // 나중에 수정할 수도 있음 원시로 해도 문제 없을 거 같기도 함
 };
 

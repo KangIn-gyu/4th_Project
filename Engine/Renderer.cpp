@@ -1,18 +1,15 @@
 #include "pch.h"
-#include "Graphics.h"
+#include "Renderer.h"
 
-void Graphics::Initialize(WindowInfo* _windowInfo)
+void Renderer::Initialize(WindowInfo* _windowInfo)
 {
 	D3DGraphics = std::make_unique<D3DClass>();
 	D3DGraphics->Initialize(_windowInfo);
-}
-
-void Graphics::Update()
-{
 
 }
 
-void Graphics::Render()
+
+void Renderer::Render()
 {
 	D3DGraphics->BeginDraw({ 0.0f, 0.0f, 0.0f, 0.0f});
 

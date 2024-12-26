@@ -18,8 +18,10 @@ public:
 
 	template<ComponentType T>
 	T* GetComponent(int _index);
+
 private:
 	void ClearComponents();
+
 public:
 
 private:
@@ -30,7 +32,7 @@ template<ComponentType T>
 inline void Object::CreateComponent()
 {
 	auto newComponent = new T;
-	newComponent->SetComponentOwner(this);
+	newComponent->SetOwner(this);
 	newComponent->ComponentInitialize();
 	components[typeid(T)].emplace_back(std::move(newComponent));
 }

@@ -74,6 +74,18 @@
     <Filter Include="2_System\Graphics\GraphicsData\Viewport">
       <UniqueIdentifier>{2ac39156-86ae-4888-99f2-fbb9ac4845de}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2_System\Graphics\GraphicsData\Buffer\ConstantBuffer">
+      <UniqueIdentifier>{5746f508-a010-426b-8bcb-67f8c4a97162}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3_Object\Compoent\Render">
+      <UniqueIdentifier>{2bcabe79-6535-4188-8469-052312255831}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_System\Graphics\GraphicsData\Texture">
+      <UniqueIdentifier>{d4e1bdd4-8097-4b1c-85d6-a03a798bc8b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_System\Graphics\GraphicsData\Material">
+      <UniqueIdentifier>{c46ceb33-9df3-4cbf-a16c-f0a3c8b1ce31}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowApp.h">
@@ -94,7 +106,7 @@
     <ClInclude Include="DirectXInput.h">
       <Filter>2_System\Input</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics.h">
+    <ClInclude Include="Renderer.h">
       <Filter>2_System\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="SingletonBase.h">
@@ -163,6 +175,21 @@
     <ClInclude Include="Viewport.h">
       <Filter>2_System\Graphics\GraphicsData\Viewport</Filter>
     </ClInclude>
+    <ClInclude Include="ConstantBuffer.h">
+      <Filter>2_System\Graphics\GraphicsData\Buffer\ConstantBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstantBufferData.h">
+      <Filter>2_System\Graphics\GraphicsData\Buffer\ConstantBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderComponent.h">
+      <Filter>3_Object\Compoent\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>2_System\Graphics\GraphicsData\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>2_System\Graphics\GraphicsData\Texture</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WindowApp.cpp">
@@ -180,7 +207,7 @@
     <ClCompile Include="DirectXInput.cpp">
       <Filter>2_System\Input</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics.cpp">
+    <ClCompile Include="Renderer.cpp">
       <Filter>2_System\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="D3DClass.cpp">
@@ -225,12 +252,27 @@
     <ClCompile Include="Viewport.cpp">
       <Filter>2_System\Graphics\GraphicsData\Viewport</Filter>
     </ClCompile>
+    <ClCompile Include="ConstantBuffer.cpp">
+      <Filter>2_System\Graphics\GraphicsData\Buffer\ConstantBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderComponent.cpp">
+      <Filter>3_Object\Compoent\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>2_System\Graphics\GraphicsData\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>2_System\Graphics\GraphicsData\Texture</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd">
       <Filter>99_ClassDiagram</Filter>
     </None>
     <None Include="Header.hlsli">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="TextureHeader.hlsli">
       <Filter>리소스 파일</Filter>
     </None>
   </ItemGroup>

@@ -13,13 +13,13 @@ protected:
 private:
 
 public:
-	const void SetComponentOwner(Object* _Owner) { owner = _Owner; }
-	Object* ComponentOwner() { return owner; }
+	const void SetOwner(Object* _Owner) { owner = _Owner; }
+	Object* GetOwner() { return owner; }
 
 	virtual void ComponentInitialize() = 0;              // 초기화용
 	virtual void ComponentUpdate(float _deltaTime) = 0;  // 업데이트
-	virtual void ComponentRender() = 0;					 // 렌더용
+	virtual void ComponentRender() = 0;					 // 렌더용  일단 보류..? 음...
 };
 
 template<class T>
-concept ComponentType = std::is_base_of<Component, T>::value;
+concept ComponentType = std::derived_from<T, Component>;

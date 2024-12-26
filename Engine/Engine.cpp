@@ -10,12 +10,12 @@
 void Engine::Initialize()
 {
     inputSystem = DXINPUT;
-    graphicsSystem = GRAPHICS;
+    graphicsSystem = RENDERER;
     timeSystem = TIMESYSTEM;
     if (nullptr != clientApp)
     {
         inputSystem->Initialize(clientApp->GetWindowInfo()->hWnd);
-        graphicsSystem->Initialize(clientApp->GetWindowInfo());
+        RENDERER->Initialize(clientApp->GetWindowInfo());
         timeSystem->Initialize();
     }
 
@@ -63,7 +63,7 @@ void Engine::Update(const float _deltaTime)
 
 void Engine::Render(const float _deltaTime)
 {
-    graphicsSystem->Render();
+    RENDERER->Render();
 }
 
 

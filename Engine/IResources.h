@@ -10,6 +10,6 @@ public:
 	virtual void Load(std::wstring filePath) = 0;
 };
 template<class T>
-concept ResourcesType = std::is_base_of<IResources, T>::value;
+concept ResourcesType = std::derived_from<T, IResources>;
 
 // 로드 함수의 기능이 애매한 부분이 많다. 좀 더 고민이 필요

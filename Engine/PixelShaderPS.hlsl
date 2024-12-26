@@ -2,5 +2,8 @@
 
 float4 main(PixelInputType input) : SV_TARGET
 {
-    return input.color;
+    float4 textureColor;
+    textureColor = TexutureColor.Sample(samLinear, input.Tex);
+
+    return input.Color;
 }

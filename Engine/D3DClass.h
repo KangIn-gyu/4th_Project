@@ -6,7 +6,7 @@
 
 class Viewport;
 struct WindowInfo;
-class D3DClass
+class D3DClass // 그래픽스 클래스이다.
 {
 public:
 	D3DClass();
@@ -17,16 +17,19 @@ public:
 	void EndDraw();
 
 	void ChangeWindowSize(WindowInfo* windowInfo);
+
 	static const ComPtr<ID3D11Device> GetD3DDevice() { return D3DDevice; }
 	static const ComPtr<ID3D11DeviceContext> GetD3DDeviceContext() { return D3DDeviceContext; }
 	std::unique_ptr<Viewport>& GetVieport() { return viewport; }
+
 private:
 	void InitD3D(WindowInfo* windowInfo);
 	void InitDXGI(WindowInfo* windowInfo);
-	void InitInputLayout();
+
 
 	DXGI_SWAP_CHAIN_DESC CreateSwapDesc(WindowInfo* windowInfo);
 	void CreateDepthStencilBuffer(WindowInfo* windowInfo);
+
 public:
 
 private:

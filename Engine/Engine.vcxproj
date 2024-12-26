@@ -144,12 +144,16 @@
     <ClInclude Include="CameraCompoent.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Console.h" />
+    <ClInclude Include="ConstantBuffer.h" />
+    <ClInclude Include="ConstantBufferData.h" />
     <ClInclude Include="D3DClass.h" />
     <ClInclude Include="Declare.h" />
     <ClInclude Include="DirectXInput.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="framework.h" />
-    <ClInclude Include="Graphics.h" />
+    <ClInclude Include="Material.h" />
+    <ClInclude Include="RenderComponent.h" />
+    <ClInclude Include="Renderer.h" />
     <ClInclude Include="Helper.h" />
     <ClInclude Include="IndexBuffer.h" />
     <ClInclude Include="InputLayout.h" />
@@ -165,6 +169,7 @@
     <ClInclude Include="SingletonBase.h" />
     <ClInclude Include="StringHelper.h" />
     <ClInclude Include="SystemHeader.h" />
+    <ClInclude Include="Texture.h" />
     <ClInclude Include="TimeSystem.h" />
     <ClInclude Include="TransformComponent.h" />
     <ClInclude Include="Vertex.h" />
@@ -174,10 +179,13 @@
   <ItemGroup>
     <ClCompile Include="CameraCompoent.cpp" />
     <ClCompile Include="Console.cpp" />
+    <ClCompile Include="ConstantBuffer.cpp" />
     <ClCompile Include="D3DClass.cpp" />
     <ClCompile Include="DirectXInput.cpp" />
     <ClCompile Include="Engine.cpp" />
-    <ClCompile Include="Graphics.cpp" />
+    <ClCompile Include="Material.cpp" />
+    <ClCompile Include="RenderComponent.cpp" />
+    <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="InputLayout.cpp" />
     <ClCompile Include="Mesh.cpp" />
@@ -192,6 +200,7 @@
     </ClCompile>
     <ClCompile Include="ResourceSystem.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TimeSystem.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
     <ClCompile Include="Vertex.cpp" />
@@ -201,6 +210,7 @@
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
     <None Include="Header.hlsli" />
+    <None Include="TextureHeader.hlsli" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="PixelShaderPS.hlsl">

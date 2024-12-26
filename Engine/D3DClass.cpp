@@ -113,11 +113,6 @@ void D3DClass::InitDXGI(WindowInfo* windowInfo)
 	HR_T(DXGIFactory->MakeWindowAssociation(windowInfo->hWnd, DXGI_MWA_NO_ALT_ENTER)); // 해당 플로그는 Alt + Enter 전환할수 없음
 }
 
-void D3DClass::InitInputLayout()
-{
-
-}
-
 DXGI_SWAP_CHAIN_DESC D3DClass::CreateSwapDesc(WindowInfo* windowInfo)
 {
 	DXGI_SWAP_CHAIN_DESC swapDesc = {};

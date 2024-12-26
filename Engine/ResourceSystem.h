@@ -1,6 +1,9 @@
 #pragma once
 #include "SingletonBase.h"
 #include <filesystem>
+
+#include "IResources.h"
+
 #define RESOURCESYSTEM ResourceSystem::GetInstance()
 
 class IResources;
@@ -9,7 +12,7 @@ class ResourceSystem : public SingletonBase<ResourceSystem>
 	friend class SingletonBase<ResourceSystem>;
 	using Resource_unMap = std::unordered_map<std::wstring, std::weak_ptr<IResources>>; // 자료형 너무 길어서 별칭 만듬
 public:
-	template<typename T>
+	template<ResourcesType T>
 	std::shared_ptr<T> Load(const std::wstring_view& _filePath);
 	void AllLoadFile(std::wstring_view filePath);
 
@@ -28,7 +31,7 @@ private:
 
 // 매쉬에 있는 인덱스버퍼랑 버덱스 버퍼는 한번만 만들면 매쉬를 내주면 되니깐 문제 없다
 
-template <typename T>
+template <ResourcesType T>
 inline std::shared_ptr<T> ResourceSystem::Load(const std::wstring_view& _filePath)
 {
     std::filesystem::path relativePath = _filePath;
@@ -61,6 +64,7 @@ inline std::shared_ptr<T> ResourceSystem::Load(const std::wstring_view& _filePat
     std::wstring extension = relativePath.extension();
     if (extension == L".png" || extension == L".jpg") // 추후 텍스쳐 추가하면 처리
     {
+        std::shared_ptr<T> newTexture = std::make_shared<T>();
 
     }
     else if (extension == L".fbx")
