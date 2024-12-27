@@ -7,6 +7,9 @@
 #include "Helper.h"
 #include "Declare.h" // 윈도우 정보때문에
 
+// test
+#include "ResourceSystem.h"
+
 void Engine::Initialize()
 {
     inputSystem = DXINPUT;
@@ -18,7 +21,8 @@ void Engine::Initialize()
         RENDERER->Initialize(clientApp->GetWindowInfo());
         timeSystem->Initialize();
     }
-
+    std::shared_ptr<Shader> test = RESOURCESYSTEM->Load<Shader>(L"../Engine/VertexShaderVS.hlsl");
+//    std::shared_ptr<Shader> test1 = RESOURCESYSTEM->Load<Shader>(L"../PixelShaderPS.hlsl");
 }
 
 void Engine::Loop()

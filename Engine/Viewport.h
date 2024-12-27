@@ -5,10 +5,10 @@ namespace DXMath = DirectX::SimpleMath;
 class Viewport 
 {
 public:
-	struct ViewportSize;
-
 	Viewport(float _x, float _y, float _width, float _height, float _minDepth, float _maxDepth);
 	~Viewport() {}
+
+	struct ViewportSize;
 
 	D3D11_VIEWPORT& Get() { return D3DViewport; }
 	void Set(float _width, float _height, float _x = 0, float _y = 0, float _minDepth = 0, float _maxDepth = 0);

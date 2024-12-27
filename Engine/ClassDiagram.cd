@@ -28,13 +28,6 @@
       <FileName>DirectXInput.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Graphics" Collapsed="true">
-    <Position X="6.25" Y="4.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAQAAAAAAQAAAQAAAAAAAAAACAAAAAAAABAgAAAAAAE=</HashCode>
-      <FileName>Graphics.h</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="Engine" Collapsed="true">
     <Position X="12" Y="2" Width="1.5" />
     <TypeIdentifier>
@@ -66,7 +59,7 @@
   <Class Name="Component" Collapsed="true">
     <Position X="14" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAgAAAAAAAAgAAAEAAEAAAAAAABAACAAABAAAIAAAA=</HashCode>
+      <HashCode>AAAgAAAIAIAAgAAAEAAEAAAAAAABAAAAAABAAAAAAAA=</HashCode>
       <FileName>Component.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -87,12 +80,12 @@
   <Class Name="D3DClass" Collapsed="true">
     <Position X="6.25" Y="5.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>gACGAoAEIAAAAQgAFAABYAAAsABAAAAkFgBAAAAgAEA=</HashCode>
+      <HashCode>gACGAoAEIAAAAQgAFAABYAAAsAAAAAAkFgBAAAAAAEA=</HashCode>
       <FileName>D3DClass.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Viewport" Collapsed="true">
-    <Position X="19.5" Y="8.25" Width="1.5" />
+    <Position X="6.25" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAIAAAAEBABAAABgCgAAAACAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Viewport.h</FileName>
@@ -159,6 +152,13 @@
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAEAABAAAAAAAAA=</HashCode>
       <FileName>ObjectManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Renderer" Collapsed="true">
+    <Position X="6.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAQAAAQAAAAgAAAAAAAAAAgAAABCgAAAAAEA=</HashCode>
+      <FileName>Renderer.h</FileName>
     </TypeIdentifier>
   </Class>
   <Struct Name="WindowInfo" Collapsed="true">

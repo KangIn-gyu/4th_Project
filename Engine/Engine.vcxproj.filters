@@ -86,6 +86,9 @@
     <Filter Include="2_System\Graphics\GraphicsData\Material">
       <UniqueIdentifier>{c46ceb33-9df3-4cbf-a16c-f0a3c8b1ce31}</UniqueIdentifier>
     </Filter>
+    <Filter Include="리소스 파일\Header">
+      <UniqueIdentifier>{2f6ed2e1-c461-418b-ae34-5523a85363f4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowApp.h">
@@ -273,7 +276,10 @@
       <Filter>리소스 파일</Filter>
     </None>
     <None Include="TextureHeader.hlsli">
-      <Filter>리소스 파일</Filter>
+      <Filter>리소스 파일\Header</Filter>
+    </None>
+    <None Include="SamplerHeader.hlsli">
+      <Filter>리소스 파일\Header</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

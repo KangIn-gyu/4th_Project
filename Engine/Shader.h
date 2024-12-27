@@ -1,6 +1,5 @@
 #pragma once
 #include "IResources.h"
-#include <d3d11.h>
 
 class Shader : public IResources
 {
@@ -8,8 +7,8 @@ public:
 	Shader() = default;
 	virtual ~Shader() = default;
 
-	void CreateShader(const std::wstring_view _filePath);
-	virtual void Load(std::wstring filePath) override {};
+
+	virtual void Load(std::wstring_view _filePath) override;
 
 	ComPtr<ID3DBlob> GetVSBlob(); 
 	ComPtr<ID3DBlob> GetPSBlob(); 

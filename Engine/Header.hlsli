@@ -1,6 +1,5 @@
 #include "TextureHeader.hlsli"
-
-SamplerState samLinear : register(s0);
+#include "SamplerHeader.hlsli" 
 
 // 0 ~ 13 (슬롯 번호) // (4096 *) 16 byte 단위로 정렬해야 한다.
 cbuffer MatrixBuffer : register(b0) // ConstantBuffer 슬롯

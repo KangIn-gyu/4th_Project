@@ -27,18 +27,24 @@ using namespace Microsoft::WRL;
 
 // 스레드
 
-
 // 입출력 
 #include <iostream>
+
+// 유틸
+#include <algorithm>
 
 // Direct
 #include <d3d11.h>
 #include <directxtk/SimpleMath.h>  // #pragma comment(lib, "d3dx11.lib") 대체됨
 #include <d3dcompiler.h>  // 일단 보류
+#include <DirectXTex.h>
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "dxgi.lib")
 #pragma comment(lib,"d3dcompiler.lib")
+
+#pragma comment(lib, "DirectXTK.lib")
+#pragma comment(lib, "DirectXTex.lib")
 
 namespace DX = DirectX;
 namespace DXMath = DirectX::SimpleMath;

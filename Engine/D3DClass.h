@@ -4,23 +4,28 @@
 #include <d3dcommon.h>
 #include <directxtk/SimpleMath.h>
 
-class Viewport;
+#include "Viewport.h"
+
 struct WindowInfo;
 class D3DClass // 그래픽스 클래스이다.
 {
 public:
-	D3DClass();
+	D3DClass() = default;
 	~D3DClass();
 
-	void Initialize(WindowInfo* windowInfo);
+	void Initialize(WindowInfo* _windowInfo);
 	void BeginDraw(DXMath::Color _BackgroundColor); // 렌더링 파이프라인에서 렌더링 작업을 시작하는 단계
 	void EndDraw();
 
-	void ChangeWindowSize(WindowInfo* windowInfo);
+	void ChangeWindowSize(WindowInfo* _windowInfo);
 
+	// (캡슐화 포기) 이건 그냥 주자 구조만들기 너무 힘듬
 	static const ComPtr<ID3D11Device> GetD3DDevice() { return D3DDevice; }
 	static const ComPtr<ID3D11DeviceContext> GetD3DDeviceContext() { return D3DDeviceContext; }
+
 	std::unique_ptr<Viewport>& GetVieport() { return viewport; }
+
+	void CreateSamplerState(D3D11_FILTER _filter, D3D11_TEXTURE_ADDRESS_MODE _addressMode, ComPtr<ID3D11SamplerState>& _sampler);
 
 private:
 	void InitD3D(WindowInfo* windowInfo);
@@ -41,7 +46,6 @@ private:
 	ComPtr<ID3D11DepthStencilView>	   depthStencilView{};     // 깊이값 처리를 위한 뎊스스텐실 뷰 
 	ComPtr<ID3D11Texture2D>			   depthStencilBuffer {};  // 뎊스스텐실 버퍼
 									   
-	ComPtr<ID3D11SamplerState>		   samplerLinear{};        // 샘플러 상태
 	ComPtr<ID3D11BlendState>		   alphaBlendState{};
 
 	std::unique_ptr<Viewport> viewport;

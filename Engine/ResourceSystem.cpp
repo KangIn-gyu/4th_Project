@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "ResourceSystem.h"
 #include "IResources.h"
-#include "Shader.h"
+// #include "Shader.h" //일단 보류 12.27
 
 void ResourceSystem::AllLoadFile(std::wstring_view filePath)
 {

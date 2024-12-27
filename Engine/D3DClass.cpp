@@ -1,26 +1,22 @@
 #include "pch.h"
 #include "D3DClass.h"
 #include "Helper.h"
-#include "Viewport.h"
+
 #include "Declare.h"
 
 // 정적변수랑은 스태틱은 의미가 달라서 g_표시 안함
 ComPtr<ID3D11Device>        D3DClass::D3DDevice =        nullptr; 
 ComPtr<ID3D11DeviceContext> D3DClass::D3DDeviceContext = nullptr;
 
-D3DClass::D3DClass()
-{
-}
-
 D3DClass::~D3DClass()
 {
 	swapChain->SetFullscreenState(FALSE, nullptr);
 }
 
-void D3DClass::Initialize(WindowInfo* windowInfo)
+void D3DClass::Initialize(WindowInfo* _windowInfo)
 {
-	InitD3D(windowInfo);
-	InitDXGI(windowInfo);
+	InitD3D(_windowInfo);
+	InitDXGI(_windowInfo);
 }
 
 void D3DClass::BeginDraw(DXMath::Color _BackgroundColor)
@@ -41,7 +37,7 @@ void D3DClass::EndDraw()
 	}
 }
 
-void D3DClass::ChangeWindowSize(WindowInfo* windowInfo)
+void D3DClass::ChangeWindowSize(WindowInfo* _windowInfo)
 {
 	if (swapChain)
 	{
@@ -53,16 +49,31 @@ void D3DClass::ChangeWindowSize(WindowInfo* windowInfo)
 		depthStencilView.Reset();
 	}
 
-	DXGI_SWAP_CHAIN_DESC swapDesc = CreateSwapDesc(windowInfo);
+	DXGI_SWAP_CHAIN_DESC swapDesc = CreateSwapDesc(_windowInfo);
 	HR_T(DXGIFactory->CreateSwapChain(D3DDevice.Get(), &swapDesc, swapChain.GetAddressOf()));
 
-	CreateDepthStencilBuffer(windowInfo);
+	CreateDepthStencilBuffer(_windowInfo);
 }
 
-void D3DClass::InitD3D(WindowInfo* windowInfo)
+void D3DClass::CreateSamplerState(D3D11_FILTER _filter, D3D11_TEXTURE_ADDRESS_MODE _addressMode, ComPtr<ID3D11SamplerState>& _sampler)
+{
+	D3D11_SAMPLER_DESC sampDesc = {};
+	ZeroMemory(&sampDesc, sizeof(D3D11_SAMPLER_DESC));
+	sampDesc.Filter = _filter;            // 선형 보간 방식
+	sampDesc.AddressU = _addressMode;
+	sampDesc.AddressV = _addressMode;
+	sampDesc.AddressW = _addressMode;
+	sampDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
+	sampDesc.MinLOD = 0;
+	sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
+
+	HR_T(D3DDevice->CreateSamplerState(&sampDesc, _sampler.GetAddressOf()));
+}
+
+void D3DClass::InitD3D(WindowInfo* _windowInfo)
 {
 	HRESULT hr = 0;
-	DXGI_SWAP_CHAIN_DESC swapDesc = CreateSwapDesc(windowInfo);
+	DXGI_SWAP_CHAIN_DESC swapDesc = CreateSwapDesc(_windowInfo);
 
 	// 디버그 기능 활성화
 	UINT creationFlags = 0;
@@ -80,7 +91,7 @@ void D3DClass::InitD3D(WindowInfo* windowInfo)
 	BackBufferTexture->Release(); // 외부 참조 카운트를 감소시킨다.
 
 	// 뷰포트 설정.	
-	viewport = std::make_unique<Viewport>(0, 0, windowInfo->screenWidth, windowInfo->screenHeight, 0.0f, 1.0f);
+	viewport = std::make_unique<Viewport>(0, 0, _windowInfo->screenWidth, _windowInfo->screenHeight, 0.0f, 1.0f);
 	D3DDeviceContext->RSSetViewports(1, &viewport->Get());  // RS
 
 
@@ -102,18 +113,18 @@ void D3DClass::InitD3D(WindowInfo* windowInfo)
 		D3DDeviceContext->RSSetState(resterizerState.Get());
 	}
 
-	CreateDepthStencilBuffer(windowInfo);
+	CreateDepthStencilBuffer(_windowInfo);
 }
 
-void D3DClass::InitDXGI(WindowInfo* windowInfo)
+void D3DClass::InitDXGI(WindowInfo* _windowInfo)
 {
 	HR_T(D3DDevice.As(&DXGIDevice));
 	HR_T(DXGIDevice->GetAdapter(&DXGIAdapter));
 	HR_T(DXGIAdapter->GetParent(__uuidof(IDXGIFactory), reinterpret_cast<void**>(DXGIFactory.GetAddressOf())));
-	HR_T(DXGIFactory->MakeWindowAssociation(windowInfo->hWnd, DXGI_MWA_NO_ALT_ENTER)); // 해당 플로그는 Alt + Enter 전환할수 없음
+	HR_T(DXGIFactory->MakeWindowAssociation(_windowInfo->hWnd, DXGI_MWA_NO_ALT_ENTER)); // 해당 플로그는 Alt + Enter 전환할수 없음
 }
 
-DXGI_SWAP_CHAIN_DESC D3DClass::CreateSwapDesc(WindowInfo* windowInfo)
+DXGI_SWAP_CHAIN_DESC D3DClass::CreateSwapDesc(WindowInfo* _windowInfo)
 {
 	DXGI_SWAP_CHAIN_DESC swapDesc = {};
 	ZeroMemory(&swapDesc, sizeof(DXGI_SWAP_CHAIN_DESC));
@@ -122,10 +133,10 @@ DXGI_SWAP_CHAIN_DESC D3DClass::CreateSwapDesc(WindowInfo* windowInfo)
 	swapDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT; // 더블 버퍼링 및 3중 버퍼링도 있다
 	swapDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM; //   https://learn.microsoft.com/ko-kr/windows/win32/api/dxgiformat/ne-dxgiformat-dxgi_format
 	// 백버퍼(텍스처)의 가로/세로 크기 설정.
-	swapDesc.OutputWindow = windowInfo->hWnd;	// 스왑체인 출력할 창 핸들 값.
-	swapDesc.Windowed = windowInfo->windoweMode;		// 창 모드 여부 설정.
-	swapDesc.BufferDesc.Width = windowInfo->screenWidth;
-	swapDesc.BufferDesc.Height = windowInfo->screenHeight;
+	swapDesc.OutputWindow = _windowInfo->hWnd;	// 스왑체인 출력할 창 핸들 값.
+	swapDesc.Windowed = _windowInfo->windoweMode;		// 창 모드 여부 설정.
+	swapDesc.BufferDesc.Width = _windowInfo->screenWidth;
+	swapDesc.BufferDesc.Height = _windowInfo->screenHeight;
 	swapDesc.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH; // 창모드, 전체모드 전환을 허용할 것인가
 	// 화면 주사율 설정.
 	swapDesc.BufferDesc.RefreshRate.Numerator = 60; // 최대 프레임 갯수 144 모니터가 좋아서 가능
@@ -140,7 +151,7 @@ DXGI_SWAP_CHAIN_DESC D3DClass::CreateSwapDesc(WindowInfo* windowInfo)
 	return swapDesc;
 }
 
-void D3DClass::CreateDepthStencilBuffer(WindowInfo* windowInfo)
+void D3DClass::CreateDepthStencilBuffer(WindowInfo* _windowInfo)
 {
 	//6. 뎊스&스텐실 뷰 생성 (깊이 버퍼 생성)
 	D3D11_TEXTURE2D_DESC depthStencilDesc = {};
@@ -149,8 +160,8 @@ void D3DClass::CreateDepthStencilBuffer(WindowInfo* windowInfo)
 	depthStencilDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_DEPTH_STENCIL;
 	depthStencilDesc.Format = DXGI_FORMAT::DXGI_FORMAT_D24_UNORM_S8_UINT;
 	depthStencilDesc.Usage = D3D11_USAGE::D3D11_USAGE_DEFAULT;
-	depthStencilDesc.Width = windowInfo->screenWidth;
-	depthStencilDesc.Height = windowInfo->screenHeight;
+	depthStencilDesc.Width = _windowInfo->screenWidth;
+	depthStencilDesc.Height = _windowInfo->screenHeight;
 	depthStencilDesc.ArraySize = 1;
 	depthStencilDesc.SampleDesc.Count = 1;
 	depthStencilDesc.SampleDesc.Quality = 0;

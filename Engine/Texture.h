@@ -7,7 +7,7 @@ public:
 	Texture() = default;
 	~Texture() = default;
 
-	virtual void Load(std::wstring filePath) override;
+	virtual void Load(std::wstring_view _filePath) override;
 	ComPtr<ID3D11ShaderResourceView> GetTexture() { return texture; }
 private:
 
@@ -15,6 +15,6 @@ public:
 
 public:
 	ComPtr<ID3D11ShaderResourceView> texture;
-
+	
 };
 

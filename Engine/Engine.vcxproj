@@ -156,7 +156,9 @@
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Helper.h" />
     <ClInclude Include="IndexBuffer.h" />
-    <ClInclude Include="InputLayout.h" />
+    <ClInclude Include="InputLayout.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="IResources.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="ModelComponent.h" />
@@ -187,7 +189,9 @@
     <ClCompile Include="RenderComponent.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="IndexBuffer.cpp" />
-    <ClCompile Include="InputLayout.cpp" />
+    <ClCompile Include="InputLayout.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="ModelComponent.cpp" />
     <ClCompile Include="Object.cpp" />
@@ -210,6 +214,7 @@
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
     <None Include="Header.hlsli" />
+    <None Include="SamplerHeader.hlsli" />
     <None Include="TextureHeader.hlsli" />
   </ItemGroup>
   <ItemGroup>
