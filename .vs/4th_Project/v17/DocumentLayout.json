@@ -1,146 +1,202 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\",
+  "WorkspaceRootPath": "E:\\4th_Project\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Shader.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\Shader.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\ModelComponent.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\ModelComponent.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Shader.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\Shader.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\ModelComponent.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\ModelComponent.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Engine.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\Engine.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\RenderComponent.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\RenderComponent.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\ResourceSystem.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\ResourceSystem.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\ResourceSystem.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\ResourceSystem.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Engine.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\Engine.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\D3DClass.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\D3DClass.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\IResources.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\IResources.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Renderer.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\Renderer.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2B9AAEE5-BB8C-42D9-8B74-4581EEE22004}|4th_Project\\4th_Project.vcxproj|C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\4th_Project\\4th_Project.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{2B9AAEE5-BB8C-42D9-8B74-4581EEE22004}|4th_Project\\4th_Project.vcxproj|solutionrelative:4th_Project\\4th_Project.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Mesh.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\Mesh.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Material.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\Material.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Viewport.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\Viewport.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\DirectXInput.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\DirectXInput.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\DirectXInput.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\DirectXInput.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\InputLayout.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\InputLayout.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Material.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\Material.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Mesh.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\Mesh.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\Mesh.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Texture.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\Texture.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\Mesh.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\Mesh.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Vertex.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\Vertex.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\Vertex.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\InputLayout.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\InputLayout.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\Vertex.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\Vertex.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Texture.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\Texture.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\SamplerHeader.hlsli||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\SamplerHeader.hlsli||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\TextureHeader.hlsli||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\TextureHeader.hlsli||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Header.hlsli||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\Header.hlsli||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\VertexShaderVS.hlsl||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\VertexShaderVS.hlsl||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\PixelShaderPS.hlsl||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\PixelShaderPS.hlsl||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Renderer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\Renderer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\ConstantBufferData.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\ConstantBufferData.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\D3DClass.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\D3DClass.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\ConstantBuffer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\ConstantBuffer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Viewport.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\Viewport.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\IndexBuffer.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\IndexBuffer.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\IndexBuffer.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\IndexBuffer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\IndexBuffer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\IndexBuffer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Vertex.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\Vertex.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\ConstantBuffer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\ConstantBuffer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\ConstantBuffer.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\ConstantBuffer.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\ConstantBufferData.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\ConstantBufferData.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\Header.hlsli||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\Header.hlsli||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\CameraCompoent.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\CameraCompoent.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\CameraCompoent.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\CameraCompoent.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\CameraObject.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\CameraObject.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\CameraObject.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\CameraObject.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\PixelShaderPS.hlsl||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\PixelShaderPS.hlsl||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\VertexShaderVS.hlsl||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\VertexShaderVS.hlsl||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\Engine.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\Engine.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\Engine.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\Engine.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\Object.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\Object.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\Object.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\Object.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\Component.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\Component.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\TransformComponent.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\TransformComponent.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\WindowApp.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\WindowApp.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\WindowApp.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\WindowApp.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\ObjectManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\ObjectManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\ObjectManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\ObjectManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\InputLayout.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\InputLayout.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F214C25F-4B11-41A9-8E83-9F76C0F3C82A}|\uC194\uB8E8\uC158 \uD56D\uBAA9{F214C25F-4B11-41A9-8E83-9F76C0F3C82A}|E:\\4th_Project\\\uADDC\uCE59.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{F214C25F-4B11-41A9-8E83-9F76C0F3C82A}|\uC194\uB8E8\uC158 \uD56D\uBAA9{F214C25F-4B11-41A9-8E83-9F76C0F3C82A}|solutionrelative:\uADDC\uCE59.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\ClassDiagram.cd||{59B0B277-7DDF-4E36-A3ED-02DAC5B9E2FA}|",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\ClassDiagram.cd||{59B0B277-7DDF-4E36-A3ED-02DAC5B9E2FA}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\Material.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\Material.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\Material.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\Material.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\pch.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\pch.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\ResourceSystem.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\ResourceSystem.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\ResourceSystem.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\ResourceSystem.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\IResources.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\IResources.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\Renderer.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\Renderer.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\Renderer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\Renderer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\D3DClass.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\D3DClass.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\D3DClass.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\D3DClass.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\Texture.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\Texture.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\Texture.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\Texture.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\Shader.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\Shader.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\Shader.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\Shader.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\InputLayout.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\InputLayout.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\RenderComponent.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\RenderComponent.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|E:\\4th_Project\\Engine\\SystemHeader.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4F6B4E13-8801-4D28-8FE8-5BEC377D6E1E}|Engine\\Engine.vcxproj|solutionrelative:Engine\\SystemHeader.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -150,7 +206,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 10,
           "Children": [
             {
               "$type": "Bookmark",
@@ -158,457 +214,663 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "ResourceSystem.h",
-              "DocumentMoniker": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\ResourceSystem.h",
-              "RelativeDocumentMoniker": "Engine\\ResourceSystem.h",
-              "ToolTip": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\ResourceSystem.h",
-              "RelativeToolTip": "Engine\\ResourceSystem.h",
-              "ViewState": "AgIAADwAAAAAAAAAAAAhwFwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-27T05:21:57.855Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "ResourceSystem.cpp",
-              "DocumentMoniker": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\ResourceSystem.cpp",
-              "RelativeDocumentMoniker": "Engine\\ResourceSystem.cpp",
-              "ToolTip": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\ResourceSystem.cpp",
-              "RelativeToolTip": "Engine\\ResourceSystem.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-27T05:24:33.065Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "DirectXInput.h",
-              "DocumentMoniker": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\DirectXInput.h",
-              "RelativeDocumentMoniker": "Engine\\DirectXInput.h",
-              "ToolTip": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\DirectXInput.h",
-              "RelativeToolTip": "Engine\\DirectXInput.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-27T09:41:14.731Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Renderer.h",
-              "DocumentMoniker": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Renderer.h",
-              "RelativeDocumentMoniker": "Engine\\Renderer.h",
-              "ToolTip": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Renderer.h",
-              "RelativeToolTip": "Engine\\Renderer.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-27T06:01:13.311Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Shader.h",
-              "DocumentMoniker": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Shader.h",
-              "RelativeDocumentMoniker": "Engine\\Shader.h",
-              "ToolTip": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Shader.h",
-              "RelativeToolTip": "Engine\\Shader.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-27T07:48:26.914Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "IResources.h",
-              "DocumentMoniker": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\IResources.h",
-              "RelativeDocumentMoniker": "Engine\\IResources.h",
-              "ToolTip": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\IResources.h",
-              "RelativeToolTip": "Engine\\IResources.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-27T05:24:02.507Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Shader.cpp",
-              "DocumentMoniker": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Shader.cpp",
-              "RelativeDocumentMoniker": "Engine\\Shader.cpp",
-              "ToolTip": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Shader.cpp",
-              "RelativeToolTip": "Engine\\Shader.cpp",
-              "ViewState": "AgIAAC8AAAAAAAAAAAAhwEkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-27T09:43:47.256Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Engine.cpp",
-              "DocumentMoniker": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Engine.cpp",
-              "RelativeDocumentMoniker": "Engine\\Engine.cpp",
-              "ToolTip": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Engine.cpp",
-              "RelativeToolTip": "Engine\\Engine.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-27T11:13:35.703Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "Material.h",
-              "DocumentMoniker": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Material.h",
-              "RelativeDocumentMoniker": "Engine\\Material.h",
-              "ToolTip": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Material.h",
-              "RelativeToolTip": "Engine\\Material.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-27T06:01:00.009Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "D3DClass.h",
-              "DocumentMoniker": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\D3DClass.h",
-              "RelativeDocumentMoniker": "Engine\\D3DClass.h",
-              "ToolTip": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\D3DClass.h",
-              "RelativeToolTip": "Engine\\D3DClass.h",
-              "ViewState": "AgIAAAEAAAAAAAAAAAAhwBYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-27T06:01:13.829Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "DirectXInput.cpp",
-              "DocumentMoniker": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\DirectXInput.cpp",
-              "RelativeDocumentMoniker": "Engine\\DirectXInput.cpp",
-              "ToolTip": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\DirectXInput.cpp",
-              "RelativeToolTip": "Engine\\DirectXInput.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-27T11:04:31.864Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "Engine.h",
-              "DocumentMoniker": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Engine.h",
-              "RelativeDocumentMoniker": "Engine\\Engine.h",
-              "ToolTip": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Engine.h",
-              "RelativeToolTip": "Engine\\Engine.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "Vertex.h",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\Vertex.h",
+              "RelativeDocumentMoniker": "Engine\\Vertex.h",
+              "ToolTip": "E:\\4th_Project\\Engine\\Vertex.h",
+              "RelativeToolTip": "Engine\\Vertex.h",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAAAA0AAAAvAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-27T11:13:32.847Z",
+              "WhenOpened": "2024-12-25T12:58:19.367Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 9,
-              "Title": "4th_Project.cpp",
-              "DocumentMoniker": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\4th_Project\\4th_Project.cpp",
-              "RelativeDocumentMoniker": "4th_Project\\4th_Project.cpp",
-              "ToolTip": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\4th_Project\\4th_Project.cpp",
-              "RelativeToolTip": "4th_Project\\4th_Project.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
+              "Title": "ConstantBuffer.cpp",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\ConstantBuffer.cpp",
+              "RelativeDocumentMoniker": "Engine\\ConstantBuffer.cpp",
+              "ToolTip": "E:\\4th_Project\\Engine\\ConstantBuffer.cpp",
+              "RelativeToolTip": "Engine\\ConstantBuffer.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-27T11:34:58.84Z",
+              "WhenOpened": "2024-12-29T13:38:41.523Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "Viewport.h",
-              "DocumentMoniker": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Viewport.h",
-              "RelativeDocumentMoniker": "Engine\\Viewport.h",
-              "ToolTip": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Viewport.h",
-              "RelativeToolTip": "Engine\\Viewport.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACIAAAAcAAAAAAAAAA==",
+              "DocumentIndex": 8,
+              "Title": "IndexBuffer.cpp",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\IndexBuffer.cpp",
+              "RelativeDocumentMoniker": "Engine\\IndexBuffer.cpp",
+              "ToolTip": "E:\\4th_Project\\Engine\\IndexBuffer.cpp",
+              "RelativeToolTip": "Engine\\IndexBuffer.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-12-29T11:10:20.234Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "IndexBuffer.h",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\IndexBuffer.h",
+              "RelativeDocumentMoniker": "Engine\\IndexBuffer.h",
+              "ToolTip": "E:\\4th_Project\\Engine\\IndexBuffer.h",
+              "RelativeToolTip": "Engine\\IndexBuffer.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAcAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-27T05:25:23.983Z",
+              "WhenOpened": "2024-12-29T11:10:18.278Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Vertex.cpp",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\Vertex.cpp",
+              "RelativeDocumentMoniker": "Engine\\Vertex.cpp",
+              "ToolTip": "E:\\4th_Project\\Engine\\Vertex.cpp",
+              "RelativeToolTip": "Engine\\Vertex.cpp",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAAABkAAAAkAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-12-29T11:07:51.002Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Mesh.cpp",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\Mesh.cpp",
+              "RelativeDocumentMoniker": "Engine\\Mesh.cpp",
+              "ToolTip": "E:\\4th_Project\\Engine\\Mesh.cpp",
+              "RelativeToolTip": "Engine\\Mesh.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-12-29T11:28:15.56Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Mesh.h",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\Mesh.h",
+              "RelativeDocumentMoniker": "Engine\\Mesh.h",
+              "ToolTip": "E:\\4th_Project\\Engine\\Mesh.h",
+              "RelativeToolTip": "Engine\\Mesh.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-25T12:57:37.563Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ModelComponent.h",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\ModelComponent.h",
+              "RelativeDocumentMoniker": "Engine\\ModelComponent.h",
+              "ToolTip": "E:\\4th_Project\\Engine\\ModelComponent.h",
+              "RelativeToolTip": "Engine\\ModelComponent.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABUAAAAHAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-29T11:37:07.114Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ModelComponent.cpp",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\ModelComponent.cpp",
+              "RelativeDocumentMoniker": "Engine\\ModelComponent.cpp",
+              "ToolTip": "E:\\4th_Project\\Engine\\ModelComponent.cpp",
+              "RelativeToolTip": "Engine\\ModelComponent.cpp",
+              "ViewState": "AQIAACEAAAAAAAAAAAAAADAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-12-29T11:37:36.001Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "RenderComponent.h",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\RenderComponent.h",
+              "RelativeDocumentMoniker": "Engine\\RenderComponent.h",
+              "ToolTip": "E:\\4th_Project\\Engine\\RenderComponent.h",
+              "RelativeToolTip": "Engine\\RenderComponent.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-29T13:29:13.588Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 10,
-              "Title": "Mesh.h",
-              "DocumentMoniker": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Mesh.h",
-              "RelativeDocumentMoniker": "Engine\\Mesh.h",
-              "ToolTip": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Mesh.h",
-              "RelativeToolTip": "Engine\\Mesh.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "ConstantBuffer.h",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\ConstantBuffer.h",
+              "RelativeDocumentMoniker": "Engine\\ConstantBuffer.h",
+              "ToolTip": "E:\\4th_Project\\Engine\\ConstantBuffer.h",
+              "RelativeToolTip": "Engine\\ConstantBuffer.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAIAAAAUAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-27T10:13:27.501Z",
+              "WhenOpened": "2024-12-29T11:16:28.953Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "ConstantBufferData.h",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\ConstantBufferData.h",
+              "RelativeDocumentMoniker": "Engine\\ConstantBufferData.h",
+              "ToolTip": "E:\\4th_Project\\Engine\\ConstantBufferData.h",
+              "RelativeToolTip": "Engine\\ConstantBufferData.h",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAABoAAAAbAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-29T11:16:23.8Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "CameraCompoent.cpp",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\CameraCompoent.cpp",
+              "RelativeDocumentMoniker": "Engine\\CameraCompoent.cpp",
+              "ToolTip": "E:\\4th_Project\\Engine\\CameraCompoent.cpp",
+              "RelativeToolTip": "Engine\\CameraCompoent.cpp",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAABIAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-12-29T11:50:05.251Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "CameraCompoent.h",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\CameraCompoent.h",
+              "RelativeDocumentMoniker": "Engine\\CameraCompoent.h",
+              "ToolTip": "E:\\4th_Project\\Engine\\CameraCompoent.h",
+              "RelativeToolTip": "Engine\\CameraCompoent.h",
+              "ViewState": "AQIAAAIAAAAAAAAAAAAqwBYAAAAaAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-29T11:50:01.923Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 15,
-              "Title": "InputLayout.h",
-              "DocumentMoniker": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\InputLayout.h",
-              "RelativeDocumentMoniker": "Engine\\InputLayout.h",
-              "ToolTip": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\InputLayout.h",
-              "RelativeToolTip": "Engine\\InputLayout.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAAHAAAAAAAAAA==",
+              "Title": "CameraObject.h",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\CameraObject.h",
+              "RelativeDocumentMoniker": "Engine\\CameraObject.h",
+              "ToolTip": "E:\\4th_Project\\Engine\\CameraObject.h",
+              "RelativeToolTip": "Engine\\CameraObject.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-27T05:23:19.391Z",
+              "WhenOpened": "2024-12-29T13:02:33.179Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 16,
-              "Title": "Material.cpp",
-              "DocumentMoniker": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Material.cpp",
-              "RelativeDocumentMoniker": "Engine\\Material.cpp",
-              "ToolTip": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Material.cpp",
-              "RelativeToolTip": "Engine\\Material.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "CameraObject.cpp",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\CameraObject.cpp",
+              "RelativeDocumentMoniker": "Engine\\CameraObject.cpp",
+              "ToolTip": "E:\\4th_Project\\Engine\\CameraObject.cpp",
+              "RelativeToolTip": "Engine\\CameraObject.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABUAAAACAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-27T10:13:33.415Z",
+              "WhenOpened": "2024-12-29T13:10:50.344Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 17,
-              "Title": "Mesh.cpp",
-              "DocumentMoniker": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Mesh.cpp",
-              "RelativeDocumentMoniker": "Engine\\Mesh.cpp",
-              "ToolTip": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Mesh.cpp",
-              "RelativeToolTip": "Engine\\Mesh.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-27T10:13:28.401Z",
+              "Title": "PixelShaderPS.hlsl",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\PixelShaderPS.hlsl",
+              "RelativeDocumentMoniker": "Engine\\PixelShaderPS.hlsl",
+              "ToolTip": "E:\\4th_Project\\Engine\\PixelShaderPS.hlsl",
+              "RelativeToolTip": "Engine\\PixelShaderPS.hlsl",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002777|",
+              "WhenOpened": "2024-12-29T13:45:19.636Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 18,
-              "Title": "Texture.h",
-              "DocumentMoniker": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Texture.h",
-              "RelativeDocumentMoniker": "Engine\\Texture.h",
-              "ToolTip": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Texture.h",
-              "RelativeToolTip": "Engine\\Texture.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-27T09:41:25.651Z",
+              "Title": "VertexShaderVS.hlsl",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\VertexShaderVS.hlsl",
+              "RelativeDocumentMoniker": "Engine\\VertexShaderVS.hlsl",
+              "ToolTip": "E:\\4th_Project\\Engine\\VertexShaderVS.hlsl",
+              "RelativeToolTip": "Engine\\VertexShaderVS.hlsl",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAfAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002777|",
+              "WhenOpened": "2024-12-29T13:13:30.887Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 19,
-              "Title": "Vertex.h",
-              "DocumentMoniker": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Vertex.h",
-              "RelativeDocumentMoniker": "Engine\\Vertex.h",
-              "ToolTip": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Vertex.h",
-              "RelativeToolTip": "Engine\\Vertex.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-27T06:00:50.311Z",
+              "Title": "Engine.cpp",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\Engine.cpp",
+              "RelativeDocumentMoniker": "Engine\\Engine.cpp",
+              "ToolTip": "E:\\4th_Project\\Engine\\Engine.cpp",
+              "RelativeToolTip": "Engine\\Engine.cpp",
+              "ViewState": "AQIAADYAAAAAAAAAAAAAABsAAAAPAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-12-29T11:10:33.712Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 20,
-              "Title": "InputLayout.cpp",
-              "DocumentMoniker": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\InputLayout.cpp",
-              "RelativeDocumentMoniker": "Engine\\InputLayout.cpp",
-              "ToolTip": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\InputLayout.cpp",
-              "RelativeToolTip": "Engine\\InputLayout.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-27T05:23:20.288Z",
+              "Title": "Engine.h",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\Engine.h",
+              "RelativeDocumentMoniker": "Engine\\Engine.h",
+              "ToolTip": "E:\\4th_Project\\Engine\\Engine.h",
+              "RelativeToolTip": "Engine\\Engine.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAB0AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-29T11:10:33.087Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 21,
-              "Title": "Texture.cpp",
-              "DocumentMoniker": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Texture.cpp",
-              "RelativeDocumentMoniker": "Engine\\Texture.cpp",
-              "ToolTip": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Texture.cpp",
-              "RelativeToolTip": "Engine\\Texture.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "Object.cpp",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\Object.cpp",
+              "RelativeDocumentMoniker": "Engine\\Object.cpp",
+              "ToolTip": "E:\\4th_Project\\Engine\\Object.cpp",
+              "RelativeToolTip": "Engine\\Object.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-27T09:41:28.525Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 34,
-              "Title": "Vertex.cpp",
-              "DocumentMoniker": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Vertex.cpp",
-              "RelativeDocumentMoniker": "Engine\\Vertex.cpp",
-              "ToolTip": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Vertex.cpp",
-              "RelativeToolTip": "Engine\\Vertex.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-27T06:00:45.603Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "TextureHeader.hlsli",
-              "DocumentMoniker": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\TextureHeader.hlsli",
-              "RelativeDocumentMoniker": "Engine\\TextureHeader.hlsli",
-              "ToolTip": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\TextureHeader.hlsli",
-              "RelativeToolTip": "Engine\\TextureHeader.hlsli",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-12-27T08:05:48.611Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 31,
-              "Title": "Viewport.cpp",
-              "DocumentMoniker": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Viewport.cpp",
-              "RelativeDocumentMoniker": "Engine\\Viewport.cpp",
-              "ToolTip": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Viewport.cpp",
-              "RelativeToolTip": "Engine\\Viewport.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-27T05:25:33.266Z",
+              "WhenOpened": "2024-12-25T13:15:52.657Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 22,
-              "Title": "SamplerHeader.hlsli",
-              "DocumentMoniker": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\SamplerHeader.hlsli",
-              "RelativeDocumentMoniker": "Engine\\SamplerHeader.hlsli",
-              "ToolTip": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\SamplerHeader.hlsli",
-              "RelativeToolTip": "Engine\\SamplerHeader.hlsli",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAlAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-12-27T08:05:49.31Z",
+              "Title": "Object.h",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\Object.h",
+              "RelativeDocumentMoniker": "Engine\\Object.h",
+              "ToolTip": "E:\\4th_Project\\Engine\\Object.h",
+              "RelativeToolTip": "Engine\\Object.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACwAAAAmAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-25T13:15:04.154Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
-              "Title": "PixelShaderPS.hlsl",
-              "DocumentMoniker": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\PixelShaderPS.hlsl",
-              "RelativeDocumentMoniker": "Engine\\PixelShaderPS.hlsl",
-              "ToolTip": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\PixelShaderPS.hlsl",
-              "RelativeToolTip": "Engine\\PixelShaderPS.hlsl",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002777|",
-              "WhenOpened": "2024-12-27T09:39:33.282Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 25,
-              "Title": "VertexShaderVS.hlsl",
-              "DocumentMoniker": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\VertexShaderVS.hlsl",
-              "RelativeDocumentMoniker": "Engine\\VertexShaderVS.hlsl",
-              "ToolTip": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\VertexShaderVS.hlsl",
-              "RelativeToolTip": "Engine\\VertexShaderVS.hlsl",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002777|",
-              "WhenOpened": "2024-12-27T09:39:34.614Z",
+              "DocumentIndex": 23,
+              "Title": "Component.h",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\Component.h",
+              "RelativeDocumentMoniker": "Engine\\Component.h",
+              "ToolTip": "E:\\4th_Project\\Engine\\Component.h",
+              "RelativeToolTip": "Engine\\Component.h",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAA4AAAAHAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-25T13:15:08.398Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 24,
-              "Title": "Header.hlsli",
-              "DocumentMoniker": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Header.hlsli",
-              "RelativeDocumentMoniker": "Engine\\Header.hlsli",
-              "ToolTip": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Header.hlsli",
-              "RelativeToolTip": "Engine\\Header.hlsli",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-12-27T09:39:37.762Z",
+              "Title": "TransformComponent.h",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\TransformComponent.h",
+              "RelativeDocumentMoniker": "Engine\\TransformComponent.h",
+              "ToolTip": "E:\\4th_Project\\Engine\\TransformComponent.h",
+              "RelativeToolTip": "Engine\\TransformComponent.h",
+              "ViewState": "AQIAABgAAAAAAAAAAAAAABEAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-29T13:29:21.736Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
-              "Title": "ConstantBufferData.h",
-              "DocumentMoniker": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\ConstantBufferData.h",
-              "RelativeDocumentMoniker": "Engine\\ConstantBufferData.h",
-              "ToolTip": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\ConstantBufferData.h",
-              "RelativeToolTip": "Engine\\ConstantBufferData.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAABAAAAAAAAAA==",
+              "DocumentIndex": 25,
+              "Title": "WindowApp.cpp",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\WindowApp.cpp",
+              "RelativeDocumentMoniker": "Engine\\WindowApp.cpp",
+              "ToolTip": "E:\\4th_Project\\Engine\\WindowApp.cpp",
+              "RelativeToolTip": "Engine\\WindowApp.cpp",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAqwHUAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-12-29T13:33:59.978Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "WindowApp.h",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\WindowApp.h",
+              "RelativeDocumentMoniker": "Engine\\WindowApp.h",
+              "ToolTip": "E:\\4th_Project\\Engine\\WindowApp.h",
+              "RelativeToolTip": "Engine\\WindowApp.h",
+              "ViewState": "AQIAABAAAAAAAAAAAAAqwBkAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-27T05:23:57.667Z",
+              "WhenOpened": "2024-12-29T13:11:21.996Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 27,
-              "Title": "Renderer.cpp",
-              "DocumentMoniker": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Renderer.cpp",
-              "RelativeDocumentMoniker": "Engine\\Renderer.cpp",
-              "ToolTip": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\Renderer.cpp",
-              "RelativeToolTip": "Engine\\Renderer.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAhAAAAAAAAAA==",
+              "Title": "ObjectManager.h",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\ObjectManager.h",
+              "RelativeDocumentMoniker": "Engine\\ObjectManager.h",
+              "ToolTip": "E:\\4th_Project\\Engine\\ObjectManager.h",
+              "RelativeToolTip": "Engine\\ObjectManager.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-29T13:30:14.489Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "ObjectManager.cpp",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\ObjectManager.cpp",
+              "RelativeDocumentMoniker": "Engine\\ObjectManager.cpp",
+              "ToolTip": "E:\\4th_Project\\Engine\\ObjectManager.cpp",
+              "RelativeToolTip": "Engine\\ObjectManager.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-27T07:48:11.425Z",
+              "WhenOpened": "2024-12-29T14:22:09.334Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 29,
-              "Title": "D3DClass.cpp",
-              "DocumentMoniker": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\D3DClass.cpp",
-              "RelativeDocumentMoniker": "Engine\\D3DClass.cpp",
-              "ToolTip": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\D3DClass.cpp",
-              "RelativeToolTip": "Engine\\D3DClass.cpp",
-              "ViewState": "AgIAAE8AAAAAAAAAAAAhwE0AAAAOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-27T06:01:43.709Z",
+              "Title": "InputLayout.h",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\InputLayout.h",
+              "RelativeDocumentMoniker": "Engine\\InputLayout.h",
+              "ToolTip": "E:\\4th_Project\\Engine\\InputLayout.h",
+              "RelativeToolTip": "Engine\\InputLayout.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAPAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-25T13:59:43.252Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 30,
-              "Title": "ConstantBuffer.cpp",
-              "DocumentMoniker": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\ConstantBuffer.cpp",
-              "RelativeDocumentMoniker": "Engine\\ConstantBuffer.cpp",
-              "ToolTip": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\ConstantBuffer.cpp",
-              "RelativeToolTip": "Engine\\ConstantBuffer.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-27T07:49:35.122Z",
+              "Title": "\uADDC\uCE59.txt",
+              "DocumentMoniker": "E:\\4th_Project\\\uADDC\uCE59.txt",
+              "RelativeDocumentMoniker": "\uADDC\uCE59.txt",
+              "ToolTip": "E:\\4th_Project\\\uADDC\uCE59.txt",
+              "RelativeToolTip": "\uADDC\uCE59.txt",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABcAAAA3AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2024-12-29T11:56:08.755Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "ClassDiagram.cd",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\ClassDiagram.cd",
+              "RelativeDocumentMoniker": "Engine\\ClassDiagram.cd",
+              "ToolTip": "E:\\4th_Project\\Engine\\ClassDiagram.cd",
+              "RelativeToolTip": "Engine\\ClassDiagram.cd",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000463|",
+              "WhenOpened": "2024-12-29T13:49:33.02Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 32,
-              "Title": "IndexBuffer.h",
-              "DocumentMoniker": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\IndexBuffer.h",
-              "RelativeDocumentMoniker": "Engine\\IndexBuffer.h",
-              "ToolTip": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\IndexBuffer.h",
-              "RelativeToolTip": "Engine\\IndexBuffer.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-27T05:23:09.961Z",
+              "Title": "Material.cpp",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\Material.cpp",
+              "RelativeDocumentMoniker": "Engine\\Material.cpp",
+              "ToolTip": "E:\\4th_Project\\Engine\\Material.cpp",
+              "RelativeToolTip": "Engine\\Material.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-12-29T12:06:59.638Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 33,
-              "Title": "IndexBuffer.cpp",
-              "DocumentMoniker": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\IndexBuffer.cpp",
-              "RelativeDocumentMoniker": "Engine\\IndexBuffer.cpp",
-              "ToolTip": "C:\\Users\\K2301160065\\Documents\\GitHub\\4th_Project\\Engine\\IndexBuffer.cpp",
-              "RelativeToolTip": "Engine\\IndexBuffer.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "Material.h",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\Material.h",
+              "RelativeDocumentMoniker": "Engine\\Material.h",
+              "ToolTip": "E:\\4th_Project\\Engine\\Material.h",
+              "RelativeToolTip": "Engine\\Material.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-29T11:36:18.332Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "pch.h",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\pch.h",
+              "RelativeDocumentMoniker": "Engine\\pch.h",
+              "ToolTip": "E:\\4th_Project\\Engine\\pch.h",
+              "RelativeToolTip": "Engine\\pch.h",
+              "ViewState": "AQIAAC0AAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-29T13:41:04.304Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "ResourceSystem.h",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\ResourceSystem.h",
+              "RelativeDocumentMoniker": "Engine\\ResourceSystem.h",
+              "ToolTip": "E:\\4th_Project\\Engine\\ResourceSystem.h",
+              "RelativeToolTip": "Engine\\ResourceSystem.h",
+              "ViewState": "AQIAAB4AAAAAAAAAAAAiwB4AAAAyAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-25T13:02:01.48Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "ResourceSystem.cpp",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\ResourceSystem.cpp",
+              "RelativeDocumentMoniker": "Engine\\ResourceSystem.cpp",
+              "ToolTip": "E:\\4th_Project\\Engine\\ResourceSystem.cpp",
+              "RelativeToolTip": "Engine\\ResourceSystem.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-27T05:23:11.126Z",
+              "WhenOpened": "2024-12-29T11:08:05.961Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "IResources.h",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\IResources.h",
+              "RelativeDocumentMoniker": "Engine\\IResources.h",
+              "ToolTip": "E:\\4th_Project\\Engine\\IResources.h",
+              "RelativeToolTip": "Engine\\IResources.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-25T13:46:48.684Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "Renderer.h",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\Renderer.h",
+              "RelativeDocumentMoniker": "Engine\\Renderer.h",
+              "ToolTip": "E:\\4th_Project\\Engine\\Renderer.h",
+              "RelativeToolTip": "Engine\\Renderer.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAOAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-29T11:17:02.537Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 39,
+              "Title": "Renderer.cpp",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\Renderer.cpp",
+              "RelativeDocumentMoniker": "Engine\\Renderer.cpp",
+              "ToolTip": "E:\\4th_Project\\Engine\\Renderer.cpp",
+              "RelativeToolTip": "Engine\\Renderer.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-12-29T11:16:57.899Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 40,
+              "Title": "D3DClass.h",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\D3DClass.h",
+              "RelativeDocumentMoniker": "Engine\\D3DClass.h",
+              "ToolTip": "E:\\4th_Project\\Engine\\D3DClass.h",
+              "RelativeToolTip": "Engine\\D3DClass.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAADIAAAAXAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-29T11:51:36.25Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 41,
+              "Title": "D3DClass.cpp",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\D3DClass.cpp",
+              "RelativeDocumentMoniker": "Engine\\D3DClass.cpp",
+              "ToolTip": "E:\\4th_Project\\Engine\\D3DClass.cpp",
+              "RelativeToolTip": "Engine\\D3DClass.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAaAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-12-29T11:51:49.434Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 42,
+              "Title": "Texture.h",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\Texture.h",
+              "RelativeDocumentMoniker": "Engine\\Texture.h",
+              "ToolTip": "E:\\4th_Project\\Engine\\Texture.h",
+              "RelativeToolTip": "Engine\\Texture.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-29T11:11:11.386Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 43,
+              "Title": "Texture.cpp",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\Texture.cpp",
+              "RelativeDocumentMoniker": "Engine\\Texture.cpp",
+              "ToolTip": "E:\\4th_Project\\Engine\\Texture.cpp",
+              "RelativeToolTip": "Engine\\Texture.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-12-29T13:38:51.507Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 44,
+              "Title": "Shader.h",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\Shader.h",
+              "RelativeDocumentMoniker": "Engine\\Shader.h",
+              "ToolTip": "E:\\4th_Project\\Engine\\Shader.h",
+              "RelativeToolTip": "Engine\\Shader.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-29T13:38:50.923Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 45,
+              "Title": "Shader.cpp",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\Shader.cpp",
+              "RelativeDocumentMoniker": "Engine\\Shader.cpp",
+              "ToolTip": "E:\\4th_Project\\Engine\\Shader.cpp",
+              "RelativeToolTip": "Engine\\Shader.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-12-29T13:38:50.499Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 46,
+              "Title": "InputLayout.cpp",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\InputLayout.cpp",
+              "RelativeDocumentMoniker": "Engine\\InputLayout.cpp",
+              "ToolTip": "E:\\4th_Project\\Engine\\InputLayout.cpp",
+              "RelativeToolTip": "Engine\\InputLayout.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-12-29T11:57:47.401Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 47,
+              "Title": "RenderComponent.cpp",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\RenderComponent.cpp",
+              "RelativeDocumentMoniker": "Engine\\RenderComponent.cpp",
+              "ToolTip": "E:\\4th_Project\\Engine\\RenderComponent.cpp",
+              "RelativeToolTip": "Engine\\RenderComponent.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-12-29T13:29:17.124Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 48,
+              "Title": "SystemHeader.h",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\SystemHeader.h",
+              "RelativeDocumentMoniker": "Engine\\SystemHeader.h",
+              "ToolTip": "E:\\4th_Project\\Engine\\SystemHeader.h",
+              "RelativeToolTip": "Engine\\SystemHeader.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-29T11:19:15.597Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "FloatingWindowState": {
+        "Id": "4e1c1e4f-319d-4941-8cfc-8a0ff299b5d8",
+        "Display": 0,
+        "X": 608,
+        "Y": 105,
+        "Width": 1374,
+        "Height": 775,
+        "WindowState": 0
+      },
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Header.hlsli",
+              "DocumentMoniker": "E:\\4th_Project\\Engine\\Header.hlsli",
+              "RelativeDocumentMoniker": "Engine\\Header.hlsli",
+              "ToolTip": "E:\\4th_Project\\Engine\\Header.hlsli",
+              "RelativeToolTip": "Engine\\Header.hlsli",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAAABgAAAAeAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-12-29T13:45:23.798Z",
               "EditorCaption": ""
             }
           ]

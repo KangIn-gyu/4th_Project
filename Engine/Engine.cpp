@@ -7,8 +7,11 @@
 #include "Helper.h"
 #include "Declare.h" // 윈도우 정보때문에
 
-// test
-#include "ResourceSystem.h"
+void Engine::TestCode()
+{
+
+}
+
 
 void Engine::Initialize()
 {
@@ -21,8 +24,8 @@ void Engine::Initialize()
         RENDERER->Initialize(clientApp->GetWindowInfo());
         timeSystem->Initialize();
     }
-    std::shared_ptr<Shader> test = RESOURCESYSTEM->Load<Shader>(L"../Engine/VertexShaderVS.hlsl");
-//    std::shared_ptr<Shader> test1 = RESOURCESYSTEM->Load<Shader>(L"../PixelShaderPS.hlsl");
+
+    TestCode();
 }
 
 void Engine::Loop()
@@ -30,6 +33,7 @@ void Engine::Loop()
     MSG msg;
 
     ZeroMemory(&msg, sizeof(msg));
+    timeSystem->Update();
 
     while (TRUE)
     {
@@ -44,9 +48,10 @@ void Engine::Loop()
         }
         else
         {
-            timeSystem->Update();
-            Update(timeSystem->GetFloatDeltaTime());
-            Render(timeSystem->GetFloatDeltaTime());
+            // 추후 다양한 업데이트 만들자.
+            float deltaTime = timeSystem->GetFloatDeltaTime();
+            Update(deltaTime);
+            Render(deltaTime); // 시간이 과연 필요할가? 일단 보류
         }
     }
 

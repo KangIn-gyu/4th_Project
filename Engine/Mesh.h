@@ -1,8 +1,7 @@
 #pragma once
-#include "InputLayout.h"
 #include "Vertex.h"
 #include "IndexBuffer.h"
-#include "Shader.h"
+#include "InputLayout.h"
 
 class TransformComponent;
 class Mesh // 기반 클래스

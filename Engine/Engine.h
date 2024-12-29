@@ -25,6 +25,9 @@ private:
 
 	void Update(const float _deltaTime);
 	void Render(const float _deltaTime);
+
+	void TestCode(); // 용도 이름 그대로 테스트할 것들 넣어서 실험하는 곳
+
 // 변수
 public:
 

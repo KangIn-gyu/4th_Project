@@ -11,8 +11,10 @@ private:
 
 public:
 	virtual void ComponentInitialize() override;
-	virtual void ComponentUpdate(float _deltaTime) override {};
+	virtual void ComponentUpdate(const float _deltaTime) override {};
 	virtual void ComponentRender() override {};
+
+	DXMath::Matrix GetProjectionMatrix() const { return projectionMatrix; }
 
 private:
 	float clientWidth  {};

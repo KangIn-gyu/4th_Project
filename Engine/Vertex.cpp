@@ -15,7 +15,8 @@ VertexBuffer::~VertexBuffer()
 
 void VertexBuffer::Create(const std::vector<Vertex>& vertees)
 {
-	vertices = vertees;
+	vertices = std::move(vertees); // 인덱스 버퍼와 같이 고려 사항
+
 	HRESULT hr = 0; // 결과값.
 	// 버텍스 정보 초기화	
 	D3D11_BUFFER_DESC vbDesc = {};

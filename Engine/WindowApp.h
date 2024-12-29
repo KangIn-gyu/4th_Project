@@ -18,8 +18,8 @@ public:
 
 	static LRESULT CALLBACK WndProc(HWND _hWnd, UINT _message, WPARAM _wParam, LPARAM _lParam);
 	HINSTANCE& GethInstance() { return hInstance; }
-	std::string GetWindowClassName() { return windowClassName; }
-	WindowInfo* GetWindowInfo();
+	std::string GetWindowClassName() const { return windowClassName; }
+	WindowInfo* GetWindowInfo() const;
 
 protected:
 	bool Initialize();

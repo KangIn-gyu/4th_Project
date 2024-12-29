@@ -62,14 +62,8 @@
     <Filter Include="2_System\Graphics\GraphicsData\Buffer">
       <UniqueIdentifier>{0be67079-b22f-4065-869d-6afc2e6f59fc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2_System\Graphics\GraphicsData\Mesh">
-      <UniqueIdentifier>{71c8f464-1b62-48a5-b0d7-da6c6fdfe1a5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="2_System\Graphics\GraphicsData\Shader">
       <UniqueIdentifier>{b11d75f4-65b5-4696-90fc-59c62e47db5c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2_System\Graphics\GraphicsData\InputLayout">
-      <UniqueIdentifier>{87a5cb4a-3bb3-4f10-ab60-2443558cf078}</UniqueIdentifier>
     </Filter>
     <Filter Include="2_System\Graphics\GraphicsData\Viewport">
       <UniqueIdentifier>{2ac39156-86ae-4888-99f2-fbb9ac4845de}</UniqueIdentifier>
@@ -80,14 +74,23 @@
     <Filter Include="3_Object\Compoent\Render">
       <UniqueIdentifier>{2bcabe79-6535-4188-8469-052312255831}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2_System\Graphics\GraphicsData\Texture">
-      <UniqueIdentifier>{d4e1bdd4-8097-4b1c-85d6-a03a798bc8b8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2_System\Graphics\GraphicsData\Material">
-      <UniqueIdentifier>{c46ceb33-9df3-4cbf-a16c-f0a3c8b1ce31}</UniqueIdentifier>
-    </Filter>
     <Filter Include="리소스 파일\Header">
       <UniqueIdentifier>{2f6ed2e1-c461-418b-ae34-5523a85363f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3_Object\Compoent\Model\Data">
+      <UniqueIdentifier>{575a08ad-b275-4168-ac41-d7871e546bf2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3_Object\Compoent\Model\Data\Texture">
+      <UniqueIdentifier>{d4e1bdd4-8097-4b1c-85d6-a03a798bc8b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3_Object\Compoent\Model\Data\Mesh">
+      <UniqueIdentifier>{71c8f464-1b62-48a5-b0d7-da6c6fdfe1a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3_Object\Compoent\Model\Data\Material">
+      <UniqueIdentifier>{c46ceb33-9df3-4cbf-a16c-f0a3c8b1ce31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3_Object\Compoent\Model\Data\InputLayout">
+      <UniqueIdentifier>{87a5cb4a-3bb3-4f10-ab60-2443558cf078}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -167,13 +170,13 @@
       <Filter>2_System\Graphics\GraphicsData\Buffer</Filter>
     </ClInclude>
     <ClInclude Include="Mesh.h">
-      <Filter>2_System\Graphics\GraphicsData\Mesh</Filter>
+      <Filter>3_Object\Compoent\Model\Data\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="Shader.h">
       <Filter>2_System\Graphics\GraphicsData\Shader</Filter>
     </ClInclude>
     <ClInclude Include="InputLayout.h">
-      <Filter>2_System\Graphics\GraphicsData\InputLayout</Filter>
+      <Filter>3_Object\Compoent\Model\Data\InputLayout</Filter>
     </ClInclude>
     <ClInclude Include="Viewport.h">
       <Filter>2_System\Graphics\GraphicsData\Viewport</Filter>
@@ -188,10 +191,13 @@
       <Filter>3_Object\Compoent\Render</Filter>
     </ClInclude>
     <ClInclude Include="Material.h">
-      <Filter>2_System\Graphics\GraphicsData\Material</Filter>
+      <Filter>3_Object\Compoent\Model\Data\Material</Filter>
     </ClInclude>
     <ClInclude Include="Texture.h">
-      <Filter>2_System\Graphics\GraphicsData\Texture</Filter>
+      <Filter>3_Object\Compoent\Model\Data\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraObject.h">
+      <Filter>3_Object\Compoent\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -244,13 +250,13 @@
       <Filter>2_System\Graphics\GraphicsData\Buffer</Filter>
     </ClCompile>
     <ClCompile Include="Mesh.cpp">
-      <Filter>2_System\Graphics\GraphicsData\Mesh</Filter>
+      <Filter>3_Object\Compoent\Model\Data\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="Shader.cpp">
       <Filter>2_System\Graphics\GraphicsData\Shader</Filter>
     </ClCompile>
     <ClCompile Include="InputLayout.cpp">
-      <Filter>2_System\Graphics\GraphicsData\InputLayout</Filter>
+      <Filter>3_Object\Compoent\Model\Data\InputLayout</Filter>
     </ClCompile>
     <ClCompile Include="Viewport.cpp">
       <Filter>2_System\Graphics\GraphicsData\Viewport</Filter>
@@ -262,10 +268,13 @@
       <Filter>3_Object\Compoent\Render</Filter>
     </ClCompile>
     <ClCompile Include="Material.cpp">
-      <Filter>2_System\Graphics\GraphicsData\Material</Filter>
+      <Filter>3_Object\Compoent\Model\Data\Material</Filter>
     </ClCompile>
     <ClCompile Include="Texture.cpp">
-      <Filter>2_System\Graphics\GraphicsData\Texture</Filter>
+      <Filter>3_Object\Compoent\Model\Data\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraObject.cpp">
+      <Filter>3_Object\Compoent\Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

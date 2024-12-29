@@ -9,7 +9,7 @@ public:
 	~Object() { ClearComponents(); }
 
 	virtual void Start() {}
-	virtual void Update(float _deltaTime) {}
+	virtual void Update(const float _deltaTime) {}
 	virtual void FixedUpdate() {}
 	virtual void LateUpdate() {}
 

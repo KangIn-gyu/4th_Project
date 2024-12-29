@@ -17,7 +17,7 @@ public:
 	Object* GetOwner() { return owner; }
 
 	virtual void ComponentInitialize() = 0;              // 초기화용
-	virtual void ComponentUpdate(float _deltaTime) = 0;  // 업데이트
+	virtual void ComponentUpdate(const float _deltaTime) = 0;  // 업데이트
 	virtual void ComponentRender() = 0;					 // 렌더용  일단 보류..? 음...
 };
 

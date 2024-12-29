@@ -17,7 +17,7 @@ public:
 	void BeginDraw(DXMath::Color _BackgroundColor); // 렌더링 파이프라인에서 렌더링 작업을 시작하는 단계
 	void EndDraw();
 
-	void ChangeWindowSize(WindowInfo* _windowInfo);
+	void ChangeWindowSize();
 
 	// (캡슐화 포기) 이건 그냥 주자 구조만들기 너무 힘듬
 	static const ComPtr<ID3D11Device> GetD3DDevice() { return D3DDevice; }
@@ -28,12 +28,12 @@ public:
 	void CreateSamplerState(D3D11_FILTER _filter, D3D11_TEXTURE_ADDRESS_MODE _addressMode, ComPtr<ID3D11SamplerState>& _sampler);
 
 private:
-	void InitD3D(WindowInfo* windowInfo);
-	void InitDXGI(WindowInfo* windowInfo);
+	void InitD3D();
+	void InitDXGI();
 
 
-	DXGI_SWAP_CHAIN_DESC CreateSwapDesc(WindowInfo* windowInfo);
-	void CreateDepthStencilBuffer(WindowInfo* windowInfo);
+	DXGI_SWAP_CHAIN_DESC CreateSwapDesc();
+	void CreateDepthStencilBuffer();
 
 public:
 
@@ -48,6 +48,7 @@ private:
 									   
 	ComPtr<ID3D11BlendState>		   alphaBlendState{};
 
+	WindowInfo* windowInfo;
 	std::unique_ptr<Viewport> viewport;
 	bool presentEnabled;
 

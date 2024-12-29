@@ -18,12 +18,12 @@ void ValidateConstantBufferSize()
 
 struct alignas(16) MatrixBuffer
 {
+	MatrixBuffer()
+	{
+		ValidateConstantBufferSize<MatrixBuffer>();
+	}
+
 	DXMath::Matrix worldMatrix;
 	DXMath::Matrix viewMatrix;
 	DXMath::Matrix projectionMatrix;
-
-	MatrixBuffer()
-	{
-		ValidateConstantBufferSize<MatrixBuffer>(); 
-	}
 };

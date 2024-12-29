@@ -6,7 +6,6 @@
 
 #define RESOURCESYSTEM ResourceSystem::GetInstance()
 
-class IResources;
 class ResourceSystem : public SingletonBase<ResourceSystem>
 {
 	friend class SingletonBase<ResourceSystem>;
@@ -44,8 +43,10 @@ inline std::shared_ptr<T> ResourceSystem::Load(const std::wstring_view& _filePat
         return nullptr;
     }
 
+    // test 코드 추후 로그 시스템 만들면 삭제할 예정
     std::type_index key = typeid(T);
     std::cout << key.name() << std::endl; 
+
     // 맵으로 부터 확인을 한다
     auto it = resources.find(key);  //
     if (it != resources.end()) // 같은게 있으면?
