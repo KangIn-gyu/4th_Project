@@ -7,6 +7,7 @@
 
 CameraCompoent::CameraCompoent()
 {
+	cameraInfo = new CameraInfo;
 	cameraInfo->camerTransform = owner->GetComponent<TransformComponent>(0);
 	CameraObject* camerObj = dynamic_cast<CameraObject*>(owner);
 	if (camerObj)

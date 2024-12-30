@@ -27,7 +27,7 @@ struct VertexInputType
 
 struct PixelInputType
 {
-    uint   VertexID : SV_VertexID; // 정점 ID
+//    uint   VertexID : SV_VertexID; // 정점 ID
     float4 Position : SV_POSITION; // 정점 위치
     float4 Color    : COLOR;       // 색상
     float3 Normal   : NORMAL;      // 노말

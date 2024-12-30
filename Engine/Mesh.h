@@ -23,3 +23,4 @@ private:
 	InputLayout  inputLayout  {};
 };
 
+// 고민 사항 : 해당 매쉬에 이 텍스쳐를 사용해야 되요라고 알려주는게 필요 할수도 있다. 

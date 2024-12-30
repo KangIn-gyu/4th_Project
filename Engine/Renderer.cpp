@@ -38,7 +38,6 @@ void Renderer::Render()
 //
 //	// 상수 버퍼 업데이트
 //	D3DGraphics-> > GetD3DDeviceContext()->UpdateSubresource(/*상수 버퍼*/, 0, nullptr, /*구조체*/, 0, 0); // CPU -> GPU로 데이터 전송 처리
-//	
 //	D3DGraphics->GetD3DDeviceContext()->DrawIndexed(, 0, 0);
 	D3DGraphics->EndDraw();
 }

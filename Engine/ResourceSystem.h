@@ -2,7 +2,7 @@
 #include "SingletonBase.h"
 #include <filesystem>
 
-#include "Shader.h"
+#include "IResources.h"
 
 #define RESOURCESYSTEM ResourceSystem::GetInstance()
 
@@ -12,8 +12,9 @@ class ResourceSystem : public SingletonBase<ResourceSystem>
 	using Resource_unMap = std::unordered_map<std::wstring, std::weak_ptr<IResources>>; // 자료형 너무 길어서 별칭 만듬
 public:
 	template<ResourcesType T>
-	std::shared_ptr<T> Load(const std::wstring_view& _filePath);
-	void AllLoadFile(std::wstring_view filePath);
+	std::shared_ptr<T> Load(std::wstring_view _filePath);
+	void AllLoadFile(std::wstring_view _filePath);
+    void Show(); // 리소스 매니저 테스트용
 
 private:
 	explicit ResourceSystem() = default;
@@ -26,14 +27,16 @@ public:
 
 private:
 	std::unordered_map<std::type_index, Resource_unMap> resources;
+    std::wstring basePath = L"../Resource/";
 };
 
 // 매쉬에 있는 인덱스버퍼랑 버덱스 버퍼는 한번만 만들면 매쉬를 내주면 되니깐 문제 없다
 
 template <ResourcesType T>
-inline std::shared_ptr<T> ResourceSystem::Load(const std::wstring_view& _filePath)
+inline std::shared_ptr<T> ResourceSystem::Load(std::wstring_view _filePath)
 {
-    std::filesystem::path relativePath = _filePath;
+    std::wstring filePath = basePath + _filePath.data();
+    std::filesystem::path relativePath = filePath;
 
     // 파일 존재 여부 확인
     if (!std::filesystem::exists(relativePath))
@@ -68,27 +71,10 @@ inline std::shared_ptr<T> ResourceSystem::Load(const std::wstring_view& _filePat
         }
     }
 
-    // 없을 경우 처리 확장자마다의 로드 구현해야 됨.
-    std::wstring extension = relativePath.extension();
-    if (extension == L".png" || extension == L".jpg" || extension == L".tga" || extension == L".dds") // 추후 텍스쳐 추가하면 처리
-    {
-        // 헤더 문제 생각하자 ㅠㅠ 아직 작업중 12.27
-        std::shared_ptr<T> newTexture = std::make_shared<T>();
-        newTexture->Load(_filePath);
-
-    }
-    else if (extension == L".fbx")
-    {
-
-    }
-    else if (extension == L".hlsl" || extension == L".cso")
-    {
-        std::shared_ptr<T> newShader = std::make_shared<T>();
-        newShader->Load(_filePath);
-        std::type_index shaderType = typeid(T);      // 타입 인덱스 가져오기
-        auto& resourceUnMap = resources[shaderType];
-        resourceUnMap.emplace(_filePath, newShader);     // 새로운 리소스 추가
-        return newShader;
-    }
-    // 추후 사운드도 추가 해야 한다.
+    std::shared_ptr<T> newShader = std::make_shared<T>();
+    newShader->Load(filePath);
+    std::type_index shaderType = typeid(T);        // 타입 인덱스 가져오기
+    auto& resourceUnMap = resources[shaderType];
+    resourceUnMap.emplace(filePath, newShader);     // 새로운 리소스 추가
+    return newShader;
 }

@@ -92,6 +92,15 @@
     <Filter Include="3_Object\Compoent\Model\Data\InputLayout">
       <UniqueIdentifier>{87a5cb4a-3bb3-4f10-ab60-2443558cf078}</UniqueIdentifier>
     </Filter>
+    <Filter Include="3_Object\Compoent\Model\Data\Model">
+      <UniqueIdentifier>{923d92b3-c42b-4ddb-ac7e-ab52fb9d6ac7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_System\Resource\FBXLoader">
+      <UniqueIdentifier>{5ad0925d-576a-4d46-b1f0-ccab539f0857}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_System\Resource\FBXLoader\Data">
+      <UniqueIdentifier>{6f566df8-6ad3-4ed7-b4ad-84e867342c1f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowApp.h">
@@ -199,6 +208,18 @@
     <ClInclude Include="CameraObject.h">
       <Filter>3_Object\Compoent\Camera</Filter>
     </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>3_Object\Compoent\Model\Data\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="FBXLoader.h">
+      <Filter>2_System\Resource\FBXLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>3_Object\Compoent\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="AiNode.h">
+      <Filter>2_System\Resource\FBXLoader\Data</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WindowApp.cpp">
@@ -276,6 +297,18 @@
     <ClCompile Include="CameraObject.cpp">
       <Filter>3_Object\Compoent\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>3_Object\Compoent\Model\Data\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="FBXLoader.cpp">
+      <Filter>2_System\Resource\FBXLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>3_Object\Compoent\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="AiNode.cpp">
+      <Filter>2_System\Resource\FBXLoader\Data</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd">
@@ -292,10 +325,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="PixelShaderPS.hlsl">
+    <FxCompile Include="..\Resource\STAGE1\Shaders\PixelShaderPS.hlsl">
       <Filter>리소스 파일</Filter>
     </FxCompile>
-    <FxCompile Include="VertexShaderVS.hlsl">
+    <FxCompile Include="..\Resource\STAGE1\Shaders\VertexShaderVS.hlsl">
       <Filter>리소스 파일</Filter>
     </FxCompile>
   </ItemGroup>

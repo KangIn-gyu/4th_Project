@@ -33,6 +33,14 @@ using namespace Microsoft::WRL;
 // 유틸
 #include <algorithm>
 
+// 컨셉
+template <class T>
+concept Container = requires(T t)
+{
+	t.begin();
+	t.end();
+};
+
 // Direct
 #include <d3d11.h>
 #include <directxtk/SimpleMath.h>  // #pragma comment(lib, "d3dx11.lib") 대체됨
@@ -51,8 +59,13 @@ namespace DXMath = DirectX::SimpleMath;
 
 // 여기에 미리 컴파일하려는 헤더를 추가하세요
 #ifdef _DEBUG
-#define _CRTDBG_MAP_ALLOC
+#define _CRTDBG_MAP_ALLOC  // C 런타임의 디버깅 도구를 활성화 파일 이름과 라인 번호 추적
 #include <crtdbg.h>
+
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+
 #define new new(_NORMAL_BLOCK, __FILE__, __LINE__)
 #endif
 

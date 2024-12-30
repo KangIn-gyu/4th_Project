@@ -30,3 +30,10 @@ struct CameraInfo
 	bool Update = false;
 	bool projectionUpdate = false;
 };
+
+struct MaterialInfo
+{
+	float metallic{};        // 기본 비금속
+	float roughness = 0.5f;  // 기본 거칠기
+
+};

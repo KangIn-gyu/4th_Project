@@ -17,7 +17,7 @@ public:
 	void CreateComponent();
 
 	template<ComponentType T>
-	T* GetComponent(int _index);
+	[[nodiscard]] T* GetComponent(int _index);
 
 private:
 	void ClearComponents();
@@ -40,7 +40,7 @@ inline void Object::CreateComponent()
 // 타입을 넣고 해당 타입의 벡터를 받을 수 있다. 
 // 장점으로 같은 타입의 컴포넌트가 있으면 그걸 인덱스로 접근해서 찾을 수 있다
 template<ComponentType T>
-inline  T* Object::GetComponent(int _index)
+[[nodiscard]] inline  T* Object::GetComponent(int _index)
 {
 	auto it = components.find(typeid(T));
 	if (it != components.end()) 

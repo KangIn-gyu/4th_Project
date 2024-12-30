@@ -13,9 +13,8 @@ private:
 public:
 
 private:
-	std::shared_ptr<Mesh> mesh;
-	std::shared_ptr<Texture> tuexture;
 	std::shared_ptr<Material> material;
+
 };
 
 // 일단 추상화만 하고 나중에 기반 잡을 예정 
