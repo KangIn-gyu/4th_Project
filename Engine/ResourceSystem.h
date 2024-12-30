@@ -3,9 +3,10 @@
 #include <filesystem>
 
 #include "IResources.h"
-
+#include "FBXLoader.h"
 #define RESOURCESYSTEM ResourceSystem::GetInstance()
 
+class Model;
 class ResourceSystem : public SingletonBase<ResourceSystem>
 {
 	friend class SingletonBase<ResourceSystem>;
@@ -26,8 +27,9 @@ private:
 public:
 
 private:
+    FBXLoader fbxLoader;
 	std::unordered_map<std::type_index, Resource_unMap> resources;
-    std::wstring basePath = L"../Resource/";
+    std::wstring basePath = L"Resource/";
 };
 
 // 매쉬에 있는 인덱스버퍼랑 버덱스 버퍼는 한번만 만들면 매쉬를 내주면 되니깐 문제 없다
@@ -71,10 +73,18 @@ inline std::shared_ptr<T> ResourceSystem::Load(std::wstring_view _filePath)
         }
     }
 
-    std::shared_ptr<T> newShader = std::make_shared<T>();
-    newShader->Load(filePath);
-    std::type_index shaderType = typeid(T);        // 타입 인덱스 가져오기
-    auto& resourceUnMap = resources[shaderType];
-    resourceUnMap.emplace(filePath, newShader);     // 새로운 리소스 추가
-    return newShader;
+    if constexpr (!std::is_same_v<T, Model>)
+    {
+        std::shared_ptr<T> newShader = std::make_shared<T>();
+        newShader->Load(filePath);
+        std::type_index shaderType = typeid(T);        // 타입 인덱스 가져오기
+        auto& resourceUnMap = resources[shaderType];
+        resourceUnMap.emplace(filePath, newShader);     // 새로운 리소스 추가
+        return newShader;
+    }
+    else // 모델일 경우 예외
+    {
+
+    }
+
 }

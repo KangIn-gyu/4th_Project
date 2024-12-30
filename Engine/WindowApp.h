@@ -13,7 +13,7 @@ class WindowApp
 {
 // ÇÔ¼ö
 public:
-	WindowApp(HINSTANCE _hInstance, std::string_view _GameName, int _screenWidth, int _screenHeight, bool _windoweMode);
+	WindowApp(HINSTANCE _hInstance, std::string_view _gameName, int _screenWidth, int _screenHeight, bool _windoweMode);
 	~WindowApp();
 
 	static LRESULT CALLBACK WndProc(HWND _hWnd, UINT _message, WPARAM _wParam, LPARAM _lParam);
@@ -38,5 +38,5 @@ private:
 	WindowInfo*	windowInfo {};
 
 	std::string windowClassName = "4th_Project";
-	std::string GamName;
+	std::string gameName;
 };

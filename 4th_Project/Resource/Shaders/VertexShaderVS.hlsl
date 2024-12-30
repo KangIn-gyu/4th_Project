@@ -1,4 +1,4 @@
-#include "../../../Engine/Header.hlsli"
+#include "Header.hlsli"
 
 PixelInputType main(VertexInputType input) 
 {

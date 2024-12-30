@@ -173,6 +173,8 @@
     <ClInclude Include="SafeExtinction.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="SingletonBase.h" />
+    <ClInclude Include="SkeletalMesh.h" />
+    <ClInclude Include="StaticMesh.h" />
     <ClInclude Include="StringHelper.h" />
     <ClInclude Include="SystemHeader.h" />
     <ClInclude Include="Texture.h" />
@@ -213,6 +215,8 @@
     </ClCompile>
     <ClCompile Include="ResourceSystem.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="SkeletalMesh.cpp" />
+    <ClCompile Include="StaticMesh.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TimeSystem.cpp" />
     <ClCompile Include="Transform.cpp" />
@@ -222,23 +226,23 @@
     <ClCompile Include="WindowApp.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\4th_Project\Resource\Shaders\Header.hlsli" />
+    <None Include="..\4th_Project\Resource\Shaders\SamplerHeader.hlsli" />
+    <None Include="..\4th_Project\Resource\Shaders\TextureHeader.hlsli" />
     <None Include="ClassDiagram.cd" />
-    <None Include="Header.hlsli" />
-    <None Include="SamplerHeader.hlsli" />
-    <None Include="TextureHeader.hlsli" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="..\Resource\STAGE1\Shaders\PixelShaderPS.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    <FxCompile Include="..\4th_Project\Resource\Shaders\PixelShaderPS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
-    </FxCompile>
-    <FxCompile Include="..\Resource\STAGE1\Shaders\VertexShaderVS.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="..\4th_Project\Resource\Shaders\VertexShaderVS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

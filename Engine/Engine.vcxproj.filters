@@ -220,6 +220,12 @@
     <ClInclude Include="AiNode.h">
       <Filter>2_System\Resource\FBXLoader\Data</Filter>
     </ClInclude>
+    <ClInclude Include="StaticMesh.h">
+      <Filter>3_Object\Compoent\Model\Data\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="SkeletalMesh.h">
+      <Filter>3_Object\Compoent\Model\Data\Mesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WindowApp.cpp">
@@ -309,26 +315,32 @@
     <ClCompile Include="AiNode.cpp">
       <Filter>2_System\Resource\FBXLoader\Data</Filter>
     </ClCompile>
+    <ClCompile Include="StaticMesh.cpp">
+      <Filter>3_Object\Compoent\Model\Data\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="SkeletalMesh.cpp">
+      <Filter>3_Object\Compoent\Model\Data\Mesh</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd">
       <Filter>99_ClassDiagram</Filter>
     </None>
-    <None Include="Header.hlsli">
+    <None Include="..\4th_Project\Resource\Shaders\Header.hlsli">
       <Filter>리소스 파일</Filter>
     </None>
-    <None Include="TextureHeader.hlsli">
+    <None Include="..\4th_Project\Resource\Shaders\SamplerHeader.hlsli">
       <Filter>리소스 파일\Header</Filter>
     </None>
-    <None Include="SamplerHeader.hlsli">
+    <None Include="..\4th_Project\Resource\Shaders\TextureHeader.hlsli">
       <Filter>리소스 파일\Header</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="..\Resource\STAGE1\Shaders\PixelShaderPS.hlsl">
+    <FxCompile Include="..\4th_Project\Resource\Shaders\PixelShaderPS.hlsl">
       <Filter>리소스 파일</Filter>
     </FxCompile>
-    <FxCompile Include="..\Resource\STAGE1\Shaders\VertexShaderVS.hlsl">
+    <FxCompile Include="..\4th_Project\Resource\Shaders\VertexShaderVS.hlsl">
       <Filter>리소스 파일</Filter>
     </FxCompile>
   </ItemGroup>

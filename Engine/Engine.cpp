@@ -7,17 +7,17 @@
 #include "Helper.h"
 #include "Declare.h" // 윈도우 정보때문에
 
-#include "Texture.h"
-#include "Shader.h"
-#include "ResourceSystem.h"
+  #include "Texture.h"
+//  #include "Shader.h"
+  #include "ResourceSystem.h"
 void Engine::TestCode()
 {
    std::shared_ptr<Texture> test = RESOURCESYSTEM->Load<Texture>(L"STAGE1/Texturs/dice.png");
-   std::shared_ptr<Texture> test1 = RESOURCESYSTEM->Load<Texture>(L"STAGE1/Texturs/Base_BaseColor.tga");
-   std::shared_ptr<Texture> test3 = RESOURCESYSTEM->Load<Texture>(L"STAGE1/Texturs/SkyBlueBrdf.dds");
-
-   std::shared_ptr<Shader> sh2 = RESOURCESYSTEM->Load<Shader>(L"STAGE1/Shaders/VertexShaderVS.hlsl");
-   std::shared_ptr<Shader> sh1 = RESOURCESYSTEM->Load<Shader>(L"STAGE1/Shaders/PixelShaderPS.hlsl");
+//   std::shared_ptr<Texture> test1 = RESOURCESYSTEM->Load<Texture>(L"STAGE1/Texturs/Base_BaseColor.tga");
+//   std::shared_ptr<Texture> test3 = RESOURCESYSTEM->Load<Texture>(L"STAGE1/Texturs/SkyBlueBrdf.dds");
+//
+//   std::shared_ptr<Shader> sh2 = RESOURCESYSTEM->Load<Shader>(L"Shaders/VertexShaderVS.hlsl");
+//   std::shared_ptr<Shader> sh1 = RESOURCESYSTEM->Load<Shader>(L"Shaders/PixelShaderPS.hlsl");
    RESOURCESYSTEM->Show();
 }
 

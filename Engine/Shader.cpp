@@ -28,8 +28,7 @@ void Shader::Load(std::wstring_view _filePath)
 	// 통합 처리로 하였다. 이유는 리소스 시스템을 통해서 셰이더를 만든다고 했을때
 	// (통합함수가 아닌 개별일때)내가 어떤 셰이더를 만들어야지 일일히 함수를 바꾸면서 하기 귀찮을거 같아서 함수하나에 통합을 했다.
 	auto compileShader = [&dwShaderFlags](const std::wstring_view& filePath, const std::string& shaderModel,
-		ID3DBlob** shaderBuffer, ID3DBlob* errorBuffer) {
-			ID3DBlob* pCode = nullptr;
+		ComPtr<ID3DBlob>& shaderBuffer, ID3DBlob* errorBuffer) {
 			HR_T(D3DCompileFromFile(
 				filePath.data(),					// 셰이더 파일 경로
 				nullptr,							// 셰이더 매크로 정의 (없음)
@@ -38,18 +37,16 @@ void Shader::Load(std::wstring_view _filePath)
 				shaderModel.c_str(),				// 셰이더 모델 
 				dwShaderFlags,						// 컴파일 플래그
 				0,									// 이펙트 플래그 (기본값)
-				&pCode,		// 컴파일 결과	
+				shaderBuffer.GetAddressOf(),		// 컴파일 결과	
 				&errorBuffer			            // 오류 메시지
-			));
-			*shaderBuffer = pCode;
-		};
+			)); };
 
 
 	if (shaderPrefix == L"VS")
 	{
 		if (extension == L"hlsl")
 		{
-			compileShader(_filePath, "vs_5_0", VSBlob.GetAddressOf(), errorBlob);
+			compileShader(_filePath, "vs_5_0", VSBlob, errorBlob);
 		}
 		else if (extension == L"cso")
 		{
@@ -64,7 +61,7 @@ void Shader::Load(std::wstring_view _filePath)
 	{
 		if (extension == L"hlsl")
 		{
-			compileShader(_filePath, "ps_5_0", PSBlob.GetAddressOf(), errorBlob);
+			compileShader(_filePath, "ps_5_0", PSBlob, errorBlob);
 		}
 		else if (extension == L"cso")
 		{

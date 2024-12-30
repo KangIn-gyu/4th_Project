@@ -13,8 +13,8 @@
 // 용도 : WindowManager를 파생 클래스가 생성이 되면 풀스크린이 아니고 디버그 모드면 콘솔창을 생성한다.
 static Console* g_Console {}; 
 
-WindowApp::WindowApp(HINSTANCE _hInstance, std::string_view _GameName, int _screenWidth, int _screenHeight, bool _windoweMode) : \
-    hInstance(_hInstance), GamName(_GameName)
+WindowApp::WindowApp(HINSTANCE _hInstance, std::string_view _gameName, int _screenWidth, int _screenHeight, bool _windoweMode) : \
+    hInstance(_hInstance), gameName(_gameName)
 {
     windowInfo = new WindowInfo;
     windowInfo->screenWidth = _screenWidth;
@@ -130,7 +130,7 @@ bool WindowApp::Initialize()
     if(true == windowInfo->windoweMode)
     {
         windowInfo->hWnd = CreateWindowEx(0, StringConverter::StringToWide(windowClassName).c_str(),
-            StringConverter::StringToWide(GamName).c_str(), dwStyle,
+            StringConverter::StringToWide(gameName).c_str(), dwStyle,
             midX, midY, rcClient.right - rcClient.left,
             rcClient.bottom - rcClient.top, NULL, NULL, hInstance, NULL);
     }
@@ -140,7 +140,7 @@ bool WindowApp::Initialize()
         windowInfo->screenHeight = GetSystemMetrics(SM_CYSCREEN);
 
         windowInfo->hWnd = CreateWindowEx(0, StringConverter::StringToWide(windowClassName).c_str(),
-            StringConverter::StringToWide(GamName).c_str(),
+            StringConverter::StringToWide(gameName).c_str(),
             WS_EX_TOPMOST | WS_POPUP, 0, 0,
             GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN),
             NULL, NULL, hInstance, NULL);

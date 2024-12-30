@@ -6,7 +6,7 @@ class Object // 기반 클래스
 {
 public:
 	Object();
-	~Object() { ClearComponents(); }
+	virtual ~Object() { ClearComponents(); }
 
 	virtual void Start() {}
 	virtual void Update(const float _deltaTime) {}
