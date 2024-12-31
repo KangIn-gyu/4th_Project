@@ -3,12 +3,15 @@
 #include "Helper.h"
 #include "AiNode.h"
 
-
+#include "Model.h"
+#include "Mesh.h"
 #include "StaticMesh.h"
 #include "SkeletalMesh.h"
+#include "Material.h"
+
 DirectX::XMMATRIX ConvertMatrix(const aiMatrix4x4& matrix); // 여기서만 사용하는 함수
 
-void FBXLoader::FBXLoad(std::wstring_view _filePath)
+std::shared_ptr<Model> FBXLoader::FBXLoad(std::wstring_view _filePath)
 {
 	importFlags = 0; // 시작 플래그 초기화
 
@@ -26,10 +29,10 @@ void FBXLoader::FBXLoad(std::wstring_view _filePath)
 	if (nullptr == scene)
 	{ // 추후 로그 시스템 만들자
 		std::runtime_error("Error loading model" + std::string(importer.GetErrorString()));
-		return;
+		return nullptr;
 	}
 
-	aiNode* RootNode = scene->mRootNode;
+	aiNode* RootaiNode = scene->mRootNode;
 
 	// 이 조건문은 좀 더 고민이 필요하다 뼈가 없어도 애니메이션이 가능한 것도 있는데
 	if (scene->HasAnimations() || HasBones(scene)) 
@@ -43,15 +46,24 @@ void FBXLoader::FBXLoad(std::wstring_view _filePath)
 		scene = importer.ReadFile(StringConverter::WideToString(_filePath), importFlags);
 	}
 
-	ProcessNode(RootNode, scene, nullptr);
+	std::shared_ptr<Model> modelData = std::make_shared<Model>();
+	AiNode* rootNode = ProcessNode(RootaiNode, scene, nullptr); // 내가 만든 AiNode로 만든다
+	if (nullptr != rootNode)
+	{
+		modelData->SetAiNode(rootNode);
+		// 추후 애니메이션 등 추가 필요
+	}
+
+	return modelData;
 }
 
-void FBXLoader::ProcessNode(aiNode* _node, const aiScene* _scene, AiNode* _parent)
+// 여기서 노드와 매쉬를 같이 만든다
+AiNode* FBXLoader::ProcessNode(aiNode* _node, const aiScene* _scene, AiNode* _parent)
 {
 	if (nullptr == _node)
-		return;
+		return nullptr;
 
-	AiNode* currentNode = new AiNode();
+	AiNode* currentNode = new AiNode(); // 내가 만든 노드가 헥갈리지말자
 	currentNode->SetName(_node->mName.C_Str());
 	currentNode->GetTransform().SetLocalMatrix(ConvertMatrix(_node->mTransformation));
 	currentNode->SetParent(_parent);
@@ -63,21 +75,37 @@ void FBXLoader::ProcessNode(aiNode* _node, const aiScene* _scene, AiNode* _paren
 
 	if (_scene->HasMeshes())
 	{
-		for (size_t i = 0; i < _node->mNumMeshes; i++)
+		for (size_t index = 0; index < _node->mNumMeshes; index++)
 		{
-			unsigned int meshIndex = _node->mMeshes[i];
+			unsigned int meshIndex = _node->mMeshes[index];
 			aiMesh* mesh = _scene->mMeshes[meshIndex];
 
-			if (isStaticMesh)
-			{
-				ProcessMesh(mesh, _scene);
+			if (isStaticMesh) 
+			{ // 스태틱 매쉬
+				StaticMesh* staticMesh = new StaticMesh;  // 스태틱 매쉬 생성
+				staticMesh->SetName(mesh->mName.C_Str()); // 매쉬 이름 설정
+				staticMesh->SetFBXMeshIndex(index);		  // 인덱스 번호 만들기 없어도 될거 같은데 일단 테스트용
+				staticMesh->SetMaterialIndex(meshIndex);  // 매쉬에 사용할 메테리얼 인덱스 번호 설정
+				staticMesh->SetTransform(currentNode->GetPointTransform()); // AiNode라고 내가 만든 어심프의 aiNode의 데이터를 저장한 객체의 트랜스폼 설정
+				
+				if(nullptr != _parent) // 예외처리
+				staticMesh->SetTransformParent(_parent->GetPointTransform()); // 부모 설정
+
+				ProcessMesh(mesh, _scene); // 프로세스매쉬를 하고선 버텍스버퍼/인덱스버퍼가 정보 복사
+
+				// 복사된 데이터의 자료형을 언오더드맵을 통해서 포인터로 받는다.
+				staticMesh->SetVertexBuffer(vertexBufferMap.find(staticMesh->GetMeshName())->second);
+				staticMesh->SetIndexBuffer(indexBufferMap.find(staticMesh->GetMeshName())->second);
+				SaveMeshData(staticMesh->GetMeshName(), staticMesh);
 			}
 			else
-			{
+			{ // 스켈레탈 매쉬  나중에 처리 자료형 적립을 다 못함
+			  // SkeletalMesh* skeletalMesh = new SkeletalMesh;
 				ProcessMesh(mesh, _scene);
 			}
 		}
 	}
+	return currentNode;
 }
 
 bool FBXLoader::HasBones(const aiScene* _scene)
@@ -92,9 +120,10 @@ bool FBXLoader::HasBones(const aiScene* _scene)
 	return false;
 }
 
-std::vector<DWORD> FBXLoader::ProessIndexs(aiMesh* _mesh, unsigned int _indexSize)
+void FBXLoader::ProessIndexs(aiMesh* _mesh, unsigned int _indexSize)
 {
 	std::vector<DWORD> indexBufferData;
+	indexBufferData.reserve(static_cast<int>(_indexSize)); // 미리 사이즈 확장
 
 	for (unsigned int j = 0; j < _indexSize; j++) // 인덱스 처리
 	{
@@ -107,12 +136,16 @@ std::vector<DWORD> FBXLoader::ProessIndexs(aiMesh* _mesh, unsigned int _indexSiz
 		}
 	}
 
-	return indexBufferData;
+	IndexBuffer* newIndexBuffer = new IndexBuffer;
+	newIndexBuffer->Create(indexBufferData);
+	indexBufferMap.emplace(_mesh->mName.C_Str(), newIndexBuffer);
 }
 
-std::vector<Vertex> FBXLoader::ProcessVertexs(aiMesh* _mesh, unsigned int _vertexSize)
+void FBXLoader::ProcessVertexs(aiMesh* _mesh, unsigned int _vertexSize)
 {
 	std::vector<Vertex> vertexBufferData;
+	vertexBufferData.reserve(static_cast<int>(_vertexSize)); // 미리 사이즈 확장
+
 	for (unsigned int i = 0; i < _vertexSize; i++) // 버텍스 처리
 	{
 		Vertex vertex {};
@@ -142,18 +175,18 @@ std::vector<Vertex> FBXLoader::ProcessVertexs(aiMesh* _mesh, unsigned int _verte
 		{
 			vertex.uv = { 0.0f, 0.0f };
 		}
-
 		vertexBufferData.emplace_back(vertex);
 	}
-	return vertexBufferData;
+
+	VertexBuffer* newVertexBuffer = new VertexBuffer;
+	newVertexBuffer->Create(vertexBufferData);
+	vertexBufferMap.emplace(_mesh->mName.C_Str(), newVertexBuffer);
 }
 
 void FBXLoader::ProcessMesh(aiMesh* _mesh, const aiScene* _scene)
 {
-	Mesh mesh;
-	mesh.SetName(_mesh->mName.C_Str());
-	mesh.CreateVertexBuffer(ProcessVertexs(_mesh, _mesh->mNumVertices));
-	mesh.CreateIndexBuffer(ProessIndexs(_mesh, _mesh->mNumFaces));
+	ProcessVertexs(_mesh, _mesh->mNumVertices);
+	ProessIndexs(_mesh, _mesh->mNumFaces);
 
 	if (_scene->HasMaterials())
 	{
@@ -161,15 +194,24 @@ void FBXLoader::ProcessMesh(aiMesh* _mesh, const aiScene* _scene)
 	}
 }
 
+void FBXLoader::SaveMeshData(std::string_view _name, Mesh* _mesh)
+{
+	if (meshs.find(_name.data()) == meshs.end())
+	{ // 예외 처리 맵을 찾았을때 비웠을 경우 맵[키] = std::vector를 만들어서 넣는다
+		meshs[_name.data()] = std::vector<Mesh*>{};
+	}
+	meshs[_name.data()].push_back(_mesh);
+}
+
 void FBXLoader::ProcessMaterial(aiMesh* _mesh, const aiScene* _scene)
 {
 	aiMaterial* material = _scene->mMaterials[_mesh->mMaterialIndex];
 	aiString texturePath;
-
 	// 나중에 처리하자
+
 }
 
-DX::XMMATRIX ConvertMatrix(const aiMatrix4x4& matrix)
+DX::XMMATRIX ConvertMatrix(const aiMatrix4x4& matrix) // 여기서만 사용하는 함수
 {
 	return DX::XMMATRIX(
 		matrix.a1, matrix.b1, matrix.c1, matrix.d1,   // 1열

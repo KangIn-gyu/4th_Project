@@ -26,8 +26,7 @@ public:
 	void SetQuaternion(const DXMath::Quaternion _rotation);
 	void SetScale(const DXMath::Vector3 _scale);
 
-
-	void SetParent(Transform* _parent) { parent = _parent; }
+	void SetParent(Transform* _parent) { parent = _parent; UpdateTransform(); }
 private:
 
 public:

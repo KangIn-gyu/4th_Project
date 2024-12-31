@@ -23,9 +23,10 @@ void ResourceSystem::AllLoadFile(std::wstring_view _filePath)
 
 void ResourceSystem::Show()
 {
+    int KeyIndex {};
     for (auto& it : resources)
     {
-        std::cout << "첫 번째 키값 :" << it.first.name() << '\n';
+        std::cout << KeyIndex << "번째 키값 :" << it.first.name() << '\n';
         for (auto& it2 : it.second)
         {
             std::wstring filePath = it2.first;
@@ -36,5 +37,6 @@ void ResourceSystem::Show()
                 std::wcout << L"Path:" << filePath << '\n';
             }
         }
+        KeyIndex++;
     }
 }

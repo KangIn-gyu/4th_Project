@@ -23,7 +23,6 @@ private:
 	ResourceSystem(const ResourceSystem& _sameClassObj) = delete;
 	ResourceSystem(ResourceSystem&& _sameClassObj)noexcept = delete;
 
-
 public:
 
 private:
@@ -31,8 +30,6 @@ private:
 	std::unordered_map<std::type_index, Resource_unMap> resources;
     std::wstring basePath = L"Resource/";
 };
-
-// 매쉬에 있는 인덱스버퍼랑 버덱스 버퍼는 한번만 만들면 매쉬를 내주면 되니깐 문제 없다
 
 template <ResourcesType T>
 inline std::shared_ptr<T> ResourceSystem::Load(std::wstring_view _filePath)
@@ -69,22 +66,23 @@ inline std::shared_ptr<T> ResourceSystem::Load(std::wstring_view _filePath)
             {
                 resourceUnMap.erase(it2);
             }
-
         }
     }
 
-    if constexpr (!std::is_same_v<T, Model>)
+    if constexpr (false == std::is_same_v<T, Model>)
     {
-        std::shared_ptr<T> newShader = std::make_shared<T>();
-        newShader->Load(filePath);
-        std::type_index shaderType = typeid(T);        // 타입 인덱스 가져오기
-        auto& resourceUnMap = resources[shaderType];
-        resourceUnMap.emplace(filePath, newShader);     // 새로운 리소스 추가
-        return newShader;
+        std::shared_ptr<T> newResources = std::make_shared<T>();
+        newResources->Load(filePath);
+        std::type_index type = typeid(T);        // 타입 인덱스 가져오기
+        auto& resourceUnMap = resources[type];
+        resourceUnMap.emplace(filePath, newResources);     // 새로운 리소스 추가
+        return newResources;
     }
     else // 모델일 경우 예외
     {
-
+        std::type_index type = typeid(T);
+        auto& resourceUnMap = resources[type];
+        resourceUnMap.emplace(filePath, fbxLoader.FBXLoad(filePath));
     }
 
 }

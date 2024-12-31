@@ -1,0 +1,1 @@
+Texture2D TexutureColor : register(t0);

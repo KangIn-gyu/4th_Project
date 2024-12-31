@@ -3,29 +3,39 @@
 #include "IndexBuffer.h"
 #include "InputLayout.h"
 
-class TransformComponent;
+class Transform;
 class Mesh // 기반 클래스
 {
 public:
 	Mesh() { meshName.reserve(20); }
 	virtual ~Mesh() = default;
 
-	void CreateVertexBuffer(const std::vector<Vertex>& _vertees);
-	void CreateIndexBuffer(const std::vector<DWORD>& _indices);
+	void SetVertexBuffer(VertexBuffer* _vertexBuffer) { vertexBuffer = _vertexBuffer; }
+	void SetIndexBuffer(IndexBuffer* _indexBuffer) { indexBuffer = _indexBuffer; }
 	void CreateInputLayout(const std::initializer_list<D3D11_INPUT_ELEMENT_DESC>& _elements, const ComPtr<ID3DBlob>& _shaderBuffer);
 
+	std::string GetMeshName() { return meshName; }
+
 	void SetName(std::string_view _meshName) { meshName = _meshName.data(); }
+	void SetFBXMeshIndex(UINT _index) { fbxMeshIndex = _index; }
+	void SetMaterialIndex(UINT _index) { materialIndex = _index; }
+	void SetTransform(Transform* _Transform);
+	void SetTransformParent(Transform* _Transform);
+
 private:
 
 public:
 
 protected:
-	UINT materialIndex =-1;
-	VertexBuffer vertexBuffer{};
-	IndexBuffer  indexBuffer{};
-	InputLayout  inputLayout{};
+	UINT fbxMeshIndex = -1;
+	UINT materialIndex = -1;
+
+	VertexBuffer* vertexBuffer{};
+	IndexBuffer*  indexBuffer{};
+	InputLayout   inputLayout{};
 
 	std::string meshName;
+	Transform* transform;
 private:
 
 };

@@ -9,9 +9,10 @@ public:
 private:
 
 public:
-	std::vector<DWORD> indices;
+	
 
 private:
+	std::vector<DWORD> indices;
 	ComPtr<ID3D11Buffer> indexBuffer;
 };
 

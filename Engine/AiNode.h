@@ -11,6 +11,7 @@ public:
 	void SetParent(AiNode* _parent) { parent = _parent; }
 	void SetName(std::string_view _name);
 	Transform GetTransform() { return transform; }
+	Transform* GetPointTransform() { return &transform; }
 private:
 
 public:
