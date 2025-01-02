@@ -17,15 +17,15 @@ void Texture::Load(std::wstring_view _filePath)
 	std::wstring extension = std::wstring(_filePath.substr(lastDot + 1));
 	std::transform(extension.begin(), extension.end(), extension.begin(), ::towlower);
 
-	if (extension == L"tga")
+	if (extension == L"tga" || extension == L"TGA")
 	{
 		DX::ScratchImage scratchImage;
 		DX::TexMetadata metaData;
 		HR_T(DX::LoadFromTGAFile(_filePath.data(), &metaData, scratchImage));
-		HR_T(DX::CreateShaderResourceView(D3DClass::GetD3DDevice().Get(), scratchImage.GetImages(), 
-										  scratchImage.GetImageCount(), metaData, texture.GetAddressOf()));
+		HR_T(DX::CreateShaderResourceView(D3DClass::GetD3DDevice().Get(), scratchImage.GetImages(),
+			scratchImage.GetImageCount(), metaData, texture.GetAddressOf()));
 	}
-	else if (extension == L"dds")
+	else if (extension == L"dds" || extension == L"DDS")
 	{
 		HR_T(DX::CreateDDSTextureFromFile(D3DClass::GetD3DDevice().Get(), _filePath.data(), 
 										  nullptr, texture.GetAddressOf()));

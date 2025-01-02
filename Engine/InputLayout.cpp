@@ -3,16 +3,21 @@
 #include "Helper.h"
 #include "D3DClass.h"
 
-void InputLayout::IASetInputLayout(const std::initializer_list<D3D11_INPUT_ELEMENT_DESC>& _elements, const ComPtr<ID3DBlob>& _shaderBuffer)
+#include "ResourceSystem.h"
+#include "Shader.h"
+void InputLayout::IASetInputLayout(const std::initializer_list<D3D11_INPUT_ELEMENT_DESC>& _elements, std::wstring_view _vertexShaderfilePath)
 {
-    if (nullptr == _shaderBuffer.Get())
+    std::shared_ptr<Shader> shader = RESOURCESYSTEM->Load<Shader>(_vertexShaderfilePath);
+    ComPtr<ID3DBlob> vsBlod = shader->GetVSBlob().Get();
+    if (nullptr == vsBlod)
     {
+        std::cout << "IASetInputLayout 실패" << std::endl; // 추후 로그 시스템으로 해야됨
         return;
     }
 
     HR_T(D3DClass::GetD3DDevice()->CreateInputLayout(_elements.begin(),
                                                      static_cast<UINT>(_elements.size()),
-                                                     _shaderBuffer->GetBufferPointer(),
-                                                     _shaderBuffer->GetBufferSize(),
+                                                     vsBlod->GetBufferPointer(),
+                                                     vsBlod->GetBufferSize(),
                                                      inputLayout.GetAddressOf()));
 }

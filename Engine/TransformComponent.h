@@ -6,7 +6,7 @@ class TransformComponent : public Component
 {
 public:
 	TransformComponent() = default;
-	virtual ~TransformComponent() {}
+	virtual ~TransformComponent();
 
 	virtual void ComponentInitialize() override {}
 	// ComponentUpdate에 업데이트 메트릭스 계산 안넣은 이유 가만히 있을때 계산안하기 위해서

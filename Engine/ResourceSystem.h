@@ -82,7 +82,9 @@ inline std::shared_ptr<T> ResourceSystem::Load(std::wstring_view _filePath)
     {
         std::type_index type = typeid(T);
         auto& resourceUnMap = resources[type];
-        resourceUnMap.emplace(filePath, fbxLoader.FBXLoad(filePath));
+        auto sharedPtr = fbxLoader.FBXLoad(filePath);
+        resourceUnMap.emplace(filePath, sharedPtr);
+        return sharedPtr;
     }
 
 }

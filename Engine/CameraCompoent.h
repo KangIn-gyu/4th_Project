@@ -24,7 +24,7 @@ private:
 
 	DXMath::Vector3 InputVector{};
 
-	DXMath::Matrix projectionMatrix;
-	DXMath::Matrix viewMatrix;
+	DXMath::Matrix projectionMatrix {};
+	DXMath::Matrix viewMatrix {};
 };
 

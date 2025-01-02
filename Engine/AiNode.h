@@ -5,7 +5,7 @@ class AiNode
 {
 public:
 	AiNode() { nodeName.reserve(20); }  // 미리 이름 설정 길어봐야 27정도 될려나?
-	~AiNode() = default;
+	~AiNode();
 
 	void AddChild(AiNode* _child);
 	void SetParent(AiNode* _parent) { parent = _parent; }

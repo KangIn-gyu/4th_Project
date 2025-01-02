@@ -7,14 +7,13 @@ class Model;
 class ModelComponent : public Component
 {
 public:
-	ModelComponent() = default;
-	virtual ~ModelComponent() = default;
+	ModelComponent(std::wstring_view _filePath);
+	virtual ~ModelComponent();
 
 	virtual void ComponentInitialize() override;                       // 초기화용
 	virtual void ComponentUpdate(const float _deltaTime) override {};  // 업데이트
 	virtual void ComponentRender() override {};					       // 렌더용
 
-	void Load(std::wstring_view _filePath);
 private:
 
 public:

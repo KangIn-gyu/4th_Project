@@ -7,18 +7,27 @@
 #include "Helper.h"
 #include "Declare.h" // 윈도우 정보때문에
 
-  #include "Texture.h"
+// test 코드
+#include "Texture.h"
 //  #include "Shader.h"
-  #include "ResourceSystem.h"
+#include "ResourceSystem.h"
+#include "Object.h"
+#include "ModelComponent.h"
 void Engine::TestCode()
 {
+    // 텍스처, 셰이더 생성
    std::shared_ptr<Texture> test = RESOURCESYSTEM->Load<Texture>(L"STAGE1/Texturs/dice.png");
 //   std::shared_ptr<Texture> test1 = RESOURCESYSTEM->Load<Texture>(L"STAGE1/Texturs/Base_BaseColor.tga");
 //   std::shared_ptr<Texture> test3 = RESOURCESYSTEM->Load<Texture>(L"STAGE1/Texturs/SkyBlueBrdf.dds");
 //
 //   std::shared_ptr<Shader> sh2 = RESOURCESYSTEM->Load<Shader>(L"Shaders/VertexShaderVS.hlsl");
 //   std::shared_ptr<Shader> sh1 = RESOURCESYSTEM->Load<Shader>(L"Shaders/PixelShaderPS.hlsl");
+
+   // obj
+   Object* testObj = new Object(Object::ObjectType::Basic);  // 삭제 안해서 메모리 샘
+   testObj->CreateComponent<ModelComponent>(L"STAGE1/FBX/char2.fbx");
    RESOURCESYSTEM->Show();
+  
 }
 
 
@@ -63,6 +72,7 @@ void Engine::Loop()
             Render(deltaTime); // 시간이 과연 필요할가? 일단 보류
         }
     }
+    
 
     if (msg.message == WM_NULL)
     {

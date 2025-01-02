@@ -13,7 +13,7 @@ class FBXLoader
 {
 public:
 	FBXLoader() = default;
-	~FBXLoader() = default;
+	~FBXLoader();
 
 	std::shared_ptr<Model> FBXLoad(std::wstring_view _filePath); // 로드하고 무엇을 리턴해야 될가..?
 private:
@@ -23,7 +23,7 @@ private:
 	void ProcessVertexs(aiMesh* _mesh, unsigned int _vertexSize);
 
 	void ProcessMesh(aiMesh* _mesh, const aiScene* _scene);
-	void SaveMeshData(std::string_view _name, Mesh* _mesh);
+	void SaveMeshData(std::string_view _name, Mesh _mesh);
 
 	void ProcessMaterial(aiMesh* _mesh, const aiScene* _scene);
 public:
@@ -35,6 +35,6 @@ private:
 
 	std::unordered_map<std::string, VertexBuffer*> vertexBufferMap {};
 	std::unordered_map<std::string, IndexBuffer*>  indexBufferMap  {};
-	std::unordered_map<std::string, std::vector<Mesh*>> meshs {};
+	std::unordered_map<std::string, std::vector<Mesh>> meshs {};
 };
 

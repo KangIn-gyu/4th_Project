@@ -3,8 +3,9 @@
 
 #include "Declare.h"
 
-CameraObject::CameraObject()
+CameraObject::CameraObject(Object::ObjectType type) : Object(type)
 {
+
 }
 
 CameraObject::~CameraObject()
