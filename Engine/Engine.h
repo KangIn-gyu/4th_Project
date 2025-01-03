@@ -12,13 +12,13 @@ class Engine : public SingletonBase<Engine>
 	friend class SingletonBase<Engine>;
 // ÇÔ¼ö
 public:
-	Engine(const Engine& engine) = delete;
-	Engine(Engine&& engine) noexcept = delete;
+	Engine(const Engine& _engine) = delete;
+	Engine(Engine&& _engine) noexcept = delete;
 
 	void Initialize();
 	void Loop();
 
-	void SetWindowApp(WindowApp* window) { clientApp = window; }
+	void SetWindowApp(WindowApp* _window) { clientApp = _window; }
 private:
 	Engine() = default;
 	~Engine();

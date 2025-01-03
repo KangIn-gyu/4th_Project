@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "ObjectManager.h"
 #include "Object.h"
+
 void ObjectManager::Updata(float _deltaTime)
 {
 	for (auto& obj : Objects)

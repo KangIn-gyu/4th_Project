@@ -8,6 +8,7 @@
 class AiNode;
 class IndexBuffer;
 class VertexBuffer;
+class Material;
 class Model;
 class FBXLoader
 {
@@ -24,8 +25,8 @@ private:
 
 	void ProcessMesh(aiMesh* _mesh, const aiScene* _scene);
 	void SaveMeshData(std::string_view _name, Mesh _mesh);
+	void ProcessMaterial(const aiScene* _scene, const std::wstring_view _modelFilePath);
 
-	void ProcessMaterial(aiMesh* _mesh, const aiScene* _scene);
 public:
 
 private:
@@ -33,8 +34,11 @@ private:
 	unsigned int importFlags {};
 	bool isStaticMesh = true;
 
+	const std::wstring texturesFolder = L"Textures/"; // 폴더 가르키기 용
+
 	std::unordered_map<std::string, VertexBuffer*> vertexBufferMap {};
 	std::unordered_map<std::string, IndexBuffer*>  indexBufferMap  {};
 	std::unordered_map<std::string, std::vector<Mesh>> meshs {};
+	std::unordered_map<std::string, std::vector<Material*>> materials;
 };
 

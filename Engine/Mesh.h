@@ -17,20 +17,20 @@ public:
 
 	void SetName(std::string_view _meshName) { meshName = _meshName.data(); }
 	void SetFBXMeshIndex(UINT _index) { fbxMeshIndex = _index; }
-	void SetMaterialIndex(UINT _index) { materialIndex = _index; }
+
 	void SetTransform(Transform* _Transform);
 	void SetTransformParent(Transform* _Transform);
 
 	std::string GetName() { return meshName; }
 	UINT GetFbxIndex() { return fbxMeshIndex; }
-	UINT GetMaterialIndex() { return materialIndex; }
+
 private:
 
 public:
 
 protected:
-	UINT fbxMeshIndex = -1;
-	UINT materialIndex = -1;
+	UINT fbxMeshIndex = -1;   // FBX로더를 통해서 좋은 지식 : 메테리얼 인덱스와 매쉬 인덱스가 같다
+
 
 	VertexBuffer* vertexBuffer{};
 	IndexBuffer*  indexBuffer{};

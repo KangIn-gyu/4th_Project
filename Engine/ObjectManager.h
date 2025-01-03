@@ -1,4 +1,5 @@
 #pragma once
+
 class Object;
 class ObjectManager
 {
@@ -11,7 +12,7 @@ private:
 public:
 
 private:
-	std::unordered_map<std::type_index, std::vector<Object*>> Objects;
+	std::unordered_map<std::type_index, std::vector<Object*>> Objects {};
 };
 // 싱글톤으로 처리 안함
 // 일단 보류

@@ -4,29 +4,43 @@
 #include "Shader.h"    // 헤더 꼬임 일어날 수 있음 (주의)
 #include "ResourceSystem.h"
 
-void Material::Load(std::wstring_view _filePath)
+static std::unordered_map<aiTextureType, TextureType> typeMapping = // 매핑용
 {
-	// 여기다 텍스쳐 로드를 만들어야 한다
-    TextureType type = GetTextureTypeFromFileName(_filePath.data());
-	// textures.emplace(type, RESOURCESYSTEM->Load<Texture>(_filePath)); 
-    auto& textureMap = textures[type];
-    if (textureMap.find(_filePath.data()) == textureMap.end())
-    { // 텍스쳐 없는 경우
-       auto loadedTexture = RESOURCESYSTEM->Load<Texture>(_filePath);
-       if (nullptr != loadedTexture)
-       {
-           textureMap.emplace(_filePath.data(), loadedTexture);
-       }
-       else
-       {
-           // 추후 생각하자
-       }
+    { aiTextureType_DIFFUSE, TextureType::Albedo },
+    { aiTextureType_SPECULAR, TextureType::Specular },
+    { aiTextureType_AMBIENT, TextureType::Ambient },
+    { aiTextureType_EMISSIVE, TextureType::Emissive },
+    { aiTextureType_HEIGHT, TextureType::Height },
+    { aiTextureType_NORMALS, TextureType::Normal },
+    { aiTextureType_SHININESS, TextureType::Shininess },
+    { aiTextureType_OPACITY, TextureType::Opacity },
+    { aiTextureType_DISPLACEMENT, TextureType::Displacement },
+    { aiTextureType_LIGHTMAP, TextureType::LightMap },
+    { aiTextureType_REFLECTION, TextureType::Reflection },
+    { aiTextureType_UNKNOWN, TextureType::Unknown }  // 기본 값
+};
+// 하나로 돌려 쓰자 어차피 이거 다른 곳에서 공유한다고 해도 의미도 없고 각 메테리얼 마다 맵 들고 있으면 낭비니깐
+// 언맵으로 찾는게 스위치문 보다 빠르다 이럴 경우에는 
+
+Material::Material()
+{
+
+}
+
+void Material::Load(std::wstring_view _filePath, aiTextureType _type)
+{
+    auto it = typeMapping.find(_type);
+    if (it != typeMapping.end())
+    {
+        upLoadType = it->second;
     }
     else
     {
-        // 추후 로그 시스템 추가하기 
+        upLoadType = TextureType::Unknown;
     }
-    
+
+    textures.emplace_back(upLoadType, RESOURCESYSTEM->Load<Texture>(_filePath));
+    upLoadType = TextureType::Unknown;
 }
 
 void Material::SetShader(std::wstring_view _filePath)
@@ -34,13 +48,5 @@ void Material::SetShader(std::wstring_view _filePath)
     shader = RESOURCESYSTEM->Load<Shader>(_filePath);
 }
 
-TextureType Material::GetTextureTypeFromFileName(const std::wstring& fileName)
-{
-    if (fileName.find(L"Albedo") != std::wstring::npos) return TextureType::Albedo;
-    if (fileName.find(L"Normal") != std::wstring::npos) return TextureType::Normal;
-    if (fileName.find(L"Metallic") != std::wstring::npos) return TextureType::Metallic;
-    if (fileName.find(L"Roughness") != std::wstring::npos) return TextureType::Roughness;
-    if (fileName.find(L"Opacity") != std::wstring::npos) return TextureType::Opacity;
-    if (fileName.find(L"Emissive") != std::wstring::npos) return TextureType::Emissive;
-    return TextureType::End;
-}
+
+

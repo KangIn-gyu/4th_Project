@@ -16,7 +16,7 @@
 void Engine::TestCode()
 {
     // 텍스처, 셰이더 생성
-   std::shared_ptr<Texture> test = RESOURCESYSTEM->Load<Texture>(L"STAGE1/Texturs/dice.png");
+//   std::shared_ptr<Texture> test = RESOURCESYSTEM->Load<Texture>(L"STAGE1/Texturs/dice.png");
 //   std::shared_ptr<Texture> test1 = RESOURCESYSTEM->Load<Texture>(L"STAGE1/Texturs/Base_BaseColor.tga");
 //   std::shared_ptr<Texture> test3 = RESOURCESYSTEM->Load<Texture>(L"STAGE1/Texturs/SkyBlueBrdf.dds");
 //
@@ -25,9 +25,10 @@ void Engine::TestCode()
 
    // obj
    Object* testObj = new Object(Object::ObjectType::Basic);  // 삭제 안해서 메모리 샘
-   testObj->CreateComponent<ModelComponent>(L"STAGE1/FBX/char2.fbx");
+   testObj->CreateComponent<ModelComponent>(L"STAGE1/FBX/gun.fbx");  // gun , char2
+   std::cout << '\n';
    RESOURCESYSTEM->Show();
-  
+
 }
 
 
@@ -49,10 +50,7 @@ void Engine::Initialize()
 void Engine::Loop()
 {
     MSG msg;
-
     ZeroMemory(&msg, sizeof(msg));
-    timeSystem->Update();
-
     while (TRUE)
     {
         if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
@@ -66,6 +64,7 @@ void Engine::Loop()
         }
         else
         {
+            timeSystem->Update();
             // 추후 다양한 업데이트 만들자.
             float deltaTime = timeSystem->GetFloatDeltaTime();
             Update(deltaTime);
@@ -73,7 +72,6 @@ void Engine::Loop()
         }
     }
     
-
     if (msg.message == WM_NULL)
     {
         UnregisterClass(StringConverter::StringToWide(clientApp->GetWindowClassName()).c_str(), clientApp->GethInstance());  

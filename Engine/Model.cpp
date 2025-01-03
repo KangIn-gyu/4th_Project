@@ -53,3 +53,8 @@ void Model::SetMesh(std::vector<Mesh> _meshs)
 {
 	meshs = _meshs;
 }
+
+void Model::SetMateria(std::vector<std::shared_ptr<Material>> _materials)
+{
+	materials = _materials;
+}

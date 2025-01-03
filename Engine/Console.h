@@ -7,9 +7,9 @@ public:
 	Console() {}
 	~Console() { DestroyConsole(); }
 
-	void CreateConsole(int width, int height, int posx, int posy);
+	void CreateConsole(int _width, int _height, int _posx, int _posy);
 	void DestroyConsole();
-	void SetFontSize(int width, int height);
+	void SetFontSize(int _width, int _height);
 
 	const HWND GetConsoleHwnd() { return consoleHwnd; }
 private:

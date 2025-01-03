@@ -43,7 +43,7 @@ private:
 };
 
 template<ComponentType T>
-inline void Object::CreateComponent(auto... arguments)
+inline void Object::CreateComponent(auto... arguments)  
 {
 	if constexpr (sizeof...(arguments) == 0)
 	{

@@ -14,8 +14,9 @@ public:
 
 	void Initialize();
 	void SetAiNode(AiNode* _aiNode);
-	void SetOwner(ModelComponent* _owner);
+	void SetOwner(ModelComponent* _owner); // 용도 모델컴포넌트에서 가져올거 필요할때
 	void SetMesh(std::vector<Mesh> _meshs);
+	void SetMateria(std::vector<std::shared_ptr<Material>> _materials);
 private:
 
 public:

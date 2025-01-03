@@ -35,6 +35,7 @@ void ResourceSystem::Show()
             {
                 std::wcout << L"Path:" << filePath << '\n';
             }
+            std::cout << '\n';
         }
         KeyIndex++;
     }

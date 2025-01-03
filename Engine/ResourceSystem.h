@@ -86,5 +86,4 @@ inline std::shared_ptr<T> ResourceSystem::Load(std::wstring_view _filePath)
         resourceUnMap.emplace(filePath, sharedPtr);
         return sharedPtr;
     }
-
 }
