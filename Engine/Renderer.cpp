@@ -41,3 +41,8 @@ void Renderer::Render()
 //	D3DGraphics->GetD3DDeviceContext()->DrawIndexed(, 0, 0);
 	D3DGraphics->EndDraw();
 }
+
+void Renderer::AddRenderComponent(RenderComponent* _renderComponent)
+{
+	work.push_back(_renderComponent);
+}

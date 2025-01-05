@@ -3,6 +3,9 @@
 #include <string_view>
 #include <filesystem>
 
+template<typename T>
+concept StringOrWString = std::is_same_v<T, std::string> || std::is_same_v<T, std::wstring>;
+
 // 문자열 변환 함수
 class StringConverter
 {
@@ -32,15 +35,17 @@ public:
 	}
 
 	// 경로에서 마지막 '/' 이후의 문자열을 반환하는 함수
-	static std::wstring GetFileNameFromPath(std::wstring_view _filePath)
+	template<StringOrWString T>
+	static T GetFileNameFromPath(std::wstring_view _filePath)
 	{
 		std::filesystem::path filePath(_filePath);
-		return filePath.filename().wstring();
-	}
-
-	static std::string GetFileNameFromPath(std::string_view _filePath)
-	{
-		std::filesystem::path filePath(_filePath);
-		return filePath.filename().string();
+		if constexpr (std::is_same_v<T, std::wstring>) 
+		{
+			return filePath.filename().wstring(); // std::wstring 반환
+		}
+		else 
+		{
+			return filePath.filename().string(); // std::string 반환
+		}
 	}
 };

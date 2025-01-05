@@ -3,6 +3,11 @@
 #include "D3DClass.h"
 #include "Helper.h"
 
+IndexBuffer::~IndexBuffer()
+{
+	
+}
+
 void IndexBuffer::Create(const std::vector<DWORD>& _indices)
 {
 	indices = std::move(_indices); // ∞ÌπŒ¡ﬂ

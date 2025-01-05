@@ -45,9 +45,7 @@ inline std::shared_ptr<T> ResourceSystem::Load(std::wstring_view _filePath)
         return nullptr;
     }
 
-    // test 코드 추후 로그 시스템 만들면 삭제할 예정
     std::type_index key = typeid(T);
-    std::cout << key.name() << std::endl; 
 
     // 맵으로 부터 확인을 한다
     auto it = resources.find(key);  //

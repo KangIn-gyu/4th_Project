@@ -25,12 +25,12 @@ void Engine::TestCode()
 
    // obj
    Object* testObj = new Object(Object::ObjectType::Basic);  // 삭제 안해서 메모리 샘
-   testObj->CreateComponent<ModelComponent>(L"STAGE1/FBX/gun.fbx");  // gun , char2
+   testObj->CreateComponent<ModelComponent>(L"STAGE1/FBX/char.fbx");  // gun , char2
    std::cout << '\n';
+
    RESOURCESYSTEM->Show();
-
+   delete testObj;
 }
-
 
 void Engine::Initialize()
 {

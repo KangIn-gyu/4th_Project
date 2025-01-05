@@ -6,12 +6,14 @@
 #define RENDERER Renderer::GetInstance()
 
 struct WindowInfo;
+class RenderComponent;
 class Renderer : public SingletonBase<Renderer>
 {
 	friend class SingletonBase<Renderer>;
 public:
 	void Initialize(WindowInfo* _windowInfo);
 	void Render();
+	void AddRenderComponent(RenderComponent* _renderComponent);
 
 private:
 	Renderer() {}
@@ -25,6 +27,7 @@ public:
 
 private:
 	std::unique_ptr<D3DClass> D3DGraphics {}; // 그래픽스
+	std::vector<RenderComponent*> work {};
 
 	// 상수 버퍼
 	ConstantBuffer matrixConstantBuffer;

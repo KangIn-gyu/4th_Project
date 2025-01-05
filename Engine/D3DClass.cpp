@@ -3,6 +3,7 @@
 #include "Helper.h"
 
 #include "Declare.h"
+#include <dxgidebug.h>
 
 // 정적변수랑은 스태틱은 의미가 달라서 g_표시 안함
 ComPtr<ID3D11Device>        D3DClass::D3DDevice =        nullptr; 
@@ -11,6 +12,10 @@ ComPtr<ID3D11DeviceContext> D3DClass::D3DDeviceContext = nullptr;
 D3DClass::~D3DClass()
 {
 	swapChain->SetFullscreenState(FALSE, nullptr);
+
+#ifdef _DEBUG
+	MemoryLick();
+#endif
 }
 
 void D3DClass::Initialize(WindowInfo* _windowInfo)
@@ -56,7 +61,7 @@ void D3DClass::ChangeWindowSize()
 	CreateDepthStencilBuffer();
 }
 
-void D3DClass::CreateSamplerState(D3D11_FILTER _filter, D3D11_TEXTURE_ADDRESS_MODE _addressMode, ComPtr<ID3D11SamplerState>& _sampler)
+void D3DClass::CreateSamplerState(D3D11_FILTER _filter, D3D11_TEXTURE_ADDRESS_MODE _addressMode, ComPtr<ID3D11SamplerState> _sampler)
 {
 	D3D11_SAMPLER_DESC sampDesc = {};
 	ZeroMemory(&sampDesc, sizeof(D3D11_SAMPLER_DESC));
@@ -80,15 +85,16 @@ void D3DClass::InitD3D()
 	UINT creationFlags = 0;
 #ifdef _DEBUG
 	creationFlags |= D3D11_CREATE_DEVICE_DEBUG;
+	D3D_FEATURE_LEVEL featureLevel;
 #endif
 
 	// 1. 장치 생성.   2. 스왑체인 생성.  3. 장치 컨텍스트 생성.
 	HR_T(D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, creationFlags, NULL, NULL,
-		D3D11_SDK_VERSION, &swapDesc, &swapChain, &D3DDevice, NULL, &D3DDeviceContext));
+		D3D11_SDK_VERSION, &swapDesc, swapChain.GetAddressOf(), D3DDevice.GetAddressOf(), &featureLevel, D3DDeviceContext.GetAddressOf()));
 
 	ID3D11Texture2D* BackBufferTexture = nullptr;
 	HR_T(swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)&BackBufferTexture));
-	HR_T(D3DDevice->CreateRenderTargetView(BackBufferTexture, nullptr, &renderTargetView));
+	HR_T(D3DDevice->CreateRenderTargetView(BackBufferTexture, nullptr, renderTargetView.GetAddressOf()));
 	BackBufferTexture->Release(); // 외부 참조 카운트를 감소시킨다.
 
 	// 뷰포트 설정.	
@@ -120,9 +126,29 @@ void D3DClass::InitD3D()
 void D3DClass::InitDXGI()
 {
 	HR_T(D3DDevice.As(&DXGIDevice));
-	HR_T(DXGIDevice->GetAdapter(&DXGIAdapter));
+	HR_T(DXGIDevice->GetAdapter(DXGIAdapter.GetAddressOf()));
 	HR_T(DXGIAdapter->GetParent(__uuidof(IDXGIFactory), reinterpret_cast<void**>(DXGIFactory.GetAddressOf())));
 	HR_T(DXGIFactory->MakeWindowAssociation(windowInfo->hWnd, DXGI_MWA_NO_ALT_ENTER)); // 해당 플로그는 Alt + Enter 전환할수 없음
+}
+
+void D3DClass::MemoryLick()
+{
+	HMODULE dxgiDebugDll = GetModuleHandleW(L"dxgidebug.dll");
+	if (dxgiDebugDll == nullptr)
+	{
+		OutputDebugStringW(L"Failed to load dxgidebug.dll\n");
+		return;
+	}
+
+	decltype(&DXGIGetDebugInterface) GetDebugInterface = reinterpret_cast<decltype(&DXGIGetDebugInterface)>(GetProcAddress(dxgiDebugDll, "DXGIGetDebugInterface"));
+	
+	IDXGIDebug* debug = nullptr;
+	GetDebugInterface(IID_PPV_ARGS(&debug));
+
+	OutputDebugStringW(L"----------Starting Live Direct3D Object Dump----------\r\n");
+	debug->ReportLiveObjects(DXGI_DEBUG_ALL, DXGI_DEBUG_RLO_SUMMARY); // https://learn.microsoft.com/ko-kr/windows/win32/api/dxgidebug/ne-dxgidebug-dxgi_debug_rlo_flags
+	OutputDebugStringW(L"----------Completed Live Direct3D Object Dump----------\r\n");
+	debug->Release();
 }
 
 DXGI_SWAP_CHAIN_DESC D3DClass::CreateSwapDesc()

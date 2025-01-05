@@ -5,6 +5,7 @@
 #include "Client.h"
 #include "../Engine/Engine.h"
 
+
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     _In_opt_ HINSTANCE hPrevInstance,
     _In_ LPWSTR    lpCmdLine,
@@ -15,9 +16,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif
 
-    Client* DemoApp = new Client(hInstance, "test", 1600, 900, true);
+    Client* DemoApp = new Client(hInstance, "test", 1366, 768, true);
     ENGINE->Initialize();
     ENGINE->Loop();
+
+//    _CrtDumpMemoryLeaks();
 
     delete DemoApp;
 }

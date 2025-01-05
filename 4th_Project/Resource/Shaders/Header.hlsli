@@ -16,7 +16,7 @@ cbuffer LightBuffer : register(b1) // ConstantBuffer 슬롯
 
 struct VertexInputType
 {
-    uint   VertexID : SV_VertexID; // 정점 ID
+//    uint   VertexID : SV_VertexID; // 정점 ID
     float4 Position : POSITION;    // 정점 위치
     float4 Color    : COLOR;       // 색상
     float2 TexCoord : TEXCOORD0;   // 텍스처 좌표
@@ -30,9 +30,9 @@ struct PixelInputType
 //    uint   VertexID : SV_VertexID; // 정점 ID
     float4 Position : SV_POSITION; // 정점 위치
     float4 Color    : COLOR;       // 색상
-    float3 Normal   : NORMAL;      // 노말
     float2 TexCoord : TEXCOORD0;   // uv
     float4 worldPos : TEXCOORD1;   // 월드
+    float3 Normal   : NORMAL;      // 노말
     float3 Tangent  : TANGENT;     // 탄젠트 벡터
     float3 Binormal : BINORMAL;    // 바이노멀 벡터
 };

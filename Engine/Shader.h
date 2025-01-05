@@ -7,11 +7,10 @@ public:
 	Shader() = default;
 	virtual ~Shader() = default;
 
-
 	virtual void Load(std::wstring_view _filePath) override;
 
-	ComPtr<ID3DBlob> GetVSBlob(); 
-	ComPtr<ID3DBlob> GetPSBlob(); 
+	ID3DBlob* GetVSBlob();
+	ID3DBlob* GetPSBlob();
 private:
 
 public:

@@ -15,11 +15,16 @@ ModelComponent::ModelComponent(std::wstring_view _filePath)
 
 ModelComponent::~ModelComponent()
 {
-	std::cout << "ModelComponent삭제" << std::endl; // 추후 로그 시스템에 적용해야됨
+
 }
 
 void ModelComponent::ComponentInitialize()
 {
 	objectTransform = owner->GetComponent<TransformComponent>(0); // 오너의 트랜스폼을 넣는다.
 	model->Initialize();
+}
+
+void ModelComponent::ComponentUpdate(const float _deltaTime)
+{
+	model->Update(_deltaTime);
 }

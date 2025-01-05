@@ -20,7 +20,7 @@ static std::unordered_map<aiTextureType, TextureType> typeMapping = // 매핑용
     { aiTextureType_UNKNOWN, TextureType::Unknown }  // 기본 값
 };
 // 하나로 돌려 쓰자 어차피 이거 다른 곳에서 공유한다고 해도 의미도 없고 각 메테리얼 마다 맵 들고 있으면 낭비니깐
-// 언맵으로 찾는게 스위치문 보다 빠르다 이럴 경우에는 
+// 이럴 경우에는 언맵으로 찾는게 스위치문 보다 빠르다
 
 Material::Material()
 {

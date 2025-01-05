@@ -3,7 +3,7 @@ class IndexBuffer
 {
 public:
 	IndexBuffer() {};
-	~IndexBuffer() {};
+	~IndexBuffer();
 
 	void Create(const std::vector<DWORD>& _indices);
 private:

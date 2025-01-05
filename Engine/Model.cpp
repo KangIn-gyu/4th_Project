@@ -13,7 +13,6 @@ Model::Model()
 
 Model::~Model()
 {
-	SafeExtinction::SAFE_DELETE(rootNode);
 }
 
 void Model::Initialize()
@@ -26,22 +25,22 @@ void Model::Initialize()
 			// float4 -> R32G32B32A32 / float3 -> R32G32B32 / float2 -> R32G32
 			std::initializer_list<D3D11_INPUT_ELEMENT_DESC> elements = 
 			{			
-				{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT,    0, offset.Byte(InputLayout::Layout::Value::Vector4), D3D11_INPUT_PER_VERTEX_DATA, 0},
+				{ "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, offset.Byte(InputLayout::Layout::Value::Vector4), D3D11_INPUT_PER_VERTEX_DATA, 0},
 				{ "COLOR",    0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, offset.Byte(InputLayout::Layout::Value::Color),   D3D11_INPUT_PER_VERTEX_DATA, 0},
-				{ "TEXCOORD0",0, DXGI_FORMAT_R32G32_FLOAT,	     0, offset.Byte(InputLayout::Layout::Value::Vector2), D3D11_INPUT_PER_VERTEX_DATA, 0},
+				{ "TEXCOORD",0, DXGI_FORMAT_R32G32_FLOAT,	     0, offset.Byte(InputLayout::Layout::Value::Vector2), D3D11_INPUT_PER_VERTEX_DATA, 0},
 				{ "NORMAL",   0, DXGI_FORMAT_R32G32B32_FLOAT,    0, offset.Byte(InputLayout::Layout::Value::Vector3), D3D11_INPUT_PER_VERTEX_DATA, 0},
 				{ "TANGENT",  0, DXGI_FORMAT_R32G32B32_FLOAT,    0, offset.Byte(InputLayout::Layout::Value::Vector3), D3D11_INPUT_PER_VERTEX_DATA, 0},
 				{ "BINORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT,    0, offset.Byte(InputLayout::Layout::Value::Vector3), D3D11_INPUT_PER_VERTEX_DATA, 0}
 			};
-
+		
 			it.CreateInputLayout(elements, L"Shaders/VertexShaderVS.hlsl");
 		}
 	}
 }
 
-void Model::SetAiNode(AiNode* _aiNode)
+void Model::Update(const float _deltaTime)
 {
-	rootNode = _aiNode;
+	// 각 매쉬마다 처리 해야 됨.
 }
 
 void Model::SetOwner(ModelComponent* _owner)
@@ -54,7 +53,13 @@ void Model::SetMesh(std::vector<Mesh> _meshs)
 	meshs = _meshs;
 }
 
-void Model::SetMateria(std::vector<std::shared_ptr<Material>> _materials)
+void Model::SetMateria(std::vector<Material*> _materials)
 {
 	materials = _materials;
+}
+
+void Model::SetTreeNode(std::vector<AiNode> _treeNode)
+{
+	treeNode = _treeNode;
+	rootNode = &treeNode[0];
 }

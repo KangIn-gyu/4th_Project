@@ -11,7 +11,7 @@ public:
 	virtual ~ModelComponent();
 
 	virtual void ComponentInitialize() override;                       // 초기화용
-	virtual void ComponentUpdate(const float _deltaTime) override {};  // 업데이트
+	virtual void ComponentUpdate(const float _deltaTime) override;	   // 업데이트
 	virtual void ComponentRender() override {};					       // 렌더용
 
 private:

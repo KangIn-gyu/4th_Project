@@ -35,7 +35,6 @@ WindowApp::WindowApp(HINSTANCE _hInstance, std::string_view _gameName, int _scre
         {
             GetWindowRect(windowInfo->hWnd, &mainWindowRect);
         }
-  
         int consoleX = mainWindowRect.right;                            // 메인 창의 오른쪽 끝
         int consoleY = mainWindowRect.top;                              // 메인 창의 Y 위치
         int consoleWidth = 300;                                         // 콘솔 창 너비
@@ -129,10 +128,12 @@ bool WindowApp::Initialize()
       
     if(true == windowInfo->windoweMode)
     {
+        int width = windowInfo->screenWidth;
+        int heiht = windowInfo->screenHeight;
         windowInfo->hWnd = CreateWindowEx(0, StringConverter::StringToWide(windowClassName).c_str(),
             StringConverter::StringToWide(gameName).c_str(), dwStyle,
-            midX, midY, rcClient.right - rcClient.left,
-            rcClient.bottom - rcClient.top, NULL, NULL, hInstance, NULL);
+            midX, midY, windowInfo->screenWidth,
+            windowInfo->screenHeight, NULL, NULL, hInstance, NULL);
     }
     else
     {

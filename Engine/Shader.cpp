@@ -54,8 +54,8 @@ void Shader::Load(std::wstring_view _filePath)
 		}
 
 		HR_T(D3DClass::GetD3DDevice()->CreateVertexShader(VSBlob->GetBufferPointer(),
-			VSBlob->GetBufferSize(), nullptr,
-			vertexShader.GetAddressOf()));
+														  VSBlob->GetBufferSize(), nullptr,
+														  vertexShader.GetAddressOf()));
 	}
 	else if (shaderPrefix == L"PS")
 	{
@@ -68,30 +68,31 @@ void Shader::Load(std::wstring_view _filePath)
 			HR_T(D3DReadFileToBlob(_filePath.data(), PSBlob.GetAddressOf()));
 		}
 		HR_T(D3DClass::GetD3DDevice()->CreatePixelShader(PSBlob->GetBufferPointer(),
-			PSBlob->GetBufferSize(), nullptr,
-			pixelShader.GetAddressOf()));
+														 PSBlob->GetBufferSize(), nullptr,
+														 pixelShader.GetAddressOf()));
 	}
 
 	if (errorBlob)
 	{
+		MessageBoxA(NULL, (char*)errorBlob->GetBufferPointer(), "CompileShaderFromFile", MB_OK);
 		errorBlob->Release();
 	}
 }
 
-ComPtr<ID3DBlob> Shader::GetVSBlob()
+ID3DBlob* Shader::GetVSBlob()
 {
 	if (nullptr != VSBlob.Get())
 	{
-		return VSBlob;
+		return VSBlob.Get();;
 	}
 	return nullptr; // 나중에 로그 시스템 처리
 }
 
-ComPtr<ID3DBlob> Shader::GetPSBlob()
+ID3DBlob* Shader::GetPSBlob()
 {
 	if (nullptr != PSBlob.Get())
 	{
-		return PSBlob;
+		return PSBlob.Get();
 	}
 	return nullptr; // 나중에 로그 시스템 처리
 }
