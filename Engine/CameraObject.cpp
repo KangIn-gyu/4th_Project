@@ -1,20 +1,22 @@
 #include "pch.h"
 #include "CameraObject.h"
-
+#include "CameraCompoent.h"
 #include "Declare.h"
+#include "Engine.h" 
 
 CameraObject::CameraObject(Object::ObjectType type) : Object(type)
 {
-
+	windowInfo = ENGINE->GetWindowInfo();
 }
 
-CameraObject::~CameraObject()
+void CameraObject::Start()
 {
+	CreateComponent<CameraCompoent>();
 }
 
-void CameraObject::SetWindowInfo(WindowInfo* _windowInfo)
+void CameraObject::Update(const float _deltaTime)
 {
-	windowInfo = _windowInfo;
+
 }
 
 std::pair<int, int> CameraObject::GetWindowSize() const

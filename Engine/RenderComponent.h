@@ -1,8 +1,8 @@
 #pragma once
 #include "Component.h"
 
-enum class ShaderType  // 
-{
+enum class ShaderType  
+{ // 추후 더 추가될 수 있음
 	VS,
 	PS,
 	End

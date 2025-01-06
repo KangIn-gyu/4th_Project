@@ -15,7 +15,7 @@ struct WindowInfo
 
 class TransformComponent;
 struct CameraInfo
-{
+{ // 해당 정보는 카메라컴포넌트에 있음
 	float Speed = 400.f;
 	float RotationSpeed = 0.004f;
 
@@ -27,6 +27,7 @@ struct CameraInfo
 	float Near = 1.0f;           // 근거리 클리핑 평면
 	float Far = 1000.0f;          // 원거리 클리핑 평면
 
+	// 고민 사항
 	bool Update = false;
 	bool projectionUpdate = false;
 };

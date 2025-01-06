@@ -8,11 +8,11 @@
 #include "Declare.h" // 윈도우 정보때문에
 
 // test 코드
-#include "Texture.h"
-//  #include "Shader.h"
-#include "ResourceSystem.h"
-#include "Object.h"
-#include "ModelComponent.h"
+// #include "ResourceSystem.h"
+// #include "Object.h"
+// #include "ModelComponent.h"
+
+#include "ObjectManager.h"
 void Engine::TestCode()
 {
     // 텍스처, 셰이더 생성
@@ -24,12 +24,15 @@ void Engine::TestCode()
 //   std::shared_ptr<Shader> sh1 = RESOURCESYSTEM->Load<Shader>("Shaders/PixelShaderPS.hlsl");
 
    // obj
-   Object* testObj = new Object(Object::ObjectType::Basic);  // 삭제 안해서 메모리 샘
-   testObj->CreateComponent<ModelComponent>("STAGE1/FBX/char.fbx");  // gun , char2
-   std::cout << '\n';
+//   Object* testObj = new Object(Object::ObjectType::Basic);  // 삭제 안해서 메모리 샘
+//   testObj->CreateComponent<ModelComponent>("STAGE1/FBX/char.fbx");  // gun , char2
+//   std::cout << '\n';
+//
+//   RESOURCESYSTEM->Show();
+//   delete testObj;
 
-   RESOURCESYSTEM->Show();
-   delete testObj;
+    ObjectManager* test = new ObjectManager;
+    test->Initialize();
 }
 
 void Engine::Initialize()
@@ -78,9 +81,16 @@ void Engine::Loop()
     }
 }
 
-Engine::~Engine()
+WindowInfo* Engine::GetWindowInfo() const
 {
+    if (nullptr != clientApp)
+    {
+        return clientApp->GetWindowInfo();
+    }
+
+    return nullptr;
 }
+
 
 void Engine::Update(const float _deltaTime)
 {
@@ -89,7 +99,7 @@ void Engine::Update(const float _deltaTime)
 
 void Engine::Render(const float _deltaTime)
 {
-    RENDERER->Render();
+    graphicsSystem->Render();
 }
 
 

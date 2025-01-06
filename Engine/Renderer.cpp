@@ -7,6 +7,8 @@
 #include "Vertex.h"
 #include "IndexBuffer.h"
 #include "Shader.h"
+#include "Material.h"
+#include "Texture.h"
 #include "ConstantBufferData.h"
 
 void Renderer::Initialize(WindowInfo* _windowInfo)
@@ -70,6 +72,11 @@ void Renderer::Draw()
 		//	objectData.roughness = ;
 
 			// 텍스처 처리하는 거 만들어야 함
+			Material* material = modelData->materials[MeshData->GetMeshIndex()]; // 매쉬 인덱스랑 메터리얼 인덱스가 같다
+			for (auto& textur : material->GetTextures())
+			{ // 예전 코드에서 문제점인 스위치문으로 해서 더러웠지만 텍스처가 해당하는 레지스터 인덱스를 가지고 있어서 텍스처수만큼만 반복하면 됨.
+				d3dDeviceContext->PSSetShaderResources(textur->GetTextureTypeIndex(), 1 , textur->GetTexture().GetAddressOf());
+			}
 
 			// 상수 버퍼 업데이트
 			d3dDeviceContext->UpdateSubresource(matrixConstantBuffer.GetBuffer().Get(), 0, nullptr, &matrixData, 0, 0); // CPU -> GPU로 데이터 전송 처리

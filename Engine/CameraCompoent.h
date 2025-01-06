@@ -14,6 +14,7 @@ public:
 	virtual void ComponentUpdate(const float _deltaTime) override {};
 
 	DXMath::Matrix GetProjectionMatrix() const { return projectionMatrix; }
+	void SetProjection(float _FovAngleY, float _Near, float _Far);
 
 private:
 	float clientWidth  {};

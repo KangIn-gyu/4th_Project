@@ -111,9 +111,13 @@ LRESULT WindowApp::WndProc(HWND _hWnd, UINT _message, WPARAM _wParam, LPARAM _lP
     return 0;
 }
 
-WindowInfo* WindowApp::GetWindowInfo() const
+WindowInfo* WindowApp::GetWindowInfo()
 {
-    return windowInfo;
+    if (nullptr != windowInfo)
+    {
+        return windowInfo;
+    }
+    return nullptr;
 }
 
 bool WindowApp::Initialize()

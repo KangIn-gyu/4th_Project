@@ -37,4 +37,6 @@ struct alignas(16) ObjectBuffer
 
 	float metalness {};
 	float roughness {};
+	float padding0	{};
+	float padding1	{};
 };

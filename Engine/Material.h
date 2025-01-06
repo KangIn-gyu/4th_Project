@@ -30,24 +30,22 @@ class Shader;
 class Material
 {
 public:
-    using TexturePair = std::pair<TextureType, std::shared_ptr<Texture>>;
-
 	Material();
     ~Material() {};
 	virtual void Load(std::string_view _filePath, aiTextureType _type);  // 어심프에서 로드할때 사용할 예정
 
     std::string GetName() { return name; }
     void SetName(const std::string_view _materialName) { name = _materialName.data(); } // 디버그 편하게 하기 위해 이름 확인용
+    const std::vector<std::shared_ptr<Texture>>& GetTextures() const { return textures; }
+
 private:
 
 public:
 
 private: 
-    std::vector<TexturePair> textures;
+    std::vector<std::shared_ptr<Texture>> textures;
     std::string name {};
     
-    TextureType upLoadType = TextureType::Unknown;
-
     float metalness = 0;
     float roughness = 0;
 };

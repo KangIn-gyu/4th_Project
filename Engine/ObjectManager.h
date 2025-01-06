@@ -4,9 +4,13 @@ class Object;
 class ObjectManager
 {
 public:
-	void Updata(float _deltaTime);
-	void Render();
+	~ObjectManager();
 
+	void Initialize();
+	void Updata(float _deltaTime);
+	void Render() {}; // 보류 사항
+
+	void TestCode();
 private:
 
 public:
@@ -14,5 +18,6 @@ public:
 private:
 	std::unordered_map<std::type_index, std::vector<Object*>> Objects {};
 };
+
 // 싱글톤으로 처리 안함
 // 일단 보류

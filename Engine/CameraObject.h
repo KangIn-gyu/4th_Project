@@ -6,9 +6,13 @@ class CameraObject : public Object
 {
 public:
 	CameraObject(Object::ObjectType type = Object::ObjectType::Camara);
-	virtual ~CameraObject();
+	virtual ~CameraObject() {};
 
-	void SetWindowInfo(WindowInfo* _windowInfo);
+	virtual void Start() override;
+	virtual void Update(const float _deltaTime) override;
+	virtual void FixedUpdate() override {};
+	virtual void LateUpdate() override {};
+
 	std::pair<int, int> GetWindowSize() const;
 private:
 

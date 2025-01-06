@@ -4,6 +4,7 @@
 #define ENGINE Engine::GetInstance()
 
 class WindowApp;
+struct WindowInfo;
 class DirectXInput;
 class Renderer;
 class TimeSystem;
@@ -12,16 +13,17 @@ class Engine : public SingletonBase<Engine>
 	friend class SingletonBase<Engine>;
 // 함수
 public:
-	Engine(const Engine& _engine) = delete;
-	Engine(Engine&& _engine) noexcept = delete;
-
 	void Initialize();
 	void Loop();
 
+	WindowInfo* GetWindowInfo() const;
 	void SetWindowApp(WindowApp* _window) { clientApp = _window; }
+
 private:
 	Engine() = default;
-	~Engine();
+	~Engine() = default;
+	Engine(const Engine& _engine) = delete;
+	Engine(Engine&& _engine) noexcept = delete;
 
 	void Update(const float _deltaTime);
 	void Render(const float _deltaTime);
@@ -32,7 +34,7 @@ private:
 public:
 
 private:
-	WindowApp* clientApp {}; // 더블 프리 때문에 포인터로 처리함
+	WindowApp* clientApp {}; // 더블 프리 때문에 원시 포인터로 처리함
 	std::shared_ptr<Renderer> graphicsSystem {};
 	std::shared_ptr<DirectXInput> inputSystem {};
 	std::shared_ptr<TimeSystem> timeSystem{};

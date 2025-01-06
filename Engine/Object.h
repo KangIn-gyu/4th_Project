@@ -23,8 +23,8 @@ public:
 
 	ObjectType GetObjectType() { return type; }
 
-	template<ComponentType T> // 함수 오버로드함
-	void CreateComponent(auto ...arguments);
+	template<ComponentType T, typename ... Arg> // 함수 오버로드함
+	void CreateComponent(Arg&&... arguments);
 	template<ComponentType T>
 	[[nodiscard]] T* GetComponent(int _index = 0); // 기본 인덱스는 0으로 함
 
@@ -42,8 +42,14 @@ private:
 
 };
 
-template<ComponentType T>
-inline void Object::CreateComponent(auto... arguments)  
+template <typename T, typename... Args>
+concept ComponentConstructibleWithArgs = requires(Args&&... args) 
+{
+	{ T(std::forward<Args>(args)...)} -> std::same_as<T>;  // 생성자가 올바르게 작동하는지 체크
+};
+
+template<ComponentType T, typename ... Arg>
+inline void Object::CreateComponent(Arg&& ... arguments)
 {
 	if constexpr (sizeof...(arguments) == 0)
 	{
@@ -54,10 +60,18 @@ inline void Object::CreateComponent(auto... arguments)
 	}
 	else
 	{
-		auto* newComponent = new T(arguments...);
-		newComponent->SetOwner(this);
-		newComponent->ComponentInitialize();
-		components[typeid(T)].emplace_back(std::move(newComponent));
+		if constexpr (ComponentConstructibleWithArgs <T, Arg...>)
+		{
+			auto* newComponent = new T(arguments...);
+			newComponent->SetOwner(this);
+			newComponent->ComponentInitialize();
+			components[typeid(T)].emplace_back(std::move(newComponent));
+		}
+		else
+		{ // The arguments do not match the constructor of the component.
+			static_assert(ComponentConstructibleWithArgs <T, Arg...>,
+				"해당 컴포넌트는 생성자의 파라미터가 맞지 않습니다.");
+		}
 	}
 }
 

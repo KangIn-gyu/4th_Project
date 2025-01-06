@@ -6,7 +6,6 @@
 #include "InputLayout.h"
 #include "Helper.h"
 
-
 Model::Model()
 {
 	data = new ModelData;
