@@ -23,7 +23,18 @@ struct alignas(16) MatrixBuffer
 		ValidateConstantBufferSize<MatrixBuffer>();
 	}
 
-	DXMath::Matrix worldMatrix;
-	DXMath::Matrix viewMatrix;
-	DXMath::Matrix projectionMatrix;
+	DXMath::Matrix worldMatrix {};
+	DXMath::Matrix viewMatrix  {};
+	DXMath::Matrix projectionMatrix {};
+};
+
+struct alignas(16) ObjectBuffer
+{
+	ObjectBuffer()
+	{
+		ValidateConstantBufferSize<ObjectBuffer>();
+	}
+
+	float metalness {};
+	float roughness {};
 };

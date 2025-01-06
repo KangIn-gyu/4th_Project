@@ -2,7 +2,7 @@
 #include "ResourceSystem.h"
 #include "IResources.h"
 
-void ResourceSystem::AllLoadFile(std::wstring_view _filePath)
+void ResourceSystem::AllLoadFile(std::string_view _filePath)
 {
     std::filesystem::path fs(basePath + _filePath.data());
 
@@ -29,12 +29,12 @@ void ResourceSystem::Show()
         std::cout << KeyIndex << "번째 키값 :" << it.first.name() << '\n';
         for (auto& it2 : it.second)
         {
-            std::wstring filePath = it2.first;
+            std::string filePath = it2.first;
             auto weakResource = it2.second;
             auto sharedResource = weakResource.lock();
             if (sharedResource) // 리소스가 유효하다면
             {
-                std::wcout << L"Path:" << filePath << '\n';
+                std::cout << "Path:" << filePath << '\n';
             }
             std::cout << '\n';
         }

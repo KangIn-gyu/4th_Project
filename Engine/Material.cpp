@@ -27,7 +27,7 @@ Material::Material()
 
 }
 
-void Material::Load(std::wstring_view _filePath, aiTextureType _type)
+void Material::Load(std::string_view _filePath, aiTextureType _type)
 {
     auto it = typeMapping.find(_type);
     if (it != typeMapping.end())
@@ -41,11 +41,6 @@ void Material::Load(std::wstring_view _filePath, aiTextureType _type)
 
     textures.emplace_back(upLoadType, RESOURCESYSTEM->Load<Texture>(_filePath));
     upLoadType = TextureType::Unknown;
-}
-
-void Material::SetShader(std::wstring_view _filePath)
-{
-    shader = RESOURCESYSTEM->Load<Shader>(_filePath);
 }
 
 

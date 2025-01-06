@@ -20,7 +20,7 @@ struct CameraInfo
 	float RotationSpeed = 0.004f;
 
 	// 트랜스폼 고민중
-	TransformComponent* cameraTransform;
+	TransformComponent* cameraTransform {};  // 업캐스팅 문제 때문에 이렇게 처리함
 
 	// 투영 관련 변수
 	float FovAngleY = 1.0f;
@@ -33,7 +33,6 @@ struct CameraInfo
 
 struct MaterialInfo
 {
-	float metallic{};        // 기본 비금속
+	float metallic {};       // 기본 비금속
 	float roughness = 0.5f;  // 기본 거칠기
-
 };

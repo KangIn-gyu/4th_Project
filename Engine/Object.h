@@ -26,7 +26,7 @@ public:
 	template<ComponentType T> // 함수 오버로드함
 	void CreateComponent(auto ...arguments);
 	template<ComponentType T>
-	[[nodiscard]] T* GetComponent(int _index);
+	[[nodiscard]] T* GetComponent(int _index = 0); // 기본 인덱스는 0으로 함
 
 	 
 private:

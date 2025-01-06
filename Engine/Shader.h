@@ -7,10 +7,14 @@ public:
 	Shader() = default;
 	virtual ~Shader() = default;
 
-	virtual void Load(std::wstring_view _filePath) override;
+	virtual void Load(std::string_view _filePath) override;
 
 	ID3DBlob* GetVSBlob();
+	ComPtr<ID3D11VertexShader> GetVertexShader() { return vertexShader; }
+
 	ID3DBlob* GetPSBlob();
+	ComPtr<ID3D11PixelShader> GetPixelShader() { return pixelShader; }
+
 private:
 
 public:

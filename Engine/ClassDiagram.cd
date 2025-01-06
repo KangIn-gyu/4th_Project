@@ -15,9 +15,9 @@
     </TypeIdentifier>
   </Class>
   <Class Name="WindowApp" Collapsed="true">
-    <Position X="3.5" Y="2.25" Width="1.5" />
+    <Position X="2" Y="2.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>IAAAAAQAwBAAAQAAAAAAAAAAABAAAAoIAAIAwAAAAAA=</HashCode>
+      <HashCode>IAAAAAAAwBAAAQAAAAAAAAAAABAAACoIAAIAwAAAAAA=</HashCode>
       <FileName>WindowApp.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -31,7 +31,7 @@
   <Class Name="Engine" Collapsed="true">
     <Position X="12" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AkQgAgAIQAQAAQAAAAAAAAAAAAAAAAAABBAAAAAAAAA=</HashCode>
+      <HashCode>AkQgAgAIQAQAAQAAAAAAAAAAAAAAAAAABhAAAAAAAAA=</HashCode>
       <FileName>Engine.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -43,30 +43,30 @@
     </TypeIdentifier>
   </Class>
   <Class Name="CameraCompoent" Collapsed="true">
-    <Position X="13" Y="4" Width="1.5" />
+    <Position X="16.5" Y="4.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAIACAAAABCFAAEAgAAAAABAQAAAAAAAAgAAAA=</HashCode>
+      <HashCode>AAAAAAAIACAAAABCFAAEAgAAAAABAQgAAAAAAAgAAAA=</HashCode>
       <FileName>CameraCompoent.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TransformComponent" Collapsed="true">
-    <Position X="15" Y="4" Width="1.5" />
+    <Position X="18.5" Y="4.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAgEEFFAAAABEEACEIAECAAAFAAQAAEAAAgBAgQA=</HashCode>
+      <HashCode>AAAAAAEEFFAAAAAEEAAEAAAAAQAFAgAAAEAAAgBAAQA=</HashCode>
       <FileName>TransformComponent.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Component" Collapsed="true">
-    <Position X="14" Y="2.75" Width="1.5" />
+    <Position X="18.75" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAgAAAIAIAAgAAAEAAEAAAAAAABAAAAAABAAAAAAAA=</HashCode>
       <FileName>Component.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Object" Collapsed="true">
-    <Position X="14" Y="2" Width="1.5" />
+    <Position X="17.5" Y="2.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAAAAAyAAAAAgAACAJAAAAAAAAAAAAAAAACAABAA=</HashCode>
+      <HashCode>AAQCAAAAAyAAAAAgAACAJAAAAAABAAAAAAAAACAABAA=</HashCode>
       <FileName>Object.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -80,54 +80,54 @@
   <Class Name="D3DClass" Collapsed="true">
     <Position X="6.25" Y="5.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>gACGAoAEIAAAAQgAFAABYAAAsAAAAAAkFgBAAAAAAEA=</HashCode>
+      <HashCode>gACGAoAEIAAAAQgAFAABYAAAsAAAAAIkFgBAAAAAAEI=</HashCode>
       <FileName>D3DClass.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Viewport" Collapsed="true">
-    <Position X="6.25" Y="7.25" Width="1.5" />
+    <Position X="8.25" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAIAAAAEBABAAABgCgAAAACAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Viewport.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Mesh" Collapsed="true">
-    <Position X="19.5" Y="5.75" Width="1.5" />
+    <Position X="28.5" Y="6.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAQAAAAAAEAAAAAAAAAAAAAABABAAACAQAAAAAACAA=</HashCode>
+      <HashCode>AAAQAAAAAAEFAAAAABAAAAAAABEEAQACEQAAQAQADQA=</HashCode>
       <FileName>Mesh.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="VertexBuffer" Collapsed="true">
-    <Position X="21.25" Y="6.5" Width="1.5" />
+    <Position X="26.5" Y="9.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>QBAQAAAAgAAAAAAAAAAAAAAAAAAQAEAAAAAAAAAAEAA=</HashCode>
       <FileName>Vertex.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ModelComponent" Collapsed="true">
-    <Position X="19.5" Y="4" Width="1.5" />
+    <Position X="25.5" Y="4.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAgAAAAAAAAEAEEAAAAAAABAAAAAAAAAAAAAAE=</HashCode>
+      <HashCode>AAAAAAAgAAAAAAAAEAEEAAAAAAABAAAAAAAAAAAIAAE=</HashCode>
       <FileName>ModelComponent.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ResourceSystem" Collapsed="true">
     <Position X="2.75" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAgAAgAAAAACAAAQAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAgAAgAAAAACAAAQAAAgAAEAAEAAAAAAAAAAQAAAA=</HashCode>
       <FileName>ResourceSystem.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="IResources" Collapsed="true">
-    <Position X="2.75" Y="5.5" Width="1.5" />
+    <Position X="2.75" Y="6" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAgAAAABgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>IResources.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="IndexBuffer" Collapsed="true">
-    <Position X="22.75" Y="6.5" Width="1.5" />
+    <Position X="28" Y="9.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAQAAAAAAAAAAAAAAAEAABABAAAEAAAAAAAAAAAAA=</HashCode>
       <FileName>IndexBuffer.h</FileName>
@@ -136,19 +136,19 @@
   <Class Name="Shader" Collapsed="true">
     <Position X="2.75" Y="7" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QAAAgBABAAAAAEAAEAQAAAAAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <HashCode>QAAAgBABAAAAAAAAEAQAAAAAAAAAAAAABAAAAAAAAAA=</HashCode>
       <FileName>Shader.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="InputLayout" Collapsed="true">
-    <Position X="24.25" Y="6.5" Width="1.5" />
+    <Position X="29.5" Y="9.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAACIAAAAAAAAAAAACAAAAAgAAAAA=</HashCode>
       <FileName>InputLayout.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ObjectManager" Collapsed="true">
-    <Position X="15.75" Y="2" Width="1.5" />
+    <Position X="17.5" Y="1.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAEAABAAAAAAAAA=</HashCode>
       <FileName>ObjectManager.h</FileName>
@@ -157,30 +157,100 @@
   <Class Name="Renderer" Collapsed="true">
     <Position X="6.25" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAgAAAAAQAAAQAAAAgAAAAAAAAAAgAAABCgAAAAAEA=</HashCode>
+      <HashCode>AAAiAAAIAQAAAQAAAAgAAAAAAAAAAgAAABCgAAAAAEA=</HashCode>
       <FileName>Renderer.h</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="RenderComponent" Collapsed="true">
+    <Position X="20.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEAAEAAAAAAARAAAAAAAAAABAgAA=</HashCode>
+      <FileName>RenderComponent.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model" Collapsed="true">
+    <Position X="25.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQQAgAAIEMAAkQAAAAAAAAAAAAARAAAAAAgAAABAAAA=</HashCode>
+      <FileName>Model.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StaticMesh" Collapsed="true">
+    <Position X="29.75" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>StaticMesh.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkeletalMesh" Collapsed="true">
+    <Position X="28" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAQAAAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SkeletalMesh.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Material" Collapsed="true">
+    <Position X="26.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAgAAAAEAEAAAAAAAAAAAAAAAEAAAABIAAQEAABAA=</HashCode>
+      <FileName>Material.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CameraObject" Collapsed="true">
+    <Position X="14.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAABAAAAAAQAIAAAgAAAAAAAA=</HashCode>
+      <FileName>CameraObject.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FBXLoader" Collapsed="true">
+    <Position X="1" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAIAAAAAADAADQAQADAgAoAAAAJCABMAgBCAEA=</HashCode>
+      <FileName>FBXLoader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AiNode" Collapsed="true">
+    <Position X="24.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAIAEABACADAAAAAABAEQAAAAEAIQAAABAQ=</HashCode>
+      <FileName>AiNode.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Transform" Collapsed="true">
+    <Position X="18.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgEEFEAAAABEAACAIAUCAQAFAgQAAEAAAgBAgYA=</HashCode>
+      <FileName>Transform.h</FileName>
+    </TypeIdentifier>
+  </Class>
   <Struct Name="WindowInfo" Collapsed="true">
-    <Position X="15" Y="5.25" Width="1.5" />
+    <Position X="3.5" Y="2.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAEABAAAAAAAAEIAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
       <FileName>Declare.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="CameraInfo" Collapsed="true">
-    <Position X="13" Y="5.25" Width="1.5" />
+    <Position X="16.5" Y="5.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>gAQIAAAAgAAAAAAAAAACAAABAAAQAAAAAAAAAAAAQAA=</HashCode>
+      <HashCode>gAQIAAAAgAAAAAAAAIACAAABAAAAAAAAAAAAAAAAQAA=</HashCode>
       <FileName>Declare.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="Vertex" Collapsed="true">
-    <Position X="19.5" Y="6.5" Width="1.5" />
+    <Position X="24.75" Y="9.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAABAAAAAAAAIAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAABAAAAAAAAIAgQAAAAAACgAAAAAgAAAgA=</HashCode>
       <FileName>Vertex.h</FileName>
     </TypeIdentifier>
   </Struct>
+  <Enum Name="TextureType" Collapsed="true">
+    <Position X="26.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAEABABQgAAABAAABAIBBAABAIAAADAAFAAEEAgFA=</HashCode>
+      <FileName>Material.h</FileName>
+    </TypeIdentifier>
+  </Enum>
   <Font Name="맑은 고딕" Size="9" />
 </ClassDiagram>

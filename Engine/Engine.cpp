@@ -16,16 +16,16 @@
 void Engine::TestCode()
 {
     // 텍스처, 셰이더 생성
-//   std::shared_ptr<Texture> test = RESOURCESYSTEM->Load<Texture>(L"STAGE1/Texturs/dice.png");
-//   std::shared_ptr<Texture> test1 = RESOURCESYSTEM->Load<Texture>(L"STAGE1/Texturs/Base_BaseColor.tga");
-//   std::shared_ptr<Texture> test3 = RESOURCESYSTEM->Load<Texture>(L"STAGE1/Texturs/SkyBlueBrdf.dds");
+//   std::shared_ptr<Texture> test = RESOURCESYSTEM->Load<Texture>("STAGE1/Texturs/dice.png");
+//   std::shared_ptr<Texture> test1 = RESOURCESYSTEM->Load<Texture>("STAGE1/Texturs/Base_BaseColor.tga");
+//   std::shared_ptr<Texture> test3 = RESOURCESYSTEM->Load<Texture>("STAGE1/Texturs/SkyBlueBrdf.dds");
 //
-//   std::shared_ptr<Shader> sh2 = RESOURCESYSTEM->Load<Shader>(L"Shaders/VertexShaderVS.hlsl");
-//   std::shared_ptr<Shader> sh1 = RESOURCESYSTEM->Load<Shader>(L"Shaders/PixelShaderPS.hlsl");
+//   std::shared_ptr<Shader> sh2 = RESOURCESYSTEM->Load<Shader>("Shaders/VertexShaderVS.hlsl");
+//   std::shared_ptr<Shader> sh1 = RESOURCESYSTEM->Load<Shader>("Shaders/PixelShaderPS.hlsl");
 
    // obj
    Object* testObj = new Object(Object::ObjectType::Basic);  // 삭제 안해서 메모리 샘
-   testObj->CreateComponent<ModelComponent>(L"STAGE1/FBX/char.fbx");  // gun , char2
+   testObj->CreateComponent<ModelComponent>("STAGE1/FBX/char.fbx");  // gun , char2
    std::cout << '\n';
 
    RESOURCESYSTEM->Show();

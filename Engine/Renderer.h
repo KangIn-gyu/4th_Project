@@ -5,14 +5,15 @@
 
 #define RENDERER Renderer::GetInstance()
 
-struct WindowInfo;
 class RenderComponent;
+struct WindowInfo;
 class Renderer : public SingletonBase<Renderer>
 {
 	friend class SingletonBase<Renderer>;
 public:
 	void Initialize(WindowInfo* _windowInfo);
 	void Render();
+	void Draw();
 	void AddRenderComponent(RenderComponent* _renderComponent);
 
 private:
@@ -31,11 +32,12 @@ private:
 
 	// 상수 버퍼
 	ConstantBuffer matrixConstantBuffer;
+	ConstantBuffer objectBuffer;
 
 	// 샘플러 : 이것도 상수버퍼처럼 돌려쓰기용
-	ComPtr<ID3D11SamplerState>	linearWrapSampler{};    // LINEAR 필터링
-	ComPtr<ID3D11SamplerState>  pointClampSampler{};    // POINT 필터링
+	ComPtr<ID3D11SamplerState>	linearWrapSampler;    // LINEAR 필터링
+	ComPtr<ID3D11SamplerState>  pointClampSampler;    // POINT 필터링
 
-//	std::vector<> // 추후 렌더링 컴포넌트를 수집해서 한번에 그림을 그리게 할 것이다.
+	ComPtr<ID3D11DeviceContext> d3dDeviceContext;
 };
-
+// 여기서 메인 카메라 포인터로 가지게 할 수 있게 처리 하자

@@ -34,10 +34,9 @@ public:
 
 	Material();
     ~Material() {};
-	virtual void Load(std::wstring_view _filePath, aiTextureType _type);  // 어심프에서 로드할때 사용할 예정
+	virtual void Load(std::string_view _filePath, aiTextureType _type);  // 어심프에서 로드할때 사용할 예정
 
     std::string GetName() { return name; }
-    void SetShader(std::wstring_view _filePath);
     void SetName(const std::string_view _materialName) { name = _materialName.data(); } // 디버그 편하게 하기 위해 이름 확인용
 private:
 
@@ -45,9 +44,11 @@ public:
 
 private: 
     std::vector<TexturePair> textures;
-    std::shared_ptr<Shader> shader;  // 고민 사항
     std::string name {};
-
+    
     TextureType upLoadType = TextureType::Unknown;
+
+    float metalness = 0;
+    float roughness = 0;
 };
 

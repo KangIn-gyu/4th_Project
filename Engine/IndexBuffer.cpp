@@ -10,6 +10,7 @@ IndexBuffer::~IndexBuffer()
 
 void IndexBuffer::Create(const std::vector<DWORD>& _indices)
 {
+	indexCount = _indices.size();
 	indices = std::move(_indices); // ∞ÌπŒ¡ﬂ
 
 	D3D11_BUFFER_DESC ibDesc = {};

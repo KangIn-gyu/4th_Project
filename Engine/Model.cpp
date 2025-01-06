@@ -6,18 +6,20 @@
 #include "InputLayout.h"
 #include "Helper.h"
 
+
 Model::Model()
 {
-
+	data = new ModelData;
 }
 
 Model::~Model()
 {
+	SafeExtinction::SAFE_DELETE(data);
 }
 
 void Model::Initialize()
 {
-	for (auto& it : meshs) // 음... 이 방식으로 하기 싫었지만 시간때문에 그냥 타협함.
+	for (auto& it : data->meshs) // 음... 이 방식으로 하기 싫었지만 시간때문에 그냥 타협함.
 	{
 		if (owner->GetOwner()->GetObjectType() == Object::ObjectType::Basic)
 		{
@@ -33,7 +35,7 @@ void Model::Initialize()
 				{ "BINORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT,    0, offset.Byte(InputLayout::Layout::Value::Vector3), D3D11_INPUT_PER_VERTEX_DATA, 0}
 			};
 		
-			it.CreateInputLayout(elements, L"Shaders/VertexShaderVS.hlsl");
+			it.CreateInputLayout(elements, "Shaders/VertexShaderVS.hlsl");
 		}
 	}
 }
@@ -50,16 +52,16 @@ void Model::SetOwner(ModelComponent* _owner)
 
 void Model::SetMesh(std::vector<Mesh> _meshs)
 {
-	meshs = _meshs;
+	data->meshs = _meshs;
 }
 
 void Model::SetMateria(std::vector<Material*> _materials)
 {
-	materials = _materials;
+	data->materials = _materials;
 }
 
 void Model::SetTreeNode(std::vector<AiNode> _treeNode)
 {
-	treeNode = _treeNode;
-	rootNode = &treeNode[0];
+	data->treeNode = _treeNode;
+	data->rootNode = &data->treeNode[0];
 }

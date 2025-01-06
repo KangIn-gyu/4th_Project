@@ -9,9 +9,10 @@ cbuffer MatrixBuffer : register(b0) // ConstantBuffer ½½·Ô
     matrix projectionMatrix;
 };
 
-cbuffer LightBuffer : register(b1) // ConstantBuffer ½½·Ô
+cbuffer ObjectBuffer : register(b1) // ConstantBuffer ½½·Ô
 {
-
+    float metalness;
+    float roughness;  
 };
 
 struct VertexInputType

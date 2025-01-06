@@ -7,7 +7,7 @@
 #include "Mesh.h"
 #include "Model.h"
 
-ModelComponent::ModelComponent(std::wstring_view _filePath)
+ModelComponent::ModelComponent(std::string_view _filePath)
 {
 	model = RESOURCESYSTEM->Load<Model>(_filePath);
 	model->SetOwner(this);

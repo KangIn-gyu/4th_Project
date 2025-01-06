@@ -12,7 +12,7 @@ public:
     template <HasRelease T>
     static void SAFE_RELEASE(T* p)
     {
-        if (p)
+        if (nullptr != p)
         {
             p->Release();
             p = nullptr;
@@ -22,7 +22,7 @@ public:
     template <typename T> requires std::is_pointer_v<T>
     static void SAFE_DELETE(T p) 
     {
-        if (p)
+        if (nullptr != p)
         {
             delete p;
             p = nullptr;

@@ -7,10 +7,17 @@ class Material;
 class ModelComponent;
 class Model : public IResources
 {
+	struct ModelData
+	{
+		std::vector<Mesh> meshs{};
+		std::vector<Material*> materials{};
+		std::vector<AiNode> treeNode{};
+		AiNode* rootNode {};
+	};
+
 public:
 	Model();
 	virtual ~Model();
-	virtual void Load(std::wstring_view _filePath) override {}; // 일단 보류 사항
 
 	void Initialize();
 	void Update(const float _deltaTime);
@@ -19,15 +26,15 @@ public:
 	void SetMateria(std::vector<Material*> _materials);
 	void SetTreeNode(std::vector<AiNode> _treeNode);
 
+	ModelData* GetModelData() { return data; }
+
 private:
+	virtual void Load(std::string_view _filePath) override {}; // 일단 보류 사항
 
 public:
 
 private:
-	std::vector<Mesh> meshs {};
-	std::vector<Material*> materials{}; 
-	std::vector<AiNode> treeNode {};
-	AiNode* rootNode {};
 	ModelComponent* owner;
+	ModelData* data;
 };
 

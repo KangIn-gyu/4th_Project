@@ -13,9 +13,10 @@
 
 DirectX::XMMATRIX ConvertMatrix(const aiMatrix4x4& _matrix); // 여기서만 사용하는 함수
 
-std::shared_ptr<Model> FBXLoader::FBXLoad(std::wstring_view _filePath)
+std::shared_ptr<Model> FBXLoader::FBXLoad(std::string_view _filePath)
 {
-	std::string filePath = StringConverter::WideToString(_filePath);
+	std::string filePathKEY = _filePath.data(); // 파일 경로가 모든 맵의 키값이다
+
 	importFlags = 0; // 시작 플래그 초기화
 	importFlags = aiProcess_Triangulate |	// vertex 삼각형 으로 출력         
 		aiProcess_GenUVCoords |				// UV 좌표 생성
@@ -27,7 +28,7 @@ std::shared_ptr<Model> FBXLoader::FBXLoad(std::wstring_view _filePath)
 
 	// 초기 스테틱 메시 확인
 	isStaticMesh = true;
-	const aiScene* scene = importer.ReadFile(filePath, importFlags);
+	const aiScene* scene = importer.ReadFile(filePathKEY, importFlags);
 
 	if (nullptr == scene)
 	{ // 추후 로그 시스템 만들자
@@ -44,22 +45,21 @@ std::shared_ptr<Model> FBXLoader::FBXLoad(std::wstring_view _filePath)
 	if (true == isStaticMesh)
 	{ // 스태틱 매쉬일 경우 플래그 변경
 		importFlags |= aiProcess_PreTransformVertices;
-		scene = importer.ReadFile(filePath, importFlags);
+		scene = importer.ReadFile(filePathKEY, importFlags);
 	}
 
-	std::string key = StringConverter::WideToString(_filePath.data()); // 공용 키
 	aiNode* rootaiNode = scene->mRootNode; // 어심프 노드
 	std::shared_ptr<Model> modelData = std::make_shared<Model>(); // 모델에 관련된 정보 데이터 저장용
 	AiNode* rootNode{}; // 내가 만든 AiNode 데이터 저장용
 	
-	auto treeNode = aiNodeMap.find(key);
-	if (treeNode != aiNodeMap.end()) // 맵을 통해 해당 노드를 생성한지 확인해 본다.
+	auto treeNode = aiNodeMap.find(filePathKEY);
+	if (treeNode != aiNodeMap.end()) // 맵을 통해 해당 노드를 생성한지 확인해 본다. 맵에서 찾았을때 없으면 처음 로드하는 것
 	{ // 존재할 경우
 		modelData->SetTreeNode(treeNode->second); // 깊은 복사
 	}
 	else
 	{ // 없을 경우는 트리 노드를 받아서 생성
-		rootNode = ProcessNode(rootaiNode, scene, nullptr, filePath); // 재귀를 통한 데이터 저장
+		rootNode = ProcessNode(rootaiNode, scene, nullptr, filePathKEY); // 재귀를 통한 데이터 저장
 		if (nullptr != rootNode) // 예외 처리
 		{
 			std::vector<AiNode> treeNodeSave;
@@ -67,19 +67,19 @@ std::shared_ptr<Model> FBXLoader::FBXLoad(std::wstring_view _filePath)
 			// 그래서 _parent 파라미터가 AddChild한 값이 없음. 그래서 재귀를 한번더 해서 처리함. 
 			CollectNodes(rootNode, &treeNodeSave); 
 			modelData->SetTreeNode(treeNodeSave);
-			aiNodeMap[key] = treeNodeSave;
+			aiNodeMap[filePathKEY] = treeNodeSave;
 
 			if (scene->HasMaterials())
 			{
-				ProcessMaterial(scene, filePath);
+				ProcessMaterial(scene, filePathKEY);
 			}
 			rootNode->AllDelete();
 			// 추후 애니메이션 등 추가 필요
 		}	
 	}
 
-	modelData->SetMesh(meshMap.find(key)->second);
-	modelData->SetMateria(materials.find(key)->second);
+	modelData->SetMesh(meshMap.find(filePathKEY)->second);
+	modelData->SetMateria(materials.find(filePathKEY)->second);
 	
 	// 테스트용 
 	AllShow();
@@ -116,24 +116,24 @@ AiNode* FBXLoader::ProcessNode(aiNode* _node, const aiScene* _scene, AiNode* _pa
 			if (isStaticMesh) 
 			{ // 스태틱 매쉬
 				StaticMesh staticMesh;  // 스태틱 매쉬 생성
-				staticMesh.SetName(mesh->mName.C_Str());  // 매쉬 이름 설정
 				staticMesh.SetFBXMeshIndex(meshIndex);	  // 인덱스 번호 만들기 없어도 될거 같은데 일단 테스트용
+				staticMesh.SetName(mesh->mName.C_Str());  // 매쉬 이름 설정
 				staticMesh.SetTransform(currentNode->GetPointTransform()); // AiNode라고 내가 만든 어심프의 aiNode의 데이터를 저장한 객체의 트랜스폼 설정
 				
 				if(nullptr != _parent) // 예외처리
 				staticMesh.SetTransformParent(_parent->GetPointTransform()); // 부모 설정
 
-				ProcessMesh(mesh, _scene); // 프로세스매쉬를 하고선 버텍스버퍼/인덱스버퍼가 정보 복사
+				ProcessMesh(mesh, _scene, _filePath); // 프로세스매쉬를 하고선 버텍스버퍼/인덱스버퍼가 정보 복사
 
 				// 복사된 데이터의 자료형을 언오더드맵을 통해서 포인터로 받는다.
-				staticMesh.SetVertexBuffer(vertexBufferMap.find(staticMesh.GetMeshName())->second);
-				staticMesh.SetIndexBuffer(indexBufferMap.find(staticMesh.GetMeshName())->second);
-				SaveMeshData(_filePath, staticMesh);
+				staticMesh.SetVertexBuffer(vertexBufferMap.find(_filePath.data())->second[index]);
+				staticMesh.SetIndexBuffer(indexBufferMap.find(_filePath.data())->second[index]);
+				SaveMeshData(_filePath, std::move(staticMesh));
 			}
 			else
 			{ // 스켈레탈 매쉬 나중에 처리 자료형 적립을 다 못함
 			  // SkeletalMesh skeletalMesh;
-				ProcessMesh(mesh, _scene);
+				ProcessMesh(mesh, _scene, _filePath);
 			}
 		}
 	}
@@ -171,7 +171,7 @@ bool FBXLoader::HasBones(const aiScene* _scene)
 	return false;
 }
 
-void FBXLoader::ProessIndexs(aiMesh* _mesh, unsigned int _indexSize)
+void FBXLoader::ProessIndexs(aiMesh* _mesh, unsigned int _indexSize, const std::string_view _filePath)
 {
 	std::vector<DWORD> indexBufferData;
 	indexBufferData.reserve(static_cast<int>(_indexSize)); // 미리 사이즈 확장
@@ -189,18 +189,19 @@ void FBXLoader::ProessIndexs(aiMesh* _mesh, unsigned int _indexSize)
 	// 하... 왜 오류나는지 암. 미친 ... 매쉬 이름이 같아서 문제가 되는거였어..
 	IndexBuffer* newIndexBuffer = new IndexBuffer;
 	newIndexBuffer->Create(indexBufferData);
-	indexBufferMap.emplace(_mesh->mName.C_Str(), newIndexBuffer);
+
+	if (indexBufferMap.find(_filePath.data()) != indexBufferMap.end())
+	{   // 기존 벡터에 추가
+		indexBufferMap[_filePath.data()].push_back(newIndexBuffer);
+	}
+	else 
+	{   // 새 벡터 생성 후 추가
+		indexBufferMap.emplace(_filePath, std::vector<IndexBuffer*>{newIndexBuffer});
+	}
 }
 
-void FBXLoader::ProcessVertexs(aiMesh* _mesh, unsigned int _vertexSize)
+void FBXLoader::ProcessVertexs(aiMesh* _mesh, unsigned int _vertexSize, const std::string_view _filePath)
 {
-	// 일단 맵에 있는지 확인 있으면 해당 값을 준다
-	auto it = vertexBufferMap.find(_mesh->mName.C_Str());
-	if (it != vertexBufferMap.end())
-	{ 
-		return; // 이미 맵에 존재하는 경우
-	}
-
 	std::vector<Vertex> vertexBufferData;
 	vertexBufferData.reserve(static_cast<int>(_vertexSize)); // 미리 사이즈 확장
 
@@ -241,23 +242,30 @@ void FBXLoader::ProcessVertexs(aiMesh* _mesh, unsigned int _vertexSize)
 
 	VertexBuffer* newVertexBuffer = new VertexBuffer;
 	newVertexBuffer->Create(vertexBufferData);
-	vertexBufferMap.emplace(_mesh->mName.C_Str(), newVertexBuffer);
+	if (vertexBufferMap.find(_filePath.data()) != vertexBufferMap.end())
+	{   // 기존 벡터에 추가
+		vertexBufferMap[_filePath.data()].push_back(newVertexBuffer);
+	}
+	else
+	{   // 새 벡터 생성 후 추가
+		vertexBufferMap.emplace(_filePath, std::vector<VertexBuffer*>{newVertexBuffer});
+	}
 }
 
-void FBXLoader::ProcessMesh(aiMesh* _mesh, const aiScene* _scene)
+void FBXLoader::ProcessMesh(aiMesh* _mesh, const aiScene* _scene, const std::string_view _filePath)
 {
-	ProcessVertexs(_mesh, _mesh->mNumVertices);
-	ProessIndexs(_mesh, _mesh->mNumFaces);
+	ProcessVertexs(_mesh, _mesh->mNumVertices, _filePath);
+	ProessIndexs(_mesh, _mesh->mNumFaces, _filePath);
 }
 
-void FBXLoader::SaveMeshData(std::string_view _filePath, Mesh _mesh)
+void FBXLoader::SaveMeshData(std::string_view _filePath, Mesh&& _mesh)
 {
 	if (meshMap.find(_filePath.data()) == meshMap.end())
 	{ // 예외 처리 맵을 찾았을때 비웠을 경우 맵[키] = std::vector를 만들어서 넣는다
 		meshMap[_filePath.data()] = std::vector<Mesh>{};
 	}
 	// 해당 맵이 있으면 그 키값에 저장
-	meshMap[_filePath.data()].push_back(_mesh);
+	meshMap[_filePath.data()].emplace_back(std::forward<Mesh>(_mesh));
 }
 
 void FBXLoader::ProcessMaterial(const aiScene* _scene, const std::string_view _modelFilePath)
@@ -305,7 +313,7 @@ void FBXLoader::ProcessMaterial(const aiScene* _scene, const std::string_view _m
 				{   // 아래 코드를 통해서 뒤에서 /이후의 문자열이 나온다
 					std::string file = StringConverter::GetFileNameFromPath<std::string>(StringConverter::StringToWide(texturePath.C_Str()));
 					std::string filePath = basePath + texturesFolder + file; // 최종 경로
-					materialData->Load(StringConverter::StringToWide(filePath) , (aiTextureType)type);
+					materialData->Load( filePath , (aiTextureType)type);
 				}
 			}
 		}
@@ -369,13 +377,19 @@ FBXLoader::~FBXLoader()
 {
 	for (auto& it : vertexBufferMap)
 	{
-		SafeExtinction::SAFE_DELETE(it.second);
+		for (auto& data : it.second)
+		{
+			SafeExtinction::SAFE_DELETE(data);
+		}
 	}
 	vertexBufferMap.clear();
 
 	for (auto& it : indexBufferMap)
 	{
-		SafeExtinction::SAFE_DELETE(it.second);
+		for (auto& data : it.second)
+		{
+			SafeExtinction::SAFE_DELETE(data);
+		}
 	}
 	indexBufferMap.clear();
 

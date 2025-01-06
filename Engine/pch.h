@@ -16,6 +16,7 @@
 // 컨테이너
 #include <map>
 #include <vector>
+#include <unordered_map>
 
 // 포인터 관련
 #include <memory>
