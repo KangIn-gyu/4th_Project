@@ -1,6 +1,7 @@
 #pragma once
 
 class Object;
+
 class ObjectManager
 {
 public:
@@ -11,6 +12,7 @@ public:
 	void Render() {}; // 보류 사항
 
 	void TestCode();
+	void MainCameraSetting(int _index);
 private:
 
 public:

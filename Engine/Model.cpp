@@ -40,8 +40,8 @@ void Model::Initialize()
 }
 
 void Model::Update(const float _deltaTime)
-{
-	// 각 매쉬마다 처리 해야 됨.
+{ 
+	// 무슨 업데이트가 필요할가.. 고민중 나중에 애니메이션이 될거 같기도 하고 애매함
 }
 
 void Model::SetOwner(ModelComponent* _owner)

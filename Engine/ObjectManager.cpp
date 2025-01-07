@@ -4,10 +4,29 @@
 #include "CameraObject.h"
 #include "Helper.h"
 
+
+#include "TestObj.h"
+
 void ObjectManager::TestCode() 
 { // 테스트 용도 오브젝트 생성
 	CameraObject* mainCamera = new CameraObject;
-	Objects[typeid(CameraObject)].push_back(mainCamera);
+	CameraObject::g_MainCameraObject = mainCamera; // 메인 카메라 설정 
+ 	Objects[typeid(CameraObject)].push_back(mainCamera);
+
+	TestObj* testObj = new TestObj();
+	Objects[typeid(Object)].push_back(testObj);
+}
+
+void ObjectManager::MainCameraSetting(int _index)
+{
+	if (_index > 0 && _index < Objects[typeid(CameraObject)].size())
+	{
+		CameraObject::g_MainCameraObject = static_cast<CameraObject*>(Objects[typeid(CameraObject)][_index]);
+	}
+	else
+	{ // 추후 로그 시스템으로 처리해야 됨
+		std::cout << "카메라 세팅 실패" << '\n';
+	}
 }
 
 ObjectManager::~ObjectManager()

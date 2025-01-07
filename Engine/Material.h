@@ -37,6 +37,8 @@ public:
     std::string GetName() { return name; }
     void SetName(const std::string_view _materialName) { name = _materialName.data(); } // 디버그 편하게 하기 위해 이름 확인용
     const std::vector<std::shared_ptr<Texture>>& GetTextures() const { return textures; }
+    float GetMetalness() const { return metalness; }
+    float GetRoughness() const { return roughness; }
 
 private:
 

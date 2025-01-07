@@ -15,7 +15,7 @@ class RenderComponent : public Component
 {
 public:
 	RenderComponent();
-	virtual ~RenderComponent() {};
+	virtual ~RenderComponent();
 
 	virtual void ComponentInitialize() override;
 	virtual void ComponentUpdate(const float _deltaTime) override {};

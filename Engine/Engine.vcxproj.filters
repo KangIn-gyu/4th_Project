@@ -101,6 +101,9 @@
     <Filter Include="2_System\Resource\FBXLoader\Data">
       <UniqueIdentifier>{6f566df8-6ad3-4ed7-b4ad-84e867342c1f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="3_Object\Compoent\Test">
+      <UniqueIdentifier>{76f5b697-8cf5-4394-8208-9ba13488dc1b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowApp.h">
@@ -226,6 +229,9 @@
     <ClInclude Include="SkeletalMesh.h">
       <Filter>3_Object\Compoent\Model\Data\Mesh</Filter>
     </ClInclude>
+    <ClInclude Include="TestObj.h">
+      <Filter>3_Object\Compoent\Test</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WindowApp.cpp">
@@ -320,6 +326,9 @@
     </ClCompile>
     <ClCompile Include="SkeletalMesh.cpp">
       <Filter>3_Object\Compoent\Model\Data\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="TestObj.cpp">
+      <Filter>3_Object\Compoent\Test</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

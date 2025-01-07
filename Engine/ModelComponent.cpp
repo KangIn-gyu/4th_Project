@@ -15,7 +15,7 @@ ModelComponent::ModelComponent(std::string_view _filePath)
 
 ModelComponent::~ModelComponent()
 {
-
+	std::cout << "ModelComponent »èÁ¦" << std::endl;
 }
 
 void ModelComponent::ComponentInitialize()

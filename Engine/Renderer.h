@@ -37,7 +37,5 @@ private:
 	// 샘플러 : 이것도 상수버퍼처럼 돌려쓰기용
 	ComPtr<ID3D11SamplerState>	linearWrapSampler;    // LINEAR 필터링
 	ComPtr<ID3D11SamplerState>  pointClampSampler;    // POINT 필터링
-
-	ComPtr<ID3D11DeviceContext> d3dDeviceContext;
 };
 // 여기서 메인 카메라 포인터로 가지게 할 수 있게 처리 하자

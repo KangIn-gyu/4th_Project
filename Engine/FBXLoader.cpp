@@ -186,7 +186,7 @@ void FBXLoader::ProessIndexs(aiMesh* _mesh, unsigned int _indexSize, const std::
 			indexBufferData.emplace_back(index);
 		}
 	}
-	// 하... 왜 오류나는지 암. 미친 ... 매쉬 이름이 같아서 문제가 되는거였어..
+
 	IndexBuffer* newIndexBuffer = new IndexBuffer;
 	newIndexBuffer->Create(indexBufferData);
 

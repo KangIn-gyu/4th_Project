@@ -15,6 +15,7 @@ public:
 	void Initialize(const HWND _hWnd);
 	void Update(const float _deltaTime);
 	void InputProcesserAdd(IinputProcesser* _InputProcesser);
+	void RemoveInputProcesser(IinputProcesser* processer);
 
 private:
 	DirectXInput() : mouseState(), keyboardState() {}
@@ -26,25 +27,30 @@ private:
 
 // º¯¼ö
 public:
-	std::unique_ptr<DirectX::Keyboard>          keyboard{};
-	std::unique_ptr<DirectX::Mouse>             mouse{};
+	std::unique_ptr<DX::Keyboard>          keyboard{};
+	std::unique_ptr<DX::Mouse>             mouse{};
 
 private:
-	DirectX::Mouse::State                       mouseState{};
-	DirectX::Mouse::ButtonStateTracker          mouseStateTracker{};
+	DX::Mouse::State                       mouseState{};
+	DX::Mouse::ButtonStateTracker          mouseStateTracker{};
 
-	DirectX::Keyboard::State                    keyboardState{};
-	DirectX::Keyboard::KeyboardStateTracker     keyboardStateTracker{};
+	DX::Keyboard::State                    keyboardState{};
+	DX::Keyboard::KeyboardStateTracker     keyboardStateTracker{};
 
-	std::vector<IinputProcesser*>				inputProcessers;
+	std::vector<IinputProcesser*>		   inputProcessers;
 };
 
 class IinputProcesser
 {
 public:
 	IinputProcesser() { DXINPUT->InputProcesserAdd(this); }
-	virtual void OnInputProcess(const DirectX::Keyboard::State& KeyState,
-		const DirectX::Keyboard::KeyboardStateTracker& KeyTracker,
-		const DirectX::Mouse::State& MouseState,
-		const DirectX::Mouse::ButtonStateTracker& MouseTracker) = 0;
+	virtual ~IinputProcesser()
+	{  
+		DXINPUT->RemoveInputProcesser(this);
+	}
+
+	virtual void OnInputProcess(const DX::Keyboard::State& KeyState,
+		const DX::Keyboard::KeyboardStateTracker& KeyTracker,
+		const DX::Mouse::State& MouseState,
+		const DX::Mouse::ButtonStateTracker& MouseTracker) = 0;
 };

@@ -51,6 +51,18 @@ DXMath::Vector3 Transform::GetLocalRight() const
 void Transform::SetLocalMatrix(const DXMath::Matrix _localMatrix)
 {
 	localMatrix = _localMatrix;
+	position = localMatrix.Translation();
+	scale.x = localMatrix.Right().Length();
+	scale.y = localMatrix.Up().Length();
+	scale.z = localMatrix.Forward().Length();
+
+	DXMath::Matrix rotationMatrix = localMatrix;
+	rotationMatrix.Right(rotationMatrix.Right() / scale.x);
+	rotationMatrix.Up(rotationMatrix.Up() / scale.y);
+	rotationMatrix.Forward(rotationMatrix.Forward() / scale.z);
+
+	rotation = DXMath::Quaternion::CreateFromRotationMatrix(rotationMatrix);
+
 	UpdateTransform();
 }
 

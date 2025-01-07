@@ -177,6 +177,7 @@
     <ClInclude Include="StaticMesh.h" />
     <ClInclude Include="StringHelper.h" />
     <ClInclude Include="SystemHeader.h" />
+    <ClInclude Include="TestObj.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TimeSystem.h" />
     <ClInclude Include="Transform.h" />
@@ -217,6 +218,7 @@
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="SkeletalMesh.cpp" />
     <ClCompile Include="StaticMesh.cpp" />
+    <ClCompile Include="TestObj.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TimeSystem.cpp" />
     <ClCompile Include="Transform.cpp" />
