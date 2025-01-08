@@ -18,7 +18,7 @@ public:
 	void RemoveRenderComponent(RenderComponent* _renderComponent);
 private:
 	Renderer() {}
-	~Renderer() {};
+	~Renderer() { work.clear(); }
 	Renderer(const Renderer& InputSystem) = delete;
 	Renderer& operator=(Renderer& InputSystem) = delete;
 	Renderer(Renderer&& InputSystem) = delete;

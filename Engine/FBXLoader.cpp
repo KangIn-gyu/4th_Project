@@ -375,54 +375,11 @@ void FBXLoader::ShowAiNode()
 
 FBXLoader::~FBXLoader()
 {
-	for (auto& it : vertexBufferMap)
-	{
-		for (auto& data : it.second)
-		{
-			SafeExtinction::SAFE_DELETE(data);
-		}
-	}
-	vertexBufferMap.clear();
-
-	for (auto& it : indexBufferMap)
-	{
-		for (auto& data : it.second)
-		{
-			SafeExtinction::SAFE_DELETE(data);
-		}
-	}
-	indexBufferMap.clear();
-
-	for (auto& it : meshMap)
-	{
-		it.second.clear(); // 각 vector 내 요소들을 제거
-	}
-	meshMap.clear();
-
-	for (auto& it : materials)
-	{
-		for (auto& data : it.second)
-		{
-			SafeExtinction::SAFE_DELETE(data);
-		}
-		it.second.clear();
-	}
-	materials.clear();
-
-	for (auto& it : aiNodeMap)
-	{
-		for (auto& data : it.second)
-		{
-			SafeExtinction::SAFE_DELETE(data);
-		}
-		it.second.clear();
-	}
-	aiNodeMap.clear();
-
-	if (vertexBufferMap.empty() && indexBufferMap.empty() && meshMap.empty() && materials.empty())
-	{
-		std::cout << "FBXLoader 데이터 전부 비움" << std::endl; // 확인용 
-	}
+	SafeExtinction::SAFE_CLEAR_CONTAINER(vertexBufferMap);
+	SafeExtinction::SAFE_CLEAR_CONTAINER(indexBufferMap);
+	SafeExtinction::SAFE_CLEAR_CONTAINER(meshMap);
+	SafeExtinction::SAFE_CLEAR_CONTAINER(materials);
+	SafeExtinction::SAFE_CLEAR_CONTAINER(aiNodeMap);
 }
 
 DX::XMMATRIX ConvertMatrix(const aiMatrix4x4& _matrix) // 여기서만 사용하는 함수

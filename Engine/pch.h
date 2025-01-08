@@ -34,14 +34,6 @@ using namespace Microsoft::WRL;
 // 유틸
 #include <algorithm>
 
-// 컨셉
-template <class T>
-concept Container = requires(T t)
-{
-	t.begin();
-	t.end();
-};
-
 // Direct
 #include <d3d11.h>
 #include <directxtk/SimpleMath.h>  // #pragma comment(lib, "d3dx11.lib") 대체됨

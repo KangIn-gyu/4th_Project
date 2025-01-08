@@ -19,7 +19,7 @@ public:
 
 private:
 	DirectXInput() : mouseState(), keyboardState() {}
-	~DirectXInput() {};
+	virtual ~DirectXInput();
 	DirectXInput(const DirectXInput& InputSystem) = delete;
 	DirectXInput& operator=(DirectXInput& InputSystem) = delete;
 	DirectXInput(DirectXInput&& InputSystem) = delete;

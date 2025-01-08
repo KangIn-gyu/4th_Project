@@ -6,6 +6,7 @@
 template<typename T>
 concept StringOrWString = std::is_same_v<T, std::string> || std::is_same_v<T, std::wstring>;
 
+
 // 문자열 변환 함수
 class StringConverter
 {

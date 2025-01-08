@@ -33,13 +33,14 @@ void ObjectManager::MainCameraSetting(int _index)
 
 ObjectManager::~ObjectManager()
 {
-	for (auto& obj : Objects)
-	{
-		for (auto& index : obj.second)
-		{
-			SafeExtinction::SAFE_DELETE(index);
-		}
-	}
+//	for (auto& obj : Objects)
+//	{
+//		for (auto& index : obj.second)
+//		{
+//			SafeExtinction::SAFE_DELETE(index);
+//		}
+//	}
+	SafeExtinction::SAFE_CLEAR_CONTAINER(Objects);
 }
 
 void ObjectManager::Initialize()

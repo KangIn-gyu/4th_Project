@@ -41,3 +41,8 @@ void DirectXInput::RemoveInputProcesser(IinputProcesser* processer)
 	}
 }
 
+DirectXInput::~DirectXInput()
+{
+	inputProcessers.clear(); // 원소만 비워주면 된다. 지우는건 본인들이 알아서 할 거다
+}
+

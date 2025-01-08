@@ -33,7 +33,7 @@ void Engine::TestCode()
 
     ObjectManager* test = new ObjectManager;
     test->Initialize();
-
+    delete test;
 }
 
 void Engine::Initialize()
