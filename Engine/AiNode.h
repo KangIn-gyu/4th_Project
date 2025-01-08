@@ -4,19 +4,22 @@
 class AiNode
 {
 public:
-	AiNode() { nodeName.reserve(20); }  // 미리 이름 설정 길어봐야 27정도 될려나?
+	AiNode(); // 미리 이름 설정 길어봐야 27정도 될려나?
 	~AiNode();
-	AiNode(const AiNode& other);
+	AiNode(const AiNode& _other);
+	AiNode(AiNode&& _other) noexcept;
 
 	void AddChild(AiNode* _child);
 	void SetParent(AiNode* _parent) { parent = _parent; }
 	void SetName(std::string_view _name);
 
 	std::string GetName() { return nodeName; }
-	std::vector<AiNode*> GetChildren() { return childs; }
-	Transform GetTransform() { return transform; }
+	std::vector<AiNode*> GetChildren() { return child; }
+	
+	Transform GetTransform();
 	Transform* GetPointTransform() { return &transform; }
-	void ShowChids();
+	void ShowChild();
+	void SetLocalTransform(DX::XMMATRIX _fbxLocalTransform);
 
 	void AllDelete(); // fbx로드에서 데이터 복사용 로드 지우기용 사용하지마시오.
 private:
@@ -24,9 +27,9 @@ private:
 public:
 
 private:
-	std::vector<AiNode*> childs;
+	std::vector<AiNode*> child;
 	AiNode* parent {};
 	std::string nodeName;
-	Transform transform;
+	Transform transform; // 노드의 트랜스폼  
 };
 

@@ -59,8 +59,8 @@ void Model::SetMateria(std::vector<Material*> _materials)
 	data->materials = _materials;
 }
 
-void Model::SetTreeNode(std::vector<AiNode> _treeNode)
+void Model::SetTreeNode(std::vector<AiNode*> _treeNode)
 {
 	data->treeNode = _treeNode;
-	data->rootNode = &data->treeNode[0];
+	data->rootNode = data->treeNode[0];
 }

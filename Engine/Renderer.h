@@ -15,7 +15,7 @@ public:
 	void Render();
 	void Draw();
 	void AddRenderComponent(RenderComponent* _renderComponent);
-
+	void RemoveRenderComponent(RenderComponent* _renderComponent);
 private:
 	Renderer() {}
 	~Renderer() {};

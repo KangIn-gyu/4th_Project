@@ -22,14 +22,14 @@ class Mesh // 기반 클래스
 	};
 
 public:
-	Mesh() { }
+	Mesh();
 	~Mesh();
-
-	Mesh(Mesh&& other) noexcept;
-	Mesh& operator=(Mesh&& _mesh) noexcept;
 
 	Mesh(const Mesh& other);
 	Mesh& operator=(const Mesh& _mesh);
+
+	Mesh(Mesh&& other) noexcept;
+	Mesh& operator=(Mesh&& _mesh) noexcept;
 
 	void SetVertexBuffer(VertexBuffer* _vertexBuffer);
 	void SetIndexBuffer(IndexBuffer* _indexBuffer);
@@ -37,6 +37,7 @@ public:
 
 	void SetFBXMeshIndex(UINT _index);
 	void SetName(std::string_view _meshName);
+
 	void SetTransform(Transform* _Transform);
 	void SetTransformParent(Transform* _Transform);
 

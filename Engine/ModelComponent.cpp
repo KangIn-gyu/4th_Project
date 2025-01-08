@@ -22,6 +22,7 @@ void ModelComponent::ComponentInitialize()
 {
 	objectTransform = owner->GetComponent<TransformComponent>(0); // 오너의 트랜스폼을 넣는다.
 	model->Initialize();
+//	model->GetModelData()->rootNode->Set
 }
 
 void ModelComponent::ComponentUpdate(const float _deltaTime)

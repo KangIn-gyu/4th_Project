@@ -10,7 +10,7 @@ void Transform::UpdateTransform()
 
 	if (nullptr != parent)
 	{
-		worldMatrix = localMatrix * parent->GetWorldMatrix();
+		worldMatrix = localMatrix * parent->worldMatrix;
 	}
 	else
 	{
@@ -23,14 +23,38 @@ void Transform::UpdateTransform()
 	look = DXMath::Vector3::TransformNormal(DXMath::Vector3::Backward, worldMatrix);
 }
 
-DXMath::Matrix Transform::GetWorldMatrix() const
+DXMath::Matrix Transform::GetWorldMatrix() 
 {
+	if (nullptr != parent)
+	{                                                                    
+		worldMatrix = localMatrix * parent->worldMatrix;
+	}
+	else
+	{
+		worldMatrix = localMatrix;
+	}
+
 	return worldMatrix;
 }
 
 DXMath::Matrix Transform::GetLocalMatrix() const
 {
 	return localMatrix;
+}
+
+DXMath::Vector3 Transform::GetPosition() const
+{
+	return position;
+}
+
+DXMath::Quaternion Transform::GetQuaternion() const
+{
+	return rotation;
+}
+
+DXMath::Vector3 Transform::GetScale() const
+{
+	return scale;
 }
 
 DXMath::Vector3 Transform::GetLocalForward() const
@@ -51,19 +75,15 @@ DXMath::Vector3 Transform::GetLocalRight() const
 void Transform::SetLocalMatrix(const DXMath::Matrix _localMatrix)
 {
 	localMatrix = _localMatrix;
-	position = localMatrix.Translation();
-	scale.x = localMatrix.Right().Length();
-	scale.y = localMatrix.Up().Length();
-	scale.z = localMatrix.Forward().Length();
 
-	DXMath::Matrix rotationMatrix = localMatrix;
-	rotationMatrix.Right(rotationMatrix.Right() / scale.x);
-	rotationMatrix.Up(rotationMatrix.Up() / scale.y);
-	rotationMatrix.Forward(rotationMatrix.Forward() / scale.z);
-
-	rotation = DXMath::Quaternion::CreateFromRotationMatrix(rotationMatrix);
-
-	UpdateTransform();
+	if (nullptr != parent) 
+	{
+		worldMatrix = localMatrix * parent->worldMatrix;
+	}
+	else
+	{
+		worldMatrix = localMatrix;
+	}
 }
 
 void Transform::SetPosition(const DXMath::Vector3 _position)

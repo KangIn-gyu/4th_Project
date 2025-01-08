@@ -64,7 +64,7 @@ void Renderer::Draw()
 			d3dDeviceContext->PSSetConstantBuffers(1, 1, objectBuffer.GetBuffer().GetAddressOf());
 
 			MatrixBuffer matrixData;
-			matrixData.worldMatrix = DX::XMMatrixTranspose(MeshData->transform->GetWorldMatrix());
+			matrixData.worldMatrix = DX::XMMatrixTranspose(MeshData->transform->GetWorldMatrix());  // 전치 행렬 넣기
 			matrixData.viewMatrix = DX::XMMatrixTranspose(CameraObject::g_MainCameraObject->GetViewMatrix());
 			matrixData.projectionMatrix = DX::XMMatrixTranspose(CameraObject::g_MainCameraObject->GetProjectionMatrix());
 		
@@ -91,5 +91,13 @@ void Renderer::Draw()
 void Renderer::AddRenderComponent(RenderComponent* _renderComponent)
 {
 	work.emplace_back(_renderComponent);
+}
+
+void Renderer::RemoveRenderComponent(RenderComponent* _renderComponent)
+{
+	if (_renderComponent)
+	{
+		work.erase(std::remove(work.begin(), work.end(), _renderComponent), work.end());
+	}
 }
 

@@ -20,7 +20,7 @@ public:
 private:
 	bool HasBones(const aiScene* _scene);
 	AiNode* ProcessNode(aiNode* _node, const aiScene* _scene, AiNode* _parent, const std::string_view _filePath); // 여기 _filePath 추가한 이유 키값 공통으로 사용하기 위해
-	void CollectNodes(AiNode* _rootNode, std::vector<AiNode>* _nodes);
+	void CollectNodes(AiNode* _rootNode, std::vector<AiNode*>* _nodes);
 	void ProessIndexs(aiMesh* _mesh, unsigned int _indexSize, const std::string_view _filePath);
 	void ProcessVertexs(aiMesh* _mesh, unsigned int _vertexSize, const std::string_view _filePath);
 
@@ -30,7 +30,7 @@ private:
 
 	void AllShow();
 	void ShowMaterials();
-	void ShowMehs();
+	void ShowMesh();
 	void ShowAiNode();
 public:
 
@@ -41,7 +41,7 @@ private:
 
 	const std::string texturesFolder = "Textures/"; // 폴더 가르키기 용
 
-	std::unordered_map<std::string, std::vector<AiNode>> aiNodeMap {};
+	std::unordered_map<std::string, std::vector<AiNode*>> aiNodeMap {};
 	std::unordered_map<std::string, std::vector<VertexBuffer*>> vertexBufferMap {}; 
 	std::unordered_map<std::string, std::vector<IndexBuffer*>>  indexBufferMap  {}; 
 	std::unordered_map<std::string, std::vector<Mesh>> meshMap {};           // 매쉬 모음

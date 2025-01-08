@@ -8,7 +8,7 @@
 #include "StaticMesh.h"
 #include "SkeletalMesh.h"
 #include "Material.h"
-
+#include "Transform.h"
 #include <filesystem>
 
 DirectX::XMMATRIX ConvertMatrix(const aiMatrix4x4& _matrix); // 여기서만 사용하는 함수
@@ -52,7 +52,7 @@ std::shared_ptr<Model> FBXLoader::FBXLoad(std::string_view _filePath)
 	std::shared_ptr<Model> modelData = std::make_shared<Model>(); // 모델에 관련된 정보 데이터 저장용
 	AiNode* rootNode{}; // 내가 만든 AiNode 데이터 저장용
 	
-	auto treeNode = aiNodeMap.find(filePathKEY);
+	auto treeNode = aiNodeMap.find(filePathKEY); // aiNode가 있는지 확인
 	if (treeNode != aiNodeMap.end()) // 맵을 통해 해당 노드를 생성한지 확인해 본다. 맵에서 찾았을때 없으면 처음 로드하는 것
 	{ // 존재할 경우
 		modelData->SetTreeNode(treeNode->second); // 깊은 복사
@@ -62,18 +62,18 @@ std::shared_ptr<Model> FBXLoader::FBXLoad(std::string_view _filePath)
 		rootNode = ProcessNode(rootaiNode, scene, nullptr, filePathKEY); // 재귀를 통한 데이터 저장
 		if (nullptr != rootNode) // 예외 처리
 		{
-			std::vector<AiNode> treeNodeSave;
+			std::vector<AiNode*> treeNodeSave;
 			// ProcessNode함수에서 맵에 저장했을 경우 깊은 복사로 인해 객체 자체를 복사해서 생성함 
 			// 그래서 _parent 파라미터가 AddChild한 값이 없음. 그래서 재귀를 한번더 해서 처리함. 
 			CollectNodes(rootNode, &treeNodeSave); 
 			modelData->SetTreeNode(treeNodeSave);
-			aiNodeMap[filePathKEY] = treeNodeSave;
+			aiNodeMap[filePathKEY] = std::move(treeNodeSave);
 
 			if (scene->HasMaterials())
 			{
 				ProcessMaterial(scene, filePathKEY);
 			}
-			rootNode->AllDelete();
+	//		rootNode->AllDelete();
 			// 추후 애니메이션 등 추가 필요
 		}	
 	}
@@ -97,8 +97,8 @@ AiNode* FBXLoader::ProcessNode(aiNode* _node, const aiScene* _scene, AiNode* _pa
 	// 나중에 라이트나 카메라 관련 정보 받아 오는 거 필요할 거 같다 
 	AiNode* currentNode = new AiNode(); // 힙에 할당 내가 만든 노드 핵갈리지말자
 	currentNode->SetName(_node->mName.C_Str());
-	currentNode->GetTransform().SetLocalMatrix(ConvertMatrix(_node->mTransformation));
 	currentNode->SetParent(_parent);
+	currentNode->SetLocalTransform(ConvertMatrix(_node->mTransformation)); // 어심프 노드의 _node->mTransformation 트랜스폼을 ConvertMatrix 함수로 변경
 
 	if (nullptr != _parent)
 	{
@@ -116,7 +116,7 @@ AiNode* FBXLoader::ProcessNode(aiNode* _node, const aiScene* _scene, AiNode* _pa
 			if (isStaticMesh) 
 			{ // 스태틱 매쉬
 				StaticMesh staticMesh;  // 스태틱 매쉬 생성
-				staticMesh.SetFBXMeshIndex(meshIndex);	  // 인덱스 번호 만들기 없어도 될거 같은데 일단 테스트용
+				staticMesh.SetFBXMeshIndex(meshIndex);	  // 인덱스 번호 만들기 없어도 될거 같은데 일단 테스트용 여기서 매쉬 인포 생성
 				staticMesh.SetName(mesh->mName.C_Str());  // 매쉬 이름 설정
 				staticMesh.SetTransform(currentNode->GetPointTransform()); // AiNode라고 내가 만든 어심프의 aiNode의 데이터를 저장한 객체의 트랜스폼 설정
 				
@@ -146,13 +146,13 @@ AiNode* FBXLoader::ProcessNode(aiNode* _node, const aiScene* _scene, AiNode* _pa
 	return currentNode;
 }
 
-void FBXLoader::CollectNodes(AiNode* _rootNode, std::vector<AiNode>* _nodes)
+void FBXLoader::CollectNodes(AiNode* _rootNode, std::vector<AiNode*>* _nodes)
 {
 	if (_rootNode == nullptr)
 		return;
 
-	_nodes->push_back(*_rootNode);
-	auto children = _rootNode->GetChildren();
+	_nodes->push_back(_rootNode);
+	auto children = _rootNode->GetChildren(); // 여기 까지는 노드이름을 가지고 있다
 	for (AiNode* child : children)
 	{
 		CollectNodes(child, _nodes);
@@ -328,9 +328,9 @@ void FBXLoader::ProcessMaterial(const aiScene* _scene, const std::string_view _m
 
 void FBXLoader::AllShow()
 {
-	ShowMehs();
-	ShowMaterials();
 	ShowAiNode();
+	ShowMesh();
+	ShowMaterials();
 }
 
 void FBXLoader::ShowMaterials()
@@ -346,7 +346,7 @@ void FBXLoader::ShowMaterials()
 	}
 }
 
-void FBXLoader::ShowMehs()
+void FBXLoader::ShowMesh()
 {
 	for (auto& data : meshMap)
 	{
@@ -366,8 +366,8 @@ void FBXLoader::ShowAiNode()
 		std::cout << "AiNode KEY : " << it.first << '\n';
 		for (int i = 0; i < it.second.size(); i++)
 		{
-			std::cout << it.second[i].GetName() << '\n';
-			it.second[i].ShowChids();
+			std::cout << it.second[i]->GetName() << '\n';
+			it.second[i]->ShowChild();
 		}
 		std::cout << '\n';
 	}
@@ -408,6 +408,16 @@ FBXLoader::~FBXLoader()
 		it.second.clear();
 	}
 	materials.clear();
+
+	for (auto& it : aiNodeMap)
+	{
+		for (auto& data : it.second)
+		{
+			SafeExtinction::SAFE_DELETE(data);
+		}
+		it.second.clear();
+	}
+	aiNodeMap.clear();
 
 	if (vertexBufferMap.empty() && indexBufferMap.empty() && meshMap.empty() && materials.empty())
 	{

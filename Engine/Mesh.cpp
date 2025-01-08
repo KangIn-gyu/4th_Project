@@ -3,28 +3,17 @@
 #include "Transform.h"
 #include "Helper.h"
 
+Mesh::Mesh()
+{
+
+}
+
 Mesh::~Mesh()
 {
 	SafeExtinction::SAFE_DELETE(meshInfo);
 }
 
-Mesh::Mesh(Mesh&& other) noexcept 
-{
-	meshInfo = other.meshInfo;
-	other.meshInfo = nullptr;
-}
-
-Mesh& Mesh::operator=(Mesh&& _mesh) noexcept
-{
-	if (this != &_mesh)
-	{
-		meshInfo = _mesh.meshInfo;
-		_mesh.meshInfo = nullptr;
-	}
-	return *this;
-}
-
-Mesh::Mesh(const Mesh& _other)
+Mesh::Mesh(const Mesh& _other) // 복사
 {
 	SafeExtinction::SAFE_DELETE(meshInfo);
 	meshInfo = new MeshInfo(_other.meshInfo->GetMeshIndex());
@@ -35,7 +24,7 @@ Mesh::Mesh(const Mesh& _other)
 	meshInfo->transform = _other.meshInfo->transform;
 }
 
-Mesh& Mesh::operator=(const Mesh& _other)
+Mesh& Mesh::operator=(const Mesh& _other) // 복사
 {
 	if (this != &_other)
 	{
@@ -46,6 +35,24 @@ Mesh& Mesh::operator=(const Mesh& _other)
 		meshInfo->vertexBuffer = _other.meshInfo->vertexBuffer;
 		meshInfo->meshName = _other.meshInfo->meshName;
 		meshInfo->transform = _other.meshInfo->transform;
+	}
+	return *this;
+}
+
+Mesh::Mesh(Mesh&& other) noexcept // 이동
+{
+	SafeExtinction::SAFE_DELETE(meshInfo);
+	meshInfo = std::move(other.meshInfo);
+	other.meshInfo = nullptr;
+}
+
+Mesh& Mesh::operator=(Mesh&& _mesh) noexcept // 이동
+{
+	if (this != &_mesh)
+	{
+		SafeExtinction::SAFE_DELETE(meshInfo);
+		meshInfo = std::move(_mesh.meshInfo);
+		_mesh.meshInfo = nullptr;
 	}
 	return *this;
 }

@@ -11,7 +11,7 @@ TransformComponent::~TransformComponent()
 	std::cout << "TransformComponent 삭제" << std::endl; // 추후 로그 시스템에 적용해야됨
 }
 
-DXMath::Matrix TransformComponent::GetWorldMatrix() const
+DXMath::Matrix TransformComponent::GetWorldMatrix() 
 {
 	return transform.GetWorldMatrix();
 }

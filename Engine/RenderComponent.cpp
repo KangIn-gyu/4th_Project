@@ -13,6 +13,7 @@ RenderComponent::RenderComponent()
 
 RenderComponent::~RenderComponent()
 {
+	RENDERER->RemoveRenderComponent(this);
 	std::cout << "RenderComponent »èÁ¦" << std::endl;
 }
 

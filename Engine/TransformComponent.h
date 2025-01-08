@@ -12,7 +12,7 @@ public:
 	// ComponentUpdate에 업데이트 메트릭스 계산 안넣은 이유 가만히 있을때 계산안하기 위해서
 	virtual void ComponentUpdate(const float _deltaTime) override {}
 
-	DXMath::Matrix  GetWorldMatrix() const;
+	DXMath::Matrix  GetWorldMatrix();
 	DXMath::Matrix  GetLocalMatrix() const;
 
 	// 로컬 회전만 고려한 방향 계산
@@ -31,6 +31,7 @@ public:
 	void SetQuaternion(const DXMath::Quaternion _rotation);
 	void SetScale(const DXMath::Vector3 _scale);
 
+	Transform* GetTransform();
 	void SetParent(TransformComponent _parent);
 private:
 
@@ -39,6 +40,7 @@ public:
 private:
 	Transform transform;
 };
+// 복사의 비용이 크지만 트랜스폼의 포인터 관리로 고민하는 것보다 객체로 들고 있는게 편한거 같다
 
 // 고민의 흔적 Transform을 상속하는거랑, Transform을 has_a로 했을때
 // 각각의 장단점을 보았다.

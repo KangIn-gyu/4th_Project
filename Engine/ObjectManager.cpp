@@ -6,10 +6,12 @@
 
 
 #include "TestObj.h"
+#include "TransformComponent.h"
 
-void ObjectManager::TestCode() 
+void ObjectManager::TestCode()
 { // 테스트 용도 오브젝트 생성
 	CameraObject* mainCamera = new CameraObject;
+//	mainCamera->GetComponent<TransformComponent>()->SetPosition({0, 0, -10.0f});
 	CameraObject::g_MainCameraObject = mainCamera; // 메인 카메라 설정 
  	Objects[typeid(CameraObject)].push_back(mainCamera);
 
