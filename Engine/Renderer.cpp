@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "Renderer.h"
-
+#include "Declare.h"
 #include "RenderComponent.h"
 #include "Model.h"
 #include "Mesh.h"
@@ -19,6 +19,10 @@ void Renderer::Initialize(WindowInfo* _windowInfo)
 	D3DGraphics = std::make_unique<D3DClass>();
 	D3DGraphics->Initialize(_windowInfo);
 
+	//ImGui 초기화
+	imGui = std::make_unique<UserImGui>();
+	imGui->Initialize(_windowInfo->hWnd, D3DGraphics->GetD3DDevice(), D3DGraphics->GetD3DDeviceContext());
+
 	// 상수 버퍼 생성
 	matrixConstantBuffer.Create(sizeof(MatrixBuffer));
 	objectBuffer.Create(sizeof(ObjectBuffer));
@@ -28,10 +32,16 @@ void Renderer::Initialize(WindowInfo* _windowInfo)
 	D3DGraphics->CreateSamplerState(D3D11_FILTER_MIN_MAG_MIP_POINT, D3D11_TEXTURE_ADDRESS_CLAMP, pointClampSampler);
 }
 
+void Renderer::Update(float _deltaTiem)
+{
+	imGui->Update(_deltaTiem);
+}
+
 void Renderer::Render()
 {
 	D3DGraphics->BeginDraw({ 0.5f, 0.5f, 0.5f, 0.0f});
 	Draw();
+	imGui->Render();
 	D3DGraphics->EndDraw();
 }
 

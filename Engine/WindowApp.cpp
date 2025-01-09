@@ -4,11 +4,10 @@
 #include "Engine.h"
 #include "Helper.h"
 #include "Declare.h"
+
 // 다이렉트
 #include <directxtk/Mouse.h>
 #include <directxtk/Keyboard.h>
-
-// extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 // 용도 : WindowManager를 파생 클래스가 생성이 되면 풀스크린이 아니고 디버그 모드면 콘솔창을 생성한다.
 static Console* g_Console {}; 
@@ -49,10 +48,11 @@ WindowApp::~WindowApp()
     SafeExtinction::SAFE_DELETE(windowInfo);
 }
 
+extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 LRESULT WindowApp::WndProc(HWND _hWnd, UINT _message, WPARAM _wParam, LPARAM _lParam)
 {
-//    if (ImGui_ImplWin32_WndProcHandler(hWnd, message, wParam, lParam))
-//        return true;
+    ImGui_ImplWin32_WndProcHandler(_hWnd, _message, _wParam, _lParam);
+
     switch (_message)
     {
     case WM_DESTROY:
@@ -125,19 +125,20 @@ bool WindowApp::Initialize()
     RECT rcClient = { 0,0, windowInfo->screenWidth , windowInfo->screenHeight };
     AdjustWindowRect(&rcClient, WS_OVERLAPPEDWINDOW, FALSE);
 
-    int midX = (GetSystemMetrics(SM_CXSCREEN) - windowInfo->screenWidth) / 2;
-    int midY = (GetSystemMetrics(SM_CYSCREEN) - windowInfo->screenHeight) / 2;
+    // 메뉴바 포함한 크기 조정
+    int adjustedWidth = rcClient.right - rcClient.left;
+    int adjustedHeight = rcClient.bottom - rcClient.top;
+
+    int midX = (GetSystemMetrics(SM_CXSCREEN) - adjustedWidth) / 2;
+    int midY = (GetSystemMetrics(SM_CYSCREEN) - adjustedHeight) / 2;
 
     DWORD dwStyle = WS_OVERLAPPEDWINDOW & ~WS_THICKFRAME;
       
     if(true == windowInfo->windoweMode)
-    {
-        int width = windowInfo->screenWidth;
-        int heiht = windowInfo->screenHeight;
+    { // 창모드 일때 
         windowInfo->hWnd = CreateWindowEx(0, StringConverter::StringToWide(windowClassName).c_str(),
             StringConverter::StringToWide(gameName).c_str(), dwStyle,
-            midX, midY, windowInfo->screenWidth,
-            windowInfo->screenHeight, NULL, NULL, hInstance, NULL);
+            midX, midY, adjustedWidth, adjustedHeight, NULL, NULL, hInstance, NULL);
     }
     else
     {

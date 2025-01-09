@@ -55,6 +55,7 @@ namespace DXMath = DirectX::SimpleMath;
 #define _CRTDBG_MAP_ALLOC  // C 런타임의 디버깅 도구를 활성화 파일 이름과 라인 번호 추적
 #include <crtdbg.h>
 
+#include <imgui.h>
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>

@@ -17,8 +17,10 @@ public:
 	Object(Object::ObjectType _type = ObjectType::Basic); // 명시 안해놓으면 기본 오브젝트로 생성
 	virtual ~Object() { ClearComponents(); }
 
+	void ComponentsUpdate(const float _deltaTime);
+
 	virtual void Start() {};  // 용도 : 내가 필요한 컴포넌트 생성하는 곳 초기화나
-	virtual void Update(const float _deltaTime);
+	virtual void Update(const float _deltaTime) {}; // 용도 : 오브젝트 개인의 업데이트가 필요할때 정의
 	virtual void FixedUpdate() {}
 	virtual void LateUpdate() {}
 
@@ -29,7 +31,7 @@ public:
 
 protected:
 	template<ComponentType T, typename ... Arg> // 함수 오버로드함
-	void CreateComponent(Arg&&... arguments);
+	void CreateComponent(Arg&&... _arguments);
 
 private:
 	void ClearComponents();
@@ -50,9 +52,9 @@ concept ComponentConstructibleWithArgs = requires(Args&&... args)
 };
 
 template<ComponentType T, typename ... Arg>
-inline void Object::CreateComponent(Arg&& ... arguments)
+inline void Object::CreateComponent(Arg&& ... _arguments)
 {
-	if constexpr (sizeof...(arguments) == 0)
+	if constexpr (sizeof...(_arguments) == 0)
 	{
 		auto* newComponent = new T;
 		newComponent->SetOwner(this);
@@ -64,7 +66,7 @@ inline void Object::CreateComponent(Arg&& ... arguments)
 	{
 		if constexpr (ComponentConstructibleWithArgs <T, Arg...>)
 		{
-			auto* newComponent = new T(arguments...);
+			auto* newComponent = new T(_arguments...);
 			newComponent->SetOwner(this);
 			newComponent->ComponentInitialize();
 			if (nullptr != newComponent)

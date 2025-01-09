@@ -1,6 +1,8 @@
 #pragma once
 #include "SingletonBase.h"
 
+// #include "ObjectManager.h"
+
 #define ENGINE Engine::GetInstance()
 
 class WindowApp;
@@ -8,6 +10,7 @@ struct WindowInfo;
 class DirectXInput;
 class Renderer;
 class TimeSystem;
+class ObjectManager;
 class Engine : public SingletonBase<Engine>
 {
 	friend class SingletonBase<Engine>;
@@ -29,7 +32,7 @@ private:
 	void Render(const float _deltaTime);
 
 	void TestCode(); // 용도 이름 그대로 테스트할 것들 넣어서 실험하는 곳
-
+	void End();  // 테스트용
 // 변수
 public:
 
@@ -38,5 +41,7 @@ private:
 	std::shared_ptr<Renderer> graphicsSystem {};
 	std::shared_ptr<DirectXInput> inputSystem {};
 	std::shared_ptr<TimeSystem> timeSystem{};
+
+	ObjectManager* test; // 테스트
 };
 

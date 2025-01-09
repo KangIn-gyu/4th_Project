@@ -21,13 +21,13 @@ void CameraCompoent::ComponentInitialize()
 {
 	CameraObject* camerObj = static_cast<CameraObject*>(owner);
 	if (nullptr != camerObj && Object::ObjectType::Camara == camerObj->GetObjectType())
-	{
+	{ // 오브젝트 타입이 카메라일 경우
 		cameraInfo->cameraTransform = camerObj->GetComponent<TransformComponent>();
 		SetProjection(cameraInfo->FovAngleY, cameraInfo->Near, cameraInfo->Far);
 		UpdateViewMatrix();
 	}
 	else
-	{
+	{ // 아니면 삭제
 		delete GetOwner();
 		owner = nullptr;
 	}
@@ -38,7 +38,10 @@ void CameraCompoent::ComponentUpdate(const float _deltaTime)
 {
 	if (InputVector.Length() > 0.0f)
 	{
-		cameraInfo->cameraTransform->SetPosition(InputVector * cameraInfo->Speed *_deltaTime);
+		DXMath::Vector3 position = cameraInfo->cameraTransform->GetPosition();
+		position += InputVector * cameraInfo->Speed * _deltaTime;
+
+		cameraInfo->cameraTransform->SetPosition(position);
 		UpdateViewMatrix();
 		InputVector = DXMath::Vector3::Zero;
 	}
@@ -50,15 +53,6 @@ void CameraCompoent::UpdateViewMatrix()
 	DXMath::Vector3 forward = cameraInfo->cameraTransform->GetWorldForward();
 	DXMath::Vector3 up = cameraInfo->cameraTransform->GetLocalUp();
 
-	if (auto lenghtForward = forward.Length(); lenghtForward < 0.0001f)
-	{
-		forward = DXMath::Vector3::Forward; // 기본 forward 벡터로 설정
-	}
-
-	if (auto lenghtUp = up.Length(); lenghtUp < 0.0001f)
-	{
-		up = DXMath::Vector3::Up; // 기본 up 벡터로 설정
-	}
 	viewMatrix = DX::XMMatrixLookAtLH(position, position + forward, up);
 }
 
@@ -104,9 +98,22 @@ void CameraCompoent::OnInputProcess(const DX::Keyboard::State& KeyState, const D
 	DXMath::Vector3 forward = GetForward();
 	DXMath::Vector3 right = GetRight();
 
-	if (KeyState.IsKeyDown(DX::Keyboard::Keys::W))
+	if (KeyState.IsKeyDown(DirectX::Keyboard::Keys::W))
 	{
 		AddInputVector(forward);
+	}
+	else if (KeyState.IsKeyDown(DirectX::Keyboard::Keys::S))
+	{
+		AddInputVector(-forward);
+	}
+
+	if (KeyState.IsKeyDown(DirectX::Keyboard::Keys::A))
+	{
+		AddInputVector(-right);
+	}
+	else if (KeyState.IsKeyDown(DirectX::Keyboard::Keys::D))
+	{
+		AddInputVector(right);
 	}
 }
 

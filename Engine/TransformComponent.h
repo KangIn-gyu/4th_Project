@@ -12,6 +12,8 @@ public:
 	// ComponentUpdate에 업데이트 메트릭스 계산 안넣은 이유 가만히 있을때 계산안하기 위해서
 	virtual void ComponentUpdate(const float _deltaTime) override {}
 
+	void UpdateTransform();
+
 	DXMath::Matrix  GetWorldMatrix();
 	DXMath::Matrix  GetLocalMatrix() const;
 
@@ -26,13 +28,16 @@ public:
 	DXMath::Vector3 GetWorldUp() const;
 	DXMath::Vector3 GetWorldLook() const;
 
+	DXMath::Vector3    GetPosition() const;
+	DXMath::Quaternion GetQuaternion() const;
+	DXMath::Vector3    GetScale() const;
+
 	void SetLocalMatrix(const DXMath::Matrix _localMatrix);
 	void SetPosition(const DXMath::Vector3 _position);
 	void SetQuaternion(const DXMath::Quaternion _rotation);
 	void SetScale(const DXMath::Vector3 _scale);
+	void SetParent(TransformComponent* _parent);
 
-	Transform* GetTransform();
-	void SetParent(TransformComponent _parent);
 private:
 
 public:

@@ -46,7 +46,7 @@ private:
 	std::unordered_map<std::string, std::vector<IndexBuffer*>>  indexBufferMap  {}; 
 	std::unordered_map<std::string, std::vector<Mesh>> meshMap {};           // 매쉬 모음
 	std::unordered_map<std::string, std::vector<Material*>> materials {};  // 메테리얼 모음
-	std::vector<int*> test;
 };
+
 // 텍스처는 리소스시스템에서 처리함
 // meshs, materials, index/vertexBuffer 키값은 처음 로드할때 사용한 FBXLoad(std::wstring_view _filePath); 여기 파일 경로 값이다

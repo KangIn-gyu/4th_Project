@@ -5,7 +5,7 @@
 
 void TestObj::Start()
 {
-	CreateComponent<ModelComponent>("STAGE1/FBX/char.fbx");  // char2 / gun
+	CreateComponent<ModelComponent>("STAGE1/FBX/gun.fbx");  // char2 / gun
 	CreateComponent<RenderComponent>();
 
 	auto randerComponet = GetComponent<RenderComponent>();

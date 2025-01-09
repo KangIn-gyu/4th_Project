@@ -4,14 +4,13 @@
 #include "CameraObject.h"
 #include "Helper.h"
 
-
 #include "TestObj.h"
 #include "TransformComponent.h"
 
 void ObjectManager::TestCode()
 { // 테스트 용도 오브젝트 생성
 	CameraObject* mainCamera = new CameraObject;
-//	mainCamera->GetComponent<TransformComponent>()->SetPosition({0, 0, -10.0f});
+	mainCamera->GetComponent<TransformComponent>()->SetPosition({0, 0, -300.0f});
 	CameraObject::g_MainCameraObject = mainCamera; // 메인 카메라 설정 
  	Objects[typeid(CameraObject)].push_back(mainCamera);
 
@@ -33,13 +32,6 @@ void ObjectManager::MainCameraSetting(int _index)
 
 ObjectManager::~ObjectManager()
 {
-//	for (auto& obj : Objects)
-//	{
-//		for (auto& index : obj.second)
-//		{
-//			SafeExtinction::SAFE_DELETE(index);
-//		}
-//	}
 	SafeExtinction::SAFE_CLEAR_CONTAINER(Objects);
 }
 
@@ -56,13 +48,14 @@ void ObjectManager::Initialize()
 	}
 }
 
-void ObjectManager::Updata(float _deltaTime)
+void ObjectManager::Update(float _deltaTime)
 {
 	for (auto& obj : Objects)
 	{
 		for (int i = 0; i < obj.second.size(); i++)
 		{
-			obj.second[i]->Update(_deltaTime);
+			obj.second[i]->ComponentsUpdate(_deltaTime); // 오브젝트는 컴포넌트를 먼저 업데이트를 하고
+			obj.second[i]->Update(_deltaTime);           // 개인이 업데이트 해야 될거 처리
 		}
 	}
 }

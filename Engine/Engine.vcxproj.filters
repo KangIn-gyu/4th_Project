@@ -104,6 +104,9 @@
     <Filter Include="3_Object\Compoent\Test">
       <UniqueIdentifier>{76f5b697-8cf5-4394-8208-9ba13488dc1b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="1_Engine\Scene">
+      <UniqueIdentifier>{01d666e5-3dad-4a3f-92e5-ae7d52776c38}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowApp.h">
@@ -232,6 +235,12 @@
     <ClInclude Include="TestObj.h">
       <Filter>3_Object\Compoent\Test</Filter>
     </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>1_Engine\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>1_Engine\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WindowApp.cpp">
@@ -329,6 +338,12 @@
     </ClCompile>
     <ClCompile Include="TestObj.cpp">
       <Filter>3_Object\Compoent\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>1_Engine\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>1_Engine\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

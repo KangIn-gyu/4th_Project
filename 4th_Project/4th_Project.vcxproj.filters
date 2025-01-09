@@ -10,6 +10,9 @@
     <Filter Include="pch">
       <UniqueIdentifier>{79249e8d-63bf-45d5-8fe8-3efb6a3493f3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Client\Scene">
+      <UniqueIdentifier>{2b35123f-8814-4a6c-b931-6ebd42129bda}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">

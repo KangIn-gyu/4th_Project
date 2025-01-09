@@ -17,7 +17,7 @@ void Transform::UpdateTransform()
 		worldMatrix = localMatrix;
 	}
 
-	forward = DXMath::Vector3::TransformNormal(DXMath::Vector3::Forward, worldMatrix);
+	forward = -DXMath::Vector3::TransformNormal(DXMath::Vector3::Forward, worldMatrix);
 	right = DXMath::Vector3::TransformNormal(DXMath::Vector3::Right, worldMatrix);
 	up = DXMath::Vector3::TransformNormal(DXMath::Vector3::Up, worldMatrix);
 	look = DXMath::Vector3::TransformNormal(DXMath::Vector3::Backward, worldMatrix);

@@ -9,7 +9,7 @@ public:
 	virtual ~CameraObject() {};
 
 	virtual void Start() override;
-	virtual void Update(const float _deltaTime) override;
+	virtual void Update(const float _deltaTime);
 	virtual void FixedUpdate() override {};
 	virtual void LateUpdate() override {};
 

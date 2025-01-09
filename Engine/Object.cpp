@@ -9,7 +9,7 @@ Object::Object(Object::ObjectType _type) : type(_type)
 	CreateComponent<TransformComponent>();
 }
 
-void Object::Update(const float _deltaTime)
+void Object::ComponentsUpdate(const float _deltaTime)
 {
     for (auto& map : components)
     {
@@ -19,6 +19,7 @@ void Object::Update(const float _deltaTime)
         }
     }
 }
+
 
 void Object::ClearComponents()
 {

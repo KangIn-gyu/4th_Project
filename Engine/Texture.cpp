@@ -10,7 +10,7 @@ void Texture::Load(std::string_view _filePath)
 {
 	size_t lastDot = _filePath.find_last_of(L'.');
 	if (lastDot == std::wstring_view::npos || lastDot < 2)
-	{
+	{ // 나중에 로그 시스템으로 변경 필요
 		throw std::runtime_error("Invalid file path: Unable to determine Texture type.");
 	}
 

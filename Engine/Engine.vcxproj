@@ -171,6 +171,8 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="ResourceSystem.h" />
     <ClInclude Include="SafeExtinction.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="SingletonBase.h" />
     <ClInclude Include="SkeletalMesh.h" />
@@ -215,6 +217,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="ResourceSystem.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="SkeletalMesh.cpp" />
     <ClCompile Include="StaticMesh.cpp" />
@@ -246,6 +250,11 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Editor\Editor.vcxproj">
+      <Project>{d253e904-8054-47bd-956b-ae49528084d2}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

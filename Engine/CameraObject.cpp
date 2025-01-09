@@ -18,7 +18,7 @@ void CameraObject::Start()
 
 void CameraObject::Update(const float _deltaTime)
 {
-
+	
 }
 
 std::pair<int, int> CameraObject::GetWindowSize() const

@@ -73,10 +73,8 @@ std::shared_ptr<Model> FBXLoader::FBXLoad(std::string_view _filePath)
 			{
 				ProcessMaterial(scene, filePathKEY);
 			}
-	//		rootNode->AllDelete();
-			// 추후 애니메이션 등 추가 필요
 		}	
-	}
+	} 
 
 	modelData->SetMesh(meshMap.find(filePathKEY)->second);
 	modelData->SetMateria(materials.find(filePathKEY)->second);

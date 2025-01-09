@@ -1,8 +1,9 @@
 #pragma once
+#include "../Editor/UserImGui.h"
+
 #include "SingletonBase.h"
 #include "D3DClass.h"
 #include "ConstantBuffer.h"
-
 #define RENDERER Renderer::GetInstance()
 
 class RenderComponent;
@@ -12,6 +13,7 @@ class Renderer : public SingletonBase<Renderer>
 	friend class SingletonBase<Renderer>;
 public:
 	void Initialize(WindowInfo* _windowInfo);
+	void Update(float _deltaTiem);
 	void Render();
 	void Draw();
 	void AddRenderComponent(RenderComponent* _renderComponent);
@@ -28,8 +30,9 @@ public:
 
 private:
 	std::unique_ptr<D3DClass> D3DGraphics {}; // 그래픽스
+	std::unique_ptr<UserImGui> imGui{};
 	std::vector<RenderComponent*> work {};
-
+	
 	// 상수 버퍼
 	ConstantBuffer matrixConstantBuffer;
 	ConstantBuffer objectBuffer;
