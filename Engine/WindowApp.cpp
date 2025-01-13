@@ -120,7 +120,7 @@ WindowInfo* WindowApp::GetWindowInfo()
     return nullptr;
 }
 
-bool WindowApp::Initialize()
+void WindowApp::Initialize()
 {
     RECT rcClient = { 0,0, windowInfo->screenWidth , windowInfo->screenHeight };
     AdjustWindowRect(&rcClient, WS_OVERLAPPEDWINDOW, FALSE);
@@ -152,7 +152,7 @@ bool WindowApp::Initialize()
             NULL, NULL, hInstance, NULL);
     }
 
-    if (!windowInfo->hWnd) { return FALSE; }
+    if (!windowInfo->hWnd) { return; }
    
     SetWindowLongPtr(windowInfo->hWnd, GWL_STYLE, dwStyle);   // 창 크기 조정 비활성화: 창 스타일 변경
     ShowWindow(windowInfo->hWnd, SW_SHOW);
@@ -161,7 +161,7 @@ bool WindowApp::Initialize()
     // 윈도우를 화면에 표시하고 포커스를 지정
     SetFocus(windowInfo->hWnd);
     SetForegroundWindow(windowInfo->hWnd);
-    return TRUE;
+    return;
 }
 
 ATOM WindowApp::WindowsRegistration()

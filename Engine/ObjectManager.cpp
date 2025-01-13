@@ -1,26 +1,13 @@
 #include "pch.h"
 #include "ObjectManager.h"
-#include "Object.h"
 #include "CameraObject.h"
 #include "Helper.h"
-
-#include "TestObj.h"
+#include "FactorySystem.h"
 #include "TransformComponent.h"
-
-void ObjectManager::TestCode()
-{ // 테스트 용도 오브젝트 생성
-	CameraObject* mainCamera = new CameraObject;
-	mainCamera->GetComponent<TransformComponent>()->SetPosition({0, 0, -300.0f});
-	CameraObject::g_MainCameraObject = mainCamera; // 메인 카메라 설정 
- 	Objects[typeid(CameraObject)].push_back(mainCamera);
-
-	TestObj* testObj = new TestObj();
-	Objects[typeid(Object)].push_back(testObj);
-}
 
 void ObjectManager::MainCameraSetting(int _index)
 {
-	if (_index > 0 && _index < Objects[typeid(CameraObject)].size())
+	if (_index >= 0 && _index < Objects[typeid(CameraObject)].size())
 	{
 		CameraObject::g_MainCameraObject = static_cast<CameraObject*>(Objects[typeid(CameraObject)][_index]);
 	}
@@ -30,6 +17,47 @@ void ObjectManager::MainCameraSetting(int _index)
 	}
 }
 
+void ObjectManager::AddObject(Object* _obj)
+{
+	if (_obj)
+	{
+		// 객체의 타입에 해당하는 vector에 추가
+		std::type_index typeIndex = typeid(*_obj); // _obj의 실제 타입을 얻음
+		Objects[typeIndex].push_back(_obj);
+
+		std::cout << typeid(*_obj).name() << " ADD" << '\n';
+	}
+}
+
+void ObjectManager::ShowObject()
+{
+	for (auto& it : Objects)
+	{
+		std::cout << it.first.name() << '\n';
+		for (auto& vecData : it.second)
+		{
+			std::cout << " ShowObject : " << typeid(*vecData).name() << "  Type : " << vecData->ObjectTypeToString() << '\n';
+		}
+	}
+}
+
+/// <summary>
+/// 유니티처럼 기본적으로 제공하는 오브젝트 예로 카메라, 라이트 이렇게만 할 예정
+/// </summary>
+void ObjectManager::BasicObject()
+{ // TODO: 현재 라이트가 없음 추가 필요
+
+	auto* mainCamera = FACTORYSYSTEM->CreateObject<CameraObject>(Object::ObjectType::Camera);
+	std::cout << typeid(mainCamera).name() << std::endl;
+	mainCamera->GetComponent<TransformComponent>()->SetPosition({ 0, 0, -300.0f });
+	Objects[typeid(CameraObject)].push_back(mainCamera);
+}
+
+ObjectManager::ObjectManager()
+{
+	BasicObject(); // 생성과 동시에 기본 오브젝트 생성
+}
+
 ObjectManager::~ObjectManager()
 {
 	SafeExtinction::SAFE_CLEAR_CONTAINER(Objects);
@@ -37,8 +65,6 @@ ObjectManager::~ObjectManager()
 
 void ObjectManager::Initialize()
 {
-	TestCode();
-
 	for (auto& obj : Objects)
 	{
 		for (int i = 0; i < obj.second.size(); i++)

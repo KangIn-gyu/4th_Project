@@ -4,7 +4,7 @@
 #include "ModelComponent.h"  // ев╫╨©К 
 #include "Helper.h"
 
-Object::Object(Object::ObjectType _type) : type(_type)
+Object::Object(ObjectType _type) : type(_type)
 {
 	CreateComponent<TransformComponent>();
 }
@@ -17,6 +17,23 @@ void Object::ComponentsUpdate(const float _deltaTime)
         {
             component->ComponentUpdate(_deltaTime);
         }
+    }
+}
+
+std::string Object::ObjectTypeToString()
+{
+    switch (type)
+    {
+    case ObjectType::Basic:
+        return "Basic";
+    case ObjectType::Light:
+        return "Light";
+    case ObjectType::Camera:
+        return "Camera";
+    case ObjectType::UI:
+        return "UI";
+    default:
+        return "Unknown";
     }
 }
 

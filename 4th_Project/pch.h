@@ -10,6 +10,17 @@
 
 #include "framework.h"
 
+#include <string>
+#include <string_view>
+
+#include <map>
+#include <vector>
+#include <unordered_map>
+
+#include <typeindex>
+
+#include <iostream>
+
 #ifdef _DEBUG
 #define _CRTDBG_MAP_ALLOC
 #include <crtdbg.h>

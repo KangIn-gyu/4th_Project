@@ -29,7 +29,7 @@ public:
 	ModelData* GetModelData() { return data; }
 
 private:
-	virtual void Load(std::string_view _filePath) override {}; // 일단 보류 사항
+	virtual void Load(std::string_view _filePath) override {}; // TODO: 보류 사항 모델의 로드가 필요할까??
 
 public:
 

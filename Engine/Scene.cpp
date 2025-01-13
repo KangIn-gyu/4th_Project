@@ -2,22 +2,29 @@
 #include "Scene.h"
 
 #include "Helper.h"
+#include "Object.h"
+#include "SceneManager.h"
 
 Scene::Scene(std::string_view _Name)
 {
 	sceneName.assign(_Name);
 	objectManager = new ObjectManager;
+	SCENEMANAGER->LoadScene(this);
 }
 
 Scene::~Scene()
 {
+	std::cout << "씬 삭제" << "\n";
 	SafeExtinction::SAFE_DELETE(objectManager);
 }
 
 void Scene::Initialize()
 {
-	Enter();
-	objectManager->Initialize();
+	if (is_initialize == false)
+	{
+		objectManager->Initialize();
+		is_initialize = true;
+	}
 }
 
 void Scene::Update(const float _deltaTime)
@@ -25,17 +32,17 @@ void Scene::Update(const float _deltaTime)
 	objectManager->Update(_deltaTime);
 }
 
-void Scene::FixedUpdate(const float _deltaTime)
+void Scene::MainCameraSetting(const int _index)
 {
-	// 보류
+	objectManager->MainCameraSetting(_index);
 }
 
-void Scene::RateUpdate(const float _deltaTime)
-{
-	// 보류
-}
-
-std::string_view Scene::GetName()
+std::string Scene::GetName()
 {
 	return sceneName;
+}
+
+void Scene::ShowObject()
+{
+	objectManager->ShowObject();
 }

@@ -1,7 +1,11 @@
 #include "pch.h"
 #include "TestObj.h"
-#include "RenderComponent.h"
-#include "ModelComponent.h"
+#include "../Engine/RenderComponent.h"
+#include "../Engine/ModelComponent.h"
+
+TestObj::TestObj(Object::ObjectType _type) : Object(_type)
+{
+}
 
 void TestObj::Start()
 {
@@ -11,9 +15,4 @@ void TestObj::Start()
 	auto randerComponet = GetComponent<RenderComponent>();
 	randerComponet->SetShader(ShaderType::VS, "Shaders/VertexShaderVS.hlsl");
 	randerComponet->SetShader(ShaderType::PS, "Shaders/PixelShaderPS.hlsl");
-}
-
-void TestObj::Update(const float _deltaTime)
-{
-
 }

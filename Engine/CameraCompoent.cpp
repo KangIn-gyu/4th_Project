@@ -20,7 +20,7 @@ CameraCompoent::~CameraCompoent()
 void CameraCompoent::ComponentInitialize()
 {
 	CameraObject* camerObj = static_cast<CameraObject*>(owner);
-	if (nullptr != camerObj && Object::ObjectType::Camara == camerObj->GetObjectType())
+	if (nullptr != camerObj && Object::ObjectType::Camera == camerObj->GetObjectType())
 	{ // 오브젝트 타입이 카메라일 경우
 		cameraInfo->cameraTransform = camerObj->GetComponent<TransformComponent>();
 		SetProjection(cameraInfo->FovAngleY, cameraInfo->Near, cameraInfo->Far);

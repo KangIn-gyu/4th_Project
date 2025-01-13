@@ -64,7 +64,14 @@ public:
             }
             else if constexpr (KeyValueContainer<T>)
             {   // KeyValueContainer일 경우 pair.second 처리
-                SAFE_CLEAR_CONTAINER(element.second);
+                if constexpr (std::is_pointer_v<typename T::mapped_type>)  // mapped_type이 포인터인 경우
+                {
+                    SAFE_DELETE(element.second);  // 포인터 삭제
+                }
+                else
+                {
+                    SAFE_CLEAR_CONTAINER(element.second);  // 재귀적으로 처리
+                }
             }
             else if constexpr (ContainerType<decltype(element)>)
             {   // 중첩된 컨테이너일 경우 재귀 호출

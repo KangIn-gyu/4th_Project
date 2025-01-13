@@ -13,6 +13,9 @@
     <Filter Include="Client\Scene">
       <UniqueIdentifier>{2b35123f-8814-4a6c-b931-6ebd42129bda}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Client\Scene\TestObj">
+      <UniqueIdentifier>{b7ba875d-5234-481e-b4dd-d50fd7d62763}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -24,6 +27,12 @@
     <ClInclude Include="framework.h">
       <Filter>pch</Filter>
     </ClInclude>
+    <ClInclude Include="TestScene.h">
+      <Filter>Client\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="TestObj.h">
+      <Filter>Client\Scene\TestObj</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -34,6 +43,12 @@
     </ClCompile>
     <ClCompile Include="4th_Project.cpp">
       <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="TestScene.cpp">
+      <Filter>Client\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="TestObj.cpp">
+      <Filter>Client\Scene\TestObj</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

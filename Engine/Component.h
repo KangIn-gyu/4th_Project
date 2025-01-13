@@ -18,7 +18,7 @@ public:
 
 	virtual void ComponentInitialize() = 0;                    // 초기화용
 	virtual void ComponentUpdate(const float _deltaTime) = 0;  // 업데이트
-//	virtual void ComponentRender() = 0;					       // 렌더용  일단 보류..? 음...
+//	virtual void ComponentRender() = 0;					      // TODO: 보류 사항 컴포넌트가 렌더러 업데이트를 해야 될가?
 };
 
 // 컨셉 정리

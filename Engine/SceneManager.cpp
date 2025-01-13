@@ -1,24 +1,61 @@
 #include "pch.h"
 #include "SceneManager.h"
+#include "Scene.h"
 #include "Helper.h"
 
-SceneManager::~SceneManager()
+void SceneManager::Update(const float _deltaTime)
 {
-	SafeExtinction::SAFE_CLEAR_CONTAINER(ScenesCollection);
-	CurrentScene = nullptr;
+	if(nullptr != currentScene)
+	currentScene->Update(_deltaTime);
 }
 
-void SceneManager::Initialize()
+void SceneManager::FixedUpdate(const float _deltaTime)
 {
+	if (nullptr != currentScene)
+	currentScene->FixedUpdate(_deltaTime);
+}
 
+void SceneManager::RateUpdate(const float _deltaTime)
+{
+	if (nullptr != currentScene)
+	currentScene->RateUpdate(_deltaTime);
 }
 
 void SceneManager::LoadScene(Scene* _scene)
 {
-	auto it = ScenesCollection.find(_scene->GetName().data());
+	auto it = ScenesCollection.find(_scene->GetName());
 	if (it == ScenesCollection.end())
 	{
-		ScenesCollection.emplace(_scene->GetName().data(), std::move(_scene));
+		ScenesCollection.emplace(_scene->GetName(), _scene);
 	}
 }
+
+void SceneManager::ChangeScene(std::string_view _SceneName)
+{
+	if (ScenesCollection.empty())
+	{
+		std::cout << "씬이 없습니다." << '\n';
+	}
+
+	auto it = ScenesCollection.find(_SceneName.data());
+	if (it != ScenesCollection.end())
+	{
+		currentScene = it->second;
+		currentScene->Enter();
+		currentScene->Initialize();
+		currentScene->MainCameraSetting(0); // 메인 카메라 변경
+	}
+	else
+	{
+		std::cout << "입력하신 씬은 없습니다." << '\n';
+	}
+}
+
+SceneManager::~SceneManager()
+{
+	SafeExtinction::SAFE_CLEAR_CONTAINER(ScenesCollection);
+}
+
+
+
 

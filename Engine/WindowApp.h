@@ -21,10 +21,10 @@ public:
 	std::string GetWindowClassName() const { return windowClassName; }
 	WindowInfo* GetWindowInfo();
 
-protected:
-	bool Initialize();
+	virtual void Enter() {}; // 씬 로드 하는 곳
 
 private:
+	void Initialize();
 	ATOM WindowsRegistration();
 	
 //변수 

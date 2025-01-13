@@ -5,27 +5,15 @@
 
 #include "SystemHeader.h"
 #include "Helper.h"
-#include "Declare.h" // 윈도우 정보때문에
-
-#include "ObjectManager.h"
-
-void Engine::TestCode()
-{
-    test = new ObjectManager;
-    test->Initialize();
-
-}
-
-void Engine::End()
-{
-    delete test;
-}
+#include "SceneManager.h"
+#include "Declare.h" 
 
 void Engine::Initialize()
 {
     inputSystem = DXINPUT;
     graphicsSystem = RENDERER;
     timeSystem = TIMESYSTEM;
+    sceneManager = SCENEMANAGER;
 
     if (nullptr != clientApp) // 윈도우 생성한게 있는가?
     {
@@ -34,7 +22,7 @@ void Engine::Initialize()
         timeSystem->Initialize();
     }
 
-    TestCode();
+    clientApp->Enter();
 }
 
 void Engine::Loop()
@@ -62,8 +50,6 @@ void Engine::Loop()
         }
     }
 
-    End();
-
     if (msg.message == WM_NULL)
     {
         UnregisterClass(StringConverter::StringToWide(clientApp->GetWindowClassName()).c_str(), clientApp->GethInstance());  
@@ -80,11 +66,18 @@ WindowInfo* Engine::GetWindowInfo() const
     return nullptr;
 }
 
+void Engine::ChangeScene(std::string_view _SceneName)
+{
+    std::string name;
+    name.assign(_SceneName.data());
+    sceneManager->ChangeScene(name);
+}
+
 
 void Engine::Update(const float _deltaTime)
 {
     inputSystem->Update(_deltaTime);
-    test->Update(_deltaTime);
+    sceneManager->Update(_deltaTime);
     graphicsSystem->Update(_deltaTime);
 
 }

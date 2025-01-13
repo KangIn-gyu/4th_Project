@@ -1,18 +1,23 @@
 #pragma once
+#include "Object.h"
 
-class Object;
 class ObjectManager
 {
 public:
+	ObjectManager();
 	~ObjectManager();
 
 	void Initialize();
 	void Update(float _deltaTime);
-	void Render() {}; // 보류 사항
+	void Render() {}; // TODO: 보류 사항
 
-	void TestCode();
 	void MainCameraSetting(int _index);
+	void AddObject(Object* _obj);
+
+	// 확인용 
+	void ShowObject();
 private:
+	void BasicObject();
 
 public:
 
@@ -23,3 +28,5 @@ private:
 
 // 싱글톤으로 처리 안함
 // 일단 보류
+
+// 
