@@ -9,7 +9,7 @@ TestObj::TestObj(Object::ObjectType _type) : Object(_type)
 
 void TestObj::Start()
 {
-	CreateComponent<ModelComponent>("STAGE1/FBX/gun.fbx");  // char2 / gun
+	CreateComponent<ModelComponent>("STAGE1/FBX/char2.fbx");  // char2 / gun
 	CreateComponent<RenderComponent>();
 
 	auto randerComponet = GetComponent<RenderComponent>();

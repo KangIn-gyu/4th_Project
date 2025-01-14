@@ -107,6 +107,9 @@
     <Filter Include="1_Engine\Factory">
       <UniqueIdentifier>{d619fd5d-14ca-4b59-859a-42b6b936ba06}</UniqueIdentifier>
     </Filter>
+    <Filter Include="0_Utility\ImGui">
+      <UniqueIdentifier>{aee9bc62-4855-4385-b120-6ac214213297}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowApp.h">
@@ -241,6 +244,9 @@
     <ClInclude Include="FactorySystem.h">
       <Filter>1_Engine\Factory</Filter>
     </ClInclude>
+    <ClInclude Include="UserImGui.h">
+      <Filter>0_Utility\ImGui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WindowApp.cpp">
@@ -344,6 +350,9 @@
     </ClCompile>
     <ClCompile Include="FactorySystem.cpp">
       <Filter>1_Engine\Factory</Filter>
+    </ClCompile>
+    <ClCompile Include="UserImGui.cpp">
+      <Filter>0_Utility\ImGui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -184,6 +184,7 @@
     <ClInclude Include="TimeSystem.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="TransformComponent.h" />
+    <ClInclude Include="UserImGui.h" />
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="Viewport.h" />
     <ClInclude Include="WindowApp.h" />
@@ -227,6 +228,7 @@
     <ClCompile Include="TimeSystem.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
+    <ClCompile Include="UserImGui.cpp" />
     <ClCompile Include="Vertex.cpp" />
     <ClCompile Include="Viewport.cpp" />
     <ClCompile Include="WindowApp.cpp" />
@@ -250,11 +252,6 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Editor\Editor.vcxproj">
-      <Project>{d253e904-8054-47bd-956b-ae49528084d2}</Project>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

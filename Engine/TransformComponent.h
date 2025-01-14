@@ -38,6 +38,8 @@ public:
 	void SetScale(const DXMath::Vector3 _scale);
 	void SetParent(TransformComponent* _parent);
 
+	void AddPithc(const float _value);
+	void AddYaw(const float _value);
 private:
 
 public:

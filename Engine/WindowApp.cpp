@@ -10,8 +10,7 @@
 #include <directxtk/Keyboard.h>
 
 // 용도 : WindowManager를 파생 클래스가 생성이 되면 풀스크린이 아니고 디버그 모드면 콘솔창을 생성한다.
-static Console* g_Console {}; 
-
+Console* WindowApp::console = nullptr;
 WindowApp::WindowApp(HINSTANCE _hInstance, std::string_view _gameName, int _screenWidth, int _screenHeight, bool _windoweMode) : \
     hInstance(_hInstance), gameName(_gameName)
 {
@@ -26,8 +25,7 @@ WindowApp::WindowApp(HINSTANCE _hInstance, std::string_view _gameName, int _scre
 #if(_DEBUG) // 창모드일 경우 안나오게
     if(true == _windoweMode)
     {
-        console = std::make_unique<Console>();
-        g_Console = console.get();
+        console = new Console;
         RECT mainWindowRect {};
 
         if (nullptr != windowInfo->hWnd)
@@ -45,6 +43,7 @@ WindowApp::WindowApp(HINSTANCE _hInstance, std::string_view _gameName, int _scre
 
 WindowApp::~WindowApp()
 {
+    SafeExtinction::SAFE_DELETE(console);
     SafeExtinction::SAFE_DELETE(windowInfo);
 }
 
@@ -60,7 +59,7 @@ LRESULT WindowApp::WndProc(HWND _hWnd, UINT _message, WPARAM _wParam, LPARAM _lP
         break;
     case WM_EXITSIZEMOVE:
     {
-        if (nullptr != g_Console)
+        if (nullptr != WindowApp::console)
         {
             // 메인 윈도우의 현재 위치를 가져옵니다.
             RECT mainRect;
@@ -69,7 +68,7 @@ LRESULT WindowApp::WndProc(HWND _hWnd, UINT _message, WPARAM _wParam, LPARAM _lP
             // 콘솔 창을 메인 윈도우 오른쪽으로 이동시킵니다.
             int consoleX = mainRect.right;    // 메인 윈도우 오른쪽 끝
             int consoleY = mainRect.top;      // 메인 윈도우의 Y 위치
-            SetWindowPos(g_Console->GetConsoleHwnd(), nullptr, consoleX, consoleY, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+            SetWindowPos(WindowApp::console->GetConsoleHwnd(), nullptr, consoleX, consoleY, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
         }
     }
         break;

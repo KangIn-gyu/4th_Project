@@ -5,6 +5,7 @@
 #include "TransformComponent.h"
 #include "Declare.h"
 #include "Helper.h"
+#include "DirectXInput.h"
 
 CameraCompoent::CameraCompoent()
 {
@@ -93,27 +94,51 @@ void CameraCompoent::SetRotationSpeed(const float _speed)
 	cameraInfo->RotationSpeed = _speed;
 }
 
-void CameraCompoent::OnInputProcess(const DX::Keyboard::State& KeyState, const DX::Keyboard::KeyboardStateTracker& KeyTracker, const DX::Mouse::State& MouseState, const DX::Mouse::ButtonStateTracker& MouseTracker)
+void CameraCompoent::OnInputProcess(const DX::Keyboard::State& _KeyState, const DX::Keyboard::KeyboardStateTracker& _KeyTracker, const DX::Mouse::State& _MouseState, const DX::Mouse::ButtonStateTracker& _MouseTracker)
 {
 	DXMath::Vector3 forward = GetForward();
 	DXMath::Vector3 right = GetRight();
+	DXMath::Vector3 up = cameraInfo->cameraTransform->GetLocalUp();
 
-	if (KeyState.IsKeyDown(DirectX::Keyboard::Keys::W))
+	if (_KeyState.IsKeyDown(DirectX::Keyboard::Keys::W))
 	{
 		AddInputVector(forward);
 	}
-	else if (KeyState.IsKeyDown(DirectX::Keyboard::Keys::S))
+	else if (_KeyState.IsKeyDown(DirectX::Keyboard::Keys::S))
 	{
 		AddInputVector(-forward);
 	}
 
-	if (KeyState.IsKeyDown(DirectX::Keyboard::Keys::A))
+	if (_KeyState.IsKeyDown(DirectX::Keyboard::Keys::A))
 	{
 		AddInputVector(-right);
 	}
-	else if (KeyState.IsKeyDown(DirectX::Keyboard::Keys::D))
+	else if (_KeyState.IsKeyDown(DirectX::Keyboard::Keys::D))
 	{
 		AddInputVector(right);
+	}
+
+	if (_KeyState.IsKeyDown(DirectX::Keyboard::Keys::E))
+	{	// E 키 - 위로 이동
+		AddInputVector(up);
+	}
+	else if (_KeyState.IsKeyDown(DirectX::Keyboard::Keys::Q))
+	{	// Q 키 - 아래로 이동
+		AddInputVector(-up);
+	}
+	
+	DXINPUT->mouse->SetMode(_MouseState.rightButton ? DX::Mouse::MODE_RELATIVE : DX::Mouse::MODE_ABSOLUTE);
+	if (_MouseState.positionMode == DX::Mouse::MODE_RELATIVE)
+	{
+		DXMath::Vector3 delta = DXMath::Vector3(float(_MouseState.x), float(_MouseState.y), 0.f) * cameraInfo->RotationSpeed;
+		std::cout << "Mouse Delta: (" << delta.x << ", " << delta.y << ", " << delta.z << ")\n";
+		// 구한 이동량으로 회전
+		cameraInfo->cameraTransform->AddYaw(delta.x);
+		cameraInfo->cameraTransform->AddPithc(delta.y);
+
+		DXMath::Quaternion currentRotation = cameraInfo->cameraTransform->GetQuaternion();
+		std::cout << "Current Rotation: (" << currentRotation.x << ", " << currentRotation.y << ", " << currentRotation.z << ", " << currentRotation.w << ")\n";
+		UpdateViewMatrix();
 	}
 }
 

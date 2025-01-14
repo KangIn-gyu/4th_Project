@@ -1,9 +1,8 @@
 #pragma once
-#include "../Editor/UserImGui.h"
-
 #include "SingletonBase.h"
 #include "D3DClass.h"
 #include "ConstantBuffer.h"
+
 #define RENDERER Renderer::GetInstance()
 
 class RenderComponent;
@@ -30,7 +29,6 @@ public:
 
 private:
 	std::unique_ptr<D3DClass> D3DGraphics {}; // 그래픽스
-	std::unique_ptr<UserImGui> imGui{};
 	std::vector<RenderComponent*> work {};
 	
 	// 상수 버퍼

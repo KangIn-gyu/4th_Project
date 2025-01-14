@@ -9,7 +9,7 @@ public:
 
 	void Initialize();
 	void Update(float _deltaTime);
-	void Render() {}; // TODO: 보류 사항
+	void Render() {}; // TODO: 보류 사항 렌더를 여기서 전부 처리 해야 될까?
 
 	void MainCameraSetting(int _index);
 	void AddObject(Object* _obj);

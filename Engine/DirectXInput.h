@@ -49,8 +49,8 @@ public:
 		DXINPUT->RemoveInputProcesser(this);
 	}
 
-	virtual void OnInputProcess(const DX::Keyboard::State& KeyState,
-		const DX::Keyboard::KeyboardStateTracker& KeyTracker,
-		const DX::Mouse::State& MouseState,
-		const DX::Mouse::ButtonStateTracker& MouseTracker) = 0;
+	virtual void OnInputProcess(const DX::Keyboard::State& _KeyState,
+		const DX::Keyboard::KeyboardStateTracker& _KeyTracker,
+		const DX::Mouse::State& _MouseState,
+		const DX::Mouse::ButtonStateTracker& _MouseTracker) = 0;
 };

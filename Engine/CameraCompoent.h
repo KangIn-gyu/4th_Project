@@ -19,10 +19,10 @@ public:
 	void SetSpeed(const float _speed);
 	void SetRotationSpeed(const float _speed);
 
-	virtual void OnInputProcess(const DX::Keyboard::State& KeyState,
-		const DX::Keyboard::KeyboardStateTracker& KeyTracker,
-		const DX::Mouse::State& MouseState,
-		const DX::Mouse::ButtonStateTracker& MouseTracker) override;
+	virtual void OnInputProcess(const DX::Keyboard::State& _KeyState,
+		const DX::Keyboard::KeyboardStateTracker& _KeyTracker,
+		const DX::Mouse::State& _MouseState,
+		const DX::Mouse::ButtonStateTracker& _MouseTracker) override;
 
 	DXMath::Vector3 GetForward();
 	DXMath::Vector3 GetRight();

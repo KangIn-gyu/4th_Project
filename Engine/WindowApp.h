@@ -29,9 +29,10 @@ private:
 	
 //º¯¼ö 
 public:
+	static Console* console;
 
 protected:
-	std::unique_ptr<Console> console {};
+
 
 private:
 	HINSTANCE hInstance = nullptr;
