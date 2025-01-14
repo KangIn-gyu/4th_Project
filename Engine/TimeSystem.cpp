@@ -27,7 +27,6 @@ void TimeSystem::Update()
 		return;
 	}
 
-
 	++m_iCallCount;			// 프레임간의 걸리는 시간을 뒤집으면 초당 프레임 횟수를 알 수 있다
 	m_dAcc += m_deltaTime;  // 델타타임을 누적 시킨다. 결론 흐른 시간을 알 수 있다.
 

@@ -1,22 +1,33 @@
 #pragma once
 #include "Component.h"
 
-class Mesh;
-class Texture;
+enum class ShaderType  
+{ // 추후 더 추가될 수 있음
+	VS,
+	PS,
+	End
+};
+
+class Shader;
 class Material;
+class Model;
 class RenderComponent : public Component
 {
 public:
+	RenderComponent();
+	virtual ~RenderComponent();
 
+	virtual void ComponentInitialize() override;
+	virtual void ComponentUpdate(const float _deltaTime) override {};
+
+	std::shared_ptr<Model> GetModelData() { return modelData; }
+	std::shared_ptr<Shader> GetShder(ShaderType _shaderType);
+	void SetShader(ShaderType _shaderType , std::string_view _filePath); // 이건 명시적으로 불러서 하는게 좋다고 판단함.
 private:
 
 public:
 
 private:
-	std::shared_ptr<Material> material;
-
+	std::shared_ptr<Model> modelData;
+	std::unordered_map<ShaderType , std::shared_ptr<Shader>> shaders;
 };
-
-// 일단 추상화만 하고 나중에 기반 잡을 예정 
-// 생각하는 구조는 이 컴포넌트를 만들면 자동으로 Renderer클래스에서 벡터에 자동 저장이 되어
-// 여기에 있는 매쉬, 텍스트, 메테리얼을 내보내서 그림을 그리게 할 예정

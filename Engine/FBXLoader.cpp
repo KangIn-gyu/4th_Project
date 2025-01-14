@@ -8,55 +8,33 @@
 #include "StaticMesh.h"
 #include "SkeletalMesh.h"
 #include "Material.h"
+#include "Transform.h"
+#include <filesystem>
 
-DirectX::XMMATRIX ConvertMatrix(const aiMatrix4x4& matrix); // 여기서만 사용하는 함수
+DirectX::XMMATRIX ConvertMatrix(const aiMatrix4x4& _matrix); // 여기서만 사용하는 함수
 
-FBXLoader::~FBXLoader()
+std::shared_ptr<Model> FBXLoader::FBXLoad(std::string_view _filePath)
 {
-	for (auto& it : vertexBufferMap)
-	{
-		SafeExtinction::SAFE_DELETE(it.second);
-	}
-	vertexBufferMap.clear();
+	std::string filePathKEY = _filePath.data(); // 파일 경로가 모든 맵의 키값이다
 
-	for (auto& it : indexBufferMap)
-	{
-		SafeExtinction::SAFE_DELETE(it.second);
-	}
-	indexBufferMap.clear();
-
-	for (auto& it : meshs)
-	{
-		it.second.clear(); // 각 vector 내 요소들을 제거
-	}
-	meshs.clear();
-
-	if (vertexBufferMap.empty() && indexBufferMap.empty() && meshs.empty())
-	{ 
-		std::cout << "FBXLoader 데이터 전부 비움" << std::endl; // 확인용 
-	}
-}
-
-std::shared_ptr<Model> FBXLoader::FBXLoad(std::wstring_view _filePath)
-{
 	importFlags = 0; // 시작 플래그 초기화
-
-	importFlags = aiProcess_Triangulate |				// vertex 삼각형 으로 출력         
-				  aiProcess_GenUVCoords |				// UV 좌표 생성
-				  aiProcess_CalcTangentSpace |			// 메시의 Tangent와 Bitangent를 계산한다.(Bitangent는 Tangent와 수직인 벡터이다)
-				  aiProcess_GenNormals |				// Normal 정보 생성  
-				  aiProcess_ConvertToLeftHanded |		// 우측 좌표계를 사용하는 모델을 좌측 좌표계로 변환해줌 단순히 좌표를 반대로 바꾸는 것이 아니라, 법선 벡터, 카메라 방향, 뼈대 애니메이션의 방향등 좌표계 변환에 따라 영향을 받는 요소들을 모두 적절하게 변환
-		          aiProcess_LimitBoneWeights;			// 본의 영향을 받는 정점의 최대 개수를 4개로 제한
+	importFlags = aiProcess_Triangulate |	// vertex 삼각형 으로 출력         
+		aiProcess_GenUVCoords |				// UV 좌표 생성
+		aiProcess_CalcTangentSpace |		// 메시의 Tangent와 Bitangent를 계산한다.(Bitangent는 Tangent와 수직인 벡터이다)
+		aiProcess_GenNormals |				// Normal 정보 생성  
+		aiProcess_ConvertToLeftHanded |		// 우측 좌표계를 사용하는 모델을 좌측 좌표계로 변환해줌 단순히 좌표를 반대로 바꾸는 것이 아니라, 법선 벡터, 카메라 방향, 뼈대 애니메이션의 방향등 좌표계 변환에 따라 영향을 받는 요소들을 모두 적절하게 변환
+		aiProcess_LimitBoneWeights |		// 본의 영향을 받는 정점의 최대 개수를 4개로 제한
+		aiProcess_RemoveRedundantMaterials; // 사용되지 않는 메테리얼을 제거한다.  
 
 	// 초기 스테틱 메시 확인
 	isStaticMesh = true;
-	const aiScene* scene = importer.ReadFile(StringConverter::WideToString(_filePath), importFlags);
+	const aiScene* scene = importer.ReadFile(filePathKEY, importFlags);
 
 	if (nullptr == scene)
 	{ // 추후 로그 시스템 만들자
 		std::runtime_error("Error loading model" + std::string(importer.GetErrorString()));
 		return nullptr;
-	}
+	} 
 
 	// 이 조건문은 좀 더 고민이 필요하다 뼈가 없어도 애니메이션이 가능한 것도 있는데
 	if (scene->HasAnimations() || HasBones(scene)) 
@@ -65,50 +43,64 @@ std::shared_ptr<Model> FBXLoader::FBXLoad(std::wstring_view _filePath)
 	}
 
 	if (true == isStaticMesh)
-	{
+	{ // 스태틱 매쉬일 경우 플래그 변경
 		importFlags |= aiProcess_PreTransformVertices;
-		scene = importer.ReadFile(StringConverter::WideToString(_filePath), importFlags);
+		scene = importer.ReadFile(filePathKEY, importFlags);
 	}
 
-
-	aiNode* RootaiNode = scene->mRootNode;
-	std::shared_ptr<Model> modelData = std::make_shared<Model>();
-	AiNode* rootNode = ProcessNode(RootaiNode, scene, nullptr); // 내가 만든 AiNode로 만든다
-	if (nullptr != rootNode)
-	{
-		modelData->SetAiNode(rootNode);
-		// 추후 애니메이션 등 추가 필요
+	aiNode* rootaiNode = scene->mRootNode; // 어심프 노드
+	std::shared_ptr<Model> modelData = std::make_shared<Model>(); // 모델에 관련된 정보 데이터 저장용
+	AiNode* rootNode{}; // 내가 만든 AiNode 데이터 저장용
+	
+	auto treeNode = aiNodeMap.find(filePathKEY); // aiNode가 있는지 확인
+	if (treeNode != aiNodeMap.end()) // 맵을 통해 해당 노드를 생성한지 확인해 본다. 맵에서 찾았을때 없으면 처음 로드하는 것
+	{ // 존재할 경우
+		modelData->SetTreeNode(treeNode->second); // 깊은 복사
 	}
-
-//	modelData->SetMesh(meshs.find());
-
-	// 테스트용 매쉬 어떻게 들어가는지 확인용
-	for (auto& data : meshs)
-	{
-		std::cout << data.first << std::endl;
-		for (auto& it : data.second)
+	else
+	{ // 없을 경우는 트리 노드를 받아서 생성
+		rootNode = ProcessNode(rootaiNode, scene, nullptr, filePathKEY); // 재귀를 통한 데이터 저장
+		if (nullptr != rootNode) // 예외 처리
 		{
-			std::cout << "Mashindex : " << it.GetFbxIndex() << " 메테리얼 :"<< it.GetMaterialIndex() << " " << it.GetName() << std::endl;
-		}
-	}
+			std::vector<AiNode*> treeNodeSave;
+			// ProcessNode함수에서 맵에 저장했을 경우 깊은 복사로 인해 객체 자체를 복사해서 생성함 
+			// 그래서 _parent 파라미터가 AddChild한 값이 없음. 그래서 재귀를 한번더 해서 처리함. 
+			CollectNodes(rootNode, &treeNodeSave); 
+			modelData->SetTreeNode(treeNodeSave);
+			aiNodeMap[filePathKEY] = std::move(treeNodeSave);
+
+			if (scene->HasMaterials())
+			{
+				ProcessMaterial(scene, filePathKEY);
+			}
+		}	
+	} 
+
+	modelData->SetMesh(meshMap.find(filePathKEY)->second);
+	modelData->SetMateria(materials.find(filePathKEY)->second);
+	
+	// 테스트용 
+	AllShow();
 
 	importer.FreeScene();
 	return modelData;
 }
 
 // 여기서 노드와 매쉬를 같이 만든다
-AiNode* FBXLoader::ProcessNode(aiNode* _node, const aiScene* _scene, AiNode* _parent)
+AiNode* FBXLoader::ProcessNode(aiNode* _node, const aiScene* _scene, AiNode* _parent, const std::string_view _filePath)
 {
 	if (nullptr == _node)
 		return nullptr;
 
-	AiNode* currentNode = new AiNode(); // 내가 만든 노드 핵갈리지말자
+	// 나중에 라이트나 카메라 관련 정보 받아 오는 거 필요할 거 같다 
+	AiNode* currentNode = new AiNode(); // 힙에 할당 내가 만든 노드 핵갈리지말자
 	currentNode->SetName(_node->mName.C_Str());
-	currentNode->GetTransform().SetLocalMatrix(ConvertMatrix(_node->mTransformation));
 	currentNode->SetParent(_parent);
+	currentNode->SetLocalTransform(ConvertMatrix(_node->mTransformation)); // 어심프 노드의 _node->mTransformation 트랜스폼을 ConvertMatrix 함수로 변경
 
 	if (nullptr != _parent)
 	{
+		currentNode->SetParent(_parent);
 		_parent->AddChild(currentNode);
 	}
 
@@ -121,42 +113,48 @@ AiNode* FBXLoader::ProcessNode(aiNode* _node, const aiScene* _scene, AiNode* _pa
 			
 			if (isStaticMesh) 
 			{ // 스태틱 매쉬
-				// test 코드
-			//	std::cout << mesh->mName.C_Str() << std::endl;
-
 				StaticMesh staticMesh;  // 스태틱 매쉬 생성
+				staticMesh.SetFBXMeshIndex(meshIndex);	  // 인덱스 번호 만들기 없어도 될거 같은데 일단 테스트용 여기서 매쉬 인포 생성
 				staticMesh.SetName(mesh->mName.C_Str());  // 매쉬 이름 설정
-				staticMesh.SetFBXMeshIndex(meshIndex);		  // 인덱스 번호 만들기 없어도 될거 같은데 일단 테스트용
-				if (mesh->mMaterialIndex >= 0)  // valid material index check
-				{
-					staticMesh.SetMaterialIndex(mesh->mMaterialIndex); // 메테리얼 인덱스 설정
-				}
 				staticMesh.SetTransform(currentNode->GetPointTransform()); // AiNode라고 내가 만든 어심프의 aiNode의 데이터를 저장한 객체의 트랜스폼 설정
 				
 				if(nullptr != _parent) // 예외처리
 				staticMesh.SetTransformParent(_parent->GetPointTransform()); // 부모 설정
 
-				ProcessMesh(mesh, _scene); // 프로세스매쉬를 하고선 버텍스버퍼/인덱스버퍼가 정보 복사
+				ProcessMesh(mesh, _scene, _filePath); // 프로세스매쉬를 하고선 버텍스버퍼/인덱스버퍼가 정보 복사
 
 				// 복사된 데이터의 자료형을 언오더드맵을 통해서 포인터로 받는다.
-				staticMesh.SetVertexBuffer(vertexBufferMap.find(staticMesh.GetMeshName())->second);
-				staticMesh.SetIndexBuffer(indexBufferMap.find(staticMesh.GetMeshName())->second);
-				SaveMeshData(staticMesh.GetMeshName(), staticMesh);
+				staticMesh.SetVertexBuffer(vertexBufferMap.find(_filePath.data())->second[index]);
+				staticMesh.SetIndexBuffer(indexBufferMap.find(_filePath.data())->second[index]);
+				SaveMeshData(_filePath, std::move(staticMesh));
 			}
 			else
-			{ // 스켈레탈 매쉬  나중에 처리 자료형 적립을 다 못함
+			{ // 스켈레탈 매쉬 나중에 처리 자료형 적립을 다 못함
 			  // SkeletalMesh skeletalMesh;
-				ProcessMesh(mesh, _scene);
+				ProcessMesh(mesh, _scene, _filePath);
 			}
 		}
 	}
 
 	for (size_t i = 0; i < _node->mNumChildren; i++)
-	{
-		ProcessNode(_node->mChildren[i], _scene, currentNode);
+	{  // 자식 노드 재귀 처리
+		ProcessNode(_node->mChildren[i], _scene, currentNode, _filePath);
 	}
 
 	return currentNode;
+}
+
+void FBXLoader::CollectNodes(AiNode* _rootNode, std::vector<AiNode*>* _nodes)
+{
+	if (_rootNode == nullptr)
+		return;
+
+	_nodes->push_back(_rootNode);
+	auto children = _rootNode->GetChildren(); // 여기 까지는 노드이름을 가지고 있다
+	for (AiNode* child : children)
+	{
+		CollectNodes(child, _nodes);
+	}
 }
 
 bool FBXLoader::HasBones(const aiScene* _scene)
@@ -171,7 +169,7 @@ bool FBXLoader::HasBones(const aiScene* _scene)
 	return false;
 }
 
-void FBXLoader::ProessIndexs(aiMesh* _mesh, unsigned int _indexSize)
+void FBXLoader::ProessIndexs(aiMesh* _mesh, unsigned int _indexSize, const std::string_view _filePath)
 {
 	std::vector<DWORD> indexBufferData;
 	indexBufferData.reserve(static_cast<int>(_indexSize)); // 미리 사이즈 확장
@@ -189,10 +187,18 @@ void FBXLoader::ProessIndexs(aiMesh* _mesh, unsigned int _indexSize)
 
 	IndexBuffer* newIndexBuffer = new IndexBuffer;
 	newIndexBuffer->Create(indexBufferData);
-	indexBufferMap.emplace(_mesh->mName.C_Str(), newIndexBuffer);
+
+	if (indexBufferMap.find(_filePath.data()) != indexBufferMap.end())
+	{   // 기존 벡터에 추가
+		indexBufferMap[_filePath.data()].push_back(newIndexBuffer);
+	}
+	else 
+	{   // 새 벡터 생성 후 추가
+		indexBufferMap.emplace(_filePath, std::vector<IndexBuffer*>{newIndexBuffer});
+	}
 }
 
-void FBXLoader::ProcessVertexs(aiMesh* _mesh, unsigned int _vertexSize)
+void FBXLoader::ProcessVertexs(aiMesh* _mesh, unsigned int _vertexSize, const std::string_view _filePath)
 {
 	std::vector<Vertex> vertexBufferData;
 	vertexBufferData.reserve(static_cast<int>(_vertexSize)); // 미리 사이즈 확장
@@ -234,45 +240,152 @@ void FBXLoader::ProcessVertexs(aiMesh* _mesh, unsigned int _vertexSize)
 
 	VertexBuffer* newVertexBuffer = new VertexBuffer;
 	newVertexBuffer->Create(vertexBufferData);
-	vertexBufferMap.emplace(_mesh->mName.C_Str(), newVertexBuffer);
-}
-
-void FBXLoader::ProcessMesh(aiMesh* _mesh, const aiScene* _scene)
-{
-	ProcessVertexs(_mesh, _mesh->mNumVertices);
-	ProessIndexs(_mesh, _mesh->mNumFaces);
-
-	if (_scene->HasMaterials())
-	{
-		ProcessMaterial(_mesh, _scene);
+	if (vertexBufferMap.find(_filePath.data()) != vertexBufferMap.end())
+	{   // 기존 벡터에 추가
+		vertexBufferMap[_filePath.data()].push_back(newVertexBuffer);
+	}
+	else
+	{   // 새 벡터 생성 후 추가
+		vertexBufferMap.emplace(_filePath, std::vector<VertexBuffer*>{newVertexBuffer});
 	}
 }
 
-void FBXLoader::SaveMeshData(std::string_view _name, Mesh _mesh)
+void FBXLoader::ProcessMesh(aiMesh* _mesh, const aiScene* _scene, const std::string_view _filePath)
 {
-	// std::cout << _name.data() << std::endl;  // 테스트용 코드
+	ProcessVertexs(_mesh, _mesh->mNumVertices, _filePath);
+	ProessIndexs(_mesh, _mesh->mNumFaces, _filePath);
+}
 
-	if (meshs.find(_name.data()) == meshs.end())
+void FBXLoader::SaveMeshData(std::string_view _filePath, Mesh&& _mesh)
+{
+	if (meshMap.find(_filePath.data()) == meshMap.end())
 	{ // 예외 처리 맵을 찾았을때 비웠을 경우 맵[키] = std::vector를 만들어서 넣는다
-		meshs[_name.data()] = std::vector<Mesh>{};
+		meshMap[_filePath.data()] = std::vector<Mesh>{};
 	}
-	meshs[_name.data()].push_back(_mesh);
+	// 해당 맵이 있으면 그 키값에 저장
+	meshMap[_filePath.data()].emplace_back(std::forward<Mesh>(_mesh));
 }
 
-void FBXLoader::ProcessMaterial(aiMesh* _mesh, const aiScene* _scene)
+void FBXLoader::ProcessMaterial(const aiScene* _scene, const std::string_view _modelFilePath)
 {
-	aiMaterial* material = _scene->mMaterials[_mesh->mMaterialIndex];
-	aiString texturePath;
-	// 나중에 처리하자
+	std::string key = _modelFilePath.data();
+	auto it = materials.find(key);
+	if (it != this->materials.end())
+	{ // 이미 맵이 있다면 종료 새로 만들필요가 없으니 패스
+		return;
+	}
 
+	// 내가 쓸 데이터 초기화
+	std::vector<Material*> materialvector;
+	materialvector.reserve(_scene->mNumMaterials); //미리 크기 초기화
+	
+	aiString texturePath; // 텍스처 절대 경로 나옴
+
+	const std::string resourcePrefix = "Resource/";
+	size_t pos = std::string(_modelFilePath).find(resourcePrefix);
+	std::string basePath = "";
+	basePath.reserve(50); // 미리 공간 확장
+	if (pos != std::string::npos)
+	{
+		std::string remainingPath = std::string(_modelFilePath).substr(pos + resourcePrefix.length());
+		// 첫 번째 슬래시를 찾아서 그 이전까지의 경로를 basePath로 설정 (예: STAGE1/ 또는 STAGE11/)
+		size_t nextSlashPos = remainingPath.find("/");
+		if (nextSlashPos != std::wstring::npos)
+		{
+			basePath =  remainingPath.substr(0, nextSlashPos + 1); // "Resource/STAGE1/" 문자 추출
+		}
+	}
+	
+	for (int i = 0; i < _scene->mNumMaterials; ++i) // 메테리얼을 생성하고 초기화하는 반복문
+	{
+		aiMaterial* material = _scene->mMaterials[i];
+		Material* materialData = new Material;
+		materialData->SetName(material->GetName().C_Str());
+
+		for (int type = aiTextureType_DIFFUSE; type <= aiTextureType_UNKNOWN; ++type)
+		{  // 여기서 메테리얼한테 모델에 해당하는 모든 텍스처를 저장한다.
+			int textureCount = material->GetTextureCount((aiTextureType)type);
+			for (int texIndex = 0; texIndex < textureCount; ++texIndex)
+			{
+				if (material->GetTexture((aiTextureType)type, texIndex, &texturePath) == AI_SUCCESS)
+				{   // 아래 코드를 통해서 뒤에서 /이후의 문자열이 나온다
+					std::string file = StringConverter::GetFileNameFromPath<std::string>(StringConverter::StringToWide(texturePath.C_Str()));
+					std::string filePath = basePath + texturesFolder + file; // 최종 경로
+					materialData->Load( filePath , (aiTextureType)type);
+				}
+			}
+		}
+		materialvector.push_back(materialData);
+
+		if (it == this->materials.end())
+		{ // 없으면 생성
+			materials[key] = materialvector;
+		}
+	}
 }
 
-DX::XMMATRIX ConvertMatrix(const aiMatrix4x4& matrix) // 여기서만 사용하는 함수
+void FBXLoader::AllShow()
+{
+	ShowAiNode();
+	ShowMesh();
+	ShowMaterials();
+}
+
+void FBXLoader::ShowMaterials()
+{
+	for (auto& it : materials)
+	{
+		std::cout << "Materials KEY : " << it.first << '\n';
+		for (int i = 0; i < it.second.size(); i++)
+		{
+			std::cout << i << '.' << " " << it.second[i]->GetName() << "\n";
+		}
+		std::cout << '\n';
+	}
+}
+
+void FBXLoader::ShowMesh()
+{
+	for (auto& data : meshMap)
+	{
+		std::cout << "Mesh KEY : " << data.first << std::endl;
+		for (auto& it : data.second)
+		{
+			std::cout << "MeshIndex(" << it.GetFbxIndex() << ") " << it.GetName() << '\n';
+		}
+		std::cout << '\n';
+	}
+}
+
+void FBXLoader::ShowAiNode()
+{
+	for (auto& it : aiNodeMap)
+	{
+		std::cout << "AiNode KEY : " << it.first << '\n';
+		for (int i = 0; i < it.second.size(); i++)
+		{
+			std::cout << it.second[i]->GetName() << '\n';
+			it.second[i]->ShowChild();
+		}
+		std::cout << '\n';
+	}
+}
+
+FBXLoader::~FBXLoader()
+{
+	SafeExtinction::SAFE_CLEAR_CONTAINER(vertexBufferMap);
+	SafeExtinction::SAFE_CLEAR_CONTAINER(indexBufferMap);
+	SafeExtinction::SAFE_CLEAR_CONTAINER(meshMap);
+	SafeExtinction::SAFE_CLEAR_CONTAINER(materials);
+	SafeExtinction::SAFE_CLEAR_CONTAINER(aiNodeMap);
+}
+
+DX::XMMATRIX ConvertMatrix(const aiMatrix4x4& _matrix) // 여기서만 사용하는 함수
 {
 	return DX::XMMATRIX(
-		matrix.a1, matrix.b1, matrix.c1, matrix.d1,   // 1열
-		matrix.a2, matrix.b2, matrix.c2, matrix.d2,   // 2열
-		matrix.a3, matrix.b3, matrix.c3, matrix.d3,   // 3열
-		matrix.a4, matrix.b4, matrix.c4, matrix.d4    // 4열
+		_matrix.a1, _matrix.b1, _matrix.c1, _matrix.d1,   // 1열
+		_matrix.a2, _matrix.b2, _matrix.c2, _matrix.d2,   // 2열
+		_matrix.a3, _matrix.b3, _matrix.c3, _matrix.d3,   // 3열
+		_matrix.a4, _matrix.b4, _matrix.c4, _matrix.d4    // 4열
 	);
 }

@@ -27,12 +27,14 @@ public:
 		}
 	};
 
-	 void IASetInputLayout(const std::initializer_list<D3D11_INPUT_ELEMENT_DESC>& _elements, std::wstring_view _vertexShaderfilePath);
+	 void IASetInputLayout(const std::initializer_list<D3D11_INPUT_ELEMENT_DESC>& _elements, std::string_view _vertexShaderfilePath);
+	 ComPtr<ID3D11InputLayout> GetInputLayout() { return inputLayout; }
 private:
 
 public:
 
 private:
+	int a = 0;
 	ComPtr<ID3D11InputLayout> inputLayout;
 };
 

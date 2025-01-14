@@ -5,10 +5,10 @@
 
 #include "ResourceSystem.h"
 #include "Shader.h"
-void InputLayout::IASetInputLayout(const std::initializer_list<D3D11_INPUT_ELEMENT_DESC>& _elements, std::wstring_view _vertexShaderfilePath)
+void InputLayout::IASetInputLayout(const std::initializer_list<D3D11_INPUT_ELEMENT_DESC>& _elements, std::string_view _vertexShaderfilePath)
 {
     std::shared_ptr<Shader> shader = RESOURCESYSTEM->Load<Shader>(_vertexShaderfilePath);
-    ComPtr<ID3DBlob> vsBlod = shader->GetVSBlob().Get();
+    ID3DBlob* vsBlod = shader->GetVSBlob();
     if (nullptr == vsBlod)
     {
         std::cout << "IASetInputLayout 실패" << std::endl; // 추후 로그 시스템으로 해야됨
@@ -19,5 +19,6 @@ void InputLayout::IASetInputLayout(const std::initializer_list<D3D11_INPUT_ELEME
                                                      static_cast<UINT>(_elements.size()),
                                                      vsBlod->GetBufferPointer(),
                                                      vsBlod->GetBufferSize(),
-                                                     inputLayout.GetAddressOf()));
+                                                     inputLayout.GetAddressOf()
+                                                    ));
 }

@@ -16,6 +16,7 @@
 // 컨테이너
 #include <map>
 #include <vector>
+#include <unordered_map>
 
 // 포인터 관련
 #include <memory>
@@ -32,14 +33,7 @@ using namespace Microsoft::WRL;
 
 // 유틸
 #include <algorithm>
-
-// 컨셉
-template <class T>
-concept Container = requires(T t)
-{
-	t.begin();
-	t.end();
-};
+#include <functional>
 
 // Direct
 #include <d3d11.h>
@@ -61,6 +55,8 @@ namespace DXMath = DirectX::SimpleMath;
 #ifdef _DEBUG
 #define _CRTDBG_MAP_ALLOC  // C 런타임의 디버깅 도구를 활성화 파일 이름과 라인 번호 추적
 #include <crtdbg.h>
+
+#include <imgui.h>
 
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>

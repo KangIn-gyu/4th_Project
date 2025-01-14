@@ -5,54 +5,30 @@
 
 #include "SystemHeader.h"
 #include "Helper.h"
-#include "Declare.h" // 윈도우 정보때문에
-
-// test 코드
-#include "Texture.h"
-//  #include "Shader.h"
-#include "ResourceSystem.h"
-#include "Object.h"
-#include "ModelComponent.h"
-void Engine::TestCode()
-{
-    // 텍스처, 셰이더 생성
-   std::shared_ptr<Texture> test = RESOURCESYSTEM->Load<Texture>(L"STAGE1/Texturs/dice.png");
-//   std::shared_ptr<Texture> test1 = RESOURCESYSTEM->Load<Texture>(L"STAGE1/Texturs/Base_BaseColor.tga");
-//   std::shared_ptr<Texture> test3 = RESOURCESYSTEM->Load<Texture>(L"STAGE1/Texturs/SkyBlueBrdf.dds");
-//
-//   std::shared_ptr<Shader> sh2 = RESOURCESYSTEM->Load<Shader>(L"Shaders/VertexShaderVS.hlsl");
-//   std::shared_ptr<Shader> sh1 = RESOURCESYSTEM->Load<Shader>(L"Shaders/PixelShaderPS.hlsl");
-
-   // obj
-   Object* testObj = new Object(Object::ObjectType::Basic);  // 삭제 안해서 메모리 샘
-   testObj->CreateComponent<ModelComponent>(L"STAGE1/FBX/char2.fbx");
-   RESOURCESYSTEM->Show();
-  
-}
-
+#include "SceneManager.h"
+#include "Declare.h" 
 
 void Engine::Initialize()
 {
     inputSystem = DXINPUT;
     graphicsSystem = RENDERER;
     timeSystem = TIMESYSTEM;
-    if (nullptr != clientApp)
+    sceneManager = SCENEMANAGER;
+
+    if (nullptr != clientApp) // 윈도우 생성한게 있는가?
     {
         inputSystem->Initialize(clientApp->GetWindowInfo()->hWnd);
         RENDERER->Initialize(clientApp->GetWindowInfo());
         timeSystem->Initialize();
     }
 
-    TestCode();
+    clientApp->Enter();
 }
 
 void Engine::Loop()
 {
     MSG msg;
-
     ZeroMemory(&msg, sizeof(msg));
-    timeSystem->Update();
-
     while (TRUE)
     {
         if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
@@ -66,13 +42,13 @@ void Engine::Loop()
         }
         else
         {
+            timeSystem->Update();
             // 추후 다양한 업데이트 만들자.
             float deltaTime = timeSystem->GetFloatDeltaTime();
             Update(deltaTime);
             Render(deltaTime); // 시간이 과연 필요할가? 일단 보류
         }
     }
-    
 
     if (msg.message == WM_NULL)
     {
@@ -80,18 +56,35 @@ void Engine::Loop()
     }
 }
 
-Engine::~Engine()
+WindowInfo* Engine::GetWindowInfo() const
 {
+    if (nullptr != clientApp)
+    {
+        return clientApp->GetWindowInfo();
+    }
+
+    return nullptr;
 }
+
+void Engine::ChangeScene(std::string_view _SceneName)
+{
+    std::string name;
+    name.assign(_SceneName.data());
+    sceneManager->ChangeScene(name);
+}
+
 
 void Engine::Update(const float _deltaTime)
 {
     inputSystem->Update(_deltaTime);
+    sceneManager->Update(_deltaTime);
+    graphicsSystem->Update(_deltaTime);
+
 }
 
 void Engine::Render(const float _deltaTime)
 {
-    RENDERER->Render();
+    graphicsSystem->Render();
 }
 
 

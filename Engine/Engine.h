@@ -4,37 +4,42 @@
 #define ENGINE Engine::GetInstance()
 
 class WindowApp;
+struct WindowInfo;
 class DirectXInput;
 class Renderer;
 class TimeSystem;
+class SceneManager;
 class Engine : public SingletonBase<Engine>
 {
 	friend class SingletonBase<Engine>;
 // 함수
 public:
-	Engine(const Engine& engine) = delete;
-	Engine(Engine&& engine) noexcept = delete;
-
 	void Initialize();
 	void Loop();
 
-	void SetWindowApp(WindowApp* window) { clientApp = window; }
+	WindowInfo* GetWindowInfo() const;
+	void SetWindowApp(WindowApp* _window) { clientApp = _window; }
+
+	void ChangeScene(std::string_view _SceneName);
+
 private:
 	Engine() = default;
-	~Engine();
+	~Engine() = default;
+	Engine(const Engine& _engine) = delete;
+	Engine(Engine&& _engine) noexcept = delete;
 
 	void Update(const float _deltaTime);
 	void Render(const float _deltaTime);
-
-	void TestCode(); // 용도 이름 그대로 테스트할 것들 넣어서 실험하는 곳
 
 // 변수
 public:
 
 private:
-	WindowApp* clientApp {}; // 더블 프리 때문에 포인터로 처리함
+	WindowApp* clientApp {}; // 더블 프리 때문에 원시 포인터로 처리함
 	std::shared_ptr<Renderer> graphicsSystem {};
 	std::shared_ptr<DirectXInput> inputSystem {};
 	std::shared_ptr<TimeSystem> timeSystem{};
+	std::shared_ptr<SceneManager> sceneManager{};
+
 };
 

@@ -19,19 +19,20 @@ public:
 	static LRESULT CALLBACK WndProc(HWND _hWnd, UINT _message, WPARAM _wParam, LPARAM _lParam);
 	HINSTANCE& GethInstance() { return hInstance; }
 	std::string GetWindowClassName() const { return windowClassName; }
-	WindowInfo* GetWindowInfo() const;
+	WindowInfo* GetWindowInfo();
 
-protected:
-	bool Initialize();
+	virtual void Enter() {}; // 씬 로드 하는 곳
 
 private:
+	void Initialize();
 	ATOM WindowsRegistration();
 	
 //변수 
 public:
+	static Console* console;
 
 protected:
-	std::unique_ptr<Console> console {};
+
 
 private:
 	HINSTANCE hInstance = nullptr;

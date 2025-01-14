@@ -4,15 +4,13 @@
 #include "Engine.h"
 #include "Helper.h"
 #include "Declare.h"
+
 // 다이렉트
 #include <directxtk/Mouse.h>
 #include <directxtk/Keyboard.h>
 
-// extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
-
 // 용도 : WindowManager를 파생 클래스가 생성이 되면 풀스크린이 아니고 디버그 모드면 콘솔창을 생성한다.
-static Console* g_Console {}; 
-
+Console* WindowApp::console = nullptr;
 WindowApp::WindowApp(HINSTANCE _hInstance, std::string_view _gameName, int _screenWidth, int _screenHeight, bool _windoweMode) : \
     hInstance(_hInstance), gameName(_gameName)
 {
@@ -27,18 +25,16 @@ WindowApp::WindowApp(HINSTANCE _hInstance, std::string_view _gameName, int _scre
 #if(_DEBUG) // 창모드일 경우 안나오게
     if(true == _windoweMode)
     {
-        console = std::make_unique<Console>();
-        g_Console = console.get();
+        console = new Console;
         RECT mainWindowRect {};
 
         if (nullptr != windowInfo->hWnd)
         {
             GetWindowRect(windowInfo->hWnd, &mainWindowRect);
         }
-  
         int consoleX = mainWindowRect.right;                            // 메인 창의 오른쪽 끝
         int consoleY = mainWindowRect.top;                              // 메인 창의 Y 위치
-        int consoleWidth = 400;                                         // 콘솔 창 너비
+        int consoleWidth = 300;                                         // 콘솔 창 너비
         int consoleHeight = mainWindowRect.bottom - mainWindowRect.top; // 메인 창과 동일한 높이
         console->CreateConsole(consoleX, consoleY, consoleWidth, consoleHeight);
     } // 추후 계획 ImGui에 넣어서 버튼 클릭하면 나오게 처리할 예정
@@ -47,13 +43,15 @@ WindowApp::WindowApp(HINSTANCE _hInstance, std::string_view _gameName, int _scre
 
 WindowApp::~WindowApp()
 {
+    SafeExtinction::SAFE_DELETE(console);
     SafeExtinction::SAFE_DELETE(windowInfo);
 }
 
+extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 LRESULT WindowApp::WndProc(HWND _hWnd, UINT _message, WPARAM _wParam, LPARAM _lParam)
 {
-//    if (ImGui_ImplWin32_WndProcHandler(hWnd, message, wParam, lParam))
-//        return true;
+    ImGui_ImplWin32_WndProcHandler(_hWnd, _message, _wParam, _lParam);
+
     switch (_message)
     {
     case WM_DESTROY:
@@ -61,7 +59,7 @@ LRESULT WindowApp::WndProc(HWND _hWnd, UINT _message, WPARAM _wParam, LPARAM _lP
         break;
     case WM_EXITSIZEMOVE:
     {
-        if (nullptr != g_Console)
+        if (nullptr != WindowApp::console)
         {
             // 메인 윈도우의 현재 위치를 가져옵니다.
             RECT mainRect;
@@ -70,7 +68,7 @@ LRESULT WindowApp::WndProc(HWND _hWnd, UINT _message, WPARAM _wParam, LPARAM _lP
             // 콘솔 창을 메인 윈도우 오른쪽으로 이동시킵니다.
             int consoleX = mainRect.right;    // 메인 윈도우 오른쪽 끝
             int consoleY = mainRect.top;      // 메인 윈도우의 Y 위치
-            SetWindowPos(g_Console->GetConsoleHwnd(), nullptr, consoleX, consoleY, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+            SetWindowPos(WindowApp::console->GetConsoleHwnd(), nullptr, consoleX, consoleY, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
         }
     }
         break;
@@ -112,27 +110,34 @@ LRESULT WindowApp::WndProc(HWND _hWnd, UINT _message, WPARAM _wParam, LPARAM _lP
     return 0;
 }
 
-WindowInfo* WindowApp::GetWindowInfo() const
+WindowInfo* WindowApp::GetWindowInfo()
 {
-    return windowInfo;
+    if (nullptr != windowInfo)
+    {
+        return windowInfo;
+    }
+    return nullptr;
 }
 
-bool WindowApp::Initialize()
+void WindowApp::Initialize()
 {
     RECT rcClient = { 0,0, windowInfo->screenWidth , windowInfo->screenHeight };
     AdjustWindowRect(&rcClient, WS_OVERLAPPEDWINDOW, FALSE);
 
-    int midX = (GetSystemMetrics(SM_CXSCREEN) - windowInfo->screenWidth) / 2;
-    int midY = (GetSystemMetrics(SM_CYSCREEN) - windowInfo->screenHeight) / 2;
+    // 메뉴바 포함한 크기 조정
+    int adjustedWidth = rcClient.right - rcClient.left;
+    int adjustedHeight = rcClient.bottom - rcClient.top;
+
+    int midX = (GetSystemMetrics(SM_CXSCREEN) - adjustedWidth) / 2;
+    int midY = (GetSystemMetrics(SM_CYSCREEN) - adjustedHeight) / 2;
 
     DWORD dwStyle = WS_OVERLAPPEDWINDOW & ~WS_THICKFRAME;
       
     if(true == windowInfo->windoweMode)
-    {
+    { // 창모드 일때 
         windowInfo->hWnd = CreateWindowEx(0, StringConverter::StringToWide(windowClassName).c_str(),
             StringConverter::StringToWide(gameName).c_str(), dwStyle,
-            midX, midY, rcClient.right - rcClient.left,
-            rcClient.bottom - rcClient.top, NULL, NULL, hInstance, NULL);
+            midX, midY, adjustedWidth, adjustedHeight, NULL, NULL, hInstance, NULL);
     }
     else
     {
@@ -146,7 +151,7 @@ bool WindowApp::Initialize()
             NULL, NULL, hInstance, NULL);
     }
 
-    if (!windowInfo->hWnd) { return FALSE; }
+    if (!windowInfo->hWnd) { return; }
    
     SetWindowLongPtr(windowInfo->hWnd, GWL_STYLE, dwStyle);   // 창 크기 조정 비활성화: 창 스타일 변경
     ShowWindow(windowInfo->hWnd, SW_SHOW);
@@ -155,7 +160,7 @@ bool WindowApp::Initialize()
     // 윈도우를 화면에 표시하고 포커스를 지정
     SetFocus(windowInfo->hWnd);
     SetForegroundWindow(windowInfo->hWnd);
-    return TRUE;
+    return;
 }
 
 ATOM WindowApp::WindowsRegistration()

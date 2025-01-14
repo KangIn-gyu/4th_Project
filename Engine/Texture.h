@@ -7,14 +7,17 @@ public:
 	Texture() = default;
 	virtual ~Texture() = default;
 
-	virtual void Load(std::wstring_view _filePath) override;
+	virtual void Load(std::string_view _filePath) override;
 	ComPtr<ID3D11ShaderResourceView> GetTexture() { return texture; }
+	void SetTextureTypeIndex(int _index) { textureTypeIndex = _index; }
+	int GetTextureTypeIndex() { return textureTypeIndex; }
+
 private:
 
 public:
 
 public:
 	ComPtr<ID3D11ShaderResourceView> texture;
-	
+	int textureTypeIndex = -1; // -1 일경우 오류
 };
 

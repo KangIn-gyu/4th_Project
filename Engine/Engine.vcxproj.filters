@@ -101,6 +101,15 @@
     <Filter Include="2_System\Resource\FBXLoader\Data">
       <UniqueIdentifier>{6f566df8-6ad3-4ed7-b4ad-84e867342c1f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="1_Engine\Scene">
+      <UniqueIdentifier>{01d666e5-3dad-4a3f-92e5-ae7d52776c38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1_Engine\Factory">
+      <UniqueIdentifier>{d619fd5d-14ca-4b59-859a-42b6b936ba06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0_Utility\ImGui">
+      <UniqueIdentifier>{aee9bc62-4855-4385-b120-6ac214213297}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowApp.h">
@@ -181,9 +190,6 @@
     <ClInclude Include="Mesh.h">
       <Filter>3_Object\Compoent\Model\Data\Mesh</Filter>
     </ClInclude>
-    <ClInclude Include="Shader.h">
-      <Filter>2_System\Graphics\GraphicsData\Shader</Filter>
-    </ClInclude>
     <ClInclude Include="InputLayout.h">
       <Filter>3_Object\Compoent\Model\Data\InputLayout</Filter>
     </ClInclude>
@@ -225,6 +231,21 @@
     </ClInclude>
     <ClInclude Include="SkeletalMesh.h">
       <Filter>3_Object\Compoent\Model\Data\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>1_Engine\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>1_Engine\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>2_System\Graphics\GraphicsData\Viewport</Filter>
+    </ClInclude>
+    <ClInclude Include="FactorySystem.h">
+      <Filter>1_Engine\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="UserImGui.h">
+      <Filter>0_Utility\ImGui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -320,6 +341,18 @@
     </ClCompile>
     <ClCompile Include="SkeletalMesh.cpp">
       <Filter>3_Object\Compoent\Model\Data\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>1_Engine\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>1_Engine\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="FactorySystem.cpp">
+      <Filter>1_Engine\Factory</Filter>
+    </ClCompile>
+    <ClCompile Include="UserImGui.cpp">
+      <Filter>0_Utility\ImGui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

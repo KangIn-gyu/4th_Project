@@ -1,9 +1,19 @@
 #include "pch.h"
 #include "TransformComponent.h"
 
-void TransformComponent::SetParent(TransformComponent _parent)
+void TransformComponent::SetParent(TransformComponent* _parent)
 {
-	transform.SetParent(&_parent.transform);
+	transform.SetParent(&_parent->transform);
+}
+
+void TransformComponent::AddPithc(const float _value)
+{
+	transform.AddPithc(_value);
+}
+
+void TransformComponent::AddYaw(const float _value)
+{
+	transform.AddYaw(_value);
 }
 
 TransformComponent::~TransformComponent()
@@ -11,7 +21,12 @@ TransformComponent::~TransformComponent()
 	std::cout << "TransformComponent 삭제" << std::endl; // 추후 로그 시스템에 적용해야됨
 }
 
-DXMath::Matrix TransformComponent::GetWorldMatrix() const
+void TransformComponent::UpdateTransform()
+{
+	transform.UpdateTransform();
+}
+
+DXMath::Matrix TransformComponent::GetWorldMatrix()
 {
 	return transform.GetWorldMatrix();
 }
@@ -54,6 +69,21 @@ DXMath::Vector3 TransformComponent::GetWorldUp() const
 DXMath::Vector3 TransformComponent::GetWorldLook() const
 {
 	return transform.GetWorldLook();
+}
+
+DXMath::Vector3 TransformComponent::GetPosition() const
+{
+	return transform.GetPosition();
+}
+
+DXMath::Quaternion TransformComponent::GetQuaternion() const
+{
+	return transform.GetQuaternion();
+}
+
+DXMath::Vector3 TransformComponent::GetScale() const
+{
+	return transform.GetScale();
 }
 
 void TransformComponent::SetLocalMatrix(const DXMath::Matrix _localMatrix)

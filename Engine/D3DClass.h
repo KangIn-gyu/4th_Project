@@ -18,19 +18,19 @@ public:
 	void EndDraw();
 
 	void ChangeWindowSize();
+	void MemoryLick();
 
 	// (캡슐화 포기) 이건 그냥 주자 구조만들기 너무 힘듬
-	static const ComPtr<ID3D11Device> GetD3DDevice() { return D3DDevice; }
-	static const ComPtr<ID3D11DeviceContext> GetD3DDeviceContext() { return D3DDeviceContext; }
+	static ComPtr<ID3D11Device> GetD3DDevice() { return D3DDevice; }
+	static ComPtr<ID3D11DeviceContext> GetD3DDeviceContext() { return D3DDeviceContext; }
 
 	std::unique_ptr<Viewport>& GetVieport() { return viewport; }
 
-	void CreateSamplerState(D3D11_FILTER _filter, D3D11_TEXTURE_ADDRESS_MODE _addressMode, ComPtr<ID3D11SamplerState>& _sampler);
+	void CreateSamplerState(D3D11_FILTER _filter, D3D11_TEXTURE_ADDRESS_MODE _addressMode, ComPtr<ID3D11SamplerState> _sampler);
 
 private:
 	void InitD3D();
 	void InitDXGI();
-
 
 	DXGI_SWAP_CHAIN_DESC CreateSwapDesc();
 	void CreateDepthStencilBuffer();
@@ -38,15 +38,15 @@ private:
 public:
 
 private:
-	static ComPtr<ID3D11Device>        D3DDevice;              // 디바이스	                      
-	static ComPtr<ID3D11DeviceContext> D3DDeviceContext;       // 즉시 디바이스 컨텍스트
-	ComPtr<IDXGISwapChain>		       swapChain {};           // 스왑체인
+	static ComPtr<ID3D11Device>        D3DDevice;           // 디바이스	                      
+	static ComPtr<ID3D11DeviceContext> D3DDeviceContext;    // 즉시 디바이스 컨텍스트
+	ComPtr<IDXGISwapChain>		       swapChain;           // 스왑체인
 
-	ComPtr<ID3D11RenderTargetView>	   renderTargetView {};    // 렌더링 타겟뷰
-	ComPtr<ID3D11DepthStencilView>	   depthStencilView{};     // 깊이값 처리를 위한 뎊스스텐실 뷰 
-	ComPtr<ID3D11Texture2D>			   depthStencilBuffer {};  // 뎊스스텐실 버퍼
+	ComPtr<ID3D11RenderTargetView>	   renderTargetView;    // 렌더링 타겟뷰
+	ComPtr<ID3D11DepthStencilView>	   depthStencilView;     // 깊이값 처리를 위한 뎊스스텐실 뷰 
+	ComPtr<ID3D11Texture2D>			   depthStencilBuffer;  // 뎊스스텐실 버퍼
 									   
-	ComPtr<ID3D11BlendState>		   alphaBlendState{};
+	ComPtr<ID3D11BlendState>		   alphaBlendState;
 
 	WindowInfo* windowInfo;
 	std::unique_ptr<Viewport> viewport;
