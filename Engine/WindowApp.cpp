@@ -104,6 +104,13 @@ LRESULT WindowApp::WndProc(HWND _hWnd, UINT _message, WPARAM _wParam, LPARAM _lP
         DirectX::Keyboard::ProcessMessage(_message, _wParam, _lParam);
         break;
 
+    case WM_DPICHANGED:
+    //    if (ImGui::GetIO().ConfigFlags & ImGuiConfigFlags_DpiEnableScaleViewports)
+    //    {
+    //        const RECT* suggested_rect = (RECT*)_lParam;
+    //        ::SetWindowPos(_hWnd, nullptr, suggested_rect->left, suggested_rect->top, suggested_rect->right - suggested_rect->left, suggested_rect->bottom - suggested_rect->top, SWP_NOZORDER | SWP_NOACTIVATE);
+    //    }
+        break;
     default:
         return DefWindowProc(_hWnd, _message, _wParam, _lParam);
     }

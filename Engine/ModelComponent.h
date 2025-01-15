@@ -13,7 +13,6 @@ public:
 	virtual void ComponentInitialize() override;                       // 초기화용
 	virtual void ComponentUpdate(const float _deltaTime) override;	   // 업데이트
 
-
 	std::shared_ptr<Model> GetModel() { return model; }
 
 private:

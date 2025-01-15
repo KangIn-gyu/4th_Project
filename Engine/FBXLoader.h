@@ -32,6 +32,8 @@ private:
 	void ShowMaterials();
 	void ShowMesh();
 	void ShowAiNode();
+	void ShowVertexBuffer();
+	void ShowIndexBuffer();
 public:
 
 private:

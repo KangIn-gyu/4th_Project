@@ -1,5 +1,5 @@
 #pragma once
-#include <imgui.h>
+//#include <imgui.h>
 #include "SingletonBase.h"
 
 #define IMGUI UserImGui::GetInstance()
@@ -15,10 +15,12 @@ public:
 	void Update(const float _deltaTime);
 	void Render();
 
+	DXMath::Color GetBankGroundColor() { return backgroundColor; }
 private:
 	void MenuBar();
 	void ConsoleMenu();
-
+	void MainMenu();
+	void MainDockSpace();
 public:
 
 private:
@@ -26,5 +28,7 @@ private:
 
 	// ÄÜ¼Ö
 	bool is_consoleMenu = false;
+	bool is_mainMenu = false;
+	DXMath::Color backgroundColor = { 0.5f, 0.5f, 0.5f, 1.0f};
 };
 

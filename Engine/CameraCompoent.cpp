@@ -32,7 +32,6 @@ void CameraCompoent::ComponentInitialize()
 		delete GetOwner();
 		owner = nullptr;
 	}
-
 }
 
 void CameraCompoent::ComponentUpdate(const float _deltaTime)
@@ -131,13 +130,11 @@ void CameraCompoent::OnInputProcess(const DX::Keyboard::State& _KeyState, const 
 	if (_MouseState.positionMode == DX::Mouse::MODE_RELATIVE)
 	{
 		DXMath::Vector3 delta = DXMath::Vector3(float(_MouseState.x), float(_MouseState.y), 0.f) * cameraInfo->RotationSpeed;
-		std::cout << "Mouse Delta: (" << delta.x << ", " << delta.y << ", " << delta.z << ")\n";
 		// 구한 이동량으로 회전
 		cameraInfo->cameraTransform->AddYaw(delta.x);
 		cameraInfo->cameraTransform->AddPithc(delta.y);
 
 		DXMath::Quaternion currentRotation = cameraInfo->cameraTransform->GetQuaternion();
-		std::cout << "Current Rotation: (" << currentRotation.x << ", " << currentRotation.y << ", " << currentRotation.z << ", " << currentRotation.w << ")\n";
 		UpdateViewMatrix();
 	}
 }
