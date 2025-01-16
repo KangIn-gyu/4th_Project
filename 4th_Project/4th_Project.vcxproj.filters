@@ -33,6 +33,9 @@
     <ClInclude Include="TestObj.h">
       <Filter>Client\Scene\TestObj</Filter>
     </ClInclude>
+    <ClInclude Include="TestObj2.h">
+      <Filter>Client\Scene\TestObj</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -48,6 +51,9 @@
       <Filter>Client\Scene</Filter>
     </ClCompile>
     <ClCompile Include="TestObj.cpp">
+      <Filter>Client\Scene\TestObj</Filter>
+    </ClCompile>
+    <ClCompile Include="TestObj2.cpp">
       <Filter>Client\Scene\TestObj</Filter>
     </ClCompile>
   </ItemGroup>

@@ -37,7 +37,7 @@ void Renderer::Update(float _deltaTiem)
 
 void Renderer::Render()
 {
-	D3DGraphics->BeginDraw({ 0.5f, 0.5f, 0.5f, 0.0f});
+	D3DGraphics->BeginDraw(IMGUI->GetBankGroundColor());
 	Draw();
 	IMGUI->Render();
 	D3DGraphics->EndDraw();
@@ -47,6 +47,7 @@ void Renderer::Draw()
 {
 	// 디바이스 컨테스트 받기
 	ComPtr<ID3D11DeviceContext> d3dDeviceContext = D3DGraphics->GetD3DDeviceContext();
+//	d3dDeviceContext->PSSetSamplers(0, 1, &linearWrapSampler); // TODO: 샘플러 일단 보류
 
 	for (auto& renderComponent : work)
 	{
@@ -107,5 +108,15 @@ void Renderer::RemoveRenderComponent(RenderComponent* _renderComponent)
 	{
 		work.erase(std::remove(work.begin(), work.end(), _renderComponent), work.end());
 	}
+}
+
+ComPtr<ID3D11ShaderResourceView> Renderer::GetRanderTargetSRV()
+{
+	return D3DGraphics->GetRanderTargetSRV();
+}
+
+std::pair<int, int> Renderer::GetWindowsSize()
+{
+	return D3DGraphics->GetWindowsSize();
 }
 

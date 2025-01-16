@@ -107,8 +107,8 @@
     <Filter Include="1_Engine\Factory">
       <UniqueIdentifier>{d619fd5d-14ca-4b59-859a-42b6b936ba06}</UniqueIdentifier>
     </Filter>
-    <Filter Include="0_Utility\ImGui">
-      <UniqueIdentifier>{aee9bc62-4855-4385-b120-6ac214213297}</UniqueIdentifier>
+    <Filter Include="0_Utility\MyImGui">
+      <UniqueIdentifier>{7bb80b5c-adc3-40f2-be95-3775cdb0758e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -245,7 +245,7 @@
       <Filter>1_Engine\Factory</Filter>
     </ClInclude>
     <ClInclude Include="UserImGui.h">
-      <Filter>0_Utility\ImGui</Filter>
+      <Filter>0_Utility\MyImGui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -352,7 +352,7 @@
       <Filter>1_Engine\Factory</Filter>
     </ClCompile>
     <ClCompile Include="UserImGui.cpp">
-      <Filter>0_Utility\ImGui</Filter>
+      <Filter>0_Utility\MyImGui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

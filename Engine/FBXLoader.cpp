@@ -124,8 +124,8 @@ AiNode* FBXLoader::ProcessNode(aiNode* _node, const aiScene* _scene, AiNode* _pa
 				ProcessMesh(mesh, _scene, _filePath); // 프로세스매쉬를 하고선 버텍스버퍼/인덱스버퍼가 정보 복사
 
 				// 복사된 데이터의 자료형을 언오더드맵을 통해서 포인터로 받는다.
-				staticMesh.SetVertexBuffer(vertexBufferMap.find(_filePath.data())->second[index]);
-				staticMesh.SetIndexBuffer(indexBufferMap.find(_filePath.data())->second[index]);
+				staticMesh.SetVertexBuffer(vertexBufferMap.find(_filePath.data())->second[meshIndex]);
+				staticMesh.SetIndexBuffer(indexBufferMap.find(_filePath.data())->second[meshIndex]);
 				SaveMeshData(_filePath, std::move(staticMesh));
 			}
 			else
@@ -328,6 +328,8 @@ void FBXLoader::AllShow()
 {
 	ShowAiNode();
 	ShowMesh();
+	ShowVertexBuffer();
+	ShowIndexBuffer();
 	ShowMaterials();
 }
 
@@ -368,6 +370,30 @@ void FBXLoader::ShowAiNode()
 			it.second[i]->ShowChild();
 		}
 		std::cout << '\n';
+	}
+}
+
+void FBXLoader::ShowVertexBuffer()
+{
+	for (auto& it : vertexBufferMap)
+	{
+		std::cout << "VertexBuffer KEY : " << it.first << '\n';
+		for (auto& data : it.second)
+		{
+			std::cout << "VertexBuffer Size :" << data->vertices.size() << std::endl;
+		}
+	}
+}
+
+void FBXLoader::ShowIndexBuffer()
+{
+	for (auto& it : indexBufferMap)
+	{
+		std::cout << "indexBufferMap KEY : " << it.first << '\n';
+		for (auto& data : it.second)
+		{
+			std::cout << "indexBufferMap Size : " << data->indices.size() << std::endl;
+		}
 	}
 }
 

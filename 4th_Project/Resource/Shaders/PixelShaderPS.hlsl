@@ -13,9 +13,9 @@ float4 main(PixelInputType input) : SV_TARGET
     float3 speclarMap = SpecularColor.Sample(samLinear, input.TexCoord).xyz;
     float4 emissiveMap = EmissiveColor.Sample(samLinear, input.TexCoord);
     
-    float3 albedoMap = TextureAlbedo.Sample(samLinear, input.TexCoord).rgb;
+    float4 albedoMap = TextureAlbedo.Sample(samLinear, input.TexCoord);
     float metallicMap = MetalnessMap.Sample(samLinear, input.TexCoord).r;
     float roughnessMap = ShininessColor.Sample(samLinear, input.TexCoord).r;
      
-    return finalColor;
+    return albedoMap;
 }
