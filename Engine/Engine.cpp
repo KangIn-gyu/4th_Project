@@ -5,45 +5,30 @@
 
 #include "SystemHeader.h"
 #include "Helper.h"
-#include "Declare.h" // 윈도우 정보때문에
-
-  #include "Texture.h"
-//  #include "Shader.h"
-  #include "ResourceSystem.h"
-void Engine::TestCode()
-{
-   std::shared_ptr<Texture> test = RESOURCESYSTEM->Load<Texture>(L"STAGE1/Texturs/dice.png");
-//   std::shared_ptr<Texture> test1 = RESOURCESYSTEM->Load<Texture>(L"STAGE1/Texturs/Base_BaseColor.tga");
-//   std::shared_ptr<Texture> test3 = RESOURCESYSTEM->Load<Texture>(L"STAGE1/Texturs/SkyBlueBrdf.dds");
-//
-//   std::shared_ptr<Shader> sh2 = RESOURCESYSTEM->Load<Shader>(L"Shaders/VertexShaderVS.hlsl");
-//   std::shared_ptr<Shader> sh1 = RESOURCESYSTEM->Load<Shader>(L"Shaders/PixelShaderPS.hlsl");
-   RESOURCESYSTEM->Show();
-}
-
+#include "SceneManager.h"
+#include "Declare.h" 
 
 void Engine::Initialize()
 {
     inputSystem = DXINPUT;
     graphicsSystem = RENDERER;
     timeSystem = TIMESYSTEM;
-    if (nullptr != clientApp)
+    sceneManager = SCENEMANAGER;
+
+    if (nullptr != clientApp) // 윈도우 생성한게 있는가?
     {
         inputSystem->Initialize(clientApp->GetWindowInfo()->hWnd);
         RENDERER->Initialize(clientApp->GetWindowInfo());
         timeSystem->Initialize();
     }
 
-    TestCode();
+    clientApp->Enter();
 }
 
 void Engine::Loop()
 {
     MSG msg;
-
     ZeroMemory(&msg, sizeof(msg));
-    timeSystem->Update();
-
     while (TRUE)
     {
         if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
@@ -57,6 +42,7 @@ void Engine::Loop()
         }
         else
         {
+            timeSystem->Update();
             // 추후 다양한 업데이트 만들자.
             float deltaTime = timeSystem->GetFloatDeltaTime();
             Update(deltaTime);
@@ -70,18 +56,35 @@ void Engine::Loop()
     }
 }
 
-Engine::~Engine()
+WindowInfo* Engine::GetWindowInfo() const
 {
+    if (nullptr != clientApp)
+    {
+        return clientApp->GetWindowInfo();
+    }
+
+    return nullptr;
 }
+
+void Engine::ChangeScene(std::string_view _SceneName)
+{
+    std::string name;
+    name.assign(_SceneName.data());
+    sceneManager->ChangeScene(name);
+}
+
 
 void Engine::Update(const float _deltaTime)
 {
     inputSystem->Update(_deltaTime);
+    sceneManager->Update(_deltaTime);
+    graphicsSystem->Update(_deltaTime);
+
 }
 
 void Engine::Render(const float _deltaTime)
 {
-    RENDERER->Render();
+    graphicsSystem->Render();
 }
 
 

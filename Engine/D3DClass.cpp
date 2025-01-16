@@ -3,6 +3,7 @@
 #include "Helper.h"
 
 #include "Declare.h"
+#include <dxgidebug.h>
 
 // 정적변수랑은 스태틱은 의미가 달라서 g_표시 안함
 ComPtr<ID3D11Device>        D3DClass::D3DDevice =        nullptr; 
@@ -11,6 +12,10 @@ ComPtr<ID3D11DeviceContext> D3DClass::D3DDeviceContext = nullptr;
 D3DClass::~D3DClass()
 {
 	swapChain->SetFullscreenState(FALSE, nullptr);
+
+#ifdef _DEBUG
+	MemoryLick();
+#endif
 }
 
 void D3DClass::Initialize(WindowInfo* _windowInfo)
@@ -18,24 +23,34 @@ void D3DClass::Initialize(WindowInfo* _windowInfo)
 	windowInfo = _windowInfo;
 	InitD3D();
 	InitDXGI();
+	TestCode();
 }
 
 void D3DClass::BeginDraw(DXMath::Color _BackgroundColor)
 {
 	D3DDeviceContext->ClearRenderTargetView(renderTargetView.Get(), _BackgroundColor);
 	D3DDeviceContext->ClearDepthStencilView(depthStencilView.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0);
+	D3DDeviceContext->OMSetRenderTargets(1, renderTargetView.GetAddressOf(), depthStencilView.Get()); // OM
 }
 
 void D3DClass::EndDraw()
 {
+	bool isSwapChainOccluded = false;
+
 	if (true == presentEnabled)
 	{
-		swapChain->Present(1, 0);   // 화면 새로 고침 비율을 고정합니다.
+		isSwapChainOccluded = (swapChain->Present(1, 0) == DXGI_STATUS_OCCLUDED);   // 화면 새로 고침 비율을 고정합니다.
 	}
 	else
 	{
-		swapChain->Present(0, 0);  // 가능한 빠르게 출력합니다
+		isSwapChainOccluded = (swapChain->Present(0, 0) == DXGI_STATUS_OCCLUDED);  // 가능한 빠르게 출력합니다
 	}
+
+	if (true == isSwapChainOccluded)
+	{
+		std::cout << "스왑체인이 화면에 보이지 않거나 가려졌습니다." << std::endl;
+	}
+
 }
 
 void D3DClass::ChangeWindowSize()
@@ -56,7 +71,7 @@ void D3DClass::ChangeWindowSize()
 	CreateDepthStencilBuffer();
 }
 
-void D3DClass::CreateSamplerState(D3D11_FILTER _filter, D3D11_TEXTURE_ADDRESS_MODE _addressMode, ComPtr<ID3D11SamplerState>& _sampler)
+void D3DClass::CreateSamplerState(D3D11_FILTER _filter, D3D11_TEXTURE_ADDRESS_MODE _addressMode, ComPtr<ID3D11SamplerState> _sampler)
 {
 	D3D11_SAMPLER_DESC sampDesc = {};
 	ZeroMemory(&sampDesc, sizeof(D3D11_SAMPLER_DESC));
@@ -71,6 +86,11 @@ void D3DClass::CreateSamplerState(D3D11_FILTER _filter, D3D11_TEXTURE_ADDRESS_MO
 	HR_T(D3DDevice->CreateSamplerState(&sampDesc, _sampler.GetAddressOf()));
 }
 
+std::pair<int, int> D3DClass::GetWindowsSize()
+{
+	return std::pair<int, int>(windowInfo->screenWidth, windowInfo->screenHeight);
+}
+
 void D3DClass::InitD3D()
 {
 	HRESULT hr = 0;
@@ -80,24 +100,22 @@ void D3DClass::InitD3D()
 	UINT creationFlags = 0;
 #ifdef _DEBUG
 	creationFlags |= D3D11_CREATE_DEVICE_DEBUG;
+	D3D_FEATURE_LEVEL featureLevel;
 #endif
 
 	// 1. 장치 생성.   2. 스왑체인 생성.  3. 장치 컨텍스트 생성.
 	HR_T(D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, creationFlags, NULL, NULL,
-		D3D11_SDK_VERSION, &swapDesc, &swapChain, &D3DDevice, NULL, &D3DDeviceContext));
+		D3D11_SDK_VERSION, &swapDesc, swapChain.GetAddressOf(), D3DDevice.GetAddressOf(), &featureLevel, D3DDeviceContext.GetAddressOf()));
 
 	ID3D11Texture2D* BackBufferTexture = nullptr;
 	HR_T(swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)&BackBufferTexture));
-	HR_T(D3DDevice->CreateRenderTargetView(BackBufferTexture, nullptr, &renderTargetView));
+	HR_T(D3DDevice->CreateRenderTargetView(BackBufferTexture, nullptr, renderTargetView.GetAddressOf()));
 	BackBufferTexture->Release(); // 외부 참조 카운트를 감소시킨다.
 
 	// 뷰포트 설정.	
 	viewport = std::make_unique<Viewport>(0, 0, windowInfo->screenWidth, windowInfo->screenHeight, 0.0f, 1.0f);
 	D3DDeviceContext->RSSetViewports(1, &viewport->Get());  // RS
 
-
-	// 렌더 타겟을 최종 출력 파이프라인에 바인딩합니다.
-	D3DDeviceContext->OMSetRenderTargets(1, renderTargetView.GetAddressOf(), NULL); // OM
 
 	// 레스터 라이저 상태 설정
 	{
@@ -120,16 +138,58 @@ void D3DClass::InitD3D()
 void D3DClass::InitDXGI()
 {
 	HR_T(D3DDevice.As(&DXGIDevice));
-	HR_T(DXGIDevice->GetAdapter(&DXGIAdapter));
+	HR_T(DXGIDevice->GetAdapter(DXGIAdapter.GetAddressOf()));
 	HR_T(DXGIAdapter->GetParent(__uuidof(IDXGIFactory), reinterpret_cast<void**>(DXGIFactory.GetAddressOf())));
 	HR_T(DXGIFactory->MakeWindowAssociation(windowInfo->hWnd, DXGI_MWA_NO_ALT_ENTER)); // 해당 플로그는 Alt + Enter 전환할수 없음
+}
+
+void D3DClass::MemoryLick()
+{
+	HMODULE dxgiDebugDll = GetModuleHandleW(L"dxgidebug.dll");
+	if (dxgiDebugDll == nullptr)
+	{
+		OutputDebugStringW(L"Failed to load dxgidebug.dll\n");
+		return;
+	}
+
+	decltype(&DXGIGetDebugInterface) GetDebugInterface = reinterpret_cast<decltype(&DXGIGetDebugInterface)>(GetProcAddress(dxgiDebugDll, "DXGIGetDebugInterface"));
+	
+	IDXGIDebug* debug = nullptr;
+	GetDebugInterface(IID_PPV_ARGS(&debug));
+
+	OutputDebugStringW(L"----------Starting Live Direct3D Object Dump----------\r\n");
+	debug->ReportLiveObjects(DXGI_DEBUG_ALL, DXGI_DEBUG_RLO_SUMMARY); // https://learn.microsoft.com/ko-kr/windows/win32/api/dxgidebug/ne-dxgidebug-dxgi_debug_rlo_flags
+	OutputDebugStringW(L"----------Completed Live Direct3D Object Dump----------\r\n");
+	debug->Release();
+}
+
+void D3DClass::TestCode()
+{
+//	ComPtr<ID3D11ShaderResourceView>   randerTargetSRV;     // ImGUi에 보낼 텍스쳐
+//	ComPtr<ID3D11Texture2D>			   renderTargetTexture;
+	D3D11_TEXTURE2D_DESC texDesc = {};
+	ZeroMemory(&texDesc, sizeof(D3D11_TEXTURE2D_DESC));
+	texDesc.Width = windowInfo->screenWidth;
+	texDesc.Height = windowInfo->screenHeight;
+	texDesc.MipLevels = 1;
+	texDesc.ArraySize = 1;
+	texDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;  // 텍스처 포맷
+	texDesc.SampleDesc.Count = 1;
+	texDesc.Usage = D3D11_USAGE_DEFAULT;
+	texDesc.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE; // 렌더 타겟과 SRV로 사용
+	HR_T(D3DDevice->CreateTexture2D(&texDesc, nullptr, &ImGuiTargetTexture));
+
+	// 렌더 타겟 뷰 생성
+//	HR_T(D3DDevice->CreateRenderTargetView(ImGuiTargetTexture.Get(), nullptr, randerTargetSRV.GetAddressOf()));
+	// SRV 생성 (ImGui에서 사용할 텍스처)
+	HR_T(D3DDevice->CreateShaderResourceView(ImGuiTargetTexture.Get(), nullptr, randerTargetSRV.GetAddressOf()));
 }
 
 DXGI_SWAP_CHAIN_DESC D3DClass::CreateSwapDesc()
 {
 	DXGI_SWAP_CHAIN_DESC swapDesc = {};
 	ZeroMemory(&swapDesc, sizeof(DXGI_SWAP_CHAIN_DESC));
-	swapDesc.BufferCount = 1;
+	swapDesc.BufferCount = 1;  // imgui 때문에 수정 1.14 1로 수정해야 될수도 있음
 	swapDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;	// 기본값 0  https://learn.microsoft.com/ko-kr/windows/win32/api/dxgi/ne-dxgi-dxgi_swap_effect
 	swapDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT; // 더블 버퍼링 및 3중 버퍼링도 있다
 	swapDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM; //   https://learn.microsoft.com/ko-kr/windows/win32/api/dxgiformat/ne-dxgiformat-dxgi_format
@@ -174,6 +234,9 @@ void D3DClass::CreateDepthStencilBuffer()
 	descDSV.Format = depthStencilDesc.Format;
 	descDSV.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
 	descDSV.Texture2D.MipSlice = 0;
+
+	// 깊이 스텐실 뷰 생성
 	HR_T(D3DDevice->CreateDepthStencilView(depthStencilBuffer.Get(), &descDSV, depthStencilView.GetAddressOf()));
+	// 렌더 타켓 설정
 	D3DDeviceContext->OMSetRenderTargets(1, renderTargetView.GetAddressOf(), depthStencilView.Get());
 }

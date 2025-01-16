@@ -4,20 +4,41 @@
 #include "ModelComponent.h"  // 테스용 
 #include "Helper.h"
 
-Object::Object()
+Object::Object(ObjectType _type) : type(_type)
 {
 	CreateComponent<TransformComponent>();
 }
 
+void Object::ComponentsUpdate(const float _deltaTime)
+{
+    for (auto& map : components)
+    {
+        for (auto& component : map.second)
+        {
+            component->ComponentUpdate(_deltaTime);
+        }
+    }
+}
+
+std::string Object::ObjectTypeToString()
+{
+    switch (type)
+    {
+    case ObjectType::Basic:
+        return "Basic";
+    case ObjectType::Light:
+        return "Light";
+    case ObjectType::Camera:
+        return "Camera";
+    case ObjectType::UI:
+        return "UI";
+    default:
+        return "Unknown";
+    }
+}
+
+
 void Object::ClearComponents()
 {
-    for (auto& pair : components)
-    {
-        for (Component* component : pair.second)
-        {
-            SafeExtinction::SAFE_DELETE(component); // 동적 할당된 메모리 해제
-        }
-        pair.second.clear(); 
-    }
-    components.clear(); 
+    SafeExtinction::SAFE_CLEAR_CONTAINER(components);
 }

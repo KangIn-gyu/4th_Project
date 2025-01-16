@@ -10,11 +10,11 @@ class Model;
 class ResourceSystem : public SingletonBase<ResourceSystem>
 {
 	friend class SingletonBase<ResourceSystem>;
-	using Resource_unMap = std::unordered_map<std::wstring, std::weak_ptr<IResources>>; // 자료형 너무 길어서 별칭 만듬
+	using Resource_unMap = std::unordered_map<std::string, std::weak_ptr<IResources>>; // 자료형 너무 길어서 별칭 만듬
 public:
 	template<ResourcesType T>
-	std::shared_ptr<T> Load(std::wstring_view _filePath);
-	void AllLoadFile(std::wstring_view _filePath);
+	std::shared_ptr<T> Load(std::string_view _filePath);
+	void AllLoadFile(std::string_view _filePath);
     void Show(); // 리소스 매니저 테스트용
 
 private:
@@ -28,13 +28,13 @@ public:
 private:
     FBXLoader fbxLoader;
 	std::unordered_map<std::type_index, Resource_unMap> resources;
-    std::wstring basePath = L"Resource/";
+    std::string basePath = "Resource/";
 };
 
 template <ResourcesType T>
-inline std::shared_ptr<T> ResourceSystem::Load(std::wstring_view _filePath)
+inline std::shared_ptr<T> ResourceSystem::Load(std::string_view _filePath)
 {
-    std::wstring filePath = basePath + _filePath.data();
+    std::string filePath = basePath + _filePath.data();
     std::filesystem::path relativePath = filePath;
 
     // 파일 존재 여부 확인
@@ -45,15 +45,13 @@ inline std::shared_ptr<T> ResourceSystem::Load(std::wstring_view _filePath)
         return nullptr;
     }
 
-    // test 코드 추후 로그 시스템 만들면 삭제할 예정
     std::type_index key = typeid(T);
-    std::cout << key.name() << std::endl; 
 
     // 맵으로 부터 확인을 한다
     auto it = resources.find(key);  //
     if (it != resources.end()) // 같은게 있으면?
     {
-        std::unordered_map<std::wstring, std::weak_ptr<IResources>>& resourceUnMap = it->second; // std::unordered_map<std::wstring, std::weak_ptr<IResources>>
+        std::unordered_map<std::string, std::weak_ptr<IResources>>& resourceUnMap = it->second; // std::unordered_map<std::wstring, std::weak_ptr<IResources>>
         auto it2 = resourceUnMap.find(_filePath.data());
         if (it2 != resourceUnMap.end())
         {
@@ -82,7 +80,8 @@ inline std::shared_ptr<T> ResourceSystem::Load(std::wstring_view _filePath)
     {
         std::type_index type = typeid(T);
         auto& resourceUnMap = resources[type];
-        resourceUnMap.emplace(filePath, fbxLoader.FBXLoad(filePath));
+        auto sharedPtr = fbxLoader.FBXLoad(filePath);
+        resourceUnMap.emplace(filePath, sharedPtr);
+        return sharedPtr;
     }
-
 }

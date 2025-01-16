@@ -6,36 +6,52 @@
 class Transform;
 class Mesh // 기반 클래스
 {
+	struct MeshInfo
+	{	       
+		MeshInfo(UINT _index) : fbxMeshIndex(_index) { meshName.reserve(20); }
+		std::string meshName;
+		VertexBuffer* vertexBuffer {};
+		IndexBuffer* indexBuffer {};
+		InputLayout inputLayout;
+		Transform* transform {};
+
+		UINT GetMeshIndex() { return  fbxMeshIndex; }
+		void SetMeshIndex(UINT _index) { fbxMeshIndex = _index; }
+	private:
+		UINT fbxMeshIndex = -1; // FBX로더를 통해서 좋은 지식 : 메테리얼 인덱스와 매쉬 인덱스가 같다
+	};
+
 public:
-	Mesh() { meshName.reserve(20); }
-	virtual ~Mesh() = default;
+	Mesh();
+	~Mesh();
 
-	void SetVertexBuffer(VertexBuffer* _vertexBuffer) { vertexBuffer = _vertexBuffer; }
-	void SetIndexBuffer(IndexBuffer* _indexBuffer) { indexBuffer = _indexBuffer; }
-	void CreateInputLayout(const std::initializer_list<D3D11_INPUT_ELEMENT_DESC>& _elements, const ComPtr<ID3DBlob>& _shaderBuffer);
+	Mesh(const Mesh& other);
+	Mesh& operator=(const Mesh& _mesh);
 
-	std::string GetMeshName() { return meshName; }
+	Mesh(Mesh&& other) noexcept;
+	Mesh& operator=(Mesh&& _mesh) noexcept;
 
-	void SetName(std::string_view _meshName) { meshName = _meshName.data(); }
-	void SetFBXMeshIndex(UINT _index) { fbxMeshIndex = _index; }
-	void SetMaterialIndex(UINT _index) { materialIndex = _index; }
+	void SetVertexBuffer(VertexBuffer* _vertexBuffer);
+	void SetIndexBuffer(IndexBuffer* _indexBuffer);
+	void CreateInputLayout(const std::initializer_list<D3D11_INPUT_ELEMENT_DESC>& _elements, std::string_view _shaderfilePath);
+
+	void SetFBXMeshIndex(UINT _index);
+	void SetName(std::string_view _meshName);
+
 	void SetTransform(Transform* _Transform);
 	void SetTransformParent(Transform* _Transform);
+
+	std::string GetName();
+	UINT GetFbxIndex();
+	MeshInfo* GetMeshInfo() { return meshInfo; }
 
 private:
 
 public:
 
 protected:
-	UINT fbxMeshIndex = -1;
-	UINT materialIndex = -1;
+	MeshInfo* meshInfo {};
 
-	VertexBuffer* vertexBuffer{};
-	IndexBuffer*  indexBuffer{};
-	InputLayout   inputLayout{};
-
-	std::string meshName;
-	Transform* transform;
 private:
 
 };
