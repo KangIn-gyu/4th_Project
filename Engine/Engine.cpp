@@ -66,6 +66,12 @@ WindowInfo* Engine::GetWindowInfo() const
     return nullptr;
 }
 
+void Engine::SetWindowSize(int _width, int _height)
+{
+    clientApp->SetWindowSize(_width, _height);
+    graphicsSystem->SetWindowSize();
+}
+
 void Engine::ChangeScene(std::string_view _SceneName)
 {
     std::string name;

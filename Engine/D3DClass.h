@@ -19,7 +19,7 @@ public:
 
 	void ChangeWindowSize();
 	void MemoryLick();
-	void TestCode();
+
 	// (캡슐화 포기) 이건 그냥 주자 구조만들기 너무 힘듬
 	static ComPtr<ID3D11Device> GetD3DDevice() { return D3DDevice; }
 	static ComPtr<ID3D11DeviceContext> GetD3DDeviceContext() { return D3DDeviceContext; }
@@ -27,15 +27,17 @@ public:
 	std::unique_ptr<Viewport>& GetVieport() { return viewport; }
 
 	void CreateSamplerState(D3D11_FILTER _filter, D3D11_TEXTURE_ADDRESS_MODE _addressMode, ComPtr<ID3D11SamplerState> _sampler);
-	ComPtr<ID3D11ShaderResourceView> GetRanderTargetSRV() { return randerTargetSRV; }
 	std::pair<int, int> GetWindowsSize();
 
+	void ExtractFinalImage(); //  프론트 버퍼 렌더링
+	ComPtr<ID3D11ShaderResourceView> GetImGuiImageTexture() { return SRV; }
 private:
 	void InitD3D();
 	void InitDXGI();
 
 	DXGI_SWAP_CHAIN_DESC CreateSwapDesc();
 	void CreateDepthStencilBuffer();
+
 
 public:
 
@@ -45,13 +47,9 @@ private:
 	ComPtr<IDXGISwapChain>		       swapChain;           // 스왑체인
 
 	ComPtr<ID3D11RenderTargetView>	   renderTargetView;    // 렌더링 타겟뷰
+	ComPtr<ID3D11Texture2D>			   renderTargetBuffer;
 	ComPtr<ID3D11DepthStencilView>	   depthStencilView;    // 깊이값 처리를 위한 뎊스스텐실 뷰 
 	ComPtr<ID3D11Texture2D>			   depthStencilBuffer;  // 뎊스스텐실 버퍼
-
-	// ImGui 때문에 생성
-	ComPtr<ID3D11Texture2D>			   ImGuiTargetTexture;
-	ComPtr<ID3D11ShaderResourceView>   randerTargetSRV;     // ImGUi에 보낼 텍스쳐
-	ComPtr<ID3D11Texture2D>			   renderTargetTexture;
 
 	ComPtr<ID3D11BlendState>		   alphaBlendState;
 
@@ -62,6 +60,9 @@ private:
 	ComPtr<IDXGIFactory> DXGIFactory;
 	ComPtr<IDXGIAdapter> DXGIAdapter;
 	ComPtr<IDXGIDevice>  DXGIDevice;
+
+	ComPtr<ID3D11Texture2D> stagingTexture; // ImGui에 넘길 텍스쳐
+	ComPtr<ID3D11ShaderResourceView> SRV;
 };
 
 // 항상 그래픽 파이프 라인을 생각하자

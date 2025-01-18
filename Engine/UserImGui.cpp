@@ -42,17 +42,22 @@ void UserImGui::Update(const float _deltaTime)
 	ImGui_ImplDX11_NewFrame();
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
-
+	
 	ImGuizmo::BeginFrame();
 	ImGuizmo::SetOrthographic(false);  // 투시 뷰 사용 여부
-//	ImGuizmo::SetDrawlist();
+	ImGuizmo::SetDrawlist();
+//	ImGuizmo::SetRect();
 }
 
 void UserImGui::Render()
 {
 //	ImGui::ShowDemoWindow(); 데모
-	MainDockSpace();
-
+	MenuBar();
+	MainMenu();
+	ConsoleMenu();
+	hierarchy.Run();
+	Inspector.Run();
+	Scene();
 	// 렌더링
 	ImGui::Render();
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
@@ -63,6 +68,12 @@ void UserImGui::Render()
 		ImGui::UpdatePlatformWindows();
 		ImGui::RenderPlatformWindowsDefault();
 	}
+}
+
+void UserImGui::SetWindowSize(int _width, int _height)
+{
+	windowsSize = { _width , _height };
+	io->DisplaySize = ImVec2(static_cast<float>(_width), static_cast<float>(_height));
 }
 
 void UserImGui::MenuBar()
@@ -152,21 +163,32 @@ void UserImGui::MainDockSpace()
 {
 	// 도킹 공간 처리
 //  TODO : 유니티처럼 만들려고 했으나 너무 복잡해서 포기
-	ImGuiID dockspace_id = ImGui::GetID("MainDockSpace");
-//	ImGui::DockSpaceOverViewport(ImGui::GetWindowDockID());
+//	ImGuiID dockspace_id = ImGui::GetID("MainDockSpace");
+	//ImGui::DockSpaceOverViewport(ImGui::GetWindowDockID());
 
-	MenuBar();
-	MainMenu();
-	ConsoleMenu();
 	
 // TODO : ImGui 보류 사항 도킹 스페이스를 하나 더 만들어야 할 상황이 있을가?
-	if (io->ConfigFlags & ImGuiConfigFlags_DockingEnable)
-	{
-	//	ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), ImGuiDockNodeFlags_None);
-		if (ImGui::Begin("MyDockedWindow"))
+//	if (io->ConfigFlags & ImGuiConfigFlags_DockingEnable)
+//	{
+//		ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), ImGuiDockNodeFlags_None);
+//		if (ImGui::Begin("MyDockedWindow"))
+//
+//		ImGui::End();
+//	}
+}
 
-		ImGui::End();
-	}
+void UserImGui::Scene()
+{
+//	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 }); // 창스타일
+	ImGui::Begin(TEXT_UTF8(u8"씬"));
+	// 보류사항
+	auto viewportMinRegion = ImGui::GetWindowContentRegionMin(); // 씬뷰의 최소 좌표
+	auto viewportMaxRegion = ImGui::GetWindowContentRegionMax(); // 씬뷰의 최대 좌표
+	auto viewportOffset = ImGui::GetWindowPos(); // 윈도우 위치
+
+	ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
+	ImGui::Image((ImTextureID)RENDERER->GetImGuiImageTexture().Get(), ImVec2(viewportPanelSize.x, viewportPanelSize.y), ImVec2{0, 0}, ImVec2{1, 1});
+	ImGui::End();
 }
 
 UserImGui::~UserImGui()

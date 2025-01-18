@@ -110,6 +110,12 @@
     <Filter Include="0_Utility\MyImGui">
       <UniqueIdentifier>{7bb80b5c-adc3-40f2-be95-3775cdb0758e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="0_Utility\MyImGui\Editor">
+      <UniqueIdentifier>{1f1dcbf3-9e53-47cf-8eb2-bef0cf9522e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0_Utility\MyImGui\View">
+      <UniqueIdentifier>{8c7e37d1-f83a-445f-89d4-89fc20af8adb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowApp.h">
@@ -247,6 +253,18 @@
     <ClInclude Include="UserImGui.h">
       <Filter>0_Utility\MyImGui</Filter>
     </ClInclude>
+    <ClInclude Include="Editor.h">
+      <Filter>0_Utility\MyImGui\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorWindow.h">
+      <Filter>0_Utility\MyImGui\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="InspectorWindow.h">
+      <Filter>0_Utility\MyImGui\View</Filter>
+    </ClInclude>
+    <ClInclude Include="HierarchyWindow.h">
+      <Filter>0_Utility\MyImGui\View</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WindowApp.cpp">
@@ -353,6 +371,18 @@
     </ClCompile>
     <ClCompile Include="UserImGui.cpp">
       <Filter>0_Utility\MyImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Editor.cpp">
+      <Filter>0_Utility\MyImGui\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorWindow.cpp">
+      <Filter>0_Utility\MyImGui\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="InspectorWindow.cpp">
+      <Filter>0_Utility\MyImGui\View</Filter>
+    </ClCompile>
+    <ClCompile Include="HierarchyWindow.cpp">
+      <Filter>0_Utility\MyImGui\View</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
