@@ -3,6 +3,7 @@
 #include "Editor.h"
 #include "Helper.h"
 
+
 InspectorWindow::InspectorWindow()
 {
 	SetName("Inspector");
@@ -55,4 +56,9 @@ void InspectorWindow::OnDisable()
 
 void InspectorWindow::OnDestroy()
 {
+}
+
+void InspectorWindow::SetSelectedObject(Object* obj)
+{
+	selectedObject = obj;
 }

@@ -81,6 +81,8 @@ std::shared_ptr<Model> FBXLoader::FBXLoad(std::string_view _filePath)
 	
 	// 테스트용 
 	AllShow();
+	
+	nameCountMap.clear();
 
 	importer.FreeScene();
 	return modelData;
@@ -92,9 +94,15 @@ AiNode* FBXLoader::ProcessNode(aiNode* _node, const aiScene* _scene, AiNode* _pa
 	if (nullptr == _node)
 		return nullptr;
 
+	std::string baseNodeName = std::string(_node->mName.C_Str());
+
+	// 이름 중복 체크
+	int count = nameCountMap[baseNodeName]++;
+	std::string nodeName = count == 0 ? baseNodeName : baseNodeName + "_" + std::to_string(count);
+
 	// 나중에 라이트나 카메라 관련 정보 받아 오는 거 필요할 거 같다 
 	AiNode* currentNode = new AiNode(); // 힙에 할당 내가 만든 노드 핵갈리지말자
-	currentNode->SetName(_node->mName.C_Str());
+	currentNode->SetName(nodeName);
 	currentNode->SetParent(_parent);
 	currentNode->SetLocalTransform(ConvertMatrix(_node->mTransformation)); // 어심프 노드의 _node->mTransformation 트랜스폼을 ConvertMatrix 함수로 변경
 
@@ -115,12 +123,17 @@ AiNode* FBXLoader::ProcessNode(aiNode* _node, const aiScene* _scene, AiNode* _pa
 			{ // 스태틱 매쉬
 				StaticMesh staticMesh;  // 스태틱 매쉬 생성
 				staticMesh.SetFBXMeshIndex(meshIndex);	  // 인덱스 번호 만들기 없어도 될거 같은데 일단 테스트용 여기서 매쉬 인포 생성
-				staticMesh.SetName(mesh->mName.C_Str());  // 매쉬 이름 설정
 				staticMesh.SetTransform(currentNode->GetPointTransform()); // AiNode라고 내가 만든 어심프의 aiNode의 데이터를 저장한 객체의 트랜스폼 설정
 				
-				if(nullptr != _parent) // 예외처리
-				staticMesh.SetTransformParent(_parent->GetPointTransform()); // 부모 설정
-
+				if (nullptr != _parent) // 예외처리
+				{
+					staticMesh.SetTransformParent(_parent->GetPointTransform()); // 부모 설정
+				}
+				else
+				{
+					staticMesh.SetName(nodeName);  // 매쉬 이름 설정
+				}
+		
 				ProcessMesh(mesh, _scene, _filePath); // 프로세스매쉬를 하고선 버텍스버퍼/인덱스버퍼가 정보 복사
 
 				// 복사된 데이터의 자료형을 언오더드맵을 통해서 포인터로 받는다.

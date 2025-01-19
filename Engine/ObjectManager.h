@@ -14,8 +14,8 @@ public:
 	void MainCameraSetting(int _index);
 	void AddObject(Object* _obj);
 
-	// 확인용 
-	void ShowObject();
+	void ShowObject(); 	// 확인용 
+	const std::unordered_map<std::type_index, std::vector<Object*>> GetObjects() const { return Objects; }
 private:
 	void BasicObject();
 

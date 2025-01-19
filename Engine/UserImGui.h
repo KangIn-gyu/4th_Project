@@ -5,7 +5,7 @@
 #include "InspectorWindow.h"
 
 #define IMGUI UserImGui::GetInstance()
-
+class ObjectManager;
 class UserImGui : public SingletonBase<UserImGui>
 {
 	friend class SingletonBase<UserImGui>;
@@ -18,8 +18,9 @@ public:
 	void Render();
 
 	void SetWindowSize(int _width, int _height);
-
+	void HierarchyObjectManagerSetting(ObjectManager* _objectManager);
 	DXMath::Color GetBankGroundColor() { return backgroundColor; }
+
 private:
 	void MenuBar();
 	void ConsoleMenu();
@@ -27,6 +28,7 @@ private:
 	void Scene();
 
 	void MainDockSpace(); // 보류 코드
+
 public:
 
 private:

@@ -33,7 +33,6 @@ public:
 
 protected:
 
-
 private:
 	HINSTANCE hInstance = nullptr;
 	WindowInfo*	windowInfo {};

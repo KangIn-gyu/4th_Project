@@ -9,8 +9,8 @@ TestScene::TestScene(std::string_view _Name) : Scene(_Name)
 
 void TestScene::Enter()
 {
-	CreatorObject<TestObj>(Object::ObjectType::Basic);
-	CreatorObject<TestObj2>(Object::ObjectType::Basic);
+	CreatorObject<TestObj>("char", Object::ObjectType::Basic);
+	CreatorObject<TestObj2>("gun", Object::ObjectType::Basic);
 	ShowObject();
 }
 

@@ -177,6 +177,11 @@ void UserImGui::MainDockSpace()
 //	}
 }
 
+void UserImGui::HierarchyObjectManagerSetting(ObjectManager* _objectManager)
+{
+	hierarchy.SetObjectManager(_objectManager);
+}
+
 void UserImGui::Scene()
 {
 //	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 }); // 창스타일

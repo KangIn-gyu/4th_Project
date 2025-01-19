@@ -2,6 +2,7 @@
 #include "EditorWindow.h"
 
 class Editor;
+class Object;
 class InspectorWindow : public EditorWindow
 {
 public:
@@ -16,11 +17,14 @@ public:
 	void OnDisable() override;
 	void OnDestroy() override;
 
+	void SetSelectedObject(Object* obj); 
 private:
 
 public:
 
 private:
+	Object* selectedObject;
 	std::vector<Editor*> editors;
 };
 
+// 고민 사항 싱글톤으로 만들어야 하나.. 고민중

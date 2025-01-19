@@ -23,8 +23,12 @@ public:
 protected:
 	void SetName(const std::string& name) { this->name = name; }
 
-private:
+public:
+
+protected:
 	State state;
+
+private:
 	std::string name;
 };
 

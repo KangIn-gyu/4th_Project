@@ -4,7 +4,7 @@
 #include "ModelComponent.h"  // ев╫╨©К 
 #include "Helper.h"
 
-Object::Object(ObjectType _type) : type(_type)
+Object::Object(std::string_view _name , ObjectType _type) : name(_name), type(_type)
 {
 	CreateComponent<TransformComponent>();
 }

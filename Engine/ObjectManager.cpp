@@ -47,7 +47,7 @@ void ObjectManager::ShowObject()
 void ObjectManager::BasicObject()
 { // TODO: 현재 라이트가 없음 추가 필요
 
-	auto* mainCamera = FACTORYSYSTEM->CreateObject<CameraObject>(Object::ObjectType::Camera);
+	auto* mainCamera = FACTORYSYSTEM->CreateObject<CameraObject>("MainCamera", Object::ObjectType::Camera);
 	std::cout << typeid(mainCamera).name() << std::endl;
 	mainCamera->GetComponent<TransformComponent>()->SetPosition({ 0, 0, -300.0f });
 	Objects[typeid(CameraObject)].push_back(mainCamera);
