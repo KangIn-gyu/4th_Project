@@ -18,12 +18,13 @@ public:
 	virtual void RateUpdate(const float _deltaTime) {};
 
 	template<succession_Object T>
-	void CreatorObject(Object::ObjectType _objType);
+	void CreatorObject(std::string_view _name , Object::ObjectType _objType);
 
 	void MainCameraSetting(const int _index);
 	std::string GetName();
 
 	void ShowObject();
+	ObjectManager* GetObjectManager() const { return objectManager; }
 private:
 
 public:
@@ -31,7 +32,7 @@ public:
 protected:
 	std::string sceneName;
 	ObjectManager* objectManager;
-	bool is_initialize = false; // 
+	bool is_initialize = false; 
 private:
 
 };
@@ -40,7 +41,7 @@ private:
 // 기본 제공 오브젝트는 메인 카메라, 라이트를 제공.
 
 template<succession_Object T>
-void Scene::CreatorObject(Object::ObjectType _objType)
+void Scene::CreatorObject(std::string_view _name , Object::ObjectType _objType)
 {
-	objectManager->AddObject(FACTORYSYSTEM->CreateObject<T>(_objType));
+	objectManager->AddObject(FACTORYSYSTEM->CreateObject<T>(_name,_objType));
 }

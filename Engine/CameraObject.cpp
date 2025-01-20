@@ -6,7 +6,7 @@
 
 CameraObject* CameraObject::g_MainCameraObject = nullptr;
 
-CameraObject::CameraObject(Object::ObjectType type) : Object(type)
+CameraObject::CameraObject(std::string_view _name, Object::ObjectType type) : Object(_name, type)
 {
 	windowInfo = ENGINE->GetWindowInfo();
 }

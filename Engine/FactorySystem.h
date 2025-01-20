@@ -13,7 +13,7 @@ class FactorySystem : public SingletonBase<FactorySystem>
 	friend class SingletonBase<FactorySystem>;
 public:
 	template<succession_Object T>
-	T* CreateObject(Object::ObjectType _type);
+	T* CreateObject(std::string_view _objName , Object::ObjectType _type);
 
 private:
 
@@ -24,17 +24,17 @@ private:
 };
 
 template<succession_Object T>
-T* FactorySystem::CreateObject(Object::ObjectType _type)
+T* FactorySystem::CreateObject(std::string_view _objName, Object::ObjectType _type)
 {
 	std::cout << typeid(T).name() << std::endl;
 
 	if (_type == Object::ObjectType::Basic && !std::is_same_v<T, CameraObject*>) // ! 카메라 오브젝트가 아니면 참
 	{
-		return new T(_type);
+		return new T(_objName, _type);
 	}
 	else if(_type == Object::ObjectType::Camera && std::is_same_v<T, CameraObject>)// 카메라 오브젝트가 맞으면 참
 	{
-		return new T(_type);
+		return new T(_objName, _type);
 	}
 	else
 	{

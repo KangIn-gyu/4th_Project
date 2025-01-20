@@ -5,7 +5,7 @@ struct WindowInfo;
 class CameraObject : public Object
 {
 public:
-	CameraObject(Object::ObjectType type = Object::ObjectType::Camera);
+	CameraObject(std::string_view _name , Object::ObjectType type = Object::ObjectType::Camera);
 	virtual ~CameraObject() {};
 
 	virtual void Start() override;

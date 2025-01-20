@@ -17,8 +17,11 @@ public:
 	void Draw();
 	void AddRenderComponent(RenderComponent* _renderComponent);
 	void RemoveRenderComponent(RenderComponent* _renderComponent);
-	ComPtr<ID3D11ShaderResourceView> GetRanderTargetSRV();
+
 	std::pair<int, int> GetWindowsSize();
+	void SetWindowSize();
+
+	ComPtr<ID3D11ShaderResourceView> GetImGuiImageTexture();
 private:
 	Renderer() {}
 	~Renderer() { work.clear(); }

@@ -11,7 +11,7 @@ public:
 	struct ViewportSize;
 
 	D3D11_VIEWPORT& Get() { return D3DViewport; }
-	void Set(float _width, float _height, float _x = 0, float _y = 0, float _minDepth = 0, float _maxDepth = 0);
+	void Set(float _width, float _height, float _x = 0, float _y = 0, float _minDepth = 0, float _maxDepth = 1);
 	ViewportSize GetViewportSize(); 
 
 	// 3D 좌표를 2D 화면 좌표로 프로젝션

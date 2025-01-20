@@ -2,6 +2,7 @@
 #include "SceneManager.h"
 #include "Scene.h"
 #include "Helper.h"
+#include "UserImGui.h"
 
 void SceneManager::Update(const float _deltaTime)
 {
@@ -38,12 +39,13 @@ void SceneManager::ChangeScene(std::string_view _SceneName)
 	}
 
 	auto it = ScenesCollection.find(_SceneName.data());
-	if (it != ScenesCollection.end())
+	if (it != ScenesCollection.end()) // 해당 씬이 있다면?
 	{
 		currentScene = it->second;
 		currentScene->Enter();
 		currentScene->Initialize();
 		currentScene->MainCameraSetting(0); // 메인 카메라 변경
+		IMGUI->HierarchyObjectManagerSetting(currentScene->GetObjectManager());
 	}
 	else
 	{

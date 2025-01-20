@@ -3,7 +3,7 @@
 #include "../Engine/RenderComponent.h"
 #include "../Engine/ModelComponent.h"
 
-TestObj2::TestObj2(Object::ObjectType _type) : Object(_type)
+TestObj2::TestObj2(std::string_view _name, Object::ObjectType _type) : Object(_name, _type)
 {
 }
 

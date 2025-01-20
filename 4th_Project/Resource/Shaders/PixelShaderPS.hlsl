@@ -2,7 +2,7 @@
 
 float4 main(PixelInputType input) : SV_TARGET
 { // 일단 보류
- //   int ID = input.VertexID;
+ //   int ID = input.VertexID;    
     float4 finalColor = input.Color;
     
     float3 normal =   normalize(input.Normal);

@@ -43,6 +43,8 @@ private:
 
 	const std::string texturesFolder = "Textures/"; // 폴더 가르키기 용
 
+	std::unordered_map<std::string, int> nameCountMap; // 노드끼리 이름 같은 체크용
+
 	std::unordered_map<std::string, std::vector<AiNode*>> aiNodeMap {};
 	std::unordered_map<std::string, std::vector<VertexBuffer*>> vertexBufferMap {}; 
 	std::unordered_map<std::string, std::vector<IndexBuffer*>>  indexBufferMap  {}; 

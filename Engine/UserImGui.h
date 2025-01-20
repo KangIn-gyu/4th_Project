@@ -1,9 +1,11 @@
 #pragma once
 //#include <imgui.h>
 #include "SingletonBase.h"
+#include "HierarchyWindow.h"
+#include "InspectorWindow.h"
 
 #define IMGUI UserImGui::GetInstance()
-
+class ObjectManager;
 class UserImGui : public SingletonBase<UserImGui>
 {
 	friend class SingletonBase<UserImGui>;
@@ -15,20 +17,29 @@ public:
 	void Update(const float _deltaTime);
 	void Render();
 
+	void SetWindowSize(int _width, int _height);
+	void HierarchyObjectManagerSetting(ObjectManager* _objectManager);
 	DXMath::Color GetBankGroundColor() { return backgroundColor; }
+
 private:
 	void MenuBar();
 	void ConsoleMenu();
 	void MainMenu();
-	void MainDockSpace();
+	void Scene();
+
+	void MainDockSpace(); // 보류 코드
+
 public:
 
 private:
 	ImGuiIO* io;
-
+	std::pair<int, int> windowsSize{};
 	// 콘솔
 	bool is_consoleMenu = false;
 	bool is_mainMenu = false;
 	DXMath::Color backgroundColor = { 0.5f, 0.5f, 0.5f, 1.0f};
+
+	HierarchyWindow hierarchy;
+	InspectorWindow Inspector;
 };
 

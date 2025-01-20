@@ -5,6 +5,8 @@
 #include "Helper.h"
 #include "Declare.h"
 
+#include "Engine.h"
+#include "UserImGui.h"
 // 다이렉트
 #include <directxtk/Mouse.h>
 #include <directxtk/Keyboard.h>
@@ -19,6 +21,7 @@ WindowApp::WindowApp(HINSTANCE _hInstance, std::string_view _gameName, int _scre
     windowInfo->screenHeight = _screenHeight;
     windowInfo->windoweMode = _windoweMode;
     ENGINE->SetWindowApp(this);
+
     WindowsRegistration();
     Initialize(); 
 
@@ -56,6 +59,17 @@ LRESULT WindowApp::WndProc(HWND _hWnd, UINT _message, WPARAM _wParam, LPARAM _lP
     {
     case WM_DESTROY:
         PostQuitMessage(0);
+        break;
+    case WM_SIZE:
+    {
+        if (nullptr != WindowApp::console)
+        { // 여기서 윈도우 사이즈 변경에 대해서 다 처리함
+            UINT newWidth = LOWORD(_lParam);
+            UINT newHeight = HIWORD(_lParam);
+            ENGINE->SetWindowSize(newWidth, newHeight);
+            IMGUI->SetWindowSize(newWidth, newHeight);
+        }
+    }
         break;
     case WM_EXITSIZEMOVE:
     {
@@ -126,6 +140,13 @@ WindowInfo* WindowApp::GetWindowInfo()
     return nullptr;
 }
 
+void WindowApp::SetWindowSize(int _width ,int _height)
+{
+    windowInfo->screenWidth = _width;
+    windowInfo->screenHeight = _height;
+    IMGUI->SetWindowSize(_width, _height);
+}
+
 void WindowApp::Initialize()
 {
     RECT rcClient = { 0,0, windowInfo->screenWidth , windowInfo->screenHeight };
@@ -137,8 +158,10 @@ void WindowApp::Initialize()
 
     int midX = (GetSystemMetrics(SM_CXSCREEN) - adjustedWidth) / 2;
     int midY = (GetSystemMetrics(SM_CYSCREEN) - adjustedHeight) / 2;
-
-    DWORD dwStyle = WS_OVERLAPPEDWINDOW & ~WS_THICKFRAME;
+    // WS_OVERLAPPEDWINDOW & ~WS_THICKFRAME
+    // WS_OVERLAPPEDWINDOW & ~WS_THICKFRAME & ~WS_MINIMIZEBOX;
+    // WS_OVERLAPPEDWINDOW & ~WS_THICKFRAME & ~WS_MINIMIZEBOX & ~WS_MAXIMIZEBOX;
+    DWORD dwStyle = WS_OVERLAPPEDWINDOW & ~WS_THICKFRAME & ~WS_MINIMIZEBOX;  
       
     if(true == windowInfo->windoweMode)
     { // 창모드 일때 

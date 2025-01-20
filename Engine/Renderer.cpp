@@ -37,8 +37,14 @@ void Renderer::Update(float _deltaTiem)
 
 void Renderer::Render()
 {
+	// OMSetRenderTarget(새로 만든 타겟)
+	// 이 타겟에 기존 렌더링 하고
+	// OmSetRenderTarget(기존 백버퍼 타겟(스왑체인 생성하면서 같이 만든 타겟)
+	// 위에서 그린 그림의 ShaderResourceView를 PSSetShaderResource(SRV);
+	// 
 	D3DGraphics->BeginDraw(IMGUI->GetBankGroundColor());
 	Draw();
+	D3DGraphics->ExtractFinalImage();
 	IMGUI->Render();
 	D3DGraphics->EndDraw();
 }
@@ -47,7 +53,8 @@ void Renderer::Draw()
 {
 	// 디바이스 컨테스트 받기
 	ComPtr<ID3D11DeviceContext> d3dDeviceContext = D3DGraphics->GetD3DDeviceContext();
-//	d3dDeviceContext->PSSetSamplers(0, 1, &linearWrapSampler); // TODO: 샘플러 일단 보류
+	d3dDeviceContext->PSSetSamplers(0, 1, &linearWrapSampler); // TODO: 샘플러 일단 보류
+	d3dDeviceContext->PSSetSamplers(1, 1, &pointClampSampler);
 
 	for (auto& renderComponent : work)
 	{
@@ -110,13 +117,20 @@ void Renderer::RemoveRenderComponent(RenderComponent* _renderComponent)
 	}
 }
 
-ComPtr<ID3D11ShaderResourceView> Renderer::GetRanderTargetSRV()
-{
-	return D3DGraphics->GetRanderTargetSRV();
-}
+
 
 std::pair<int, int> Renderer::GetWindowsSize()
 {
 	return D3DGraphics->GetWindowsSize();
+}
+
+void Renderer::SetWindowSize()
+{
+	D3DGraphics->ChangeWindowSize();
+}
+
+ComPtr<ID3D11ShaderResourceView> Renderer::GetImGuiImageTexture()
+{
+	return D3DGraphics->GetImGuiImageTexture();
 }
 
