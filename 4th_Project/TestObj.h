@@ -4,7 +4,7 @@
 class TestObj : public Object
 {
 public:
-	TestObj(Object::ObjectType _type);
+	TestObj(std::string_view _name , Object::ObjectType _type);
 
 	virtual void Start();
 	virtual void Update(const float _deltaTime) {};

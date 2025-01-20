@@ -20,6 +20,7 @@ public:
 	WindowInfo* GetWindowInfo() const;
 	void SetWindowApp(WindowApp* _window) { clientApp = _window; }
 
+	void SetWindowSize(int _width, int _height);
 	void ChangeScene(std::string_view _SceneName);
 
 private:

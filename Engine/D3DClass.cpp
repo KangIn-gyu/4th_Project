@@ -23,14 +23,13 @@ void D3DClass::Initialize(WindowInfo* _windowInfo)
 	windowInfo = _windowInfo;
 	InitD3D();
 	InitDXGI();
-	TestCode();
 }
 
 void D3DClass::BeginDraw(DXMath::Color _BackgroundColor)
 {
+	D3DDeviceContext->OMSetRenderTargets(1, renderTargetView.GetAddressOf(), depthStencilView.Get()); // OM
 	D3DDeviceContext->ClearRenderTargetView(renderTargetView.Get(), _BackgroundColor);
 	D3DDeviceContext->ClearDepthStencilView(depthStencilView.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0);
-	D3DDeviceContext->OMSetRenderTargets(1, renderTargetView.GetAddressOf(), depthStencilView.Get()); // OM
 }
 
 void D3DClass::EndDraw()
@@ -50,25 +49,32 @@ void D3DClass::EndDraw()
 	{
 		std::cout << "스왑체인이 화면에 보이지 않거나 가려졌습니다." << std::endl;
 	}
-
 }
 
 void D3DClass::ChangeWindowSize()
 {
+	renderTargetView.Reset();
+	renderTargetBuffer.Reset();
+	depthStencilView.Reset();
+	depthStencilBuffer.Reset();
+
 	if (swapChain)
 	{
-		swapChain->ResizeBuffers(0, 0, 0, DXGI_FORMAT_UNKNOWN, 0);
+		swapChain->ResizeBuffers(0, windowInfo->screenWidth, windowInfo->screenHeight, DXGI_FORMAT_UNKNOWN, 0);
 	}
 
-	if (depthStencilView)
-	{
-		depthStencilView.Reset();
-	}
+	ComPtr<ID3D11Texture2D> renderTarget = nullptr;
+	HR_T(swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)(renderTarget.GetAddressOf())));
+	D3D11_TEXTURE2D_DESC desc = {};
+	renderTarget->GetDesc(&desc);
+	renderTargetBuffer = renderTarget;
 
-	DXGI_SWAP_CHAIN_DESC swapDesc = CreateSwapDesc();
-	HR_T(DXGIFactory->CreateSwapChain(D3DDevice.Get(), &swapDesc, swapChain.GetAddressOf()));
-
+	HR_T(D3DDevice->CreateRenderTargetView(renderTargetBuffer.Get(), nullptr, renderTargetView.GetAddressOf()));
 	CreateDepthStencilBuffer();
+
+	// 뷰포트 처리
+	viewport->Set(windowInfo->screenWidth, windowInfo->screenHeight);
+	D3DDeviceContext->RSSetViewports(1, &viewport->Get());
 }
 
 void D3DClass::CreateSamplerState(D3D11_FILTER _filter, D3D11_TEXTURE_ADDRESS_MODE _addressMode, ComPtr<ID3D11SamplerState> _sampler)
@@ -107,15 +113,12 @@ void D3DClass::InitD3D()
 	HR_T(D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, creationFlags, NULL, NULL,
 		D3D11_SDK_VERSION, &swapDesc, swapChain.GetAddressOf(), D3DDevice.GetAddressOf(), &featureLevel, D3DDeviceContext.GetAddressOf()));
 
-	ID3D11Texture2D* BackBufferTexture = nullptr;
-	HR_T(swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)&BackBufferTexture));
-	HR_T(D3DDevice->CreateRenderTargetView(BackBufferTexture, nullptr, renderTargetView.GetAddressOf()));
-	BackBufferTexture->Release(); // 외부 참조 카운트를 감소시킨다.
+	HR_T(swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)&renderTargetBuffer));
+	HR_T(D3DDevice->CreateRenderTargetView(renderTargetBuffer.Get(), nullptr, renderTargetView.GetAddressOf()));
 
 	// 뷰포트 설정.	
 	viewport = std::make_unique<Viewport>(0, 0, windowInfo->screenWidth, windowInfo->screenHeight, 0.0f, 1.0f);
 	D3DDeviceContext->RSSetViewports(1, &viewport->Get());  // RS
-
 
 	// 레스터 라이저 상태 설정
 	{
@@ -163,33 +166,11 @@ void D3DClass::MemoryLick()
 	debug->Release();
 }
 
-void D3DClass::TestCode()
-{
-//	ComPtr<ID3D11ShaderResourceView>   randerTargetSRV;     // ImGUi에 보낼 텍스쳐
-//	ComPtr<ID3D11Texture2D>			   renderTargetTexture;
-	D3D11_TEXTURE2D_DESC texDesc = {};
-	ZeroMemory(&texDesc, sizeof(D3D11_TEXTURE2D_DESC));
-	texDesc.Width = windowInfo->screenWidth;
-	texDesc.Height = windowInfo->screenHeight;
-	texDesc.MipLevels = 1;
-	texDesc.ArraySize = 1;
-	texDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;  // 텍스처 포맷
-	texDesc.SampleDesc.Count = 1;
-	texDesc.Usage = D3D11_USAGE_DEFAULT;
-	texDesc.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE; // 렌더 타겟과 SRV로 사용
-	HR_T(D3DDevice->CreateTexture2D(&texDesc, nullptr, &ImGuiTargetTexture));
-
-	// 렌더 타겟 뷰 생성
-//	HR_T(D3DDevice->CreateRenderTargetView(ImGuiTargetTexture.Get(), nullptr, randerTargetSRV.GetAddressOf()));
-	// SRV 생성 (ImGui에서 사용할 텍스처)
-	HR_T(D3DDevice->CreateShaderResourceView(ImGuiTargetTexture.Get(), nullptr, randerTargetSRV.GetAddressOf()));
-}
-
 DXGI_SWAP_CHAIN_DESC D3DClass::CreateSwapDesc()
 {
 	DXGI_SWAP_CHAIN_DESC swapDesc = {};
 	ZeroMemory(&swapDesc, sizeof(DXGI_SWAP_CHAIN_DESC));
-	swapDesc.BufferCount = 1;  // imgui 때문에 수정 1.14 1로 수정해야 될수도 있음
+	swapDesc.BufferCount = 2;  // imgui 때문에 수정 1.14 1로 수정해야 될수도 있음
 	swapDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;	// 기본값 0  https://learn.microsoft.com/ko-kr/windows/win32/api/dxgi/ne-dxgi-dxgi_swap_effect
 	swapDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT; // 더블 버퍼링 및 3중 버퍼링도 있다
 	swapDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM; //   https://learn.microsoft.com/ko-kr/windows/win32/api/dxgiformat/ne-dxgiformat-dxgi_format
@@ -218,15 +199,16 @@ void D3DClass::CreateDepthStencilBuffer()
 	D3D11_TEXTURE2D_DESC depthStencilDesc = {};
 	
 	ZeroMemory(&depthStencilDesc, sizeof(D3D11_TEXTURE2D_DESC));
-	depthStencilDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_DEPTH_STENCIL;
-	depthStencilDesc.Format = DXGI_FORMAT::DXGI_FORMAT_D24_UNORM_S8_UINT;
-	depthStencilDesc.Usage = D3D11_USAGE::D3D11_USAGE_DEFAULT;
 	depthStencilDesc.Width = windowInfo->screenWidth;
 	depthStencilDesc.Height = windowInfo->screenHeight;
+	depthStencilDesc.MipLevels = 1;
 	depthStencilDesc.ArraySize = 1;
 	depthStencilDesc.SampleDesc.Count = 1;
 	depthStencilDesc.SampleDesc.Quality = 0;
-	HR_T(D3DDevice->CreateTexture2D(&depthStencilDesc, nullptr, &depthStencilBuffer));
+	depthStencilDesc.Usage = D3D11_USAGE_DEFAULT;
+	depthStencilDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+	depthStencilDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+	HR_T(D3DDevice->CreateTexture2D(&depthStencilDesc, nullptr, depthStencilBuffer.GetAddressOf()));
 
 	// 뷰 생성
 	D3D11_DEPTH_STENCIL_VIEW_DESC descDSV = {};
@@ -238,5 +220,40 @@ void D3DClass::CreateDepthStencilBuffer()
 	// 깊이 스텐실 뷰 생성
 	HR_T(D3DDevice->CreateDepthStencilView(depthStencilBuffer.Get(), &descDSV, depthStencilView.GetAddressOf()));
 	// 렌더 타켓 설정
-	D3DDeviceContext->OMSetRenderTargets(1, renderTargetView.GetAddressOf(), depthStencilView.Get());
+//	D3DDeviceContext->OMSetRenderTargets(1, renderTargetView.GetAddressOf(), depthStencilView.Get());
+}
+
+void D3DClass::ExtractFinalImage()
+{
+	if (nullptr == SRV)
+	{
+		// 1. 먼저 renderTargetBuffer에서 데이터를 읽을 수 있도록 준비합니다.
+		D3D11_TEXTURE2D_DESC desc;
+		renderTargetBuffer->GetDesc(&desc);
+
+		// 2. D3D11_USAGE_STAGING 텍스처로 복사할 텍스처 생성
+		D3D11_TEXTURE2D_DESC stagingDesc = desc;
+		stagingDesc.Usage = D3D11_USAGE_DEFAULT; // D3D11_USAGE_STAGING
+		stagingDesc.CPUAccessFlags = D3D11_CPU_ACCESS_READ; // CPU에서 읽을 수 있게 설정
+		stagingDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+		stagingDesc.MiscFlags = 0;
+		// stagingDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+
+		HR_T(D3DDevice->CreateTexture2D(&stagingDesc, nullptr, stagingTexture.GetAddressOf()));
+
+		// 3. 텍스처 복사 (GPU에서 CPU로 복사)
+		D3DDeviceContext->CopyResource(stagingTexture.Get(), renderTargetBuffer.Get());
+
+		D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
+		srvDesc.Format = desc.Format;
+		srvDesc.ViewDimension = D3D11_SRV_DIMENSION::D3D11_SRV_DIMENSION_TEXTURE2D;
+		srvDesc.Texture2D.MostDetailedMip = 0;
+		srvDesc.Texture2D.MipLevels = 1;
+
+		HR_T(D3DDevice->CreateShaderResourceView(stagingTexture.Get(), &srvDesc, SRV.GetAddressOf()));
+	}
+	else
+	{
+		D3DDeviceContext->CopyResource(stagingTexture.Get(), renderTargetBuffer.Get());
+	}
 }

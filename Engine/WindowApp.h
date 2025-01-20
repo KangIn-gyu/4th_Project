@@ -22,7 +22,7 @@ public:
 	WindowInfo* GetWindowInfo();
 
 	virtual void Enter() {}; // 씬 로드 하는 곳
-
+	void SetWindowSize(int _width, int _height);
 private:
 	void Initialize();
 	ATOM WindowsRegistration();
@@ -32,7 +32,6 @@ public:
 	static Console* console;
 
 protected:
-
 
 private:
 	HINSTANCE hInstance = nullptr;

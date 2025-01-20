@@ -16,7 +16,7 @@ public:
 		End
 	};
 
-	Object(Object::ObjectType _type = ObjectType::Basic); // 명시 안해놓으면 기본 오브젝트로 생성
+	Object(std::string_view _name , Object::ObjectType _type = ObjectType::Basic); // 명시 안해놓으면 기본 오브젝트로 생성
 	virtual ~Object() { ClearComponents(); }
 
 	void ComponentsUpdate(const float _deltaTime);
@@ -28,6 +28,8 @@ public:
 
 	ObjectType GetObjectType() { return type; }
 	std::string ObjectTypeToString();
+
+	std::string GetName() { return name; }
 
 	template<ComponentType T>
 	T* GetComponent(int _index = 0); // 기본 인덱스는 0으로 함
@@ -43,6 +45,7 @@ public:
 
 protected:
 	ObjectType type;  // 해당 타입은 set 만들면 안됨.
+	std::string name;
 
 private:
 	std::unordered_map<std::type_index, std::vector<Component*>> components;
