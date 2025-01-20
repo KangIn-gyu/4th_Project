@@ -42,7 +42,7 @@ protected:
 	DXMath::Vector3     position;   // 위치
 	DXMath::Quaternion  rotation;   // 회전 (쿼터니언)
 	DXMath::Vector3     scale;      // 스케일
-	Transform* parent{};
+	Transform*			parent{};
 
 	DXMath::Vector3     forward{};
 	DXMath::Vector3     right{};

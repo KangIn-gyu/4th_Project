@@ -1,13 +1,16 @@
 #pragma once
 #include "EditorWindow.h"
+#include "SingletonBase.h"
+
+#define INSPECTOR InspectorWindow::GetInstance()
 
 class Editor;
 class Object;
-class InspectorWindow : public EditorWindow
+class InspectorWindow : public EditorWindow , public SingletonBase<InspectorWindow>
 {
+	friend class SingletonBase<InspectorWindow>;
 public:
-	InspectorWindow();
-	~InspectorWindow();
+	virtual ~InspectorWindow();
 
 	void Initialize() override;
 	void Update() override;
@@ -18,13 +21,13 @@ public:
 	void OnDestroy() override;
 
 	void SetSelectedObject(Object* obj); 
+
 private:
+	InspectorWindow();
 
 public:
+	Object* selectedObject;
 
 private:
-	Object* selectedObject;
 	std::vector<Editor*> editors;
 };
-
-// °í¹Î »çÇ× ½Ì±ÛÅæÀ¸·Î ¸¸µé¾î¾ß ÇÏ³ª.. °í¹ÎÁß
