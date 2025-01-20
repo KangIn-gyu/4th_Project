@@ -21,11 +21,6 @@
 
 #include <iostream>
 
-
-#include <directxtk/SimpleMath.h>  // #pragma comment(lib, "d3dx11.lib") 대체됨
-namespace DX = DirectX;
-namespace DXMath = DirectX::SimpleMath;
-
 #ifdef _DEBUG
 #define _CRTDBG_MAP_ALLOC
 #include <crtdbg.h>

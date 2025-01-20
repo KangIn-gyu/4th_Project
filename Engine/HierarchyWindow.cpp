@@ -7,6 +7,8 @@
 #include "Mesh.h"
 #include "AiNode.h"
 
+#include "InspectorWindow.h"
+
 HierarchyWindow::HierarchyWindow()
 {
 	SetName("Hierarchy");
@@ -40,7 +42,7 @@ void HierarchyWindow::Draw()
 			{
 				if (ImGui::IsItemClicked())
 				{ // TODO : 추후 인스펙터창에 정보 넘기는 거 만들어야 함
-
+					INSPECTOR->SetSelectedObject(objList[i]);
 				}
 
 				// 객체의 ModelData의 rootNode를 가져옵니다.
@@ -95,8 +97,8 @@ void HierarchyWindow::DrawNodeRecursive(AiNode* node)
 	if (ImGui::TreeNode(node->GetName().c_str()))
 	{
 		if (ImGui::IsItemClicked())
-		{
-			// 노드 선택 처리 로직
+		{// 노드 선택 처리 로직 
+			
 		}
 
 		// 자식 노드를 재귀적으로 그립니다.

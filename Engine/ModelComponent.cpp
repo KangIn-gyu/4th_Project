@@ -28,10 +28,3 @@ void ModelComponent::ComponentUpdate(const float _deltaTime)
 {
 	model->Update(_deltaTime);
 }
-
-Transform* ModelComponent::GetTransform()
-{
-	return objectTransform->GetTransform();
-}
-
-                                 

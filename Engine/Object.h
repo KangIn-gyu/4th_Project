@@ -28,7 +28,7 @@ public:
 
 	ObjectType GetObjectType() { return type; }
 	std::string ObjectTypeToString();
-	
+
 	std::string GetName() { return name; }
 
 	template<ComponentType T>

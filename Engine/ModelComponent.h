@@ -4,7 +4,6 @@
 class TransformComponent;
 class Mesh;
 class Model;
-class Transform;
 class ModelComponent : public Component
 {
 public:
@@ -15,7 +14,7 @@ public:
 	virtual void ComponentUpdate(const float _deltaTime) override;	   // 업데이트
 
 	std::shared_ptr<Model> GetModel() { return model; }
-	Transform* GetTransform();
+
 private:
 
 public:
