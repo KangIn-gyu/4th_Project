@@ -32,5 +32,16 @@ namespace DXMath = DirectX::SimpleMath;
 #define new new(_NORMAL_BLOCK, __FILE__, __LINE__)
 #endif
 
+//라이브러리 오류수정 근대 조금 처음 로딩이 느려진듯 논의
+#ifdef _DEBUG
+#undef new // new 재정의 해제
+#endif
+
+// 라이브러리 코드 (new가 재정의되지 않음)
+#include "../Engine/jjson.hpp"
+
+#ifdef _DEBUG
+#define new new(_NORMAL_BLOCK, __FILE__, __LINE__) // 다시 재정의 (필요한 경우)
+#endif
 
 #endif //PCH_H

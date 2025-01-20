@@ -272,6 +272,7 @@
       <Filter>3_Object\Compoent\Transform</Filter>
     </ClInclude>
     <ClInclude Include="SceneLoader.h" />
+    <ClInclude Include="jjson.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WindowApp.cpp">
@@ -411,10 +412,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="..\4th_Project\Resource\Shaders\PixelShaderPS.hlsl">
+    <FxCompile Include="..\4th_Project\Resource\Shaders\VertexShaderVS.hlsl">
       <Filter>리소스 파일</Filter>
     </FxCompile>
-    <FxCompile Include="..\4th_Project\Resource\Shaders\VertexShaderVS.hlsl">
+    <FxCompile Include="..\4th_Project\Resource\Shaders\PixelShaderPS.hlsl">
       <Filter>리소스 파일</Filter>
     </FxCompile>
   </ItemGroup>

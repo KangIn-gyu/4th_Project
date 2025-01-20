@@ -113,6 +113,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <TreatAngleIncludeAsExternal>false</TreatAngleIncludeAsExternal>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -159,6 +160,7 @@
     <ClInclude Include="HierarchyWindow.h" />
     <ClInclude Include="Editor.h" />
     <ClInclude Include="InspectorWindow.h" />
+    <ClInclude Include="jjson.hpp" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="RenderComponent.h" />
