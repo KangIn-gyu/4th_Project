@@ -3,6 +3,8 @@
 #include "Editor.h"
 #include "Helper.h"
 
+#include "TransformEditor.h"
+
 
 InspectorWindow::InspectorWindow()
 {
@@ -18,7 +20,8 @@ InspectorWindow::~InspectorWindow()
 
 void InspectorWindow::Initialize()
 {
-
+	TransformEditor* transformeditor = new TransformEditor;
+	editors.push_back(transformeditor);
 }
 
 void InspectorWindow::Update()
@@ -33,7 +36,9 @@ void InspectorWindow::Draw()
 {
 	for (auto& editor : editors)
 	{
+		ImGui::BeginChild(editor->GetName().c_str(), ImVec2(0, 0), true, ImGuiWindowFlags_None);
 		editor->Draw();
+		ImGui::EndChild();
 	}
 }
 
@@ -61,4 +66,5 @@ void InspectorWindow::OnDestroy()
 void InspectorWindow::SetSelectedObject(Object* obj)
 {
 	selectedObject = obj;
+	static_cast<TransformEditor*>(editors[0])->SetSelectedObject(obj);
 }
