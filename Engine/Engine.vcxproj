@@ -177,6 +177,7 @@
     <ClInclude Include="ResourceSystem.h" />
     <ClInclude Include="SafeExtinction.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneLoader.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="SingletonBase.h" />
@@ -229,6 +230,7 @@
     </ClCompile>
     <ClCompile Include="ResourceSystem.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneLoader.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="SkeletalMesh.cpp" />

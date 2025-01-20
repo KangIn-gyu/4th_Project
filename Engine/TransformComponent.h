@@ -40,6 +40,8 @@ public:
 
 	void AddPithc(const float _value);
 	void AddYaw(const float _value);
+
+	Transform* GetTransform() { return &transform; }
 private:
 
 public:
