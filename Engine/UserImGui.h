@@ -34,13 +34,12 @@ public:
 private:
 	ImGuiIO* io;
 	std::pair<int, int> windowsSize{};
-
 	// ÄÜ¼Ö
 	bool is_consoleMenu = false;
 	bool is_mainMenu = false;
 	DXMath::Color backgroundColor = { 0.5f, 0.5f, 0.5f, 1.0f};
 
 	HierarchyWindow hierarchy;
-	std::shared_ptr<InspectorWindow> inspector;
+	InspectorWindow Inspector;
 };
 
