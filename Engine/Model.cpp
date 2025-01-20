@@ -5,7 +5,8 @@
 #include "Mesh.h"
 #include "InputLayout.h"
 #include "Helper.h"
-
+#include "StaticMesh.h"
+#include "SkeletalMesh.h"
 Model::Model()
 {
 	data = new ModelData;
@@ -18,7 +19,7 @@ Model::~Model()
 
 void Model::Initialize()
 {
-	for (auto& it : data->meshs) // 음... 이 방식으로 하기 싫었지만 시간때문에 그냥 타협함.
+	for (auto& it : *data->meshs) // 음... 이 방식으로 하기 싫었지만 시간때문에 그냥 타협함.
 	{
 		if (owner->GetOwner()->GetObjectType() == Object::ObjectType::Basic)
 		{
@@ -34,7 +35,7 @@ void Model::Initialize()
 				{ "BINORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT,    0, offset.Byte(InputLayout::Layout::Value::Vector3), D3D11_INPUT_PER_VERTEX_DATA, 0}
 			};
 		
-			it.CreateInputLayout(elements, "Shaders/VertexShaderVS.hlsl");
+			it->CreateInputLayout(elements, "Shaders/VertexShaderVS.hlsl");
 		}
 	}
 
@@ -43,7 +44,7 @@ void Model::Initialize()
 
 void Model::Update(const float _deltaTime)
 { 
-	// 무슨 업데이트가 필요할가.. 고민중 나중에 애니메이션이 될거 같기도 하고 애매함
+	data->rootNode->Update(_deltaTime);
 }
 
 void Model::SetOwner(ModelComponent* _owner)
@@ -51,18 +52,18 @@ void Model::SetOwner(ModelComponent* _owner)
 	 owner = _owner; 
 }
 
-void Model::SetMesh(std::vector<Mesh> _meshs)
+void Model::SetMesh(std::vector<Mesh*>* _meshs)
 {
 	data->meshs = _meshs;
 }
 
-void Model::SetMateria(std::vector<Material*> _materials)
+void Model::SetMateria(std::vector<Material*>* _materials)
 {
 	data->materials = _materials;
 }
 
-void Model::SetTreeNode(std::vector<AiNode*> _treeNode)
+void Model::SetTreeNode(std::vector<AiNode*>* _treeNode)
 {
 	data->treeNode = _treeNode;
-	data->rootNode = data->treeNode[0];
+	data->rootNode = (*data->treeNode)[0];
 }

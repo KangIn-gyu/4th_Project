@@ -63,8 +63,14 @@ void InspectorWindow::OnDestroy()
 {
 }
 
-void InspectorWindow::SetSelectedObject(Object* obj)
+void InspectorWindow::SetSelectedObject(Object* _obj)
 {
-	selectedObject = obj;
-	static_cast<TransformEditor*>(editors[0])->SetSelectedObject(obj);
+	selectedObject = _obj;
+	static_cast<TransformEditor*>(editors[0])->SetSelectedObject(selectedObject);
+}
+
+void InspectorWindow::SetSelectedMesh(Mesh* _mesh)
+{
+	selectedMesh = _mesh;
+	static_cast<TransformEditor*>(editors[0])->SetSelectedMesh(selectedMesh);
 }

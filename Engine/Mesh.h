@@ -31,6 +31,8 @@ public:
 	Mesh(Mesh&& other) noexcept;
 	Mesh& operator=(Mesh&& _mesh) noexcept;
 
+	virtual void Update(const float _deltaTime) {};
+
 	void SetVertexBuffer(VertexBuffer* _vertexBuffer);
 	void SetIndexBuffer(IndexBuffer* _indexBuffer);
 	void CreateInputLayout(const std::initializer_list<D3D11_INPUT_ELEMENT_DESC>& _elements, std::string_view _shaderfilePath);

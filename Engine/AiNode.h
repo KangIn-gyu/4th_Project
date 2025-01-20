@@ -9,6 +9,8 @@ public:
 	AiNode(const AiNode& _other);
 	AiNode(AiNode&& _other) noexcept;
 
+	void Update(const float _deltaTime);
+
 	void AddChild(AiNode* _child);
 	void SetParent(AiNode* _parent) { parent = _parent; }
 	void SetName(std::string_view _name);

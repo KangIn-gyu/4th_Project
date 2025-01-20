@@ -85,7 +85,6 @@ void Engine::Update(const float _deltaTime)
     inputSystem->Update(_deltaTime);
     sceneManager->Update(_deltaTime);
     graphicsSystem->Update(_deltaTime);
-
 }
 
 void Engine::Render(const float _deltaTime)

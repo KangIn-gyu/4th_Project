@@ -41,7 +41,8 @@ void HierarchyWindow::Draw()
 			if (ImGui::TreeNode(objList[i]->GetName().c_str()))
 			{
 				if (ImGui::IsItemClicked())
-				{ // TODO : 추후 인스펙터창에 정보 넘기는 거 만들어야 함
+				{ 
+					INSPECTOR->SetSelectedMesh();
 					INSPECTOR->SetSelectedObject(objList[i]);
 				}
 
@@ -50,11 +51,10 @@ void HierarchyWindow::Draw()
 				{
 					auto rootNode = objList[i]->GetComponent<ModelComponent>()->GetModel()->GetModelData()->rootNode;
 					if (rootNode)
-					{// AiNode 트리 구조를 재귀적으로 그립니다.
+					{ // AiNode 트리 구조를 재귀적으로 그립니다.
 						DrawNodeRecursive(rootNode);
 					}
-				}
-				
+				}				
 				ImGui::TreePop(); // TreeNode를 닫습니다.
 			}
 		}
@@ -97,8 +97,8 @@ void HierarchyWindow::DrawNodeRecursive(AiNode* node)
 	if (ImGui::TreeNode(node->GetName().c_str()))
 	{
 		if (ImGui::IsItemClicked())
-		{// 노드 선택 처리 로직 
-			
+		{ // 노드 선택 처리 로직 
+			INSPECTOR->SetSelectedObject(nullptr);
 		}
 
 		// 자식 노드를 재귀적으로 그립니다.

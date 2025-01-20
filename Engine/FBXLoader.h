@@ -25,7 +25,7 @@ private:
 	void ProcessVertexs(aiMesh* _mesh, unsigned int _vertexSize, const std::string_view _filePath);
 
 	void ProcessMesh(aiMesh* _mesh, const aiScene* _scene, const std::string_view _filePath);
-	void SaveMeshData(std::string_view _filePath, Mesh&& _mesh);
+	void SaveMeshData(std::string_view _filePath, Mesh* _mesh);
 	void ProcessMaterial(const aiScene* _scene, const std::string_view _modelFilePath);
 
 	void AllShow();
@@ -48,7 +48,7 @@ private:
 	std::unordered_map<std::string, std::vector<AiNode*>> aiNodeMap {};
 	std::unordered_map<std::string, std::vector<VertexBuffer*>> vertexBufferMap {}; 
 	std::unordered_map<std::string, std::vector<IndexBuffer*>>  indexBufferMap  {}; 
-	std::unordered_map<std::string, std::vector<Mesh>> meshMap {};           // 매쉬 모음
+	std::unordered_map<std::string, std::vector<Mesh*>> meshMap {};           // 매쉬 모음
 	std::unordered_map<std::string, std::vector<Material*>> materials {};  // 메테리얼 모음
 };
 
