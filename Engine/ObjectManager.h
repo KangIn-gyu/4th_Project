@@ -13,7 +13,22 @@ public:
 
 	void MainCameraSetting(int _index);
 	void AddObject(Object* _obj);
-
+	template <typename T>
+	T* GetObjectss(std::string name)
+	{
+		auto it  = Objects.find(typeid(T));
+		if (it != Objects.end())
+		{
+			for (auto obj : it->second)
+			{
+				if (obj->GetName() == name)
+				{
+					return static_cast<T*>(obj);
+				}
+			}
+		
+		}
+	}
 	void ShowObject(); 	// È®ÀÎ¿ë 
 	const std::unordered_map<std::type_index, std::vector<Object*>> GetObjects() const { return Objects; }
 private:

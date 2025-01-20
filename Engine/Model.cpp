@@ -37,6 +37,8 @@ void Model::Initialize()
 			it.CreateInputLayout(elements, "Shaders/VertexShaderVS.hlsl");
 		}
 	}
+
+	data->rootNode->GetPointTransform()->SetParent(owner->GetTransform());
 }
 
 void Model::Update(const float _deltaTime)
