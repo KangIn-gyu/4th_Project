@@ -163,9 +163,6 @@
     <ClInclude Include="TimeSystem.h">
       <Filter>2_System\Time</Filter>
     </ClInclude>
-    <ClInclude Include="SystemHeader.h">
-      <Filter>2_System</Filter>
-    </ClInclude>
     <ClInclude Include="Object.h">
       <Filter>3_Object</Filter>
     </ClInclude>
@@ -282,6 +279,11 @@
     <ClInclude Include="TextureInformationEditor.h">
       <Filter>0_Utility\MyImGui\Editor</Filter>
     </ClInclude>
+    <ClInclude Include="ClickHelper.h" />
+    <ClInclude Include="SystemHeader.h">
+      <Filter>2_System</Filter>
+    </ClInclude>
+    <ClInclude Include="IClick.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WindowApp.cpp">
@@ -414,6 +416,7 @@
     <ClCompile Include="TextureInformationEditor.cpp">
       <Filter>0_Utility\MyImGui\Editor</Filter>
     </ClCompile>
+    <ClCompile Include="ClickHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd">

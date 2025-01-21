@@ -145,6 +145,7 @@
     <ClInclude Include="AiNode.h" />
     <ClInclude Include="CameraCompoent.h" />
     <ClInclude Include="CameraObject.h" />
+    <ClInclude Include="ClickHelper.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Console.h" />
     <ClInclude Include="ConstantBuffer.h" />
@@ -159,6 +160,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="HierarchyWindow.h" />
     <ClInclude Include="Editor.h" />
+    <ClInclude Include="IClick.h" />
     <ClInclude Include="InspectorWindow.h" />
     <ClInclude Include="jjson.hpp" />
     <ClInclude Include="Material.h" />
@@ -204,6 +206,7 @@
     <ClCompile Include="AiNode.cpp" />
     <ClCompile Include="CameraCompoent.cpp" />
     <ClCompile Include="CameraObject.cpp" />
+    <ClCompile Include="ClickHelper.cpp" />
     <ClCompile Include="Console.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />
     <ClCompile Include="D3DClass.cpp" />

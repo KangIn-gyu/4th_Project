@@ -9,9 +9,10 @@ TestObj::TestObj(std::string_view _name, Object::ObjectType _type) : Object(_nam
 
 void TestObj::Start()
 {
-	CreateComponent<ModelComponent>("STAGE1/FBX/char.fbx");  // char2 / gun
+	CreateComponent<ModelComponent>("STAGE1/FBX/gun.fbx");  // char2 / gun
 	CreateComponent<RenderComponent>();
 
+	
 	auto randerComponet = GetComponent<RenderComponent>();
 	randerComponet->SetShader(ShaderType::VS, "Shaders/VertexShaderVS.hlsl");
 	randerComponet->SetShader(ShaderType::PS, "Shaders/PixelShaderPS.hlsl");
