@@ -39,7 +39,7 @@ void Model::Initialize()
 		}
 	}
 
-	data->rootNode->GetPointTransform()->SetParent(owner->GetTransform());
+	data->rootNode->GetPointTransform()->SetParent(owner->GetTransform()); // TODO : 여기 트랜스폼 수정이 필요하다
 }
 
 void Model::Update(const float _deltaTime)
