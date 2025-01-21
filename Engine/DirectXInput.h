@@ -29,9 +29,9 @@ private:
 public:
 	std::unique_ptr<DX::Keyboard>          keyboard{};
 	std::unique_ptr<DX::Mouse>             mouse{};
+	DX::Mouse::State                       mouseState{};
 
 private:
-	DX::Mouse::State                       mouseState{};
 	DX::Mouse::ButtonStateTracker          mouseStateTracker{};
 
 	DX::Keyboard::State                    keyboardState{};

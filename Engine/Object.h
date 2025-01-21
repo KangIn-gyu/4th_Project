@@ -42,8 +42,6 @@ private:
 	void ClearComponents();
 
 public:
-	DXMath::Vector2 boxMin;
-	DXMath::Vector2 boxMax;
 	std::string name;
 protected:
 	ObjectType type;  // 해당 타입은 set 만들면 안됨.

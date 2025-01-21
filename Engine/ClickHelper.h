@@ -3,18 +3,15 @@
 
 class Object;
 
-DXMath::Vector2 ScreenToWorldRay(int mouseX, int mouseY, int screenWidth,
-int screenHeight, const DXMath::Matrix& viewMatrix, const DXMath::Matrix& projectionMatrix, DXMath::Vector2& rayOrigin);
-bool RayIntersectsAABB(
-	DXMath::Vector2 rayOrigin,
-	DXMath::Vector2 rayDirection,
-	const DXMath::Vector2& boxMin,
-	const DXMath::Vector2& boxMax);
+
+DXMath::Ray GenerateRayFromMouse(int mouseX, int mouseY, int screenWidth, int screenHeight,
+	const DirectX::XMMATRIX& viewMatrix,
+	const DirectX::XMMATRIX& projectionMatrix);
 
 class ClickHelper
 {
 public:
-	static Object* FindObj(DXMath::Vector2 _rayOrigin, DXMath::Vector2 _rayDirection);
-	static void checkClickobj(WPARAM _wParam, WPARAM _lParam);
+	static Object* FindObj(DXMath::Vector3 _rayOrigin, DXMath::Vector3 _rayDirection);
+	static void checkClickobj(int _mouseX, int mouseY);
 	
 };

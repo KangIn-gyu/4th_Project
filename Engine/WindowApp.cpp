@@ -10,7 +10,7 @@
 // 다이렉트
 #include <directxtk/Mouse.h>
 #include <directxtk/Keyboard.h>
-
+#include "DirectXInput.h"
 // 용도 : WindowManager를 파생 클래스가 생성이 되면 풀스크린이 아니고 디버그 모드면 콘솔창을 생성한다.
 Console* WindowApp::console = nullptr;
 WindowApp::WindowApp(HINSTANCE _hInstance, std::string_view _gameName, int _screenWidth, int _screenHeight, bool _windoweMode) : \
@@ -104,7 +104,7 @@ LRESULT WindowApp::WndProc(HWND _hWnd, UINT _message, WPARAM _wParam, LPARAM _lP
         break;
     case WM_LBUTTONUP:
         DirectX::Mouse::ProcessMessage(_message, _wParam, _lParam);
-        ClickHelper::checkClickobj(_wParam, _lParam);
+        ClickHelper::checkClickobj(DXINPUT.get()->mouseState.x, DXINPUT.get()->mouseState.y);
         break;
     case WM_RBUTTONDOWN:
     case WM_RBUTTONUP:

@@ -16,7 +16,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 //    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 //#endif
 
-    Client* DemoApp = new Client(hInstance, "test", 1920,1080, true);
+    Client* DemoApp = new Client(hInstance, "test", 1280,720, true);
     ENGINE->Initialize();
     ENGINE->Loop();
 

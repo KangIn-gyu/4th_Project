@@ -284,6 +284,8 @@
       <Filter>2_System</Filter>
     </ClInclude>
     <ClInclude Include="IClick.h" />
+    <ClInclude Include="Collider.h" />
+    <ClInclude Include="BoxCollider.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WindowApp.cpp">
@@ -417,6 +419,8 @@
       <Filter>0_Utility\MyImGui\Editor</Filter>
     </ClCompile>
     <ClCompile Include="ClickHelper.cpp" />
+    <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="BoxCollider.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd">

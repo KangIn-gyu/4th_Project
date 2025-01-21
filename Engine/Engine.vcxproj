@@ -143,9 +143,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AiNode.h" />
+    <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="CameraCompoent.h" />
     <ClInclude Include="CameraObject.h" />
     <ClInclude Include="ClickHelper.h" />
+    <ClInclude Include="Collider.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Console.h" />
     <ClInclude Include="ConstantBuffer.h" />
@@ -204,9 +206,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AiNode.cpp" />
+    <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="CameraCompoent.cpp" />
     <ClCompile Include="CameraObject.cpp" />
     <ClCompile Include="ClickHelper.cpp" />
+    <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Console.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />
     <ClCompile Include="D3DClass.cpp" />
