@@ -40,6 +40,7 @@ private:
 	std::vector<IinputProcesser*>		   inputProcessers;
 };
 
+
 class IinputProcesser
 {
 public:

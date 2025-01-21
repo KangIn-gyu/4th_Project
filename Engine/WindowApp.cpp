@@ -100,7 +100,12 @@ LRESULT WindowApp::WndProc(HWND _hWnd, UINT _message, WPARAM _wParam, LPARAM _lP
     case WM_INPUT:
     case WM_MOUSEMOVE:
     case WM_LBUTTONDOWN:
+        DirectX::Mouse::ProcessMessage(_message, _wParam, _lParam);
+        //checkClickobj();
+        break;
     case WM_LBUTTONUP:
+        DirectX::Mouse::ProcessMessage(_message, _wParam, _lParam);
+        break;
     case WM_RBUTTONDOWN:
     case WM_RBUTTONUP:
     case WM_MBUTTONDOWN:

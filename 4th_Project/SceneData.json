@@ -1,11 +1,12 @@
 {
     "objects": [
         {
-            "objectName": "Sphere",
+            "objectName": "char",
+            "objectType": "Basic",
             "position": {
-                "x": 30.90,
-                "y": 4.5,
-                "z": 5.6
+                "x": 108.80000305175781,
+                "y": -125.100000381469728,
+                "z": -11.5
             },
             "rotation": {
                 "x": 0.0,
@@ -19,11 +20,12 @@
             }
         },
         {
-            "objectName": "char",
+            "objectName": "gun",
+            "objectType": "Basic",
             "position": {
-                "x": 108.80,
-                "y": -25.10,
-                "z": -11.5
+                "x": 230.902263641357423,
+                "y": 114.593017578125,
+                "z": 5.642123222351074
             },
             "rotation": {
                 "x": 0.0,

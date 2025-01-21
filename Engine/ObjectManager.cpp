@@ -7,9 +7,9 @@
 
 void ObjectManager::MainCameraSetting(int _index)
 {
-	if (_index >= 0 && _index < Objects[typeid(CameraObject)].size())
+	if (_index >= 0 && _index < Objects[Object::ObjectType::Camera].size())
 	{
-		CameraObject::g_MainCameraObject = static_cast<CameraObject*>(Objects[typeid(CameraObject)][_index]);
+		CameraObject::g_MainCameraObject = static_cast<CameraObject*>(Objects[Object::ObjectType::Camera][_index]);
 	}
 	else
 	{ // 추후 로그 시스템으로 처리해야 됨
@@ -22,9 +22,7 @@ void ObjectManager::AddObject(Object* _obj)
 	if (_obj)
 	{
 		// 객체의 타입에 해당하는 vector에 추가
-		std::type_index typeIndex = typeid(*_obj); // _obj의 실제 타입을 얻음
-		Objects[typeIndex].push_back(_obj);
-
+		Objects[_obj->GetObjectType()].push_back(_obj);
 		std::cout << typeid(*_obj).name() << " ADD" << '\n';
 	}
 }
@@ -33,12 +31,17 @@ void ObjectManager::ShowObject()
 {
 	for (auto& it : Objects)
 	{
-		std::cout << it.first.name() << '\n';
+		// std::cout << it.first << '\n'; // TODO :  이넘클래스 형변환 체크 필요
 		for (auto& vecData : it.second)
 		{
 			std::cout << " ShowObject : " << typeid(*vecData).name() << "  Type : " << vecData->ObjectTypeToString() << '\n';
 		}
 	}
+}
+
+const std::unordered_map<Object::ObjectType, std::vector<Object*>> ObjectManager::GetObjects() const
+{
+	return Objects;
 }
 
 /// <summary>
@@ -50,7 +53,7 @@ void ObjectManager::BasicObject()
 	auto* mainCamera = FACTORYSYSTEM->CreateObject<CameraObject>("MainCamera", Object::ObjectType::Camera);
 	std::cout << typeid(mainCamera).name() << std::endl;
 	mainCamera->GetComponent<TransformComponent>()->SetPosition({ 0, 0, -300.0f });
-	Objects[typeid(CameraObject)].push_back(mainCamera);
+	Objects[Object::ObjectType::Camera].push_back(mainCamera);
 }
 
 ObjectManager::ObjectManager()

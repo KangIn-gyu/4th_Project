@@ -13,9 +13,13 @@ TestScene::TestScene(std::string_view _Name) : Scene(_Name)
 void TestScene::Enter()
 {
 	CreatorObject<TestObj>("char", Object::ObjectType::Basic);
-	CreatorObject<TestObj2>("gun", Object::ObjectType::Basic);
-	SceneLoader sceneloader("../4th_Project/SceneData.txt");
-	objectManager->GetObjectss<TestObj>("char")->GetComponent<TransformComponent>()->SetPosition(sceneloader.scenedata.objDatas[0].position);
+	CreatorObject<TestObj>("gun", Object::ObjectType::Basic);
+	CreatorObject<TestObj2>("korea", Object::ObjectType::Basic);
+	CreatorObject<TestObj2>("japan", Object::ObjectType::Basic);
+	SceneLoader sceneloader("../4th_Project/123213.json");
+	
+	objectManager->ShowObject();
+	sceneloader.InitObjs(objectManager);
 	//objectManager->GetObjectss<TestObj>("char")->GetComponent<TransformComponent>()->SetPosition(DXMath::Vector3(-100,0,0));
 	ShowObject();
 	//json j;
