@@ -26,8 +26,6 @@ private:
 template<succession_Object T>
 T* FactorySystem::CreateObject(std::string_view _objName, Object::ObjectType _type)
 {
-	std::cout << typeid(T).name() << std::endl;
-
 	if (_type == Object::ObjectType::Basic && !std::is_same_v<T, CameraObject*>) // ! 카메라 오브젝트가 아니면 참
 	{
 		return new T(_objName, _type);

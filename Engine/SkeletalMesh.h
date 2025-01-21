@@ -7,6 +7,8 @@ public:
 	SkeletalMesh() = default;
 	virtual ~SkeletalMesh() = default;
 
+	// TODO : 나중에 구현
+	virtual void Update(const float _deltaTime) override {};
 private:
 
 public:

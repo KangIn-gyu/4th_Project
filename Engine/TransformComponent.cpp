@@ -26,6 +26,11 @@ void TransformComponent::UpdateTransform()
 	transform.UpdateTransform();
 }
 
+void TransformComponent::ComponentUpdate(const float _deltaTime)
+{
+	transform.UpdateTransform();
+}
+
 DXMath::Matrix TransformComponent::GetWorldMatrix()
 {
 	return transform.GetWorldMatrix();

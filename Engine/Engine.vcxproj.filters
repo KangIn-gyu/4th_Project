@@ -272,6 +272,15 @@
       <Filter>3_Object\Compoent\Transform</Filter>
     </ClInclude>
     <ClInclude Include="SceneLoader.h" />
+    <ClInclude Include="MeshInformationEditor.h">
+      <Filter>0_Utility\MyImGui\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialInformationEditor.h">
+      <Filter>0_Utility\MyImGui\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureInformationEditor.h">
+      <Filter>0_Utility\MyImGui\Editor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WindowApp.cpp">
@@ -395,6 +404,15 @@
       <Filter>0_Utility\MyImGui\Editor</Filter>
     </ClCompile>
     <ClCompile Include="SceneLoader.cpp" />
+    <ClCompile Include="MeshInformationEditor.cpp">
+      <Filter>0_Utility\MyImGui\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialInformationEditor.cpp">
+      <Filter>0_Utility\MyImGui\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureInformationEditor.cpp">
+      <Filter>0_Utility\MyImGui\Editor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd">

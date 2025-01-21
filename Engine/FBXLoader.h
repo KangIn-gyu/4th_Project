@@ -17,6 +17,9 @@ public:
 	~FBXLoader();
 
 	std::shared_ptr<Model> FBXLoad(std::string_view _filePath); // 로드하고 무엇을 리턴해야 될가..?
+	void AllShow();
+	void FindShow(std::string_view _filePath);
+
 private:
 	bool HasBones(const aiScene* _scene);
 	AiNode* ProcessNode(aiNode* _node, const aiScene* _scene, AiNode* _parent, const std::string_view _filePath); // 여기 _filePath 추가한 이유 키값 공통으로 사용하기 위해
@@ -25,10 +28,9 @@ private:
 	void ProcessVertexs(aiMesh* _mesh, unsigned int _vertexSize, const std::string_view _filePath);
 
 	void ProcessMesh(aiMesh* _mesh, const aiScene* _scene, const std::string_view _filePath);
-	void SaveMeshData(std::string_view _filePath, Mesh&& _mesh);
+	void SaveMeshData(std::string_view _filePath, Mesh* _mesh);
 	void ProcessMaterial(const aiScene* _scene, const std::string_view _modelFilePath);
 
-	void AllShow();
 	void ShowMaterials();
 	void ShowMesh();
 	void ShowAiNode();
@@ -48,7 +50,7 @@ private:
 	std::unordered_map<std::string, std::vector<AiNode*>> aiNodeMap {};
 	std::unordered_map<std::string, std::vector<VertexBuffer*>> vertexBufferMap {}; 
 	std::unordered_map<std::string, std::vector<IndexBuffer*>>  indexBufferMap  {}; 
-	std::unordered_map<std::string, std::vector<Mesh>> meshMap {};           // 매쉬 모음
+	std::unordered_map<std::string, std::vector<Mesh*>> meshMap {};           // 매쉬 모음
 	std::unordered_map<std::string, std::vector<Material*>> materials {};  // 메테리얼 모음
 };
 

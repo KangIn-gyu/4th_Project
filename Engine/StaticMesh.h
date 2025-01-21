@@ -7,6 +7,7 @@ public:
 	StaticMesh() = default;
 	virtual ~StaticMesh() = default;
 
+	virtual void Update(const float _deltaTime) override;
 private:
 
 public:

@@ -55,7 +55,7 @@ std::shared_ptr<Model> FBXLoader::FBXLoad(std::string_view _filePath)
 	auto treeNode = aiNodeMap.find(filePathKEY); // aiNode가 있는지 확인
 	if (treeNode != aiNodeMap.end()) // 맵을 통해 해당 노드를 생성한지 확인해 본다. 맵에서 찾았을때 없으면 처음 로드하는 것
 	{ // 존재할 경우
-		modelData->SetTreeNode(treeNode->second); // 깊은 복사
+		modelData->SetTreeNode(&treeNode->second); // 깊은 복사
 	}
 	else
 	{ // 없을 경우는 트리 노드를 받아서 생성
@@ -66,7 +66,7 @@ std::shared_ptr<Model> FBXLoader::FBXLoad(std::string_view _filePath)
 			// ProcessNode함수에서 맵에 저장했을 경우 깊은 복사로 인해 객체 자체를 복사해서 생성함 
 			// 그래서 _parent 파라미터가 AddChild한 값이 없음. 그래서 재귀를 한번더 해서 처리함. 
 			CollectNodes(rootNode, &treeNodeSave); 
-			modelData->SetTreeNode(treeNodeSave);
+			modelData->SetTreeNode(&treeNodeSave);
 			aiNodeMap[filePathKEY] = std::move(treeNodeSave);
 
 			if (scene->HasMaterials())
@@ -76,12 +76,9 @@ std::shared_ptr<Model> FBXLoader::FBXLoad(std::string_view _filePath)
 		}	
 	} 
 
-	modelData->SetMesh(meshMap.find(filePathKEY)->second);
-	modelData->SetMateria(materials.find(filePathKEY)->second);
-	
-	// 테스트용 
-	AllShow();
-	
+	modelData->SetMesh(&meshMap.find(filePathKEY)->second);
+	modelData->SetMateria(&materials.find(filePathKEY)->second);
+
 	nameCountMap.clear();
 
 	importer.FreeScene();
@@ -121,29 +118,30 @@ AiNode* FBXLoader::ProcessNode(aiNode* _node, const aiScene* _scene, AiNode* _pa
 			
 			if (isStaticMesh) 
 			{ // 스태틱 매쉬
-				StaticMesh staticMesh;  // 스태틱 매쉬 생성
-				staticMesh.SetFBXMeshIndex(meshIndex);	  // 인덱스 번호 만들기 없어도 될거 같은데 일단 테스트용 여기서 매쉬 인포 생성
-				staticMesh.SetTransform(currentNode->GetPointTransform()); // AiNode라고 내가 만든 어심프의 aiNode의 데이터를 저장한 객체의 트랜스폼 설정
-				
+				StaticMesh* staticMesh = new StaticMesh;  // 스태틱 매쉬 생성
+				staticMesh->SetFBXMeshIndex(meshIndex);	  // 인덱스 번호 만들기 없어도 될거 같은데 일단 테스트용 여기서 매쉬 인포 생성
+				staticMesh->SetTransform(currentNode->GetPointTransform()); // AiNode라고 내가 만든 어심프의 aiNode의 데이터를 저장한 객체의 트랜스폼 설정
+				staticMesh->SetName(nodeName);
 				if (nullptr != _parent) // 예외처리
 				{
-					staticMesh.SetTransformParent(_parent->GetPointTransform()); // 부모 설정
+					staticMesh->SetTransformParent(_parent->GetPointTransform()); // 부모 설정
 				}
 				else
 				{
-					staticMesh.SetName(nodeName);  // 매쉬 이름 설정
+					staticMesh->SetName(nodeName);  // 매쉬 이름 설정
 				}
-		
+				currentNode->SetMesh(staticMesh); // 노드안에 매쉬 넣기 
 				ProcessMesh(mesh, _scene, _filePath); // 프로세스매쉬를 하고선 버텍스버퍼/인덱스버퍼가 정보 복사
 
 				// 복사된 데이터의 자료형을 언오더드맵을 통해서 포인터로 받는다.
-				staticMesh.SetVertexBuffer(vertexBufferMap.find(_filePath.data())->second[meshIndex]);
-				staticMesh.SetIndexBuffer(indexBufferMap.find(_filePath.data())->second[meshIndex]);
+				staticMesh->SetVertexBuffer(vertexBufferMap.find(_filePath.data())->second[meshIndex]);
+				staticMesh->SetIndexBuffer(indexBufferMap.find(_filePath.data())->second[meshIndex]);
 				SaveMeshData(_filePath, std::move(staticMesh));
 			}
 			else
 			{ // 스켈레탈 매쉬 나중에 처리 자료형 적립을 다 못함
-			  // SkeletalMesh skeletalMesh;
+			    SkeletalMesh* skeletalMesh = new SkeletalMesh;
+				currentNode->SetMesh(skeletalMesh); // 노드안에 매쉬 넣기 
 				ProcessMesh(mesh, _scene, _filePath);
 			}
 		}
@@ -269,14 +267,14 @@ void FBXLoader::ProcessMesh(aiMesh* _mesh, const aiScene* _scene, const std::str
 	ProessIndexs(_mesh, _mesh->mNumFaces, _filePath);
 }
 
-void FBXLoader::SaveMeshData(std::string_view _filePath, Mesh&& _mesh)
+void FBXLoader::SaveMeshData(std::string_view _filePath, Mesh* _mesh)
 {
 	if (meshMap.find(_filePath.data()) == meshMap.end())
 	{ // 예외 처리 맵을 찾았을때 비웠을 경우 맵[키] = std::vector를 만들어서 넣는다
-		meshMap[_filePath.data()] = std::vector<Mesh>{};
+		meshMap[_filePath.data()] = std::vector<Mesh*>{};
 	}
 	// 해당 맵이 있으면 그 키값에 저장
-	meshMap[_filePath.data()].emplace_back(std::forward<Mesh>(_mesh));
+	meshMap[_filePath.data()].emplace_back(std::move(_mesh));
 }
 
 void FBXLoader::ProcessMaterial(const aiScene* _scene, const std::string_view _modelFilePath)
@@ -346,6 +344,81 @@ void FBXLoader::AllShow()
 	ShowMaterials();
 }
 
+void FBXLoader::FindShow(std::string_view _filePath)
+{
+	std::string filepath = _filePath.data();
+
+	auto aiNodeIt = aiNodeMap.find(filepath);
+	if (aiNodeIt != aiNodeMap.end()) 
+	{
+		for (int i = 0; i < aiNodeIt->second.size(); i++) 
+		{
+			std::cout << aiNodeIt->second[i]->GetName() << '\n';
+			aiNodeIt->second[i]->ShowChild();
+		}
+	}
+	else 
+	{
+		std::cout << "해당 경로의 AiNodeMap에 정보가 없습니다. " << filepath << '\n';
+	}
+
+	// vertexBufferMap에서 해당 파일 경로에 대한 결과 찾기
+	auto vertexBufferIt = vertexBufferMap.find(filepath);
+	if (vertexBufferIt != vertexBufferMap.end()) 
+	{
+		for (auto& data : vertexBufferIt->second) 
+		{
+			std::cout << "VertexBuffer Size : " << data->vertices.size() << std::endl;
+		}
+	}
+	else 
+	{
+		std::cout << "해당 경로의 VertexBuffer에 정보가 없습니다. " << filepath << '\n';
+	}
+
+	// indexBufferMap에서 해당 파일 경로에 대한 결과 찾기
+	auto indexBufferIt = indexBufferMap.find(filepath);
+	if (indexBufferIt != indexBufferMap.end()) 
+	{
+		for (auto& data : indexBufferIt->second) 
+		{
+			std::cout << "IndexBuffer Size : " << data->indices.size() << std::endl;
+		}
+	}
+	else 
+	{
+		std::cout << "해당 경로의 IndexBuffer에 정보가 없습니다. " << filepath << '\n';
+	}
+
+	// meshMap에서 해당 파일 경로에 대한 결과 찾기
+	auto meshIt = meshMap.find(filepath);
+	if (meshIt != meshMap.end()) 
+	{
+		for (auto& it : meshIt->second) 
+		{
+			std::cout << "MeshIndex(" << it->GetFbxIndex() << ") " << it->GetName() << '\n';
+		}
+	}
+	else 
+	{
+		std::cout << "해당 경로의 Mesh에 정보가 없습니다. " << filepath << '\n';
+	}
+
+	// materials에서 해당 파일 경로에 대한 결과 찾기
+	auto materialsIt = materials.find(filepath);
+	if (materialsIt != materials.end()) 
+	{
+		for (int i = 0; i < materialsIt->second.size(); i++) 
+		{
+			std::cout << i << "." << " " << materialsIt->second[i]->GetName() << "\n";
+		}
+	}
+	else 
+	{
+		std::cout << "해당 경로의 Materials에 정보가 없습니다. " << filepath << '\n';
+	}
+}
+
 void FBXLoader::ShowMaterials()
 {
 	for (auto& it : materials)
@@ -366,7 +439,7 @@ void FBXLoader::ShowMesh()
 		std::cout << "Mesh KEY : " << data.first << std::endl;
 		for (auto& it : data.second)
 		{
-			std::cout << "MeshIndex(" << it.GetFbxIndex() << ") " << it.GetName() << '\n';
+			std::cout << "MeshIndex(" << it->GetFbxIndex() << ") " << it->GetName() << '\n';
 		}
 		std::cout << '\n';
 	}
