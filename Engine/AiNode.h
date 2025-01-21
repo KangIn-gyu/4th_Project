@@ -1,6 +1,7 @@
 #pragma once
 #include "Transform.h"
 
+class Mesh;
 class AiNode
 {
 public:
@@ -14,16 +15,19 @@ public:
 	void AddChild(AiNode* _child);
 	void SetParent(AiNode* _parent) { parent = _parent; }
 	void SetName(std::string_view _name);
-
+	void SetMesh(Mesh* _mesh);
+	
 	std::string GetName() { return nodeName; }
 	std::vector<AiNode*> GetChildren() { return child; }
 	
 	Transform GetTransform();
 	Transform* GetPointTransform() { return &transform; }
+	Mesh* GetMesh();
+
 	void ShowChild();
 	void SetLocalTransform(DX::XMMATRIX _fbxLocalTransform);
 
-	void AllDelete(); // fbx로드에서 데이터 복사용 로드 지우기용 사용하지마시오.
+//	void AllDelete(); // fbx로드에서 데이터 복사용 로드 지우기용 사용하지마시오.
 private:
 
 public:
@@ -33,5 +37,6 @@ private:
 	AiNode* parent {};
 	std::string nodeName;
 	Transform transform; // 노드의 트랜스폼  
+	Mesh* mesh = nullptr; // 해당 매쉬는 노드와 같은 인덱스의 매쉬이다.
 };
 

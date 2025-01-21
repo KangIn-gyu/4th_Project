@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "AiNode.h"
 #include "Helper.h"
+#include "Mesh.h"
 
 AiNode::AiNode()
 {
@@ -55,9 +56,19 @@ void AiNode::SetName(std::string_view _name)
 	nodeName = _name.data();
 }
 
+void AiNode::SetMesh(Mesh* _mesh)
+{
+	mesh = _mesh;
+}
+
 Transform AiNode::GetTransform()
 {
 	return transform;
+}
+
+Mesh* AiNode::GetMesh()
+{
+	return mesh;
 }
 
 void AiNode::ShowChild()
@@ -92,18 +103,18 @@ void AiNode::SetLocalTransform(DX::XMMATRIX _fbxLocalTransform)
 	transform.SetLocalMatrix(_fbxLocalTransform);
 }
 
-void AiNode::AllDelete()
-{
-	if (!child.empty())
-	{
-		for (auto& data : child)
-		{
-			// 자식 노드에서 AllDelete를 호출해 재귀적으로 삭제
-			data->AllDelete();
-		}
-		child.clear(); // 자식 노드 리스트 초기화
-	}
-
-	// 자식들이 다 삭제된 후, 자신도 삭제
-	SafeExtinction::SAFE_DELETE(this);
-}
+//void AiNode::AllDelete()
+//{
+//	if (!child.empty())
+//	{
+//		for (auto& data : child)
+//		{
+//			// 자식 노드에서 AllDelete를 호출해 재귀적으로 삭제
+//			data->AllDelete();
+//		}
+//		child.clear(); // 자식 노드 리스트 초기화
+//	}
+//
+//	// 자식들이 다 삭제된 후, 자신도 삭제
+//	SafeExtinction::SAFE_DELETE(this);
+//}

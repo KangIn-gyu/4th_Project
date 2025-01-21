@@ -78,10 +78,7 @@ std::shared_ptr<Model> FBXLoader::FBXLoad(std::string_view _filePath)
 
 	modelData->SetMesh(&meshMap.find(filePathKEY)->second);
 	modelData->SetMateria(&materials.find(filePathKEY)->second);
-	
-	// 테스트용 
-	// AllShow();
-	
+
 	nameCountMap.clear();
 
 	importer.FreeScene();
@@ -124,7 +121,7 @@ AiNode* FBXLoader::ProcessNode(aiNode* _node, const aiScene* _scene, AiNode* _pa
 				StaticMesh* staticMesh = new StaticMesh;  // 스태틱 매쉬 생성
 				staticMesh->SetFBXMeshIndex(meshIndex);	  // 인덱스 번호 만들기 없어도 될거 같은데 일단 테스트용 여기서 매쉬 인포 생성
 				staticMesh->SetTransform(currentNode->GetPointTransform()); // AiNode라고 내가 만든 어심프의 aiNode의 데이터를 저장한 객체의 트랜스폼 설정
-				
+				staticMesh->SetName(nodeName);
 				if (nullptr != _parent) // 예외처리
 				{
 					staticMesh->SetTransformParent(_parent->GetPointTransform()); // 부모 설정
@@ -133,7 +130,7 @@ AiNode* FBXLoader::ProcessNode(aiNode* _node, const aiScene* _scene, AiNode* _pa
 				{
 					staticMesh->SetName(nodeName);  // 매쉬 이름 설정
 				}
-		
+				currentNode->SetMesh(staticMesh); // 노드안에 매쉬 넣기 
 				ProcessMesh(mesh, _scene, _filePath); // 프로세스매쉬를 하고선 버텍스버퍼/인덱스버퍼가 정보 복사
 
 				// 복사된 데이터의 자료형을 언오더드맵을 통해서 포인터로 받는다.
@@ -143,7 +140,8 @@ AiNode* FBXLoader::ProcessNode(aiNode* _node, const aiScene* _scene, AiNode* _pa
 			}
 			else
 			{ // 스켈레탈 매쉬 나중에 처리 자료형 적립을 다 못함
-			  // SkeletalMesh skeletalMesh;
+			    SkeletalMesh* skeletalMesh = new SkeletalMesh;
+				currentNode->SetMesh(skeletalMesh); // 노드안에 매쉬 넣기 
 				ProcessMesh(mesh, _scene, _filePath);
 			}
 		}
@@ -344,6 +342,81 @@ void FBXLoader::AllShow()
 	ShowVertexBuffer();
 	ShowIndexBuffer();
 	ShowMaterials();
+}
+
+void FBXLoader::FindShow(std::string_view _filePath)
+{
+	std::string filepath = _filePath.data();
+
+	auto aiNodeIt = aiNodeMap.find(filepath);
+	if (aiNodeIt != aiNodeMap.end()) 
+	{
+		for (int i = 0; i < aiNodeIt->second.size(); i++) 
+		{
+			std::cout << aiNodeIt->second[i]->GetName() << '\n';
+			aiNodeIt->second[i]->ShowChild();
+		}
+	}
+	else 
+	{
+		std::cout << "해당 경로의 AiNodeMap에 정보가 없습니다. " << filepath << '\n';
+	}
+
+	// vertexBufferMap에서 해당 파일 경로에 대한 결과 찾기
+	auto vertexBufferIt = vertexBufferMap.find(filepath);
+	if (vertexBufferIt != vertexBufferMap.end()) 
+	{
+		for (auto& data : vertexBufferIt->second) 
+		{
+			std::cout << "VertexBuffer Size : " << data->vertices.size() << std::endl;
+		}
+	}
+	else 
+	{
+		std::cout << "해당 경로의 VertexBuffer에 정보가 없습니다. " << filepath << '\n';
+	}
+
+	// indexBufferMap에서 해당 파일 경로에 대한 결과 찾기
+	auto indexBufferIt = indexBufferMap.find(filepath);
+	if (indexBufferIt != indexBufferMap.end()) 
+	{
+		for (auto& data : indexBufferIt->second) 
+		{
+			std::cout << "IndexBuffer Size : " << data->indices.size() << std::endl;
+		}
+	}
+	else 
+	{
+		std::cout << "해당 경로의 IndexBuffer에 정보가 없습니다. " << filepath << '\n';
+	}
+
+	// meshMap에서 해당 파일 경로에 대한 결과 찾기
+	auto meshIt = meshMap.find(filepath);
+	if (meshIt != meshMap.end()) 
+	{
+		for (auto& it : meshIt->second) 
+		{
+			std::cout << "MeshIndex(" << it->GetFbxIndex() << ") " << it->GetName() << '\n';
+		}
+	}
+	else 
+	{
+		std::cout << "해당 경로의 Mesh에 정보가 없습니다. " << filepath << '\n';
+	}
+
+	// materials에서 해당 파일 경로에 대한 결과 찾기
+	auto materialsIt = materials.find(filepath);
+	if (materialsIt != materials.end()) 
+	{
+		for (int i = 0; i < materialsIt->second.size(); i++) 
+		{
+			std::cout << i << "." << " " << materialsIt->second[i]->GetName() << "\n";
+		}
+	}
+	else 
+	{
+		std::cout << "해당 경로의 Materials에 정보가 없습니다. " << filepath << '\n';
+	}
 }
 
 void FBXLoader::ShowMaterials()

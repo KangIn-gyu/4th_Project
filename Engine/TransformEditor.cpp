@@ -26,7 +26,7 @@ void TransformEditor::Draw()
 { // 시간 낭비 하기 싫어서 걍 하드 코딩으로 처리함
 	if (state == State::Active && nullptr != selectedObject)
 	{ //TODO : 트랜스폼 정보 얻어와서 처리하는걸 만들자
-        if(ImGui::CollapsingHeader("TransformComponent"))
+        if(ImGui::CollapsingHeader("TransformComponent", ImGuiTreeNodeFlags_DefaultOpen))
         {
             auto* transform = selectedObject->GetComponent<TransformComponent>();
             ImGui::Text(selectedObject->GetName().c_str());
@@ -60,7 +60,7 @@ void TransformEditor::Draw()
     }
     else if (state == State::Active && nullptr != selectedMesh)
     {
-        if (ImGui::CollapsingHeader("Transform"))
+        if (ImGui::CollapsingHeader("Transform", ImGuiTreeNodeFlags_DefaultOpen))
         {
             auto* transform = selectedMesh->GetMeshInfo()->transform;
             ImGui::Text(selectedMesh->GetName().c_str());
