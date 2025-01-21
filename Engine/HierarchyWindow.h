@@ -4,6 +4,7 @@
 class ObjectManager;
 class Object;
 class AiNode;
+class Model;
 class HierarchyWindow : public EditorWindow
 {
 public:
@@ -19,7 +20,7 @@ public:
 	void OnDestroy() override;
 
 	void SetObjectManager(ObjectManager* _objectManager);
-	void DrawNodeRecursive(AiNode* node);
+	void DrawNodeRecursive(std::shared_ptr<Model> _model, AiNode* _node);
 private:
 
 

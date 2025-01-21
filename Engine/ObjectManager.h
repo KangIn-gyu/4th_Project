@@ -16,7 +16,6 @@ public:
 
 	template <typename T>
 	T* GetGameObject(Object::ObjectType _type,std::string _name);
-
 	void ShowObject(); 	// 확인용 
 	const std::unordered_map<Object::ObjectType, std::vector<Object*>> GetObjects() const;
 private:
@@ -51,4 +50,18 @@ T* ObjectManager::GetGameObject(Object::ObjectType _type, std::string _name)
 // 싱글톤으로 처리 안함
 // 일단 보류
 
-// 
+template<typename T>
+inline T* ObjectManager::GetObjectss(std::string name)
+{
+	auto it = Objects.find(typeid(T));
+	if (it != Objects.end())
+	{
+		for (auto obj : it->second)
+		{
+			if (obj->GetName() == name)
+			{
+				return static_cast<T*>(obj);
+			}
+		}
+	}
+}

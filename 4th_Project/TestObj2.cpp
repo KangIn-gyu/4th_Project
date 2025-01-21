@@ -2,7 +2,9 @@
 #include "TestObj2.h"
 #include "../Engine/RenderComponent.h"
 #include "../Engine/ModelComponent.h"
+
 #include "../Engine/TransformComponent.h"
+
 TestObj2::TestObj2(std::string_view _name, Object::ObjectType _type) : Object(_name, _type)
 {
 }
@@ -17,5 +19,10 @@ void TestObj2::Start()
 	randerComponet->SetShader(ShaderType::VS, "Shaders/VertexShaderVS.hlsl");
 	randerComponet->SetShader(ShaderType::PS, "Shaders/PixelShaderPS.hlsl");
 
-	//GetComponent<TransformComponent>()->SetPosition(DXMath::Vector3(100, 0, 0));
+
+}
+
+void TestObj2::Update(const float _deltaTime)
+{
+
 }

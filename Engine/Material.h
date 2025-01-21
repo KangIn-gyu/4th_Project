@@ -40,6 +40,8 @@ public:
     float GetMetalness() const { return metalness; }
     float GetRoughness() const { return roughness; }
 
+    void SetMetalness(const float _val);
+    void SetRoughness(const float _val);
 private:
 
 public:

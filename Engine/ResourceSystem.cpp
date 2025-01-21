@@ -23,7 +23,7 @@ void ResourceSystem::AllLoadFile(std::string_view _filePath)
 void ResourceSystem::Show()
 {
     int KeyIndex {};
-    std::cout << "<리소스시스템 로드 현황> " << '\n';
+    std::cout << "< 리소스시스템 로드 현황 > " << '\n';
     for (auto& it : resources)
     {
         std::cout << KeyIndex << "번째 키값 :" << it.first.name() << '\n';

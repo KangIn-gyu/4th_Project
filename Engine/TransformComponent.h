@@ -10,9 +10,7 @@ public:
 
 	virtual void ComponentInitialize() override {}
 	// ComponentUpdate에 업데이트 메트릭스 계산 안넣은 이유 가만히 있을때 계산안하기 위해서
-	virtual void ComponentUpdate(const float _deltaTime) override {}
-
-	void UpdateTransform();
+	virtual void ComponentUpdate(const float _deltaTime) override;
 
 	DXMath::Matrix  GetWorldMatrix();
 	DXMath::Matrix  GetLocalMatrix() const;
@@ -43,7 +41,7 @@ public:
 
 	Transform* GetTransform() { return &transform; }
 private:
-
+	void UpdateTransform();
 public:
 
 private:

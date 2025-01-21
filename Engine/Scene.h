@@ -24,7 +24,7 @@ public:
 	std::string GetName();
 
 	void ShowObject();
-	ObjectManager* GetObjectManager() const { return objectManager; }
+	ObjectManager* GetObjectManager() { return objectManager; }
 private:
 
 public:

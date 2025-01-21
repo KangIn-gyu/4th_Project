@@ -4,7 +4,8 @@
 #include "Helper.h"
 
 #include "TransformEditor.h"
-
+#include "MeshInformationEditor.h"
+#include "TextureInformationEditor.h"
 
 InspectorWindow::InspectorWindow()
 {
@@ -20,8 +21,9 @@ InspectorWindow::~InspectorWindow()
 
 void InspectorWindow::Initialize()
 {
-	TransformEditor* transformeditor = new TransformEditor;
-	editors.push_back(transformeditor);
+	editors.push_back(new TransformEditor());
+	editors.push_back(new MeshInformationEditor());
+	editors.push_back(new TextureInformationEditor());
 }
 
 void InspectorWindow::Update()
@@ -34,12 +36,12 @@ void InspectorWindow::Update()
 
 void InspectorWindow::Draw()
 {
+	ImGui::BeginChild("InspectorWindow", ImVec2(0, 0), true, ImGuiWindowFlags_None);
 	for (auto& editor : editors)
 	{
-		ImGui::BeginChild(editor->GetName().c_str(), ImVec2(0, 0), true, ImGuiWindowFlags_None);
 		editor->Draw();
-		ImGui::EndChild();
 	}
+	ImGui::EndChild();
 }
 
 void InspectorWindow::Run()
@@ -63,8 +65,20 @@ void InspectorWindow::OnDestroy()
 {
 }
 
-void InspectorWindow::SetSelectedObject(Object* obj)
+void InspectorWindow::SetSelectedObject(Object* _obj)
 {
-	selectedObject = obj;
-	static_cast<TransformEditor*>(editors[0])->SetSelectedObject(obj);
+	selectedObject = _obj;
+	static_cast<TransformEditor*>(editors[0])->SetSelectedObject(selectedObject);
+}
+
+void InspectorWindow::SetSelectedMesh(Mesh* _mesh)
+{
+	selectedMesh = _mesh;
+	static_cast<TransformEditor*>(editors[0])->SetSelectedMesh(selectedMesh);
+	static_cast<MeshInformationEditor*>(editors[1])->SetSelectedMesh(selectedMesh);
+}
+
+void InspectorWindow::SetSelectedTexture(Texture* _texture)
+{
+	static_cast<TextureInformationEditor*>(editors[2])->SetSelectedTexture(_texture);
 }

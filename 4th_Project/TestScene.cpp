@@ -21,6 +21,10 @@ void TestScene::Enter()
 	objectManager->ShowObject();
 	sceneloader.InitObjs(objectManager);
 	//objectManager->GetObjectss<TestObj>("char")->GetComponent<TransformComponent>()->SetPosition(DXMath::Vector3(-100,0,0));
+	CreatorObject<TestObj2>("gun", Object::ObjectType::Basic);
+	objectManager->GetObjectss<TestObj>("char")->GetComponent<TransformComponent>()->SetPosition({50, 0, 0});
+
 	ShowObject();
-	//json j;
+
 }
+
