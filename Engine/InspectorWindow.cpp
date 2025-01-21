@@ -1,11 +1,13 @@
 #include "pch.h"
 #include "InspectorWindow.h"
 #include "Editor.h"
+#include "Object.h"
 #include "Helper.h"
 
 #include "TransformEditor.h"
 #include "MeshInformationEditor.h"
 #include "TextureInformationEditor.h"
+#include "CameraInformationEditor.h"
 
 InspectorWindow::InspectorWindow()
 {
@@ -21,9 +23,10 @@ InspectorWindow::~InspectorWindow()
 
 void InspectorWindow::Initialize()
 {
-	editors.push_back(new TransformEditor());
-	editors.push_back(new MeshInformationEditor());
-	editors.push_back(new TextureInformationEditor());
+	editors.push_back(new TransformEditor());			 // 0
+	editors.push_back(new MeshInformationEditor());		 // 1
+	editors.push_back(new TextureInformationEditor());	 // 2
+	editors.push_back(new CameraInformationEditor());	 // 3
 }
 
 void InspectorWindow::Update()
@@ -69,6 +72,15 @@ void InspectorWindow::SetSelectedObject(Object* _obj)
 {
 	selectedObject = _obj;
 	static_cast<TransformEditor*>(editors[0])->SetSelectedObject(selectedObject);
+	if (nullptr != _obj && _obj->GetObjectType() == Object::ObjectType::Camera)
+	{
+		static_cast<CameraInformationEditor*>(editors[3])->OnEnable();
+		static_cast<CameraInformationEditor*>(editors[3])->SetCameraObject(selectedObject);
+	}
+	else
+	{
+		static_cast<CameraInformationEditor*>(editors[3])->SetCameraObject(nullptr);
+	}
 }
 
 void InspectorWindow::SetSelectedMesh(Mesh* _mesh)

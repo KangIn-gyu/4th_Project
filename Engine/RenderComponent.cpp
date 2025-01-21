@@ -18,7 +18,7 @@ RenderComponent::~RenderComponent()
 }
 
 void RenderComponent::ComponentInitialize()
-{ // 음.. 고민 사항. 너무 커플링된 구조이고 꼭 모델이 아니여도 UI도 받아야 하는 상황이 올텐데 좀더 고민을 하자
+{ 
 	modelData = owner->GetComponent<ModelComponent>()->GetModel();
 }
 
@@ -35,7 +35,16 @@ std::shared_ptr<Shader> RenderComponent::GetShder(ShaderType _shaderType)
 
 void RenderComponent::SetShader(ShaderType _shaderType, std::string_view _filePath)
 {
-	shaders[_shaderType] = RESOURCESYSTEM->Load<Shader>(_filePath);
+	auto shader = RESOURCESYSTEM->Load<Shader>(_filePath);
+	
+	if (shader.get() != nullptr)
+	{
+		shaders[_shaderType] = shader;
+	}
+	else
+	{
+		std::cout << "SetShader에서 오류 발생" << '\n';
+	}
 }
 
 

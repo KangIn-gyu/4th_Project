@@ -32,7 +32,7 @@ private:
 };
 
 template <ResourcesType T>
-inline std::shared_ptr<T> ResourceSystem::Load(std::string_view _filePath)
+std::shared_ptr<T> ResourceSystem::Load(std::string_view _filePath)
 {
     std::string filePath = basePath + _filePath.data();
     std::filesystem::path relativePath = filePath;
@@ -47,16 +47,16 @@ inline std::shared_ptr<T> ResourceSystem::Load(std::string_view _filePath)
 
     std::type_index key = typeid(T);
 
-    // 맵으로 부터 확인을 한다
+    //// 맵으로 부터 확인을 한다
     auto it = resources.find(key);  //
     if (it != resources.end()) // 같은게 있으면?
     {
         std::unordered_map<std::string, std::weak_ptr<IResources>>& resourceUnMap = it->second; // std::unordered_map<std::wstring, std::weak_ptr<IResources>>
-        auto it2 = resourceUnMap.find(_filePath.data());
+        auto it2 = resourceUnMap.find(filePath);
         if (it2 != resourceUnMap.end())
         {
             auto weak_ptr = it2->second;
-            if (0 != weak_ptr.expired())
+            if (!weak_ptr.expired())
             {
                 return std::static_pointer_cast<T>(weak_ptr.lock());
             }

@@ -22,7 +22,6 @@ void MeshInformationEditor::Draw()
 {
 	if (state == State::Active && nullptr != selectedMesh)
 	{
-		std::string test = GetName().c_str();
 		if (ImGui::CollapsingHeader(GetName().c_str() , ImGuiTreeNodeFlags_DefaultOpen))
 		{
 			auto* meshInfo = selectedMesh->GetMeshInfo();

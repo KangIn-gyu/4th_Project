@@ -6,6 +6,8 @@
 #include "Model.h"
 #include "Mesh.h"
 #include "AiNode.h"
+#include "Material.h"
+#include "Texture.h"
 
 #include "InspectorWindow.h"
 
@@ -98,9 +100,15 @@ void HierarchyWindow::DrawNodeRecursive(std::shared_ptr<Model> _model, AiNode* _
 	{
 		if (ImGui::IsItemClicked())
 		{ // 노드 선택 처리 로직 
+			
 			INSPECTOR->SetSelectedObject(nullptr);
 			INSPECTOR->SetSelectedMesh(_node->GetMesh()); // 여기 매쉬 넣어야 됨
-		//	INSPECTOR->SetSelectedTexture();
+			if (_node->GetMesh() != nullptr)
+			{
+				int index = _node->GetMesh()->GetFbxIndex();
+				auto materials = _model->GetModelData()->materials;
+				//	INSPECTOR->SetSelectedTexture();
+			}
 		}
 
 		// 자식 노드를 재귀적으로 그립니다.

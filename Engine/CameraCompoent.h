@@ -27,10 +27,11 @@ public:
 	DXMath::Vector3 GetForward();
 	DXMath::Vector3 GetRight();
 
+	CameraInfo* GetCameraInfo() { return cameraInfo; }
 private:
 	void UpdateViewMatrix();
 	void AddInputVector(const DXMath::Vector3& input);
-
+	void UpdateProjection();
 public:
 
 private:

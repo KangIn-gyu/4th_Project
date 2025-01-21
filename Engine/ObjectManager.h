@@ -1,5 +1,6 @@
 #pragma once
 #include "Object.h"
+#include "FactorySystem.h"
 
 class ObjectManager
 {
@@ -14,8 +15,8 @@ public:
 	void MainCameraSetting(int _index);
 	void AddObject(Object* _obj);
 
-	template <typename T>
-	T* GetObjectss(std::string name);
+	template <succession_Object T>
+	T* GetGemeObject(std::string name);
 
 	void ShowObject(); 	// 확인용 
 	const std::unordered_map<std::type_index, std::vector<Object*>> GetObjects() const { return Objects; }
@@ -32,8 +33,8 @@ private:
 // 싱글톤으로 처리 안함
 // 일단 보류
 
-template<typename T>
-inline T* ObjectManager::GetObjectss(std::string name)
+template<succession_Object T>
+T* ObjectManager::GetGemeObject(std::string name)
 {
 	auto it = Objects.find(typeid(T));
 	if (it != Objects.end())

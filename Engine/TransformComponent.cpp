@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "TransformComponent.h"
 
+#include "Object.h" //test
+
 void TransformComponent::SetParent(TransformComponent* _parent)
 {
 	transform.SetParent(&_parent->transform);
