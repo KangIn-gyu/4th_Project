@@ -36,6 +36,8 @@
     <ClInclude Include="TestObj2.h">
       <Filter>Client\Scene\TestObj</Filter>
     </ClInclude>
+    <ClInclude Include="Card.h" />
+    <ClInclude Include="Deck.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -56,5 +58,7 @@
     <ClCompile Include="TestObj2.cpp">
       <Filter>Client\Scene\TestObj</Filter>
     </ClCompile>
+    <ClCompile Include="Card.cpp" />
+    <ClCompile Include="Deck.cpp" />
   </ItemGroup>
 </Project>

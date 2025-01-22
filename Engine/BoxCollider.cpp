@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "BoxCollider.h"
-
+#include "Object.h"
+#include "TransformComponent.h"
 void BoxCollider::SetBox(const DXMath::Vector3& center, const DXMath::Vector3& extents, const DXMath::Quaternion& orientation)
 {
 	obBox.Center = center;
@@ -14,6 +15,8 @@ void BoxCollider::ComponentInitialize()
 
 void BoxCollider::ComponentUpdate(const float _deltaTime)
 {
+	auto trans = owner->GetComponent<TransformComponent>();
+	Update(trans->GetPosition(), trans->GetQuaternion());
 }
 
 void BoxCollider::Update(const DXMath::Vector3& center, const DXMath::Quaternion& orientation)

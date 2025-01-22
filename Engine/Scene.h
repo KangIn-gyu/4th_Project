@@ -20,6 +20,9 @@ public:
 	template<succession_Object T>
 	void CreatorObject(std::string_view _name , Object::ObjectType _objType);
 
+	template<succession_Object T, typename ... Arg>
+	T* CreatorObject(Arg&& ... _arguments);
+	
 	void MainCameraSetting(const int _index);
 	std::string GetName();
 
@@ -44,4 +47,13 @@ template<succession_Object T>
 void Scene::CreatorObject(std::string_view _name , Object::ObjectType _objType)
 {
 	objectManager->AddObject(FACTORYSYSTEM->CreateObject<T>(_name, _objType));
+}
+
+
+template<succession_Object T, typename ... Arg>
+T* Scene::CreatorObject(Arg&& ... _arguments)
+{
+	auto object = FACTORYSYSTEM->CreateObject<T>(std::forward<Arg>(_arguments)...);
+	objectManager->AddObject(object);
+	return object; // 생성한 객체를 반환
 }

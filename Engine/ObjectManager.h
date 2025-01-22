@@ -30,6 +30,7 @@ private:
 template<typename T>
 T* ObjectManager::GetGameObject(Object::ObjectType _type, std::string _name)
 {
+
 	auto it = Objects.find(_type);
 	if (it != Objects.end())
 	{
@@ -37,7 +38,7 @@ T* ObjectManager::GetGameObject(Object::ObjectType _type, std::string _name)
 		{
 			if (gameobj->GetName() == _name)
 			{
-				return gameobj;
+				return static_cast<T*>(gameobj);
 			}
 			
 		}

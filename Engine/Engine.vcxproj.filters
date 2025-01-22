@@ -119,6 +119,12 @@
     <Filter Include="0_Utility\MyImGui\Editor">
       <UniqueIdentifier>{7a5f7204-ff02-481c-adbe-f365d09d03f6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="3_Object\Compoent\Collider">
+      <UniqueIdentifier>{5c17b486-1ddb-4171-9611-765d011bba25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2_System\EventSystem">
+      <UniqueIdentifier>{4773b1c7-a427-40cd-8b15-8658b0929612}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowApp.h">
@@ -279,13 +285,20 @@
     <ClInclude Include="TextureInformationEditor.h">
       <Filter>0_Utility\MyImGui\Editor</Filter>
     </ClInclude>
-    <ClInclude Include="ClickHelper.h" />
     <ClInclude Include="SystemHeader.h">
       <Filter>2_System</Filter>
     </ClInclude>
     <ClInclude Include="IClick.h" />
-    <ClInclude Include="Collider.h" />
-    <ClInclude Include="BoxCollider.h" />
+    <ClInclude Include="BoxCollider.h">
+      <Filter>3_Object\Compoent\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>3_Object\Compoent\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="IOnmouse.h" />
+    <ClInclude Include="EventSystem.h">
+      <Filter>2_System\EventSystem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WindowApp.cpp">
@@ -418,9 +431,15 @@
     <ClCompile Include="TextureInformationEditor.cpp">
       <Filter>0_Utility\MyImGui\Editor</Filter>
     </ClCompile>
-    <ClCompile Include="ClickHelper.cpp" />
-    <ClCompile Include="Collider.cpp" />
-    <ClCompile Include="BoxCollider.cpp" />
+    <ClCompile Include="BoxCollider.cpp">
+      <Filter>3_Object\Compoent\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>3_Object\Compoent\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="EventSystem.cpp">
+      <Filter>2_System\EventSystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd">

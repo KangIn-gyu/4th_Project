@@ -84,6 +84,7 @@ void Transform::SetLocalMatrix(const DXMath::Matrix _localMatrix)
 	{
 		worldMatrix = localMatrix;
 	}
+	
 }
 
 void Transform::SetPosition(const DXMath::Vector3 _position)

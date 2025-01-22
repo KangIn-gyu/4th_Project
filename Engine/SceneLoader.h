@@ -85,11 +85,21 @@ public:
         {
             auto gameobj = _managers->GetGameObject<Object>(fromString(it.type), it.name);
 
-            DXMath::Matrix translationMatrix = DXMath::Matrix::CreateTranslation(it.position);
-            DXMath::Matrix rotationMatrix = DXMath::Matrix::CreateFromQuaternion(it.rotation);
-            DXMath::Matrix scaleMatrix = DXMath::Matrix::CreateScale(it.scale);
-            auto localMatrix = scaleMatrix * rotationMatrix * translationMatrix;
-            gameobj->GetComponent<TransformComponent>()->SetLocalMatrix(localMatrix);
+            //씬로더에서 터지면 여기 확인필요 
+            if (gameobj != nullptr)
+            {
+                DXMath::Matrix translationMatrix = DXMath::Matrix::CreateTranslation(it.position);
+                DXMath::Matrix rotationMatrix = DXMath::Matrix::CreateFromQuaternion(it.rotation);
+                DXMath::Matrix scaleMatrix = DXMath::Matrix::CreateScale(it.scale);
+
+                //인규형 이유가먼진 모르겠는대 setlocalmatrix하면 안먹어요
+                //DXMath::Matrix localMatrix = scaleMatrix * rotationMatrix * translationMatrix;
+                //gameobj->GetComponent<TransformComponent>()->SetLocalMatrix(localMatrix);
+                gameobj->GetComponent<TransformComponent>()->SetPosition(it.position);
+                gameobj->GetComponent<TransformComponent>()->SetQuaternion(it.rotation);
+                gameobj->GetComponent<TransformComponent>()->SetScale(it.scale);
+            }
+           
         }
     }
 };

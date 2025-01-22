@@ -14,11 +14,11 @@ void TestObj2::Start()
 {
 	CreateComponent<ModelComponent>("STAGE1/FBX/gun.fbx");  // char2 / gun
 	CreateComponent<RenderComponent>();
-	CreateComponent<BoxCollider>();
+	
 	auto randerComponet = GetComponent<RenderComponent>();
 	randerComponet->SetShader(ShaderType::VS, "Shaders/VertexShaderVS.hlsl");
 	randerComponet->SetShader(ShaderType::PS, "Shaders/PixelShaderPS.hlsl");
-
+	CreateComponent<BoxCollider>();
 	GetComponent<BoxCollider>()->SetBox({ GetComponent<TransformComponent>()->GetPosition() }, { 40,40,40 },
 		GetComponent<TransformComponent>()->GetQuaternion());
 }

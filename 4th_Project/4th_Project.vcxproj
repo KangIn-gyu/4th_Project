@@ -144,7 +144,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Card.h" />
     <ClInclude Include="Client.h" />
+    <ClInclude Include="Deck.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="TestObj.h" />
@@ -153,7 +155,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="4th_Project.cpp" />
+    <ClCompile Include="Card.cpp" />
     <ClCompile Include="Client.cpp" />
+    <ClCompile Include="Deck.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

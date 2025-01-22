@@ -4,8 +4,8 @@
             "objectName": "char",
             "objectType": "Basic",
             "position": {
-                "x": 200.140000104904175,
-                "y": 100.003000020980835,
+                "x": -200.1400,
+                "y": 100.0030,
                 "z": 0.0
             },
             "rotation": {
@@ -23,8 +23,8 @@
             "objectName": "gun",
             "objectType": "Basic",
             "position": {
-                "x": -200.069999933242798,
-                "y": 100.003000020980835,
+                "x": -200.069,
+                "y": 100.00,
                 "z": 0.0
             },
             "rotation": {
@@ -42,7 +42,7 @@
             "objectName": "korea",
             "objectType": "Basic",
             "position": {
-                "x": 0.0,
+                "x": 200.0,
                 "y": 50.0,
                 "z": 0.0
             },
@@ -61,7 +61,7 @@
             "objectName": "japan",
             "objectType": "Basic",
             "position": {
-                "x": 0.0,
+                "x": 200.0,
                 "y": 0.0,
                 "z": 0.0
             },
