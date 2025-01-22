@@ -1,6 +1,8 @@
 #include "TextureHeader.hlsli"
 #include "SamplerHeader.hlsli" 
 
+#define GAMMA 2.2f
+
 // 0 ~ 13 (슬롯 번호) // (4096 *) 16 byte 단위로 정렬해야 한다.
 cbuffer MatrixBuffer : register(b0) // ConstantBuffer 슬롯
 {
@@ -36,6 +38,17 @@ struct PixelInputType
     float3 Normal   : NORMAL;      // 노말
     float3 Tangent  : TANGENT;     // 탄젠트 벡터
     float3 Binormal : BINORMAL;    // 바이노멀 벡터
+};
+
+struct VS_SKYBOX_INPUT
+{
+    float3 Pos : POSITION;
+};
+
+struct VS_SKYBOX_OUTPUT
+{
+    float4 Pos : SV_POSITION;
+    float3 TexCoord : TEXCOORD0;
 };
 
 // 일단 하나로 통일해서 보기 쉽게 처리를 함
