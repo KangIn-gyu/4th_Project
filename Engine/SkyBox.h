@@ -21,21 +21,8 @@ private:
     void CreateDepthState(ID3D11Device* device);
     void CreateSamplerState(ID3D11Device* device);
 
-    std::vector<char> LoadShaderFile(const std::wstring& filePath) {
-        std::ifstream shaderFile(filePath, std::ios::binary | std::ios::ate);
-        if (!shaderFile.is_open()) {
-            throw std::runtime_error("Could not open shader file: " + std::string(filePath.begin(), filePath.end()));
-        }
 
-        std::streampos fileSize = shaderFile.tellg();
-        std::vector<char> shaderData(fileSize);
-
-        shaderFile.seekg(0, std::ios::beg);
-        shaderFile.read(shaderData.data(), fileSize);
-        shaderFile.close();
-
-        return shaderData;
-    }
+    HRESULT CompileShaderFromFile(const std::wstring& path, LPCSTR entry, LPCSTR target, ID3DBlob** blob);
 
     ComPtr<ID3D11Buffer> m_vertexBuffer;
     ComPtr<ID3D11Buffer> m_indexBuffer;
