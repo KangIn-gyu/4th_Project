@@ -161,6 +161,8 @@
     <ClInclude Include="Editor.h" />
     <ClInclude Include="InspectorWindow.h" />
     <ClInclude Include="Material.h" />
+    <ClInclude Include="MaterialInformationEditor.h" />
+    <ClInclude Include="MeshInformationEditor.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="RenderComponent.h" />
     <ClInclude Include="Renderer.h" />
@@ -178,6 +180,7 @@
     <ClInclude Include="ResourceSystem.h" />
     <ClInclude Include="SafeExtinction.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneLoader.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="SingletonBase.h" />
@@ -186,6 +189,7 @@
     <ClInclude Include="StringHelper.h" />
     <ClInclude Include="SystemHeader.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="TextureInformationEditor.h" />
     <ClInclude Include="TimeSystem.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="TransformComponent.h" />
@@ -212,6 +216,8 @@
     <ClCompile Include="Editor.cpp" />
     <ClCompile Include="InspectorWindow.cpp" />
     <ClCompile Include="Material.cpp" />
+    <ClCompile Include="MaterialInformationEditor.cpp" />
+    <ClCompile Include="MeshInformationEditor.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="RenderComponent.cpp" />
     <ClCompile Include="Renderer.cpp" />
@@ -231,11 +237,13 @@
     </ClCompile>
     <ClCompile Include="ResourceSystem.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneLoader.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="SkeletalMesh.cpp" />
     <ClCompile Include="StaticMesh.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="TextureInformationEditor.cpp" />
     <ClCompile Include="TimeSystem.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="TransformComponent.cpp" />

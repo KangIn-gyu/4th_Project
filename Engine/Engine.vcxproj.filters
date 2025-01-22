@@ -5,15 +5,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="0_Utility">
-      <UniqueIdentifier>{8b2102bf-9ac7-48f9-a425-f72ab939ec75}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="0_Utility\Window">
-      <UniqueIdentifier>{933bf859-895a-4538-9f92-197aaee8fc95}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="0_Utility\UtilityHeader">
-      <UniqueIdentifier>{6f8ea7c2-2c06-483b-976d-e07e48fdcaaa}</UniqueIdentifier>
-    </Filter>
     <Filter Include="1_Engine">
       <UniqueIdentifier>{17eacf66-cb79-4ca8-b1f6-37388639b4f8}</UniqueIdentifier>
     </Filter>
@@ -107,6 +98,15 @@
     <Filter Include="1_Engine\Factory">
       <UniqueIdentifier>{d619fd5d-14ca-4b59-859a-42b6b936ba06}</UniqueIdentifier>
     </Filter>
+    <Filter Include="0_Utility">
+      <UniqueIdentifier>{8b2102bf-9ac7-48f9-a425-f72ab939ec75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0_Utility\Window">
+      <UniqueIdentifier>{933bf859-895a-4538-9f92-197aaee8fc95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0_Utility\UtilityHeader">
+      <UniqueIdentifier>{6f8ea7c2-2c06-483b-976d-e07e48fdcaaa}</UniqueIdentifier>
+    </Filter>
     <Filter Include="0_Utility\MyImGui">
       <UniqueIdentifier>{7bb80b5c-adc3-40f2-be95-3775cdb0758e}</UniqueIdentifier>
     </Filter>
@@ -174,9 +174,6 @@
     </ClInclude>
     <ClInclude Include="CameraCompoent.h">
       <Filter>3_Object\Compoent\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="TransformComponent.h">
-      <Filter>3_Object\Compoent\Transform</Filter>
     </ClInclude>
     <ClInclude Include="ModelComponent.h">
       <Filter>3_Object\Compoent\Model</Filter>
@@ -272,6 +269,19 @@
       <Filter>2_System\Graphics\GraphicsData\Shader</Filter>
     </ClInclude>
     <ClInclude Include="FontD2D.h" />
+    <ClInclude Include="TransformComponent.h">
+      <Filter>3_Object\Compoent\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneLoader.h" />
+    <ClInclude Include="MeshInformationEditor.h">
+      <Filter>0_Utility\MyImGui\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialInformationEditor.h">
+      <Filter>0_Utility\MyImGui\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureInformationEditor.h">
+      <Filter>0_Utility\MyImGui\Editor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WindowApp.cpp">
@@ -394,7 +404,18 @@
     <ClCompile Include="TransformEditor.cpp">
       <Filter>0_Utility\MyImGui\Editor</Filter>
     </ClCompile>
+
     <ClCompile Include="FontD2D.cpp" />
+    <ClCompile Include="SceneLoader.cpp" />
+    <ClCompile Include="MeshInformationEditor.cpp">
+      <Filter>0_Utility\MyImGui\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialInformationEditor.cpp">
+      <Filter>0_Utility\MyImGui\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureInformationEditor.cpp">
+      <Filter>0_Utility\MyImGui\Editor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd">

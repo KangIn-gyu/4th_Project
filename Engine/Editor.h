@@ -9,6 +9,7 @@ public:
 		Disabled, // 비활성화 상태
 		Destroyed // 파괴 상태
 	};
+
 	Editor() = default;
 	virtual ~Editor() = default;
 
@@ -20,6 +21,7 @@ public:
 	virtual void OnDestroy() {}; // 편집기가 파괴될 때 처리할 로직입니다
 
 	std::string& GetName() { return name; }
+
 protected:
 	void SetName(const std::string& name) { this->name = name; }
 

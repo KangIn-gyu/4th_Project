@@ -35,6 +35,9 @@ void UserImGui::Initialize(HWND _hwnd, ComPtr<ID3D11Device> _Device, ComPtr<ID3D
 	// ÇÃ·§Æû / ·»´õ·¯ ¹é¿£µå ¼³Á¤
 	ImGui_ImplWin32_Init(_hwnd);
 	ImGui_ImplDX11_Init(_Device.Get(), _DeviceContext.Get());
+
+	inspector = INSPECTOR;
+	inspector->Initialize();
 }
 
 void UserImGui::Update(const float _deltaTime)
@@ -56,7 +59,7 @@ void UserImGui::Render()
 	MainMenu();
 	ConsoleMenu();
 	hierarchy.Run();
-	Inspector.Run();
+	inspector->Run();
 	Scene();
 	// ·»´õ¸µ
 	ImGui::Render();

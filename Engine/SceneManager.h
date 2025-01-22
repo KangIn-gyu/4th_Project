@@ -17,6 +17,7 @@ public:
 
 private:
 	virtual ~SceneManager();
+
 public:
 
 private:

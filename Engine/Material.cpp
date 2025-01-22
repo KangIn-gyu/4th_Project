@@ -57,5 +57,15 @@ void Material::Load(std::string_view _filePath, aiTextureType _type)
     textures.emplace_back(texture);
 }
 
+void Material::SetMetalness(const float _val)
+{
+    metalness = _val;
+}
+
+void Material::SetRoughness(const float _val)
+{
+    roughness = _val;
+}
+
 
 
