@@ -14,6 +14,8 @@
 #include "UserImGui.h"
 #include <tchar.h>
 
+#include "FontD2D.h"
+
 void Renderer::Initialize(WindowInfo* _windowInfo)
 {
 	//D3D 초기화
@@ -29,6 +31,9 @@ void Renderer::Initialize(WindowInfo* _windowInfo)
 	// 샘플러 생성
 	D3DGraphics->CreateSamplerState(D3D11_FILTER_MIN_MAG_MIP_LINEAR, D3D11_TEXTURE_ADDRESS_WRAP, linearWrapSampler);
 	D3DGraphics->CreateSamplerState(D3D11_FILTER_MIN_MAG_MIP_POINT, D3D11_TEXTURE_ADDRESS_CLAMP, pointClampSampler);
+
+	// 텍스트
+	FontManager::Initialize();
 }
 
 void Renderer::Update(float _deltaTime)
@@ -44,61 +49,14 @@ void Renderer::Render()
 	// 위에서 그린 그림의 ShaderResourceView를 PSSetShaderResource(SRV);
 
 	D3DGraphics->BeginDraw(IMGUI->GetBankGroundColor());
+	D2D1_RECT_F rect = D2D1::RectF(400, 0, 800, 100);
+	FontManager::D2DFont::GetInstance()->TextDraw(L"D3D11 쉐도우맵핑", rect, D2D1::ColorF(D2D1::ColorF::LightPink));
 	Draw();
-	TextDraw(300, 300, { 0,0,0,1 }, (TCHAR*)"fks");
 	D3DGraphics->ExtractFinalImage();
 	IMGUI->Render();
 	D3DGraphics->EndDraw();
 }
 
-int Renderer::FontCreate(ID3D11Device* pDev, ID3D11DeviceContext* pContext)
-{
-	// ASCII 0~255 + 특수문자 '■' + Unicode 한글 완성형 총 11,440 글자, 크기: 9
-	const TCHAR* filename = _T("Resource/Font/DNFBitBitv2.ttf");
-
-	try {
-		// SpriteBatch 초기화
-		g_pFontBatch = new DirectX::SpriteBatch(pContext);
-
-		// SpriteFont 객체 생성
-		g_pFont = new DirectX::SpriteFont(pDev, filename);
-
-		// 폰트 설정
-		g_pFont->SetLineSpacing(14.0f);  // 폰트 9 기준, 줄간격 설정
-		g_pFont->SetDefaultCharacter('_');  // 출력 글자값 미검색 시 대체 출력 키값
-	}
-	catch (std::exception& e)
-	{
-		TCHAR msg[1024] = _T("");
-		size_t convertedChars = 0;
-		mbstowcs_s(&convertedChars, msg, e.what(), strlen(e.what()));
-		
-		return FALSE;
-	}
-	return TRUE;
-}
-// 텍스트 출력 함수
-void Renderer::TextDraw(int x, int y, COLOR col, TCHAR* msg, ...)
-{
-	TCHAR buff[2048] = _T("");
-	va_list vl;
-	va_start(vl, msg);
-	_vstprintf_s(buff, msg, vl);
-	va_end(vl);
-
-	// D3D11에서는 CommandList를 설정할 필요 없음
-	g_pFontBatch->Begin();
-
-	// 문자열 출력
-	g_pFont->DrawString(
-		g_pFontBatch,
-		buff,
-		DirectX::SimpleMath::Vector2((float)x, (float)y),
-		DirectX::XMVECTORF32{ col.x, col.y, col.z, col.w } // 색상
-	);
-
-	g_pFontBatch->End();
-}
 void Renderer::Draw()
 {
 	// 디바이스 컨테스트 받기
@@ -106,7 +64,6 @@ void Renderer::Draw()
 	d3dDeviceContext->PSSetSamplers(0, 1, &linearWrapSampler); // TODO: 샘플러 일단 보류
 	d3dDeviceContext->PSSetSamplers(1, 1, &pointClampSampler);
 
-	FontCreate(D3DGraphics->GetD3DDevice().Get(), d3dDeviceContext.Get());
 	for (auto& renderComponent : work)
 	{
 		auto* modelData = renderComponent->GetModelData()->GetModelData();
@@ -166,6 +123,7 @@ void Renderer::RemoveRenderComponent(RenderComponent* _renderComponent)
 	{
 		work.erase(std::remove(work.begin(), work.end(), _renderComponent), work.end());
 	}
+	FontManager::Uninitialize();
 }
 
 

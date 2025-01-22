@@ -14,9 +14,9 @@ void TestObj2::Start()
 	CreateComponent<ModelComponent>("STAGE1/FBX/gun.fbx");  // char2 / gun
 	CreateComponent<RenderComponent>();
 
-	auto randerComponet = GetComponent<RenderComponent>();
-	randerComponet->SetShader(ShaderType::VS, "Shaders/VertexShaderVS.hlsl");
-	randerComponet->SetShader(ShaderType::PS, "Shaders/PixelShaderPS.hlsl");
+	auto randerComponent = GetComponent<RenderComponent>();
+	randerComponent->SetShader(ShaderType::VS, "Shaders/VertexShaderVS.hlsl");
+	randerComponent->SetShader(ShaderType::PS, "Shaders/PixelShaderPS.hlsl");
 }
 
 void TestObj2::Update(const float _deltaTime)
