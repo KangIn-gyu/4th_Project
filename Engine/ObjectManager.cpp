@@ -23,7 +23,7 @@ void ObjectManager::AddObject(Object* _obj)
 	{
 		// 객체의 타입에 해당하는 vector에 추가
 		Objects[_obj->GetObjectType()].push_back(_obj);
-		std::cout << typeid(*_obj).name() << " ADD" << '\n';
+		//std::cout << typeid(*_obj).name() << " ADD" << '\n';
 	}
 }
 

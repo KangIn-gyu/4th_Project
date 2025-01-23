@@ -2,7 +2,7 @@
 #include "../Engine/Object.h"
 #include "../Engine/IClick.h"
 #include "../Engine/IOnmouse.h"
-class TestObj : public Object, public IClickAble, public IOnmouse
+class TestObj : public Object, public IClick, public IOnmouse
 {
 public:
 	TestObj(std::string_view _name , Object::ObjectType _type);

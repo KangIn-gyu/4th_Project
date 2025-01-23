@@ -1,14 +1,18 @@
 #include "pch.h"
-#include "TestObj.h"
+#include "Dealer.h"
 #include "../Engine/RenderComponent.h"
 #include "../Engine/ModelComponent.h"
 #include "../Engine/BoxCollider.h"
 #include "../Engine/TransformComponent.h"
-TestObj::TestObj(std::string_view _name, Object::ObjectType _type) : Object(_name , _type)
+#include "Deck.h"
+
+
+Dealer::Dealer(std::string_view _name, Object::ObjectType _type) : Object(_name, _type)
 {
+
 }
 
-void TestObj::Start()
+void Dealer::Start()
 {
 	CreateComponent<ModelComponent>("STAGE1/FBX/char.fbx");  // char2 / gun
 	CreateComponent<RenderComponent>();
@@ -21,14 +25,37 @@ void TestObj::Start()
 	randerComponet->SetShader(ShaderType::PS, "Shaders/PixelShaderPS.hlsl");
 }
 
-void TestObj::OnClick()
+
+
+void Dealer::CardDraw(Deck* _deck)
 {
-	std::cout << "1번 캐릭터" << std::endl;
-	
-	//std::cout << "1번 캐릭터 눌렀스빈다" << std::endl;
+	while(hand.GetScore() >= maxScore)
+	{
+		hand.cardDraw((_deck->DrawCard(true))); //1초에한장씩등 딜레이 추가필요
+	}
 }
 
-void TestObj::OnMouse()
+int Dealer::GetScore()
 {
-	//std::cout << "1번 캐릭터 위에 마우스가 있씁니다" << std::endl;
+	return hand.GetScore();
+}
+
+void Dealer::Act()
+{
+	//pattern(); 한번쓰고나면 다른패턴 담아둬야함
+}
+
+void Dealer::OnClick()
+{
+	std::cout << "누르지 마세요 " << std::endl;
+	//this->~Dealer();
+}
+
+void Dealer::OnMouse()
+{
+}
+
+bool Dealer::FinishFirst()
+{
+	return false;
 }

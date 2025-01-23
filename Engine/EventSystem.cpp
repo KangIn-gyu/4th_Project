@@ -53,7 +53,7 @@ Object* EventSystem::FindObj(DXMath::Vector3 _rayOrigin, DXMath::Vector3 _rayDir
 void EventSystem::checkClickobj(int _mouseX, int _mouseY)
 {
 
-	std::cout << " 클릭 감지됨" << std::endl;
+	//std::cout << " 클릭 감지됨" << std::endl;
 
 
 	//일단 상수 나중에 받아오기
@@ -67,9 +67,9 @@ void EventSystem::checkClickobj(int _mouseX, int _mouseY)
 	Object* curobj = FindObj(ray.position, ray.direction);
 	if (curobj != nullptr)
 	{
-		std::cout << curobj->name << std::endl;
+		//std::cout << curobj->name << std::endl;
 	}
-	IClickAble* ClickAble = dynamic_cast<IClickAble*>(curobj);
+	IClick* ClickAble = dynamic_cast<IClick*>(curobj);
 	if (ClickAble)
 		ClickAble->OnClick();
 }
@@ -93,7 +93,7 @@ void EventSystem::OnmouseEvent()
 	Object* curobj = FindObj(ray.position, ray.direction);
 	if (curobj != nullptr)
 	{
-		std::cout << curobj->name << std::endl;
+		//std::cout << curobj->name << std::endl;
 	}
 	IOnmouse* Onmouse = dynamic_cast<IOnmouse*>(curobj);
 	if (Onmouse)

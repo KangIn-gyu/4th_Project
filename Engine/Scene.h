@@ -13,7 +13,7 @@ public:
 	void Initialize();
 	virtual void Enter() {};   // 해당 씬에서 내가 만들 오브젝트 초기화 하는 곳
 
-	void Update(const float _deltaTime);
+	virtual void Update(const float _deltaTime);
 	virtual void FixedUpdate(const float _deltaTime) {};
 	virtual void RateUpdate(const float _deltaTime) {};
 

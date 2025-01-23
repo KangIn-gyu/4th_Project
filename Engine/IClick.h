@@ -1,8 +1,8 @@
 #pragma once
 
-class IClickAble
+class IClick
 {
 public:
 	virtual void OnClick() = 0;
-	virtual ~IClickAble() = default;
+	virtual ~IClick() = default;
 };

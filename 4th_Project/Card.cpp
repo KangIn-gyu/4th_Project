@@ -4,7 +4,9 @@
 #include "../Engine/ModelComponent.h"
 #include "../Engine/BoxCollider.h"
 #include "../Engine/TransformComponent.h"
-
+#include "Player.h"
+#include "../Engine/EventSystem.h"
+#include "GameManager.h"
 
 
 Card::Card(std::string_view _name, Object::ObjectType _type,Suit _suit, std::string _rank) : Object(_name, _type)
@@ -13,13 +15,17 @@ Card::Card(std::string_view _name, Object::ObjectType _type,Suit _suit, std::str
 	rank = _rank;
 }
 
+Card::~Card()
+{
+}
+
 void Card::Start()
 {
 }
 
 void Card::Open()
 {
-	
+	isOpen = true;
 }
 
 int Card::GetValue()
@@ -38,7 +44,36 @@ int Card::GetValue()
 
 void Card::OnClick()
 {
+	if (GAMEMANAGER->GetState() == PlayerState::OPEN)
+	{
+		for (auto& card : PLAYER->hand.hand) //
+		{
+			if (card == this)
+			{
+				PLAYER->selectCard.push_back(this);
+				isSeleted = true;
+				if (PLAYER->selectCard.size() >= 3)
+				{
+					PLAYER->selectCard.erase(PLAYER->selectCard.begin());
+				}
+			}
+		}
+	}
 	
+	//if (GAMEMANAGER->isThrow == true) //isThorw랑 패가7장이되서 버려야되는 bool 추가필요
+	//{
+	//	for (auto it = PLAYER->hand.hand.begin(); it != PLAYER->hand.hand.end();)
+	//	{
+	//		if (*it == this)
+	//		{
+	//			it = PLAYER->hand.hand.erase(it); 
+	//		}
+	//		else
+	//		{
+	//			++it; 
+	//		}
+	//	}
+	//}
 }
 
 void Card::OnMouse()

@@ -1,18 +1,21 @@
 #include "pch.h"
-#include "TestObj.h"
+#include "Button.h"
 #include "../Engine/RenderComponent.h"
 #include "../Engine/ModelComponent.h"
 #include "../Engine/BoxCollider.h"
 #include "../Engine/TransformComponent.h"
-TestObj::TestObj(std::string_view _name, Object::ObjectType _type) : Object(_name , _type)
+#include "../Engine/SceneManager.h"
+Button::Button(std::string_view _name, Object::ObjectType _type, std::function<void(void)> _func) : Object(_name, _type)
 {
+	clickFunc = _func;
 }
 
-void TestObj::Start()
+void Button::Start()
 {
-	CreateComponent<ModelComponent>("STAGE1/FBX/char.fbx");  // char2 / gun
+	CreateComponent<ModelComponent>("STAGE1/FBX/" + name +".fbx");  //이미지 이름이랑 같게 name .fbx
 	CreateComponent<RenderComponent>();
 
+	GetComponent<TransformComponent>()->SetPosition({ 200,0,0 });  //생성할떄 저장한거 받아오게끔
 	CreateComponent<BoxCollider>();
 	GetComponent<BoxCollider>()->SetBox({ GetComponent<TransformComponent>()->GetPosition() }, { 40,40,40 },
 		GetComponent<TransformComponent>()->GetQuaternion());
@@ -21,14 +24,16 @@ void TestObj::Start()
 	randerComponet->SetShader(ShaderType::PS, "Shaders/PixelShaderPS.hlsl");
 }
 
-void TestObj::OnClick()
+void Button::Update(const float _deltaTime)
 {
-	std::cout << "1번 캐릭터" << std::endl;
-	
-	//std::cout << "1번 캐릭터 눌렀스빈다" << std::endl;
 }
 
-void TestObj::OnMouse()
+
+
+void Button::OnClick()
 {
-	//std::cout << "1번 캐릭터 위에 마우스가 있씁니다" << std::endl;
+	std::cout << "버튼누름" << std::endl;
+	clickFunc();
 }
+
+

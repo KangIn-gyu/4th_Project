@@ -3,7 +3,7 @@
 #include "Object.h"
 class IClickAble;
 class IOnMouse;
-class Onject;
+class Object;
 #define eventSysyem EventSystem::GetInstance().get()
 
 DXMath::Ray GenerateRayFromMouse(int mouseX, int mouseY, int screenWidth, int screenHeight,

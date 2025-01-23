@@ -16,6 +16,15 @@
     <Filter Include="Client\Scene\TestObj">
       <UniqueIdentifier>{b7ba875d-5234-481e-b4dd-d50fd7d62763}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{b8f0d884-cc04-4e24-8d31-dacbcce76e29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Client\Character">
+      <UniqueIdentifier>{434bbc13-a52d-40d6-9c06-b089ba52afc0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Client\BlackJack">
+      <UniqueIdentifier>{f0eaa47e-d37e-4132-ba6c-6d73b344cc56}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -36,8 +45,31 @@
     <ClInclude Include="TestObj2.h">
       <Filter>Client\Scene\TestObj</Filter>
     </ClInclude>
-    <ClInclude Include="Card.h" />
-    <ClInclude Include="Deck.h" />
+    <ClInclude Include="Button.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Dealer.h">
+      <Filter>Client\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="GambleScene.h">
+      <Filter>Client\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Card.h">
+      <Filter>Client\BlackJack</Filter>
+    </ClInclude>
+    <ClInclude Include="Deck.h">
+      <Filter>Client\BlackJack</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Client\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Hand.h">
+      <Filter>Client\BlackJack</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>Client\BlackJack</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonFunc.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -58,7 +90,30 @@
     <ClCompile Include="TestObj2.cpp">
       <Filter>Client\Scene\TestObj</Filter>
     </ClCompile>
-    <ClCompile Include="Card.cpp" />
-    <ClCompile Include="Deck.cpp" />
+    <ClCompile Include="GambleScene.cpp">
+      <Filter>Client\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Client\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Dealer.cpp">
+      <Filter>Client\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Card.cpp">
+      <Filter>Client\BlackJack</Filter>
+    </ClCompile>
+    <ClCompile Include="Deck.cpp">
+      <Filter>Client\BlackJack</Filter>
+    </ClCompile>
+    <ClCompile Include="Hand.cpp">
+      <Filter>Client\BlackJack</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>Client\BlackJack</Filter>
+    </ClCompile>
+    <ClCompile Include="ButtonFunc.cpp" />
   </ItemGroup>
 </Project>
