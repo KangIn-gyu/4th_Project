@@ -3,6 +3,8 @@
 #include "../Engine/RenderComponent.h"
 #include "../Engine/ModelComponent.h"
 
+#include "../Engine/TransformComponent.h"
+
 TestObj2::TestObj2(std::string_view _name, Object::ObjectType _type) : Object(_name, _type)
 {
 }
@@ -15,4 +17,9 @@ void TestObj2::Start()
 	auto randerComponent = GetComponent<RenderComponent>();
 	randerComponent->SetShader(ShaderType::VS, "Shaders/VertexShaderVS.hlsl");
 	randerComponent->SetShader(ShaderType::PS, "Shaders/PixelShaderPS.hlsl");
+}
+
+void TestObj2::Update(const float _deltaTime)
+{
+
 }

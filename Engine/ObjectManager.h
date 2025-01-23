@@ -14,6 +14,9 @@ public:
 	void MainCameraSetting(int _index);
 	void AddObject(Object* _obj);
 
+	template <typename T>
+	T* GetObjectss(std::string name);
+
 	void ShowObject(); 	// 확인용 
 	const std::unordered_map<std::type_index, std::vector<Object*>> GetObjects() const { return Objects; }
 private:
@@ -29,4 +32,18 @@ private:
 // 싱글톤으로 처리 안함
 // 일단 보류
 
-// 
+template<typename T>
+inline T* ObjectManager::GetObjectss(std::string name)
+{
+	auto it = Objects.find(typeid(T));
+	if (it != Objects.end())
+	{
+		for (auto obj : it->second)
+		{
+			if (obj->GetName() == name)
+			{
+				return static_cast<T*>(obj);
+			}
+		}
+	}
+}

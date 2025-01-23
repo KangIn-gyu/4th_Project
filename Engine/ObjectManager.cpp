@@ -24,8 +24,6 @@ void ObjectManager::AddObject(Object* _obj)
 		// 객체의 타입에 해당하는 vector에 추가
 		std::type_index typeIndex = typeid(*_obj); // _obj의 실제 타입을 얻음
 		Objects[typeIndex].push_back(_obj);
-
-		std::cout << typeid(*_obj).name() << " ADD" << '\n';
 	}
 }
 
@@ -48,7 +46,6 @@ void ObjectManager::BasicObject()
 { // TODO: 현재 라이트가 없음 추가 필요
 
 	auto* mainCamera = FACTORYSYSTEM->CreateObject<CameraObject>("MainCamera", Object::ObjectType::Camera);
-	std::cout << typeid(mainCamera).name() << std::endl;
 	mainCamera->GetComponent<TransformComponent>()->SetPosition({ 0, 0, -300.0f });
 	Objects[typeid(CameraObject)].push_back(mainCamera);
 }

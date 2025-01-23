@@ -46,7 +46,7 @@ void Renderer::Render()
 	// 이 타겟에 기존 렌더링 하고
 	// OmSetRenderTarget(기존 백버퍼 타겟(스왑체인 생성하면서 같이 만든 타겟)
 	// 위에서 그린 그림의 ShaderResourceView를 PSSetShaderResource(SRV);
-	// 
+
 	D3DGraphics->BeginDraw(IMGUI->GetBankGroundColor());
 	D2DGraphics->BeginDraw();
 
@@ -73,9 +73,9 @@ void Renderer::D3DDraw()
 	for (auto& renderComponent : work)
 	{
 		auto* modelData = renderComponent->GetModelData()->GetModelData();
-		for (auto& data : modelData->meshs)
+		for (auto& data : *modelData->meshs)
 		{
-			auto* MeshData= data.GetMeshInfo();
+			auto* MeshData= data->GetMeshInfo();
 			//IA 입력 어셈블러 스테이지 설정
 			auto* vertexBuffer = MeshData->vertexBuffer;
 			d3dDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
@@ -98,7 +98,7 @@ void Renderer::D3DDraw()
 			matrixData.viewMatrix = DX::XMMatrixTranspose(CameraObject::g_MainCameraObject->GetViewMatrix());
 			matrixData.projectionMatrix = DX::XMMatrixTranspose(CameraObject::g_MainCameraObject->GetProjectionMatrix());
 		
-			Material* material = modelData->materials[MeshData->GetMeshIndex()]; // 매쉬 인덱스랑 메터리얼 인덱스가 같다
+			Material* material = (*modelData->materials)[MeshData->GetMeshIndex()]; // 매쉬 인덱스랑 메터리얼 인덱스가 같다
 
 			ObjectBuffer objectData;
 			objectData.metalness = material->GetMetalness();
