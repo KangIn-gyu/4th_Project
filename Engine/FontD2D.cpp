@@ -84,14 +84,14 @@ namespace FontManager
     void D2DFont::TextDraw(const wchar_t* format, D2D1_RECT_F _rect, D2D1_COLOR_F _color, ...)
     {
         // 텍스트 그리기
-        D3DClass::GetD2DBrush()->SetColor(_color);
+        D2DClass::GetD2DBrush()->SetColor(_color);
 
-        D3DClass::GetD2DDeviceContext()->DrawText(
+        D2DClass::GetD2DDeviceContext()->DrawText(
             format,              // 텍스트 내용
             lstrlen(format) + 1,
             pTextFormat,
             _rect,
-            D3DClass::GetD2DBrush().Get());
+            D2DClass::GetD2DBrush().Get());
     }
 
     // SFont ======================================================
@@ -127,7 +127,7 @@ namespace FontManager
 
     bool SFont::FontCreate()
     {
-        const std::wstring filename = L"../Resource/Font/NaNum.sfont";
+        const std::wstring filename = L"Resource/Font/kulim.sfont";
 
         try
         {

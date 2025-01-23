@@ -1,5 +1,4 @@
 #pragma once
-#include "D3DClass.h"
 typedef DirectX::XMFLOAT4 COLOR;
 namespace FontManager
 {
@@ -31,7 +30,6 @@ namespace FontManager
     public:
         IDWriteFactory* pDWriteFactory = nullptr;
         IDWriteTextFormat* pTextFormat = nullptr;
-        IDWriteTextFormat* pTextFormat2 = nullptr;
     };
 
 
@@ -55,7 +53,6 @@ namespace FontManager
 
         bool FontCreate();
         void TextDraw(int x, int y, COLOR col, const wchar_t* format, ...);
-
 
     public:
         std::unique_ptr<DirectX::SpriteBatch> spriteBatch = nullptr;

@@ -12,8 +12,6 @@
 #include "ConstantBufferData.h"
 #include "CameraObject.h"
 #include "UserImGui.h"
-#include <tchar.h>
-
 #include "FontD2D.h"
 
 void Renderer::Initialize(WindowInfo* _windowInfo)
@@ -32,8 +30,9 @@ void Renderer::Initialize(WindowInfo* _windowInfo)
 	D3DGraphics->CreateSamplerState(D3D11_FILTER_MIN_MAG_MIP_LINEAR, D3D11_TEXTURE_ADDRESS_WRAP, linearWrapSampler);
 	D3DGraphics->CreateSamplerState(D3D11_FILTER_MIN_MAG_MIP_POINT, D3D11_TEXTURE_ADDRESS_CLAMP, pointClampSampler);
 
-	// 텍스트
-	FontManager::Initialize();
+	//D2D 초기화
+	D2DGraphics = std::make_unique<D2DClass>();
+	D2DGraphics->Initialize(_windowInfo);
 }
 
 void Renderer::Update(float _deltaTime)
@@ -49,15 +48,22 @@ void Renderer::Render()
 	// 위에서 그린 그림의 ShaderResourceView를 PSSetShaderResource(SRV);
 	// 
 	D3DGraphics->BeginDraw(IMGUI->GetBankGroundColor());
-	D2D1_RECT_F rect = D2D1::RectF(400, 0, 800, 100);
-	FontManager::D2DFont::GetInstance()->TextDraw(L"D3D11 쉐도우맵핑", rect, D2D1::ColorF(D2D1::ColorF::LightPink));
-	Draw();
+	D2DGraphics->BeginDraw();
+
+	D3DDraw();
+
+	D2D1_RECT_F rect = D2D1::RectF(400, 100, 800, 300);
+	FontManager::D2DFont::GetInstance()->TextDraw(L"D3D11 쉐도우맵핑3213214", rect, D2D1::ColorF(D2D1::ColorF::LightPink));
+	FontManager::SFont::GetInstance()->TextDraw(400, 300, { 1,1,1,1 }, L"D3D11 쉐도우맵핑");
+
 	D3DGraphics->ExtractFinalImage();
 	IMGUI->Render();
+
+	D2DGraphics->EndDraw();
 	D3DGraphics->EndDraw();
 }
 
-void Renderer::Draw()
+void Renderer::D3DDraw()
 {
 	// 디바이스 컨테스트 받기
 	ComPtr<ID3D11DeviceContext> d3dDeviceContext = D3DGraphics->GetD3DDeviceContext();
@@ -123,7 +129,6 @@ void Renderer::RemoveRenderComponent(RenderComponent* _renderComponent)
 	{
 		work.erase(std::remove(work.begin(), work.end(), _renderComponent), work.end());
 	}
-	FontManager::Uninitialize();
 }
 
 

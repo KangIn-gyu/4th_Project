@@ -271,7 +271,12 @@
     <ClInclude Include="Shader.h">
       <Filter>2_System\Graphics\GraphicsData\Shader</Filter>
     </ClInclude>
-    <ClInclude Include="FontD2D.h" />
+    <ClInclude Include="D2DClass.h">
+      <Filter>2_System\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="FontD2D.h">
+      <Filter>2_System\Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WindowApp.cpp">
@@ -394,7 +399,12 @@
     <ClCompile Include="TransformEditor.cpp">
       <Filter>0_Utility\MyImGui\Editor</Filter>
     </ClCompile>
-    <ClCompile Include="FontD2D.cpp" />
+    <ClCompile Include="D2DClass.cpp">
+      <Filter>2_System\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="FontD2D.cpp">
+      <Filter>2_System\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd">
