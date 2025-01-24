@@ -56,7 +56,7 @@ void Renderer::Render()
 
 	D3DGraphics->BeginDraw(IMGUI->GetBankGroundColor());
 
-	m_skybox.Render(D3DClass::GetD3DDeviceContext().Get());
+	//m_skybox.Render(D3DClass::GetD3DDeviceContext().Get());
 
 	D2DGraphics->BeginDraw();
 

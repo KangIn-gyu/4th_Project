@@ -5,7 +5,7 @@
 #include "../Engine/BoxCollider.h"
 #include "../Engine/TransformComponent.h"
 #include "Deck.h"
-
+#include "../Engine/Model.h"
 
 Dealer::Dealer(std::string_view _name, Object::ObjectType _type) : Object(_name, _type)
 {
@@ -18,12 +18,21 @@ void Dealer::Start()
 	CreateComponent<RenderComponent>();
 
 	CreateComponent<BoxCollider>();
-	GetComponent<BoxCollider>()->SetBox({ GetComponent<TransformComponent>()->GetPosition() }, { 40,40,40 },
+	
+	DXMath::Vector3 extent = GetComponent<ModelComponent>()->GetModel().get()->extent;
+	GetComponent<BoxCollider>()->SetBox({ GetComponent<TransformComponent>()->GetPosition() }, extent,
 		GetComponent<TransformComponent>()->GetQuaternion());
 	auto randerComponet = GetComponent<RenderComponent>();
 	randerComponet->SetShader(ShaderType::VS, "Shaders/VertexShaderVS.hlsl");
 	randerComponet->SetShader(ShaderType::PS, "Shaders/PixelShaderPS.hlsl");
 
+}
+
+void Dealer::Update(const float _deltaTime)
+{
+	__super::Update(_deltaTime);
+	
+	//std::cout << GetComponent<ModelComponent>()->GetModel().get()->extent.x << std::endl;
 }
 
 

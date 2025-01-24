@@ -12,5 +12,7 @@ private:
 	
 public:
 	std::vector<Card*> hand;
+
+	//핸드의 각위치 정해줘야 하는대 
 };
 

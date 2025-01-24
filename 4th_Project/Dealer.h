@@ -12,7 +12,7 @@ public:
 
 	virtual ~Dealer() {};
 	virtual void Start();
-	virtual void Update(const float _deltaTime) {};
+	virtual void Update(const float _deltaTime);
 	virtual void FixedUpdate() {};
 	virtual void LateUpdate() {};
 
