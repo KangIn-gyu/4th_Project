@@ -53,8 +53,7 @@ void Renderer::Render()
 	// 위에서 그린 그림의 ShaderResourceView를 PSSetShaderResource(SRV);
 
 	D3DGraphics->BeginDraw(IMGUI->GetBankGroundColor());
-	D2D1_RECT_F rect = D2D1::RectF(400, 0, 800, 100);
-	FontManager::D2DFont::GetInstance()->TextDraw(L"D3D11 쉐도우맵핑", rect, D2D1::ColorF(D2D1::ColorF::LightPink));
+
 	Draw();
 	D3DGraphics->ExtractFinalImage();
 	IMGUI->Render();
