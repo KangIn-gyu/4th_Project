@@ -1,6 +1,7 @@
 #pragma once
 #include "Component.h"
 #include <concepts>
+#include <unordered_map>
 
 // Tag 시스템은 나중에 생각하자 지금 하기에는 애매한 부분이 많다
 // 컴포넌트는 생성과 동시에 컴포넌트의 초기화를 실행한다
@@ -16,6 +17,7 @@ public:
 		End
 	};
 
+	Object() {};
 	Object(std::string_view _name , Object::ObjectType _type = ObjectType::Basic); // 명시 안해놓으면 기본 오브젝트로 생성
 	virtual ~Object() { ClearComponents(); }
 
@@ -42,10 +44,10 @@ private:
 	void ClearComponents();
 
 public:
-
+	std::string name;
 protected:
 	ObjectType type;  // 해당 타입은 set 만들면 안됨.
-	std::string name;
+	
 
 private:
 	std::unordered_map<std::type_index, std::vector<Component*>> components;
