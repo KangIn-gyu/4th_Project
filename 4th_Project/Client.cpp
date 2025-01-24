@@ -17,9 +17,6 @@ Client::~Client()
 
 void Client::Enter()
 {
-
-
-
 	TestScene* testScene = new TestScene("TEST");
 	GambleScene* gamblescne = new GambleScene("GAMBLE");
 	GAMEMANAGER->player = PLAYER;

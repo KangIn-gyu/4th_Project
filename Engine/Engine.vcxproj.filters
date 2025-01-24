@@ -291,9 +291,17 @@
     <ClInclude Include="FontManager.h">
       <Filter>2_System\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="CameraInformationEditor.h" />
     <ClInclude Include="SkyBox.h">
       <Filter>2_System\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>2_System\Resource\FBXLoader\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationNode.h">
+      <Filter>2_System\Resource\FBXLoader\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraInformationEditor.h">
+      <Filter>0_Utility\MyImGui\Editor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -437,9 +445,17 @@
     <ClCompile Include="FontManager.cpp">
       <Filter>2_System\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="CameraInformationEditor.cpp" />
     <ClCompile Include="SkyBox.cpp">
       <Filter>2_System\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>2_System\Resource\FBXLoader\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationNode.cpp">
+      <Filter>2_System\Resource\FBXLoader\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraInformationEditor.cpp">
+      <Filter>0_Utility\MyImGui\Editor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

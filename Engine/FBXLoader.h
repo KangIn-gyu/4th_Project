@@ -34,16 +34,20 @@ private:
 	void SaveMeshData(std::string_view _filePath, Mesh* _mesh);
 	void ProcessMaterial(const aiScene* _scene, const std::string_view _modelFilePath);
 
+	void ProcessAnimation(const aiScene* scene);
+
+	// 테스트용 리소스 정보
 	void ShowMaterials();
 	void ShowMesh();
 	void ShowAiNode();
 	void ShowVertexBuffer();
 	void ShowIndexBuffer();
-
 	void NodeAndMeshIndex(const std::string_view _filePath);
+
 public:
 	DXMath::Vector3 Min;
 	DXMath::Vector3 Max;
+
 private:
 	Assimp::Importer importer;
 	unsigned int importFlags {};

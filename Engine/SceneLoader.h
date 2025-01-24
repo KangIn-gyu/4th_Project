@@ -5,19 +5,20 @@
 #include "TransformComponent.h"
 using json = nlohmann::json;
 
-static Object::ObjectType fromString(std::string _string) {
+static Object::ObjectType fromString(std::string _string) 
+{
     if (_string == "Basic")
         return Object::ObjectType::Basic;
-    else if (_string == "Light")
-        return Object::ObjectType::Basic;
-    else if (_string == "Camera")
-        return Object::ObjectType::Basic;
     else if (_string == "UI")
-        return Object::ObjectType::Basic;
+        return Object::ObjectType::UI;
+    else if (_string == "Camera")
+        return Object::ObjectType::Camera;
+    else if (_string == "Light")
+        return Object::ObjectType::Light;
     else
     {
         std::cout << "json에 태그가 없습니다" << std::endl;
-        return Object::ObjectType::Basic;
+        return Object::ObjectType::End;
     }
 }
 

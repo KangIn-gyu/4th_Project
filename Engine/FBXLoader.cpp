@@ -4,12 +4,18 @@
 #include "AiNode.h"
 
 #include "Model.h"
+
 #include "Mesh.h"
 #include "StaticMesh.h"
 #include "SkeletalMesh.h"
+
 #include "Material.h"
-#include "Transform.h"
 #include "Texture.h"
+
+#include "Animation.h"
+#include "AnimationNode.h"
+
+#include "Transform.h"
 #include <filesystem>
 
 DirectX::XMMATRIX ConvertMatrix(const aiMatrix4x4& _matrix); // 여기서만 사용하는 함수
@@ -26,13 +32,9 @@ std::shared_ptr<Model> FBXLoader::FBXLoad(std::string_view _filePath)
 		aiProcess_GenNormals |				 // Normal 정보 생성  
 		aiProcess_ConvertToLeftHanded |		 // 우측 좌표계를 사용하는 모델을 좌측 좌표계로 변환해줌 단순히 좌표를 반대로 바꾸는 것이 아니라, 법선 벡터, 카메라 방향, 뼈대 애니메이션의 방향등 좌표계 변환에 따라 영향을 받는 요소들을 모두 적절하게 변환
 		aiProcess_LimitBoneWeights |		 // 본의 영향을 받는 정점의 최대 개수를 4개로 제한
-		aiProcess_RemoveRedundantMaterials;// | // 사용되지 않는 메테리얼을 제거한다. 
+		aiProcess_RemoveRedundantMaterials;  // 사용되지 않는 메테리얼을 제거한다. 
 
-
-	// 초기 스테틱 메시 확인
-	isStaticMesh = true;
 	const aiScene* scene = importer.ReadFile(filePathKEY, importFlags);
-
 	if (nullptr == scene)
 	{ // 추후 로그 시스템 만들자
 		std::runtime_error("Error loading model" + std::string(importer.GetErrorString()));
@@ -43,6 +45,7 @@ std::shared_ptr<Model> FBXLoader::FBXLoad(std::string_view _filePath)
 	if (scene->HasAnimations() || HasBones(scene)) 
 	{ // 추후 애니메이션 처리용
 		isStaticMesh = false;
+		ProcessAnimation(scene);
 	}
 
 	if (true == isStaticMesh)
@@ -55,7 +58,7 @@ std::shared_ptr<Model> FBXLoader::FBXLoad(std::string_view _filePath)
 	aiNode* rootaiNode = scene->mRootNode; // 어심프 노드
 	std::shared_ptr<Model> modelData = std::make_shared<Model>(); // 모델에 관련된 정보 데이터 저장용
 	AiNode* rootNode{}; // 내가 만든 AiNode 데이터 저장용
-	isStaticMesh = true;
+
 	auto treeNode = aiNodeMap.find(filePathKEY); // aiNode가 있는지 확인
 	if (treeNode != aiNodeMap.end()) // 맵을 통해 해당 노드를 생성한지 확인해 본다. 맵에서 찾았을때 없으면 처음 로드하는 것
 	{ // 존재할 경우
@@ -151,8 +154,24 @@ AiNode* FBXLoader::ProcessNode(aiNode* _node, const aiScene* _scene, AiNode* _pa
 			else
 			{ // 스켈레탈 매쉬 나중에 처리 자료형 적립을 다 못함
 			    SkeletalMesh* skeletalMesh = new SkeletalMesh;
-				currentNode->SetMesh(skeletalMesh); // 노드안에 매쉬 넣기 
+				skeletalMesh->SetFBXMeshIndex(meshIndex);
+				skeletalMesh->SetMaterialIndex(materialIndex); // 노드안에 매쉬 넣기 
+				skeletalMesh->SetTransform(currentNode->GetPointTransform());
+				skeletalMesh->SetName(nodeName);
+				if (nullptr != _parent) // 예외처리
+				{
+					skeletalMesh->SetTransformParent(_parent->GetPointTransform()); // 부모 설정
+				}
+				else
+				{
+					skeletalMesh->SetName(nodeName);  // 매쉬 이름 설정
+				}
+				currentNode->SetMesh(skeletalMesh);
 				ProcessMesh(mesh, _scene, _filePath);
+
+				skeletalMesh->SetVertexBuffer(vertexBufferMap.find(_filePath.data())->second[meshIndex]);
+				skeletalMesh->SetIndexBuffer(indexBufferMap.find(_filePath.data())->second[meshIndex]);
+				SaveMeshData(_filePath, std::move(skeletalMesh));
 			}
 		}
 	}
@@ -343,6 +362,34 @@ void FBXLoader::ProcessMaterial(const aiScene* _scene, const std::string_view _m
          materials[key] = materialvector;
       }
    }
+}
+
+void FBXLoader::ProcessAnimation(const aiScene* scene)
+{
+	for (unsigned int i = 0; i < scene->mNumAnimations; i++)
+	{
+		aiAnimation* Aianimation = scene->mAnimations[i];
+		Animation* myAnimation = new Animation;
+		myAnimation->SetName(Aianimation->mName.C_Str());
+		myAnimation->SetDuration(static_cast<float>(Aianimation->mDuration));
+		myAnimation->SetTickPerSecond(Aianimation->mTicksPerSecond != 0 ? static_cast<float>(Aianimation->mTicksPerSecond) : 25.0f); // 0보다 작으면 강제로 보정함
+		myAnimation->SettingTotalTime();
+
+		if (Aianimation->mNumChannels > 0) // 애니메이션이 가지고 있는 채널 수 프레임이다.
+		{
+			for (int channelIndex = 0; channelIndex < Aianimation->mNumChannels; channelIndex++)
+			{
+				aiNodeAnim* channel = Aianimation->mChannels[channelIndex];
+				std::string nodeName = channel->mNodeName.C_Str();
+				int arrSize = static_cast<int>(channel->mNumPositionKeys);
+
+				AnimationNode* animationNode = new AnimationNode;
+				animationNode->Create(channel, myAnimation->GetTickPerSecond(), myAnimation->GetDuration());
+				animationNode->SetName(channel->mNodeName.C_Str());
+				myAnimation->AddAnimationNode(animationNode);
+			}
+		}
+	}
 }
 
 void FBXLoader::AllShow()
