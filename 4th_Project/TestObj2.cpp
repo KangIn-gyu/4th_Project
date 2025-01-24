@@ -12,7 +12,7 @@ TestObj2::TestObj2(std::string_view _name, Object::ObjectType _type) : Object(_n
 
 void TestObj2::Start()
 {
-	CreateComponent<ModelComponent>("STAGE1/FBX/char.fbx");  // char2 / gun
+	CreateComponent<ModelComponent>("STAGE1/FBX/newChar.fbx");  // char2 / gun
 	CreateComponent<RenderComponent>();
 	
 	auto randerComponet = GetComponent<RenderComponent>();

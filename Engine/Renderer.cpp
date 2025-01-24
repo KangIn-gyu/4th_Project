@@ -126,11 +126,12 @@ void Renderer::D3DDraw()
 
 			for (auto& textur : material->GetTextures())
 			{ 
-				if (textur->GetTextureTypeIndex() >= 0)
+				if (!textur->GetTextureTypeIndexs().empty())
 				{
-					int indexNum = textur->GetTextureTypeIndex();
-					// std::cout << textur->GetTextureTypeIndex() << " " << textur->GetName() << "\n";
-					d3dDeviceContext->PSSetShaderResources(textur->GetTextureTypeIndex(), 1, textur->GetTexture().GetAddressOf());
+					for (auto textureIndex : textur->GetTextureTypeIndexs()) // set을 반복자로 순회
+					{
+						d3dDeviceContext->PSSetShaderResources(textureIndex, 1, textur->GetTexture().GetAddressOf());
+					}
 				}
 			}
 

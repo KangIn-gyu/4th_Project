@@ -25,8 +25,8 @@ std::shared_ptr<Model> FBXLoader::FBXLoad(std::string_view _filePath)
 		aiProcess_GenNormals |				 // Normal 정보 생성  
 		aiProcess_ConvertToLeftHanded |		 // 우측 좌표계를 사용하는 모델을 좌측 좌표계로 변환해줌 단순히 좌표를 반대로 바꾸는 것이 아니라, 법선 벡터, 카메라 방향, 뼈대 애니메이션의 방향등 좌표계 변환에 따라 영향을 받는 요소들을 모두 적절하게 변환
 		aiProcess_LimitBoneWeights |		 // 본의 영향을 받는 정점의 최대 개수를 4개로 제한
-		aiProcess_RemoveRedundantMaterials | // 사용되지 않는 메테리얼을 제거한다. 
-		aiProcess_EmbedTextures;
+		aiProcess_RemoveRedundantMaterials;// | // 사용되지 않는 메테리얼을 제거한다. 
+
 
 	// 초기 스테틱 메시 확인
 	isStaticMesh = true;
@@ -326,7 +326,7 @@ void FBXLoader::ProcessMaterial(const aiScene* _scene, const std::string_view _m
          int textureCount = material->GetTextureCount((aiTextureType)type);
          for (int texIndex = 0; texIndex < textureCount; ++texIndex)
          {
-            if (material->GetTexture((aiTextureType)type, texIndex, &texturePath) == AI_SUCCESS)
+            if (material->GetTexture((aiTextureType)type, 0, &texturePath) == AI_SUCCESS)
             {   // 아래 코드를 통해서 뒤에서 /이후의 문자열이 나온다
                std::string file = StringConverter::GetFileNameFromPath<std::string>(StringConverter::StringToWide(texturePath.C_Str()));
                std::string filePath = basePath + texturesFolder + file; // 최종 경로
@@ -453,7 +453,10 @@ void FBXLoader::ShowMaterials()
 			std::cout << i << '.' << " " << it.second[i]->GetName() << "\n";
 			for (auto& data : it.second[i]->GetTextures())
 			{
-				std::cout << data->GetName() << '\n';
+				for (auto index : data->GetTextureTypeIndexs())
+				{
+					std::cout << "Texture Index : " << index << " " << data->GetName() << '\n';
+				}
 			}
 		}
 		std::cout << '\n';
