@@ -282,6 +282,9 @@
     <ClInclude Include="TextureInformationEditor.h">
       <Filter>0_Utility\MyImGui\Editor</Filter>
     </ClInclude>
+    <ClInclude Include="CameraInformationEditor.h">
+      <Filter>0_Utility\MyImGui\Editor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WindowApp.cpp">
@@ -414,6 +417,9 @@
       <Filter>0_Utility\MyImGui\Editor</Filter>
     </ClCompile>
     <ClCompile Include="TextureInformationEditor.cpp">
+      <Filter>0_Utility\MyImGui\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraInformationEditor.cpp">
       <Filter>0_Utility\MyImGui\Editor</Filter>
     </ClCompile>
   </ItemGroup>

@@ -19,11 +19,13 @@ public:
 	std::shared_ptr<Model> FBXLoad(std::string_view _filePath); // 로드하고 무엇을 리턴해야 될가..?
 	void AllShow();
 	void FindShow(std::string_view _filePath);
-
+	std::vector<AiNode*> DeepCopyAiNodes(std::string_view key);
 private:
 	bool HasBones(const aiScene* _scene);
 	AiNode* ProcessNode(aiNode* _node, const aiScene* _scene, AiNode* _parent, const std::string_view _filePath); // 여기 _filePath 추가한 이유 키값 공통으로 사용하기 위해
+	
 	void CollectNodes(AiNode* _rootNode, std::vector<AiNode*>* _nodes);
+
 	void ProessIndexs(aiMesh* _mesh, unsigned int _indexSize, const std::string_view _filePath);
 	void ProcessVertexs(aiMesh* _mesh, unsigned int _vertexSize, const std::string_view _filePath);
 
@@ -36,6 +38,8 @@ private:
 	void ShowAiNode();
 	void ShowVertexBuffer();
 	void ShowIndexBuffer();
+
+	void NodeAndMeshIndex(const std::string_view _filePath);
 public:
 
 private:

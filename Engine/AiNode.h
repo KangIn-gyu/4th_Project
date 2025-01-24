@@ -8,12 +8,14 @@ public:
 	AiNode(); // 미리 이름 설정 길어봐야 27정도 될려나?
 	~AiNode();
 	AiNode(const AiNode& _other);
-	AiNode(AiNode&& _other) noexcept;
+	AiNode(AiNode&& _other) noexcept = default;
+	AiNode& operator=(const AiNode& _other) = default;   // 복사 대입 연산자
+	AiNode& operator=(AiNode&& _other) noexcept = default; // 이동 대입 연산자
 
 	void Update(const float _deltaTime);
 
 	void AddChild(AiNode* _child);
-	void SetParent(AiNode* _parent) { parent = _parent; }
+	void SetParent(AiNode* _parent);
 	void SetName(std::string_view _name);
 	void SetMesh(Mesh* _mesh);
 	

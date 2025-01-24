@@ -42,8 +42,14 @@ void CameraCompoent::ComponentUpdate(const float _deltaTime)
 		position += InputVector * cameraInfo->Speed * _deltaTime;
 
 		cameraInfo->cameraTransform->SetPosition(position);
-		UpdateViewMatrix();
 		InputVector = DXMath::Vector3::Zero;
+	}
+	UpdateViewMatrix();
+
+	if (cameraInfo->projectionUpdate == true)
+	{
+		UpdateProjection();
+		cameraInfo->projectionUpdate = false;
 	}
 }
 
@@ -52,7 +58,7 @@ void CameraCompoent::UpdateViewMatrix()
 	DXMath::Vector3 position = cameraInfo->cameraTransform->GetWorldMatrix().Translation();
 	DXMath::Vector3 forward = cameraInfo->cameraTransform->GetWorldForward();
 	DXMath::Vector3 up = cameraInfo->cameraTransform->GetLocalUp();
-
+	
 	viewMatrix = DX::XMMatrixLookAtLH(position, position + forward, up);
 }
 
@@ -60,6 +66,13 @@ void CameraCompoent::AddInputVector(const DXMath::Vector3& input)
 {
 	InputVector += input;
 	InputVector.Normalize();
+}
+
+void CameraCompoent::UpdateProjection()
+{
+	CameraObject* camerObj = static_cast<CameraObject*>(owner);
+	float aspectRatio = static_cast<float>(camerObj->GetWindowSize().first) / camerObj->GetWindowSize().second;
+	projectionMatrix = DX::XMMatrixPerspectiveFovLH(cameraInfo->FovAngleY, aspectRatio, cameraInfo->Near, cameraInfo->Far);
 }
 
 DXMath::Matrix CameraCompoent::GetViewMatrix() const

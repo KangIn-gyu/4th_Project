@@ -2,7 +2,6 @@
 #include "ObjectManager.h"
 #include "CameraObject.h"
 #include "Helper.h"
-#include "FactorySystem.h"
 #include "TransformComponent.h"
 
 void ObjectManager::MainCameraSetting(int _index)

@@ -5,6 +5,7 @@ class Transform
 public:
 	Transform() : position(DXMath::Vector3::Zero), rotation(DXMath::Quaternion::Identity), scale(DXMath::Vector3::One) {}
 	virtual ~Transform() { parent = nullptr; }
+
 	void UpdateTransform();
 
 	DXMath::Matrix  GetWorldMatrix();
@@ -30,7 +31,8 @@ public:
 	void SetQuaternion(const DXMath::Quaternion _rotation);
 	void SetScale(const DXMath::Vector3 _scale);
 
-	void SetParent(Transform* _parent) { parent = _parent; UpdateTransform(); }
+	void SetParent(Transform* _parent);
+	Transform* GetParent() { return parent; }
 
 	void AddPithc(const float _value);
 	void AddYaw(const float _value);
