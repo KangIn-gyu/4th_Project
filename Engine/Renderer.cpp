@@ -19,6 +19,7 @@
 
 
 #include "AiNode.h"
+#include "TransformComponent.h"
 
 
 void Renderer::Initialize(WindowInfo* _windowInfo)
@@ -32,6 +33,7 @@ void Renderer::Initialize(WindowInfo* _windowInfo)
 
 	matrixConstantBuffer.Create(sizeof(MatrixBuffer));
 	objectBuffer.Create(sizeof(ObjectBuffer));
+	cameraBuffer.Create(sizeof(CameraBuffer));
 
 	D3DGraphics->CreateSamplerState(D3D11_FILTER_MIN_MAG_MIP_LINEAR, D3D11_TEXTURE_ADDRESS_WRAP, linearWrapSampler);
 	D3DGraphics->CreateSamplerState(D3D11_FILTER_MIN_MAG_MIP_POINT, D3D11_TEXTURE_ADDRESS_CLAMP, pointClampSampler);
@@ -73,6 +75,13 @@ void Renderer::D3DDraw()
 	ComPtr<ID3D11DeviceContext> d3dDeviceContext = D3DGraphics->GetD3DDeviceContext();
 	d3dDeviceContext->PSSetSamplers(0, 1, &linearWrapSampler); 
 	d3dDeviceContext->PSSetSamplers(1, 1, &pointClampSampler);
+
+	d3dDeviceContext->VSSetConstantBuffers(2, 1, cameraBuffer.GetBuffer().GetAddressOf());
+	d3dDeviceContext->PSSetConstantBuffers(2, 1, cameraBuffer.GetBuffer().GetAddressOf());
+	CameraBuffer cameraData;
+	cameraData.eyePosition = CameraObject::g_MainCameraObject->GetComponent<TransformComponent>()->GetPosition();
+	cameraData.lightDirection = DXMath::Vector3(0, -1, 0);
+	d3dDeviceContext->UpdateSubresource(cameraBuffer.GetBuffer().Get(), 0, nullptr, &cameraData, 0, 0);
 	for (auto& renderComponent : work)
 	{
 		auto* modelData = renderComponent->GetModelData()->GetModelData();
@@ -126,8 +135,8 @@ void Renderer::D3DDraw()
 				}
 			}
 
-			d3dDeviceContext->UpdateSubresource(matrixConstantBuffer.GetBuffer().Get(), 0, nullptr, &matrixData, 0, 0); // CPU -> GPUë¡??°ì´???„ì†¡ ì²˜ë¦¬
-			d3dDeviceContext->UpdateSubresource(objectBuffer.GetBuffer().Get(), 0, nullptr, &objectData, 0, 0);			// CPU -> GPUë¡??°ì´???„ì†¡ ì²˜ë¦¬
+			d3dDeviceContext->UpdateSubresource(matrixConstantBuffer.GetBuffer().Get(), 0, nullptr, &matrixData, 0, 0); // CPU -> GPU
+			d3dDeviceContext->UpdateSubresource(objectBuffer.GetBuffer().Get(), 0, nullptr, &objectData, 0, 0);			// CPU -> GPU
 			d3dDeviceContext->DrawIndexed(indexBuffer->GetIndexCount(), 0, 0);
 		}
 	}

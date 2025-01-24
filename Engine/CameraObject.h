@@ -2,6 +2,7 @@
 #include "Object.h"
 
 struct WindowInfo;
+class ConstantBuffer;
 class CameraObject : public Object
 {
 public:
@@ -24,4 +25,5 @@ public:
 
 private:
 	WindowInfo* windowInfo {}; // 여기서 삭제할 필요 없음 어차피 윈도우에서 삭제함.
+	
 };
