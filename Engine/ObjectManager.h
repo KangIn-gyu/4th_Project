@@ -15,36 +15,40 @@ public:
 	void MainCameraSetting(int _index);
 	void AddObject(Object* _obj);
 
-	template <succession_Object T>
-	T* GetGameObject(std::string name);
-
+	template <typename T>
+	T* GetGameObject(Object::ObjectType _type,std::string _name);
 	void ShowObject(); 	// 확인용 
-	const std::unordered_map<std::type_index, std::vector<Object*>> GetObjects() const { return Objects; }
+	const std::unordered_map<Object::ObjectType, std::vector<Object*>> GetObjects() const;
+
 private:
 	void BasicObject();
 
 public:
 
 private:
-	std::unordered_map<std::type_index, std::vector<Object*>> Objects{};
-
+	std::unordered_map<Object::ObjectType, std::vector<Object*>> Objects{};
 };
+
+template<typename T>
+T* ObjectManager::GetGameObject(Object::ObjectType _type, std::string _name)
+{
+
+	auto it = Objects.find(_type);
+	if (it != Objects.end())
+	{
+		for (auto& gameobj : it->second)
+		{
+			if (gameobj->GetName() == _name)
+			{
+				return static_cast<T*>(gameobj);
+			}
+			
+		}
+	}
+	
+	return nullptr; 
+	
+}
 
 // 싱글톤으로 처리 안함
 // 일단 보류
-
-template<succession_Object T>
-T* ObjectManager::GetGameObject(std::string name)
-{
-	auto it = Objects.find(typeid(T));
-	if (it != Objects.end())
-	{
-		for (auto obj : it->second)
-		{
-			if (obj->GetName() == name)
-			{
-				return static_cast<T*>(obj);
-			}
-		}
-	}
-}

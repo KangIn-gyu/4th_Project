@@ -4,7 +4,7 @@
 #include "Helper.h"
 #include "Object.h"
 #include "SceneManager.h"
-
+#include "EventSystem.h"
 Scene::Scene(std::string_view _Name)
 {
 	sceneName.assign(_Name);
@@ -20,6 +20,7 @@ Scene::~Scene()
 
 void Scene::Initialize()
 {
+	Enter();
 	if (is_initialize == false)
 	{
 		objectManager->Initialize();
@@ -30,6 +31,7 @@ void Scene::Initialize()
 void Scene::Update(const float _deltaTime)
 {
 	objectManager->Update(_deltaTime);
+	eventSysyem->Update();
 }
 
 void Scene::MainCameraSetting(const int _index)

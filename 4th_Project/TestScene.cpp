@@ -3,6 +3,11 @@
 #include "TestObj.h"
 #include "TestObj2.h"
 #include "../Engine/TransformComponent.h"
+#include "../Engine/SceneLoader.h"
+#include "../Engine/ObjectManager.h"
+#include "../Engine/SceneManager.h"
+#include "Deck.h"
+#include "Button.h"
 TestScene::TestScene(std::string_view _Name) : Scene(_Name)
 {
 
@@ -10,12 +15,7 @@ TestScene::TestScene(std::string_view _Name) : Scene(_Name)
 
 void TestScene::Enter()
 {
-	CreatorObject<TestObj>("gun", Object::ObjectType::Basic);
-	CreatorObject<TestObj2>("char2", Object::ObjectType::Basic);
-//	CreatorObject<TestObj>("gun1", Object::ObjectType::Basic);
-
-//	objectManager->GetGameObject<TestObj2>("char")->GetComponent<TransformComponent>()->SetPosition({50, 0, 0});
-	ShowObject();
+	CreatorObject<Button>("Button", Object::ObjectType::Basic, []() {SCENEMANAGER->ChangeScene("GAMBLE");});
+	
 }
-
 

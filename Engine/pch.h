@@ -64,6 +64,8 @@ using namespace Microsoft::WRL;
 namespace DX = DirectX;
 namespace DXMath = DirectX::SimpleMath;
 
+#include <fstream>
+
 // 여기에 미리 컴파일하려는 헤더를 추가하세요
 #ifdef _DEBUG
 #define _CRTDBG_MAP_ALLOC  // C 런타임의 디버깅 도구를 활성화 파일 이름과 라인 번호 추적
@@ -77,5 +79,18 @@ namespace DXMath = DirectX::SimpleMath;
 
 #define new new(_NORMAL_BLOCK, __FILE__, __LINE__)
 #endif
+
+//라이브러리 오류수정테스트
+#ifdef _DEBUG
+#undef new // new 재정의 해제
+#endif
+
+// 라이브러리 코드 (new가 재정의되지 않음)
+#include "jjson.hpp"
+
+#ifdef _DEBUG
+#define new new(_NORMAL_BLOCK, __FILE__, __LINE__) // 다시 재정의 (필요한 경우)
+#endif
+
 
 #endif //PCH_H
