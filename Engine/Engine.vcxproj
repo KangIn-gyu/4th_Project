@@ -143,6 +143,7 @@
   <ItemGroup>
     <ClInclude Include="AiNode.h" />
     <ClInclude Include="CameraCompoent.h" />
+    <ClInclude Include="CameraInformationEditor.h" />
     <ClInclude Include="CameraObject.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Console.h" />
@@ -204,6 +205,7 @@
   <ItemGroup>
     <ClCompile Include="AiNode.cpp" />
     <ClCompile Include="CameraCompoent.cpp" />
+    <ClCompile Include="CameraInformationEditor.cpp" />
     <ClCompile Include="CameraObject.cpp" />
     <ClCompile Include="Console.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />

@@ -282,6 +282,7 @@
     <ClInclude Include="TextureInformationEditor.h">
       <Filter>0_Utility\MyImGui\Editor</Filter>
     </ClInclude>
+
     <ClInclude Include="D2DClass.h">
       <Filter>2_System\Graphics</Filter>
     </ClInclude>
@@ -290,6 +291,10 @@
     </ClInclude>
     <ClInclude Include="FontManager.h">
       <Filter>2_System\Graphics</Filter>
+
+    <ClInclude Include="CameraInformationEditor.h">
+      <Filter>0_Utility\MyImGui\Editor</Filter>
+
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -424,6 +429,7 @@
     <ClCompile Include="TextureInformationEditor.cpp">
       <Filter>0_Utility\MyImGui\Editor</Filter>
     </ClCompile>
+
     <ClCompile Include="D2DClass.cpp">
       <Filter>2_System\Graphics</Filter>
     </ClCompile>
@@ -432,6 +438,10 @@
     </ClCompile>
     <ClCompile Include="FontManager.cpp">
       <Filter>2_System\Graphics</Filter>
+
+    <ClCompile Include="CameraInformationEditor.cpp">
+      <Filter>0_Utility\MyImGui\Editor</Filter>
+
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

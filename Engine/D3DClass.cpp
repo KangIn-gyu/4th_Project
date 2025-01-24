@@ -111,6 +111,7 @@ void D3DClass::InitD3D()
 	D3D_FEATURE_LEVEL featureLevel;
 #endif
 
+	
 	// 1. 장치 생성.   2. 스왑체인 생성.  3. 장치 컨텍스트 생성.
 	HR_T(D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, creationFlags, NULL, NULL,
 		D3D11_SDK_VERSION, &swapDesc, swapChain.GetAddressOf(), D3DDevice.GetAddressOf(), &featureLevel, D3DDeviceContext.GetAddressOf()));

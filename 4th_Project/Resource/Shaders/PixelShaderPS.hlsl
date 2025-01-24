@@ -9,6 +9,7 @@ float4 main(PixelInputType input) : SV_TARGET
     float3 biTanget = normalize(input.Binormal);
     float3 tangent =  normalize(input.Tangent);
     
+    float4 BaseColor = BaseColorMap.Sample(samLinear, input.TexCoord);
     float3 nomalMap = NormalMap.Sample(samLinear, input.TexCoord);
     float3 speclarMap = SpecularColor.Sample(samLinear, input.TexCoord).xyz;
     float4 emissiveMap = EmissiveColor.Sample(samLinear, input.TexCoord);
