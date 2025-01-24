@@ -40,3 +40,16 @@ struct alignas(16) ObjectBuffer
 	float padding0	{};
 	float padding1	{};
 };
+
+struct alignas(16) CameraBuffer
+{
+	CameraBuffer()
+	{
+		ValidateConstantBufferSize<CameraBuffer>();
+	}
+
+	DXMath::Vector3 eyePosition;
+	float padding0{};
+	DXMath::Vector3 lightDirection;
+	float padding1{};
+};

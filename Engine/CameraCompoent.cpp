@@ -130,15 +130,20 @@ void CameraCompoent::OnInputProcess(const DX::Keyboard::State& _KeyState, const 
 		AddInputVector(right);
 	}
 
-	if (_KeyState.IsKeyDown(DirectX::Keyboard::Keys::E))
+	if (_KeyState.IsKeyDown(DirectX::Keyboard::Keys::Space))
 	{	// E 키 - 위로 이동
 		AddInputVector(up);
 	}
-	else if (_KeyState.IsKeyDown(DirectX::Keyboard::Keys::Q))
+	else if (_KeyState.IsKeyDown(DirectX::Keyboard::Keys::LeftShift))
 	{	// Q 키 - 아래로 이동
 		AddInputVector(-up);
 	}
 	
+	if (_KeyState.IsKeyDown(DirectX::Keyboard::Keys::Escape))
+	{
+		PostQuitMessage(0);
+	}
+
 	DXINPUT->mouse->SetMode(_MouseState.rightButton ? DX::Mouse::MODE_RELATIVE : DX::Mouse::MODE_ABSOLUTE);
 	if (_MouseState.positionMode == DX::Mouse::MODE_RELATIVE)
 	{
