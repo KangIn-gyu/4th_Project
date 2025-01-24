@@ -2,7 +2,6 @@
 // 목적 : 함수 객체 헤더 모음 
 // 기능별 자주 사용할 것 같은 함수를 함수 객체로 만들어서 처리
 
-
 #include "StringHelper.h"
 #include "SafeExtinction.h"
 
@@ -34,3 +33,4 @@ inline void HR_T(HRESULT hr)
         throw com_exception(hr);
     }
 }
+

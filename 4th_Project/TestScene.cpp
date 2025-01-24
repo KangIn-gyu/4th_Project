@@ -10,11 +10,10 @@ TestScene::TestScene(std::string_view _Name) : Scene(_Name)
 
 void TestScene::Enter()
 {
-	CreatorObject<TestObj>("gun", Object::ObjectType::Basic);
-	CreatorObject<TestObj2>("char2", Object::ObjectType::Basic);
-//	CreatorObject<TestObj>("gun1", Object::ObjectType::Basic);
+	CreatorObject<TestObj>("char", Object::ObjectType::Basic);
+	//CreatorObject<TestObj2>("gun", Object::ObjectType::Basic);
+	objectManager->GetObjectss<TestObj>("char")->GetComponent<TransformComponent>()->SetPosition({50, 0, 0});
 
-//	objectManager->GetGameObject<TestObj2>("char")->GetComponent<TransformComponent>()->SetPosition({50, 0, 0});
 	ShowObject();
 }
 

@@ -29,7 +29,9 @@ void Renderer::Initialize(WindowInfo* _windowInfo)
 
 	IMGUI->Initialize(_windowInfo->hWnd, D3DGraphics->GetD3DDevice(), D3DGraphics->GetD3DDeviceContext());
 
-	// 상수 버퍼 생성
+	m_skybox.Init();
+	// ��� ���� ����
+
 	matrixConstantBuffer.Create(sizeof(MatrixBuffer));
 	objectBuffer.Create(sizeof(ObjectBuffer));
 
@@ -60,9 +62,13 @@ void Renderer::Render()
 	// 위에서 그린 그림의 ShaderResourceView를 PSSetShaderResource(SRV);
 
 	D3DGraphics->BeginDraw(IMGUI->GetBankGroundColor());
+
+	m_skybox.Render(D3DClass::GetD3DDeviceContext().Get());
+
 	D2DGraphics->BeginDraw();
 
 	D3DDraw();
+
 
 	D3DGraphics->ExtractFinalImage();
 	IMGUI->Render();
@@ -77,7 +83,6 @@ void Renderer::D3DDraw()
 	ComPtr<ID3D11DeviceContext> d3dDeviceContext = D3DGraphics->GetD3DDeviceContext();
 	d3dDeviceContext->PSSetSamplers(0, 1, &linearWrapSampler); // TODO: 샘플러 일단 보류
 	d3dDeviceContext->PSSetSamplers(1, 1, &pointClampSampler);
-
 	for (auto& renderComponent : work)
 	{
 		auto* modelData = renderComponent->GetModelData()->GetModelData();
