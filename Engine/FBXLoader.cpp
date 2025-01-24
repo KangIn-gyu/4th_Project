@@ -14,6 +14,7 @@
 
 DirectX::XMMATRIX ConvertMatrix(const aiMatrix4x4& _matrix); // 여기서만 사용하는 함수
 
+
 std::shared_ptr<Model> FBXLoader::FBXLoad(std::string_view _filePath)
 {
 	std::string filePathKEY = _filePath.data(); // 파일 경로가 모든 맵의 키값이다
@@ -82,6 +83,7 @@ std::shared_ptr<Model> FBXLoader::FBXLoad(std::string_view _filePath)
 	modelData->SetMesh(&meshMap.find(filePathKEY)->second);
 	modelData->SetMateria(&materials.find(filePathKEY)->second);
 
+	modelData->extent = CalculateBoundingBox(scene);
 	nameCountMap.clear();
 
 	AllShow();
@@ -541,4 +543,37 @@ DX::XMMATRIX ConvertMatrix(const aiMatrix4x4& _matrix) // 여기서만 사용하는 함수
 		_matrix.a3, _matrix.b3, _matrix.c3, _matrix.d3,   // 3열
 		_matrix.a4, _matrix.b4, _matrix.c4, _matrix.d4    // 4열
 	);
+}
+
+
+DXMath::Vector3 FBXLoader::CalculateBoundingBox(const aiScene* scene)
+{
+	aiVector3D min = aiVector3D((std::numeric_limits<float>::max)());
+	aiVector3D max = aiVector3D(std::numeric_limits<float>::lowest());
+
+	// 모든 메쉬를 순회
+	for (unsigned int i = 0; i < scene->mNumMeshes; i++) 
+	{
+		aiMesh* mesh = scene->mMeshes[i];
+
+		// 각 메쉬의 모든 버텍스를 순회
+		for (unsigned int j = 0; j < mesh->mNumVertices; j++) 
+		{
+			aiVector3D vertex = mesh->mVertices[j];
+
+			// 최소/최대 좌표 갱신
+			min.x = std::min(min.x, vertex.x);
+			min.y = std::min(min.y, vertex.y);
+			min.z = std::min(min.z, vertex.z);
+
+			max.x = (std::max)(max.x, vertex.x);
+			max.y = (std::max)(max.y, vertex.y);
+			max.z = (std::max)(max.z, vertex.z);
+		}
+	}
+	DXMath::Vector3 extent;
+	extent.x = (max.x - min.x) / 2.0f;
+	extent.y = (max.y - min.y) / 2.0f;
+	extent.z = (max.z - min.z) / 2.0f;
+	return extent;
 }

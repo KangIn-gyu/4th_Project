@@ -15,7 +15,7 @@ TestScene::TestScene(std::string_view _Name) : Scene(_Name)
 
 void TestScene::Enter()
 {
-	CreatorObject<Button>("Button", Object::ObjectType::Basic, []() {SCENEMANAGER->ChangeScene("GAMBLE");});
+	CreatorObject<Button>("Button", Object::ObjectType::Basic,DXMath::Vector3(-200,0,0), []() {SCENEMANAGER->ChangeScene("GAMBLE");});
 	
 }
 

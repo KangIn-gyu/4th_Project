@@ -1,28 +1,28 @@
 #include "pch.h"
-#include "ButtonFunc.h"
+#include "ClickFunc.h"
 #include "Card.h"
 #include "GameManager.h"
-void ButtonFunc::SelectCard()
+void ClickFunc::SelectCard()
 {
 	
 }
-void ButtonFunc::CardOpenButton()
+void ClickFunc::OpenButton()
 {
 	GAMEMANAGER->SetState(PlayerState::OPEN);
 }
 
-void ButtonFunc::StayButton()
+void ClickFunc::StayButton()
 {
 	GAMEMANAGER->SetState(PlayerState::STAY);
 }
 
-void ButtonFunc::HitButton()
+void ClickFunc::HitButton()
 {
 	GAMEMANAGER->SetState(PlayerState::HIT);
 }
 
-void ButtonFunc::DoubleDown()
+void ClickFunc::DoubleDown()
 {
 	//더블다운 컷신넣기 *****
-	GAMEMANAGER->SetState(PlayerState::DOBULEDOWN);
+	GAMEMANAGER->onDoubbleDown = true;
 }
