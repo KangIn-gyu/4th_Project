@@ -20,9 +20,6 @@
 
 #include "AiNode.h"
 
-#include <tchar.h>
-#include "FontD2D.h"
-
 
 void Renderer::Initialize(WindowInfo* _windowInfo)
 {
@@ -47,8 +44,6 @@ void Renderer::Initialize(WindowInfo* _windowInfo)
 
 	FontManager::GetInstance()->InitializeDWrite();
 
-	// 텍스트
-	FontManager::Initialize();
 
 }
 
