@@ -1,9 +1,8 @@
 #pragma once
 #include "SingletonBase.h"
 #include "D3DClass.h"
+#include "D2DClass.h"
 #include "ConstantBuffer.h"
-#include <directxtk/SpriteBatch.h>
-#include <directxtk/SpriteFont.h>
 #define RENDERER Renderer::GetInstance()
 
 typedef DirectX::XMFLOAT4		COLOR;
@@ -19,7 +18,7 @@ public:
 	void Initialize(WindowInfo* _windowInfo);
 	void Update(float _deltaTiem);
 	void Render();
-	void Draw();
+	void D3DDraw();
 	void AddRenderComponent(RenderComponent* _renderComponent);
 	void RemoveRenderComponent(RenderComponent* _renderComponent);
 
@@ -41,6 +40,7 @@ public:
 
 private:
 	std::unique_ptr<D3DClass> D3DGraphics {}; // 그래픽스
+	std::unique_ptr<D2DClass> D2DGraphics {}; // 그래픽스
 	std::vector<RenderComponent*> work {};
 	
 	// 상수 버퍼

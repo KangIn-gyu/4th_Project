@@ -8,8 +8,7 @@
 // 정적변수랑은 스태틱은 의미가 달라서 g_표시 안함
 ComPtr<ID3D11Device>        D3DClass::D3DDevice =        nullptr; 
 ComPtr<ID3D11DeviceContext> D3DClass::D3DDeviceContext = nullptr;
-ComPtr<ID2D1DeviceContext> D3DClass::D2DDeviceContext = nullptr;
-ComPtr<ID2D1SolidColorBrush> D3DClass::Brush = nullptr;
+ComPtr<IDXGISurface> D3DClass::DXGISurface = nullptr;
 std::unique_ptr<Viewport>   D3DClass::viewport = nullptr;
 
 D3DClass::~D3DClass()
@@ -26,8 +25,6 @@ void D3DClass::Initialize(WindowInfo* _windowInfo)
 	windowInfo = _windowInfo;
 	InitD3D();
 	InitDXGI();
-	InitD2D();
-	CreateD2DRenderTarget();
 }
 
 void D3DClass::BeginDraw(DXMath::Color _BackgroundColor)
@@ -35,7 +32,6 @@ void D3DClass::BeginDraw(DXMath::Color _BackgroundColor)
 	D3DDeviceContext->OMSetRenderTargets(1, renderTargetView.GetAddressOf(), depthStencilView.Get()); // OM
 	D3DDeviceContext->ClearRenderTargetView(renderTargetView.Get(), _BackgroundColor);
 	D3DDeviceContext->ClearDepthStencilView(depthStencilView.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0);
-	D2DDeviceContext->BeginDraw();
 }
 
 void D3DClass::EndDraw()
@@ -55,7 +51,6 @@ void D3DClass::EndDraw()
 	{
 		std::cout << "스왑체인이 화면에 보이지 않거나 가려졌습니다." << std::endl;
 	}
-	D2DDeviceContext->EndDraw();
 }
 
 void D3DClass::ChangeWindowSize()
@@ -104,46 +99,15 @@ std::pair<int, int> D3DClass::GetWindowsSize()
 	return std::pair<int, int>(windowInfo->screenWidth, windowInfo->screenHeight);
 }
 
-void D3DClass::CreateD2DRenderTarget()
-{
-	// 현재 창의 DPI(1인치당 픽셀의 개수) 설정 가져오기
-	float dpiX, dpiY;
-	UINT dpi = GetDpiForWindow(windowInfo->hWnd);
-	dpiX = static_cast<float>(dpi);
-	dpiY = static_cast<float>(dpi);
-
-	// DXGI 표면 가져오기
-	//Microsoft::WRL::ComPtr<IDXGISurface> dxgiSurface;
-	HR_T(swapChain->GetBuffer(0, IID_PPV_ARGS(DXGISurface.GetAddressOf())));
-
-	// Direct2D 비트맵 속성 정의
-	D2D1_BITMAP_PROPERTIES1 bitmapProperties = D2D1::BitmapProperties1(
-		D2D1_BITMAP_OPTIONS_TARGET | D2D1_BITMAP_OPTIONS_CANNOT_DRAW,
-		D2D1::PixelFormat(DXGI_FORMAT_UNKNOWN, D2D1_ALPHA_MODE_PREMULTIPLIED),
-		dpiX,
-		dpiY
-	);	// DXGI_FORMAT_UNKNOWN을 사용하면 Direct2D가 적합한 포맷을 자동으로 선택함.
-
-
-	// DXGI 표면을 기반으로 Direct2D 비트맵 생성
-	HR_T(D2DDeviceContext->CreateBitmapFromDxgiSurface(
-		DXGISurface.Get(),
-		&bitmapProperties,
-		D2DBitmap1.GetAddressOf()
-	));
-
-	// 비트맵을 DeviceContext의 렌더 타겟으로 설정
-	D2DDeviceContext->SetTarget(D2DBitmap1.Get());
-}
 void D3DClass::InitD3D()
 {
 	HRESULT hr = 0;
 	DXGI_SWAP_CHAIN_DESC swapDesc = CreateSwapDesc();
 
 	// 디버그 기능 활성화
-	UINT creationFlags = 0;
+	UINT creationFlags = D3D11_CREATE_DEVICE_DEBUG | D3D11_CREATE_DEVICE_BGRA_SUPPORT;
 #ifdef _DEBUG
-	creationFlags |= D3D11_CREATE_DEVICE_DEBUG;
+	creationFlags = D3D11_CREATE_DEVICE_DEBUG | D3D11_CREATE_DEVICE_BGRA_SUPPORT;
 	D3D_FEATURE_LEVEL featureLevel;
 #endif
 
@@ -153,6 +117,8 @@ void D3DClass::InitD3D()
 		D3D11_SDK_VERSION, &swapDesc, swapChain.GetAddressOf(), D3DDevice.GetAddressOf(), &featureLevel, D3DDeviceContext.GetAddressOf()));
 
 	HR_T(swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)&renderTargetBuffer));
+	// D2D에서 사용할 IDXGISurface 생성 //
+	HR_T(swapChain->GetBuffer(0, __uuidof(IDXGISurface), reinterpret_cast<void**>(DXGISurface.GetAddressOf())));
 	HR_T(D3DDevice->CreateRenderTargetView(renderTargetBuffer.Get(), nullptr, renderTargetView.GetAddressOf()));
 
 	// 뷰포트 설정.	
@@ -177,28 +143,12 @@ void D3DClass::InitD3D()
 	CreateDepthStencilBuffer();
 }
 
-void D3DClass::InitD2D()
-{
-	// Direct2D 팩토리 생성
-	HR_T(D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, D2DFactory1.GetAddressOf()));
-
-	// DXGI 디바이스를 사용하여 Direct2D 디바이스를 생성
-	HR_T(D2DFactory1.Get()->CreateDevice(DXGIDevice.Get(), D2DDevice.GetAddressOf()));
-
-	// ID2D1DeviceContext 생성
-	HR_T(D2DDevice.Get()->CreateDeviceContext(D2D1_DEVICE_CONTEXT_OPTIONS_NONE, D2DDeviceContext.GetAddressOf()));
-
-	// brush 생성
-	HR_T(D2DDeviceContext.Get()->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::Black), Brush.GetAddressOf()));
-
-}
 void D3DClass::InitDXGI()
 {
 	HR_T(D3DDevice.As(&DXGIDevice));
 	HR_T(DXGIDevice->GetAdapter(DXGIAdapter.GetAddressOf()));
 	HR_T(DXGIAdapter->GetParent(__uuidof(IDXGIFactory), reinterpret_cast<void**>(DXGIFactory.GetAddressOf())));
 	HR_T(DXGIFactory->MakeWindowAssociation(windowInfo->hWnd, DXGI_MWA_NO_ALT_ENTER)); // 해당 플로그는 Alt + Enter 전환할수 없음
-	HR_T(D3DDevice->QueryInterface(__uuidof(IDXGIDevice), (void**)DXGIDevice.GetAddressOf()));
 }
 
 void D3DClass::MemoryLick()
@@ -226,7 +176,7 @@ DXGI_SWAP_CHAIN_DESC D3DClass::CreateSwapDesc()
 	DXGI_SWAP_CHAIN_DESC swapDesc = {};
 	ZeroMemory(&swapDesc, sizeof(DXGI_SWAP_CHAIN_DESC));
 	swapDesc.BufferCount = 2;  // imgui 때문에 수정 1.14 1로 수정해야 될수도 있음
-	swapDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;	// 기본값 0  https://learn.microsoft.com/ko-kr/windows/win32/api/dxgi/ne-dxgi-dxgi_swap_effect
+	swapDesc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;	// 기본값 0  https://learn.microsoft.com/ko-kr/windows/win32/api/dxgi/ne-dxgi-dxgi_swap_effect
 	swapDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT; // 더블 버퍼링 및 3중 버퍼링도 있다
 	swapDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM; //   https://learn.microsoft.com/ko-kr/windows/win32/api/dxgiformat/ne-dxgiformat-dxgi_format
 	// 백버퍼(텍스처)의 가로/세로 크기 설정.

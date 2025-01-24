@@ -5,44 +5,6 @@
 #include <stdexcept>
 #include "Helper.h"
 
-namespace FontManager
-{
-
-
-    D2DFont* D2DFont::m_pInstance = nullptr;
-    SFont* SFont::m_pInstance = nullptr;
-
-    void Initialize()
-    {
-        D2DFont::GetInstance()->Init();
-        SFont::GetInstance()->Init();
-    }
-
-    void Uninitialize()
-    {
-        D2DFont::DestroyInstance();
-        SFont::DestroyInstance();
-    }
-
-    // D2DFont ======================================================
-    D2DFont* D2DFont::GetInstance()
-    {
-        if (m_pInstance == nullptr)
-        {
-            m_pInstance = new D2DFont();
-        }
-
-        return m_pInstance;
-    }
-
-    void D2DFont::DestroyInstance()
-    {
-        if (m_pInstance != nullptr)
-        {
-            delete m_pInstance;
-            m_pInstance = nullptr;
-        }
-    }
 
     void D2DFont::Init()
     {
@@ -66,7 +28,7 @@ namespace FontManager
     void D2DFont::CreateTextFormat()
     {
         HR_T(pDWriteFactory->CreateTextFormat(
-            L"Cooper",              // 글꼴 이름
+            L"경기천년제목",              // 글꼴 이름
             NULL,                  // 글꼴 컬렉션 (NULL은 시스템 기본 사용)
             DWRITE_FONT_WEIGHT_REGULAR,
             DWRITE_FONT_STYLE_NORMAL,
@@ -84,35 +46,16 @@ namespace FontManager
     void D2DFont::TextDraw(const wchar_t* format, D2D1_RECT_F _rect, D2D1_COLOR_F _color, ...)
     {
         // 텍스트 그리기
-        D3DClass::GetD2DBrush()->SetColor(_color);
+        D2DClass::GetD2DBrush()->SetColor(_color);
 
-        D3DClass::GetD2DDeviceContext()->DrawText(
+        D2DClass::GetD2DDeviceContext()->DrawText(
             format,              // 텍스트 내용
             lstrlen(format) + 1,
             pTextFormat,
             _rect,
-            D3DClass::GetD2DBrush().Get());
+            D2DClass::GetD2DBrush().Get());
     }
 
-    // SFont ======================================================
-
-    SFont* SFont::GetInstance()
-    {
-        if (m_pInstance == nullptr)
-        {
-            m_pInstance = new SFont();
-        }
-        return m_pInstance;
-    }
-
-    void SFont::DestroyInstance()
-    {
-        if (m_pInstance != nullptr)
-        {
-            delete m_pInstance;
-            m_pInstance = nullptr;
-        }
-    }
 
     void SFont::Init()
     {
@@ -127,7 +70,7 @@ namespace FontManager
 
     bool SFont::FontCreate()
     {
-        const std::wstring filename = L"../Resource/Font/NaNum.sfont";
+        const std::wstring filename = L"Resource/Font/kulim.sfont";
 
         try
         {
@@ -175,4 +118,3 @@ namespace FontManager
         // DepthStencilState 복원
         D3DClass::GetD3DDeviceContext().Get()->OMSetDepthStencilState(prevDepthState, stencilRef);
     }
-}
