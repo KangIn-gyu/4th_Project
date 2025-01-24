@@ -149,6 +149,7 @@
     <ClInclude Include="Console.h" />
     <ClInclude Include="ConstantBuffer.h" />
     <ClInclude Include="ConstantBufferData.h" />
+    <ClInclude Include="D2DClass.h" />
     <ClInclude Include="D3DClass.h" />
     <ClInclude Include="Declare.h" />
     <ClInclude Include="DirectXInput.h" />
@@ -157,6 +158,7 @@
     <ClInclude Include="FactorySystem.h" />
     <ClInclude Include="FBXLoader.h" />
     <ClInclude Include="FontD2D.h" />
+    <ClInclude Include="FontManager.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="HierarchyWindow.h" />
     <ClInclude Include="Editor.h" />
@@ -207,6 +209,7 @@
     <ClCompile Include="CameraObject.cpp" />
     <ClCompile Include="Console.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />
+    <ClCompile Include="D2DClass.cpp" />
     <ClCompile Include="D3DClass.cpp" />
     <ClCompile Include="DirectXInput.cpp" />
     <ClCompile Include="EditorWindow.cpp" />
@@ -214,6 +217,7 @@
     <ClCompile Include="FactorySystem.cpp" />
     <ClCompile Include="FBXLoader.cpp" />
     <ClCompile Include="FontD2D.cpp" />
+    <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="HierarchyWindow.cpp" />
     <ClCompile Include="Editor.cpp" />
     <ClCompile Include="InspectorWindow.cpp" />
