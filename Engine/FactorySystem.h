@@ -48,8 +48,7 @@ template<succession_Object T, typename ... Arg>
 T* FactorySystem::CreateObject(Arg&& ... _arguments)
 {
 		auto* newobj = new T(_arguments...);
-		return newobj;
-	
+		return newobj;	
 }
 
 
