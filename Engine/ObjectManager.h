@@ -16,7 +16,7 @@ public:
 	void AddObject(Object* _obj);
 
 	template <succession_Object T>
-	T* GetGemeObject(std::string name);
+	T* GetGameObject(std::string name);
 
 	void ShowObject(); 	// 확인용 
 	const std::unordered_map<std::type_index, std::vector<Object*>> GetObjects() const { return Objects; }
@@ -34,7 +34,7 @@ private:
 // 일단 보류
 
 template<succession_Object T>
-T* ObjectManager::GetGemeObject(std::string name)
+T* ObjectManager::GetGameObject(std::string name)
 {
 	auto it = Objects.find(typeid(T));
 	if (it != Objects.end())

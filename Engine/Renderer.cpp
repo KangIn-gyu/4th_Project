@@ -2,6 +2,8 @@
 #include "Renderer.h"
 #include "Declare.h"
 #include "RenderComponent.h"
+#include "Object.h"
+#include "ModelComponent.h"
 #include "Model.h"
 #include "Mesh.h"
 #include "Vertex.h"
@@ -12,6 +14,7 @@
 #include "ConstantBufferData.h"
 #include "CameraObject.h"
 #include "UserImGui.h"
+#include "AiNode.h"
 
 void Renderer::Initialize(WindowInfo* _windowInfo)
 {
@@ -59,16 +62,17 @@ void Renderer::Draw()
 	for (auto& renderComponent : work)
 	{
 		auto* modelData = renderComponent->GetModelData()->GetModelData();
+		auto nodeData = *renderComponent->GetNodeData();
 		for (auto& data : *modelData->meshs)
 		{
-			auto* MeshData= data->GetMeshInfo();
+			auto* meshData = data->GetMeshInfo();
 			//IA 입력 어셈블러 스테이지 설정
-			auto* vertexBuffer = MeshData->vertexBuffer;
+			auto* vertexBuffer = meshData->vertexBuffer;
 			d3dDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 			d3dDeviceContext->IASetVertexBuffers(0, 1, vertexBuffer->GetBuffer().GetAddressOf(), &vertexBuffer->vertextBufferStride, &vertexBuffer->vertextBufferOffset); // 여기 맨앞 슬롯 번호는 임풋 레이아웃 슬롯 번호임
-			auto* indexBuffer = MeshData->indexBuffer;
+			auto* indexBuffer = meshData->indexBuffer;
 			d3dDeviceContext->IASetIndexBuffer(indexBuffer->GetBuffer().Get(), DXGI_FORMAT_R32_UINT, 0);
-			d3dDeviceContext->IASetInputLayout(MeshData->inputLayout.GetInputLayout().Get());
+			d3dDeviceContext->IASetInputLayout(meshData->inputLayout.GetInputLayout().Get());
 
 			// VS 정점 셰이더 스테이지 설정
 			d3dDeviceContext->VSSetShader(renderComponent->GetShder(ShaderType::VS)->GetVertexShader().Get(), nullptr, 0);
@@ -80,20 +84,31 @@ void Renderer::Draw()
 			d3dDeviceContext->PSSetConstantBuffers(1, 1, objectBuffer.GetBuffer().GetAddressOf());
 
 			MatrixBuffer matrixData;
-			matrixData.worldMatrix = DX::XMMatrixTranspose(MeshData->transform->GetWorldMatrix());  // 전치 행렬 넣기
+			auto node = *nodeData.find(meshData->meshName);
+			matrixData.worldMatrix = DX::XMMatrixTranspose(node.second->GetTransform().GetWorldMatrix());  // 전치 행렬 넣기
 			matrixData.viewMatrix = DX::XMMatrixTranspose(CameraObject::g_MainCameraObject->GetViewMatrix());
 			matrixData.projectionMatrix = DX::XMMatrixTranspose(CameraObject::g_MainCameraObject->GetProjectionMatrix());
 		
-			Material* material = (*modelData->materials)[MeshData->GetMeshIndex()]; // 매쉬 인덱스랑 메터리얼 인덱스가 같다
-
+			Material* material = (*modelData->materials)[meshData->GetMaterialIndex()];
 			ObjectBuffer objectData;
 			objectData.metalness = material->GetMetalness();
 			objectData.roughness = material->GetRoughness();
 
+			int textureregister = 20;
+			for (UINT slot = 0; slot < textureregister; ++slot)
+			{
+				ID3D11ShaderResourceView* nullSRV = nullptr;
+				d3dDeviceContext->PSSetShaderResources(slot, 1, &nullSRV);
+			}
+
 			for (auto& textur : material->GetTextures())
 			{ // 예전 코드에서 문제점인 스위치문으로 해서 더러웠지만 텍스처가 해당하는 레지스터 인덱스를 가지고 있어서 텍스처수만큼만 반복하면 됨.
-				if(textur->GetTextureTypeIndex() >= 0)
-				d3dDeviceContext->PSSetShaderResources(textur->GetTextureTypeIndex(), 1 , textur->GetTexture().GetAddressOf());
+				if (textur->GetTextureTypeIndex() >= 0)
+				{
+					int indexNum = textur->GetTextureTypeIndex();
+					// std::cout << textur->GetTextureTypeIndex() << " " << textur->GetName() << "\n";
+					d3dDeviceContext->PSSetShaderResources(textur->GetTextureTypeIndex(), 1, textur->GetTexture().GetAddressOf());
+				}
 			}
 
 			// 상수 버퍼 업데이트
@@ -116,8 +131,6 @@ void Renderer::RemoveRenderComponent(RenderComponent* _renderComponent)
 		work.erase(std::remove(work.begin(), work.end(), _renderComponent), work.end());
 	}
 }
-
-
 
 std::pair<int, int> Renderer::GetWindowsSize()
 {

@@ -3,7 +3,7 @@
 #include "CameraObject.h"
 #include "CameraCompoent.h"
 #include "Declare.h"
-
+#include <imgui.h>
 CameraInformationEditor::CameraInformationEditor()
 {
 	SetName("CameraInformation");

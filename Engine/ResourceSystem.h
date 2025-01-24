@@ -4,6 +4,9 @@
 
 #include "IResources.h"
 #include "FBXLoader.h"
+
+#include "Model.h"
+
 #define RESOURCESYSTEM ResourceSystem::GetInstance()
 
 class Model;

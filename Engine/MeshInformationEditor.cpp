@@ -3,7 +3,7 @@
 #include "Mesh.h"
 #include "Vertex.h"
 #include "IndexBuffer.h"
-
+#include <imgui.h>
 MeshInformationEditor::MeshInformationEditor()
 {
 	SetName("MeshInformation");
@@ -27,8 +27,9 @@ void MeshInformationEditor::Draw()
 			auto* meshInfo = selectedMesh->GetMeshInfo();
 			ImGui::Text(meshInfo->meshName.c_str());
 			ImGui::Value("MeshIndex : ", selectedMesh->GetFbxIndex());
+			ImGui::Value("MaterialIndex : ", meshInfo->GetMaterialIndex());
 			ImGui::Value("VertexBufferSize : ", (int)meshInfo->vertexBuffer->vertices.size());
-			ImGui::Value("IndexBufferSize : ", meshInfo->indexBuffer->GetIndexCount());			
+			ImGui::Value("IndexBufferSize : ", meshInfo->indexBuffer->GetIndexCount());		
 		}
 	}
 }

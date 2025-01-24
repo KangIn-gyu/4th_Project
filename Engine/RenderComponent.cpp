@@ -19,7 +19,11 @@ RenderComponent::~RenderComponent()
 
 void RenderComponent::ComponentInitialize()
 { 
-	modelData = owner->GetComponent<ModelComponent>()->GetModel();
+	if (auto*modelComponet = owner->GetComponent<ModelComponent>(); nullptr != modelComponet)
+	{
+		modelData = modelComponet->GetModel();
+		nodeData = modelComponet->GetNodeData();
+	}
 }
 
 std::shared_ptr<Shader> RenderComponent::GetShder(ShaderType _shaderType)

@@ -4,6 +4,8 @@
 #include "HierarchyWindow.h"
 #include "InspectorWindow.h"
 
+#include <imgui.h>
+
 #define IMGUI UserImGui::GetInstance()
 class ObjectManager;
 class UserImGui : public SingletonBase<UserImGui>

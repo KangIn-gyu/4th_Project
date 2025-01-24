@@ -10,6 +10,7 @@
 #include "Texture.h"
 
 #include "InspectorWindow.h"
+#include <imgui.h>
 
 HierarchyWindow::HierarchyWindow()
 {
@@ -44,6 +45,7 @@ void HierarchyWindow::Draw()
 			{
 				if (ImGui::IsItemClicked())
 				{ 
+					INSPECTOR->SetSelectedAiNode(nullptr);
 					INSPECTOR->SetSelectedMesh(nullptr);
 					INSPECTOR->SetSelectedObject(objList[i]);
 				}
@@ -51,10 +53,11 @@ void HierarchyWindow::Draw()
 				// 객체의 ModelData의 rootNode를 가져옵니다.
 				if (objList[i]->GetObjectType() == Object::ObjectType::Basic)
 				{
-					auto rootNode = objList[i]->GetComponent<ModelComponent>()->GetModel()->GetModelData()->rootNode;
+					// auto rootNode = *objList[i]->GetComponent<ModelComponent>()->GetNodeData();
+					auto rootNode = objList[i]->GetComponent<ModelComponent>()->GetRootNode();
 					if (rootNode)
 					{ // AiNode 트리 구조를 재귀적으로 그립니다.
-						DrawNodeRecursive(objList[i]->GetComponent<ModelComponent>()->GetModel(),rootNode);
+						DrawNodeRecursive(objList[i]->GetComponent<ModelComponent>()->GetModel(), rootNode);
 					}
 				}				
 				ImGui::TreePop(); // TreeNode를 닫습니다.
@@ -100,8 +103,8 @@ void HierarchyWindow::DrawNodeRecursive(std::shared_ptr<Model> _model, AiNode* _
 	{
 		if (ImGui::IsItemClicked())
 		{ // 노드 선택 처리 로직 
-			
 			INSPECTOR->SetSelectedObject(nullptr);
+			INSPECTOR->SetSelectedAiNode(_node);
 			INSPECTOR->SetSelectedMesh(_node->GetMesh()); // 여기 매쉬 넣어야 됨
 			if (_node->GetMesh() != nullptr)
 			{

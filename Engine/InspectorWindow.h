@@ -8,6 +8,7 @@ class Editor;
 class Object;
 class Mesh;
 class Texture;
+class AiNode;
 class InspectorWindow : public EditorWindow , public SingletonBase<InspectorWindow>
 {
 	friend class SingletonBase<InspectorWindow>;
@@ -25,6 +26,7 @@ public:
 	void SetSelectedObject(Object* _obj); 
 	void SetSelectedMesh(Mesh* _mesh);
 	void SetSelectedTexture(Texture* _texture);
+	void SetSelectedAiNode(AiNode* _aiNode);
 private:
 	InspectorWindow();
 
@@ -32,7 +34,7 @@ public:
 	Object* selectedObject;
 	Mesh* selectedMesh;
 	Texture* selectedTexture;
-
+	AiNode* selectedAiNode;
 private:
 	std::vector<Editor*> editors;
 };

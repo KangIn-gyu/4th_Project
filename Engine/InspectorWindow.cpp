@@ -9,6 +9,7 @@
 #include "TextureInformationEditor.h"
 #include "CameraInformationEditor.h"
 
+#include <imgui.h>
 InspectorWindow::InspectorWindow()
 {
 	SetName("Inspector");
@@ -86,11 +87,16 @@ void InspectorWindow::SetSelectedObject(Object* _obj)
 void InspectorWindow::SetSelectedMesh(Mesh* _mesh)
 {
 	selectedMesh = _mesh;
-	static_cast<TransformEditor*>(editors[0])->SetSelectedMesh(selectedMesh);
 	static_cast<MeshInformationEditor*>(editors[1])->SetSelectedMesh(selectedMesh);
 }
 
 void InspectorWindow::SetSelectedTexture(Texture* _texture)
 {
 	static_cast<TextureInformationEditor*>(editors[2])->SetSelectedTexture(_texture);
+}
+
+void InspectorWindow::SetSelectedAiNode(AiNode* _aiNode)
+{
+	selectedAiNode = _aiNode;
+	static_cast<TransformEditor*>(editors[0])->SetSelectedNode(_aiNode);
 }

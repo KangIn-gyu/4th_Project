@@ -9,6 +9,7 @@
 #include "SkeletalMesh.h"
 #include "Material.h"
 #include "Transform.h"
+#include "Texture.h"
 #include <filesystem>
 
 DirectX::XMMATRIX ConvertMatrix(const aiMatrix4x4& _matrix); // 여기서만 사용하는 함수
@@ -47,6 +48,7 @@ std::shared_ptr<Model> FBXLoader::FBXLoad(std::string_view _filePath)
 		importFlags |= aiProcess_PreTransformVertices;
 		scene = importer.ReadFile(filePathKEY, importFlags);
 	}
+	importer.SetPropertyBool(AI_CONFIG_IMPORT_FBX_PRESERVE_PIVOTS, 0);
 
 	aiNode* rootaiNode = scene->mRootNode; // 어심프 노드
 	std::shared_ptr<Model> modelData = std::make_shared<Model>(); // 모델에 관련된 정보 데이터 저장용
@@ -55,7 +57,7 @@ std::shared_ptr<Model> FBXLoader::FBXLoad(std::string_view _filePath)
 	auto treeNode = aiNodeMap.find(filePathKEY); // aiNode가 있는지 확인
 	if (treeNode != aiNodeMap.end()) // 맵을 통해 해당 노드를 생성한지 확인해 본다. 맵에서 찾았을때 없으면 처음 로드하는 것
 	{ // 존재할 경우
-		modelData->SetTreeNode(&treeNode->second); // 깊은 복사
+		modelData->GetModelData()->treeNode = &treeNode->second;
 	}
 	else
 	{ // 없을 경우는 트리 노드를 받아서 생성
@@ -66,21 +68,25 @@ std::shared_ptr<Model> FBXLoader::FBXLoad(std::string_view _filePath)
 			// ProcessNode함수에서 맵에 저장했을 경우 깊은 복사로 인해 객체 자체를 복사해서 생성함 
 			// 그래서 _parent 파라미터가 AddChild한 값이 없음. 그래서 재귀를 한번더 해서 처리함. 
 			CollectNodes(rootNode, &treeNodeSave); 
-			modelData->SetTreeNode(&treeNodeSave);
 			aiNodeMap[filePathKEY] = std::move(treeNodeSave);
-
+		
 			if (scene->HasMaterials())
 			{
 				ProcessMaterial(scene, filePathKEY);
 			}
+
+			modelData->GetModelData()->treeNode = &aiNodeMap[filePathKEY];
 		}	
 	} 
-
+	modelData->GetModelData()->rootNode = rootNode;
 	modelData->SetMesh(&meshMap.find(filePathKEY)->second);
 	modelData->SetMateria(&materials.find(filePathKEY)->second);
 
 	nameCountMap.clear();
 
+	AllShow();
+
+	NodeAndMeshIndex(filePathKEY);
 	importer.FreeScene();
 	return modelData;
 }
@@ -96,7 +102,6 @@ AiNode* FBXLoader::ProcessNode(aiNode* _node, const aiScene* _scene, AiNode* _pa
 	// 이름 중복 체크
 	int count = nameCountMap[baseNodeName]++;
 	std::string nodeName = count == 0 ? baseNodeName : baseNodeName + "_" + std::to_string(count);
-
 	// 나중에 라이트나 카메라 관련 정보 받아 오는 거 필요할 거 같다 
 	AiNode* currentNode = new AiNode(); // 힙에 할당 내가 만든 노드 핵갈리지말자
 	currentNode->SetName(nodeName);
@@ -115,11 +120,13 @@ AiNode* FBXLoader::ProcessNode(aiNode* _node, const aiScene* _scene, AiNode* _pa
 		{
 			unsigned int meshIndex = _node->mMeshes[index];
 			aiMesh* mesh = _scene->mMeshes[meshIndex];
-			
+			int materialIndex = mesh->mMaterialIndex;
+
 			if (isStaticMesh) 
 			{ // 스태틱 매쉬
 				StaticMesh* staticMesh = new StaticMesh;  // 스태틱 매쉬 생성
 				staticMesh->SetFBXMeshIndex(meshIndex);	  // 인덱스 번호 만들기 없어도 될거 같은데 일단 테스트용 여기서 매쉬 인포 생성
+				staticMesh->SetMaterialIndex(materialIndex);
 				staticMesh->SetTransform(currentNode->GetPointTransform()); // AiNode라고 내가 만든 어심프의 aiNode의 데이터를 저장한 객체의 트랜스폼 설정
 				staticMesh->SetName(nodeName);
 				if (nullptr != _parent) // 예외처리
@@ -279,60 +286,60 @@ void FBXLoader::SaveMeshData(std::string_view _filePath, Mesh* _mesh)
 
 void FBXLoader::ProcessMaterial(const aiScene* _scene, const std::string_view _modelFilePath)
 {
-	std::string key = _modelFilePath.data();
-	auto it = materials.find(key);
-	if (it != this->materials.end())
-	{ // 이미 맵이 있다면 종료 새로 만들필요가 없으니 패스
-		return;
-	}
+   std::string key = _modelFilePath.data();
+   auto it = materials.find(key);
+   if (it != this->materials.end())
+   { // 이미 맵이 있다면 종료 새로 만들필요가 없으니 패스
+      return;
+   }
 
-	// 내가 쓸 데이터 초기화
-	std::vector<Material*> materialvector;
-	materialvector.reserve(_scene->mNumMaterials); //미리 크기 초기화
-	
-	aiString texturePath; // 텍스처 절대 경로 나옴
+   // 내가 쓸 데이터 초기화
+   std::vector<Material*> materialvector;
+   materialvector.reserve(_scene->mNumMaterials); //미리 크기 초기화
+   
+   aiString texturePath; // 텍스처 절대 경로 나옴
 
-	const std::string resourcePrefix = "Resource/";
-	size_t pos = std::string(_modelFilePath).find(resourcePrefix);
-	std::string basePath = "";
-	basePath.reserve(50); // 미리 공간 확장
-	if (pos != std::string::npos)
-	{
-		std::string remainingPath = std::string(_modelFilePath).substr(pos + resourcePrefix.length());
-		// 첫 번째 슬래시를 찾아서 그 이전까지의 경로를 basePath로 설정 (예: STAGE1/ 또는 STAGE11/)
-		size_t nextSlashPos = remainingPath.find("/");
-		if (nextSlashPos != std::wstring::npos)
-		{
-			basePath =  remainingPath.substr(0, nextSlashPos + 1); // "Resource/STAGE1/" 문자 추출
-		}
-	}
-	
-	for (int i = 0; i < _scene->mNumMaterials; ++i) // 메테리얼을 생성하고 초기화하는 반복문
-	{
-		aiMaterial* material = _scene->mMaterials[i];
-		Material* materialData = new Material;
-		materialData->SetName(material->GetName().C_Str());
+   const std::string resourcePrefix = "Resource/";
+   size_t pos = std::string(_modelFilePath).find(resourcePrefix);
+   std::string basePath = "";
+   basePath.reserve(50); // 미리 공간 확장
+   if (pos != std::string::npos)
+   {
+      std::string remainingPath = std::string(_modelFilePath).substr(pos + resourcePrefix.length());
+      // 첫 번째 슬래시를 찾아서 그 이전까지의 경로를 basePath로 설정 (예: STAGE1/ 또는 STAGE11/)
+      size_t nextSlashPos = remainingPath.find("/");
+      if (nextSlashPos != std::wstring::npos)
+      {
+         basePath =  remainingPath.substr(0, nextSlashPos + 1); // "Resource/STAGE1/" 문자 추출
+      }
+   }
+   
+   for (int i = 0; i < _scene->mNumMaterials; ++i) // 메테리얼을 생성하고 초기화하는 반복문
+   {
+      aiMaterial* material = _scene->mMaterials[i];
+      Material* materialData = new Material;
+      materialData->SetName(material->GetName().C_Str());
 
-		for (int type = aiTextureType_DIFFUSE; type <= aiTextureType_UNKNOWN; ++type)
-		{  // 여기서 메테리얼한테 모델에 해당하는 모든 텍스처를 저장한다.
-			int textureCount = material->GetTextureCount((aiTextureType)type);
-			for (int texIndex = 0; texIndex < textureCount; ++texIndex)
-			{
-				if (material->GetTexture((aiTextureType)type, texIndex, &texturePath) == AI_SUCCESS)
-				{   // 아래 코드를 통해서 뒤에서 /이후의 문자열이 나온다
-					std::string file = StringConverter::GetFileNameFromPath<std::string>(StringConverter::StringToWide(texturePath.C_Str()));
-					std::string filePath = basePath + texturesFolder + file; // 최종 경로
-					materialData->Load( filePath , (aiTextureType)type);
-				}
+      for (int type = aiTextureType_DIFFUSE; type <= aiTextureType_TRANSMISSION; ++type)
+      {  // 여기서 메테리얼한테 모델에 해당하는 모든 텍스처를 저장한다.
+         int textureCount = material->GetTextureCount((aiTextureType)type);
+         for (int texIndex = 0; texIndex < textureCount; ++texIndex)
+         {
+            if (material->GetTexture((aiTextureType)type, texIndex, &texturePath) == AI_SUCCESS)
+            {   // 아래 코드를 통해서 뒤에서 /이후의 문자열이 나온다
+               std::string file = StringConverter::GetFileNameFromPath<std::string>(StringConverter::StringToWide(texturePath.C_Str()));
+               std::string filePath = basePath + texturesFolder + file; // 최종 경로
+               materialData->Load(filePath , (aiTextureType)type);
 			}
-		}
-		materialvector.push_back(materialData);
+         }
+      }
+      materialvector.push_back(materialData);
 
-		if (it == this->materials.end())
-		{ // 없으면 생성
-			materials[key] = materialvector;
-		}
-	}
+      if (it == this->materials.end())
+      { // 없으면 생성
+         materials[key] = materialvector;
+      }
+   }
 }
 
 void FBXLoader::AllShow()
@@ -419,6 +426,22 @@ void FBXLoader::FindShow(std::string_view _filePath)
 	}
 }
 
+std::vector<AiNode*> FBXLoader::DeepCopyAiNodes(std::string_view key)
+{
+	std::vector<AiNode*> copiedNodes;
+
+	if (aiNodeMap.find(key.data()) != aiNodeMap.end()) 
+	{
+		for (const auto& node : aiNodeMap[key.data()])
+		{
+			AiNode* newNode = new AiNode(*node);
+			copiedNodes.push_back(newNode);
+		}
+	}
+
+	return copiedNodes;
+}
+
 void FBXLoader::ShowMaterials()
 {
 	for (auto& it : materials)
@@ -427,6 +450,10 @@ void FBXLoader::ShowMaterials()
 		for (int i = 0; i < it.second.size(); i++)
 		{
 			std::cout << i << '.' << " " << it.second[i]->GetName() << "\n";
+			for (auto& data : it.second[i]->GetTextures())
+			{
+				std::cout << data->GetName() << '\n';
+			}
 		}
 		std::cout << '\n';
 	}
@@ -480,6 +507,20 @@ void FBXLoader::ShowIndexBuffer()
 		{
 			std::cout << "indexBufferMap Size : " << data->indices.size() << std::endl;
 		}
+	}
+}
+
+void FBXLoader::NodeAndMeshIndex(const std::string_view _filePath)
+{
+	std::cout << "노드와 매쉬 인덱스 맞는지 확인하는 코드" << '\n';
+	for (auto& data : aiNodeMap[_filePath.data()])
+	{
+		std::cout << data->GetName() << "\n";
+	}
+
+	for (auto& data : meshMap[_filePath.data()])
+	{
+		std::cout << data->GetFbxIndex() << " " << data->GetName() << '\n';
 	}
 }
 

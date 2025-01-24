@@ -7,6 +7,7 @@
 #include "Helper.h"
 #include "StaticMesh.h"
 #include "SkeletalMesh.h"
+
 Model::Model()
 {
 	data = new ModelData;
@@ -29,7 +30,7 @@ void Model::Initialize()
 			{			
 				{ "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, offset.Byte(InputLayout::Layout::Value::Vector4), D3D11_INPUT_PER_VERTEX_DATA, 0},
 				{ "COLOR",    0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, offset.Byte(InputLayout::Layout::Value::Color),   D3D11_INPUT_PER_VERTEX_DATA, 0},
-				{ "TEXCOORD",0, DXGI_FORMAT_R32G32_FLOAT,	     0, offset.Byte(InputLayout::Layout::Value::Vector2), D3D11_INPUT_PER_VERTEX_DATA, 0},
+				{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT,	     0, offset.Byte(InputLayout::Layout::Value::Vector2), D3D11_INPUT_PER_VERTEX_DATA, 0},
 				{ "NORMAL",   0, DXGI_FORMAT_R32G32B32_FLOAT,    0, offset.Byte(InputLayout::Layout::Value::Vector3), D3D11_INPUT_PER_VERTEX_DATA, 0},
 				{ "TANGENT",  0, DXGI_FORMAT_R32G32B32_FLOAT,    0, offset.Byte(InputLayout::Layout::Value::Vector3), D3D11_INPUT_PER_VERTEX_DATA, 0},
 				{ "BINORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT,    0, offset.Byte(InputLayout::Layout::Value::Vector3), D3D11_INPUT_PER_VERTEX_DATA, 0}
@@ -38,13 +39,6 @@ void Model::Initialize()
 			it->CreateInputLayout(elements, "Shaders/VertexShaderVS.hlsl");
 		}
 	}
-
-	data->rootNode->GetPointTransform()->SetParent(owner->GetTransform()); // TODO : 여기 트랜스폼 수정이 필요하다
-}
-
-void Model::Update(const float _deltaTime)
-{ 
-	data->rootNode->Update(_deltaTime);
 }
 
 void Model::SetOwner(ModelComponent* _owner)
@@ -62,8 +56,16 @@ void Model::SetMateria(std::vector<Material*>* _materials)
 	data->materials = _materials;
 }
 
-void Model::SetTreeNode(std::vector<AiNode*>* _treeNode)
+void Model::ModelData::Show()
 {
-	data->treeNode = _treeNode;
-	data->rootNode = (*data->treeNode)[0];
+	std::cout << "모델 데이터 확인용" << '\n';
+	for (auto& data : *meshs)
+	{
+		std::cout << data->GetFbxIndex()<< " " << data->GetName() << '\n';
+	}
+
+	for (auto& data : *treeNode)
+	{
+		std::cout << data->GetName() << " " << data->GetName() << '\n';
+	}
 }
