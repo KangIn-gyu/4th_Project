@@ -8,6 +8,8 @@
 #include "../Engine/SceneManager.h"
 #include "Deck.h"
 #include "Button.h"
+
+#include "Dealer.h"
 TestScene::TestScene(std::string_view _Name) : Scene(_Name)
 {
 
@@ -15,7 +17,7 @@ TestScene::TestScene(std::string_view _Name) : Scene(_Name)
 
 void TestScene::Enter()
 {
-	CreatorObject<Button>("Button", Object::ObjectType::Basic, []() {SCENEMANAGER->ChangeScene("GAMBLE");});
-	
+//	CreatorObject<Button>("Button", Object::ObjectType::Basic, []() {SCENEMANAGER->ChangeScene("GAMBLE");});
+	CreatorObject<Dealer>("TestChar", Object::ObjectType::Basic);
 }
 

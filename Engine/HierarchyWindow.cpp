@@ -54,7 +54,12 @@ void HierarchyWindow::Draw()
 				if (objList[i]->GetObjectType() == Object::ObjectType::Basic)
 				{
 					// auto rootNode = *objList[i]->GetComponent<ModelComponent>()->GetNodeData();
-					auto rootNode = objList[i]->GetComponent<ModelComponent>()->GetRootNode();
+					auto modelComponent = objList[i]->GetComponent<ModelComponent>();
+					AiNode* rootNode {};
+					if (nullptr != modelComponent)
+					{
+						rootNode = modelComponent->GetRootNode();
+					}
 					if (rootNode)
 					{ // AiNode 트리 구조를 재귀적으로 그립니다.
 						DrawNodeRecursive(objList[i]->GetComponent<ModelComponent>()->GetModel(), rootNode);

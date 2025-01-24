@@ -44,6 +44,7 @@ void GambleScene::Enter()
 
 void GambleScene::Update(const float _deltaTime)
 {
+	__super::Update(_deltaTime);
 	//std::cout << "°×ºí¾À ¾÷µ¥ÀÌÆ®Áß" << std::endl;
 	std::cout << PLAYER->GetScore() << std::endl;
 
