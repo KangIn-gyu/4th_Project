@@ -27,7 +27,7 @@ void Card::Open()
 {
 	isOpen = true;
 
-	//A일경우 1,11정하는 코드필요 *****
+	//카드 뒤집히는 연출 필요 A일경우 1,11정하는 코드필요 *****
 }
 
 int Card::GetValue()
@@ -50,32 +50,29 @@ void Card::OnClick()
 	{
 		for (auto& card : PLAYER->hand.hand) //
 		{
-			if (card == this)
+			if (card == this && isOpen == false) //누른카드가 패에있고 아직 뒷면이면
 			{
-				PLAYER->selectCard.push_back(this);
-				isSeleted = true;
-				if (PLAYER->selectCard.size() >= 3)
-				{
-					PLAYER->selectCard.erase(PLAYER->selectCard.begin());
-				}
+				//PLAYER->selectCard.push_back(this);
+				//isSeleted = true;
+				Open();
+				PLAYER->turnEnd = false;
+			}
+		}
+	}
+	else if (GAMEMANAGER->GetState() == PlayerState::HIT)
+	{
+		for (auto& card : PLAYER->hand.hand) //
+		{
+			if (card == this && isOpen == false) //누른카드가 패에있고 아직 뒷면이면
+			{
+				
+				//카드제거 추가 *****
+				PLAYER->turnEnd = false;
+				
 			}
 		}
 	}
 	
-	//if (GAMEMANAGER->isThrow == true) //isThorw랑 패가7장이되서 버려야되는 bool 추가필요
-	//{
-	//	for (auto it = PLAYER->hand.hand.begin(); it != PLAYER->hand.hand.end();)
-	//	{
-	//		if (*it == this)
-	//		{
-	//			it = PLAYER->hand.hand.erase(it); 
-	//		}
-	//		else
-	//		{
-	//			++it; 
-	//		}
-	//	}
-	//}
 }
 
 void Card::OnMouse()

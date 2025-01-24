@@ -13,7 +13,7 @@ class Model : public IResources
 		std::vector<Material*>* materials {};
 		std::vector<AiNode*>* treeNode{};
 		AiNode* rootNode {};
-
+		
 		void Show();
 	};
 
@@ -27,7 +27,7 @@ public:
 	void SetMateria(std::vector<Material*>* _materials);
 
 	ModelData* GetModelData() { return data; }
-
+	DXMath::Vector3 extent;
 private:
 	virtual void Load(std::string_view _filePath) override {}; // TODO: 보류 사항 모델의 로드가 필요할까??
 

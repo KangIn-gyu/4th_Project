@@ -12,6 +12,8 @@ GameManager::GameManager()
 void GameManager::Setstage(int num)
 {
 	dealer->SepChip(num * 100); //
+	firstTurn = true;
+	curTurn = Turn::player;
 }
 
 void GameManager::Update(float _deltaTime)
@@ -24,18 +26,9 @@ void GameManager::Update(float _deltaTime)
 		{
 			if (curTurn == Turn::player)
 			{
-				if (state == PlayerState::OPEN)
+				if (state == PlayerState::OPEN || state == PlayerState::HIT)  ///STAY아니면 똑같이 처리
 				{
-
-
-				}
-				else if (state == PlayerState::HIT)
-				{
-
-				}
-				else if (state == PlayerState::DOBULEDOWN)
-				{
-
+					
 				}
 				else if (state == PlayerState::STAY)
 				{
@@ -107,7 +100,7 @@ void GameManager::DealerTurn(float _deltaTime)
 	//딜러 다이얼로그 출력  선택지선택
 	dealer->Act();
 
-	curTurn = Turn::player;
+	//다이얼로그 패턴 끝나면 curTurn = Turn::player;
 }
 
 void GameManager::CheckVictory(float _deltaTime)
@@ -143,11 +136,28 @@ void GameManager::RoundStart()
 	deck->ShuffleDeck();
 	
 	isRoundOver = false;
-
-
+	onDoubbleDown = false;
+	magnification = 1;
 }
 
 void GameManager::RoundEnd()
 {
 	
+}
+
+std::string stateToString(PlayerState _state)
+{
+	switch (_state)
+	{
+	case PlayerState::OPEN:
+		return "OPEN";
+	case PlayerState::HIT:
+		return "HIT";
+	case PlayerState::STAY:
+		return "STAY";
+	case PlayerState::SHOWDOWN:
+		return "SHOWDOWN";
+	default:
+		return "OPEN";
+	};
 }
