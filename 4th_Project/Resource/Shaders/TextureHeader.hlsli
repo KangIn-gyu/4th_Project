@@ -18,4 +18,8 @@ Texture2D AmbientOcclusionMap : register(t16); // Ambient Occlusion (aiTextureTy
 Texture2D SheenMap            : register(t17); // Sheen (aiTextureType_SHEEN)
 Texture2D ClearcoatMap        : register(t18); // Clearcoat (aiTextureType_CLEARCOAT)
 Texture2D TransmissionMap     : register(t19); // Transmission (aiTextureType_TRANSMISSION)
-TextureCube EnvironmentMap    : register(t20);  // Environment Map
+TextureCube EnvironmentMap    : register(t20); // Environment Map
+TextureCube IrradianceMap     : register(t21); // Irradiance Map
+TextureCube SpecularMap       : register(t22); // Specular Map
+Texture2D BRDFLUT             : register(t23); // BRDFLUT
+Texture2D shadowMap           : register(t24); // shadow Map
