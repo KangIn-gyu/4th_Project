@@ -3,7 +3,6 @@
 #include "D3DClass.h"
 #include "Helper.h"
 #include "Declare.h"
-#include "FontD2D.h"
 
 ComPtr<ID2D1DeviceContext> D2DClass::D2DDeviceContext = nullptr;
 ComPtr<ID2D1SolidColorBrush> D2DClass::Brush = nullptr;
@@ -17,7 +16,6 @@ void D2DClass::Initialize(WindowInfo* _windowInfo)
 	windowInfo = _windowInfo;
 	InitD2D();
 	CreateD2DRenderTarget();
-	FontManager::Initialize();
 }
 
 void D2DClass::BeginDraw()

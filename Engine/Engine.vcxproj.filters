@@ -282,10 +282,13 @@
     <ClInclude Include="TextureInformationEditor.h">
       <Filter>0_Utility\MyImGui\Editor</Filter>
     </ClInclude>
-        <ClInclude Include="D2DClass.h">
+    <ClInclude Include="D2DClass.h">
       <Filter>2_System\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="FontD2D.h">
+      <Filter>2_System\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="FontManager.h">
       <Filter>2_System\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
@@ -410,7 +413,6 @@
     <ClCompile Include="TransformEditor.cpp">
       <Filter>0_Utility\MyImGui\Editor</Filter>
     </ClCompile>
-
     <ClCompile Include="FontD2D.cpp" />
     <ClCompile Include="SceneLoader.cpp" />
     <ClCompile Include="MeshInformationEditor.cpp">
@@ -422,10 +424,13 @@
     <ClCompile Include="TextureInformationEditor.cpp">
       <Filter>0_Utility\MyImGui\Editor</Filter>
     </ClCompile>
-        <ClCompile Include="D2DClass.cpp">
+    <ClCompile Include="D2DClass.cpp">
       <Filter>2_System\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="FontD2D.cpp">
+      <Filter>2_System\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="FontManager.cpp">
       <Filter>2_System\Graphics</Filter>
     </ClCompile>
   </ItemGroup>

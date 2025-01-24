@@ -3,8 +3,6 @@
 #include "D3DClass.h"
 #include "D2DClass.h"
 #include "ConstantBuffer.h"
-#include <directxtk/SpriteBatch.h>
-#include <directxtk/SpriteFont.h>
 #define RENDERER Renderer::GetInstance()
 
 typedef DirectX::XMFLOAT4		COLOR;

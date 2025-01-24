@@ -1,12 +1,8 @@
 #pragma once
+#include "SingletonBase.h"
 typedef DirectX::XMFLOAT4 COLOR;
-namespace FontManager
-{
-    void Initialize();
-    void Uninitialize();
 
-    // D2DFont ======================================================
-    class D2DFont
+    class D2DFont:public SingletonBase<D2DFont>
     {
     private:
         D2DFont() = default;
@@ -17,8 +13,6 @@ namespace FontManager
         static D2DFont* m_pInstance;
 
     public:
-        static D2DFont* GetInstance();
-        static void DestroyInstance();
 
         void Init();
         void UnInit();
@@ -34,7 +28,8 @@ namespace FontManager
 
 
     // SFont ======================================================
-    class SFont
+
+    class SFont :public SingletonBase<SFont>
     {
     private:
         SFont() = default;
@@ -45,8 +40,6 @@ namespace FontManager
         static SFont* m_pInstance;
 
     public:
-        static SFont* GetInstance();
-        static void DestroyInstance();
 
         void Init();
         void UnInit();
@@ -58,4 +51,3 @@ namespace FontManager
         std::unique_ptr<DirectX::SpriteBatch> spriteBatch = nullptr;
         std::unique_ptr<DirectX::SpriteFont> spriteFont = nullptr;
     };
-}

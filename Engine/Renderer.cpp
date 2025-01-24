@@ -12,7 +12,7 @@
 #include "ConstantBufferData.h"
 #include "CameraObject.h"
 #include "UserImGui.h"
-#include "FontD2D.h"
+#include "FontManager.h"
 
 void Renderer::Initialize(WindowInfo* _windowInfo)
 {
@@ -33,6 +33,8 @@ void Renderer::Initialize(WindowInfo* _windowInfo)
 	//D2D √ ±‚»≠
 	D2DGraphics = std::make_unique<D2DClass>();
 	D2DGraphics->Initialize(_windowInfo);
+
+	FontManager::GetInstance()->InitializeDWrite();
 }
 
 void Renderer::Update(float _deltaTime)
@@ -51,10 +53,6 @@ void Renderer::Render()
 	D2DGraphics->BeginDraw();
 
 	D3DDraw();
-
-	D2D1_RECT_F rect = D2D1::RectF(400, 100, 800, 300);
-	FontManager::D2DFont::GetInstance()->TextDraw(L"D3D11 Ω¶µµøÏ∏ «Œ3213214", rect, D2D1::ColorF(D2D1::ColorF::LightPink));
-	FontManager::SFont::GetInstance()->TextDraw(400, 300, { 1,1,1,1 }, L"D3D11 Ω¶µµøÏ∏ «Œ");
 
 	D3DGraphics->ExtractFinalImage();
 	IMGUI->Render();
