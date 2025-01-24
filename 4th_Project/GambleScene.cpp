@@ -15,17 +15,17 @@
 GambleScene::GambleScene(std::string_view _Name) : Scene(_Name)
 {
 	
-
+	GAMEMANAGER->player = PLAYER;
 	
 }
 
 
 void GambleScene::Enter()
 {
-
-	CreatorObject<Dealer>("Dealer", Object::ObjectType::Basic);
-
-	CreatorObject<Deck>("Deck", Object::ObjectType::Basic);
+	//딜러도 전역으로 할까요
+	GAMEMANAGER->dealer = CreatorObject<Dealer>("Dealer", Object::ObjectType::Basic); 
+	GAMEMANAGER->Setstage(1);
+	GAMEMANAGER->deck = CreatorObject<Deck>("Deck", Object::ObjectType::Basic);
 
 	
 	auto deck = objectManager->GetGameObject<Deck>(Object::ObjectType::Basic, "Deck");
@@ -37,11 +37,15 @@ void GambleScene::Enter()
 		{PLAYER->CardDraw(deck);});
 
 	
-
+	
 }
+
+
 
 void GambleScene::Update(const float _deltaTime)
 {
 	//std::cout << "겜블씬 업데이트중" << std::endl;
 	std::cout << PLAYER->GetScore() << std::endl;
+
+	//GAMEMANAGER->Update(_deltaTime);
 }

@@ -20,6 +20,7 @@ Scene::~Scene()
 
 void Scene::Initialize()
 {
+	Enter();
 	if (is_initialize == false)
 	{
 		objectManager->Initialize();

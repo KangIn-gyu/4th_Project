@@ -26,6 +26,8 @@ void Card::Start()
 void Card::Open()
 {
 	isOpen = true;
+
+	//A일경우 1,11정하는 코드필요 *****
 }
 
 int Card::GetValue()

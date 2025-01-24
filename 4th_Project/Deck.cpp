@@ -43,7 +43,7 @@ Card* Deck::DrawCard(bool Dealer)
 		else
 		{
 			std::cout << "µ¦ÀÌ ºñ¾ú½À´Ï´Ù µ¦ÀÌºñ¾î¼­ ÅÍÁü " << std::endl;
-			return nullptr;
+			return card = new Card("LAST", Object::ObjectType::Basic, Suit::Spade, "0");
 		}
 
 	}

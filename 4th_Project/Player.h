@@ -22,12 +22,11 @@ public:
 	int Bet() { return betChip; }
 	int GetScore(); //카드합 점수
 	bool Open2Card(); //첨에 2개뒤집었는지 확인용
-
+	int   chip = 100; //겜블때 쓸 칩 수,전체 돈
 private:
 	Player() {};
 	Player(std::string_view _name, Object::ObjectType _type);
 
-	int   chip =100; //겜블때 쓸 칩 수,전체 돈
 	float love;//호감도 딜러랑만의 호감
 	int   betChip; //베팅떄 걸칩갯수 마우스휠로 조절
 public:

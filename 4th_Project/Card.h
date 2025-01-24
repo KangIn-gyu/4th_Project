@@ -31,7 +31,6 @@ public:
 	bool isOpen = false; //카드가 오픈상태인지
 private:
 	bool isSeleted = false;  //선택된 카드 표시용
-	
 	bool AtoOne = true; //Ace를 1로쓸지 11로쓸지 true면 1로
 };
 

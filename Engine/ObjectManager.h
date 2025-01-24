@@ -18,6 +18,7 @@ public:
 	T* GetGameObject(Object::ObjectType _type,std::string _name);
 	void ShowObject(); 	// È®ÀÎ¿ë 
 	const std::unordered_map<Object::ObjectType, std::vector<Object*>> GetObjects() const;
+
 private:
 	void BasicObject();
 

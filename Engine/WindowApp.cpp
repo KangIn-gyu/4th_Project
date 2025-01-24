@@ -113,7 +113,7 @@ LRESULT WindowApp::WndProc(HWND _hWnd, UINT _message, WPARAM _wParam, LPARAM _lP
     case WM_MOUSEWHEEL:
     case WM_XBUTTONDOWN:
     case WM_XBUTTONUP:
-    case WM_MOUSEHOVER:
+    case WM_MOUSEHOVER:       //ÈÙ º£ÆÃ¿ë *****
         DirectX::Mouse::ProcessMessage(_message, _wParam, _lParam);
         break;
 
