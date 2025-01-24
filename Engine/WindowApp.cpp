@@ -4,13 +4,13 @@
 #include "Engine.h"
 #include "Helper.h"
 #include "Declare.h"
-
 #include "Engine.h"
 #include "UserImGui.h"
 // 다이렉트
 #include <directxtk/Mouse.h>
 #include <directxtk/Keyboard.h>
-
+#include "DirectXInput.h"
+#include "EventSystem.h"
 // 용도 : WindowManager를 파생 클래스가 생성이 되면 풀스크린이 아니고 디버그 모드면 콘솔창을 생성한다.
 Console* WindowApp::console = nullptr;
 WindowApp::WindowApp(HINSTANCE _hInstance, std::string_view _gameName, int _screenWidth, int _screenHeight, bool _windoweMode) : \
@@ -100,7 +100,12 @@ LRESULT WindowApp::WndProc(HWND _hWnd, UINT _message, WPARAM _wParam, LPARAM _lP
     case WM_INPUT:
     case WM_MOUSEMOVE:
     case WM_LBUTTONDOWN:
+        DirectX::Mouse::ProcessMessage(_message, _wParam, _lParam);
+        break;
     case WM_LBUTTONUP:
+        DirectX::Mouse::ProcessMessage(_message, _wParam, _lParam);
+        eventSysyem->checkClickobj(DXINPUT.get()->mouseState.x, DXINPUT.get()->mouseState.y);
+        break;
     case WM_RBUTTONDOWN:
     case WM_RBUTTONUP:
     case WM_MBUTTONDOWN:
@@ -108,7 +113,7 @@ LRESULT WindowApp::WndProc(HWND _hWnd, UINT _message, WPARAM _wParam, LPARAM _lP
     case WM_MOUSEWHEEL:
     case WM_XBUTTONDOWN:
     case WM_XBUTTONUP:
-    case WM_MOUSEHOVER:
+    case WM_MOUSEHOVER:       //휠 베팅용 *****
         DirectX::Mouse::ProcessMessage(_message, _wParam, _lParam);
         break;
 

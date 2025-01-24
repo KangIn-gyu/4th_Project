@@ -15,6 +15,8 @@ public:
 	template<succession_Object T>
 	T* CreateObject(std::string_view _objName , Object::ObjectType _type);
 
+	template<succession_Object T, typename ... Arg>
+	T* CreateObject(Arg&& ... _arguments);
 private:
 
 public:
@@ -40,5 +42,17 @@ T* FactorySystem::CreateObject(std::string_view _objName, Object::ObjectType _ty
 		return nullptr;
 	}
 }
+
+
+template<succession_Object T, typename ... Arg>
+T* FactorySystem::CreateObject(Arg&& ... _arguments)
+{
+		auto* newobj = new T(_arguments...);
+		return newobj;
+	
+}
+
+
+
 
 // registerType있는게 확장성으로 좋은데 소규모 프로젝트이기 때문에 간단하게 작성함

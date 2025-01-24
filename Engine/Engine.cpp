@@ -72,6 +72,11 @@ void Engine::SetWindowSize(int _width, int _height)
     graphicsSystem->SetWindowSize();
 }
 
+DXMath::Vector2 Engine::GetWindowSize()
+{
+    return DXMath::Vector2(clientApp->GetWindowInfo()->screenWidth, clientApp->GetWindowInfo()->screenHeight);
+}
+
 void Engine::ChangeScene(std::string_view _SceneName)
 {
     std::string name;
