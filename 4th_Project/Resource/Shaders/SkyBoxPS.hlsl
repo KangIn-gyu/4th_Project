@@ -1,4 +1,4 @@
-#include "Header.hlsli" 
+ #include "Header.hlsli"
 
 float4 main(VS_SKYBOX_OUTPUT input) : SV_Target
 {

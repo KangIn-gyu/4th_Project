@@ -32,7 +32,7 @@ void Texture::Load(std::string_view _filePath)
 	else if (extension == "dds" || extension == "DDS")
 	{
 		HR_T(DX::CreateDDSTextureFromFile(D3DClass::GetD3DDevice().Get(), wchFilePath,
-										  nullptr, texture.GetAddressOf()));
+			nullptr, texture.GetAddressOf()));
 	}
 	else
 	{

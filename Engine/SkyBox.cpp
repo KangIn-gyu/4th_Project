@@ -19,7 +19,7 @@ void SkyBox::Init()
 	LoadSpecularMap("Map/SkyBlueSpecularHDR.dds");
 	LoadBRDFLUT("Map/SkyBlueBrdf.dds");
 
-	SetShaders(device.Get(), L"Resource/Shaders/SkyBoxVS.cso", L"Resource/Shaders/SkyBoxPS.cso");
+	SetShaders(device.Get(), L"Resource/Shaders/SkyBoxVS.hlsl", L"Resource/Shaders/SkyBoxPS.hlsl");
 }
 
 void SkyBox::Render(ID3D11DeviceContext* context)
@@ -35,7 +35,19 @@ void SkyBox::Render(ID3D11DeviceContext* context)
 
 	// 환경맵 텍스처 설정
 	auto envMap = m_environmentMap->GetTexture();
-	context->PSSetShaderResources(20, 1, &envMap);
+
+	if (!envMap) {
+		std::cout << ("ERROR: 환경맵 텍스처 NULL\n");
+		return;
+	}
+	
+	//D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc;
+	//envMap->GetDesc(&srvDesc);
+	//std::cout << (std::format("환경맵 Format: {}\n", (int)srvDesc.Format).c_str());
+	//
+	//std::cout << (std::format("ViewDimension: {}\n", (int)srvDesc.ViewDimension).c_str());
+
+	context->PSSetShaderResources(20, 1, m_environmentMap->GetTexture().GetAddressOf());
 
 	// 샘플러 스테이트 설정
 	context->PSSetSamplers(0, 1, m_samplerState.GetAddressOf());
@@ -225,10 +237,10 @@ HRESULT SkyBox::CompileShaderFromFile(const std::wstring& path, LPCSTR entry, LP
 
 	HRESULT hr = D3DCompileFromFile(
 		path.c_str(),
-		nullptr,        // defines
-		nullptr,        // include
-		entry,         // entry point name ("main" 보통 사용)
-		target,        // target ("vs_5_0" 등)
+		nullptr,
+		D3D_COMPILE_STANDARD_FILE_INCLUDE,
+		entry,
+		target,
 		flags,
 		0,
 		blob,
