@@ -49,6 +49,7 @@ private:
 	// 상수 버퍼
 	ConstantBuffer matrixConstantBuffer;
 	ConstantBuffer objectBuffer;
+	ConstantBuffer cameraBuffer;
 
 	// 샘플러 : 이것도 상수버퍼처럼 돌려쓰기용
 	ComPtr<ID3D11SamplerState>	linearWrapSampler;    // LINEAR 필터링

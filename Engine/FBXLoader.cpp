@@ -19,13 +19,14 @@ std::shared_ptr<Model> FBXLoader::FBXLoad(std::string_view _filePath)
 	std::string filePathKEY = _filePath.data(); // 파일 경로가 모든 맵의 키값이다
 
 	importFlags = 0; // 시작 플래그 초기화
-	importFlags = aiProcess_Triangulate |	// vertex 삼각형 으로 출력         
-		aiProcess_GenUVCoords |				// UV 좌표 생성
-		aiProcess_CalcTangentSpace |		// 메시의 Tangent와 Bitangent를 계산한다.(Bitangent는 Tangent와 수직인 벡터이다)
-		aiProcess_GenNormals |				// Normal 정보 생성  
-		aiProcess_ConvertToLeftHanded |		// 우측 좌표계를 사용하는 모델을 좌측 좌표계로 변환해줌 단순히 좌표를 반대로 바꾸는 것이 아니라, 법선 벡터, 카메라 방향, 뼈대 애니메이션의 방향등 좌표계 변환에 따라 영향을 받는 요소들을 모두 적절하게 변환
-		aiProcess_LimitBoneWeights |		// 본의 영향을 받는 정점의 최대 개수를 4개로 제한
-		aiProcess_RemoveRedundantMaterials; // 사용되지 않는 메테리얼을 제거한다.  
+	importFlags = aiProcess_Triangulate |	 // vertex 삼각형 으로 출력         
+		aiProcess_GenUVCoords |				 // UV 좌표 생성
+		aiProcess_CalcTangentSpace |		 // 메시의 Tangent와 Bitangent를 계산한다.(Bitangent는 Tangent와 수직인 벡터이다)
+		aiProcess_GenNormals |				 // Normal 정보 생성  
+		aiProcess_ConvertToLeftHanded |		 // 우측 좌표계를 사용하는 모델을 좌측 좌표계로 변환해줌 단순히 좌표를 반대로 바꾸는 것이 아니라, 법선 벡터, 카메라 방향, 뼈대 애니메이션의 방향등 좌표계 변환에 따라 영향을 받는 요소들을 모두 적절하게 변환
+		aiProcess_LimitBoneWeights |		 // 본의 영향을 받는 정점의 최대 개수를 4개로 제한
+		aiProcess_RemoveRedundantMaterials;// | // 사용되지 않는 메테리얼을 제거한다. 
+
 
 	// 초기 스테틱 메시 확인
 	isStaticMesh = true;
@@ -53,7 +54,7 @@ std::shared_ptr<Model> FBXLoader::FBXLoad(std::string_view _filePath)
 	aiNode* rootaiNode = scene->mRootNode; // 어심프 노드
 	std::shared_ptr<Model> modelData = std::make_shared<Model>(); // 모델에 관련된 정보 데이터 저장용
 	AiNode* rootNode{}; // 내가 만든 AiNode 데이터 저장용
-	
+	isStaticMesh = true;
 	auto treeNode = aiNodeMap.find(filePathKEY); // aiNode가 있는지 확인
 	if (treeNode != aiNodeMap.end()) // 맵을 통해 해당 노드를 생성한지 확인해 본다. 맵에서 찾았을때 없으면 처음 로드하는 것
 	{ // 존재할 경우
@@ -325,7 +326,7 @@ void FBXLoader::ProcessMaterial(const aiScene* _scene, const std::string_view _m
          int textureCount = material->GetTextureCount((aiTextureType)type);
          for (int texIndex = 0; texIndex < textureCount; ++texIndex)
          {
-            if (material->GetTexture((aiTextureType)type, texIndex, &texturePath) == AI_SUCCESS)
+            if (material->GetTexture((aiTextureType)type, 0, &texturePath) == AI_SUCCESS)
             {   // 아래 코드를 통해서 뒤에서 /이후의 문자열이 나온다
                std::string file = StringConverter::GetFileNameFromPath<std::string>(StringConverter::StringToWide(texturePath.C_Str()));
                std::string filePath = basePath + texturesFolder + file; // 최종 경로
@@ -452,7 +453,10 @@ void FBXLoader::ShowMaterials()
 			std::cout << i << '.' << " " << it.second[i]->GetName() << "\n";
 			for (auto& data : it.second[i]->GetTextures())
 			{
-				std::cout << data->GetName() << '\n';
+				for (auto index : data->GetTextureTypeIndexs())
+				{
+					std::cout << "Texture Index : " << index << " " << data->GetName() << '\n';
+				}
 			}
 		}
 		std::cout << '\n';
