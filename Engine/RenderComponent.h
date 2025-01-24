@@ -11,6 +11,7 @@ enum class ShaderType
 class Shader;
 class Material;
 class Model;
+class AiNode;
 class RenderComponent : public Component
 {
 public:
@@ -23,11 +24,13 @@ public:
 	std::shared_ptr<Model> GetModelData() { return modelData; }
 	std::shared_ptr<Shader> GetShder(ShaderType _shaderType);
 	void SetShader(ShaderType _shaderType , std::string_view _filePath); // 이건 명시적으로 불러서 하는게 좋다고 판단함.
+	std::unordered_map<std::string, AiNode*>* GetNodeData() { return nodeData; }
 private:
 
 public:
 
 private:
+	std::unordered_map<std::string, AiNode*>* nodeData;
 	std::shared_ptr<Model> modelData;
 	std::unordered_map<ShaderType , std::shared_ptr<Shader>> shaders;
 };

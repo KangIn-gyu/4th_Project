@@ -43,5 +43,5 @@ private:
 template<succession_Object T>
 void Scene::CreatorObject(std::string_view _name , Object::ObjectType _objType)
 {
-	objectManager->AddObject(FACTORYSYSTEM->CreateObject<T>(_name,_objType));
+	objectManager->AddObject(FACTORYSYSTEM->CreateObject<T>(_name, _objType));
 }

@@ -17,7 +17,7 @@ static std::unordered_map<aiTextureType, std::pair<TextureType, int>> typeMappin
     { aiTextureType_DISPLACEMENT,      {TextureType::Displacement, 8} },        // 디스플레이스먼트 맵 텍스처
     { aiTextureType_LIGHTMAP,          {TextureType::LightMap, 9} },            // 라이트 맵 텍스처
     { aiTextureType_REFLECTION,        {TextureType::Reflection, 10} },         // 반사 텍스처
-    { aiTextureType_BASE_COLOR,        {TextureType::Base_Color, 0} },          // PBR 기본 색상 텍스처
+    { aiTextureType_BASE_COLOR,        {TextureType::Base_Color, 11} },          // PBR 기본 색상 텍스처
     { aiTextureType_NORMAL_CAMERA,     {TextureType::Normal_Camera, 12} },      // 카메라 공간 노멀 맵
     { aiTextureType_EMISSION_COLOR,    {TextureType::Emission_Color, 13} },     // 발광 색상 텍스처
     { aiTextureType_METALNESS,         {TextureType::Metalness, 14} },          // 금속성 텍스처
@@ -54,6 +54,7 @@ void Material::Load(std::string_view _filePath, aiTextureType _type)
 
     std::shared_ptr<Texture> texture = RESOURCESYSTEM->Load<Texture>(_filePath);
     texture->SetTextureTypeIndex(typeIndex);
+    texture->SetName(_filePath);
     textures.emplace_back(texture);
 }
 
@@ -66,6 +67,8 @@ void Material::SetRoughness(const float _val)
 {
     roughness = _val;
 }
+
+
 
 
 

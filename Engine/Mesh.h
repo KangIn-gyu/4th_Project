@@ -17,8 +17,15 @@ class Mesh // 기반 클래스
 
 		UINT GetMeshIndex() { return  fbxMeshIndex; }
 		void SetMeshIndex(UINT _index) { fbxMeshIndex = _index; }
+
+		int GetMaterialIndex() { return materialIndex; }
+		void SetMaterialIndex(int _index) { materialIndex = _index; }
+
+		void Show();
+
 	private:
-		UINT fbxMeshIndex = -1; // FBX로더를 통해서 좋은 지식 : 메테리얼 인덱스와 매쉬 인덱스가 같다
+		UINT fbxMeshIndex = -1; 
+		int  materialIndex = 1;
 	};
 
 public:
@@ -36,6 +43,9 @@ public:
 	void SetVertexBuffer(VertexBuffer* _vertexBuffer);
 	void SetIndexBuffer(IndexBuffer* _indexBuffer);
 	void CreateInputLayout(const std::initializer_list<D3D11_INPUT_ELEMENT_DESC>& _elements, std::string_view _shaderfilePath);
+
+	int GetMaterialIndex();
+	void SetMaterialIndex(int _index);
 
 	void SetFBXMeshIndex(UINT _index);
 	void SetName(std::string_view _meshName);

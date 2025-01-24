@@ -8,6 +8,8 @@
 // 정적변수랑은 스태틱은 의미가 달라서 g_표시 안함
 ComPtr<ID3D11Device>        D3DClass::D3DDevice =        nullptr; 
 ComPtr<ID3D11DeviceContext> D3DClass::D3DDeviceContext = nullptr;
+ComPtr<IDXGISurface> D3DClass::DXGISurface = nullptr;
+std::unique_ptr<Viewport>   D3DClass::viewport = nullptr;
 
 D3DClass::~D3DClass()
 {
@@ -89,7 +91,7 @@ void D3DClass::CreateSamplerState(D3D11_FILTER _filter, D3D11_TEXTURE_ADDRESS_MO
 	sampDesc.MinLOD = 0;
 	sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
 
-	HR_T(D3DDevice->CreateSamplerState(&sampDesc, _sampler.GetAddressOf()));
+	HR_T(D3DDevice.Get()->CreateSamplerState(&sampDesc, _sampler.GetAddressOf()));
 }
 
 std::pair<int, int> D3DClass::GetWindowsSize()
@@ -103,17 +105,20 @@ void D3DClass::InitD3D()
 	DXGI_SWAP_CHAIN_DESC swapDesc = CreateSwapDesc();
 
 	// 디버그 기능 활성화
-	UINT creationFlags = 0;
+	UINT creationFlags = D3D11_CREATE_DEVICE_DEBUG | D3D11_CREATE_DEVICE_BGRA_SUPPORT;
 #ifdef _DEBUG
-	creationFlags |= D3D11_CREATE_DEVICE_DEBUG;
+	creationFlags = D3D11_CREATE_DEVICE_DEBUG | D3D11_CREATE_DEVICE_BGRA_SUPPORT;
 	D3D_FEATURE_LEVEL featureLevel;
 #endif
 
+	
 	// 1. 장치 생성.   2. 스왑체인 생성.  3. 장치 컨텍스트 생성.
 	HR_T(D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, creationFlags, NULL, NULL,
 		D3D11_SDK_VERSION, &swapDesc, swapChain.GetAddressOf(), D3DDevice.GetAddressOf(), &featureLevel, D3DDeviceContext.GetAddressOf()));
 
 	HR_T(swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)&renderTargetBuffer));
+	// D2D에서 사용할 IDXGISurface 생성 //
+	HR_T(swapChain->GetBuffer(0, __uuidof(IDXGISurface), reinterpret_cast<void**>(DXGISurface.GetAddressOf())));
 	HR_T(D3DDevice->CreateRenderTargetView(renderTargetBuffer.Get(), nullptr, renderTargetView.GetAddressOf()));
 
 	// 뷰포트 설정.	
@@ -171,7 +176,7 @@ DXGI_SWAP_CHAIN_DESC D3DClass::CreateSwapDesc()
 	DXGI_SWAP_CHAIN_DESC swapDesc = {};
 	ZeroMemory(&swapDesc, sizeof(DXGI_SWAP_CHAIN_DESC));
 	swapDesc.BufferCount = 2;  // imgui 때문에 수정 1.14 1로 수정해야 될수도 있음
-	swapDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;	// 기본값 0  https://learn.microsoft.com/ko-kr/windows/win32/api/dxgi/ne-dxgi-dxgi_swap_effect
+	swapDesc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;	// 기본값 0  https://learn.microsoft.com/ko-kr/windows/win32/api/dxgi/ne-dxgi-dxgi_swap_effect
 	swapDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT; // 더블 버퍼링 및 3중 버퍼링도 있다
 	swapDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM; //   https://learn.microsoft.com/ko-kr/windows/win32/api/dxgiformat/ne-dxgiformat-dxgi_format
 	// 백버퍼(텍스처)의 가로/세로 크기 설정.

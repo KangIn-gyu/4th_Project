@@ -17,6 +17,7 @@
 #include <map>
 #include <vector>
 #include <unordered_map>
+#include <set>
 
 // 포인터 관련
 #include <memory>
@@ -40,6 +41,7 @@ using namespace Microsoft::WRL;
 #include <directxtk/SimpleMath.h>  // #pragma comment(lib, "d3dx11.lib") 대체됨
 #include <d3dcompiler.h>  // 일단 보류
 #include <DirectXTex.h>
+#include <dxgi.h>
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "dxgi.lib")
@@ -47,6 +49,17 @@ using namespace Microsoft::WRL;
 
 #pragma comment(lib, "DirectXTK.lib")
 #pragma comment(lib, "DirectXTex.lib")
+
+// D2D
+#include <d2d1_1.h>
+#include <d2d1helper.h>
+#include <dwrite.h>
+
+#ifndef DEBUG
+#pragma comment(lib, "d2d1.lib")
+#pragma comment(lib, "dwrite.lib")
+#endif
+#include <directxtk/SpriteFont.h>
 
 namespace DX = DirectX;
 namespace DXMath = DirectX::SimpleMath;

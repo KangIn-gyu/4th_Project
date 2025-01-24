@@ -3,9 +3,8 @@
 #include "TransformComponent.h"
 #include "Object.h"
 
-#include "Mesh.h"
-#include "StaticMesh.h"
-#include "SkeletalMesh.h"
+#include "AiNode.h"
+#include <imgui.h>
 
 TransformEditor::TransformEditor()
 {
@@ -56,14 +55,41 @@ void TransformEditor::Draw()
             {
                 transform->SetScale(scale);
             }
+
+            DXMath::Matrix localMatrix = transform->GetLocalMatrix();
+            if (ImGui::CollapsingHeader("Local Matrix", ImGuiTreeNodeFlags_DefaultOpen))
+            {
+                for (int row = 0; row < 4; ++row)
+                {
+                    ImGui::Text("%.3f, %.3f, %.3f, %.3f",
+                        localMatrix.m[row][0],
+                        localMatrix.m[row][1],
+                        localMatrix.m[row][2],
+                        localMatrix.m[row][3]);
+                }
+            }
+
+            // 월드 매트릭스 표시
+            DXMath::Matrix worldMatrix = transform->GetWorldMatrix(); // 월드 매트릭스 가져오기
+            if (ImGui::CollapsingHeader("World Matrix", ImGuiTreeNodeFlags_DefaultOpen))
+            {
+                for (int row = 0; row < 4; ++row)
+                {
+                    ImGui::Text("%.3f, %.3f, %.3f, %.3f",
+                        worldMatrix.m[row][0],
+                        worldMatrix.m[row][1],
+                        worldMatrix.m[row][2],
+                        worldMatrix.m[row][3]);
+                }
+            }
         }
     }
-    else if (state == State::Active && nullptr != selectedMesh)
+    else if (state == State::Active && nullptr != selectedNode)
     {
         if (ImGui::CollapsingHeader("Transform", ImGuiTreeNodeFlags_DefaultOpen))
         {
-            auto* transform = selectedMesh->GetMeshInfo()->transform;
-            ImGui::Text(selectedMesh->GetName().c_str());
+            auto* transform = selectedNode->GetPointTransform();
+            ImGui::Text(selectedNode->GetName().c_str());
 
             DXMath::Vector3 position = transform->GetPosition();
             DXMath::Quaternion rotation = transform->GetQuaternion();
@@ -90,6 +116,39 @@ void TransformEditor::Draw()
             {
                 transform->SetScale(scale);
             }
+
+            DXMath::Matrix localMatrix = transform->GetLocalMatrix();
+            if (ImGui::CollapsingHeader("Local Matrix", ImGuiTreeNodeFlags_DefaultOpen))
+            {
+                for (int row = 0; row < 4; ++row)
+                {
+                    ImGui::Text("%.3f, %.3f, %.3f, %.3f",
+                        localMatrix.m[row][0],
+                        localMatrix.m[row][1],
+                        localMatrix.m[row][2],
+                        localMatrix.m[row][3]);
+                }
+            }
+
+            // 월드 매트릭스 표시
+            DXMath::Matrix worldMatrix = transform->GetWorldMatrix(); // 월드 매트릭스 가져오기
+            if (ImGui::CollapsingHeader("World Matrix", ImGuiTreeNodeFlags_DefaultOpen))
+            {
+                for (int row = 0; row < 4; ++row)
+                {
+                    ImGui::Text("%.3f, %.3f, %.3f, %.3f",
+                        worldMatrix.m[row][0],
+                        worldMatrix.m[row][1],
+                        worldMatrix.m[row][2],
+                        worldMatrix.m[row][3]);
+                }
+            }
+
+            if (nullptr != transform->GetParent())
+            {
+                ImGui::Text(reinterpret_cast <const char*>(u8"부모 트랜스폼이 있음"));
+            }
+
         }
     }
 }
@@ -99,7 +158,7 @@ void TransformEditor::SetSelectedObject(Object* _obj)
     selectedObject = _obj;
 }
 
-void TransformEditor::SetSelectedMesh(Mesh* _mesh)
+void TransformEditor::SetSelectedNode(AiNode* _node)
 {
-    selectedMesh = _mesh;
+    selectedNode = _node;
 }

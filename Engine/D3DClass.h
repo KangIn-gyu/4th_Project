@@ -1,9 +1,4 @@
 #pragma once
-#include <d3d11.h>
-#include <dxgi.h>
-#include <d3dcommon.h>
-#include <directxtk/SimpleMath.h>
-
 #include "Viewport.h"
 
 struct WindowInfo;
@@ -23,8 +18,8 @@ public:
 	// (캡슐화 포기) 이건 그냥 주자 구조만들기 너무 힘듬
 	static ComPtr<ID3D11Device> GetD3DDevice() { return D3DDevice; }
 	static ComPtr<ID3D11DeviceContext> GetD3DDeviceContext() { return D3DDeviceContext; }
-
-	std::unique_ptr<Viewport>& GetVieport() { return viewport; }
+	static ComPtr<IDXGISurface> GetIDXGISurface() { return DXGISurface; }
+	static std::unique_ptr<Viewport>& GetViewport() { return viewport; }
 
 	void CreateSamplerState(D3D11_FILTER _filter, D3D11_TEXTURE_ADDRESS_MODE _addressMode, ComPtr<ID3D11SamplerState> _sampler);
 	std::pair<int, int> GetWindowsSize();
@@ -38,13 +33,13 @@ private:
 	DXGI_SWAP_CHAIN_DESC CreateSwapDesc();
 	void CreateDepthStencilBuffer();
 
-
 public:
 
 private:
-	static ComPtr<ID3D11Device>        D3DDevice;           // 디바이스	                      
-	static ComPtr<ID3D11DeviceContext> D3DDeviceContext;    // 즉시 디바이스 컨텍스트
-	ComPtr<IDXGISwapChain>		       swapChain;           // 스왑체인
+	static ComPtr<ID3D11Device>				D3DDevice;           // 디바이스	                      
+	static ComPtr<ID3D11DeviceContext>		D3DDeviceContext;    // 즉시 디바이스 컨텍스트
+	static std::unique_ptr<Viewport>		viewport;
+	ComPtr<IDXGISwapChain>					swapChain;           // 스왑체인
 
 	ComPtr<ID3D11RenderTargetView>	   renderTargetView;    // 렌더링 타겟뷰
 	ComPtr<ID3D11Texture2D>			   renderTargetBuffer;
@@ -54,12 +49,13 @@ private:
 	ComPtr<ID3D11BlendState>		   alphaBlendState;
 
 	WindowInfo* windowInfo;
-	std::unique_ptr<Viewport> viewport;
+
 	bool presentEnabled;
 
 	ComPtr<IDXGIFactory> DXGIFactory;
 	ComPtr<IDXGIAdapter> DXGIAdapter;
 	ComPtr<IDXGIDevice>  DXGIDevice;
+	static ComPtr<IDXGISurface>		DXGISurface;	// Direct3D와 Direct2D 간의 데이터 교환을 가능하게 해줌
 
 	ComPtr<ID3D11Texture2D> stagingTexture; // ImGui에 넘길 텍스쳐
 	ComPtr<ID3D11ShaderResourceView> SRV;

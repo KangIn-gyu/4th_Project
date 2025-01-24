@@ -1,24 +1,31 @@
 #pragma once
 #include "SingletonBase.h"
 #include "D3DClass.h"
+#include "D2DClass.h"
 #include "ConstantBuffer.h"
+
 #include "SkyBox.h"
 
 #define RENDERER Renderer::GetInstance()
+
+typedef DirectX::XMFLOAT4		COLOR;
 
 class RenderComponent;
 struct WindowInfo;
 class Renderer : public SingletonBase<Renderer>
 {
 	friend class SingletonBase<Renderer>;
+	friend class D2DFont;
+	friend class SFont;
 public:
 	void Initialize(WindowInfo* _windowInfo);
 	void Update(float _deltaTiem);
 	void Render();
-	void Draw();
+	void D3DDraw();
 	void AddRenderComponent(RenderComponent* _renderComponent);
 	void RemoveRenderComponent(RenderComponent* _renderComponent);
 
+	//void TextDraw(int x, int y, COLOR col, TCHAR* msg, ...);
 	std::pair<int, int> GetWindowsSize();
 	void SetWindowSize();
 
@@ -30,21 +37,25 @@ private:
 	Renderer& operator=(Renderer& InputSystem) = delete;
 	Renderer(Renderer&& InputSystem) = delete;
 	Renderer& operator=(Renderer&& InputSystem) = delete;
-
+	//int FontCreate(ID3D11Device* pDev, ID3D11DeviceContext* pContext);
+	
 public:
 
 private:
-	std::unique_ptr<D3DClass> D3DGraphics {}; // ±×·¡ÇÈ½º
+	std::unique_ptr<D3DClass> D3DGraphics {}; // ê·¸ë˜í”½ìŠ¤
+	std::unique_ptr<D2DClass> D2DGraphics {}; // ê·¸ë˜í”½ìŠ¤
 	std::vector<RenderComponent*> work {};
 	
-	// »ó¼ö ¹öÆÛ
+	// ìƒìˆ˜ ë²„í¼
 	ConstantBuffer matrixConstantBuffer;
 	ConstantBuffer objectBuffer;
 
-	// »ùÇÃ·¯ : ÀÌ°Íµµ »ó¼ö¹öÆÛÃ³·³ µ¹·Á¾²±â¿ë
-	ComPtr<ID3D11SamplerState>	linearWrapSampler;    // LINEAR ÇÊÅÍ¸µ
-	ComPtr<ID3D11SamplerState>  pointClampSampler;    // POINT ÇÊÅÍ¸µ
+	// ìƒ˜í”ŒëŸ¬ : ì´ê²ƒë„ ìƒìˆ˜ë²„í¼ì²˜ëŸ¼ ëŒë ¤ì“°ê¸°ìš©
+	ComPtr<ID3D11SamplerState>	linearWrapSampler;    // LINEAR í•„í„°ë§
+	ComPtr<ID3D11SamplerState>  pointClampSampler;    // POINT í•„í„°ë§
+
 
 	SkyBox m_skybox;
+
 };
-// ¿©±â¼­ ¸ŞÀÎ Ä«¸Ş¶ó Æ÷ÀÎÅÍ·Î °¡Áö°Ô ÇÒ ¼ö ÀÖ°Ô Ã³¸® ÇÏÀÚ
+// ì—¬ê¸°ì„œ ë©”ì¸ ì¹´ë©”ë¼ í¬ì¸í„°ë¡œ ê°€ì§€ê²Œ í•  ìˆ˜ ìˆê²Œ ì²˜ë¦¬ í•˜ì

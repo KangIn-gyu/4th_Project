@@ -40,3 +40,8 @@ void Texture::Load(std::string_view _filePath)
 										  nullptr, texture.GetAddressOf()));
 	}
 }
+
+void Texture::SetName(std::string_view _naem)
+{
+	name.assign(_naem);
+}

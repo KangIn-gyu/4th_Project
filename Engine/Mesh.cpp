@@ -72,6 +72,16 @@ void Mesh::CreateInputLayout(const std::initializer_list<D3D11_INPUT_ELEMENT_DES
 	meshInfo->inputLayout.IASetInputLayout(_elements, _shaderfilePath);
 }
 
+int Mesh::GetMaterialIndex()
+{
+	return meshInfo->GetMaterialIndex();
+}
+
+void Mesh::SetMaterialIndex(int _index)
+{
+	meshInfo->SetMaterialIndex(_index);
+}
+
 void Mesh::SetName(std::string_view _meshName)
 {
 	meshInfo->meshName = _meshName;
@@ -102,3 +112,8 @@ UINT Mesh::GetFbxIndex()
 	return meshInfo->GetMeshIndex();
 }
 
+void Mesh::MeshInfo::Show()
+{
+	std::cout << "MeshInfo È®ÀÎ¿ë" << '\n';
+	std::cout << meshName << " FbxIndex : " << fbxMeshIndex << " materialIndex : " << materialIndex << '\n';
+}
