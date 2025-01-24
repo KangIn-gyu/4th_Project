@@ -64,7 +64,6 @@ void Renderer::Render()
 
 	D3DDraw();
 
-
 	D3DGraphics->ExtractFinalImage();
 	IMGUI->Render();
 
