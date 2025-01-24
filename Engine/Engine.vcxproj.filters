@@ -268,6 +268,7 @@
     <ClInclude Include="Shader.h">
       <Filter>2_System\Graphics\GraphicsData\Shader</Filter>
     </ClInclude>
+    <ClInclude Include="FontD2D.h" />
     <ClInclude Include="TransformComponent.h">
       <Filter>3_Object\Compoent\Transform</Filter>
     </ClInclude>
@@ -406,6 +407,8 @@
     <ClCompile Include="TransformEditor.cpp">
       <Filter>0_Utility\MyImGui\Editor</Filter>
     </ClCompile>
+
+    <ClCompile Include="FontD2D.cpp" />
     <ClCompile Include="SceneLoader.cpp" />
     <ClCompile Include="MeshInformationEditor.cpp">
       <Filter>0_Utility\MyImGui\Editor</Filter>

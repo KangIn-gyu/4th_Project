@@ -156,6 +156,7 @@
     <ClInclude Include="Engine.h" />
     <ClInclude Include="FactorySystem.h" />
     <ClInclude Include="FBXLoader.h" />
+    <ClInclude Include="FontD2D.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="HierarchyWindow.h" />
     <ClInclude Include="Editor.h" />
@@ -212,6 +213,7 @@
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="FactorySystem.cpp" />
     <ClCompile Include="FBXLoader.cpp" />
+    <ClCompile Include="FontD2D.cpp" />
     <ClCompile Include="HierarchyWindow.cpp" />
     <ClCompile Include="Editor.cpp" />
     <ClCompile Include="InspectorWindow.cpp" />
@@ -274,6 +276,5 @@
     </FxCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets">
-  </ImportGroup>
+  <ImportGroup Label="ExtensionTargets" />
 </Project>

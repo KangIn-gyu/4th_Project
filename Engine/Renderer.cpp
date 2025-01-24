@@ -14,38 +14,47 @@
 #include "ConstantBufferData.h"
 #include "CameraObject.h"
 #include "UserImGui.h"
+
 #include "AiNode.h"
+
+#include <tchar.h>
+#include "FontD2D.h"
 
 void Renderer::Initialize(WindowInfo* _windowInfo)
 {
-	//D3D ÃÊ±âÈ­
+	//D3D ì´ˆê¸°í™”
 	D3DGraphics = std::make_unique<D3DClass>();
 	D3DGraphics->Initialize(_windowInfo);
 
 	IMGUI->Initialize(_windowInfo->hWnd, D3DGraphics->GetD3DDevice(), D3DGraphics->GetD3DDeviceContext());
 
-	// »ó¼ö ¹öÆÛ »ı¼º
+	// ìƒìˆ˜ ë²„í¼ ìƒì„±
 	matrixConstantBuffer.Create(sizeof(MatrixBuffer));
 	objectBuffer.Create(sizeof(ObjectBuffer));
 
-	// »ùÇÃ·¯ »ı¼º
+	// ìƒ˜í”ŒëŸ¬ ìƒì„±
 	D3DGraphics->CreateSamplerState(D3D11_FILTER_MIN_MAG_MIP_LINEAR, D3D11_TEXTURE_ADDRESS_WRAP, linearWrapSampler);
 	D3DGraphics->CreateSamplerState(D3D11_FILTER_MIN_MAG_MIP_POINT, D3D11_TEXTURE_ADDRESS_CLAMP, pointClampSampler);
+
+	// í…ìŠ¤íŠ¸
+	FontManager::Initialize();
 }
 
-void Renderer::Update(float _deltaTiem)
+void Renderer::Update(float _deltaTime)
 {
-	IMGUI->Update(_deltaTiem);
+	IMGUI->Update(_deltaTime);
 }
 
 void Renderer::Render()
 {
-	// OMSetRenderTarget(»õ·Î ¸¸µç Å¸°Ù)
-	// ÀÌ Å¸°Ù¿¡ ±âÁ¸ ·»´õ¸µ ÇÏ°í
-	// OmSetRenderTarget(±âÁ¸ ¹é¹öÆÛ Å¸°Ù(½º¿ÒÃ¼ÀÎ »ı¼ºÇÏ¸é¼­ °°ÀÌ ¸¸µç Å¸°Ù)
-	// À§¿¡¼­ ±×¸° ±×¸²ÀÇ ShaderResourceView¸¦ PSSetShaderResource(SRV);
+	// OMSetRenderTarget(ìƒˆë¡œ ë§Œë“  íƒ€ê²Ÿ)
+	// ì´ íƒ€ê²Ÿì— ê¸°ì¡´ ë Œë”ë§ í•˜ê³ 
+	// OmSetRenderTarget(ê¸°ì¡´ ë°±ë²„í¼ íƒ€ê²Ÿ(ìŠ¤ì™‘ì²´ì¸ ìƒì„±í•˜ë©´ì„œ ê°™ì´ ë§Œë“  íƒ€ê²Ÿ)
+	// ìœ„ì—ì„œ ê·¸ë¦° ê·¸ë¦¼ì˜ ShaderResourceViewë¥¼ PSSetShaderResource(SRV);
 
 	D3DGraphics->BeginDraw(IMGUI->GetBankGroundColor());
+	D2D1_RECT_F rect = D2D1::RectF(400, 0, 800, 100);
+	FontManager::D2DFont::GetInstance()->TextDraw(L"D3D11 ì‰ë„ìš°ë§µí•‘", rect, D2D1::ColorF(D2D1::ColorF::LightPink));
 	Draw();
 	D3DGraphics->ExtractFinalImage();
 	IMGUI->Render();
@@ -54,9 +63,9 @@ void Renderer::Render()
 
 void Renderer::Draw()
 {
-	// µğ¹ÙÀÌ½º ÄÁÅ×½ºÆ® ¹Ş±â
+	// ë””ë°”ì´ìŠ¤ ì»¨í…ŒìŠ¤íŠ¸ ë°›ê¸°
 	ComPtr<ID3D11DeviceContext> d3dDeviceContext = D3DGraphics->GetD3DDeviceContext();
-	d3dDeviceContext->PSSetSamplers(0, 1, &linearWrapSampler); // TODO: »ùÇÃ·¯ ÀÏ´Ü º¸·ù
+	d3dDeviceContext->PSSetSamplers(0, 1, &linearWrapSampler); // TODO: ìƒ˜í”ŒëŸ¬ ì¼ë‹¨ ë³´ë¥˜
 	d3dDeviceContext->PSSetSamplers(1, 1, &pointClampSampler);
 
 	for (auto& renderComponent : work)
@@ -66,26 +75,26 @@ void Renderer::Draw()
 		for (auto& data : *modelData->meshs)
 		{
 			auto* meshData = data->GetMeshInfo();
-			//IA ÀÔ·Â ¾î¼Àºí·¯ ½ºÅ×ÀÌÁö ¼³Á¤
+			//IA ì…ë ¥ ì–´ì…ˆë¸”ëŸ¬ ìŠ¤í…Œì´ì§€ ì„¤ì •
 			auto* vertexBuffer = meshData->vertexBuffer;
 			d3dDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-			d3dDeviceContext->IASetVertexBuffers(0, 1, vertexBuffer->GetBuffer().GetAddressOf(), &vertexBuffer->vertextBufferStride, &vertexBuffer->vertextBufferOffset); // ¿©±â ¸Ç¾Õ ½½·Ô ¹øÈ£´Â ÀÓÇ² ·¹ÀÌ¾Æ¿ô ½½·Ô ¹øÈ£ÀÓ
+			d3dDeviceContext->IASetVertexBuffers(0, 1, vertexBuffer->GetBuffer().GetAddressOf(), &vertexBuffer->vertextBufferStride, &vertexBuffer->vertextBufferOffset); // ì—¬ê¸° ë§¨ì• ìŠ¬ë¡¯ ë²ˆí˜¸ëŠ” ì„í’‹ ë ˆì´ì•„ì›ƒ ìŠ¬ë¡¯ ë²ˆí˜¸ì„
 			auto* indexBuffer = meshData->indexBuffer;
 			d3dDeviceContext->IASetIndexBuffer(indexBuffer->GetBuffer().Get(), DXGI_FORMAT_R32_UINT, 0);
 			d3dDeviceContext->IASetInputLayout(meshData->inputLayout.GetInputLayout().Get());
 
-			// VS Á¤Á¡ ¼ÎÀÌ´õ ½ºÅ×ÀÌÁö ¼³Á¤
+			// VS ì •ì  ì…°ì´ë” ìŠ¤í…Œì´ì§€ ì„¤ì •
 			d3dDeviceContext->VSSetShader(renderComponent->GetShder(ShaderType::VS)->GetVertexShader().Get(), nullptr, 0);
 			d3dDeviceContext->VSSetConstantBuffers(0, 1, matrixConstantBuffer.GetBuffer().GetAddressOf());
 			d3dDeviceContext->VSSetConstantBuffers(1, 1, objectBuffer.GetBuffer().GetAddressOf());
-			// PS Á¤Á¡ ¼ÎÀÌ´õ ½ºÅ×ÀÌÁö ¼³Á¤
+			// PS ì •ì  ì…°ì´ë” ìŠ¤í…Œì´ì§€ ì„¤ì •
 			d3dDeviceContext->PSSetShader(renderComponent->GetShder(ShaderType::PS)->GetPixelShader().Get(), nullptr, 0);
 			d3dDeviceContext->PSSetConstantBuffers(0, 1, matrixConstantBuffer.GetBuffer().GetAddressOf());
 			d3dDeviceContext->PSSetConstantBuffers(1, 1, objectBuffer.GetBuffer().GetAddressOf());
 
 			MatrixBuffer matrixData;
 			auto node = *nodeData.find(meshData->meshName);
-			matrixData.worldMatrix = DX::XMMatrixTranspose(node.second->GetTransform().GetWorldMatrix());  // ÀüÄ¡ Çà·Ä ³Ö±â
+			matrixData.worldMatrix = DX::XMMatrixTranspose(node.second->GetTransform().GetWorldMatrix());  // ì „ì¹˜ í–‰ë ¬ ë„£ê¸°
 			matrixData.viewMatrix = DX::XMMatrixTranspose(CameraObject::g_MainCameraObject->GetViewMatrix());
 			matrixData.projectionMatrix = DX::XMMatrixTranspose(CameraObject::g_MainCameraObject->GetProjectionMatrix());
 		
@@ -102,7 +111,7 @@ void Renderer::Draw()
 			}
 
 			for (auto& textur : material->GetTextures())
-			{ // ¿¹Àü ÄÚµå¿¡¼­ ¹®Á¦Á¡ÀÎ ½ºÀ§Ä¡¹®À¸·Î ÇØ¼­ ´õ·¯¿üÁö¸¸ ÅØ½ºÃ³°¡ ÇØ´çÇÏ´Â ·¹Áö½ºÅÍ ÀÎµ¦½º¸¦ °¡Áö°í ÀÖ¾î¼­ ÅØ½ºÃ³¼ö¸¸Å­¸¸ ¹İº¹ÇÏ¸é µÊ.
+			{ // ì˜ˆì „ ì½”ë“œì—ì„œ ë¬¸ì œì ì¸ ìŠ¤ìœ„ì¹˜ë¬¸ìœ¼ë¡œ í•´ì„œ ë”ëŸ¬ì› ì§€ë§Œ í…ìŠ¤ì²˜ê°€ í•´ë‹¹í•˜ëŠ” ë ˆì§€ìŠ¤í„° ì¸ë±ìŠ¤ë¥¼ ê°€ì§€ê³  ìˆì–´ì„œ í…ìŠ¤ì²˜ìˆ˜ë§Œí¼ë§Œ ë°˜ë³µí•˜ë©´ ë¨.
 				if (textur->GetTextureTypeIndex() >= 0)
 				{
 					int indexNum = textur->GetTextureTypeIndex();
@@ -111,9 +120,9 @@ void Renderer::Draw()
 				}
 			}
 
-			// »ó¼ö ¹öÆÛ ¾÷µ¥ÀÌÆ®
-			d3dDeviceContext->UpdateSubresource(matrixConstantBuffer.GetBuffer().Get(), 0, nullptr, &matrixData, 0, 0); // CPU -> GPU·Î µ¥ÀÌÅÍ Àü¼Û Ã³¸®
-			d3dDeviceContext->UpdateSubresource(objectBuffer.GetBuffer().Get(), 0, nullptr, &objectData, 0, 0);			// CPU -> GPU·Î µ¥ÀÌÅÍ Àü¼Û Ã³¸®
+			// ìƒìˆ˜ ë²„í¼ ì—…ë°ì´íŠ¸
+			d3dDeviceContext->UpdateSubresource(matrixConstantBuffer.GetBuffer().Get(), 0, nullptr, &matrixData, 0, 0); // CPU -> GPUë¡œ ë°ì´í„° ì „ì†¡ ì²˜ë¦¬
+			d3dDeviceContext->UpdateSubresource(objectBuffer.GetBuffer().Get(), 0, nullptr, &objectData, 0, 0);			// CPU -> GPUë¡œ ë°ì´í„° ì „ì†¡ ì²˜ë¦¬
 			d3dDeviceContext->DrawIndexed(indexBuffer->GetIndexCount(), 0, 0);
 		}
 	}
@@ -130,6 +139,7 @@ void Renderer::RemoveRenderComponent(RenderComponent* _renderComponent)
 	{
 		work.erase(std::remove(work.begin(), work.end(), _renderComponent), work.end());
 	}
+	FontManager::Uninitialize();
 }
 
 std::pair<int, int> Renderer::GetWindowsSize()

@@ -49,6 +49,17 @@ using namespace Microsoft::WRL;
 #pragma comment(lib, "DirectXTK.lib")
 #pragma comment(lib, "DirectXTex.lib")
 
+// D2D
+#include "d2d1_1.h"
+#include "d2d1helper.h"
+#include <dwrite.h>
+
+#ifndef DEBUG
+#pragma comment(lib, "d2d1.lib")
+#pragma comment(lib, "dwrite.lib")
+#endif
+#include <directxtk/SpriteFont.h>
+
 namespace DX = DirectX;
 namespace DXMath = DirectX::SimpleMath;
 
