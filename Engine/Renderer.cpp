@@ -80,7 +80,7 @@ void Renderer::D3DDraw()
 		for (auto& data : *modelData->meshs)
 		{
 			auto* meshData = data->GetMeshInfo();
-			//IA ?…ë ¥ ?´ì…ˆë¸”ëŸ¬ ?¤í…Œ?´ì? ?¤ì •
+			//IA 
 			auto* vertexBuffer = meshData->vertexBuffer;
 			d3dDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 			d3dDeviceContext->IASetVertexBuffers(0, 1, vertexBuffer->GetBuffer().GetAddressOf(), &vertexBuffer->vertextBufferStride, &vertexBuffer->vertextBufferOffset); // ?¬ê¸° ë§¨ì•ž ?¬ë¡¯ ë²ˆí˜¸???„í’‹ ?ˆì´?„ì›ƒ ?¬ë¡¯ ë²ˆí˜¸??
@@ -117,11 +117,12 @@ void Renderer::D3DDraw()
 
 			for (auto& textur : material->GetTextures())
 			{ 
-				if (textur->GetTextureTypeIndex() >= 0)
+				if (!textur->GetTextureTypeIndexs().empty())
 				{
-					int indexNum = textur->GetTextureTypeIndex();
-					// std::cout << textur->GetTextureTypeIndex() << " " << textur->GetName() << "\n";
-					d3dDeviceContext->PSSetShaderResources(textur->GetTextureTypeIndex(), 1, textur->GetTexture().GetAddressOf());
+					for (auto textureIndex : textur->GetTextureTypeIndexs()) // setÀ» ¹Ýº¹ÀÚ·Î ¼øÈ¸
+					{
+						d3dDeviceContext->PSSetShaderResources(textureIndex, 1, textur->GetTexture().GetAddressOf());
+					}
 				}
 			}
 
