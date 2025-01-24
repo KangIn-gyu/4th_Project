@@ -2,6 +2,9 @@
 #include "SamplerHeader.hlsli" 
 
 #define GAMMA 2.2f
+static const float PI = 3.14159265359;
+#define MIPMAP_LEVELS 6.0f
+#define PCF_SAMPLES 2   // PCF »ùÇÃ¸µ ¹üÀ§ (3Àº 7x7, 2´Â 5x5, 1Àº 3x3)
 
 // 0 ~ 13 (½½·Ô ¹øÈ£) // (4096 *) 16 byte ´ÜÀ§·Î Á¤·ÄÇØ¾ß ÇÑ´Ù.
 cbuffer MatrixBuffer : register(b0) // ConstantBuffer ½½·Ô
@@ -14,8 +17,14 @@ cbuffer MatrixBuffer : register(b0) // ConstantBuffer ½½·Ô
 cbuffer ObjectBuffer : register(b1) // ConstantBuffer ½½·Ô
 {
     float metalness;
-    float roughness;  
+    float roughness;
 };
+
+cbuffer CameraBuffer : register(b2)
+{
+    float3 eyePosition;
+    float3 lightDirection;
+}
 
 struct VertexInputType
 {
@@ -38,6 +47,7 @@ struct PixelInputType
     float3 Normal   : NORMAL;      // ³ë¸»
     float3 Tangent  : TANGENT;     // ÅºÁ¨Æ® º¤ÅÍ
     float3 Binormal : BINORMAL;    // ¹ÙÀÌ³ë¸Ö º¤ÅÍ
+    float4 LightSpacePos : TEXCOORD2;
 };
 
 struct VS_SKYBOX_INPUT
