@@ -19,8 +19,7 @@ ModelComponent::ModelComponent(std::string_view _filePath)
     rootNode = DeepCopyNode(model->GetModelData()->rootNode, nullptr); // 여기서 모델에 사용할 node 생성
     modelAnimation = model->GetModelData()->animations;
 
-    // TODO : 애니메이션 테스트를 위해 애니메이션이 있을 경우 0번째 인덱스의 애니메이션을 실행하도록 처리
-    
+    // TODO : 애니메이션 테스트를 위해 애니메이션이 있을 경우 0번째 인덱스의 애니메이션을 실행하도록 처리 
     SetAnimation(0);
 }
 
@@ -76,11 +75,6 @@ void ModelComponent::SetAnimation(int _index)
 
     for (auto* animNode : activeAnimation->GetAnimationNodes()) // AnimationNode* 벡터 접근
     {
-        if (nullptr == animNode)
-        {
-            continue;
-        }
-
         // 애니메이션 노드 이름으로 AiNode를 찾음
         auto it = nodeList.find(animNode->GetName());
         if (it != nodeList.end() && nullptr != it->second)

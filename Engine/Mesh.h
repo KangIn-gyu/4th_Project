@@ -30,15 +30,13 @@ class Mesh // 기반 클래스
 
 public:
 	Mesh();
-	~Mesh();
+	virtual ~Mesh();
 
 	Mesh(const Mesh& other);
 	Mesh& operator=(const Mesh& _mesh);
 
 	Mesh(Mesh&& other) noexcept;
 	Mesh& operator=(Mesh&& _mesh) noexcept;
-
-	virtual void Update(const float _deltaTime) {};
 
 	void SetVertexBuffer(VertexBuffer* _vertexBuffer);
 	void SetIndexBuffer(IndexBuffer* _indexBuffer);
@@ -67,5 +65,4 @@ protected:
 private:
 
 };
-
 // 고민 사항 : 해당 매쉬에 이 텍스쳐를 사용해야 되요라고 알려주는게 필요 할수도 있다. 

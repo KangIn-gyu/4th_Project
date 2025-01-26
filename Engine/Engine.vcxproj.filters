@@ -137,6 +137,9 @@
     <Filter Include="4_Resources\ResourceData\Material">
       <UniqueIdentifier>{25c097d7-7933-4066-b5b2-d1eb59e6af62}</UniqueIdentifier>
     </Filter>
+    <Filter Include="0_Utility\MyImGui\Editor\ComponentEditor">
+      <UniqueIdentifier>{6ba90df5-9c1b-49e5-ba87-9cf1604c1a6b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowApp.h">
@@ -204,9 +207,6 @@
     </ClInclude>
     <ClInclude Include="HierarchyWindow.h">
       <Filter>0_Utility\MyImGui\View</Filter>
-    </ClInclude>
-    <ClInclude Include="TransformEditor.h">
-      <Filter>0_Utility\MyImGui\Editor</Filter>
     </ClInclude>
     <ClInclude Include="MeshInformationEditor.h">
       <Filter>0_Utility\MyImGui\Editor</Filter>
@@ -330,6 +330,12 @@
     </ClInclude>
     <ClInclude Include="IClick.h" />
     <ClInclude Include="IOnmouse.h" />
+    <ClInclude Include="TransformEditor.h">
+      <Filter>0_Utility\MyImGui\Editor\ComponentEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationEditor.h">
+      <Filter>0_Utility\MyImGui\Editor\ComponentEditor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WindowApp.cpp">
@@ -376,9 +382,6 @@
     </ClCompile>
     <ClCompile Include="HierarchyWindow.cpp">
       <Filter>0_Utility\MyImGui\View</Filter>
-    </ClCompile>
-    <ClCompile Include="TransformEditor.cpp">
-      <Filter>0_Utility\MyImGui\Editor</Filter>
     </ClCompile>
     <ClCompile Include="MeshInformationEditor.cpp">
       <Filter>0_Utility\MyImGui\Editor</Filter>
@@ -487,6 +490,12 @@
     </ClCompile>
     <ClCompile Include="Material.cpp">
       <Filter>4_Resources\ResourceData\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="TransformEditor.cpp">
+      <Filter>0_Utility\MyImGui\Editor\ComponentEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationEditor.cpp">
+      <Filter>0_Utility\MyImGui\Editor\ComponentEditor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
