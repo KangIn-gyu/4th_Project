@@ -9,6 +9,7 @@ public:
 
 	float GetTickPerSecond() { return tickPerSecond; }
 	float GetDuration() { return duration; }
+	float GetTotalTime() { return totalTime; }
 
 	void SetName(std::string_view _name);
 	void SetDuration(float _val);
@@ -17,6 +18,9 @@ public:
 	void SettingTotalTime();
 
 	void AddAnimationNode(AnimationNode* _aniNode);
+
+	std::vector<AnimationNode*> GetAnimationNodes() { return nodes; }
+	std::string GetName() { return name; }
 private:
 
 public:

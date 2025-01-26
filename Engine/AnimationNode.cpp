@@ -50,16 +50,9 @@ void AnimationNode::Create(aiNodeAnim* _assimpAiNodeAnim, float _tickPerSec, flo
 
 void AnimationNode::Evaluate(const float _progressTime, DXMath::Vector3& _position, DXMath::Quaternion& _rotation, DXMath::Vector3& _scale)
 {
-    if (_progressTime < 0.0f || _progressTime > 1.0f)
-    {
-        std::cout << "Evaluate : ¿À·ù" << '\n';
-        return;
-    }
-
-    float currentTime = _progressTime * animationDuration;
-    _position = InterpolatePosition(currentTime);
-    _rotation = InterpolateRotation(currentTime);
-    _scale = InterpolateScale(currentTime);
+    _position = InterpolatePosition(_progressTime);
+    _rotation = InterpolateRotation(_progressTime);
+    _scale = InterpolateScale(_progressTime);
 }
 
 void AnimationNode::SetName(std::string_view _nodeName)
@@ -71,7 +64,7 @@ DXMath::Vector3 AnimationNode::InterpolatePosition(float _currTime)
 {
     if (positionKeys.empty())
     {
-        return DirectX::SimpleMath::Vector3::Zero;
+        return DXMath::Vector3::Zero;
     }
 
     if (positionKeys.size() == 1)
@@ -84,7 +77,7 @@ DXMath::Vector3 AnimationNode::InterpolatePosition(float _currTime)
         if (positionKeys[i].time >= _currTime)
         {
             float t = (_currTime - positionKeys[i - 1].time) / (positionKeys[i].time - positionKeys[i - 1].time);
-            return DirectX::SimpleMath::Vector3::Lerp(positionKeys[i - 1].position, positionKeys[i].position, t);
+            return DXMath::Vector3::Lerp(positionKeys[i - 1].position, positionKeys[i].position, t);
         }
     }
     return positionKeys.back().position;
@@ -94,7 +87,7 @@ DXMath::Quaternion AnimationNode::InterpolateRotation(float _currTime)
 {
     if (rotationKeys.empty())
     {
-        return DirectX::SimpleMath::Quaternion::Identity;
+        return DXMath::Quaternion::Identity;
     }
 
     if (rotationKeys.size() == 1) 
@@ -107,7 +100,7 @@ DXMath::Quaternion AnimationNode::InterpolateRotation(float _currTime)
         if (rotationKeys[i].time >= _currTime)
         {
             float t = (_currTime - rotationKeys[i - 1].time) / (rotationKeys[i].time - rotationKeys[i - 1].time);
-            return DirectX::SimpleMath::Quaternion::Slerp(rotationKeys[i - 1].rotation, rotationKeys[i].rotation, t);
+            return DXMath::Quaternion::Slerp(rotationKeys[i - 1].rotation, rotationKeys[i].rotation, t);
         }
     }
     return rotationKeys.back().rotation;
@@ -117,7 +110,7 @@ DXMath::Vector3 AnimationNode::InterpolateScale(float _currTime)
 {
     if (scaleKeys.empty()) 
     { 
-        return DirectX::SimpleMath::Vector3::One; 
+        return DXMath::Vector3::One;
     }
 
     if (scaleKeys.size() == 1) 
@@ -130,7 +123,7 @@ DXMath::Vector3 AnimationNode::InterpolateScale(float _currTime)
         if (scaleKeys[i].time >= _currTime)
         {
             float t = (_currTime - scaleKeys[i - 1].time) / (scaleKeys[i].time - scaleKeys[i - 1].time);
-            return DirectX::SimpleMath::Vector3::Lerp(scaleKeys[i - 1].scale, scaleKeys[i].scale, t);
+            return DXMath::Vector3::Lerp(scaleKeys[i - 1].scale, scaleKeys[i].scale, t);
         }
     }
     return scaleKeys.back().scale;

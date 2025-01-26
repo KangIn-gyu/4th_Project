@@ -22,6 +22,8 @@ public:
 	Transform* GetTransform();
 	AiNode* GetRootNode() { return rootNode; }
 
+	void SetAnimation(int _index);
+
 private:
 	AiNode* DeepCopyNode(AiNode* _originalNode, AiNode* _parentNode);
 
@@ -34,6 +36,9 @@ private:
 	AiNode* rootNode;
 	std::unordered_map<std::string ,AiNode*> nodeList;
 
+	std::vector<Animation*>* modelAnimation {};
+	Animation* activeAnimation = nullptr;
 	float progressAnimTime{};
+
 };
 

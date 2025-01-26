@@ -30,7 +30,7 @@ public:
 	void ShowChild();
 	void SetLocalTransform(DX::XMMATRIX _fbxLocalTransform);
 
-//	void AllDelete(); // fbx로드에서 데이터 복사용 로드 지우기용 사용하지마시오.
+	void SetAnimationNode(AnimationNode* _aniNode);
 private:
 
 public:

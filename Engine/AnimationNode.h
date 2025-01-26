@@ -29,6 +29,8 @@ public:
 	void Evaluate(const float _progressTime, DXMath::Vector3& _position, DXMath::Quaternion& _rotation, DXMath::Vector3& _scale);
 	void SetName(std::string_view _nodeName);
 
+	std::string GetName() { return nodeName; }
+
 private:
 	DXMath::Vector3 InterpolatePosition(float _currTime);
 	DXMath::Quaternion InterpolateRotation(float _currTime);

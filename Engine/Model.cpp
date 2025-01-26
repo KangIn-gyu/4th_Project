@@ -7,6 +7,7 @@
 #include "Helper.h"
 #include "StaticMesh.h"
 #include "SkeletalMesh.h"
+#include "Animation.h"
 
 Model::Model()
 {
@@ -74,10 +75,15 @@ void Model::ModelData::Show()
 		std::cout << data->GetFbxIndex()<< " " << data->GetName() << '\n';
 	}
 
+	std::cout << "트리노드 구조" << '\n';
 	for (auto& data : *treeNodes)
 	{
-		std::cout << data->GetName() << " " << data->GetName() << '\n';
+		std::cout << data->GetName() << '\n';
 	}
 
-	// TODO :  애니메이션 정보도 볼 수 있게 처리해야됨
+	std::cout << "애니메이션 구조" << '\n';
+	for (auto& data : *animations)
+	{
+		std::cout << data->GetName() << '\n';
+	}
 }

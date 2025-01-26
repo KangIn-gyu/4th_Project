@@ -13,7 +13,7 @@ class Model : public IResources
 		std::vector<Mesh*>* meshs{};
 		std::vector<Material*>* materials {};
 		std::vector<AiNode*>* treeNodes {};
-		std::vector<Animation*>* animations{};
+		std::vector<Animation*>* animations {};
 		AiNode* rootNode {};
 		
 		void Show();
