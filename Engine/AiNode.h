@@ -2,6 +2,7 @@
 #include "Transform.h"
 
 class Mesh;
+class AnimationNode;
 class AiNode
 {
 public:
@@ -12,7 +13,7 @@ public:
 	AiNode& operator=(const AiNode& _other) = default;   // 복사 대입 연산자
 	AiNode& operator=(AiNode&& _other) noexcept = default; // 이동 대입 연산자
 
-	void Update(const float _deltaTime);
+	void Update(const float _deltaTime, const float _progressTime);
 
 	void AddChild(AiNode* _child);
 	void SetParent(AiNode* _parent);
@@ -35,10 +36,12 @@ private:
 public:
 
 private:
-	std::vector<AiNode*> child;
-	AiNode* parent {};
-	std::string nodeName;
+	std::string nodeName {};
 	Transform transform; // 노드의 트랜스폼  
+	AiNode* parent {};
+
 	Mesh* mesh = nullptr; // 해당 매쉬는 노드와 같은 인덱스의 매쉬이다.
+	AnimationNode* animationNode {};
+	std::vector<AiNode*> child;
 };
 

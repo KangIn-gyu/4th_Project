@@ -90,8 +90,7 @@ void Transform::SetLocalMatrix(const DXMath::Matrix _localMatrix)
 	rotationMatrix._21 /= scale.y; rotationMatrix._22 /= scale.y; rotationMatrix._23 /= scale.y;
 	rotationMatrix._31 /= scale.z; rotationMatrix._32 /= scale.z; rotationMatrix._33 /= scale.z;
 
-	rotation = DXMath::Quaternion::CreateFromRotationMatrix(rotationMatrix);
-	
+	rotation = DXMath::Quaternion::CreateFromRotationMatrix(rotationMatrix);	
 }
 
 void Transform::SetPosition(const DXMath::Vector3 _position)

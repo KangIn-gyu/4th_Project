@@ -6,6 +6,7 @@ class Mesh;
 class Model;
 class Transform;
 class AiNode;
+class Animation;
 class ModelComponent : public Component
 {
 public:
@@ -30,7 +31,9 @@ private:
 	TransformComponent* objectTransform {}; // 오너의 트랜스폼.
 	std::shared_ptr<Model> model;
 
-	std::unordered_map<std::string ,AiNode*> nodeList;
 	AiNode* rootNode;
+	std::unordered_map<std::string ,AiNode*> nodeList;
+
+	float progressAnimTime{};
 };
 

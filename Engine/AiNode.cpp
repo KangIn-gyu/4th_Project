@@ -2,6 +2,7 @@
 #include "AiNode.h"
 #include "Helper.h"
 #include "Mesh.h"
+#include "AnimationNode.h"
 
 AiNode::AiNode()
 {
@@ -89,8 +90,18 @@ AiNode::AiNode(const AiNode& _other)
 //		return *this;
 //	}
 
-void AiNode::Update(const float _deltaTime)
+void AiNode::Update(const float _deltaTime, const float _progressTime)
 {
+	if (nullptr != animationNode)
+	{
+		DXMath::Vector3 position {}, scaling {};
+		DXMath::Quaternion rotation {};
+		animationNode->Evaluate(_progressTime, position, rotation, scaling);
+		transform.SetLocalMatrix({ DirectX::SimpleMath::Matrix::CreateScale(scaling)
+								 * DirectX::SimpleMath::Matrix::CreateFromQuaternion(rotation)
+								 * DirectX::SimpleMath::Matrix::CreateTranslation(position) });
+	}
+
 	transform.UpdateTransform(); // Transform에 맞는 업데이트 구현 필요
 
 	// 자식 노드들에 대해 재귀적으로 Update 호출
@@ -98,7 +109,7 @@ void AiNode::Update(const float _deltaTime)
 	{
 		if (childNode) 
 		{
-			childNode->Update(_deltaTime);
+			childNode->Update(_deltaTime, _progressTime);
 		}
 	}
 }

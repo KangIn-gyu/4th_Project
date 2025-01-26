@@ -106,11 +106,16 @@ void D3DClass::InitD3D()
 
 	// 디버그 기능 활성화
 	UINT creationFlags = D3D11_CREATE_DEVICE_DEBUG | D3D11_CREATE_DEVICE_BGRA_SUPPORT;
+
 #ifdef _DEBUG
+	// 디버그 모드에서는 디버그 플래그를 추가
 	creationFlags = D3D11_CREATE_DEVICE_DEBUG | D3D11_CREATE_DEVICE_BGRA_SUPPORT;
-	D3D_FEATURE_LEVEL featureLevel;
+#else
+	// 릴리즈 모드에서는 디버그 플래그를 제외
+	creationFlags = D3D11_CREATE_DEVICE_BGRA_SUPPORT;
 #endif
 
+	D3D_FEATURE_LEVEL featureLevel;
 	
 	// 1. 장치 생성.   2. 스왑체인 생성.  3. 장치 컨텍스트 생성.
 	HR_T(D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, creationFlags, NULL, NULL,
@@ -153,6 +158,7 @@ void D3DClass::InitDXGI()
 
 void D3DClass::MemoryLick()
 {
+#ifdef _DEBUG
 	HMODULE dxgiDebugDll = GetModuleHandleW(L"dxgidebug.dll");
 	if (dxgiDebugDll == nullptr)
 	{
@@ -161,7 +167,7 @@ void D3DClass::MemoryLick()
 	}
 
 	decltype(&DXGIGetDebugInterface) GetDebugInterface = reinterpret_cast<decltype(&DXGIGetDebugInterface)>(GetProcAddress(dxgiDebugDll, "DXGIGetDebugInterface"));
-	
+
 	IDXGIDebug* debug = nullptr;
 	GetDebugInterface(IID_PPV_ARGS(&debug));
 
@@ -169,6 +175,7 @@ void D3DClass::MemoryLick()
 	debug->ReportLiveObjects(DXGI_DEBUG_ALL, DXGI_DEBUG_RLO_SUMMARY); // https://learn.microsoft.com/ko-kr/windows/win32/api/dxgidebug/ne-dxgidebug-dxgi_debug_rlo_flags
 	OutputDebugStringW(L"----------Completed Live Direct3D Object Dump----------\r\n");
 	debug->Release();
+#endif
 }
 
 DXGI_SWAP_CHAIN_DESC D3DClass::CreateSwapDesc()

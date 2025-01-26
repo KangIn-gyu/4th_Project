@@ -56,6 +56,16 @@ void Model::SetMateria(std::vector<Material*>* _materials)
 	data->materials = _materials;
 }
 
+void Model::SetAnimation(std::vector<Animation*>* _animations)
+{
+	data->animations = _animations;
+}
+
+void Model::SetNodes(std::vector<AiNode*>* _nodes)
+{
+	data->treeNodes = _nodes;
+}
+
 void Model::ModelData::Show()
 {
 	std::cout << "모델 데이터 확인용" << '\n';
@@ -64,8 +74,10 @@ void Model::ModelData::Show()
 		std::cout << data->GetFbxIndex()<< " " << data->GetName() << '\n';
 	}
 
-	for (auto& data : *treeNode)
+	for (auto& data : *treeNodes)
 	{
 		std::cout << data->GetName() << " " << data->GetName() << '\n';
 	}
+
+	// TODO :  애니메이션 정보도 볼 수 있게 처리해야됨
 }

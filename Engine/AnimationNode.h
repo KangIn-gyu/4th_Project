@@ -1,4 +1,5 @@
 #pragma once
+#include <assimp/anim.h>
 
 struct PositionKey
 {
@@ -25,12 +26,13 @@ public:
 	~AnimationNode() = default;
 
 	void Create(aiNodeAnim* _assimpAiNodeAnim, float _tickPerSec, float _totalAnimationTime);
-	void Evaluate(const float& _progressTime, DXMath::Vector3& _position, DXMath::Quaternion& _rotation, DXMath::Vector3& _scale);
+	void Evaluate(const float _progressTime, DXMath::Vector3& _position, DXMath::Quaternion& _rotation, DXMath::Vector3& _scale);
 	void SetName(std::string_view _nodeName);
+
 private:
-	DXMath::Vector3 InterpolatePosition(float& currTime);
-	DXMath::Quaternion InterpolateRotation(float& currTime);
-	DXMath::Vector3 InterpolateScale(float& currTime);
+	DXMath::Vector3 InterpolatePosition(float _currTime);
+	DXMath::Quaternion InterpolateRotation(float _currTime);
+	DXMath::Vector3 InterpolateScale(float _currTime);
 
 public:
 
@@ -41,6 +43,6 @@ private:
 	std::vector<ScaleKey>    scaleKeys;
 
 	std::string nodeName;
-	float animationDuration;
+	float animationDuration; // 애니메이션의 총 시간
 };
 

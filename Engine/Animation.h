@@ -24,7 +24,7 @@ public:
 private:
 	std::vector<AnimationNode*> nodes;
 	std::string name{};
-	float duration {};      //  
+	float duration {};      // 전체 틱(Tick) 수
 	float tickPerSecond {}; // 초당 틱
 	float totalTime {};		// 애니메이션 총 시간
 	float currTime {};		// 현재 애니메이션 시간

@@ -6,6 +6,7 @@
 #include "../Engine/TransformComponent.h"
 #include "../Engine/SceneManager.h"
 #include "../Engine/Model.h"
+
 Button::Button(std::string_view _name, Object::ObjectType _type,std::function<void(void)> _func) : Object(_name, _type)
 {
 	clickFunc = _func;

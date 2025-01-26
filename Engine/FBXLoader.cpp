@@ -41,11 +41,14 @@ std::shared_ptr<Model> FBXLoader::FBXLoad(std::string_view _filePath)
 		return nullptr;
 	} 
 
+	std::shared_ptr<Model> modelData = std::make_shared<Model>(); // 모델에 관련된 정보 데이터 저장용
+
 	// 이 조건문은 좀 더 고민이 필요하다 뼈가 없어도 애니메이션이 가능한 것도 있는데
 	if (scene->HasAnimations() || HasBones(scene)) 
 	{ // 추후 애니메이션 처리용
 		isStaticMesh = false;
-		ProcessAnimation(scene);
+		ProcessAnimation(scene, filePathKEY);
+		modelData->SetAnimation(&animationMap.find(filePathKEY)->second);
 	}
 
 	if (true == isStaticMesh)
@@ -56,13 +59,12 @@ std::shared_ptr<Model> FBXLoader::FBXLoad(std::string_view _filePath)
 	importer.SetPropertyBool(AI_CONFIG_IMPORT_FBX_PRESERVE_PIVOTS, 0);
 
 	aiNode* rootaiNode = scene->mRootNode; // 어심프 노드
-	std::shared_ptr<Model> modelData = std::make_shared<Model>(); // 모델에 관련된 정보 데이터 저장용
 	AiNode* rootNode{}; // 내가 만든 AiNode 데이터 저장용
 
 	auto treeNode = aiNodeMap.find(filePathKEY); // aiNode가 있는지 확인
 	if (treeNode != aiNodeMap.end()) // 맵을 통해 해당 노드를 생성한지 확인해 본다. 맵에서 찾았을때 없으면 처음 로드하는 것
 	{ // 존재할 경우
-		modelData->GetModelData()->treeNode = &treeNode->second;
+		modelData->SetNodes(&treeNode->second);
 	}
 	else
 	{ // 없을 경우는 트리 노드를 받아서 생성
@@ -80,7 +82,7 @@ std::shared_ptr<Model> FBXLoader::FBXLoad(std::string_view _filePath)
 				ProcessMaterial(scene, filePathKEY);
 			}
 
-			modelData->GetModelData()->treeNode = &aiNodeMap[filePathKEY];
+			modelData->GetModelData()->treeNodes = &aiNodeMap[filePathKEY];
 		}	
 	} 
 	modelData->GetModelData()->rootNode = rootNode;
@@ -364,8 +366,15 @@ void FBXLoader::ProcessMaterial(const aiScene* _scene, const std::string_view _m
    }
 }
 
-void FBXLoader::ProcessAnimation(const aiScene* scene)
+void FBXLoader::ProcessAnimation(const aiScene* scene, const std::string_view _filePath)
 {
+	auto animationData = animationMap.find(_filePath.data());
+	if (animationData != animationMap.end())
+	{ // 이미 해당하는 데이터가 있으면 나가게 처리
+		return;
+	}
+
+	std::vector<Animation*> animations; // 애니메이션 모음을 저장하는 벡터
 	for (unsigned int i = 0; i < scene->mNumAnimations; i++)
 	{
 		aiAnimation* Aianimation = scene->mAnimations[i];
@@ -381,15 +390,16 @@ void FBXLoader::ProcessAnimation(const aiScene* scene)
 			{
 				aiNodeAnim* channel = Aianimation->mChannels[channelIndex];
 				std::string nodeName = channel->mNodeName.C_Str();
-				int arrSize = static_cast<int>(channel->mNumPositionKeys);
-
 				AnimationNode* animationNode = new AnimationNode;
-				animationNode->Create(channel, myAnimation->GetTickPerSecond(), myAnimation->GetDuration());
 				animationNode->SetName(channel->mNodeName.C_Str());
+				animationNode->Create(channel, myAnimation->GetTickPerSecond(), myAnimation->GetDuration());
 				myAnimation->AddAnimationNode(animationNode);
 			}
 		}
+		animations.push_back(myAnimation);
 	}
+
+	animationMap[_filePath.data()] = animations;
 }
 
 void FBXLoader::AllShow()
@@ -474,22 +484,6 @@ void FBXLoader::FindShow(std::string_view _filePath)
 	{
 		std::cout << "해당 경로의 Materials에 정보가 없습니다. " << filepath << '\n';
 	}
-}
-
-std::vector<AiNode*> FBXLoader::DeepCopyAiNodes(std::string_view key)
-{
-	std::vector<AiNode*> copiedNodes;
-
-	if (aiNodeMap.find(key.data()) != aiNodeMap.end()) 
-	{
-		for (const auto& node : aiNodeMap[key.data()])
-		{
-			AiNode* newNode = new AiNode(*node);
-			copiedNodes.push_back(newNode);
-		}
-	}
-
-	return copiedNodes;
 }
 
 void FBXLoader::ShowMaterials()
@@ -584,6 +578,7 @@ FBXLoader::~FBXLoader()
 	SafeExtinction::SAFE_CLEAR_CONTAINER(meshMap);
 	SafeExtinction::SAFE_CLEAR_CONTAINER(materials);
 	SafeExtinction::SAFE_CLEAR_CONTAINER(aiNodeMap);
+	SafeExtinction::SAFE_CLEAR_CONTAINER(animationMap);
 }
 
 DX::XMMATRIX ConvertMatrix(const aiMatrix4x4& _matrix) // 여기서만 사용하는 함수

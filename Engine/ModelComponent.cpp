@@ -31,7 +31,7 @@ void ModelComponent::ComponentInitialize()
 
 void ModelComponent::ComponentUpdate(const float _deltaTime)
 {
-    rootNode->Update(_deltaTime);
+    rootNode->Update(_deltaTime, 1.0f); // TODO : 애니메이션 프로세스 시간 넣어야 됨
 }
 
 Transform* ModelComponent::GetTransform()
