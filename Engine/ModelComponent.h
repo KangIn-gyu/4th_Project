@@ -23,6 +23,9 @@ public:
 	AiNode* GetRootNode() { return rootNode; }
 
 	void SetAnimation(int _index);
+	std::vector<Animation*>* GetAnimations() { return modelAnimation; }
+	int GetActiveAnimationIndex();
+	void StopAnimation();
 
 private:
 	AiNode* DeepCopyNode(AiNode* _originalNode, AiNode* _parentNode);
@@ -41,4 +44,4 @@ private:
 	float progressAnimTime{};
 
 };
-
+// 모델 컴포넌트에 애니메이션까지 포함해서 처리하게 했다

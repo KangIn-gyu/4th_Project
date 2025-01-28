@@ -9,7 +9,7 @@ public:
 	CameraObject(std::string_view _name , Object::ObjectType type = Object::ObjectType::Camera);
 	virtual ~CameraObject() {};
 
-	virtual void Start() override;
+	virtual void Initialize() override;
 	virtual void Update(const float _deltaTime);
 	virtual void FixedUpdate() override {};
 	virtual void LateUpdate() override {};

@@ -3,7 +3,7 @@
 #include "Hand.h"
  
 
-void Player::Start()
+void Player::Initialize()
 {
 	
 }

@@ -13,7 +13,7 @@ class Player : public SingletonBase<Player>
 
 public:
 	
-	virtual void Start();
+	virtual void Initialize();
 	virtual void Update(const float _deltaTime) {};
 	virtual void FixedUpdate() {}
 	virtual void LateUpdate() {}

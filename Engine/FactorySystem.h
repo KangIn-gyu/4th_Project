@@ -7,16 +7,21 @@
 template <typename T>
 concept succession_Object = std::derived_from<T, Object>;
 
+template <typename T, typename... Args>
+concept ObjectArgs = requires(Args&&... args)
+{
+	{ T(std::forward<Args>(args)...) } -> std::same_as<T>;  // 생성자가 올바르게 작동하는지 체크
+};
+
 class CameraObject;
 class FactorySystem : public SingletonBase<FactorySystem>
 {
 	friend class SingletonBase<FactorySystem>;
 public:
-	template<succession_Object T>
-	T* CreateObject(std::string_view _objName , Object::ObjectType _type);
-
 	template<succession_Object T, typename ... Arg>
-	T* CreateObject(Arg&& ... _arguments);
+	T* CreatorObject(Arg&& ... _arguments);
+
+
 private:
 
 public:
@@ -25,33 +30,19 @@ private:
 
 };
 
-template<succession_Object T>
-T* FactorySystem::CreateObject(std::string_view _objName, Object::ObjectType _type)
+template<succession_Object T, typename ... Arg>
+T* FactorySystem::CreatorObject(Arg&& ... _arguments)
 {
-	if (_type == Object::ObjectType::Basic && !std::is_same_v<T, CameraObject*>) // ! 카메라 오브젝트가 아니면 참
+	if constexpr (ObjectArgs<T, Arg...>)
 	{
-		return new T(_objName, _type);
-	}
-	else if(_type == Object::ObjectType::Camera && std::is_same_v<T, CameraObject>)// 카메라 오브젝트가 맞으면 참
-	{
-		return new T(_objName, _type);
+		return new T(std::forward<Arg>(_arguments)...);
 	}
 	else
 	{
-		std::cout << "오브젝트 생성 실패" << std::endl;
-		return nullptr;
+		static_assert(ObjectArgs <T, Arg...>,
+			"해당 오브젝트의 생성자 파라미터가 맞지 않습니다.");
 	}
 }
 
-
-template<succession_Object T, typename ... Arg>
-T* FactorySystem::CreateObject(Arg&& ... _arguments)
-{
-		auto* newobj = new T(_arguments...);
-		return newobj;	
-}
-
-
-
-
 // registerType있는게 확장성으로 좋은데 소규모 프로젝트이기 때문에 간단하게 작성함
+// TODO : 오브젝트 필링 효과를 여기다 만들어야 될가? 고민중

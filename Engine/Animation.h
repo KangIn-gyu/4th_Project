@@ -10,12 +10,14 @@ public:
 	float GetTickPerSecond() { return tickPerSecond; }
 	float GetDuration() { return duration; }
 	float GetTotalTime() { return totalTime; }
+	float GetCurrTime() { return currTime; }
 
 	void SetName(std::string_view _name);
 	void SetDuration(float _val);
 	void SetTickPerSecond(float _val);
 	void SetTotalTime(float _val);
 	void SettingTotalTime();
+	void SetCurrTime(float _val);
 
 	void AddAnimationNode(AnimationNode* _aniNode);
 

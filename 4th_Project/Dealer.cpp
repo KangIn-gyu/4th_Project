@@ -12,7 +12,7 @@ Dealer::Dealer(std::string_view _name, Object::ObjectType _type) : Object(_name,
 
 }
 
-void Dealer::Start()
+void Dealer::Initialize()
 {
 	CreateComponent<ModelComponent>("STAGE1/FBX/asdq.fbx");  // char2 / gun // asdq
 	CreateComponent<RenderComponent>();

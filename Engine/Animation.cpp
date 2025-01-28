@@ -33,6 +33,11 @@ void Animation::SettingTotalTime()
 	}
 }
 
+void Animation::SetCurrTime(float _val)
+{
+	currTime = _val;
+}
+
 void Animation::AddAnimationNode(AnimationNode* _aniNode)
 {
 	nodes.emplace_back(_aniNode);

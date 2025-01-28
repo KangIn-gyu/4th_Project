@@ -57,7 +57,7 @@ void TransformEditor::Draw()
             }
 
             DXMath::Matrix localMatrix = transform->GetLocalMatrix();
-            if (ImGui::CollapsingHeader("Local Matrix", ImGuiTreeNodeFlags_DefaultOpen))
+            if (ImGui::TreeNode("Local Matrix"))
             {
                 for (int row = 0; row < 4; ++row)
                 {
@@ -67,11 +67,12 @@ void TransformEditor::Draw()
                         localMatrix.m[row][2],
                         localMatrix.m[row][3]);
                 }
+                ImGui::TreePop();
             }
 
             // 월드 매트릭스 표시
             DXMath::Matrix worldMatrix = transform->GetWorldMatrix(); // 월드 매트릭스 가져오기
-            if (ImGui::CollapsingHeader("World Matrix", ImGuiTreeNodeFlags_DefaultOpen))
+            if (ImGui::TreeNode("World Matrix"))
             {
                 for (int row = 0; row < 4; ++row)
                 {
@@ -81,6 +82,7 @@ void TransformEditor::Draw()
                         worldMatrix.m[row][2],
                         worldMatrix.m[row][3]);
                 }
+                ImGui::TreePop();
             }
         }
     }
@@ -118,7 +120,7 @@ void TransformEditor::Draw()
             }
 
             DXMath::Matrix localMatrix = transform->GetLocalMatrix();
-            if (ImGui::CollapsingHeader("Local Matrix", ImGuiTreeNodeFlags_DefaultOpen))
+            if (ImGui::TreeNode("Local Matrix"))
             {
                 for (int row = 0; row < 4; ++row)
                 {
@@ -128,11 +130,12 @@ void TransformEditor::Draw()
                         localMatrix.m[row][2],
                         localMatrix.m[row][3]);
                 }
+                ImGui::TreePop();
             }
 
             // 월드 매트릭스 표시
             DXMath::Matrix worldMatrix = transform->GetWorldMatrix(); // 월드 매트릭스 가져오기
-            if (ImGui::CollapsingHeader("World Matrix", ImGuiTreeNodeFlags_DefaultOpen))
+            if (ImGui::TreeNode("World Matrix"))
             {
                 for (int row = 0; row < 4; ++row)
                 {
@@ -142,6 +145,7 @@ void TransformEditor::Draw()
                         worldMatrix.m[row][2],
                         worldMatrix.m[row][3]);
                 }
+                ImGui::TreePop();
             }
 
             if (nullptr != transform->GetParent())

@@ -330,11 +330,14 @@
     </ClInclude>
     <ClInclude Include="IClick.h" />
     <ClInclude Include="IOnmouse.h" />
+    <ClInclude Include="AnimationEditor.h">
+      <Filter>0_Utility\MyImGui\Editor\ComponentEditor</Filter>
+    </ClInclude>
     <ClInclude Include="TransformEditor.h">
       <Filter>0_Utility\MyImGui\Editor\ComponentEditor</Filter>
     </ClInclude>
-    <ClInclude Include="AnimationEditor.h">
-      <Filter>0_Utility\MyImGui\Editor\ComponentEditor</Filter>
+    <ClInclude Include="Layer.h">
+      <Filter>5_Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -491,11 +494,14 @@
     <ClCompile Include="Material.cpp">
       <Filter>4_Resources\ResourceData\Material</Filter>
     </ClCompile>
+    <ClCompile Include="AnimationEditor.cpp">
+      <Filter>0_Utility\MyImGui\Editor\ComponentEditor</Filter>
+    </ClCompile>
     <ClCompile Include="TransformEditor.cpp">
       <Filter>0_Utility\MyImGui\Editor\ComponentEditor</Filter>
     </ClCompile>
-    <ClCompile Include="AnimationEditor.cpp">
-      <Filter>0_Utility\MyImGui\Editor\ComponentEditor</Filter>
+    <ClCompile Include="Layer.cpp">
+      <Filter>5_Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

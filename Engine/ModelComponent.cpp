@@ -18,9 +18,6 @@ ModelComponent::ModelComponent(std::string_view _filePath)
     model->GetModelData()->Show();
     rootNode = DeepCopyNode(model->GetModelData()->rootNode, nullptr); // 여기서 모델에 사용할 node 생성
     modelAnimation = model->GetModelData()->animations;
-
-    // TODO : 애니메이션 테스트를 위해 애니메이션이 있을 경우 0번째 인덱스의 애니메이션을 실행하도록 처리 
-    SetAnimation(0);
 }
 
 ModelComponent::~ModelComponent()
@@ -45,6 +42,7 @@ void ModelComponent::ComponentUpdate(const float _deltaTime)
         {
             progressAnimTime = 0.f;
         }
+        activeAnimation->SetCurrTime(progressAnimTime);
     }
 
     rootNode->Update(_deltaTime, progressAnimTime); // TODO : 애니메이션 프로세스 시간 넣어야 됨
@@ -98,6 +96,17 @@ void ModelComponent::SetAnimation(int _index)
             node->SetAnimationNode(nullptr);
         std::ranges::
     }*/
+}
+
+int ModelComponent::GetActiveAnimationIndex()
+{
+    auto it = std::find(modelAnimation->begin(), modelAnimation->end(), activeAnimation);
+    return (it != modelAnimation->end()) ? std::distance(modelAnimation->begin(), it) : -1;
+}
+
+void ModelComponent::StopAnimation()
+{
+    activeAnimation = nullptr;
 }
 
 AiNode* ModelComponent::DeepCopyNode(AiNode* _originalNode, AiNode* _parentNode)

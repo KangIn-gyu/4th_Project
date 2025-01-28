@@ -37,20 +37,20 @@ void GambleScene::Enter()
 
 	///CreatorObject<Button>("Button", Object::ObjectType::Basic, DXMath::Vector3{ 200, 100, 0},  ClickFunc::OpenButton);
 	//CreatorObject<Button>("Button", Object::ObjectType::Basic, DXMath::Vector3{ 400, 100, 0 }, ClickFunc::HitButton);
-	CreatorObject<Button>("Button", Object::ObjectType::Basic, DXMath::Vector3{ 600, 100, 0 }, ClickFunc::StayButton);
-
-	auto button1 = objectManager->GetGameObject<Button>(Object::ObjectType::Basic, "Button");
-	CreatorObject<Button>("Button", Object::ObjectType::Basic, DXMath::Vector3{ 800, 100, 0 }, [button1]()
-		{
-			DXMath::Vector3 currentPosition = button1->GetComponent<TransformComponent>()->GetPosition();
-
-			// x 값에 50 더하기
-			currentPosition.y += 50;
-
-			// 업데이트된 위치 설정
-			button1->GetComponent<TransformComponent>()->SetPosition(currentPosition);
-		}
-	);
+//	CreatorObject<Button>("Button", Layer::Tag::Basic, DXMath::Vector3{ 600, 100, 0 }, ClickFunc::StayButton);
+//
+//	auto button1 = objectManager->GetGameObject<Button>(Layer::Tag::Basic, "Button");
+//	CreatorObject<Button>("Button", Layer::Tag::Basic, DXMath::Vector3{ 800, 100, 0 }, [button1]()
+//		{
+//			DXMath::Vector3 currentPosition = button1->GetComponent<TransformComponent>()->GetPosition();
+//
+//			// x 값에 50 더하기
+//			currentPosition.y += 50;
+//
+//			// 업데이트된 위치 설정
+//			button1->GetComponent<TransformComponent>()->SetPosition(currentPosition);
+//		}
+//	);
 	
 	
 }

@@ -8,7 +8,7 @@
 #include "MeshInformationEditor.h"
 #include "TextureInformationEditor.h"
 #include "CameraInformationEditor.h"
-
+#include "AnimationEditor.h"
 #include <imgui.h>
 InspectorWindow::InspectorWindow()
 {
@@ -28,6 +28,7 @@ void InspectorWindow::Initialize()
 	editors.push_back(new MeshInformationEditor());		 // 1
 	editors.push_back(new TextureInformationEditor());	 // 2
 	editors.push_back(new CameraInformationEditor());	 // 3
+	editors.push_back(new AnimationEditor());			 // 4
 }
 
 void InspectorWindow::Update()
@@ -73,6 +74,7 @@ void InspectorWindow::SetSelectedObject(Object* _obj)
 {
 	selectedObject = _obj;
 	static_cast<TransformEditor*>(editors[0])->SetSelectedObject(selectedObject);
+	static_cast<AnimationEditor*>(editors[4])->SetSelectedObject(selectedObject);
 	if (nullptr != _obj && _obj->GetObjectType() == Object::ObjectType::Camera)
 	{
 		static_cast<CameraInformationEditor*>(editors[3])->OnEnable();

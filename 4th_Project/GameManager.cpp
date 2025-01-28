@@ -48,7 +48,6 @@ void GameManager::Update(float _deltaTime)
 		{
 			elapsedTime += _deltaTime;
 
-
 			if (elapsedTime > 1.0)
 			{
 				player->CardDraw(deck); //1초에한장 딜레이주기 카드위치선정 ******
@@ -87,12 +86,7 @@ void GameManager::Update(float _deltaTime)
 			//dealer->lose
 		}
 	}
-
-	
-	
 }
-
-
 
 void GameManager::DealerTurn(float _deltaTime)
 {
@@ -106,7 +100,6 @@ void GameManager::DealerTurn(float _deltaTime)
 void GameManager::CheckVictory(float _deltaTime)
 {
 	//승패계산
-
 
 	if (player->GetScore() == dealer->GetScore())
 	{

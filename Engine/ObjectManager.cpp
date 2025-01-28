@@ -49,7 +49,7 @@ const std::unordered_map<Object::ObjectType, std::vector<Object*>> ObjectManager
 void ObjectManager::BasicObject()
 { // TODO: 현재 라이트가 없음 추가 필요
 
-	auto* mainCamera = FACTORYSYSTEM->CreateObject<CameraObject>("MainCamera", Object::ObjectType::Camera);
+	auto* mainCamera = FACTORYSYSTEM->CreatorObject<CameraObject>("MainCamera", Object::ObjectType::Camera);
 	mainCamera->GetComponent<TransformComponent>()->SetPosition({ 0, 0, -300.0f });
 	Objects[Object::ObjectType::Camera].push_back(mainCamera);
 }
@@ -70,7 +70,7 @@ void ObjectManager::Initialize()
 	{
 		for (int i = 0; i < obj.second.size(); i++)
 		{
-			obj.second[i]->Start();
+			obj.second[i]->Initialize();
 		}
 	}
 }

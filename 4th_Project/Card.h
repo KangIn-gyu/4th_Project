@@ -15,7 +15,7 @@ std::string enumToString(Suit _suit);
 class Card : public Object, public IClick, public IOnmouse
 {
 public:
-	Card(std::string_view _name, Object::ObjectType _type, Suit _suit,std::string _rank);
+	Card(std::string_view _name, Object::ObjectType _type, Suit _suit, std::string _rank);
 	virtual ~Card() override;
 	virtual void Start();
 	virtual void Update(const float _deltaTime) {};

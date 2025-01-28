@@ -7,11 +7,11 @@
 #include "../Engine/SceneManager.h"
 #include "../Engine/Model.h"
 
-Button::Button(std::string_view _name, Object::ObjectType _type,std::function<void(void)> _func) : Object(_name, _type)
+Button::Button(std::string_view _name, Object::ObjectType _type, std::function<void(void)> _func) : Object(_name, _type)
 {
 	clickFunc = _func;
 	
-	CreateComponent<ModelComponent>("STAGE1/FBX/" + name + ".fbx");  //이미지 이름이랑 같게 name .fbx
+//	CreateComponent<ModelComponent>("STAGE1/FBX/" + name + ".fbx");  //이미지 이름이랑 같게 name .fbx
 	CreateComponent<RenderComponent>();
 
 	GetComponent<TransformComponent>()->SetPosition({ 200,0,0 });  //생성할떄 저장한거 받아오게끔
@@ -21,15 +21,14 @@ Button::Button(std::string_view _name, Object::ObjectType _type, DXMath::Vector3
 {
 	clickFunc = _func;
 
-	CreateComponent<ModelComponent>("STAGE1/FBX/" + name + ".fbx");
+//	CreateComponent<ModelComponent>("STAGE1/FBX/" + name + ".fbx");
 	CreateComponent<RenderComponent>();
 
 	GetComponent<TransformComponent>()->SetPosition(_pos);  
 }
 
-void Button::Start()
+void Button::Initialize()
 {
-	
 	CreateComponent<BoxCollider>();
 	DXMath::Vector3 extent = GetComponent<ModelComponent>()->GetModel().get()->extent;
 	GetComponent<BoxCollider>()->SetBox({ GetComponent<TransformComponent>()->GetPosition() }, extent,

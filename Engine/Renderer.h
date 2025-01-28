@@ -9,7 +9,7 @@
 #define RENDERER Renderer::GetInstance()
 
 typedef DirectX::XMFLOAT4		COLOR;
-
+// TODO : 씬 체인지 할때 렌더러 컴포넌트 다시 수집하는걸 만들어야 한다. 구조 계선이 필요
 class RenderComponent;
 struct WindowInfo;
 class Renderer : public SingletonBase<Renderer>

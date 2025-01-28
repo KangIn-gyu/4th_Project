@@ -77,7 +77,7 @@ void Card::OnClick()
 
 void Card::OnMouse()
 {
-	std::cout << "현재 마우스가 " << name << " 오브젝트 위에 있습니다" << std::endl;
+	std::cout << "현재 마우스가 " << GetName() << " 오브젝트 위에 있습니다" << std::endl;
 }
 
 std::string enumToString(Suit _suit)

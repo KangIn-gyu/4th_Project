@@ -8,48 +8,77 @@
 class Object // 기반 클래스
 {
 public:
-	enum class ObjectType // 추후 더 추가 하자 이걸 Tag로 생각하자 일단
+	enum class State
 	{
-		Basic,
-		Light,
+		Active,  // 실행
+		Paused,  // 일시 정지
+		Dead,    // 죽음
+		Erase,   // 삭제
+		Next,    // 다음씬에 넘김
+		End
+	};
+
+	enum class ObjectType // 이거 수정하면 Layer 태그도 수정해야됨.
+	{
+		Background,
 		Camera,
+		Light,
+		Basic,
 		UI,
 		End
 	};
 
-	Object() {};
+//	Object() {};
 	Object(std::string_view _name , Object::ObjectType _type = ObjectType::Basic); // 명시 안해놓으면 기본 오브젝트로 생성
 	virtual ~Object() { ClearComponents(); }
 
 	void ComponentsUpdate(const float _deltaTime);
 
-	virtual void Start() {};  // 용도 : 내가 필요한 컴포넌트 생성하는 곳 초기화나
+	virtual void Initialize() {};  // 용도 : 내가 필요한 컴포넌트 생성하는 곳 초기화나
 	virtual void Update(const float _deltaTime) {}; // 용도 : 오브젝트 개인의 업데이트가 필요할때 정의
 	virtual void FixedUpdate() {}
 	virtual void LateUpdate() {}
 
+	State GetState() { return state; }
 	ObjectType GetObjectType() { return type; }
 	std::string ObjectTypeToString();
 	
 	std::string GetName() { return name; }
 
+	void SetState(State _state) { state = _state; } // 오브젝트의 상태 변경
+
 	template<ComponentType T>
 	T* GetComponent(int _index = 0); // 기본 인덱스는 0으로 함
 
+	bool IsActive() const;
+	bool IsDead() const;
+
+	void SetActive(bool _state);
+	void Erase();
+
+	int GetLayerOrder() { return layerOrder; };
+
+	bool operator<(const Object& other) const
+	{
+		// 예시로 layerOrder를 기준으로 정렬
+		return this->layerOrder < other.layerOrder;
+	}
 protected:
 	template<ComponentType T, typename ... Arg> // 함수 오버로드함
-	void CreateComponent(Arg&&... _arguments);
+	T* CreateComponent(Arg&&... _arguments);
 
 private:
 	void ClearComponents();
 
 public:
-	std::string name;
+
 protected:
-	ObjectType type;  // 해당 타입은 set 만들면 안됨.
-	
+	int layerOrder{}; // 2D일때 그리는 순서 정하게 할 경우
 
 private:
+	std::string name;
+	State state = State::Active;  // 해당 타입은 set 만들면 안됨.
+	ObjectType type;
 	std::unordered_map<std::type_index, std::vector<Component*>> components;
 };
 
@@ -60,7 +89,7 @@ concept ComponentConstructibleWithArgs = requires(Args&&... args)
 };
 
 template<ComponentType T, typename ... Arg>
-inline void Object::CreateComponent(Arg&& ... _arguments)
+T* Object::CreateComponent(Arg&& ... _arguments)
 {
 	if constexpr (sizeof...(_arguments) == 0)
 	{
@@ -69,6 +98,7 @@ inline void Object::CreateComponent(Arg&& ... _arguments)
 		newComponent->ComponentInitialize();
 		if(nullptr != newComponent) // 이렇게 처리한 이유는 카메라 컴포넌트가 오브젝트 타입이 카메라가 아니면 오너를 삭제시킨다
 		components[typeid(T)].emplace_back(std::move(newComponent));
+		return newComponent;
 	}
 	else
 	{
@@ -79,6 +109,7 @@ inline void Object::CreateComponent(Arg&& ... _arguments)
 			newComponent->ComponentInitialize();
 			if (nullptr != newComponent)
 			components[typeid(T)].emplace_back(std::move(newComponent));
+			return newComponent;
 		}
 		else
 		{ 

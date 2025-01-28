@@ -18,6 +18,7 @@
 #include <vector>
 #include <unordered_map>
 #include <set>
+#include <ranges>
 
 // 포인터 관련
 #include <memory>

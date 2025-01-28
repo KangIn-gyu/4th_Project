@@ -21,7 +21,6 @@
 #include "AiNode.h"
 #include "TransformComponent.h"
 
-
 void Renderer::Initialize(WindowInfo* _windowInfo)
 {
 	D3DGraphics = std::make_unique<D3DClass>();

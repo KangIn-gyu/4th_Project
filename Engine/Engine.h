@@ -20,7 +20,6 @@ public:
 	WindowInfo* GetWindowInfo() const;
 	void SetWindowApp(WindowApp* _window) { clientApp = _window; }
 
-
 	void SetWindowSize(int _width, int _height);
 	DXMath::Vector2 GetWindowSize();
 	void ChangeScene(std::string_view _SceneName);
@@ -32,6 +31,7 @@ private:
 	Engine(Engine&& _engine) noexcept = delete;
 
 	void Update(const float _deltaTime);
+	void RateUpdate(const float _deltaTime);
 	void Render(const float _deltaTime);
 
 // º¯¼ö
