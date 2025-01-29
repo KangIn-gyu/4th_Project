@@ -38,7 +38,7 @@ namespace DXMath = DirectX::SimpleMath;
 #endif
 
 // 라이브러리 코드 (new가 재정의되지 않음)
-#include "../Engine/jjson.hpp"
+#include <nlohmann/json.hpp>
 
 #ifdef _DEBUG
 #define new new(_NORMAL_BLOCK, __FILE__, __LINE__) // 다시 재정의 (필요한 경우)

@@ -11,6 +11,7 @@ class VertexBuffer;
 class Material;
 class Model;
 class Animation;
+class SkeletonInfo;
 class FBXLoader
 {
 public:
@@ -36,6 +37,7 @@ private:
 	void ProcessMaterial(const aiScene* _scene, const std::string_view _modelFilePath);
 
 	void ProcessAnimation(const aiScene* scene, const std::string_view _filePath);
+	void ProcessSkeletonInfo(aiNode* _aiNode, aiNode* _parentNode);
 
 	// 테스트용 리소스 정보
 	void ShowMaterials();
@@ -57,13 +59,13 @@ private:
 	const std::string texturesFolder = "Textures/"; // 폴더 가르키기 용
 
 	std::unordered_map<std::string, int> nameCountMap; // 노드끼리 이름 같은 체크용
-
 	std::unordered_map<std::string, std::vector<AiNode*>> aiNodeMap {};
 	std::unordered_map<std::string, std::vector<VertexBuffer*>> vertexBufferMap {}; 
 	std::unordered_map<std::string, std::vector<IndexBuffer*>>  indexBufferMap  {}; 
 	std::unordered_map<std::string, std::vector<Mesh*>> meshMap {};           
 	std::unordered_map<std::string, std::vector<Material*>> materials {};     
 	std::unordered_map<std::string, std::vector<Animation*>> animationMap{};
+	std::unordered_map<std::string, std::vector<SkeletonInfo*>> skeletonInfoMap{};
 };
 
 // 텍스처는 리소스시스템에서 처리함

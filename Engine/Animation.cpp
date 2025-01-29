@@ -1,5 +1,12 @@
 #include "pch.h"
 #include "Animation.h"
+#include "Helper.h"
+#include "AnimationNode.h"
+
+Animation::~Animation()
+{
+	SafeExtinction::SAFE_CLEAR_CONTAINER(nodes);
+}
 
 void Animation::SetName(std::string_view _name)
 {
@@ -38,7 +45,17 @@ void Animation::SetCurrTime(float _val)
 	currTime = _val;
 }
 
+void Animation::SetLoop(bool _loop)
+{
+	loop = _loop;
+}
+
 void Animation::AddAnimationNode(AnimationNode* _aniNode)
 {
 	nodes.emplace_back(_aniNode);
+}
+
+bool Animation::GetLoop()
+{
+	return loop;
 }

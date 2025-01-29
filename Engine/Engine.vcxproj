@@ -146,6 +146,9 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AnimationEditor.h" />
     <ClInclude Include="AnimationNode.h" />
+    <ClInclude Include="BoneInfo.h" />
+    <ClInclude Include="BoneReference.h" />
+    <ClInclude Include="BoneWeightVertex.h" />
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="CameraCompoent.h" />
     <ClInclude Include="CameraInformationEditor.h" />
@@ -174,7 +177,6 @@
     <ClInclude Include="InspectorWindow.h" />
     <ClInclude Include="IOnmouse.h" />
     <ClInclude Include="IResources.h" />
-    <ClInclude Include="jjson.hpp" />
     <ClInclude Include="Layer.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="MaterialInformationEditor.h" />
@@ -184,7 +186,6 @@
     <ClInclude Include="Model.h" />
     <ClInclude Include="ModelComponent.h" />
     <ClInclude Include="Object.h" />
-    <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="RenderComponent.h" />
     <ClInclude Include="Renderer.h" />
@@ -196,6 +197,7 @@
     <ClInclude Include="Shader.h" />
     <ClInclude Include="SingletonBase.h" />
     <ClInclude Include="SkeletalMesh.h" />
+    <ClInclude Include="SkeletonInfo.h" />
     <ClInclude Include="SkyBox.h" />
     <ClInclude Include="StaticMesh.h" />
     <ClInclude Include="StringHelper.h" />
@@ -216,6 +218,9 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AnimationEditor.cpp" />
     <ClCompile Include="AnimationNode.cpp" />
+    <ClCompile Include="BoneInfo.cpp" />
+    <ClCompile Include="BoneReference.cpp" />
+    <ClCompile Include="BoneWeightVertex.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="CameraCompoent.cpp" />
     <ClCompile Include="CameraInformationEditor.cpp" />
@@ -245,7 +250,6 @@
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="ModelComponent.cpp" />
     <ClCompile Include="Object.cpp" />
-    <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -260,6 +264,7 @@
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="SkeletalMesh.cpp" />
+    <ClCompile Include="SkeletonInfo.cpp" />
     <ClCompile Include="SkyBox.cpp" />
     <ClCompile Include="StaticMesh.cpp" />
     <ClCompile Include="Texture.cpp" />

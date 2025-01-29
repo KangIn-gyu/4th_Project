@@ -15,12 +15,14 @@ public:
 		End
 	};
 
+	Layer(Tag _tag) : tag(_tag) {};
+	~Layer();
+
 	void Initialize();
 	void Update(const float _deltaTime);
 	void LateUpdate(const float _deltaTime);
 	void Destroy();
 
-	Layer(Tag _tag) : tag(_tag) {};
 	void AddGameObjcet(Object* _gameObject);
 	void EraseGameObject(Object* _eraseGameObj);
 
@@ -30,6 +32,7 @@ public:
 
 	Tag GetTag() { return tag; }
 	std::vector<Object*> NextObjects();
+
 private:
 
 public:

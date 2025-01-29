@@ -19,6 +19,7 @@
 #include <unordered_map>
 #include <set>
 #include <ranges>
+#include <stack>
 
 // 포인터 관련
 #include <memory>
@@ -77,7 +78,7 @@ namespace DXMath = DirectX::SimpleMath;
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
-
+#include <nlohmann/json.hpp>
 #define new new(_NORMAL_BLOCK, __FILE__, __LINE__)
 #endif
 
@@ -87,7 +88,7 @@ namespace DXMath = DirectX::SimpleMath;
 #endif
 
 // 라이브러리 코드 (new가 재정의되지 않음)
-#include "jjson.hpp" // TODO : jjson 왜 pch 여기에 있는지 확인 필요
+//#include "jjson.hpp" // TODO : jjson 왜 pch 여기에 있는지 확인 필요
 
 #ifdef _DEBUG
 #define new new(_NORMAL_BLOCK, __FILE__, __LINE__) // 다시 재정의 (필요한 경우)

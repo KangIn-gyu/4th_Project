@@ -23,9 +23,6 @@
     <Filter Include="pch">
       <UniqueIdentifier>{87545f9d-cb84-45f8-9539-8d582f28c070}</UniqueIdentifier>
     </Filter>
-    <Filter Include="1_Engine\ObjectManager">
-      <UniqueIdentifier>{f3dee966-f608-4638-93ea-8523c893b141}</UniqueIdentifier>
-    </Filter>
     <Filter Include="리소스 파일\Header">
       <UniqueIdentifier>{2f6ed2e1-c461-418b-ae34-5523a85363f4}</UniqueIdentifier>
     </Filter>
@@ -140,6 +137,9 @@
     <Filter Include="0_Utility\MyImGui\Editor\ComponentEditor">
       <UniqueIdentifier>{6ba90df5-9c1b-49e5-ba87-9cf1604c1a6b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="4_Resources\ResourceData\Bone">
+      <UniqueIdentifier>{9ed2f025-3a13-4e54-bb34-6ad67ce23dfa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowApp.h">
@@ -180,9 +180,6 @@
     </ClInclude>
     <ClInclude Include="SystemHeader.h">
       <Filter>2_System</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectManager.h">
-      <Filter>1_Engine\ObjectManager</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>1_Engine\Scene</Filter>
@@ -259,12 +256,6 @@
     <ClInclude Include="FBXLoader.h">
       <Filter>4_Resources\FBX</Filter>
     </ClInclude>
-    <ClInclude Include="SceneLoader.h">
-      <Filter>4_Resources\SceneLoader</Filter>
-    </ClInclude>
-    <ClInclude Include="jjson.hpp">
-      <Filter>4_Resources\SceneLoader</Filter>
-    </ClInclude>
     <ClInclude Include="IResources.h">
       <Filter>4_Resources</Filter>
     </ClInclude>
@@ -333,11 +324,26 @@
     <ClInclude Include="AnimationEditor.h">
       <Filter>0_Utility\MyImGui\Editor\ComponentEditor</Filter>
     </ClInclude>
+    <ClInclude Include="Layer.h">
+      <Filter>5_Object</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneLoader.h">
+      <Filter>4_Resources\SceneLoader</Filter>
+    </ClInclude>
     <ClInclude Include="TransformEditor.h">
       <Filter>0_Utility\MyImGui\Editor\ComponentEditor</Filter>
     </ClInclude>
-    <ClInclude Include="Layer.h">
-      <Filter>5_Object</Filter>
+    <ClInclude Include="BoneInfo.h">
+      <Filter>4_Resources\ResourceData\Bone</Filter>
+    </ClInclude>
+    <ClInclude Include="SkeletonInfo.h">
+      <Filter>4_Resources\ResourceData\Bone</Filter>
+    </ClInclude>
+    <ClInclude Include="BoneReference.h">
+      <Filter>4_Resources\ResourceData\Bone</Filter>
+    </ClInclude>
+    <ClInclude Include="BoneWeightVertex.h">
+      <Filter>4_Resources\ResourceData\Bone</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -358,9 +364,6 @@
     </ClCompile>
     <ClCompile Include="TimeSystem.cpp">
       <Filter>2_System\Time</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectManager.cpp">
-      <Filter>1_Engine\ObjectManager</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
       <Filter>1_Engine\Scene</Filter>
@@ -434,9 +437,6 @@
     <ClCompile Include="FBXLoader.cpp">
       <Filter>4_Resources\FBX</Filter>
     </ClCompile>
-    <ClCompile Include="SceneLoader.cpp">
-      <Filter>4_Resources\SceneLoader</Filter>
-    </ClCompile>
     <ClCompile Include="Animation.cpp">
       <Filter>4_Resources\ResourceData\Animation</Filter>
     </ClCompile>
@@ -497,11 +497,26 @@
     <ClCompile Include="AnimationEditor.cpp">
       <Filter>0_Utility\MyImGui\Editor\ComponentEditor</Filter>
     </ClCompile>
+    <ClCompile Include="Layer.cpp">
+      <Filter>5_Object</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneLoader.cpp">
+      <Filter>4_Resources\SceneLoader</Filter>
+    </ClCompile>
     <ClCompile Include="TransformEditor.cpp">
       <Filter>0_Utility\MyImGui\Editor\ComponentEditor</Filter>
     </ClCompile>
-    <ClCompile Include="Layer.cpp">
-      <Filter>5_Object</Filter>
+    <ClCompile Include="BoneInfo.cpp">
+      <Filter>4_Resources\ResourceData\Bone</Filter>
+    </ClCompile>
+    <ClCompile Include="SkeletonInfo.cpp">
+      <Filter>4_Resources\ResourceData\Bone</Filter>
+    </ClCompile>
+    <ClCompile Include="BoneReference.cpp">
+      <Filter>4_Resources\ResourceData\Bone</Filter>
+    </ClCompile>
+    <ClCompile Include="BoneWeightVertex.cpp">
+      <Filter>4_Resources\ResourceData\Bone</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -557,9 +572,6 @@
     </Filter>
     <Filter Include="pch">
       <UniqueIdentifier>{87545f9d-cb84-45f8-9539-8d582f28c070}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="1_Engine\ObjectManager">
-      <UniqueIdentifier>{f3dee966-f608-4638-93ea-8523c893b141}</UniqueIdentifier>
     </Filter>
     <Filter Include="리소스 파일\Header">
       <UniqueIdentifier>{2f6ed2e1-c461-418b-ae34-5523a85363f4}</UniqueIdentifier>
@@ -632,9 +644,6 @@
     <ClInclude Include="TimeSystem.h">
       <Filter>2_System\Time</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectManager.h">
-      <Filter>1_Engine\ObjectManager</Filter>
-    </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>1_Engine\Scene</Filter>
     </ClInclude>
@@ -696,9 +705,6 @@
     </ClCompile>
     <ClCompile Include="TimeSystem.cpp">
       <Filter>2_System\Time</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectManager.cpp">
-      <Filter>1_Engine\ObjectManager</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
       <Filter>1_Engine\Scene</Filter>

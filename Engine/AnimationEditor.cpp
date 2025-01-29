@@ -8,6 +8,7 @@ AnimationEditor::AnimationEditor()
 {
 	SetName("Animation");
 	state = State::Active;
+    loopText.reserve(11);
 }
 
 void AnimationEditor::Initialize()
@@ -80,6 +81,15 @@ void AnimationEditor::Draw()
                 ImGui::Value("TickPerSecond : ", activeAnimation->GetTickPerSecond());
                 ImGui::Value("TotalTime : ", activeAnimation->GetTotalTime());
                 ImGui::Value("CurrTime : ", activeAnimation->GetCurrTime());
+                std::string is_loop = activeAnimation->GetLoop() ? "TRUE" : "FALSE";
+                loopText.assign("Loop : " + is_loop);
+                ImGui::Text(loopText.c_str());
+
+                static bool loop;  // 현재 루프 상태 가져오기
+                if (ImGui::Checkbox("Loop", &loop))
+                {
+                    activeAnimation->SetLoop(loop);  // 루프 상태 업데이트
+                }
             }
         }
     }
@@ -99,7 +109,7 @@ void AnimationEditor::SetSelectedObject(Object* _obj)
 {
 	if (nullptr != _obj)
 	{
-		if (nullptr != _obj->GetComponent<ModelComponent>())
+		if (nullptr != _obj->GetComponent<ModelComponent>()->GetAnimations())
 		{
 			selectedObject = _obj;
             OnEnable();

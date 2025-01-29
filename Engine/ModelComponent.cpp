@@ -38,10 +38,21 @@ void ModelComponent::ComponentUpdate(const float _deltaTime)
     {
         progressAnimTime += _deltaTime;
 
-        if (progressAnimTime >= activeAnimation->GetTotalTime())
+        if (true == activeAnimation->GetLoop())
         {
-            progressAnimTime = 0.f;
+            if (progressAnimTime >= activeAnimation->GetTotalTime())
+            {
+                progressAnimTime = 0.f;
+            }
         }
+        else
+        {
+            if (progressAnimTime >= activeAnimation->GetTotalTime())
+            {
+                progressAnimTime = activeAnimation->GetTotalTime(); // 애니메이션 끝에 고정
+            }
+        }
+
         activeAnimation->SetCurrTime(progressAnimTime);
     }
 
@@ -86,16 +97,6 @@ void ModelComponent::SetAnimation(int _index)
                 << "'에 해당하는 AiNode를 찾을 수 없습니다.\n";
         }
     }
-
-    /*for (auto& [name, node] : nodeList)
-    {
-        auto animation = activeAnimation->GetAnimationNodes();
-
-        auto iter = animation.find(name.c_str());
-        if (iter == end())
-            node->SetAnimationNode(nullptr);
-        std::ranges::
-    }*/
 }
 
 int ModelComponent::GetActiveAnimationIndex()

@@ -43,6 +43,5 @@ private:
 	std::shared_ptr<DirectXInput> inputSystem {};
 	std::shared_ptr<TimeSystem> timeSystem{};
 	std::shared_ptr<SceneManager> sceneManager{};
-
 };
 

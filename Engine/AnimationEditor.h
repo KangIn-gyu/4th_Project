@@ -22,5 +22,6 @@ public:
 
 private:
 	Object* selectedObject = nullptr;
+	std::string loopText;
 };
 

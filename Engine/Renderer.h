@@ -55,7 +55,7 @@ private:
 	ComPtr<ID3D11SamplerState>	linearWrapSampler;    // LINEAR 필터링
 	ComPtr<ID3D11SamplerState>  pointClampSampler;    // POINT 필터링
 
-
+	std::stack<int> previousTexturerProcessing;
 	SkyBox m_skybox;
 
 };

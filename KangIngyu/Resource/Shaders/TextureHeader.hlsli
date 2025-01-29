@@ -1,0 +1,25 @@
+Texture2D TextureAlbedo       : register(t0);  // Albedo (aiTextureType_DIFFUSE)  // Base Color (aiTextureType_BASE_COLOR)
+Texture2D SpecularColor       : register(t1);  // Specular (aiTextureType_SPECULAR)
+Texture2D AmbientColor        : register(t2);  // Ambient (aiTextureType_AMBIENT)
+Texture2D EmissiveColor       : register(t3);  // Emissive (aiTextureType_EMISSIVE)
+Texture2D HeightMap           : register(t4);  // Height (aiTextureType_HEIGHT)
+Texture2D NormalMap           : register(t5);  // Normal (aiTextureType_NORMALS)
+Texture2D ShininessColor      : register(t6);  // Shininess (aiTextureType_SHININESS) : 러브닉스
+Texture2D OpacityMap          : register(t7);  // Opacity (aiTextureType_OPACITY)
+Texture2D DisplacementMap     : register(t8);  // Displacement (aiTextureType_DISPLACEMENT)
+Texture2D LightMap            : register(t9);  // LightMap (aiTextureType_LIGHTMAP)
+Texture2D ReflectionMap       : register(t10); // Reflection (aiTextureType_REFLECTION)
+Texture2D BaseColorMap        : register(t11); // Base Color (aiTextureType_BASE_COLOR) : 알베도
+Texture2D NormalCameraMap     : register(t12); // Normal Camera (aiTextureType_NORMAL_CAMERA)
+Texture2D EmissionColorMap    : register(t13); // Emission Color (aiTextureType_EMISSION_COLOR)
+Texture2D MetalnessMap        : register(t14); // Metalness (aiTextureType_METALNESS) : 메탈릭
+Texture2D DiffuseRoughnessMap : register(t15); // Diffuse Roughness (aiTextureType_DIFFUSE_ROUGHNESS)
+Texture2D AmbientOcclusionMap : register(t16); // Ambient Occlusion (aiTextureType_AMBIENT_OCCLUSION)
+Texture2D SheenMap            : register(t17); // Sheen (aiTextureType_SHEEN)
+Texture2D ClearcoatMap        : register(t18); // Clearcoat (aiTextureType_CLEARCOAT)
+Texture2D TransmissionMap     : register(t19); // Transmission (aiTextureType_TRANSMISSION)
+TextureCube EnvironmentMap    : register(t20); // Environment Map
+TextureCube IrradianceMap     : register(t21); // Irradiance Map
+TextureCube SpecularMap       : register(t22); // Specular Map
+Texture2D BRDFLUT             : register(t23); // BRDFLUT
+Texture2D shadowMap           : register(t24); // shadow Map

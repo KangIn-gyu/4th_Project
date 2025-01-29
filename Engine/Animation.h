@@ -5,7 +5,7 @@ class Animation
 {
 public:
 	Animation() = default;
-	~Animation() = default;
+	~Animation();
 
 	float GetTickPerSecond() { return tickPerSecond; }
 	float GetDuration() { return duration; }
@@ -18,8 +18,10 @@ public:
 	void SetTotalTime(float _val);
 	void SettingTotalTime();
 	void SetCurrTime(float _val);
+	void SetLoop(bool _loop);
 
 	void AddAnimationNode(AnimationNode* _aniNode);
+	bool GetLoop();
 
 	std::vector<AnimationNode*> GetAnimationNodes() { return nodes; }
 	std::string GetName() { return name; }
@@ -34,5 +36,6 @@ private:
 	float tickPerSecond {}; // 초당 틱
 	float totalTime {};		// 애니메이션 총 시간
 	float currTime {};		// 현재 애니메이션 시간
+	bool loop;              
 };
 

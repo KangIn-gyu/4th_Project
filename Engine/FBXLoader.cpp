@@ -15,6 +15,8 @@
 #include "Animation.h"
 #include "AnimationNode.h"
 
+#include "BoneInfo.h"
+
 #include "Transform.h"
 #include <filesystem>
 
@@ -48,6 +50,7 @@ std::shared_ptr<Model> FBXLoader::FBXLoad(std::string_view _filePath)
 	{ // 추후 애니메이션 처리용
 		isStaticMesh = false;
 		ProcessAnimation(scene, filePathKEY);
+		ProcessSkeletonInfo(scene->mRootNode, nullptr);
 		modelData->SetAnimation(&animationMap.find(filePathKEY)->second);
 	}
 
@@ -199,6 +202,7 @@ void FBXLoader::CollectNodes(AiNode* _rootNode, std::vector<AiNode*>* _nodes)
 	}
 }
 
+// 
 bool FBXLoader::HasBones(const aiScene* _scene)
 {
 	for (unsigned int i = 0; i < _scene->mNumMeshes; i++)
@@ -384,6 +388,13 @@ void FBXLoader::ProcessAnimation(const aiScene* scene, const std::string_view _f
 		myAnimation->SetTickPerSecond(Aianimation->mTicksPerSecond != 0 ? static_cast<float>(Aianimation->mTicksPerSecond) : 25.0f); // 0보다 작으면 강제로 보정함
 		myAnimation->SettingTotalTime();
 
+		std::string animationName = myAnimation->GetName();
+		std::transform(animationName.begin(), animationName.end(), animationName.begin(), ::tolower); // 대소문자 상관없이 TODO : 추후 테스트 필요
+		if (animationName.find("loop") != std::string::npos)  // "loop"가 포함되어 있으면
+		{
+			myAnimation->SetLoop(true);
+		}
+
 		if (Aianimation->mNumChannels > 0) // 애니메이션이 가지고 있는 채널 수 프레임이다.
 		{
 			for (int channelIndex = 0; channelIndex < Aianimation->mNumChannels; channelIndex++)
@@ -400,6 +411,22 @@ void FBXLoader::ProcessAnimation(const aiScene* scene, const std::string_view _f
 	}
 
 	animationMap[_filePath.data()] = animations;
+}
+
+void FBXLoader::ProcessSkeletonInfo(aiNode* _aiNode, aiNode* _parentNode)
+{ // TODO : BoneInfo를 저장할 SkeletonInfo를 처리해야 된다.
+	BoneInfo* boneInfo = new BoneInfo;
+	boneInfo->Set(_aiNode);
+
+	if (_parentNode)
+	{
+		boneInfo->SetParentBoneName(_parentNode->mName.C_Str());
+	}
+
+	for (int i = 0; i < _aiNode->mNumChildren; i++)
+	{
+		ProcessSkeletonInfo(_aiNode->mChildren[i], _aiNode);
+	}
 }
 
 void FBXLoader::AllShow()

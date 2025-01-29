@@ -70,18 +70,21 @@ void Model::SetNodes(std::vector<AiNode*>* _nodes)
 void Model::ModelData::Show()
 {
 	std::cout << "모델 데이터 확인용" << '\n';
+	if (nullptr != meshs)
 	for (auto& data : *meshs)
 	{
 		std::cout << data->GetFbxIndex()<< " " << data->GetName() << '\n';
 	}
 
 	std::cout << "트리노드 구조" << '\n';
+	if (nullptr != treeNodes)
 	for (auto& data : *treeNodes)
 	{
 		std::cout << data->GetName() << '\n';
 	}
 
 	std::cout << "애니메이션 구조" << '\n';
+	if(nullptr != animations)
 	for (auto& data : *animations)
 	{
 		std::cout << data->GetName() << '\n';

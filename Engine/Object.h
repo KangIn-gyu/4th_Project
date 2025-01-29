@@ -28,7 +28,6 @@ public:
 		End
 	};
 
-//	Object() {};
 	Object(std::string_view _name , Object::ObjectType _type = ObjectType::Basic); // 명시 안해놓으면 기본 오브젝트로 생성
 	virtual ~Object() { ClearComponents(); }
 

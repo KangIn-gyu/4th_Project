@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Layer.h"
 #include "Object.h"
+#include "Helper.h"
 
 void Layer::Initialize()
 {
@@ -34,6 +35,11 @@ void Layer::Destroy()
 	// TODO : 오브젝트 삭제 어떻게 구현할지 고민
 }
 
+Layer::~Layer()
+{
+	SafeExtinction::SAFE_CLEAR_CONTAINER(objects);
+}
+
 void Layer::AddGameObjcet(Object* _gameObject)
 {
 	if (_gameObject == nullptr)
@@ -43,9 +49,7 @@ void Layer::AddGameObjcet(Object* _gameObject)
 
 	if (objects.size() > 2)
 	{
-		std::ranges::sort(objects, [](const Object* lhs, const Object* rhs) {
-			return lhs < rhs;
-			});
+		std::ranges::sort(objects, [](const Object* lhs, const Object* rhs) {return lhs < rhs;});
 	}
 }
 
