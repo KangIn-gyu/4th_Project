@@ -5,7 +5,7 @@
 #include "Helper.h"
 
 template<class T> // T가 Vertex 상속한 존재인지와 포인터 타입이 아닐경우만 처리
-concept VertexType = std::derived_from<T, Vertex> && !std::is_pointer_v<T>; 
+concept VertexType = (std::is_same_v<T, Vertex> || std::is_same_v<T, BoneWeightVertex>) && !std::is_pointer_v<T>;
 
 // Vertex 88 바이트, BoneWeightVertex 120 바이트
 class VertexBuffer

@@ -15,16 +15,16 @@ void BoneWeightVertex::AddBoneData(int _id, float _weight)
 	}
 }
 
-BoneWeightVertex::BoneWeightVertex(const BoneWeightVertex& other) : Vertex(other)
+BoneWeightVertex::BoneWeightVertex(const BoneWeightVertex& other)
 {
+	vertex = other.vertex;
 	std::copy(std::begin(other.blendIndeces), std::end(other.blendIndeces), std::begin(blendIndeces));
 	std::copy(std::begin(other.blendWeights), std::end(other.blendWeights), std::begin(blendWeights));
 }
 
-BoneWeightVertex::BoneWeightVertex(BoneWeightVertex&& other) noexcept : Vertex(std::move(other))
+BoneWeightVertex::BoneWeightVertex(BoneWeightVertex&& other) noexcept
 {
-//	Vertex::operator=(std::move(other)); // 부모 클래스의 이동 처리
-	// 배열 이동 (배열은 메모리 상에서 이동을 허용)
+	vertex = std::move(other.vertex);
 	std::move(std::begin(other.blendIndeces), std::end(other.blendIndeces), std::begin(blendIndeces));
 	std::move(std::begin(other.blendWeights), std::end(other.blendWeights), std::begin(blendWeights));
 }
@@ -33,7 +33,7 @@ BoneWeightVertex& BoneWeightVertex::operator=(const BoneWeightVertex& _other)
 {
 	if (this != &_other)  // 자기 자신에게 대입하는 경우를 방지
 	{
-		Vertex::operator=(_other);
+		vertex = _other.vertex;
 		std::copy(std::begin(_other.blendIndeces), std::end(_other.blendIndeces), std::begin(blendIndeces));
 		std::copy(std::begin(_other.blendWeights), std::end(_other.blendWeights), std::begin(blendWeights));
 	}
@@ -44,7 +44,7 @@ BoneWeightVertex& BoneWeightVertex::operator=(BoneWeightVertex&& _other) noexcep
 {
 	if (this != &_other)  // 자기 자신에게 대입하는 경우를 방지
 	{
-		Vertex::operator=(std::move(_other));
+		vertex = std::move(_other.vertex);
 		std::move(std::begin(_other.blendIndeces), std::end(_other.blendIndeces), std::begin(blendIndeces));
 		std::move(std::begin(_other.blendWeights), std::end(_other.blendWeights), std::begin(blendWeights));
 
@@ -57,7 +57,7 @@ BoneWeightVertex& BoneWeightVertex::operator=(BoneWeightVertex&& _other) noexcep
 
 void BoneWeightVertex::LoadAiMeshToVertex(aiMesh* _aiMesh, int _index)
 {
-	Vertex::LoadAiMeshToVertex(_aiMesh, _index);
+	vertex.LoadAiMeshToVertex(_aiMesh, _index);
 
 	// 본 처리
 	if (_aiMesh->mBones)
