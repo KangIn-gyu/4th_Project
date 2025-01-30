@@ -1,5 +1,5 @@
 #pragma once
-#include "Vertex.h"
+#include "VertexBuffer.h"
 #include "IndexBuffer.h"
 #include "InputLayout.h"
 

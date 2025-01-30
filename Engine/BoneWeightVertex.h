@@ -12,6 +12,6 @@ public:
 
 private:
 	int blendIndeces[4] = {};
-	float blendweights[4] = {};
+	float blendWeights[4] = {};
 };
 

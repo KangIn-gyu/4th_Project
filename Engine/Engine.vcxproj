@@ -210,6 +210,7 @@
     <ClInclude Include="TransformEditor.h" />
     <ClInclude Include="UserImGui.h" />
     <ClInclude Include="Vertex.h" />
+    <ClInclude Include="VertexBuffer.h" />
     <ClInclude Include="Viewport.h" />
     <ClInclude Include="WindowApp.h" />
   </ItemGroup>
@@ -275,6 +276,7 @@
     <ClCompile Include="TransformEditor.cpp" />
     <ClCompile Include="UserImGui.cpp" />
     <ClCompile Include="Vertex.cpp" />
+    <ClCompile Include="VertexBuffer.cpp" />
     <ClCompile Include="Viewport.cpp" />
     <ClCompile Include="WindowApp.cpp" />
   </ItemGroup>

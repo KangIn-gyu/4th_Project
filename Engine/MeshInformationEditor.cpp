@@ -28,7 +28,7 @@ void MeshInformationEditor::Draw()
 			ImGui::Text(meshInfo->meshName.c_str());
 			ImGui::Value("MeshIndex : ", selectedMesh->GetFbxIndex());
 			ImGui::Value("MaterialIndex : ", meshInfo->GetMaterialIndex());
-			ImGui::Value("VertexBufferSize : ", (int)meshInfo->vertexBuffer->vertices.size());
+			ImGui::Value("VertexBufferSize : ", (int)meshInfo->vertexBuffer->GetVertexSize());
 			ImGui::Value("IndexBufferSize : ", meshInfo->indexBuffer->GetIndexCount());		
 		}
 	}

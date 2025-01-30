@@ -14,22 +14,3 @@ struct Vertex
 	DXMath::Vector3 binormal{};	 // 바이노멀 벡터	    12
 };
 
-class VertexBuffer
-{
-public:
-	VertexBuffer();
-	~VertexBuffer();
-
-	void Create(const std::vector<Vertex>& _vertees);
-	ComPtr<ID3D11Buffer> GetBuffer() { return vertexBuffer; }
-
-private:
-
-public:
-	std::vector<Vertex>  vertices {};       // 정점 모음
-	UINT vertextBufferOffset{};		       // 버텍스 버퍼의 오프셋.
-	UINT vertextBufferStride{};		       // 버텍스 하나의 크기.
-
-private:
-	ComPtr<ID3D11Buffer> vertexBuffer;
-};

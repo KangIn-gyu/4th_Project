@@ -8,6 +8,7 @@
 
 class IndexBuffer;
 class VertexBuffer;
+class BoneWeightVertex;
 class Material;
 class Model;
 class Animation;

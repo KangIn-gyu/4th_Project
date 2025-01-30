@@ -140,6 +140,9 @@
     <Filter Include="4_Resources\ResourceData\Bone">
       <UniqueIdentifier>{9ed2f025-3a13-4e54-bb34-6ad67ce23dfa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="4_Resources\ResourceData\Vertex">
+      <UniqueIdentifier>{ef7e8d08-e038-45b5-bead-6ad8adf6dfcf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowApp.h">
@@ -236,9 +239,6 @@
       <Filter>3_Graphics\GraphicsData\Buffer</Filter>
     </ClInclude>
     <ClInclude Include="IndexBuffer.h">
-      <Filter>3_Graphics\GraphicsData\Buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="Vertex.h">
       <Filter>3_Graphics\GraphicsData\Buffer</Filter>
     </ClInclude>
     <ClInclude Include="Shader.h">
@@ -345,6 +345,12 @@
     <ClInclude Include="BoneWeightVertex.h">
       <Filter>4_Resources\ResourceData\Bone</Filter>
     </ClInclude>
+    <ClInclude Include="VertexBuffer.h">
+      <Filter>3_Graphics\GraphicsData\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Vertex.h">
+      <Filter>4_Resources\ResourceData\Vertex</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WindowApp.cpp">
@@ -417,9 +423,6 @@
       <Filter>3_Graphics\GraphicsData\Buffer</Filter>
     </ClCompile>
     <ClCompile Include="IndexBuffer.cpp">
-      <Filter>3_Graphics\GraphicsData\Buffer</Filter>
-    </ClCompile>
-    <ClCompile Include="Vertex.cpp">
       <Filter>3_Graphics\GraphicsData\Buffer</Filter>
     </ClCompile>
     <ClCompile Include="Shader.cpp">
@@ -517,6 +520,12 @@
     </ClCompile>
     <ClCompile Include="BoneWeightVertex.cpp">
       <Filter>4_Resources\ResourceData\Bone</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexBuffer.cpp">
+      <Filter>3_Graphics\GraphicsData\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="Vertex.cpp">
+      <Filter>4_Resources\ResourceData\Vertex</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -37,6 +37,7 @@ using namespace Microsoft::WRL;
 // 유틸
 #include <algorithm>
 #include <functional>
+#include <variant>
 
 // Direct
 #include <d3d11.h>

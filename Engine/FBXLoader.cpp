@@ -285,7 +285,7 @@ void FBXLoader::ProcessVertexs(aiMesh* _mesh, unsigned int _vertexSize, const st
 	}
 
 	VertexBuffer* newVertexBuffer = new VertexBuffer;
-	newVertexBuffer->Create(vertexBufferData);
+	newVertexBuffer->Create<Vertex>(vertexBufferData);
 	if (vertexBufferMap.find(_filePath.data()) != vertexBufferMap.end())
 	{   // 기존 벡터에 추가
 		vertexBufferMap[_filePath.data()].push_back(newVertexBuffer);
@@ -462,7 +462,7 @@ void FBXLoader::FindShow(std::string_view _filePath)
 	{
 		for (auto& data : vertexBufferIt->second) 
 		{
-			std::cout << "VertexBuffer Size : " << data->vertices.size() << std::endl;
+			std::cout << "VertexBuffer Size : " << data->GetVertexSize() << std::endl;
 		}
 	}
 	else 
@@ -567,7 +567,7 @@ void FBXLoader::ShowVertexBuffer()
 		std::cout << "VertexBuffer KEY : " << it.first << '\n';
 		for (auto& data : it.second)
 		{
-			std::cout << "VertexBuffer Size :" << data->vertices.size() << std::endl;
+			std::cout << "VertexBuffer Size :" << data->GetVertexSize() << std::endl;
 		}
 	}
 }
