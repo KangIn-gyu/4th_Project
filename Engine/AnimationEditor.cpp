@@ -109,12 +109,16 @@ void AnimationEditor::SetSelectedObject(Object* _obj)
 {
 	if (nullptr != _obj)
 	{
-		if (nullptr != _obj->GetComponent<ModelComponent>()->GetAnimations())
+		if (nullptr != _obj->GetComponent<ModelComponent>())
 		{
-			selectedObject = _obj;
-            OnEnable();
-            return;
+            if (nullptr != _obj->GetComponent<ModelComponent>()->GetAnimations())
+            {
+                selectedObject = _obj;
+                OnEnable();
+                return;
+            }
 		}
         OnDisable();
 	}
+    return;
 }

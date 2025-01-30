@@ -41,8 +41,8 @@ private:
 public:
 
 private:
-	std::unique_ptr<D3DClass> D3DGraphics {}; // 그래?�스
-	std::unique_ptr<D2DClass> D2DGraphics {}; // 그래?�스
+	std::unique_ptr<D3DClass> D3DGraphics {}; 
+	std::unique_ptr<D2DClass> D2DGraphics {}; 
 	std::vector<RenderComponent*> work {};
 	
 

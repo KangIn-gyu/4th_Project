@@ -246,46 +246,34 @@ void FBXLoader::ProessIndexs(aiMesh* _mesh, unsigned int _indexSize, const std::
 
 void FBXLoader::ProcessVertexs(aiMesh* _mesh, unsigned int _vertexSize, const std::string_view _filePath)
 {
+	bool hasBones = _mesh->mNumBones > 0;				// 본 체크용
+	VertexBuffer* newVertexBuffer = new VertexBuffer;	// 내가 쓸 버퍼 생성
+
 	std::vector<Vertex> vertexBufferData;
-	vertexBufferData.reserve(static_cast<int>(_vertexSize)); // 미리 사이즈 확장
-
-	for (unsigned int i = 0; i < _vertexSize; i++) // 버텍스 처리
+	std::vector<BoneWeightVertex> boneWeightVertexBufferData;
+	if (true == hasBones) 
+	{ // 본이 있을 경우 처리하는 곳
+		boneWeightVertexBufferData.reserve(_vertexSize);
+		for (unsigned int i = 0; i < _vertexSize; i++) // 버텍스 처리
+		{
+			BoneWeightVertex boneVertex{};
+			boneVertex.LoadAiMeshToVertex(_mesh, i);
+			boneWeightVertexBufferData.emplace_back(boneVertex);
+		}
+		newVertexBuffer->Create<BoneWeightVertex>(boneWeightVertexBufferData);
+	}
+	else // 본이 없는 버텍스일 경우
 	{
-		Vertex vertex {};
-		if (_mesh->HasPositions())   // Pos
+		vertexBufferData.reserve(_vertexSize); // 미리 사이즈 확장
+		for (unsigned int i = 0; i < _vertexSize; i++) // 버텍스 처리
 		{
-			vertex.position = { _mesh->mVertices[i].x,  _mesh->mVertices[i].y,  _mesh->mVertices[i].z };
+			Vertex vertex{};
+			vertex.LoadAiMeshToVertex(_mesh, i);
+			vertexBufferData.emplace_back(vertex);
 		}
-
-		if (_mesh->HasNormals()) // 노말
-		{
-			vertex.normal = { _mesh->mNormals[i].x,    _mesh->mNormals[i].y,  _mesh->mNormals[i].z };
-		}
-
-		if (_mesh->HasTangentsAndBitangents())
-		{
-			vertex.tangent = { _mesh->mTangents[i].x , _mesh->mTangents[i].y, _mesh->mTangents[i].z };           // 탄젠트         
-			vertex.binormal = { _mesh->mBitangents[i].x,_mesh->mBitangents[i].y , _mesh->mBitangents[i].z };     // bi탄젠트
-		}
-
-		if (_mesh->HasVertexColors(0))
-		{
-			vertex.color = { _mesh->mColors[0][i].r, _mesh->mColors[0][i].g, _mesh->mColors[0][i].b, _mesh->mColors[0][i].a }; // 컬러
-		}
-	
-		if (_mesh->mTextureCoords[0]) // uv
-		{
-			vertex.uv = { _mesh->mTextureCoords[0][i].x, _mesh->mTextureCoords[0][i].y };
-		}
-		else
-		{
-			vertex.uv = { 0.0f, 0.0f };
-		}
-		vertexBufferData.emplace_back(vertex);
+		newVertexBuffer->Create<Vertex>(vertexBufferData);
 	}
 
-	VertexBuffer* newVertexBuffer = new VertexBuffer;
-	newVertexBuffer->Create<Vertex>(vertexBufferData);
 	if (vertexBufferMap.find(_filePath.data()) != vertexBufferMap.end())
 	{   // 기존 벡터에 추가
 		vertexBufferMap[_filePath.data()].push_back(newVertexBuffer);

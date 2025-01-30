@@ -1,4 +1,5 @@
 #pragma once
+#include <assimp/scene.h>
 
 class BoneInfo // 읽기용 정보
 {

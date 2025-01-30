@@ -41,8 +41,6 @@ void Renderer::Initialize(WindowInfo* _windowInfo)
 	D2DGraphics->Initialize(_windowInfo);
 
 	FontManager::GetInstance()->InitializeDWrite();
-
-
 }
 
 void Renderer::Update(float _deltaTime)
@@ -52,21 +50,15 @@ void Renderer::Update(float _deltaTime)
 
 void Renderer::Render()
 {
-
 	D3DGraphics->BeginDraw(IMGUI->GetBankGroundColor());
-
 	//m_skybox.Render(D3DClass::GetD3DDeviceContext().Get());
-
 	D2DGraphics->BeginDraw();
-
 	D3DDraw();
-
-
 	D3DGraphics->ExtractFinalImage();
 	IMGUI->Render();
 
-	D2DGraphics->EndDraw();
 	D3DGraphics->EndDraw();
+	D2DGraphics->EndDraw();
 }
 
 void Renderer::D3DDraw()

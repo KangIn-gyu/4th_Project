@@ -10,7 +10,7 @@ BaseObj::BaseObj(std::string_view _name, Object::ObjectType _type) : Object(_nam
 
 void BaseObj::Initialize()
 {
-	CreateComponent<ModelComponent>("STAGE1/FBX/gun.fbx");  // char2 / gun
+	CreateComponent<ModelComponent>("STAGE1/FBX/gun2.fbx");  // char2 // gun
 	auto* renderComponent = CreateComponent<RenderComponent>();
 	renderComponent->SetShader(ShaderType::VS, "Shaders/VertexShaderVS.hlsl");
 	renderComponent->SetShader(ShaderType::PS, "Shaders/PixelShaderPS.hlsl");

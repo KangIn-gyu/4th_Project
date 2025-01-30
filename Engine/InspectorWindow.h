@@ -27,6 +27,7 @@ public:
 	void SetSelectedMesh(Mesh* _mesh);
 	void SetSelectedTexture(Texture* _texture);
 	void SetSelectedAiNode(AiNode* _aiNode);
+
 private:
 	InspectorWindow();
 
@@ -37,4 +38,5 @@ public:
 	AiNode* selectedAiNode;
 private:
 	std::vector<Editor*> editors;
+
 };

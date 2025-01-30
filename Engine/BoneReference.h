@@ -3,8 +3,8 @@
 class BoneReference 
 {
 public:
-	BoneReference();
-	~BoneReference();
+	BoneReference() = default;
+	~BoneReference() = default;
 
 private:
 

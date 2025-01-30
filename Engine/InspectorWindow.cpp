@@ -75,6 +75,7 @@ void InspectorWindow::SetSelectedObject(Object* _obj)
 	selectedObject = _obj;
 	static_cast<TransformEditor*>(editors[0])->SetSelectedObject(selectedObject);
 	static_cast<AnimationEditor*>(editors[4])->SetSelectedObject(selectedObject);
+
 	if (nullptr != _obj && _obj->GetObjectType() == Object::ObjectType::Camera)
 	{
 		static_cast<CameraInformationEditor*>(editors[3])->OnEnable();
@@ -90,6 +91,10 @@ void InspectorWindow::SetSelectedMesh(Mesh* _mesh)
 {
 	selectedMesh = _mesh;
 	static_cast<MeshInformationEditor*>(editors[1])->SetSelectedMesh(selectedMesh);
+
+	{
+		static_cast<AnimationEditor*>(editors[4])->OnDisable();
+	}
 }
 
 void InspectorWindow::SetSelectedTexture(Texture* _texture)

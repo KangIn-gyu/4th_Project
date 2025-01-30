@@ -1,9 +1,16 @@
 #pragma once
+#include <assimp/mesh.h>
 
 struct Vertex
 {
 	Vertex() : position(DXMath::Vector4::Zero) {}
+	Vertex(const Vertex& _other) = default;
+	Vertex(Vertex&& _other) noexcept = default; // 이동 생성자
+	Vertex& operator = (const Vertex& _other) = default;
+	Vertex& operator = (Vertex&& _other) noexcept = default; // 이동 대입 연산자
 	~Vertex() = default;
+
+	virtual void LoadAiMeshToVertex(aiMesh* _aiMesh, int _index);
 
 //	UINT vertexID {};            // 버텍스 아이디     4
 	DXMath::Vector4 position{};  // 정점 위치 정보.  16

@@ -330,9 +330,6 @@
     <ClInclude Include="SceneLoader.h">
       <Filter>4_Resources\SceneLoader</Filter>
     </ClInclude>
-    <ClInclude Include="TransformEditor.h">
-      <Filter>0_Utility\MyImGui\Editor\ComponentEditor</Filter>
-    </ClInclude>
     <ClInclude Include="BoneInfo.h">
       <Filter>4_Resources\ResourceData\Bone</Filter>
     </ClInclude>
@@ -350,6 +347,9 @@
     </ClInclude>
     <ClInclude Include="Vertex.h">
       <Filter>4_Resources\ResourceData\Vertex</Filter>
+    </ClInclude>
+    <ClInclude Include="TransformEditor.h">
+      <Filter>0_Utility\MyImGui\Editor\ComponentEditor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -506,9 +506,6 @@
     <ClCompile Include="SceneLoader.cpp">
       <Filter>4_Resources\SceneLoader</Filter>
     </ClCompile>
-    <ClCompile Include="TransformEditor.cpp">
-      <Filter>0_Utility\MyImGui\Editor\ComponentEditor</Filter>
-    </ClCompile>
     <ClCompile Include="BoneInfo.cpp">
       <Filter>4_Resources\ResourceData\Bone</Filter>
     </ClCompile>
@@ -526,6 +523,9 @@
     </ClCompile>
     <ClCompile Include="Vertex.cpp">
       <Filter>4_Resources\ResourceData\Vertex</Filter>
+    </ClCompile>
+    <ClCompile Include="TransformEditor.cpp">
+      <Filter>0_Utility\MyImGui\Editor\ComponentEditor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
