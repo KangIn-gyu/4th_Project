@@ -90,7 +90,7 @@
     <ClInclude Include="Hand.h">
       <Filter>Client\BlackJack</Filter>
     </ClInclude>
-    <ClInclude Include="GameManager.h">
+    <ClInclude Include="BlackJack.h">
       <Filter>Client\BlackJack</Filter>
     </ClInclude>
   </ItemGroup>
@@ -134,7 +134,7 @@
     <ClCompile Include="Hand.cpp">
       <Filter>Client\BlackJack</Filter>
     </ClCompile>
-    <ClCompile Include="GameManager.cpp">
+    <ClCompile Include="BlackJack.cpp">
       <Filter>Client\BlackJack</Filter>
     </ClCompile>
   </ItemGroup>

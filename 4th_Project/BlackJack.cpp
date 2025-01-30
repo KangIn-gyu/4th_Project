@@ -1,22 +1,22 @@
 #include "pch.h"
-#include "GameManager.h"
+#include "BlackJack.h"
 #include "../Engine/FactorySystem.h"
 
 #include "Deck.h"
 #include "Card.h"
-GameManager::GameManager()
+BlackJack::BlackJack()
 {
 
 }
 
-void GameManager::Setstage(int num)
+void BlackJack::Setstage(int num)
 {
 	dealer->SepChip(num * 100); //
 	firstTurn = true;
 	curTurn = Turn::player;
 }
 
-void GameManager::Update(float _deltaTime)
+void BlackJack::Update(float _deltaTime)
 {
 	if (dealer->turnCount <= 0)
 		curTurn = Turn::dealer;
@@ -94,7 +94,7 @@ void GameManager::Update(float _deltaTime)
 
 
 
-void GameManager::DealerTurn(float _deltaTime)
+void BlackJack::DealerTurn(float _deltaTime)
 {
 	
 	//딜러 다이얼로그 출력  선택지선택
@@ -103,7 +103,7 @@ void GameManager::DealerTurn(float _deltaTime)
 	//다이얼로그 패턴 끝나면 curTurn = Turn::player;
 }
 
-void GameManager::CheckVictory(float _deltaTime)
+void BlackJack::CheckVictory(float _deltaTime)
 {
 	//승패계산
 
@@ -122,15 +122,15 @@ void GameManager::CheckVictory(float _deltaTime)
 	}
 }
 
-void GameManager::ShowDown()
+void BlackJack::ShowDown()
 {
 }
 
-void GameManager::DoubbleDown()
+void BlackJack::DoubbleDown()
 {
 }
 
-void GameManager::RoundStart()
+void BlackJack::RoundStart()
 {
 	deck->Init();
 	deck->ShuffleDeck();
@@ -140,7 +140,7 @@ void GameManager::RoundStart()
 	magnification = 1;
 }
 
-void GameManager::RoundEnd()
+void BlackJack::RoundEnd()
 {
 	
 }

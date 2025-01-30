@@ -6,7 +6,7 @@
 #include "../Engine/TransformComponent.h"
 #include "Player.h"
 #include "../Engine/EventSystem.h"
-#include "GameManager.h"
+#include "BlackJack.h"
 
 
 Card::Card(std::string_view _name, Object::ObjectType _type,Suit _suit, std::string _rank) : Object(_name, _type)
@@ -46,7 +46,7 @@ int Card::GetValue()
 
 void Card::OnClick()
 {
-	if (GAMEMANAGER->GetState() == PlayerState::OPEN)
+	if (BLACKJACK->GetState() == PlayerState::OPEN)
 	{
 		for (auto& card : PLAYER->hand.hand) //
 		{
@@ -59,7 +59,7 @@ void Card::OnClick()
 			}
 		}
 	}
-	else if (GAMEMANAGER->GetState() == PlayerState::HIT)
+	else if (BLACKJACK->GetState() == PlayerState::HIT)
 	{
 		for (auto& card : PLAYER->hand.hand) //
 		{

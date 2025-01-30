@@ -28,6 +28,7 @@ public:
 
 	ModelData* GetModelData() { return data; }
 	DXMath::Vector3 extent;
+	DXMath::Vector3 center;
 private:
 	virtual void Load(std::string_view _filePath) override {}; // TODO: 보류 사항 모델의 로드가 필요할까??
 

@@ -16,7 +16,7 @@ public:
 	FBXLoader() = default;
 	~FBXLoader();
 
-	DXMath::Vector3 CalculateBoundingBox(const aiScene* scene);
+	DXMath::Vector3 CalculateBoundingBox(const aiScene* scene, std::shared_ptr<Model> _modelData);
 	std::shared_ptr<Model> FBXLoad(std::string_view _filePath); // 로드하고 무엇을 리턴해야 될가..?
 	void AllShow();
 	void FindShow(std::string_view _filePath);

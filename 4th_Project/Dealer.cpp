@@ -14,14 +14,14 @@ Dealer::Dealer(std::string_view _name, Object::ObjectType _type) : Object(_name,
 
 void Dealer::Start()
 {
-	CreateComponent<ModelComponent>("STAGE1/FBX/asdq.fbx");  // char2 / gun // asdq
+	CreateComponent<ModelComponent>("STAGE1/FBX/asdq2.fbx");  // char2 / gun // asdq
 	CreateComponent<RenderComponent>();
 
 	CreateComponent<BoxCollider>();
 	
 	DXMath::Vector3 extent = GetComponent<ModelComponent>()->GetModel().get()->extent;
-	GetComponent<BoxCollider>()->SetBox({ GetComponent<TransformComponent>()->GetPosition() }, extent,
-		GetComponent<TransformComponent>()->GetQuaternion());
+	DXMath::Vector3 center = GetComponent<ModelComponent>()->GetModel().get()->center;
+	GetComponent<BoxCollider>()->SetBox( center, extent,GetComponent<TransformComponent>()->GetQuaternion());
 	auto randerComponet = GetComponent<RenderComponent>();
 	randerComponet->SetShader(ShaderType::VS, "Shaders/VertexShaderVS.hlsl");
 	randerComponet->SetShader(ShaderType::PS, "Shaders/PixelShaderPS.hlsl");

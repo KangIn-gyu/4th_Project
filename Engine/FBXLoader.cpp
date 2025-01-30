@@ -84,7 +84,7 @@ std::shared_ptr<Model> FBXLoader::FBXLoad(std::string_view _filePath)
 	modelData->SetMesh(&meshMap.find(filePathKEY)->second);
 	modelData->SetMateria(&materials.find(filePathKEY)->second);
 
-	modelData->extent = CalculateBoundingBox(scene);
+	CalculateBoundingBox(scene, modelData);
 	nameCountMap.clear();
 
 	AllShow();
@@ -550,19 +550,26 @@ DX::XMMATRIX ConvertMatrix(const aiMatrix4x4& _matrix) // 여기서만 사용하는 함수
 }
 
 
-DXMath::Vector3 FBXLoader::CalculateBoundingBox(const aiScene* scene)
+DXMath::Vector3 FBXLoader::CalculateBoundingBox(const aiScene* scene, std::shared_ptr<Model> _modelData)
 {
-	aiVector3D min = aiVector3D((std::numeric_limits<float>::max)());
-	aiVector3D max = aiVector3D(std::numeric_limits<float>::lowest());
+	if (!scene || !scene->mMeshes || scene->mNumMeshes == 0) {
+		std::cerr << "Invalid scene or no meshes available!" << std::endl;
+		return DXMath::Vector3();
+	}
 
+
+	aiVector3D min = aiVector3D((10000, 10000, 10000));
+	aiVector3D max = aiVector3D(-10000, -10000, -10000);
 	// 모든 메쉬를 순회
-	for (unsigned int i = 0; i < scene->mNumMeshes; i++) 
-	{
+	for (unsigned int i = 0; i < scene->mNumMeshes; i++) {
 		aiMesh* mesh = scene->mMeshes[i];
 
+		if (mesh->mNumVertices == 0) {
+			continue; // 빈 메쉬는 무시
+		}
+
 		// 각 메쉬의 모든 버텍스를 순회
-		for (unsigned int j = 0; j < mesh->mNumVertices; j++) 
-		{
+		for (unsigned int j = 0; j < mesh->mNumVertices; j++) {
 			aiVector3D vertex = mesh->mVertices[j];
 
 			// 최소/최대 좌표 갱신
@@ -575,9 +582,22 @@ DXMath::Vector3 FBXLoader::CalculateBoundingBox(const aiScene* scene)
 			max.z = (std::max)(max.z, vertex.z);
 		}
 	}
+
+	// 디버깅: 최종 min/max 확인
+	//std::cout << "Final min:****************************************************************** (" << min.x << ", " << min.y << ", " << min.z << ")\n";
+	//std::cout << "Final max: (" << max.x << ", " << max.y << ", " << max.z << ")\n";
+
+	DXMath::Vector3 center;
+	center.x = (min.x + max.x) / 2.0f;
+	center.y = (min.y + max.y) / 2.0f;
+	center.z = (min.z + max.z) / 2.0f;
+
+	_modelData.get()->center = center;
+	// 바운딩 박스 Extent 계산
 	DXMath::Vector3 extent;
 	extent.x = (max.x - min.x) / 2.0f;
 	extent.y = (max.y - min.y) / 2.0f;
 	extent.z = (max.z - min.z) / 2.0f;
+	_modelData.get()->extent = extent;
 	return extent;
 }

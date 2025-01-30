@@ -152,7 +152,7 @@
     <ClInclude Include="Deck.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GambleScene.h" />
-    <ClInclude Include="GameManager.h" />
+    <ClInclude Include="BlackJack.h" />
     <ClInclude Include="Hand.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />
@@ -169,7 +169,7 @@
     <ClCompile Include="Dealer.cpp" />
     <ClCompile Include="Deck.cpp" />
     <ClCompile Include="GambleScene.cpp" />
-    <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="BlackJack.cpp" />
     <ClCompile Include="Hand.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

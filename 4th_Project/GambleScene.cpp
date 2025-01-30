@@ -10,13 +10,13 @@
 #include "Dealer.h"
 #include "Player.h"
 #include "Button.h"
-#include "GameManager.h"
+#include "BlackJack.h"
 #include "ClickFunc.h"
 
 GambleScene::GambleScene(std::string_view _Name) : Scene(_Name)
 {
 	
-	GAMEMANAGER->player = PLAYER;
+	BLACKJACK->player = PLAYER;
 	
 }
 
@@ -24,9 +24,9 @@ GambleScene::GambleScene(std::string_view _Name) : Scene(_Name)
 void GambleScene::Enter()
 {
 	//딜러도 전역으로 할까요
-	//GAMEMANAGER->dealer = CreatorObject<Dealer>("Dealer", Object::ObjectType::Basic); 
-	//GAMEMANAGER->Setstage(1);
-	//GAMEMANAGER->deck = CreatorObject<Deck>("Deck", Object::ObjectType::Basic);
+	//BLACKJACK->dealer = CreatorObject<Dealer>("Dealer", Object::ObjectType::Basic); 
+	//BLACKJACK->Setstage(1);
+	//BLACKJACK->deck = CreatorObject<Deck>("Deck", Object::ObjectType::Basic);
 
 	
 	//auto deck = objectManager->GetGameObject<Deck>(Object::ObjectType::Basic, "Deck");
@@ -34,11 +34,7 @@ void GambleScene::Enter()
 	//deck->ShuffleDeck();
 	//deck->showDeck();
 	
-	//CreatorObject<Button>("Button", Object::ObjectType::Basic, [deck]()
-	//	{PLAYER->CardDraw(deck);});
-
-	///CreatorObject<Button>("Button", Object::ObjectType::Basic, DXMath::Vector3{ 200, 100, 0},  ClickFunc::OpenButton);
-	//CreatorObject<Button>("Button", Object::ObjectType::Basic, DXMath::Vector3{ 400, 100, 0 }, ClickFunc::HitButton);
+	
 	CreatorObject<Button>("Button", Object::ObjectType::Basic, DXMath::Vector3{ 600, 100, 0 }, ClickFunc::StayButton);
 
 	auto button1 = objectManager->GetGameObject<Button>(Object::ObjectType::Basic, "Button");

@@ -7,7 +7,7 @@
 
 #include "Player.h"
 #include "Dealer.h"
-#define GAMEMANAGER GameManager::GetInstance().get()
+#define BLACKJACK BlackJack::GetInstance().get()
 enum class Turn
 {
 	player,
@@ -23,11 +23,11 @@ enum class PlayerState   //플레이어 행동상태
 };
 
 std::string stateToString(PlayerState _state);
-class GameManager : public SingletonBase<GameManager>
+class BlackJack : public SingletonBase<BlackJack>
 {
-	friend class SingletonBase<GameManager>;
+	friend class SingletonBase<BlackJack>;
 public:
-	GameManager();
+	BlackJack();
 
 	void Setstage(int num);   //스테이지 숫자로 스테이지 설정?
 	

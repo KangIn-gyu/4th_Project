@@ -1,28 +1,28 @@
 #include "pch.h"
 #include "ClickFunc.h"
 #include "Card.h"
-#include "GameManager.h"
+#include "BlackJack.h"
 void ClickFunc::SelectCard()
 {
 	
 }
 void ClickFunc::OpenButton()
 {
-	GAMEMANAGER->SetState(PlayerState::OPEN);
+	BLACKJACK->SetState(PlayerState::OPEN);
 }
 
 void ClickFunc::StayButton()
 {
-	GAMEMANAGER->SetState(PlayerState::STAY);
+	BLACKJACK->SetState(PlayerState::STAY);
 }
 
 void ClickFunc::HitButton()
 {
-	GAMEMANAGER->SetState(PlayerState::HIT);
+	BLACKJACK->SetState(PlayerState::HIT);
 }
 
 void ClickFunc::DoubleDown()
 {
 	//더블다운 컷신넣기 *****
-	GAMEMANAGER->onDoubbleDown = true;
+	BLACKJACK->onDoubbleDown = true;
 }

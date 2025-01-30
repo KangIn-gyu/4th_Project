@@ -16,11 +16,17 @@ public:
 	EventSystem();
 	virtual ~EventSystem() = default;
 	Object* FindObj(DXMath::Vector3 _rayOrigin, DXMath::Vector3 _rayDirection);
-	void checkClickobj(int _mouseX, int _mouseY);
+	void checkClickobj(int _mouseX, int _mouseY); //*****
 	void Update(); //온 마우스 확인용
 	void OnmouseEvent();
-	void HoldingClick(); //꾹 누르는거  일단 나중에 
-
+	void BeginDrag(); //꾹 누르는거  일단 나중에 
+	void StayDrag();
+	void EndDrag();
+	POINT startPoint;
+	int dragThresholdX;
+	int dragThresholdY;
+	bool isDragging;
+	bool isClick;
 private:
 	Object* curHolding;
 };

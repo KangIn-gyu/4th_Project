@@ -100,6 +100,18 @@ void EventSystem::OnmouseEvent()
 		Onmouse->OnMouse();
 }
 
+void EventSystem::BeginDrag()
+{
+}
+
+void EventSystem::StayDrag()
+{
+}
+
+void EventSystem::EndDrag()
+{
+}
+
 
 
 DXMath::Ray GenerateRayFromMouse(int mouseX, int mouseY, int screenWidth, int screenHeight, const DirectX::XMMATRIX& viewMatrix, const DirectX::XMMATRIX& projectionMatrix)
