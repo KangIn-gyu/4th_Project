@@ -1,53 +1,55 @@
 #pragma once
-#include "SingletonBase.h"
-typedef DirectX::XMFLOAT4 COLOR;
-
-    class D2DFont:public SingletonBase<D2DFont>
+//#include "SingletonBase.h"
+//typedef DirectX::XMFLOAT4 COLOR;
+#include <dwrite_3.h>
+#include <d2d1_1.h>
+    class D2DFont
     {
+    public:
+        D2DFont(std::wstring _Dialog);
+        ~D2DFont();
+        void SetDialog(std::wstring input);
+        void LoadFont(std::wstring FontName);
+        void Render();
+        void CreateLayoutText(std::wstring detail);
+        void SetSize(float _FontSize, DWRITE_TEXT_RANGE textRange);
+        void SetWriteTextFormat(IDWriteTextFormat* _IDWriteTextFormat);
+
+       // void TextDraw(const wchar_t* format, D2D1_RECT_F _rect, D2D1_COLOR_F _color, ...);
+
+    public:
+
     private:
-        D2DFont() = default;
-        ~D2DFont() { this->UnInit(); }
-        D2DFont(const D2DFont&) = delete;
-        D2DFont& operator =(const D2DFont&) = delete;
-
-        static D2DFont* m_pInstance;
-
-    public:
-
-        void Init();
-        void UnInit();
-
-        void CreateIDWriteFactory();
-        void CreateTextFormat();
-        void TextDraw(const wchar_t* format, D2D1_RECT_F _rect, D2D1_COLOR_F _color = D2D1::ColorF(D2D1::ColorF::Black), ...);
-
-    public:
-        IDWriteFactory* pDWriteFactory = nullptr;
-        IDWriteTextFormat* pTextFormat = nullptr;
+        std::wstring Dialog;
+        IDWriteTextFormat* DWriteTextFormat = nullptr;
+        IDWriteTextLayout* DWriteTextLayout = nullptr;
+        float FontSize = 32.0f;
+        D2D_SIZE_F BoxSize = { 100.f, 50.f };
+        D2D1_RECT_F Pos = { 300.f , 300.f };
     };
 
 
     // SFont ======================================================
 
-    class SFont :public SingletonBase<SFont>
-    {
-    private:
-        SFont() = default;
-        ~SFont() { this->UnInit(); }
-        SFont(const SFont&) = delete;
-        SFont& operator =(const SFont&) = delete;
+    //class SFont :public SingletonBase<SFont>
+    //{
+    //private:
+    //    SFont() = default;
+    //    ~SFont() { this->UnInit(); }
+    //    SFont(const SFont&) = delete;
+    //    SFont& operator =(const SFont&) = delete;
 
-        static SFont* m_pInstance;
+    //    static SFont* m_pInstance;
 
-    public:
+    //public:
 
-        void Init();
-        void UnInit();
+    //    void Init();
+    //    void UnInit();
 
-        bool FontCreate();
-        void TextDraw(int x, int y, COLOR col, const wchar_t* format, ...);
+    //    bool FontCreate();
+    //    void TextDraw(int x, int y, COLOR col, const wchar_t* format, ...);
 
-    public:
-        std::unique_ptr<DirectX::SpriteBatch> spriteBatch = nullptr;
-        std::unique_ptr<DirectX::SpriteFont> spriteFont = nullptr;
-    };
+    //public:
+    //    std::unique_ptr<DirectX::SpriteBatch> spriteBatch = nullptr;
+    //    std::unique_ptr<DirectX::SpriteFont> spriteFont = nullptr;
+    //};

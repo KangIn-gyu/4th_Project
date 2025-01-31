@@ -39,8 +39,8 @@ void Renderer::Initialize(WindowInfo* _windowInfo)
 
 	D2DGraphics = std::make_unique<D2DClass>();
 	D2DGraphics->Initialize(_windowInfo);
+	FontManager::GetInstance()->LoadFont(L"Resource/Font/standard.ttf", L"standard");
 
-	FontManager::GetInstance()->InitializeDWrite();
 }
 
 void Renderer::Update(float _deltaTime)
@@ -51,14 +51,17 @@ void Renderer::Update(float _deltaTime)
 void Renderer::Render()
 {
 	D3DGraphics->BeginDraw(IMGUI->GetBankGroundColor());
-	//m_skybox.Render(D3DClass::GetD3DDeviceContext().Get());
-	D2DGraphics->BeginDraw();
+//m_skybox.Render(D3DClass::GetD3DDeviceContext().Get());
+
 	D3DDraw();
+  
 	D3DGraphics->ExtractFinalImage();
 	IMGUI->Render();
-
 	D3DGraphics->EndDraw();
-	D2DGraphics->EndDraw();
+  
+	D2DGraphics->BeginDraw();
+  
+	D2DGraphics->BeginDraw();
 }
 
 void Renderer::D3DDraw()
@@ -83,7 +86,7 @@ void Renderer::D3DDraw()
 			//IA 
 			auto* vertexBuffer = meshData->vertexBuffer;
 			d3dDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-			d3dDeviceContext->IASetVertexBuffers(0, 1, vertexBuffer->GetBuffer().GetAddressOf(), &vertexBuffer->vertextBufferStride, &vertexBuffer->vertextBufferOffset); // ?�기 맨앞 ?�롯 번호???�풋 ?�이?�웃 ?�롯 번호??
+			d3dDeviceContext->IASetVertexBuffers(0, 1, vertexBuffer->GetBuffer().GetAddressOf(), &vertexBuffer->vertextBufferStride, &vertexBuffer->vertextBufferOffset); // ?¬ê¸° ë§¨ì•ž ?¬ë¡¯ ë²ˆí˜¸???„í’‹ ?ˆì´?„ì›ƒ ?¬ë¡¯ ë²ˆí˜¸??
 			auto* indexBuffer = meshData->indexBuffer;
 			d3dDeviceContext->IASetIndexBuffer(indexBuffer->GetBuffer().Get(), DXGI_FORMAT_R32_UINT, 0);
 			d3dDeviceContext->IASetInputLayout(meshData->inputLayout.GetInputLayout().Get());
@@ -99,7 +102,7 @@ void Renderer::D3DDraw()
 
 			MatrixBuffer matrixData;
 			auto node = *nodeData.find(meshData->meshName);
-			matrixData.worldMatrix = DX::XMMatrixTranspose(node.second->GetTransform().GetWorldMatrix());  // ?�치 ?�렬 ?�기
+			matrixData.worldMatrix = DX::XMMatrixTranspose(node.second->GetTransform().GetWorldMatrix());  // ?„ì¹˜ ?‰ë ¬ ?£ê¸°
 			matrixData.viewMatrix = DX::XMMatrixTranspose(CameraObject::g_MainCameraObject->GetViewMatrix());
 			matrixData.projectionMatrix = DX::XMMatrixTranspose(CameraObject::g_MainCameraObject->GetProjectionMatrix());
 		
@@ -119,7 +122,7 @@ void Renderer::D3DDraw()
 			{ 
 				if (!textur->GetTextureTypeIndexs().empty())
 				{
-					for (auto textureIndex : textur->GetTextureTypeIndexs()) // set�� �ݺ��ڷ� ��ȸ
+					for (auto textureIndex : textur->GetTextureTypeIndexs()) // setÀ» ¹Ýº¹ÀÚ·Î ¼øÈ¸
 					{
 						previousTexturerProcessing.push(textureIndex);
 						d3dDeviceContext->PSSetShaderResources(textureIndex, 1, textur->GetTexture().GetAddressOf());
