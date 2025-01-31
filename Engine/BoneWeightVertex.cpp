@@ -1,20 +1,6 @@
 #include "pch.h"
 #include "BoneWeightVertex.h"
 
-void BoneWeightVertex::AddBoneData(int _id, float _weight)
-{
-	assert(blendWeights[0] == 0.f || blendWeights[1] == 0.f || blendWeights[2] == 0.f || blendWeights[3] == 0.f);
-	for (int i = 0; i < 4; i++)
-	{
-		if (blendWeights[i] == 0.f)
-		{
-			blendIndeces[i] = _id;
-			blendWeights[i] = _weight;
-			return;
-		}
-	}
-}
-
 BoneWeightVertex::BoneWeightVertex(const BoneWeightVertex& other)
 {
 	vertex = other.vertex;
@@ -55,26 +41,22 @@ BoneWeightVertex& BoneWeightVertex::operator=(BoneWeightVertex&& _other) noexcep
 	return *this;
 }
 
-void BoneWeightVertex::LoadAiMeshToVertex(aiMesh* _aiMesh, int _index)
+void BoneWeightVertex::AddBoneData(unsigned int _id, float _weight)
 {
-	vertex.LoadAiMeshToVertex(_aiMesh, _index);
-
-	// 본 처리
-	if (_aiMesh->mBones)
+	assert(blendWeights[0] == 0.f || blendWeights[1] == 0.f || blendWeights[2] == 0.f || blendWeights[3] == 0.f);
+	for (int i = 0; i < 4; i++)
 	{
-		for (unsigned int boneIndex = 0; boneIndex < _aiMesh->mNumBones; ++boneIndex)
+		if (blendWeights[i] == 0.f)
 		{
-			aiBone* bone = _aiMesh->mBones[boneIndex];
-
-			for (unsigned int weightIndex = 0; weightIndex < bone->mNumWeights; ++weightIndex)
-			{
-				aiVertexWeight& weight = bone->mWeights[weightIndex];
-				if (weight.mVertexId == _index)
-				{
-					// 본 가중치와 인덱스 처리
-					AddBoneData(boneIndex, weight.mWeight);
-				}
-			}
+			blendIndeces[i] = _id;
+			blendWeights[i] = _weight;
+			return;
 		}
 	}
 }
+
+void BoneWeightVertex::LoadAiMeshToVertex(aiMesh* _aiMesh, int _index)
+{
+	vertex.LoadAiMeshToVertex(_aiMesh, _index);
+}
+

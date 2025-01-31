@@ -27,13 +27,16 @@ void Renderer::Initialize(WindowInfo* _windowInfo)
 	D3DGraphics = std::make_unique<D3DClass>();
 	D3DGraphics->Initialize(_windowInfo);
 
+#ifdef _DEBUG
+	IMGUI->debugFlag = true;
 	IMGUI->Initialize(_windowInfo->hWnd, D3DGraphics->GetD3DDevice(), D3DGraphics->GetD3DDeviceContext());
-
-	m_skybox.Init();
+#endif
+//	m_skybox.Init();
 
 	matrixConstantBuffer.Create(sizeof(MatrixBuffer));
 	objectBuffer.Create(sizeof(ObjectBuffer));
 	cameraBuffer.Create(sizeof(CameraBuffer));
+	matrixPaletteBuffer.Create(sizeof(MatrixPallete));
 
 	D3DGraphics->CreateSamplerState(D3D11_FILTER_MIN_MAG_MIP_LINEAR, D3D11_TEXTURE_ADDRESS_WRAP, linearWrapSampler);
 	D3DGraphics->CreateSamplerState(D3D11_FILTER_MIN_MAG_MIP_POINT, D3D11_TEXTURE_ADDRESS_CLAMP, pointClampSampler);
@@ -46,7 +49,9 @@ void Renderer::Initialize(WindowInfo* _windowInfo)
 
 void Renderer::Update(float _deltaTime)
 {
+#ifdef _DEBUG
 	IMGUI->Update(_deltaTime);
+#endif
 }
 
 void Renderer::Render()
@@ -59,7 +64,10 @@ void Renderer::Render()
 	D2DDraw();
   
 	D3DGraphics->ExtractFinalImage();
+
+#ifdef _DEBUG
 	IMGUI->Render();
+#endif
 
 	D3DGraphics->EndDraw();
 	D2DGraphics->EndDraw();
@@ -68,6 +76,17 @@ void Renderer::Render()
 void Renderer::D3DDraw()
 {
 	ComPtr<ID3D11DeviceContext> d3dDeviceContext = D3DGraphics->GetD3DDeviceContext();
+	D3D11_SAMPLER_DESC sampDesc = {};
+	sampDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+	sampDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+	sampDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+	sampDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+	sampDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
+	sampDesc.MinLOD = 0;
+	sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
+
+	HR_T(D3DClass::GetD3DDevice()->CreateSamplerState(&sampDesc, linearWrapSampler.GetAddressOf()));
+
 	d3dDeviceContext->PSSetSamplers(0, 1, &linearWrapSampler); 
 	d3dDeviceContext->PSSetSamplers(1, 1, &pointClampSampler);
 
@@ -96,6 +115,7 @@ void Renderer::D3DDraw()
 			d3dDeviceContext->VSSetShader(renderComponent->GetShader(ShaderType::VS)->GetVertexShader().Get(), nullptr, 0);
 			d3dDeviceContext->VSSetConstantBuffers(0, 1, matrixConstantBuffer.GetBuffer().GetAddressOf());
 			d3dDeviceContext->VSSetConstantBuffers(1, 1, objectBuffer.GetBuffer().GetAddressOf());
+			d3dDeviceContext->VSSetConstantBuffers(3, 1, matrixPaletteBuffer.GetBuffer().GetAddressOf());
 			// PS 
 			d3dDeviceContext->PSSetShader(renderComponent->GetShader(ShaderType::PS)->GetPixelShader().Get(), nullptr, 0);
 			d3dDeviceContext->PSSetConstantBuffers(0, 1, matrixConstantBuffer.GetBuffer().GetAddressOf());
@@ -111,6 +131,11 @@ void Renderer::D3DDraw()
 			ObjectBuffer objectData;
 			objectData.metalness = material->GetMetalness();
 			objectData.roughness = material->GetRoughness();
+
+			if (nullptr != modelData->matrixPallete)
+			{
+				d3dDeviceContext->UpdateSubresource(matrixPaletteBuffer.GetBuffer().Get(), 0, nullptr, &modelData->matrixPallete, 0, 0);
+			}
 
 			while (!previousTexturerProcessing.empty())
 			{

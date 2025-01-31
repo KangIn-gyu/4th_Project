@@ -13,63 +13,72 @@
 
 void UserImGui::Initialize(HWND _hwnd, ComPtr<ID3D11Device> _Device, ComPtr<ID3D11DeviceContext> _DeviceContext)
 {
-	IMGUI_CHECKVERSION();
-	ImGui::CreateContext();
-
-	io = &ImGui::GetIO(); (void)io;	// IO 구조(마우스/키보드/게임패드 입력, 시간, 다양한 구성 옵션/플래그)에 액세스
-	io->ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard 
-					| ImGuiConfigFlags_DockingEnable
-					| ImGuiConfigFlags_ViewportsEnable; // 키보드 컨트롤 활성화  // ImGuiConfigFlags_ViewportsEnable
-	io->Fonts->AddFontFromFileTTF("Resource/Font/DNFBitBitv2.ttf", 20.0f, NULL, io->Fonts->GetGlyphRangesKorean());
-
-	// Dear ImGui 스타일 설정
-	ImGui::StyleColorsDark();
-
-	ImGuiStyle& style = ImGui::GetStyle();
-	if (io->ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+	if (true == debugFlag)
 	{
-		style.WindowRounding = 0.0f;  // 창 모서리 둥글게 만들지 않음
-		style.Colors[ImGuiCol_WindowBg].w = 1.0f;  // 배경 투명도 설정
-	}
-	io->DisplaySize = ImVec2(static_cast<float>(RENDERER->GetWindowsSize().first), static_cast<float>(RENDERER->GetWindowsSize().second));
-	// 플랫폼 / 렌더러 백엔드 설정
-	ImGui_ImplWin32_Init(_hwnd);
-	ImGui_ImplDX11_Init(_Device.Get(), _DeviceContext.Get());
+		IMGUI_CHECKVERSION();
+		ImGui::CreateContext();
 
-	inspector = INSPECTOR;
-	inspector->Initialize();
+		io = &ImGui::GetIO(); (void)io;	// IO 구조(마우스/키보드/게임패드 입력, 시간, 다양한 구성 옵션/플래그)에 액세스
+		io->ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard
+			| ImGuiConfigFlags_DockingEnable
+			| ImGuiConfigFlags_ViewportsEnable; // 키보드 컨트롤 활성화  // ImGuiConfigFlags_ViewportsEnable
+		io->Fonts->AddFontFromFileTTF("Resource/Font/DNFBitBitv2.ttf", 20.0f, NULL, io->Fonts->GetGlyphRangesKorean());
+
+		// Dear ImGui 스타일 설정
+		ImGui::StyleColorsDark();
+
+		ImGuiStyle& style = ImGui::GetStyle();
+		if (io->ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+		{
+			style.WindowRounding = 0.0f;  // 창 모서리 둥글게 만들지 않음
+			style.Colors[ImGuiCol_WindowBg].w = 1.0f;  // 배경 투명도 설정
+		}
+		io->DisplaySize = ImVec2(static_cast<float>(RENDERER->GetWindowsSize().first), static_cast<float>(RENDERER->GetWindowsSize().second));
+		// 플랫폼 / 렌더러 백엔드 설정
+		ImGui_ImplWin32_Init(_hwnd);
+		ImGui_ImplDX11_Init(_Device.Get(), _DeviceContext.Get());
+
+		inspector = INSPECTOR;
+		inspector->Initialize();
+	}
 }
 
 void UserImGui::Update(const float _deltaTime)
 {
-	ImGui_ImplDX11_NewFrame();
-	ImGui_ImplWin32_NewFrame();
-	ImGui::NewFrame();
-	
-	ImGuizmo::BeginFrame();
-	ImGuizmo::SetOrthographic(false);  // 투시 뷰 사용 여부
-	ImGuizmo::SetDrawlist();
+	if (true == debugFlag)
+	{
+		ImGui_ImplDX11_NewFrame();
+		ImGui_ImplWin32_NewFrame();
+		ImGui::NewFrame();
+
+		ImGuizmo::BeginFrame();
+		ImGuizmo::SetOrthographic(false);  // 투시 뷰 사용 여부
+		ImGuizmo::SetDrawlist();
+	}
 //	ImGuizmo::SetRect();
 }
 
 void UserImGui::Render()
 {
 //	ImGui::ShowDemoWindow(); 데모
-	MenuBar();
-	MainMenu();
-	ConsoleMenu();
-	hierarchy.Run();
-	inspector->Run();
-	ImGuiScene();
-	// 렌더링
-	ImGui::Render();
-	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
-	
-	// 멀티 뷰포트 렌더링 처리
-	if (io->ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+	if (true == debugFlag) 
 	{
-		ImGui::UpdatePlatformWindows();
-		ImGui::RenderPlatformWindowsDefault();
+		MenuBar();
+		MainMenu();
+		ConsoleMenu();
+		hierarchy.Run();
+		inspector->Run();
+		ImGuiScene();
+		// 렌더링
+		ImGui::Render();
+		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+
+		// 멀티 뷰포트 렌더링 처리
+		if (io->ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+		{
+			ImGui::UpdatePlatformWindows();
+			ImGui::RenderPlatformWindowsDefault();
+		}
 	}
 }
 
@@ -201,8 +210,11 @@ void UserImGui::ImGuiScene()
 
 UserImGui::~UserImGui()
 {
-	ImGui_ImplDX11_Shutdown();
-	ImGui_ImplWin32_Shutdown();
-	ImGui::DestroyContext();
+	if (true == debugFlag)
+	{
+		ImGui_ImplDX11_Shutdown();
+		ImGui_ImplWin32_Shutdown();
+		ImGui::DestroyContext();
+	}
 }
 

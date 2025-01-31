@@ -6,6 +6,8 @@ class Mesh;
 class Material;
 class ModelComponent;
 class Animation;
+class SkeletonInfo;
+struct MatrixPallete;
 class Model : public IResources
 {
 	struct ModelData
@@ -15,7 +17,8 @@ class Model : public IResources
 		std::vector<AiNode*>* treeNodes {};
 		std::vector<Animation*>* animations {};
 		AiNode* rootNode {};
-		
+		SkeletonInfo* skeletonInfo;
+		MatrixPallete* matrixPallete;
 		void Show();
 	};
 

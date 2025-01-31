@@ -1,5 +1,6 @@
 #pragma once
 #include "Component.h"
+#include "ConstantBufferData.h"
 
 class TransformComponent;
 class Mesh;
@@ -7,6 +8,7 @@ class Model;
 class Transform;
 class AiNode;
 class Animation;
+class SkeletonInfo;
 class ModelComponent : public Component
 {
 public:
@@ -43,5 +45,8 @@ private:
 	Animation* activeAnimation = nullptr;
 	float progressAnimTime{};
 
+	// 본처리
+	SkeletonInfo* skeletonInfo;
+	MatrixPallete matrixPalletBuffer;
 };
 // 모델 컴포넌트에 애니메이션까지 포함해서 처리하게 했다

@@ -10,6 +10,8 @@
 #include "Animation.h"
 #include "AnimationNode.h"
 #include "Helper.h"
+#include "SkeletalMesh.h"
+#include "D3DClass.h"
 
 ModelComponent::ModelComponent(std::string_view _filePath)
 {
@@ -18,6 +20,7 @@ ModelComponent::ModelComponent(std::string_view _filePath)
     model->GetModelData()->Show();
     rootNode = DeepCopyNode(model->GetModelData()->rootNode, nullptr); // 여기서 모델에 사용할 node 생성
     modelAnimation = model->GetModelData()->animations;
+    model->GetModelData()->matrixPallete = &matrixPalletBuffer;
 }
 
 ModelComponent::~ModelComponent()
@@ -57,6 +60,19 @@ void ModelComponent::ComponentUpdate(const float _deltaTime)
     }
 
     rootNode->Update(_deltaTime, progressAnimTime); // TODO : 애니메이션 프로세스 시간 넣어야 됨
+
+    auto& meshs = *model->GetModelData()->meshs;
+    for (int i = 0; i < meshs.size(); i++)
+    {
+        auto skeletalMesh = static_cast<SkeletalMesh*>(meshs[i]);
+        size_t boneCount = skeletalMesh->GetBoneReferencesSize();
+        for (UINT j = 0; j < boneCount; j++)
+        {
+            AiNode* node = nodeList.find(meshs[i]->GetName())->second;
+            skeletalMesh->GetBoneReferences()[j].SetNodeWolrdTransform(node->GetPointTransform()->GetWorldMatrix());
+        }
+        skeletalMesh->UpdateMatrixPallete(&matrixPalletBuffer, skeletonInfo);
+    }
 }
 
 Transform* ModelComponent::GetTransform()
