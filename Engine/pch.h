@@ -43,6 +43,7 @@ using namespace Microsoft::WRL;
 #include <d3d11.h>
 #include <directxtk/SimpleMath.h>  // #pragma comment(lib, "d3dx11.lib") 대체됨
 #include <d3dcompiler.h>  // 일단 보류
+#include <dwrite_3.h>
 #include <DirectXTex.h>
 #include <dxgi.h>
 

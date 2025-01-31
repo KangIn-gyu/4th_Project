@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "FontD2D.h"
+#include "D2DFont.h"
 #include "Renderer.h"
 #include <cstdarg>  // 가변 인자 처리
 #include <stdexcept>
@@ -27,16 +27,16 @@ D2DFont::~D2DFont()
    DWriteTextLayout->Release();
 }
 
-void D2DFont::SetDialog(std::wstring input)
+void D2DFont::SetDialog(std::wstring _input)
 {
-    Dialog = input;
+    Dialog = _input;
     CreateLayoutText(Dialog);
 }
 
-void D2DFont::LoadFont(std::wstring FontName) // 외부 파일 읽을수 있도록 수정이 필요
+void D2DFont::LoadFont(std::wstring _fontName) // 외부 파일 읽을수 있도록 수정이 필요
 {
     HRESULT hr = D2DClass::GetDWriteFactory()->CreateTextFormat(
-        FontName.c_str(), // FontName 제어판-모든제어판-항목-글꼴-클릭 으로 글꼴이름 확인가능 거기 이름 다음 해야됨
+        _fontName.c_str(), // FontName 제어판-모든제어판-항목-글꼴-클릭 으로 글꼴이름 확인가능 거기 이름 다음 해야됨
         NULL,
         DWRITE_FONT_WEIGHT_NORMAL,
         DWRITE_FONT_STYLE_NORMAL,
@@ -63,6 +63,7 @@ void D2DFont::Render()
     D2DClass::GetD2DDeviceContext()->DrawText(Dialog.c_str(), Dialog.length(), DWriteTextFormat, Pos, D2DClass::GetD2DBrush().Get());
     std::cout << "텍스트렌더" << std::endl;
 }
+
 void D2DFont::CreateLayoutText(std::wstring detail)
 {
     if (DWriteTextLayout)

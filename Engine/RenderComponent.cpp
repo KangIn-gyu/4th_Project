@@ -5,6 +5,7 @@
 #include "ModelComponent.h"
 #include "ResourceSystem.h"
 #include "Shader.h"
+#include "FontD2D.h"
 
 RenderComponent::RenderComponent()
 {
@@ -19,14 +20,17 @@ RenderComponent::~RenderComponent()
 
 void RenderComponent::ComponentInitialize()
 { 
-	if (auto*modelComponet = owner->GetComponent<ModelComponent>(); nullptr != modelComponet)
+	if (auto*modelComponent = owner->GetComponent<ModelComponent>(); nullptr != modelComponent)
 	{
-		modelData = modelComponet->GetModel();
-		nodeData = modelComponet->GetNodeData();
+		modelData = modelComponent->GetModel();
+		nodeData = modelComponent->GetNodeData();
 	}
+	//d2dFontData =
+
+	// 추가 사항으로 D2D 관련 처리 필요 Font UI가 있는지?
 }
 
-std::shared_ptr<Shader> RenderComponent::GetShder(ShaderType _shaderType)
+std::shared_ptr<Shader> RenderComponent::GetShader(ShaderType _shaderType)
 {
 	auto it = shaders.find(_shaderType);
 	if (it == shaders.end())
