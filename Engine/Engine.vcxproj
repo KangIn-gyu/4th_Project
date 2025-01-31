@@ -162,6 +162,8 @@
     <ClInclude Include="D3DClass.h" />
     <ClInclude Include="Declare.h" />
     <ClInclude Include="DirectXInput.h" />
+    <ClInclude Include="DOTween.h" />
+    <ClInclude Include="DOTweenManager.h" />
     <ClInclude Include="EditorWindow.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="EventSystem.h" />
@@ -232,6 +234,8 @@
     <ClCompile Include="D2DClass.cpp" />
     <ClCompile Include="D3DClass.cpp" />
     <ClCompile Include="DirectXInput.cpp" />
+    <ClCompile Include="DOTween.cpp" />
+    <ClCompile Include="DOTweenManager.cpp" />
     <ClCompile Include="EditorWindow.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="EventSystem.cpp" />
