@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "HierarchyWindow.h"
-#include "ObjectManager.h"
+
 #include "Object.h"
 #include "ModelComponent.h"
 #include "Model.h"
@@ -10,6 +10,8 @@
 #include "Texture.h"
 
 #include "InspectorWindow.h"
+#include "Scene.h"
+#include "Layer.h"
 #include <imgui.h>
 
 HierarchyWindow::HierarchyWindow()
@@ -36,25 +38,27 @@ void HierarchyWindow::Update()
 
 void HierarchyWindow::Draw()
 {
-	const auto& objects = objectManager->GetObjects();
-	for (const auto& [type, objList] : objects) 
+	const auto& objects = currentScene->GetGameObecjts();
+	std::string sceneText = "Scene : " + currentScene->GetName();
+	ImGui::Text(sceneText.c_str());
+	for (const auto& objLayer : objects) 
 	{
-		for (size_t i = 0; i < objList.size(); ++i)
+		for (size_t index = 0; index < objLayer->GetSize(); ++index)
 		{ // 객체의 이름으로 TreeNode를 생성합니다.
-			if (ImGui::TreeNode(objList[i]->GetName().c_str()))
+			if (ImGui::TreeNode(objLayer->GetGameObject(index)->GetName().c_str()))
 			{
 				if (ImGui::IsItemClicked())
 				{ 
 					INSPECTOR->SetSelectedAiNode(nullptr);
 					INSPECTOR->SetSelectedMesh(nullptr);
-					INSPECTOR->SetSelectedObject(objList[i]);
+					INSPECTOR->SetSelectedObject(objLayer->GetGameObject(index));
 				}
 
 				// 객체의 ModelData의 rootNode를 가져옵니다.
-				if (objList[i]->GetObjectType() == Object::ObjectType::Basic)
+				if (objLayer->GetGameObject(index)->GetObjectType() == Object::ObjectType::Basic)
 				{
 					// auto rootNode = *objList[i]->GetComponent<ModelComponent>()->GetNodeData();
-					auto modelComponent = objList[i]->GetComponent<ModelComponent>();
+					auto modelComponent = objLayer->GetGameObject(index)->GetComponent<ModelComponent>();
 					AiNode* rootNode {};
 					if (nullptr != modelComponent)
 					{
@@ -62,7 +66,7 @@ void HierarchyWindow::Draw()
 					}
 					if (rootNode)
 					{ // AiNode 트리 구조를 재귀적으로 그립니다.
-						DrawNodeRecursive(objList[i]->GetComponent<ModelComponent>()->GetModel(), rootNode);
+						DrawNodeRecursive(objLayer->GetGameObject(index)->GetComponent<ModelComponent>()->GetModel(), rootNode);
 					}
 				}				
 				ImGui::TreePop(); // TreeNode를 닫습니다.
@@ -95,9 +99,9 @@ void HierarchyWindow::OnDestroy()
 
 }
 
-void HierarchyWindow::SetObjectManager(ObjectManager* _objectManager)
+void HierarchyWindow::SetCurrentScene(Scene* _currentScene)
 {
-	objectManager = _objectManager;
+	currentScene = _currentScene;
 }
 
 void HierarchyWindow::DrawNodeRecursive(std::shared_ptr<Model> _model, AiNode* _node)

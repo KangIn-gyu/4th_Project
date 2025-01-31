@@ -1,4 +1,6 @@
 #pragma once
+#include <assimp/scene.h> 
+
 enum class TextureType   // 어심프 타입 그대로 가져온거
 {
     None,                    // 텍스처가 없는 경우, 기본값

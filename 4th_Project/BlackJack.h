@@ -8,6 +8,7 @@
 #include "Player.h"
 #include "Dealer.h"
 #define BLACKJACK BlackJack::GetInstance().get()
+
 enum class Turn
 {
 	player,
@@ -36,7 +37,7 @@ public:
 	PlayerState GetState() const { return state; }
 	std::string getstatestring() { return stateToString(state); } //실험용 지울거
 	void SetState(PlayerState _state) { state = _state; } //
-	void DealerTurn(float _deltaTime);//딜러턴 시작? 딜러 카운트가0이됬을떄 딜러턴끝나면 다시 플레이어턴
+	void DealerTurn(float _deltaTime); //딜러턴 시작? 딜러 카운트가0이됬을떄 딜러턴끝나면 다시 플레이어턴
 
 	void CheckVictory(float _deltaTime); //일단 만듬 stay누를시 승패결정하기
 	void ShowDown();   //승패 계산떄 숫자합이 같으면 발생

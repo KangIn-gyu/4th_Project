@@ -13,10 +13,14 @@ public:
 	~Collider();
 
 protected:
+
 private:
+
 public:
 	ColliderType type;
+
 protected:
+
 private:
 };
 

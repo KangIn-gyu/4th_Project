@@ -21,7 +21,6 @@
 #include "AiNode.h"
 #include "TransformComponent.h"
 
-
 void Renderer::Initialize(WindowInfo* _windowInfo)
 {
 	D3DGraphics = std::make_unique<D3DClass>();
@@ -42,8 +41,6 @@ void Renderer::Initialize(WindowInfo* _windowInfo)
 	D2DGraphics->Initialize(_windowInfo);
 
 	FontManager::GetInstance()->InitializeDWrite();
-
-
 }
 
 void Renderer::Update(float _deltaTime)
@@ -53,21 +50,15 @@ void Renderer::Update(float _deltaTime)
 
 void Renderer::Render()
 {
-
 	D3DGraphics->BeginDraw(IMGUI->GetBankGroundColor());
-
 	//m_skybox.Render(D3DClass::GetD3DDeviceContext().Get());
-
 	D2DGraphics->BeginDraw();
-
 	D3DDraw();
-
-
 	D3DGraphics->ExtractFinalImage();
 	IMGUI->Render();
 
-	D2DGraphics->EndDraw();
 	D3DGraphics->EndDraw();
+	D2DGraphics->EndDraw();
 }
 
 void Renderer::D3DDraw()
@@ -117,11 +108,11 @@ void Renderer::D3DDraw()
 			objectData.metalness = material->GetMetalness();
 			objectData.roughness = material->GetRoughness();
 
-			int textureregister = 20;
-			for (UINT slot = 0; slot < textureregister; ++slot)
+			while (!previousTexturerProcessing.empty())
 			{
 				ID3D11ShaderResourceView* nullSRV = nullptr;
-				d3dDeviceContext->PSSetShaderResources(slot, 1, &nullSRV);
+				d3dDeviceContext->PSSetShaderResources(previousTexturerProcessing.top(), 1, &nullSRV);
+				previousTexturerProcessing.pop();
 			}
 
 			for (auto& textur : material->GetTextures())
@@ -130,6 +121,7 @@ void Renderer::D3DDraw()
 				{
 					for (auto textureIndex : textur->GetTextureTypeIndexs()) // set을 반복자로 순회
 					{
+						previousTexturerProcessing.push(textureIndex);
 						d3dDeviceContext->PSSetShaderResources(textureIndex, 1, textur->GetTexture().GetAddressOf());
 					}
 				}

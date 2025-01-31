@@ -18,6 +18,12 @@ void SceneManager::FixedUpdate(const float _deltaTime)
 
 void SceneManager::RateUpdate(const float _deltaTime)
 {
+	if (true == changeSceneTrigger)
+	{
+		changeSceneTrigger = false;
+		std::invoke(&SceneManager::Change, SCENEMANAGER, changeSceneName);
+	}
+
 	if (nullptr != currentScene)
 	currentScene->RateUpdate(_deltaTime);
 }
@@ -33,6 +39,18 @@ void SceneManager::LoadScene(Scene* _scene)
 
 void SceneManager::ChangeScene(std::string_view _SceneName)
 {
+	changeSceneTrigger = true;
+	changeSceneName.assign(_SceneName);
+	// TODO : 여기서 다음 씬에 필요한 오브젝트 처리하는걸 실행하면 좋을 거 같음
+}
+
+bool SceneManager::isCurrecntScene()
+{
+	return currentScene != nullptr;
+}
+
+void SceneManager::Change(std::string_view _SceneName)
+{
 	if (ScenesCollection.empty())
 	{
 		std::cout << "씬이 없습니다." << '\n';
@@ -44,7 +62,7 @@ void SceneManager::ChangeScene(std::string_view _SceneName)
 		currentScene = it->second;
 		currentScene->Initialize();
 		currentScene->MainCameraSetting(0); // 메인 카메라 변경
-		IMGUI->HierarchyObjectManagerSetting(currentScene->GetObjectManager());
+		IMGUI->HierarchyCurrentSceneSetting(currentScene); 
 	}
 	else
 	{

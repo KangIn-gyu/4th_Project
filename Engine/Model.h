@@ -5,13 +5,15 @@
 class Mesh;
 class Material;
 class ModelComponent;
+class Animation;
 class Model : public IResources
 {
 	struct ModelData
 	{
 		std::vector<Mesh*>* meshs{};
 		std::vector<Material*>* materials {};
-		std::vector<AiNode*>* treeNode{};
+		std::vector<AiNode*>* treeNodes {};
+		std::vector<Animation*>* animations {};
 		AiNode* rootNode {};
 		
 		void Show();
@@ -25,6 +27,8 @@ public:
 	void SetOwner(ModelComponent* _owner); // 용도 모델컴포넌트에서 가져올거 필요할때
 	void SetMesh(std::vector<Mesh*>* _meshs);
 	void SetMateria(std::vector<Material*>* _materials);
+	void SetAnimation(std::vector<Animation*>* _animations);
+	void SetNodes(std::vector<AiNode*>* _nodes);
 
 	ModelData* GetModelData() { return data; }
 	DXMath::Vector3 extent;

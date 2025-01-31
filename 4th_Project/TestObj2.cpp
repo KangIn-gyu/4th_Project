@@ -10,12 +10,10 @@ TestObj2::TestObj2(std::string_view _name, Object::ObjectType _type) : Object(_n
 {
 }
 
-void TestObj2::Start()
+void TestObj2::Initialize()
 {
-	CreateComponent<ModelComponent>("STAGE1/FBX/newChar.fbx");  // char2 / gun
-	CreateComponent<RenderComponent>();
-	
-	auto randerComponet = GetComponent<RenderComponent>();
+	CreateComponent<ModelComponent>("STAGE1/FBX/Robot_Dummy_classTest.fbx");  // char2 / gun
+	auto* randerComponet = CreateComponent<RenderComponent>();
 	randerComponet->SetShader(ShaderType::VS, "Shaders/VertexShaderVS.hlsl");
 	randerComponet->SetShader(ShaderType::PS, "Shaders/PixelShaderPS.hlsl");
 	CreateComponent<BoxCollider>();

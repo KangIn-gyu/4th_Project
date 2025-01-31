@@ -48,7 +48,6 @@ void BlackJack::Update(float _deltaTime)
 		{
 			elapsedTime += _deltaTime;
 
-
 			if (elapsedTime > 1.0)
 			{
 				player->CardDraw(deck); //1초에한장 딜레이주기 카드위치선정 ******
@@ -87,9 +86,6 @@ void BlackJack::Update(float _deltaTime)
 			//dealer->lose
 		}
 	}
-
-	
-	
 }
 
 
@@ -106,7 +102,6 @@ void BlackJack::DealerTurn(float _deltaTime)
 void BlackJack::CheckVictory(float _deltaTime)
 {
 	//승패계산
-
 
 	if (player->GetScore() == dealer->GetScore())
 	{

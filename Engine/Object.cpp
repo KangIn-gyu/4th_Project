@@ -4,7 +4,7 @@
 #include "ModelComponent.h"  // ев╫╨©К 
 #include "Helper.h"
 
-Object::Object(std::string_view _name , ObjectType _type) : name(_name), type(_type)
+Object::Object(std::string_view _name, ObjectType _type) : name(_name), type(_type)
 {
 	CreateComponent<TransformComponent>();
 }
@@ -37,8 +37,35 @@ std::string Object::ObjectTypeToString()
     }
 }
 
+bool Object::IsActive() const
+{
+    return state == State::Active;
+}
+
+bool Object::IsDead() const
+{
+    return  state == State::Dead;
+}
+
+void Object::SetActive(bool _state)
+{
+    if (_state == true)
+    {
+        state = State::Active;
+    }
+    else
+    {
+        state = State::Paused;
+    }
+}
+
+void Object::Erase()
+{
+    state = State::Erase;
+}
 
 void Object::ClearComponents()
 {
     SafeExtinction::SAFE_CLEAR_CONTAINER(components);
 }
+

@@ -1,7 +1,7 @@
 #pragma once
 #include "EditorWindow.h"
 
-class ObjectManager;
+class Scene;
 class Object;
 class AiNode;
 class Model;
@@ -19,7 +19,7 @@ public:
 	void OnDisable() override;
 	void OnDestroy() override;
 
-	void SetObjectManager(ObjectManager* _objectManager);
+	void SetCurrentScene(Scene* _currentScene);
 	void DrawNodeRecursive(std::shared_ptr<Model> _model, AiNode* _node);
 private:
 
@@ -27,7 +27,7 @@ private:
 public:
 
 private:
-	ObjectManager* objectManager; // 여기 있는 포인터는 가르키기만 하고 지우는건 씬 자체에서 알아서 함.
+	Scene* currentScene; // 여기 있는 포인터는 가르키기만 하고 지우는건 씬 자체에서 알아서 함.
 	Object* selectedObject = nullptr;
 };
 

@@ -60,7 +60,7 @@ void UserImGui::Render()
 	ConsoleMenu();
 	hierarchy.Run();
 	inspector->Run();
-	Scene();
+	ImGuiScene();
 	// ∑ª¥ı∏µ
 	ImGui::Render();
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
@@ -180,12 +180,12 @@ void UserImGui::MainDockSpace()
 //	}
 }
 
-void UserImGui::HierarchyObjectManagerSetting(ObjectManager* _objectManager)
+void UserImGui::HierarchyCurrentSceneSetting(Scene* _currentScene)
 {
-	hierarchy.SetObjectManager(_objectManager);
+	hierarchy.SetCurrentScene(_currentScene);
 }
 
-void UserImGui::Scene()
+void UserImGui::ImGuiScene()
 {
 //	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 }); // √¢Ω∫≈∏¿œ
 	ImGui::Begin(TEXT_UTF8(u8"æ¿"));
