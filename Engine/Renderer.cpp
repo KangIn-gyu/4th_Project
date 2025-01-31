@@ -19,6 +19,7 @@
 
 
 #include "AiNode.h"
+#include "D2DFont.h"
 #include "TransformComponent.h"
 
 void Renderer::Initialize(WindowInfo* _windowInfo)
@@ -52,16 +53,16 @@ void Renderer::Render()
 {
 	D3DGraphics->BeginDraw(IMGUI->GetBankGroundColor());
 //m_skybox.Render(D3DClass::GetD3DDeviceContext().Get());
+	D2DGraphics->BeginDraw();
 
 	D3DDraw();
+	D2DDraw();
   
 	D3DGraphics->ExtractFinalImage();
 	IMGUI->Render();
+
 	D3DGraphics->EndDraw();
-  
-	D2DGraphics->BeginDraw();
-  
-	D2DGraphics->BeginDraw();
+	D2DGraphics->EndDraw();
 }
 
 void Renderer::D3DDraw()
@@ -92,11 +93,11 @@ void Renderer::D3DDraw()
 			d3dDeviceContext->IASetInputLayout(meshData->inputLayout.GetInputLayout().Get());
 
 			// VS 
-			d3dDeviceContext->VSSetShader(renderComponent->GetShder(ShaderType::VS)->GetVertexShader().Get(), nullptr, 0);
+			d3dDeviceContext->VSSetShader(renderComponent->GetShader(ShaderType::VS)->GetVertexShader().Get(), nullptr, 0);
 			d3dDeviceContext->VSSetConstantBuffers(0, 1, matrixConstantBuffer.GetBuffer().GetAddressOf());
 			d3dDeviceContext->VSSetConstantBuffers(1, 1, objectBuffer.GetBuffer().GetAddressOf());
 			// PS 
-			d3dDeviceContext->PSSetShader(renderComponent->GetShder(ShaderType::PS)->GetPixelShader().Get(), nullptr, 0);
+			d3dDeviceContext->PSSetShader(renderComponent->GetShader(ShaderType::PS)->GetPixelShader().Get(), nullptr, 0);
 			d3dDeviceContext->PSSetConstantBuffers(0, 1, matrixConstantBuffer.GetBuffer().GetAddressOf());
 			d3dDeviceContext->PSSetConstantBuffers(1, 1, objectBuffer.GetBuffer().GetAddressOf());
 
@@ -134,6 +135,15 @@ void Renderer::D3DDraw()
 			d3dDeviceContext->UpdateSubresource(objectBuffer.GetBuffer().Get(), 0, nullptr, &objectData, 0, 0);			// CPU -> GPU
 			d3dDeviceContext->DrawIndexed(indexBuffer->GetIndexCount(), 0, 0);
 		}
+	}
+}
+
+void Renderer::D2DDraw()
+{
+	for (auto& renderComponent : work)
+	{
+		auto fontData = renderComponent->GetD2DFont();
+		//fontData->Render();
 	}
 }
 

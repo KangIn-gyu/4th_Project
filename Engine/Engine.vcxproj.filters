@@ -360,6 +360,9 @@
     <ClInclude Include="DOTween.h">
       <Filter>0_Utility\DOTween</Filter>
     </ClInclude>
+    <ClInclude Include="D2DFont.h">
+      <Filter>3_Graphics\D2D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WindowApp.cpp">
@@ -541,6 +544,9 @@
     </ClCompile>
     <ClCompile Include="DOTween.cpp">
       <Filter>0_Utility\DOTween</Filter>
+    </ClCompile>
+    <ClCompile Include="D2DFont.cpp">
+      <Filter>3_Graphics\D2D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
