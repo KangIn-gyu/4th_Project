@@ -17,39 +17,25 @@ GambleScene::GambleScene(std::string_view _Name) : Scene(_Name)
 	
 	BLACKJACK->player = PLAYER;
 	
+	
 }
 
 
 void GambleScene::Enter()
 {
-	//µô·¯µµ Àü¿ªÀ¸·Î ÇÒ±î¿ä
-	//BLACKJACK->dealer = CreatorObject<Dealer>("Dealer", Object::ObjectType::Basic); 
-	//BLACKJACK->Setstage(1);
-	//BLACKJACK->deck = CreatorObject<Deck>("Deck", Object::ObjectType::Basic);
+	//ë”œëŸ¬ë„ ì „ì—­ìœ¼ë¡œ í• ê¹Œìš”
+
+	BLACKJACK->dealer = CreatorObject<Dealer>("Dealer", Object::ObjectType::Basic); 
+	BLACKJACK->dealer->GetComponent<TransformComponent>()->SetPosition({ -300, 0, 0 });
+	BLACKJACK->deck = CreatorObject<Deck>("Deck", Object::ObjectType::Basic);
+	BLACKJACK->Setstage(1);
 
 	
-	//auto deck = objectManager->GetGameObject<Deck>(Object::ObjectType::Basic, "Deck");
-	//deck->Init();
-	//deck->ShuffleDeck();
-	//deck->showDeck();
+	auto deck = GetGameObject(Object::ObjectType::Basic, "Deck");
 	
-	
-	CreatorObject<Button>("Button", Object::ObjectType::Basic, DXMath::Vector3{ 600, 100, 0 }, ClickFunc::StayButton);
-
-//	auto button1 = objectManager->GetGameObject<Button>(Object::ObjectType::Basic, "Button");
-//	CreatorObject<Button>("Button", Object::ObjectType::Basic, DXMath::Vector3{ 800, 100, 0 }, [button1]()
-//		{
-//			DXMath::Vector3 currentPosition = button1->GetComponent<TransformComponent>()->GetPosition();
-//
-//			// x °ª¿¡ 50 ´õÇÏ±â
-//			currentPosition.y += 50;
-//
-//			// ¾÷µ¥ÀÌÆ®µÈ À§Ä¡ ¼³Á¤
-//			button1->GetComponent<TransformComponent>()->SetPosition(currentPosition);
-//		}
-//	);
-	
-	
+	CreatorObject<Button>("Button", Object::ObjectType::Basic, DXMath::Vector3(900, 0, 0), []() {ClickFunc::OpenButton();});
+	CreatorObject<Button>("Button", Object::ObjectType::Basic, DXMath::Vector3(1000, 0, 0), []() {ClickFunc::StayButton();});
+	CreatorObject<Button>("Button", Object::ObjectType::Basic, DXMath::Vector3(1100, 0, 0), []() {ClickFunc::HitButton();});
 }
 
 
@@ -57,9 +43,6 @@ void GambleScene::Enter()
 void GambleScene::Update(const float _deltaTime)
 {
 	__super::Update(_deltaTime);
-	//std::cout << "°×ºí¾À ¾÷µ¥ÀÌÆ®Áß" << std::endl;
-	//std::cout << PLAYER->GetScore() << std::endl;
-	//std::cout << GAMEMANAGER->getstatestring() << std::endl;
-	//std::cout << GAMEMANAGER->Getmagnification() << std::endl;
-	//GAMEMANAGER->Update(_deltaTime);
+
+	BLACKJACK->Update(_deltaTime);
 }

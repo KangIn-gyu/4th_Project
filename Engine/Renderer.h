@@ -21,6 +21,7 @@ public:
 	void Update(float _deltaTiem);
 	void Render();
 	void D3DDraw();
+	void D2DDraw();
 	void AddRenderComponent(RenderComponent* _renderComponent);
 	void RemoveRenderComponent(RenderComponent* _renderComponent);
 
@@ -29,6 +30,7 @@ public:
 	void SetWindowSize();
 
 	ComPtr<ID3D11ShaderResourceView> GetImGuiImageTexture();
+
 private:
 	Renderer() {}
 	~Renderer() { work.clear(); }

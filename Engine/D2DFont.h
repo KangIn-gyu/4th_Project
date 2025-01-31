@@ -1,9 +1,8 @@
 #pragma once
-//#include "SingletonBase.h"
-//typedef DirectX::XMFLOAT4 COLOR;
 #include <dwrite_3.h>
-#include <d2d1_1.h>
-    class D2DFont
+#include "Component.h"
+
+class D2DFont : public Component
     {
     public:
         D2DFont(std::wstring _Dialog);
@@ -15,6 +14,7 @@
         void SetSize(float _FontSize, DWRITE_TEXT_RANGE textRange);
         void SetWriteTextFormat(IDWriteTextFormat* _IDWriteTextFormat);
 
+        IDWriteTextLayout* GetFontLayout() { return DWriteTextLayout; }
        // void TextDraw(const wchar_t* format, D2D1_RECT_F _rect, D2D1_COLOR_F _color, ...);
 
     public:
@@ -25,7 +25,10 @@
         IDWriteTextLayout* DWriteTextLayout = nullptr;
         float FontSize = 32.0f;
         D2D_SIZE_F BoxSize = { 100.f, 50.f };
-        D2D1_RECT_F Pos = { 300.f , 300.f };
+        float x = 300, y = 300;
+        D2D1_RECT_F Pos = { x , y ,x+ BoxSize .width,y + BoxSize.height };
+
+        std::shared_ptr<D2DFont> d2dFontData;
     };
 
 

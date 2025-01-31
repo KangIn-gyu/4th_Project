@@ -32,6 +32,13 @@ private:
 	int   betChip; //베팅떄 걸칩갯수 마우스휠로 조절
 public:
 	bool turnEnd;
+	bool drawFirst = false;
+	bool Shuffle = false;
+	int  openCard; //d
 	Hand hand;
 	std::vector<Card*> selectCard;
+	std::vector<DXMath::Vector3> handSlots = {
+	{100, 0,0}, {200, 0,0}, {300, 0,0}, {400, 0,0},
+	{500, 0,0}, {600, 0,0}, {700, 0,0}
+	}; //이건 어쩌지
 };

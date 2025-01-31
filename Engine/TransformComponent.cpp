@@ -78,12 +78,12 @@ DXMath::Vector3 TransformComponent::GetWorldLook() const
 	return transform.GetWorldLook();
 }
 
-DXMath::Vector3 TransformComponent::GetPosition() const
+DXMath::Vector3& TransformComponent::GetPosition() 
 {
 	return transform.GetPosition();
 }
 
-DXMath::Quaternion TransformComponent::GetQuaternion() const
+DXMath::Quaternion& TransformComponent::GetQuaternion() 
 {
 	return transform.GetQuaternion();
 }

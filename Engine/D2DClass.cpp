@@ -6,6 +6,9 @@
 
 ComPtr<ID2D1DeviceContext> D2DClass::D2DDeviceContext = nullptr;
 ComPtr<ID2D1SolidColorBrush> D2DClass::Brush = nullptr;
+ComPtr<ID2D1Device> D2DClass::D2DDevice = nullptr;
+ComPtr<IDWriteFactory5> D2DClass::DWriteFactory = nullptr;
+ComPtr<ID2D1Bitmap1> D2DClass::D2DBitmap1 = nullptr;
 
 D2DClass::~D2DClass()
 {
@@ -44,7 +47,12 @@ void D2DClass::InitD2D()
 	// brush 생성
 	HR_T(D2DDeviceContext.Get()->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::Black), Brush.GetAddressOf()));
 
+	HR_T(DWriteCreateFactory(
+		DWRITE_FACTORY_TYPE_SHARED,
+		__uuidof(IDWriteFactory5),
+		reinterpret_cast<IUnknown**>(DWriteFactory.GetAddressOf())));
 }
+
 void D2DClass::CreateD2DRenderTarget()
 {
 	// 현재 창의 DPI(1인치당 픽셀의 개수) 설정 가져오기

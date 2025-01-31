@@ -56,14 +56,14 @@ public:
 	Dealer* dealer;
 	//bool isThrow = false; //카드 버리기모드 
 	bool onDoubbleDown = false;
+	bool canSelect = false;
 private:
-	float elapsedTime;
+	float elapsedTime =0;
 	Turn curTurn = Turn::player;
 	PlayerState state = PlayerState::OPEN;
 	bool firstTurn =true; //첫턴은 달라서
 	bool isRoundOver = true; //한 라운드가 끝날떄
 	//bool isClicked = false;
 	int magnification = 1; //배율   최종 = 베팅액 * 배율
-	
 };
 
