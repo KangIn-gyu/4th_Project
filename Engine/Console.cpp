@@ -29,7 +29,7 @@ void Console::ResizeConsole(int _width, int _height)
 
 	COORD newSize;
 	newSize.X = _width;
-	newSize.Y = _height;
+	newSize.Y = _height * 2;
 	SetConsoleScreenBufferSize(hConsole, newSize);
 
 	// 콘솔 창 크기 조정
@@ -37,7 +37,8 @@ void Console::ResizeConsole(int _width, int _height)
 	SetConsoleWindowInfo(hConsole, TRUE, &windowSize);
 
 	// 콘솔 창 위치 및 크기 설정
-	SetWindowPos(consoleHwnd, nullptr, 0, 0, _width * 8, _height * 16, SWP_NOMOVE | SWP_NOZORDER);
+	//  _width * 8, _height * 16
+	SetWindowPos(consoleHwnd, nullptr, 0, 0, _width, _height , SWP_NOMOVE | SWP_NOZORDER);
 }
 
 void Console::SetFontSize(int _width, int _height)

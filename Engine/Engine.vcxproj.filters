@@ -14,83 +14,17 @@
     <Filter Include="2_System\Input">
       <UniqueIdentifier>{87ed90ea-395d-4562-9f5b-4cb3313d7d0e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2_System\Graphics">
-      <UniqueIdentifier>{67425ac0-bc7f-41b0-8126-ece587e86256}</UniqueIdentifier>
-    </Filter>
     <Filter Include="99_ClassDiagram">
       <UniqueIdentifier>{14f17d26-715b-44d8-bad9-492f44410cd4}</UniqueIdentifier>
     </Filter>
     <Filter Include="2_System\Time">
       <UniqueIdentifier>{19c8583c-7b9e-435e-b89c-98ad821d678e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="3_Object">
-      <UniqueIdentifier>{0a472d1f-dfee-4659-a46f-fcaff400de79}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="3_Object\Compoent">
-      <UniqueIdentifier>{41a87d35-fabd-4b02-a9cc-12eb7cec8fb2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="3_Object\Compoent\Camera">
-      <UniqueIdentifier>{cefeb000-53c8-4e79-888d-d2a4e3f4c6d7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="3_Object\Compoent\Transform">
-      <UniqueIdentifier>{79c4a4b1-bd1e-4f11-8d4c-dcd5a3ac8c8a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2_System\Graphics\GraphicsData">
-      <UniqueIdentifier>{22359faf-1502-4627-8c66-042baa7a3506}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="3_Object\Compoent\Model">
-      <UniqueIdentifier>{ce02b990-2a8d-477a-9bd1-c070d8d8711b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="pch">
       <UniqueIdentifier>{87545f9d-cb84-45f8-9539-8d582f28c070}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2_System\Resource">
-      <UniqueIdentifier>{5e3f9e6d-12ab-4450-9f7b-ace2db7a5bfc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="1_Engine\ObjectManager">
-      <UniqueIdentifier>{f3dee966-f608-4638-93ea-8523c893b141}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2_System\Graphics\GraphicsData\Buffer">
-      <UniqueIdentifier>{0be67079-b22f-4065-869d-6afc2e6f59fc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2_System\Graphics\GraphicsData\Shader">
-      <UniqueIdentifier>{b11d75f4-65b5-4696-90fc-59c62e47db5c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2_System\Graphics\GraphicsData\Viewport">
-      <UniqueIdentifier>{2ac39156-86ae-4888-99f2-fbb9ac4845de}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2_System\Graphics\GraphicsData\Buffer\ConstantBuffer">
-      <UniqueIdentifier>{5746f508-a010-426b-8bcb-67f8c4a97162}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="3_Object\Compoent\Render">
-      <UniqueIdentifier>{2bcabe79-6535-4188-8469-052312255831}</UniqueIdentifier>
-    </Filter>
     <Filter Include="리소스 파일\Header">
       <UniqueIdentifier>{2f6ed2e1-c461-418b-ae34-5523a85363f4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="3_Object\Compoent\Model\Data">
-      <UniqueIdentifier>{575a08ad-b275-4168-ac41-d7871e546bf2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="3_Object\Compoent\Model\Data\Texture">
-      <UniqueIdentifier>{d4e1bdd4-8097-4b1c-85d6-a03a798bc8b8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="3_Object\Compoent\Model\Data\Mesh">
-      <UniqueIdentifier>{71c8f464-1b62-48a5-b0d7-da6c6fdfe1a5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="3_Object\Compoent\Model\Data\Material">
-      <UniqueIdentifier>{c46ceb33-9df3-4cbf-a16c-f0a3c8b1ce31}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="3_Object\Compoent\Model\Data\InputLayout">
-      <UniqueIdentifier>{87a5cb4a-3bb3-4f10-ab60-2443558cf078}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="3_Object\Compoent\Model\Data\Model">
-      <UniqueIdentifier>{923d92b3-c42b-4ddb-ac7e-ab52fb9d6ac7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2_System\Resource\FBXLoader">
-      <UniqueIdentifier>{5ad0925d-576a-4d46-b1f0-ccab539f0857}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2_System\Resource\FBXLoader\Data">
-      <UniqueIdentifier>{6f566df8-6ad3-4ed7-b4ad-84e867342c1f}</UniqueIdentifier>
     </Filter>
     <Filter Include="1_Engine\Scene">
       <UniqueIdentifier>{01d666e5-3dad-4a3f-92e5-ae7d52776c38}</UniqueIdentifier>
@@ -119,6 +53,96 @@
     <Filter Include="0_Utility\MyImGui\Editor">
       <UniqueIdentifier>{7a5f7204-ff02-481c-adbe-f365d09d03f6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="3_Graphics">
+      <UniqueIdentifier>{e65d0abc-173f-4022-b78d-e024e33fee4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3_Graphics\D3D">
+      <UniqueIdentifier>{b8a5eb42-186e-4014-80f5-a2585011fbd0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3_Graphics\D2D">
+      <UniqueIdentifier>{5489dde0-1e10-4aaf-a897-9e2bb5f674fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3_Graphics\Render">
+      <UniqueIdentifier>{af08f62b-90bf-4d26-b956-9dbc504ed9d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3_Graphics\GraphicsData">
+      <UniqueIdentifier>{7ebbcdf7-a848-48f8-8023-ad32e6e36651}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3_Graphics\GraphicsData\Buffer">
+      <UniqueIdentifier>{038e7324-0f1a-4f7d-b2bc-c3c7811f185e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3_Graphics\GraphicsData\Shader">
+      <UniqueIdentifier>{f20e94f4-7f9b-4b41-accc-980a67a00848}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3_Graphics\GraphicsData\SkyBox">
+      <UniqueIdentifier>{94ecda06-3b3b-4c4d-a77f-0e3cdf6b95a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3_Graphics\GraphicsData\Viewport">
+      <UniqueIdentifier>{6a18cacc-eb2f-4dbd-aaff-8ed74a50e00f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Resources">
+      <UniqueIdentifier>{826cf9b3-6119-4823-9c0e-dc5158657305}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Resources\FBX">
+      <UniqueIdentifier>{7ca5d70d-a7d5-41f4-bc2b-74136f9bf1ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Resources\SceneLoader">
+      <UniqueIdentifier>{383be747-6873-475b-a24e-4cd610a61fa8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Resources\ResourceData">
+      <UniqueIdentifier>{f652a164-998d-47fa-9cd0-5acf19fa51f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Resources\ResourceData\Node">
+      <UniqueIdentifier>{70554e4b-1ac8-4a71-b4fa-374401e51f4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Resources\ResourceData\Texture">
+      <UniqueIdentifier>{fa534847-4219-4f67-9ac1-7c88d09c57a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Resources\ResourceData\Animation">
+      <UniqueIdentifier>{f0c46f20-629d-44e1-aade-0966d234aa21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Resources\ResourceData\Mesh">
+      <UniqueIdentifier>{ee2ce6a2-fbd4-4c34-b3a5-88b330292871}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3_Graphics\GraphicsData\InputLayout">
+      <UniqueIdentifier>{2e045491-af44-466d-ba8e-8520ba265832}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="5_Object">
+      <UniqueIdentifier>{9acb12fc-5b25-43a4-bfdb-12c1c71d7192}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="5_Object\Component">
+      <UniqueIdentifier>{237fdf5d-8894-4607-afc0-430b509860d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="5_Object\Component\CameraCompoent">
+      <UniqueIdentifier>{079e488a-73f8-43eb-9bd5-58b2b8346e5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="5_Object\Component\TransformComponet">
+      <UniqueIdentifier>{a7193f69-120c-4923-9993-55eae6f08afb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="5_Object\Component\RenderComponent">
+      <UniqueIdentifier>{697cd2c6-acb7-4fbe-8d89-386ec958a596}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="5_Object\Component\ColliderComponent">
+      <UniqueIdentifier>{8c4b24e8-269c-4e08-b570-5b3b6f13061f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="5_Object\Component\ModelComponent">
+      <UniqueIdentifier>{b957154e-9c51-4f20-b4ce-9d9f2cf28fda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Resources\ResourceData\Model">
+      <UniqueIdentifier>{07c0599b-cfe6-4df1-a258-a9334f4d9c71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Resources\ResourceData\Material">
+      <UniqueIdentifier>{25c097d7-7933-4066-b5b2-d1eb59e6af62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0_Utility\MyImGui\Editor\ComponentEditor">
+      <UniqueIdentifier>{6ba90df5-9c1b-49e5-ba87-9cf1604c1a6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Resources\ResourceData\Bone">
+      <UniqueIdentifier>{9ed2f025-3a13-4e54-bb34-6ad67ce23dfa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Resources\ResourceData\Vertex">
+      <UniqueIdentifier>{ef7e8d08-e038-45b5-bead-6ad8adf6dfcf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowApp.h">
@@ -139,14 +163,8 @@
     <ClInclude Include="DirectXInput.h">
       <Filter>2_System\Input</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer.h">
-      <Filter>2_System\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="SingletonBase.h">
       <Filter>0_Utility\UtilityHeader</Filter>
-    </ClInclude>
-    <ClInclude Include="D3DClass.h">
-      <Filter>2_System\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Helper.h">
       <Filter>0_Utility\UtilityHeader</Filter>
@@ -165,78 +183,6 @@
     </ClInclude>
     <ClInclude Include="SystemHeader.h">
       <Filter>2_System</Filter>
-    </ClInclude>
-    <ClInclude Include="Object.h">
-      <Filter>3_Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Component.h">
-      <Filter>3_Object\Compoent</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraCompoent.h">
-      <Filter>3_Object\Compoent\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelComponent.h">
-      <Filter>3_Object\Compoent\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="ResourceSystem.h">
-      <Filter>2_System\Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="IResources.h">
-      <Filter>2_System\Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectManager.h">
-      <Filter>1_Engine\ObjectManager</Filter>
-    </ClInclude>
-    <ClInclude Include="IndexBuffer.h">
-      <Filter>2_System\Graphics\GraphicsData\Buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="Vertex.h">
-      <Filter>2_System\Graphics\GraphicsData\Buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="Mesh.h">
-      <Filter>3_Object\Compoent\Model\Data\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="InputLayout.h">
-      <Filter>3_Object\Compoent\Model\Data\InputLayout</Filter>
-    </ClInclude>
-    <ClInclude Include="Viewport.h">
-      <Filter>2_System\Graphics\GraphicsData\Viewport</Filter>
-    </ClInclude>
-    <ClInclude Include="ConstantBuffer.h">
-      <Filter>2_System\Graphics\GraphicsData\Buffer\ConstantBuffer</Filter>
-    </ClInclude>
-    <ClInclude Include="ConstantBufferData.h">
-      <Filter>2_System\Graphics\GraphicsData\Buffer\ConstantBuffer</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderComponent.h">
-      <Filter>3_Object\Compoent\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Material.h">
-      <Filter>3_Object\Compoent\Model\Data\Material</Filter>
-    </ClInclude>
-    <ClInclude Include="Texture.h">
-      <Filter>3_Object\Compoent\Model\Data\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraObject.h">
-      <Filter>3_Object\Compoent\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="Model.h">
-      <Filter>3_Object\Compoent\Model\Data\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="FBXLoader.h">
-      <Filter>2_System\Resource\FBXLoader</Filter>
-    </ClInclude>
-    <ClInclude Include="Transform.h">
-      <Filter>3_Object\Compoent\Transform</Filter>
-    </ClInclude>
-    <ClInclude Include="AiNode.h">
-      <Filter>2_System\Resource\FBXLoader\Data</Filter>
-    </ClInclude>
-    <ClInclude Include="StaticMesh.h">
-      <Filter>3_Object\Compoent\Model\Data\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="SkeletalMesh.h">
-      <Filter>3_Object\Compoent\Model\Data\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>1_Engine\Scene</Filter>
@@ -262,17 +208,6 @@
     <ClInclude Include="HierarchyWindow.h">
       <Filter>0_Utility\MyImGui\View</Filter>
     </ClInclude>
-    <ClInclude Include="TransformEditor.h">
-      <Filter>0_Utility\MyImGui\Editor</Filter>
-    </ClInclude>
-    <ClInclude Include="Shader.h">
-      <Filter>2_System\Graphics\GraphicsData\Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="FontD2D.h" />
-    <ClInclude Include="TransformComponent.h">
-      <Filter>3_Object\Compoent\Transform</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneLoader.h" />
     <ClInclude Include="MeshInformationEditor.h">
       <Filter>0_Utility\MyImGui\Editor</Filter>
     </ClInclude>
@@ -282,18 +217,139 @@
     <ClInclude Include="TextureInformationEditor.h">
       <Filter>0_Utility\MyImGui\Editor</Filter>
     </ClInclude>
-    <ClInclude Include="D2DClass.h">
-      <Filter>2_System\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="FontD2D.h">
-      <Filter>2_System\Graphics</Filter>
+    <ClInclude Include="CameraInformationEditor.h">
+      <Filter>0_Utility\MyImGui\Editor</Filter>
     </ClInclude>
     <ClInclude Include="FontManager.h">
-      <Filter>2_System\Graphics</Filter>
+      <Filter>3_Graphics\D2D</Filter>
     </ClInclude>
-    <ClInclude Include="CameraInformationEditor.h" />
+    <ClInclude Include="D2DClass.h">
+      <Filter>3_Graphics\D2D</Filter>
+    </ClInclude>
+    <ClInclude Include="D3DClass.h">
+      <Filter>3_Graphics\D3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>3_Graphics\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstantBuffer.h">
+      <Filter>3_Graphics\GraphicsData\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstantBufferData.h">
+      <Filter>3_Graphics\GraphicsData\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="IndexBuffer.h">
+      <Filter>3_Graphics\GraphicsData\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>3_Graphics\GraphicsData\Shader</Filter>
+    </ClInclude>
     <ClInclude Include="SkyBox.h">
-      <Filter>2_System\Graphics</Filter>
+      <Filter>3_Graphics\GraphicsData\SkyBox</Filter>
+    </ClInclude>
+    <ClInclude Include="Viewport.h">
+      <Filter>3_Graphics\GraphicsData\Viewport</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceSystem.h">
+      <Filter>4_Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="FBXLoader.h">
+      <Filter>4_Resources\FBX</Filter>
+    </ClInclude>
+    <ClInclude Include="IResources.h">
+      <Filter>4_Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>4_Resources\ResourceData\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationNode.h">
+      <Filter>4_Resources\ResourceData\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>4_Resources\ResourceData\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="SkeletalMesh.h">
+      <Filter>4_Resources\ResourceData\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticMesh.h">
+      <Filter>4_Resources\ResourceData\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="AiNode.h">
+      <Filter>4_Resources\ResourceData\Node</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>4_Resources\ResourceData\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="InputLayout.h">
+      <Filter>3_Graphics\GraphicsData\InputLayout</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>5_Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>5_Object\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraObject.h">
+      <Filter>5_Object\Component\CameraCompoent</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraCompoent.h">
+      <Filter>5_Object\Component\CameraCompoent</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>5_Object\Component\TransformComponet</Filter>
+    </ClInclude>
+    <ClInclude Include="TransformComponent.h">
+      <Filter>5_Object\Component\TransformComponet</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderComponent.h">
+      <Filter>5_Object\Component\RenderComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>5_Object\Component\ColliderComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="BoxCollider.h">
+      <Filter>5_Object\Component\ColliderComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelComponent.h">
+      <Filter>5_Object\Component\ModelComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>4_Resources\ResourceData\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>4_Resources\ResourceData\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="IClick.h" />
+    <ClInclude Include="IOnmouse.h" />
+    <ClInclude Include="AnimationEditor.h">
+      <Filter>0_Utility\MyImGui\Editor\ComponentEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="Layer.h">
+      <Filter>5_Object</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneLoader.h">
+      <Filter>4_Resources\SceneLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="BoneInfo.h">
+      <Filter>4_Resources\ResourceData\Bone</Filter>
+    </ClInclude>
+    <ClInclude Include="SkeletonInfo.h">
+      <Filter>4_Resources\ResourceData\Bone</Filter>
+    </ClInclude>
+    <ClInclude Include="BoneReference.h">
+      <Filter>4_Resources\ResourceData\Bone</Filter>
+    </ClInclude>
+    <ClInclude Include="BoneWeightVertex.h">
+      <Filter>4_Resources\ResourceData\Bone</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexBuffer.h">
+      <Filter>3_Graphics\GraphicsData\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Vertex.h">
+      <Filter>4_Resources\ResourceData\Vertex</Filter>
+    </ClInclude>
+    <ClInclude Include="TransformEditor.h">
+      <Filter>0_Utility\MyImGui\Editor\ComponentEditor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -312,83 +368,8 @@
     <ClCompile Include="DirectXInput.cpp">
       <Filter>2_System\Input</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer.cpp">
-      <Filter>2_System\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="D3DClass.cpp">
-      <Filter>2_System\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="TimeSystem.cpp">
       <Filter>2_System\Time</Filter>
-    </ClCompile>
-    <ClCompile Include="Object.cpp">
-      <Filter>3_Object</Filter>
-    </ClCompile>
-    <ClCompile Include="CameraCompoent.cpp">
-      <Filter>3_Object\Compoent\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="TransformComponent.cpp">
-      <Filter>3_Object\Compoent\Transform</Filter>
-    </ClCompile>
-    <ClCompile Include="ModelComponent.cpp">
-      <Filter>3_Object\Compoent\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="ResourceSystem.cpp">
-      <Filter>2_System\Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectManager.cpp">
-      <Filter>1_Engine\ObjectManager</Filter>
-    </ClCompile>
-    <ClCompile Include="IndexBuffer.cpp">
-      <Filter>2_System\Graphics\GraphicsData\Buffer</Filter>
-    </ClCompile>
-    <ClCompile Include="Vertex.cpp">
-      <Filter>2_System\Graphics\GraphicsData\Buffer</Filter>
-    </ClCompile>
-    <ClCompile Include="Mesh.cpp">
-      <Filter>3_Object\Compoent\Model\Data\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="Shader.cpp">
-      <Filter>2_System\Graphics\GraphicsData\Shader</Filter>
-    </ClCompile>
-    <ClCompile Include="InputLayout.cpp">
-      <Filter>3_Object\Compoent\Model\Data\InputLayout</Filter>
-    </ClCompile>
-    <ClCompile Include="Viewport.cpp">
-      <Filter>2_System\Graphics\GraphicsData\Viewport</Filter>
-    </ClCompile>
-    <ClCompile Include="ConstantBuffer.cpp">
-      <Filter>2_System\Graphics\GraphicsData\Buffer\ConstantBuffer</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderComponent.cpp">
-      <Filter>3_Object\Compoent\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="Material.cpp">
-      <Filter>3_Object\Compoent\Model\Data\Material</Filter>
-    </ClCompile>
-    <ClCompile Include="Texture.cpp">
-      <Filter>3_Object\Compoent\Model\Data\Texture</Filter>
-    </ClCompile>
-    <ClCompile Include="CameraObject.cpp">
-      <Filter>3_Object\Compoent\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="Model.cpp">
-      <Filter>3_Object\Compoent\Model\Data\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="FBXLoader.cpp">
-      <Filter>2_System\Resource\FBXLoader</Filter>
-    </ClCompile>
-    <ClCompile Include="Transform.cpp">
-      <Filter>3_Object\Compoent\Transform</Filter>
-    </ClCompile>
-    <ClCompile Include="AiNode.cpp">
-      <Filter>2_System\Resource\FBXLoader\Data</Filter>
-    </ClCompile>
-    <ClCompile Include="StaticMesh.cpp">
-      <Filter>3_Object\Compoent\Model\Data\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="SkeletalMesh.cpp">
-      <Filter>3_Object\Compoent\Model\Data\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
       <Filter>1_Engine\Scene</Filter>
@@ -414,11 +395,6 @@
     <ClCompile Include="HierarchyWindow.cpp">
       <Filter>0_Utility\MyImGui\View</Filter>
     </ClCompile>
-    <ClCompile Include="TransformEditor.cpp">
-      <Filter>0_Utility\MyImGui\Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="FontD2D.cpp" />
-    <ClCompile Include="SceneLoader.cpp" />
     <ClCompile Include="MeshInformationEditor.cpp">
       <Filter>0_Utility\MyImGui\Editor</Filter>
     </ClCompile>
@@ -428,18 +404,128 @@
     <ClCompile Include="TextureInformationEditor.cpp">
       <Filter>0_Utility\MyImGui\Editor</Filter>
     </ClCompile>
-    <ClCompile Include="D2DClass.cpp">
-      <Filter>2_System\Graphics</Filter>
+    <ClCompile Include="CameraInformationEditor.cpp">
+      <Filter>0_Utility\MyImGui\Editor</Filter>
     </ClCompile>
-    <ClCompile Include="FontD2D.cpp">
-      <Filter>2_System\Graphics</Filter>
+    <ClCompile Include="D2DClass.cpp">
+      <Filter>3_Graphics\D2D</Filter>
     </ClCompile>
     <ClCompile Include="FontManager.cpp">
-      <Filter>2_System\Graphics</Filter>
+      <Filter>3_Graphics\D2D</Filter>
     </ClCompile>
-    <ClCompile Include="CameraInformationEditor.cpp" />
+    <ClCompile Include="D3DClass.cpp">
+      <Filter>3_Graphics\D3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>3_Graphics\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstantBuffer.cpp">
+      <Filter>3_Graphics\GraphicsData\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="IndexBuffer.cpp">
+      <Filter>3_Graphics\GraphicsData\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>3_Graphics\GraphicsData\Shader</Filter>
+    </ClCompile>
     <ClCompile Include="SkyBox.cpp">
-      <Filter>2_System\Graphics</Filter>
+      <Filter>3_Graphics\GraphicsData\SkyBox</Filter>
+    </ClCompile>
+    <ClCompile Include="Viewport.cpp">
+      <Filter>3_Graphics\GraphicsData\Viewport</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceSystem.cpp">
+      <Filter>4_Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="FBXLoader.cpp">
+      <Filter>4_Resources\FBX</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>4_Resources\ResourceData\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationNode.cpp">
+      <Filter>4_Resources\ResourceData\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>4_Resources\ResourceData\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="SkeletalMesh.cpp">
+      <Filter>4_Resources\ResourceData\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticMesh.cpp">
+      <Filter>4_Resources\ResourceData\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="AiNode.cpp">
+      <Filter>4_Resources\ResourceData\Node</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>4_Resources\ResourceData\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="InputLayout.cpp">
+      <Filter>3_Graphics\GraphicsData\InputLayout</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>5_Object</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraObject.cpp">
+      <Filter>5_Object\Component\CameraCompoent</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraCompoent.cpp">
+      <Filter>5_Object\Component\CameraCompoent</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>5_Object\Component\TransformComponet</Filter>
+    </ClCompile>
+    <ClCompile Include="TransformComponent.cpp">
+      <Filter>5_Object\Component\TransformComponet</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderComponent.cpp">
+      <Filter>5_Object\Component\RenderComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>5_Object\Component\ColliderComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="BoxCollider.cpp">
+      <Filter>5_Object\Component\ColliderComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelComponent.cpp">
+      <Filter>5_Object\Component\ModelComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>4_Resources\ResourceData\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>4_Resources\ResourceData\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationEditor.cpp">
+      <Filter>0_Utility\MyImGui\Editor\ComponentEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="Layer.cpp">
+      <Filter>5_Object</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneLoader.cpp">
+      <Filter>4_Resources\SceneLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="BoneInfo.cpp">
+      <Filter>4_Resources\ResourceData\Bone</Filter>
+    </ClCompile>
+    <ClCompile Include="SkeletonInfo.cpp">
+      <Filter>4_Resources\ResourceData\Bone</Filter>
+    </ClCompile>
+    <ClCompile Include="BoneReference.cpp">
+      <Filter>4_Resources\ResourceData\Bone</Filter>
+    </ClCompile>
+    <ClCompile Include="BoneWeightVertex.cpp">
+      <Filter>4_Resources\ResourceData\Bone</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexBuffer.cpp">
+      <Filter>3_Graphics\GraphicsData\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="Vertex.cpp">
+      <Filter>4_Resources\ResourceData\Vertex</Filter>
+    </ClCompile>
+    <ClCompile Include="TransformEditor.cpp">
+      <Filter>0_Utility\MyImGui\Editor\ComponentEditor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -466,11 +552,11 @@
     <FxCompile Include="..\4th_Project\Resource\Shaders\VertexShaderVS.hlsl">
       <Filter>리소스 파일</Filter>
     </FxCompile>
-    <FxCompile Include="..\4th_Project\Resource\Shaders\SkyBoxPS.hlsl">
-      <Filter>2_System\Resource</Filter>
-    </FxCompile>
     <FxCompile Include="..\4th_Project\Resource\Shaders\SkyBoxVS.hlsl">
-      <Filter>2_System\Resource</Filter>
+      <Filter>리소스 파일</Filter>
+    </FxCompile>
+    <FxCompile Include="..\4th_Project\Resource\Shaders\SkyBoxPS.hlsl">
+      <Filter>리소스 파일</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
@@ -487,83 +573,17 @@
     <Filter Include="2_System\Input">
       <UniqueIdentifier>{87ed90ea-395d-4562-9f5b-4cb3313d7d0e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2_System\Graphics">
-      <UniqueIdentifier>{67425ac0-bc7f-41b0-8126-ece587e86256}</UniqueIdentifier>
-    </Filter>
     <Filter Include="99_ClassDiagram">
       <UniqueIdentifier>{14f17d26-715b-44d8-bad9-492f44410cd4}</UniqueIdentifier>
     </Filter>
     <Filter Include="2_System\Time">
       <UniqueIdentifier>{19c8583c-7b9e-435e-b89c-98ad821d678e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="3_Object">
-      <UniqueIdentifier>{0a472d1f-dfee-4659-a46f-fcaff400de79}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="3_Object\Compoent">
-      <UniqueIdentifier>{41a87d35-fabd-4b02-a9cc-12eb7cec8fb2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="3_Object\Compoent\Camera">
-      <UniqueIdentifier>{cefeb000-53c8-4e79-888d-d2a4e3f4c6d7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="3_Object\Compoent\Transform">
-      <UniqueIdentifier>{79c4a4b1-bd1e-4f11-8d4c-dcd5a3ac8c8a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2_System\Graphics\GraphicsData">
-      <UniqueIdentifier>{22359faf-1502-4627-8c66-042baa7a3506}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="3_Object\Compoent\Model">
-      <UniqueIdentifier>{ce02b990-2a8d-477a-9bd1-c070d8d8711b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="pch">
       <UniqueIdentifier>{87545f9d-cb84-45f8-9539-8d582f28c070}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2_System\Resource">
-      <UniqueIdentifier>{5e3f9e6d-12ab-4450-9f7b-ace2db7a5bfc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="1_Engine\ObjectManager">
-      <UniqueIdentifier>{f3dee966-f608-4638-93ea-8523c893b141}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2_System\Graphics\GraphicsData\Buffer">
-      <UniqueIdentifier>{0be67079-b22f-4065-869d-6afc2e6f59fc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2_System\Graphics\GraphicsData\Shader">
-      <UniqueIdentifier>{b11d75f4-65b5-4696-90fc-59c62e47db5c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2_System\Graphics\GraphicsData\Viewport">
-      <UniqueIdentifier>{2ac39156-86ae-4888-99f2-fbb9ac4845de}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2_System\Graphics\GraphicsData\Buffer\ConstantBuffer">
-      <UniqueIdentifier>{5746f508-a010-426b-8bcb-67f8c4a97162}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="3_Object\Compoent\Render">
-      <UniqueIdentifier>{2bcabe79-6535-4188-8469-052312255831}</UniqueIdentifier>
-    </Filter>
     <Filter Include="리소스 파일\Header">
       <UniqueIdentifier>{2f6ed2e1-c461-418b-ae34-5523a85363f4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="3_Object\Compoent\Model\Data">
-      <UniqueIdentifier>{575a08ad-b275-4168-ac41-d7871e546bf2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="3_Object\Compoent\Model\Data\Texture">
-      <UniqueIdentifier>{d4e1bdd4-8097-4b1c-85d6-a03a798bc8b8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="3_Object\Compoent\Model\Data\Mesh">
-      <UniqueIdentifier>{71c8f464-1b62-48a5-b0d7-da6c6fdfe1a5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="3_Object\Compoent\Model\Data\Material">
-      <UniqueIdentifier>{c46ceb33-9df3-4cbf-a16c-f0a3c8b1ce31}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="3_Object\Compoent\Model\Data\InputLayout">
-      <UniqueIdentifier>{87a5cb4a-3bb3-4f10-ab60-2443558cf078}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="3_Object\Compoent\Model\Data\Model">
-      <UniqueIdentifier>{923d92b3-c42b-4ddb-ac7e-ab52fb9d6ac7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2_System\Resource\FBXLoader">
-      <UniqueIdentifier>{5ad0925d-576a-4d46-b1f0-ccab539f0857}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2_System\Resource\FBXLoader\Data">
-      <UniqueIdentifier>{6f566df8-6ad3-4ed7-b4ad-84e867342c1f}</UniqueIdentifier>
     </Filter>
     <Filter Include="1_Engine\Scene">
       <UniqueIdentifier>{01d666e5-3dad-4a3f-92e5-ae7d52776c38}</UniqueIdentifier>
@@ -592,9 +612,6 @@
     <Filter Include="0_Utility\MyImGui\Editor">
       <UniqueIdentifier>{7a5f7204-ff02-481c-adbe-f365d09d03f6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="3_Object\Compoent\Collider">
-      <UniqueIdentifier>{5c17b486-1ddb-4171-9611-765d011bba25}</UniqueIdentifier>
-    </Filter>
     <Filter Include="2_System\EventSystem">
       <UniqueIdentifier>{4773b1c7-a427-40cd-8b15-8658b0929612}</UniqueIdentifier>
     </Filter>
@@ -618,14 +635,8 @@
     <ClInclude Include="DirectXInput.h">
       <Filter>2_System\Input</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer.h">
-      <Filter>2_System\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="SingletonBase.h">
       <Filter>0_Utility\UtilityHeader</Filter>
-    </ClInclude>
-    <ClInclude Include="D3DClass.h">
-      <Filter>2_System\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Helper.h">
       <Filter>0_Utility\UtilityHeader</Filter>
@@ -641,78 +652,6 @@
     </ClInclude>
     <ClInclude Include="TimeSystem.h">
       <Filter>2_System\Time</Filter>
-    </ClInclude>
-    <ClInclude Include="Object.h">
-      <Filter>3_Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Component.h">
-      <Filter>3_Object\Compoent</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraCompoent.h">
-      <Filter>3_Object\Compoent\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelComponent.h">
-      <Filter>3_Object\Compoent\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="ResourceSystem.h">
-      <Filter>2_System\Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="IResources.h">
-      <Filter>2_System\Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectManager.h">
-      <Filter>1_Engine\ObjectManager</Filter>
-    </ClInclude>
-    <ClInclude Include="IndexBuffer.h">
-      <Filter>2_System\Graphics\GraphicsData\Buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="Vertex.h">
-      <Filter>2_System\Graphics\GraphicsData\Buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="Mesh.h">
-      <Filter>3_Object\Compoent\Model\Data\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="InputLayout.h">
-      <Filter>3_Object\Compoent\Model\Data\InputLayout</Filter>
-    </ClInclude>
-    <ClInclude Include="Viewport.h">
-      <Filter>2_System\Graphics\GraphicsData\Viewport</Filter>
-    </ClInclude>
-    <ClInclude Include="ConstantBuffer.h">
-      <Filter>2_System\Graphics\GraphicsData\Buffer\ConstantBuffer</Filter>
-    </ClInclude>
-    <ClInclude Include="ConstantBufferData.h">
-      <Filter>2_System\Graphics\GraphicsData\Buffer\ConstantBuffer</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderComponent.h">
-      <Filter>3_Object\Compoent\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Material.h">
-      <Filter>3_Object\Compoent\Model\Data\Material</Filter>
-    </ClInclude>
-    <ClInclude Include="Texture.h">
-      <Filter>3_Object\Compoent\Model\Data\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraObject.h">
-      <Filter>3_Object\Compoent\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="Model.h">
-      <Filter>3_Object\Compoent\Model\Data\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="FBXLoader.h">
-      <Filter>2_System\Resource\FBXLoader</Filter>
-    </ClInclude>
-    <ClInclude Include="Transform.h">
-      <Filter>3_Object\Compoent\Transform</Filter>
-    </ClInclude>
-    <ClInclude Include="AiNode.h">
-      <Filter>2_System\Resource\FBXLoader\Data</Filter>
-    </ClInclude>
-    <ClInclude Include="StaticMesh.h">
-      <Filter>3_Object\Compoent\Model\Data\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="SkeletalMesh.h">
-      <Filter>3_Object\Compoent\Model\Data\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>1_Engine\Scene</Filter>
@@ -741,14 +680,6 @@
     <ClInclude Include="TransformEditor.h">
       <Filter>0_Utility\MyImGui\Editor</Filter>
     </ClInclude>
-    <ClInclude Include="Shader.h">
-      <Filter>2_System\Graphics\GraphicsData\Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="TransformComponent.h">
-      <Filter>3_Object\Compoent\Transform</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneLoader.h" />
-    <ClInclude Include="jjson.hpp" />
     <ClInclude Include="MeshInformationEditor.h">
       <Filter>0_Utility\MyImGui\Editor</Filter>
     </ClInclude>
@@ -761,14 +692,6 @@
     <ClInclude Include="SystemHeader.h">
       <Filter>2_System</Filter>
     </ClInclude>
-    <ClInclude Include="IClick.h" />
-    <ClInclude Include="BoxCollider.h">
-      <Filter>3_Object\Compoent\Collider</Filter>
-    </ClInclude>
-    <ClInclude Include="Collider.h">
-      <Filter>3_Object\Compoent\Collider</Filter>
-    </ClInclude>
-    <ClInclude Include="IOnmouse.h" />
     <ClInclude Include="EventSystem.h">
       <Filter>2_System\EventSystem</Filter>
     </ClInclude>
@@ -789,83 +712,8 @@
     <ClCompile Include="DirectXInput.cpp">
       <Filter>2_System\Input</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer.cpp">
-      <Filter>2_System\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="D3DClass.cpp">
-      <Filter>2_System\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="TimeSystem.cpp">
       <Filter>2_System\Time</Filter>
-    </ClCompile>
-    <ClCompile Include="Object.cpp">
-      <Filter>3_Object</Filter>
-    </ClCompile>
-    <ClCompile Include="CameraCompoent.cpp">
-      <Filter>3_Object\Compoent\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="TransformComponent.cpp">
-      <Filter>3_Object\Compoent\Transform</Filter>
-    </ClCompile>
-    <ClCompile Include="ModelComponent.cpp">
-      <Filter>3_Object\Compoent\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="ResourceSystem.cpp">
-      <Filter>2_System\Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectManager.cpp">
-      <Filter>1_Engine\ObjectManager</Filter>
-    </ClCompile>
-    <ClCompile Include="IndexBuffer.cpp">
-      <Filter>2_System\Graphics\GraphicsData\Buffer</Filter>
-    </ClCompile>
-    <ClCompile Include="Vertex.cpp">
-      <Filter>2_System\Graphics\GraphicsData\Buffer</Filter>
-    </ClCompile>
-    <ClCompile Include="Mesh.cpp">
-      <Filter>3_Object\Compoent\Model\Data\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="Shader.cpp">
-      <Filter>2_System\Graphics\GraphicsData\Shader</Filter>
-    </ClCompile>
-    <ClCompile Include="InputLayout.cpp">
-      <Filter>3_Object\Compoent\Model\Data\InputLayout</Filter>
-    </ClCompile>
-    <ClCompile Include="Viewport.cpp">
-      <Filter>2_System\Graphics\GraphicsData\Viewport</Filter>
-    </ClCompile>
-    <ClCompile Include="ConstantBuffer.cpp">
-      <Filter>2_System\Graphics\GraphicsData\Buffer\ConstantBuffer</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderComponent.cpp">
-      <Filter>3_Object\Compoent\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="Material.cpp">
-      <Filter>3_Object\Compoent\Model\Data\Material</Filter>
-    </ClCompile>
-    <ClCompile Include="Texture.cpp">
-      <Filter>3_Object\Compoent\Model\Data\Texture</Filter>
-    </ClCompile>
-    <ClCompile Include="CameraObject.cpp">
-      <Filter>3_Object\Compoent\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="Model.cpp">
-      <Filter>3_Object\Compoent\Model\Data\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="FBXLoader.cpp">
-      <Filter>2_System\Resource\FBXLoader</Filter>
-    </ClCompile>
-    <ClCompile Include="Transform.cpp">
-      <Filter>3_Object\Compoent\Transform</Filter>
-    </ClCompile>
-    <ClCompile Include="AiNode.cpp">
-      <Filter>2_System\Resource\FBXLoader\Data</Filter>
-    </ClCompile>
-    <ClCompile Include="StaticMesh.cpp">
-      <Filter>3_Object\Compoent\Model\Data\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="SkeletalMesh.cpp">
-      <Filter>3_Object\Compoent\Model\Data\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
       <Filter>1_Engine\Scene</Filter>
@@ -894,7 +742,6 @@
     <ClCompile Include="TransformEditor.cpp">
       <Filter>0_Utility\MyImGui\Editor</Filter>
     </ClCompile>
-    <ClCompile Include="SceneLoader.cpp" />
     <ClCompile Include="MeshInformationEditor.cpp">
       <Filter>0_Utility\MyImGui\Editor</Filter>
     </ClCompile>
@@ -903,12 +750,6 @@
     </ClCompile>
     <ClCompile Include="TextureInformationEditor.cpp">
       <Filter>0_Utility\MyImGui\Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="BoxCollider.cpp">
-      <Filter>3_Object\Compoent\Collider</Filter>
-    </ClCompile>
-    <ClCompile Include="Collider.cpp">
-      <Filter>3_Object\Compoent\Collider</Filter>
     </ClCompile>
     <ClCompile Include="EventSystem.cpp">
       <Filter>2_System\EventSystem</Filter>

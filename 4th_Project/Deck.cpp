@@ -17,9 +17,9 @@ void Deck::Init()
 	for (Suit suit : { Suit::Spade, Suit::Diamond, Suit::Heart, Suit::Clover }) {
 		// 모든 값 순회
 		for (std::string rank : { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K" }) {
-			auto newcard = SCENEMANAGER->currentScene->CreatorObject<Card>((enumToString(suit) + rank), Object::ObjectType::Basic, suit, rank);
-
-			cards.push_back(newcard);
+		//	auto newcard = SCENEMANAGER->currentScene->CreatorObject<Card>((enumToString(suit) + rank), Object::ObjectType::Basic, suit, rank);
+		//
+		//	cards.push_back(newcard);
 		}
 	}
 }
@@ -67,7 +67,7 @@ void Deck::showDeck()
 	for (auto& card : cards)
 	{
 		if (card) { // card가 nullptr인지 확인
-			std::cout << card->name << std::endl;
+			std::cout << card->GetName() << std::endl;
 		}
 	}
 }

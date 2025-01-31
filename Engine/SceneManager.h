@@ -15,15 +15,18 @@ public:
 	void LoadScene(Scene* _scene);  // 일단 테스트 씬 하나 제공하고선 처리해야 할듯
 	void ChangeScene(std::string_view _SceneName);
 
-
+	bool isCurrecntScene();
 private:
 	virtual ~SceneManager();
+	void Change(std::string_view _SceneName);
 
 public:
-	Scene* currentScene{}; // 현재 씬
+	
 private:
+	Scene* currentScene{}; // 현재 씬
 	std::unordered_map<std::string, Scene*> ScenesCollection; // 씬 저장하는 곳
 	//Scene* currentScene {}; // 현재 씬
-
+	bool changeSceneTrigger = false;
+	std::string changeSceneName;
 };
 // 순수하게 씬만 관리

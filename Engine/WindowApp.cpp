@@ -37,7 +37,7 @@ WindowApp::WindowApp(HINSTANCE _hInstance, std::string_view _gameName, int _scre
         }
         int consoleX = mainWindowRect.right;                            // 메인 창의 오른쪽 끝
         int consoleY = mainWindowRect.top;                              // 메인 창의 Y 위치
-        int consoleWidth = 500;                                         // 콘솔 창 너비
+        int consoleWidth = 350;                                         // 콘솔 창 너비
         int consoleHeight = mainWindowRect.bottom - mainWindowRect.top; // 메인 창과 동일한 높이
         console->CreateConsole(consoleX, consoleY, consoleWidth, consoleHeight);
     } // 추후 계획 ImGui에 넣어서 버튼 클릭하면 나오게 처리할 예정
@@ -54,7 +54,11 @@ extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg
 LRESULT WindowApp::WndProc(HWND _hWnd, UINT _message, WPARAM _wParam, LPARAM _lParam)
 {
     ImGui_ImplWin32_WndProcHandler(_hWnd, _message, _wParam, _lParam);
-
+    POINT startPoint{ eventSysyem->startPoint };
+    bool isDragging = eventSysyem->isDragging;
+    bool isClick = eventSysyem->isClick;
+    int dragThresholdX = GetSystemMetrics(SM_CXDRAG) * 5;
+    int dragThresholdY = GetSystemMetrics(SM_CYDRAG) * 5; //드래그 임계값 5를바꾸면 드래그 감도?조절
     switch (_message)
     {
     case WM_DESTROY:
@@ -99,12 +103,44 @@ LRESULT WindowApp::WndProc(HWND _hWnd, UINT _message, WPARAM _wParam, LPARAM _lP
 
     case WM_INPUT:
     case WM_MOUSEMOVE:
+        DirectX::Mouse::ProcessMessage(_message, _wParam, _lParam);
+        if (_wParam & MK_LBUTTON) // 마우스 왼쪽 버튼이 눌린 상태
+        {
+            int x = DXINPUT.get()->mouseState.x;
+            int y = DXINPUT.get()->mouseState.y;
+            if (abs(x - eventSysyem->startPoint.x) > dragThresholdX || abs(y - eventSysyem->startPoint.y) > dragThresholdY) //드래그 임계값
+            {
+                isDragging = true;
+                isClick = false;
+            }
+            if (eventSysyem->isDragging != isDragging)
+                eventSysyem->BeginDrag();
+            if (isDragging)
+                eventSysyem->StayDrag();
+            eventSysyem->isDragging = isDragging;
+        }
+        break;
     case WM_LBUTTONDOWN:
         DirectX::Mouse::ProcessMessage(_message, _wParam, _lParam);
+        eventSysyem->startPoint.x = DXINPUT.get()->mouseState.x;
+        eventSysyem->startPoint.y = DXINPUT.get()->mouseState.y;
+        isDragging = false;
+        isClick = true;
         break;
     case WM_LBUTTONUP:
         DirectX::Mouse::ProcessMessage(_message, _wParam, _lParam);
-        eventSysyem->checkClickobj(DXINPUT.get()->mouseState.x, DXINPUT.get()->mouseState.y);
+        //eventSysyem->checkClickobj(DXINPUT.get()->mouseState.x, DXINPUT.get()->mouseState.y);
+        if (isDragging)
+        {
+            // 드래그 종료 처리
+            eventSysyem->isDragging = false;
+            EventSystem::GetInstance().get()->EndDrag();
+        }
+        else if (isClick)
+        {
+            EventSystem::GetInstance().get()->checkClickobj(DXINPUT.get()->mouseState.x, DXINPUT.get()->mouseState.y);
+        }
+        break;
         break;
     case WM_RBUTTONDOWN:
     case WM_RBUTTONUP:

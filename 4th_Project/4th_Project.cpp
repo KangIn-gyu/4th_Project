@@ -12,11 +12,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     _In_ int       nCmdShow)
 {
 
-//#ifdef _DEBUG
-//    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-//#endif
+#ifdef _DEBUG
+    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+#endif
 
-    Client* DemoApp = new Client(hInstance, "test", 1280,720, true);
+    Client* DemoApp = new Client(hInstance, "test", 1024, 768, true);
     ENGINE->Initialize();
     ENGINE->Loop();
 

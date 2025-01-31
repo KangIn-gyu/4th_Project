@@ -11,7 +11,7 @@ CameraObject::CameraObject(std::string_view _name, Object::ObjectType type) : Ob
 	windowInfo = ENGINE->GetWindowInfo();
 }
 
-void CameraObject::Start()
+void CameraObject::Initialize()
 {
 	CreateComponent<CameraCompoent>();
 }

@@ -9,7 +9,6 @@
 #define RENDERER Renderer::GetInstance()
 
 typedef DirectX::XMFLOAT4		COLOR;
-
 class RenderComponent;
 struct WindowInfo;
 class Renderer : public SingletonBase<Renderer>
@@ -42,21 +41,20 @@ private:
 public:
 
 private:
-	std::unique_ptr<D3DClass> D3DGraphics {}; // 그래픽스
-	std::unique_ptr<D2DClass> D2DGraphics {}; // 그래픽스
+	std::unique_ptr<D3DClass> D3DGraphics {}; 
+	std::unique_ptr<D2DClass> D2DGraphics {}; 
 	std::vector<RenderComponent*> work {};
 	
-	// 상수 버퍼
+
 	ConstantBuffer matrixConstantBuffer;
 	ConstantBuffer objectBuffer;
 	ConstantBuffer cameraBuffer;
 
-	// 샘플러 : 이것도 상수버퍼처럼 돌려쓰기용
-	ComPtr<ID3D11SamplerState>	linearWrapSampler;    // LINEAR 필터링
-	ComPtr<ID3D11SamplerState>  pointClampSampler;    // POINT 필터링
 
+	ComPtr<ID3D11SamplerState>	linearWrapSampler;    // LINEAR ?�터�?
+	ComPtr<ID3D11SamplerState>  pointClampSampler;    // POINT ?�터�?
 
+	std::stack<int> previousTexturerProcessing;
 	SkyBox m_skybox;
 
 };
-// 여기서 메인 카메라 포인터로 가지게 할 수 있게 처리 하자

@@ -1,9 +1,16 @@
 #pragma once
+#include <assimp/mesh.h>
 
-struct Vertex
+struct Vertex // 76  // 88
 {
 	Vertex() : position(DXMath::Vector4::Zero) {}
+	Vertex(const Vertex& _other) = default;
+	Vertex(Vertex&& _other) noexcept = default; // 이동 생성자
+	Vertex& operator = (const Vertex& _other) = default;
+	Vertex& operator = (Vertex&& _other) noexcept = default; // 이동 대입 연산자
 	~Vertex() = default;
+
+	void LoadAiMeshToVertex(aiMesh* _aiMesh, int _index);
 
 //	UINT vertexID {};            // 버텍스 아이디     4
 	DXMath::Vector4 position{};  // 정점 위치 정보.  16
@@ -14,22 +21,3 @@ struct Vertex
 	DXMath::Vector3 binormal{};	 // 바이노멀 벡터	    12
 };
 
-class VertexBuffer
-{
-public:
-	VertexBuffer();
-	~VertexBuffer();
-
-	void Create(const std::vector<Vertex>& _vertees);
-	ComPtr<ID3D11Buffer> GetBuffer() { return vertexBuffer; }
-
-private:
-
-public:
-	std::vector<Vertex>  vertices {};       // 정점 모음
-	UINT vertextBufferOffset{};		       // 버텍스 버퍼의 오프셋.
-	UINT vertextBufferStride{};		       // 버텍스 하나의 크기.
-
-private:
-	ComPtr<ID3D11Buffer> vertexBuffer;
-};

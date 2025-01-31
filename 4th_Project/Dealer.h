@@ -11,8 +11,8 @@ public:
 	Dealer(std::string_view _name, Object::ObjectType _type);
 
 	virtual ~Dealer() {};
-	virtual void Start();
-	virtual void Update(const float _deltaTime) {};
+	virtual void Initialize();
+	virtual void Update(const float _deltaTime);
 	virtual void FixedUpdate() {};
 	virtual void LateUpdate() {};
 

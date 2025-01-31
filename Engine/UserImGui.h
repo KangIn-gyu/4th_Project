@@ -7,7 +7,7 @@
 #include <imgui.h>
 
 #define IMGUI UserImGui::GetInstance()
-class ObjectManager;
+class Scene;
 class UserImGui : public SingletonBase<UserImGui>
 {
 	friend class SingletonBase<UserImGui>;
@@ -20,14 +20,14 @@ public:
 	void Render();
 
 	void SetWindowSize(int _width, int _height);
-	void HierarchyObjectManagerSetting(ObjectManager* _objectManager);
+	void HierarchyCurrentSceneSetting(Scene* _currentScene);
 	DXMath::Color GetBankGroundColor() { return backgroundColor; }
 
 private:
 	void MenuBar();
 	void ConsoleMenu();
 	void MainMenu();
-	void Scene();
+	void ImGuiScene();
 
 	void MainDockSpace(); // 보류 코드
 

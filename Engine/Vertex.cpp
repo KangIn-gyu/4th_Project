@@ -2,37 +2,47 @@
 #include "Vertex.h"
 #include "Helper.h"
 
-#include "D3DClass.h"
-VertexBuffer::VertexBuffer()
+void Vertex::LoadAiMeshToVertex(aiMesh* _aiMesh, int _index)
 {
-	
-}
+	if (_aiMesh->HasPositions())   // Pos
+	{
+		position = { _aiMesh->mVertices[_index].x,  _aiMesh->mVertices[_index].y,  _aiMesh->mVertices[_index].z };
+	}
 
-VertexBuffer::~VertexBuffer()
-{
+	if (_aiMesh->HasNormals()) // 노말
+	{
+		normal = { _aiMesh->mNormals[_index].x, _aiMesh->mNormals[_index].y, _aiMesh->mNormals[_index].z };
+		if (normal.Length() > 0.0f)
+		{
+			normal.Normalize();
+		}
+	}
 
-}
+	if (_aiMesh->HasTangentsAndBitangents())
+	{
+		tangent = { _aiMesh->mTangents[_index].x , _aiMesh->mTangents[_index].y, _aiMesh->mTangents[_index].z };           // 탄젠트 
+		if (tangent.Length() > 0.0f)
+		{
+			tangent.Normalize();
+		}
+		binormal = { _aiMesh->mBitangents[_index].x,_aiMesh->mBitangents[_index].y , _aiMesh->mBitangents[_index].z };     // bi탄젠트
+		if (binormal.Length() > 0.0f)
+		{
+			binormal.Normalize();
+		}
+	}
 
-void VertexBuffer::Create(const std::vector<Vertex>& vertees)
-{
-	vertices = std::move(vertees); // 인덱스 버퍼와 같이 고려 사항
+	if (_aiMesh->HasVertexColors(0))
+	{
+		color = { _aiMesh->mColors[0][_index].r, _aiMesh->mColors[0][_index].g, _aiMesh->mColors[0][_index].b, _aiMesh->mColors[0][_index].a }; // 컬러
+	}
 
-	HRESULT hr = 0; // 결과값.
-	// 버텍스 정보 초기화	
-	D3D11_BUFFER_DESC vbDesc = {};
-	ZeroMemory(&vbDesc, sizeof(D3D11_BUFFER_DESC));
-	vbDesc.ByteWidth = sizeof(Vertex) * vertices.size();
-	vbDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-	vbDesc.Usage = D3D11_USAGE_DEFAULT;
-	vbDesc.CPUAccessFlags = 0;
-	vbDesc.MiscFlags = 0;
-
-	// 정점 버퍼 생성.
-	D3D11_SUBRESOURCE_DATA vbData = {};
-	vbData.pSysMem = vertices.data(); // 배열 데이터 할당.
-
-	HR_T(hr = D3DClass::GetD3DDevice()->CreateBuffer(&vbDesc, &vbData, &vertexBuffer)); // 버퍼 만들기
-	
-	vertextBufferStride = sizeof(Vertex);
-	vertextBufferOffset = 0;
+	if (_aiMesh->mTextureCoords[0]) // uv
+	{
+		uv = { _aiMesh->mTextureCoords[0][_index].x, _aiMesh->mTextureCoords[0][_index].y };
+	}
+	else
+	{
+		uv = { 0.0f, 0.0f };
+	}
 }

@@ -4,6 +4,7 @@
 #include "Deck.h"
 #include "Hand.h"
 #include "Card.h"
+
 #define PLAYER Player::GetInstance().get()
 
 class Player : public SingletonBase<Player>
@@ -12,7 +13,7 @@ class Player : public SingletonBase<Player>
 
 public:
 	
-	virtual void Start();
+	virtual void Initialize();
 	virtual void Update(const float _deltaTime) {};
 	virtual void FixedUpdate() {}
 	virtual void LateUpdate() {}
@@ -30,6 +31,7 @@ private:
 	float love;//호감도 딜러랑만의 호감
 	int   betChip; //베팅떄 걸칩갯수 마우스휠로 조절
 public:
+	bool turnEnd;
 	Hand hand;
 	std::vector<Card*> selectCard;
 };

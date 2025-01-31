@@ -45,7 +45,9 @@ void Engine::Loop()
             timeSystem->Update();
             // 추후 다양한 업데이트 만들자.
             float deltaTime = timeSystem->GetFloatDeltaTime();
+ 
             Update(deltaTime);
+            RateUpdate(deltaTime);
             Render(deltaTime); // 시간이 과연 필요할가? 일단 보류
         }
     }
@@ -90,6 +92,11 @@ void Engine::Update(const float _deltaTime)
     inputSystem->Update(_deltaTime);
     sceneManager->Update(_deltaTime);
     graphicsSystem->Update(_deltaTime);
+}
+
+void Engine::RateUpdate(const float _deltaTime)
+{
+    sceneManager->RateUpdate(_deltaTime);
 }
 
 void Engine::Render(const float _deltaTime)
