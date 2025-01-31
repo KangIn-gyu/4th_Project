@@ -29,7 +29,7 @@ void GambleScene::Enter()
 	BLACKJACK->deck = CreatorObject<Deck>("Deck", Object::ObjectType::Basic);
 	BLACKJACK->Setstage(1);
 	
-	auto deck = objectManager->GetGameObject<Deck>(Object::ObjectType::Basic, "Deck");
+	auto deck = GetGameObject(Object::ObjectType::Basic, "Deck");
 	
 	CreatorObject<Button>("Button", Object::ObjectType::Basic, DXMath::Vector3(900, 0, 0), []() {ClickFunc::OpenButton();});
 	CreatorObject<Button>("Button", Object::ObjectType::Basic, DXMath::Vector3(1000, 0, 0), []() {ClickFunc::StayButton();});

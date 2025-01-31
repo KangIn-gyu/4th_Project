@@ -17,7 +17,7 @@ class Card : public Object, public IClick, public IOnmouse
 public:
 	Card(std::string_view _name, Object::ObjectType _type, Suit _suit, std::string _rank);
 	virtual ~Card() override;
-	virtual void Start();
+	virtual void Initialize() override;
 	virtual void Update(const float _deltaTime) override;
 	virtual void FixedUpdate() {}
 	virtual void LateUpdate() {}

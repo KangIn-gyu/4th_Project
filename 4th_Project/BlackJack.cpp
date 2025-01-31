@@ -11,7 +11,7 @@ BlackJack::BlackJack()
 
 void BlackJack::Setstage(int num)
 {
-	dealer->SepChip(num * 100); //
+	dealer->SepChip(num * 100); 
 	
 	RoundStart();
 	
@@ -45,7 +45,7 @@ void BlackJack::Update(float _deltaTime)
 				//베팅기능 추가
 				if (state == PlayerState::OPEN || state == PlayerState::HIT)  ///STAY아니면 똑같이 처리
 				{
-					canSelect = true;
+					//canSelect = true;
 
 					
 					//무한반복 -> 뒤집을카드가없다 -> stay버트만 활성화되서 눌러야함
