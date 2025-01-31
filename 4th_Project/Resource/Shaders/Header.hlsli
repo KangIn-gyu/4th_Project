@@ -26,15 +26,23 @@ cbuffer CameraBuffer : register(b2)
     float3 lightDirection;
 }
 
+cbuffer MatrixPallete : register(b3)
+{
+    matrix MatrixPalleteArray[128];
+}
+
+
 struct VertexInputType
 {
 //    uint   VertexID : SV_VertexID; // 정점 ID
-    float4 Position : POSITION;    // 정점 위치
-    float4 Color    : COLOR;       // 색상
-    float2 TexCoord : TEXCOORD0;   // 텍스처 좌표
-    float3 Normal   : NORMAL;      // 노말
-    float3 Tangent  : TANGENT;     // 탄젠트 벡터
-    float3 Binormal : BINORMAL;    // 바이노멀 벡터
+    float4 Position    : POSITION;    // 정점 위치
+    float4 Color       : COLOR;       // 색상
+    float2 TexCoord    : TEXCOORD0;   // 텍스처 좌표
+    float3 Normal      : NORMAL;      // 노말
+    float3 Tangent     : TANGENT;     // 탄젠트 벡터
+    float3 Binormal    : BINORMAL;    // 바이노멀 벡터
+    uint4 BlendIndices : BLENDINDICES; // 정점이 영향을 받는 본 인덱스
+    float4 BlendWeight : BLENDWEIGHT; // 정점이 본으로부터 받는 가중치
 };
 
 struct PixelInputType

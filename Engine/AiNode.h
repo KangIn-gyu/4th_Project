@@ -24,7 +24,7 @@ public:
 	std::vector<AiNode*> GetChildren() { return child; }
 	
 	Transform GetTransform();
-	Transform* GetPointTransform() { return &transform; }
+	Transform* GetPtrTransform() { return &transform; }
 	Mesh* GetMesh();
 
 	void ShowChild();

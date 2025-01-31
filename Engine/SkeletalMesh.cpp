@@ -8,11 +8,11 @@ void SkeletalMesh::UpdateMatrixPallete(MatrixPallete* _pallete, SkeletonInfo* _s
 {
 	for (UINT i = 0; i < boneReferences.size(); ++i)
 	{
-		DXMath::Matrix BoneNodeWorldMatrix = boneReferences[i].GetNodeWorldTransform();
+		DXMath::Matrix& BoneNodeWorldMatrix = *boneReferences[i].GetNodeWorldTransform();
 		int index = boneReferences[i].GetIndex();
 		std::string name = boneReferences[i].GetName();
 		BoneInfo* boneInfo = _skeletonInfo->GetBoneInfoByName(name);
-
+	
 		assert(boneInfo != nullptr);
 		_pallete->array[index] = (boneInfo->GetOffsetMatrix() * BoneNodeWorldMatrix).Transpose();
 	}

@@ -16,7 +16,6 @@
 #include "AnimationNode.h"
 
 #include "BoneInfo.h"
-#include "BoneReference.h"
 #include "SkeletonInfo.h"
 
 #include "Transform.h"
@@ -100,7 +99,7 @@ std::shared_ptr<Model> FBXLoader::FBXLoad(std::string_view _filePath)
 	CalculateBoundingBox(scene, modelData);
 	nameCountMap.clear();
 
-	AllShow();
+//	AllShow();
 
 	NodeAndMeshIndex(filePathKEY);
 	importer.FreeScene();
@@ -143,11 +142,11 @@ AiNode* FBXLoader::ProcessNode(aiNode* _node, const aiScene* _scene, AiNode* _pa
 				StaticMesh* staticMesh = new StaticMesh;  // 스태틱 매쉬 생성
 				staticMesh->SetFBXMeshIndex(meshIndex);	  // 인덱스 번호 만들기 없어도 될거 같은데 일단 테스트용 여기서 매쉬 인포 생성
 				staticMesh->SetMaterialIndex(materialIndex);
-				staticMesh->SetTransform(currentNode->GetPointTransform()); // AiNode라고 내가 만든 어심프의 aiNode의 데이터를 저장한 객체의 트랜스폼 설정
+				staticMesh->SetTransform(currentNode->GetPtrTransform()); // AiNode라고 내가 만든 어심프의 aiNode의 데이터를 저장한 객체의 트랜스폼 설정
 				staticMesh->SetName(nodeName);
 				if (nullptr != _parent) // 예외처리
 				{
-					staticMesh->SetTransformParent(_parent->GetPointTransform()); // 부모 설정
+					staticMesh->SetTransformParent(_parent->GetPtrTransform()); // 부모 설정
 				}
 				else
 				{
@@ -166,11 +165,11 @@ AiNode* FBXLoader::ProcessNode(aiNode* _node, const aiScene* _scene, AiNode* _pa
 			    SkeletalMesh* skeletalMesh = new SkeletalMesh;
 				skeletalMesh->SetFBXMeshIndex(meshIndex);
 				skeletalMesh->SetMaterialIndex(materialIndex); // 노드안에 매쉬 넣기 
-				skeletalMesh->SetTransform(currentNode->GetPointTransform());
+				skeletalMesh->SetTransform(currentNode->GetPtrTransform());
 				skeletalMesh->SetName(nodeName);
 				if (nullptr != _parent) // 예외처리
 				{
-					skeletalMesh->SetTransformParent(_parent->GetPointTransform()); // 부모 설정
+					skeletalMesh->SetTransformParent(_parent->GetPtrTransform()); // 부모 설정
 				}
 				else
 				{
@@ -178,7 +177,12 @@ AiNode* FBXLoader::ProcessNode(aiNode* _node, const aiScene* _scene, AiNode* _pa
 				}
 				currentNode->SetMesh(skeletalMesh);
 				ProcessMesh(mesh, _scene, _filePath);
-
+				
+				auto boneIt = boneReferenceMap.find(_filePath.data());
+				if (boneIt != boneReferenceMap.end())
+				{
+					skeletalMesh->SetBoneReference(boneIt->second);
+				}
 				skeletalMesh->SetVertexBuffer(vertexBufferMap.find(_filePath.data())->second[meshIndex]);
 				skeletalMesh->SetIndexBuffer(indexBufferMap.find(_filePath.data())->second[meshIndex]);
 				SaveMeshData(_filePath, std::move(skeletalMesh));
@@ -288,6 +292,7 @@ void FBXLoader::ProcessVertexs(aiMesh* _mesh, unsigned int _vertexSize, const st
 			}
 		}	
 		newVertexBuffer->Create<BoneWeightVertex>(boneWeightVertexBufferData);
+		boneReferenceMap[std::string(_filePath)] = boneRefers;
 	}
 	else // 본이 없는 버텍스일 경우
 	{
@@ -633,7 +638,6 @@ DX::XMMATRIX ConvertMatrix(const aiMatrix4x4& _matrix) // 여기서만 사용하는 함수
 		_matrix.a4, _matrix.b4, _matrix.c4, _matrix.d4    // 4열
 	);
 }
-
 
 DXMath::Vector3 FBXLoader::CalculateBoundingBox(const aiScene* scene, std::shared_ptr<Model> _modelData)
 {

@@ -47,4 +47,6 @@ void SkeletonInfo::AddBone(BoneInfo* _boneInfo)
 	int index = static_cast<int>(bones.size());
 	bones.push_back(_boneInfo);
 	boneMappingTable[_boneInfo->GetName()] = index;
+
+	std::cout << _boneInfo->GetName() << " " << index << '\n';
 }

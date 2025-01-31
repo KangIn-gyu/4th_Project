@@ -42,6 +42,11 @@ DXMath::Matrix Transform::GetLocalMatrix() const
 	return localMatrix;
 }
 
+DXMath::Matrix* Transform::GetPtrWorldMatrix()
+{
+	return &worldMatrix;
+}
+
 DXMath::Vector3& Transform::GetPosition() 
 {
 	return position;

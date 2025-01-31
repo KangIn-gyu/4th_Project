@@ -90,7 +90,7 @@ void TransformEditor::Draw()
     {
         if (ImGui::CollapsingHeader("Transform", ImGuiTreeNodeFlags_DefaultOpen))
         {
-            auto* transform = selectedNode->GetPointTransform();
+            auto* transform = selectedNode->GetPtrTransform();
             ImGui::Text(selectedNode->GetName().c_str());
 
             DXMath::Vector3 position = transform->GetPosition();

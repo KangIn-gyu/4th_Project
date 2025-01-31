@@ -37,7 +37,7 @@ WindowApp::WindowApp(HINSTANCE _hInstance, std::string_view _gameName, int _scre
         }
         int consoleX = mainWindowRect.right;                            // 메인 창의 오른쪽 끝
         int consoleY = mainWindowRect.top;                              // 메인 창의 Y 위치
-        int consoleWidth = 350;                                         // 콘솔 창 너비
+        int consoleWidth = 400;                                         // 콘솔 창 너비
         int consoleHeight = mainWindowRect.bottom - mainWindowRect.top; // 메인 창과 동일한 높이
         console->CreateConsole(consoleX, consoleY, consoleWidth, consoleHeight);
     } // 추후 계획 ImGui에 넣어서 버튼 클릭하면 나오게 처리할 예정

@@ -31,7 +31,7 @@ ModelComponent::~ModelComponent()
 void ModelComponent::ComponentInitialize()
 {	
 	objectTransform = owner->GetComponent<TransformComponent>(0); // 오너의 트랜스폼을 넣는다.
-    rootNode->GetPointTransform()->SetParent(objectTransform->GetTransform());
+    rootNode->GetPtrTransform()->SetParent(objectTransform->GetTransform());
     model->Initialize();
 }
 
@@ -55,7 +55,6 @@ void ModelComponent::ComponentUpdate(const float _deltaTime)
                 progressAnimTime = activeAnimation->GetTotalTime(); // 애니메이션 끝에 고정
             }
         }
-
         activeAnimation->SetCurrTime(progressAnimTime);
     }
 
@@ -64,14 +63,18 @@ void ModelComponent::ComponentUpdate(const float _deltaTime)
     auto& meshs = *model->GetModelData()->meshs;
     for (int i = 0; i < meshs.size(); i++)
     {
-        auto skeletalMesh = static_cast<SkeletalMesh*>(meshs[i]);
-        size_t boneCount = skeletalMesh->GetBoneReferencesSize();
-        for (UINT j = 0; j < boneCount; j++)
+        // 스태틱 매쉬일 경우 처리 해야 됨
+        if (typeid(*meshs[i]) == typeid(SkeletalMesh))
         {
-            AiNode* node = nodeList.find(meshs[i]->GetName())->second;
-            skeletalMesh->GetBoneReferences()[j].SetNodeWolrdTransform(node->GetPointTransform()->GetWorldMatrix());
-        }
-        skeletalMesh->UpdateMatrixPallete(&matrixPalletBuffer, skeletonInfo);
+            auto skeletalMesh = static_cast<SkeletalMesh*>(meshs[i]);
+            size_t boneCount = skeletalMesh->GetBoneReferencesSize();
+            for (UINT j = 0; j < boneCount; j++)
+            {
+                AiNode* node = nodeList.find(meshs[i]->GetName())->second;
+                skeletalMesh->GetBoneReferences()[j].SetNodeWolrdTransform(node->GetPtrTransform()->GetPtrWorldMatrix());
+            }
+            skeletalMesh->UpdateMatrixPallete(&matrixPalletBuffer, skeletonInfo);
+        }  
     }
 }
 
