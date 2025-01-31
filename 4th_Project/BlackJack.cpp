@@ -12,10 +12,26 @@ BlackJack::BlackJack()
 void BlackJack::Setstage(int num)
 {
 	dealer->SepChip(num * 100); //
-	firstTurn = true;
-	curTurn = Turn::player;
+	
+	RoundStart();
+	
 }
 
+void BlackJack::RoundStart()
+{
+	deck->Init();
+	deck->ShuffleDeck();
+	firstTurn = true;
+	curTurn = Turn::player;
+	isRoundOver = false;
+	onDoubbleDown = false;
+	magnification = 1;
+}
+
+void BlackJack::RoundEnd()
+{
+
+}
 void BlackJack::Update(float _deltaTime)
 {
 	if (dealer->turnCount <= 0)
@@ -26,9 +42,16 @@ void BlackJack::Update(float _deltaTime)
 		{
 			if (curTurn == Turn::player)
 			{
+				//베팅기능 추가
 				if (state == PlayerState::OPEN || state == PlayerState::HIT)  ///STAY아니면 똑같이 처리
 				{
+					canSelect = true;
+
 					
+					//무한반복 -> 뒤집을카드가없다 -> stay버트만 활성화되서 눌러야함
+				    //open일경우 -> 하나뒤집고 턴-
+					//hit일경우 하나 앞면받고 턴- or 하나 앞면받고 뒷면하나버리고 턴-
+					//모든카드가 open 상태일경우 처리필요
 				}
 				else if (state == PlayerState::STAY)
 				{
@@ -46,26 +69,34 @@ void BlackJack::Update(float _deltaTime)
 		}
 		else //첫턴에만 실행할거
 		{
+			
 			elapsedTime += _deltaTime;
 
-			if (elapsedTime > 1.0)
+
+			if ( player->drawFirst == false && elapsedTime >= 1.0)
 			{
 				player->CardDraw(deck); //1초에한장 딜레이주기 카드위치선정 ******
 				elapsedTime = 0;
 			}
 			//3초뒤에 플레이어카드  뒤집고 섞는 연출 필요
-			if (player->hand.hand.size() >= 6 && elapsedTime >= 3.0f)
+			if (player->drawFirst == true  && player->Shuffle ==false && elapsedTime >= 3.0f)
+			{
 				player->hand.handShuffle();
+				elapsedTime = 0;
+				player->Shuffle = true;
+				canSelect = true;
+			}
 
 			//플레이어가 2장 뒤집기 기다리고 뒤집으면 딜러2장주고 한장뒤집기
 			if (player->Open2Card() == true)
 			{
-				if (elapsedTime > 1.0)
+				canSelect = false;
+				if (elapsedTime >= 2.0)
 				{
 					dealer->CardDraw(deck); //1초에한장 딜레이주기 카드위치선정 ******
 					elapsedTime = 0;
 				}
-				if (dealer->FinishFirst() == true)
+				if (dealer->finishFirst == true)
 				{
 					firstTurn = false;
 				}
@@ -88,8 +119,6 @@ void BlackJack::Update(float _deltaTime)
 	}
 }
 
-
-
 void BlackJack::DealerTurn(float _deltaTime)
 {
 	
@@ -102,6 +131,8 @@ void BlackJack::DealerTurn(float _deltaTime)
 void BlackJack::CheckVictory(float _deltaTime)
 {
 	//승패계산
+
+	std::cout << "승패 계산 중입니다 " << " ㅇㅇ" << std::endl;
 
 	if (player->GetScore() == dealer->GetScore())
 	{
@@ -125,20 +156,6 @@ void BlackJack::DoubbleDown()
 {
 }
 
-void BlackJack::RoundStart()
-{
-	deck->Init();
-	deck->ShuffleDeck();
-	
-	isRoundOver = false;
-	onDoubbleDown = false;
-	magnification = 1;
-}
-
-void BlackJack::RoundEnd()
-{
-	
-}
 
 std::string stateToString(PlayerState _state)
 {
