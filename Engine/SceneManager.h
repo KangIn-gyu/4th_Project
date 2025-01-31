@@ -16,6 +16,7 @@ public:
 	void ChangeScene(std::string_view _SceneName);
 
 	bool isCurrecntScene();
+	Scene* GetCurrentScene() const { return currentScene; }
 private:
 	virtual ~SceneManager();
 	void Change(std::string_view _SceneName);

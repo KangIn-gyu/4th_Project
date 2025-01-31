@@ -10,7 +10,7 @@
 #include <DirectXTK/Mouse.h>
 #include "DirectXInput.h"
 #include "Engine.h"
-
+#include "Layer.h"
 EventSystem::EventSystem()
 {
 }
@@ -19,34 +19,28 @@ Object* EventSystem::FindObj(DXMath::Vector3 _rayOrigin, DXMath::Vector3 _rayDir
 {
 	float closestDistance = FLT_MAX;  // 가장 가까운 거리 (초기값은 매우 큰 값)
 	Object* closestObject = nullptr; // 가장 가까운 오브젝트 포인터
+	const auto& layers = SCENEMANAGER.get()->GetCurrentScene()->GetGameObecjts();
+	for (const auto& objlayer : layers)
+	{
+			for (size_t index = 0; index < objlayer->GetSize(); ++index) {
+				auto obj = objlayer->GetGameObject(index);
+				// 레이가 AABB와 교차하는지 확인)
+				auto boxcol = obj->GetComponent<BoxCollider>();
+				if (boxcol != nullptr)
+				{
+					float distance;
+					if (boxcol->IntersectsRay(_rayOrigin, _rayDirection, distance))
+					{
+						if (distance < closestDistance) {
+							closestDistance = distance;  // 가장 가까운 거리 갱신
+							closestObject = obj;  // 가장 가까운 오브젝트 저장
+						}
+					}
+				}
+			}
+		
+	}
 
-//	for (const auto& [type, objs] : SCENEMANAGER.get()->currentScene->GetObjectManager()->GetObjects()) {
-//		// 각 오브젝트들에 대해 순차적으로 검사 일단 Basic타입이랑 UI타입만하게했는대
-//		// 나중에 클릭할 오브젝트만 따로담아두는게
-//		if (Object::ObjectType::Basic == type || Object::ObjectType::UI == type)
-//		{
-//			for (const auto& obj : objs) {
-//				// 레이가 AABB와 교차하는지 확인)
-//				auto boxcol = obj->GetComponent<BoxCollider>();
-//				if (boxcol != nullptr)
-//				{
-//					float distance;
-//					if (boxcol->IntersectsRay(_rayOrigin, _rayDirection, distance))
-//					{
-//						if (distance < closestDistance) {
-//							closestDistance = distance;  // 가장 가까운 거리 갱신
-//							closestObject = obj;  // 가장 가까운 오브젝트 저장
-//						}
-//					}
-//				}
-//			}
-//		}
-//		else
-//		{
-//			continue;
-//		}
-//	}
-//
 	return closestObject;
 }
 

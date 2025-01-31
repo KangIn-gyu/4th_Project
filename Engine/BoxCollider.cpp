@@ -16,6 +16,7 @@ void BoxCollider::ComponentInitialize()
 
 void BoxCollider::ComponentUpdate(const float _deltaTime)
 {
+	
 	auto trans = owner->GetComponent<TransformComponent>();
 	DXMath::Vector3 center = trans->GetPosition() + modelCenter;
 	obBox.Center = center;

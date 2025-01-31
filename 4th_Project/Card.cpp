@@ -20,7 +20,7 @@ Card::~Card()
 {
 }
 
-void Card::Start()
+void Card::Initialize()
 {
 	CreateComponent<ModelComponent>("STAGE1/FBX/gun.fbx");  // char2 / gun // asdq
 	CreateComponent<RenderComponent>();
@@ -80,7 +80,7 @@ int Card::GetValue()
 
 void Card::OnClick()
 {
-	std::cout << "이 카드는 : " << name << " 입니다. " << std::endl;
+	std::cout << "이 카드는 : " << GetName() << " 입니다. " << std::endl;
 	if (BLACKJACK->GetState() == PlayerState::OPEN && BLACKJACK->canSelect == true)
 	{
 		for (auto& card : PLAYER->hand.hand) //
@@ -113,7 +113,7 @@ void Card::OnClick()
 
 void Card::OnMouse()
 {
-	std::cout << "현재 마우스가 " << GetName() << " 오브젝트 위에 있습니다" << std::endl;
+	//std::cout << "현재 마우스가 " << GetName() << " 오브젝트 위에 있습니다" << std::endl;
 }
 
 std::string enumToString(Suit _suit)
