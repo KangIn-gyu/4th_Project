@@ -40,10 +40,7 @@ void Renderer::Initialize(WindowInfo* _windowInfo)
 
 	D2DGraphics = std::make_unique<D2DClass>();
 	D2DGraphics->Initialize(_windowInfo);
-
-	FontManager::GetInstance()->InitializeDWrite();
-
-
+	FontManager::GetInstance()->LoadFont(L"Resource/Font/standard.ttf", L"standard");
 }
 
 void Renderer::Update(float _deltaTime)
@@ -56,18 +53,17 @@ void Renderer::Render()
 
 	D3DGraphics->BeginDraw(IMGUI->GetBankGroundColor());
 
-	m_skybox.Render(D3DClass::GetD3DDeviceContext().Get());
-
-	D2DGraphics->BeginDraw();
+//	m_skybox.Render(D3DClass::GetD3DDeviceContext().Get());
 
 	D3DDraw();
-
 
 	D3DGraphics->ExtractFinalImage();
 	IMGUI->Render();
 
-	D2DGraphics->EndDraw();
 	D3DGraphics->EndDraw();
+	D2DGraphics->BeginDraw();
+
+	D2DGraphics->EndDraw();
 }
 
 void Renderer::D3DDraw()

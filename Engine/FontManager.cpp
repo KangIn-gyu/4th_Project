@@ -1,103 +1,91 @@
 #include "pch.h"
 #include "FontManager.h"
+
+#include "D2DClass.h"
 #include "Helper.h"
 
 FontManager::~FontManager()
 {
-	//SAFE_RELEASE(FontSetBuilder);
-	//SAFE_RELEASE(DWriteFactory);
-	for (auto& font : fontMap)
-	{
-		if (font.second != nullptr) font.second->Release();
-	}
+    for (auto& font : fontMap) {
+        font.second->Release();
+    }
+    fontMap.clear();
 }
 
-void FontManager::InitializeDWrite()
+void FontManager::LoadFont(const std::wstring& fontFilePath, const std::wstring& fontName)
 {
-	HR_T(DWriteCreateFactory(
-		DWRITE_FACTORY_TYPE_SHARED,
-		__uuidof(IDWriteFactory5),
-		reinterpret_cast<IUnknown**>(&DWriteFactory)
-	));
+    if (fontMap.find(fontName) != fontMap.end()) {
+        OutputDebugString(L"Font already loaded. Skipping.\n");
+        return;
+    }
 
-	HR_T(DWriteFactory->CreateFontSetBuilder(&FontSetBuilder));
+    IDWriteFontFile* FontFile = nullptr;
+    HRESULT hresult = D2DClass::GetDWriteFactory()->CreateFontFileReference(
+        fontFilePath.c_str(),
+        nullptr,
+        &FontFile
+    );
+    if (FAILED(hresult)) {
+        MessageBoxW(nullptr, L"Failed to create font file reference.", L"Error", MB_OK);
+        return;
+    }
+
+    hresult = D2DClass::GetDWriteFactory()->CreateFontSetBuilder(&FontSetBuilder);
+    if (FAILED(hresult))
+    {
+        MessageBoxW(nullptr, L"Failed to create font set builder.", L"Error", MB_OK);
+        return;
+    }
+    FontSetBuilder->AddFontFile(FontFile);
+
+    IDWriteFontSet* FontSet = nullptr;
+    hresult = FontSetBuilder->CreateFontSet(&FontSet);
+    if (FAILED(hresult)) {
+        MessageBoxW(nullptr, L"Failed to create font set.", L"Error", MB_OK);
+        FontFile->Release();
+        return;
+    }
+
+    IDWriteFontCollection1* FontCollection = nullptr;
+    hresult = D2DClass::GetDWriteFactory()->CreateFontCollectionFromFontSet(FontSet, &FontCollection);
+    if (FAILED(hresult)) {
+        MessageBoxW(nullptr, L"Failed to create font collection from font set.", L"Error", MB_OK);
+        FontSet->Release();
+        FontFile->Release();
+        return;
+    }
+
+    IDWriteTextFormat* NewFont = nullptr;
+    AddFont(fontName, FontCollection, &NewFont);
+    if (NewFont) {
+        fontMap[fontName] = NewFont;
+    }
+
+    FontSet->Release();
+    FontFile->Release();
+    FontCollection->Release();
 }
 
-void FontManager::LoadFont(std::wstring fontFilePath, std::wstring fontName)
+void FontManager::AddFont(const std::wstring& fontName, IDWriteFontCollection1* pFontCollection, IDWriteTextFormat** ppTextFormat)
 {
-	if (fontMap.find(fontName) != fontMap.end()) { return; }
+    HRESULT hresult = D2DClass::GetDWriteFactory()->CreateTextFormat(
+        fontName.c_str(),
+        pFontCollection,
+        DWRITE_FONT_WEIGHT_REGULAR,
+        DWRITE_FONT_STYLE_NORMAL,
+        DWRITE_FONT_STRETCH_NORMAL,
+        10.0f,
+        L"en-us",
+        ppTextFormat
+    );
 
-	IDWriteFontFile* FontFile{ nullptr };
-	IDWriteFontSet* FontSet{ nullptr };
-	IDWriteFontCollection1* FontCollection{ nullptr };
-	IDWriteFontFamily* FontFamily{ nullptr };
-	IDWriteLocalizedStrings* FontFamilyNames{ nullptr };
-
-	// 폰트 파일 참조 생성
-	HR_T(DWriteFactory->CreateFontFileReference(
-		fontFilePath.c_str(),
-		nullptr,
-		&FontFile));
-
-	// 폰트 파일을 FontSetBuilder에 추가
-	FontSetBuilder->AddFontFile(FontFile);
-
-	BOOL isSupported;
-	DWRITE_FONT_FILE_TYPE fileType;
-	UINT32 numberOfFonts;
-
-	FontSetBuilder->CreateFontSet(&FontSet); // 폰트 세트를 생성합니다. 이 세트는 추가된 폰트 파일들을 포함합니다.
-
-	// 폰트 세트에서 폰트 컬렉션 생성
-	HR_T(DWriteFactory->CreateFontCollectionFromFontSet(FontSet, &FontCollection));
-
-	HR_T(FontCollection->GetFontFamily(index, &FontFamily));
-
-	// 폰트 패밀리 얻기
-	HR_T(FontFamily->GetFamilyNames(&FontFamilyNames));  // FontFamilyNames 초기화
-
-	// 폰트 패밀리의 이름을 얻기 위해 로컬라이즈된 문자열 컬렉션을 가져옵니다.
-	WCHAR familyName[MAX_PATH];
-	HR_T(FontFamilyNames->GetString(0, familyName, MAX_PATH));
-
-#if( _DEBUG)
-	wprintf(L"Loaded Font: %s\n", familyName);  // 디버깅 출력
-#endif
-
-	IDWriteTextFormat* NewFont = nullptr;
-	AddFont(familyName, FontCollection, &NewFont);
-
-	fontMap.insert(std::make_pair(fontName, NewFont));
-
-	FontFile->Release();
-	FontSet->Release();
-	FontCollection->Release();
-	FontFamily->Release();
-	index++;
-}
-
-void FontManager::AddFont(std::wstring fontName, IDWriteFontCollection1* pFontCollection,
-	IDWriteTextFormat** ppTextFormat)
-{
-	HR_T(DWriteFactory->CreateTextFormat(
-		fontName.c_str(),
-		pFontCollection,
-		DWRITE_FONT_WEIGHT_REGULAR,
-		DWRITE_FONT_STYLE_NORMAL,
-		DWRITE_FONT_STRETCH_NORMAL,
-		10.f,
-		L"en-us",
-		ppTextFormat
-	));
+    if (FAILED(hresult)) {
+        MessageBoxW(nullptr, L"Failed to create text format.", L"Error", MB_OK);
+    }
 }
 
 IDWriteTextFormat* FontManager::FindFont(const std::wstring& keyName)
 {
-	auto it = fontMap.find(keyName);
-
-	if (it != fontMap.end())
-	{
-		return it->second;
-	}
-	return nullptr;
+    auto it = fontMap.find(keyName);
+    return (it != fontMap.end()) ? it->second : nullptr;
 }
