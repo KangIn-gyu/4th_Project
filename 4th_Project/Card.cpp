@@ -85,28 +85,33 @@ void Card::OnClick()
 	{
 		for (auto& card : PLAYER->hand.hand) //
 		{
-			if (card == this && isOpen == false) //누른카드가 패에있고 아직 뒷면이면
+
+			if (card != nullptr && card->GetName() == GetName() && isOpen == false) //누른카드가 패에있고 아직 뒷면이면
 			{
-				//PLAYER->selectCard.push_back(this);
-				//isSeleted = true;
 				Open();
-				//PLAYER->turnEnd = false; 오픈했으면 딜러턴 깎기 베팅은오픈 전
+				// 오픈했으면 딜러턴 깎기 베팅은오픈 전
 				PLAYER->openCard++;
 			}
 		}
 	}
 	else if (BLACKJACK->GetState() == PlayerState::HIT && BLACKJACK->canSelect == true)
 	{
-		for (auto& card : PLAYER->hand.hand) //
-		{
-			if (card == this && isOpen == false) //누른카드가 패에있고 아직 뒷면이면 버리기가능
-			{
-				
-				//카드제거 추가 *****
-				//PLAYER->turnEnd = false;
-				
-			}
-		}
+		//for (auto& card : PLAYER->hand.hand) //
+		//{
+		//	if (card == this && isOpen == false) //누른카드가 패에있고 아직 뒷면이면 버리기가능
+		//	{
+		//		
+		//		//카드제거 추가 *****
+		//		//PLAYER->turnEnd = false;
+		//		//누르면 핸드에서 제거
+		//		for (auto& ca : PLAYER->hand.hand)
+		//		{
+		//			
+		//				
+		//		}
+		//		
+		//	}
+		//}
 	}
 	
 }

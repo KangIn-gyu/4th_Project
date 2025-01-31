@@ -20,5 +20,5 @@ void Client::Enter()
 	TestScene* testScene = new TestScene("TEST");
 	GambleScene* gamblescne = new GambleScene("GAMBLE");
 	BLACKJACK->player = PLAYER;
-	ENGINE->ChangeScene("GAMBLE");
+	ENGINE->ChangeScene("TEST");
 }

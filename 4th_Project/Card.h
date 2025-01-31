@@ -27,7 +27,7 @@ public:
 	virtual void OnClick() override;
 	virtual void OnMouse() override;
 	Suit suit;
-	std::string rank; //카드 숫자 1~10 J Q K A //
+	std::string rank; //카드 숫자 1~10 J Q K A // 0
 	bool isOpen = false; //카드가 오픈상태인지
 private:
 	float rotat = 0;

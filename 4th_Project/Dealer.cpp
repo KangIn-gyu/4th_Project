@@ -9,7 +9,7 @@
 
 Dealer::Dealer(std::string_view _name, Object::ObjectType _type) : Object(_name, _type)
 {
-
+	
 }
 
 void Dealer::Initialize()
@@ -46,7 +46,7 @@ void Dealer::Update(const float _deltaTime)
 void Dealer::CardDraw(Deck* _deck)
 {
 	
-	hand.cardDraw((_deck->DrawCard(true)), { float(100 * hand.numCard() + 100), 200.0f,0}); //1초에한장씩등 딜레이 추가필요
+	hand.cardDraw((_deck->DrawCard(true)),{ float(100 * hand.numCard() + 100), 200.0f,0},true); //1초에한장씩등 딜레이 추가필요
 	
 }
 
@@ -73,6 +73,7 @@ void Dealer::OnMouse()
 void Dealer::OpenOne(float _deltaTime)
 {
 	//1초뒤에 뒤집어야 하나 
+
 	hand.hand.back()->Open();
 	finishFirst = true;
 }

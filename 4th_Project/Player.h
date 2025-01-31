@@ -23,9 +23,10 @@ public:
 	int Bet() { return betChip; }
 	int GetScore(); //카드합 점수
 	bool Open2Card(); //첨에 2개뒤집었는지 확인용
+	void HandClear();
 	int   chip = 100; //겜블때 쓸 칩 수,전체 돈
 private:
-	Player() {};
+	Player();
 	Player(std::string_view _name, Object::ObjectType _type);
 
 	float love;//호감도 딜러랑만의 호감
@@ -34,11 +35,7 @@ public:
 	bool turnEnd;
 	bool drawFirst = false;
 	bool Shuffle = false;
-	int  openCard; //d
+	int  openCard = 0; //d
 	Hand hand;
-	std::vector<Card*> selectCard;
-	std::vector<DXMath::Vector3> handSlots = {
-	{100, 0,0}, {200, 0,0}, {300, 0,0}, {400, 0,0},
-	{500, 0,0}, {600, 0,0}, {700, 0,0}
-	}; //이건 어쩌지
+	
 };

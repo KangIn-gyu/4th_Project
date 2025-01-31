@@ -16,7 +16,7 @@ void Player::CardDraw(Deck* _deck)
 	//카드가 7장일경우 처리필요 *****
 	if (hand.numCard() < 6)
 	{
-		hand.cardDraw((_deck->DrawCard()), handSlots[hand.numCard()]);
+		hand.cardDraw((_deck->DrawCard()), { 0,0,0 });
 	}
 	else
 	{
@@ -35,9 +35,19 @@ bool Player::Open2Card()
 	int count = 0;
 	for (auto& card : hand.hand)
 	{
-		if (card->isOpen == true)
+		if (card != nullptr && card->isOpen == true)
 			count++;
 	}
 	return (count >= 2);
+}
+
+void Player::HandClear()
+{
+	
+}
+
+Player::Player()
+{
+	hand.Init(7);
 }
 
