@@ -16,6 +16,8 @@
 #include "AnimationNode.h"
 
 #include "BoneInfo.h"
+#include "BoneReference.h"
+#include "SkeletonInfo.h"
 
 #include "Transform.h"
 #include <filesystem>
@@ -50,7 +52,10 @@ std::shared_ptr<Model> FBXLoader::FBXLoad(std::string_view _filePath)
 	{ // 추후 애니메이션 처리용
 		isStaticMesh = false;
 		ProcessAnimation(scene, filePathKEY);
-		ProcessSkeletonInfo(scene->mRootNode, nullptr);
+		SkeletonInfo* skeletonInfo = new SkeletonInfo;
+		ProcessSkeletonInfo(scene->mRootNode, nullptr, skeletonInfo);
+		skeletonInfoMap[filePathKEY] = skeletonInfo;
+		modelData->GetModelData()->skeletonInfo = skeletonInfo;
 		modelData->SetAnimation(&animationMap.find(filePathKEY)->second);
 	}
 
@@ -251,15 +256,37 @@ void FBXLoader::ProcessVertexs(aiMesh* _mesh, unsigned int _vertexSize, const st
 
 	std::vector<Vertex> vertexBufferData;
 	std::vector<BoneWeightVertex> boneWeightVertexBufferData;
+	std::vector<BoneReference> boneRefers;
+	
 	if (true == hasBones) 
 	{ // 본이 있을 경우 처리하는 곳
 		boneWeightVertexBufferData.reserve(_vertexSize);
 		for (unsigned int i = 0; i < _vertexSize; i++) // 버텍스 처리
 		{
 			BoneWeightVertex boneVertex{};
-			boneVertex.LoadAiMeshToVertex(_mesh, i);
+			boneVertex.LoadAiMeshToVertex(_mesh, i); // std::vector<BoneWeightVertex>& 
 			boneWeightVertexBufferData.emplace_back(boneVertex);
 		}
+
+		UINT boneCount = _mesh->mNumBones;
+		boneRefers.resize(boneCount);
+
+		for (UINT i = 0; i < boneCount; i++)
+		{
+			aiBone* AiBone = _mesh->mBones[i];
+			SkeletonInfo* skeletonInfo = skeletonInfoMap.find(_filePath.data())->second; // 맵으로 부터 스켈레탈인포 얻기
+			UINT boneIndex = skeletonInfo->GetBoneIndexByName(AiBone->mName.C_Str());	 // 인덱스 찾기
+			BoneInfo* boneInfo = skeletonInfo->GetBoneInfoByName(AiBone->mName.C_Str()); // 본인포 얻기
+			boneInfo->SetOffsetMatrix(DXMath::Matrix(&AiBone->mOffsetMatrix.a1).Transpose());
+			boneRefers[i].SetIndex(boneIndex);
+			boneRefers[i].SetName(AiBone->mName.C_Str());
+			for (UINT j = 0; j < AiBone->mNumWeights; ++j)
+			{
+				UINT vertexID = AiBone->mWeights[j].mVertexId;
+				float weight = AiBone->mWeights[j].mWeight;
+				boneWeightVertexBufferData[vertexID].AddBoneData(boneIndex, weight);
+			}
+		}	
 		newVertexBuffer->Create<BoneWeightVertex>(boneWeightVertexBufferData);
 	}
 	else // 본이 없는 버텍스일 경우
@@ -401,7 +428,7 @@ void FBXLoader::ProcessAnimation(const aiScene* scene, const std::string_view _f
 	animationMap[_filePath.data()] = animations;
 }
 
-void FBXLoader::ProcessSkeletonInfo(aiNode* _aiNode, aiNode* _parentNode)
+void FBXLoader::ProcessSkeletonInfo(aiNode* _aiNode, aiNode* _parentNode, SkeletonInfo* _skeletonInfo)
 { // TODO : BoneInfo를 저장할 SkeletonInfo를 처리해야 된다.
 	BoneInfo* boneInfo = new BoneInfo;
 	boneInfo->Set(_aiNode);
@@ -410,10 +437,10 @@ void FBXLoader::ProcessSkeletonInfo(aiNode* _aiNode, aiNode* _parentNode)
 	{
 		boneInfo->SetParentBoneName(_parentNode->mName.C_Str());
 	}
-
+	_skeletonInfo->AddBone(boneInfo);
 	for (int i = 0; i < _aiNode->mNumChildren; i++)
 	{
-		ProcessSkeletonInfo(_aiNode->mChildren[i], _aiNode);
+		ProcessSkeletonInfo(_aiNode->mChildren[i], _aiNode, _skeletonInfo);
 	}
 }
 
@@ -594,6 +621,7 @@ FBXLoader::~FBXLoader()
 	SafeExtinction::SAFE_CLEAR_CONTAINER(materials);
 	SafeExtinction::SAFE_CLEAR_CONTAINER(aiNodeMap);
 	SafeExtinction::SAFE_CLEAR_CONTAINER(animationMap);
+	SafeExtinction::SAFE_CLEAR_CONTAINER(skeletonInfoMap);
 }
 
 DX::XMMATRIX ConvertMatrix(const aiMatrix4x4& _matrix) // 여기서만 사용하는 함수

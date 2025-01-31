@@ -32,6 +32,7 @@ private:
 	void MainDockSpace(); // 보류 코드
 
 public:
+	bool debugFlag = false;
 
 private:
 	ImGuiIO* io;

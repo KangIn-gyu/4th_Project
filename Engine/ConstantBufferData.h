@@ -53,3 +53,13 @@ struct alignas(16) CameraBuffer
 	DXMath::Vector3 lightDirection;
 	float padding1{};
 };
+
+struct alignas(16) MatrixPallete
+{
+	MatrixPallete()
+	{
+		ValidateConstantBufferSize<CameraBuffer>();
+	}
+	
+	DXMath::Matrix array[128]; // TODO : MatrixPallete 사이즈 고민이 있음
+}; 

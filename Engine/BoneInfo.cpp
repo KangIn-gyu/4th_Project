@@ -12,3 +12,8 @@ void BoneInfo::SetParentBoneName(std::string_view _name)
 {
 	parentBoneName.assign(_name);
 }
+
+void BoneInfo::SetOffsetMatrix(DXMath::Matrix _offsetMatrix)
+{
+	offsetMatrix = _offsetMatrix;
+}
