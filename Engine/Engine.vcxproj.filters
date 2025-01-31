@@ -119,6 +119,9 @@
     <Filter Include="0_Utility\MyImGui\Editor">
       <UniqueIdentifier>{7a5f7204-ff02-481c-adbe-f365d09d03f6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="0_Utility\DOTween">
+      <UniqueIdentifier>{589ca8af-b469-4e2b-9aac-923fd4476625}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowApp.h">
@@ -295,6 +298,12 @@
     <ClInclude Include="SkyBox.h">
       <Filter>2_System\Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="DOTweenManager.h">
+      <Filter>0_Utility\DOTween</Filter>
+    </ClInclude>
+    <ClInclude Include="DOTween.h">
+      <Filter>0_Utility\DOTween</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WindowApp.cpp">
@@ -440,6 +449,12 @@
     <ClCompile Include="CameraInformationEditor.cpp" />
     <ClCompile Include="SkyBox.cpp">
       <Filter>2_System\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="DOTweenManager.cpp">
+      <Filter>0_Utility\DOTween</Filter>
+    </ClCompile>
+    <ClCompile Include="DOTween.cpp">
+      <Filter>0_Utility\DOTween</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

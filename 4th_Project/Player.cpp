@@ -12,8 +12,16 @@ void Player::Start()
 
 void Player::CardDraw(Deck* _deck)
 {
+	
 	//카드가 7장일경우 처리필요 *****
-	hand.cardDraw((_deck->DrawCard()));
+	if (hand.numCard() < 6)
+	{
+		hand.cardDraw((_deck->DrawCard()), handSlots[hand.numCard()]);
+	}
+	else
+	{
+		drawFirst = true;
+	}
 }
 
 

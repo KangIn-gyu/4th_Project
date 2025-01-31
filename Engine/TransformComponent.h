@@ -26,8 +26,8 @@ public:
 	DXMath::Vector3 GetWorldUp() const;
 	DXMath::Vector3 GetWorldLook() const;
 
-	DXMath::Vector3    GetPosition() const;
-	DXMath::Quaternion GetQuaternion() const;
+	DXMath::Vector3&    GetPosition() ; //get해서 dotween으로 위치바꺼야해서 const지우고 참조로 딴것도
+	DXMath::Quaternion& GetQuaternion() ;
 	DXMath::Vector3    GetScale() const;
 
 	void SetLocalMatrix(const DXMath::Matrix _localMatrix);

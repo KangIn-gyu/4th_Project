@@ -14,7 +14,7 @@ Dealer::Dealer(std::string_view _name, Object::ObjectType _type) : Object(_name,
 
 void Dealer::Start()
 {
-	CreateComponent<ModelComponent>("STAGE1/FBX/asdq2.fbx");  // char2 / gun // asdq
+	CreateComponent<ModelComponent>("STAGE1/FBX/myy.fbx");  // char2 / gun // asdq
 	CreateComponent<RenderComponent>();
 
 	CreateComponent<BoxCollider>();
@@ -32,6 +32,12 @@ void Dealer::Update(const float _deltaTime)
 {
 	__super::Update(_deltaTime);
 	
+	if (hand.numCard() >= 2)
+	{
+		OpenOne(_deltaTime);
+		
+	}
+		
 	//std::cout << GetComponent<ModelComponent>()->GetModel().get()->extent.x << std::endl;
 }
 
@@ -39,10 +45,9 @@ void Dealer::Update(const float _deltaTime)
 
 void Dealer::CardDraw(Deck* _deck)
 {
-	while(hand.GetScore() >= maxScore)
-	{
-		hand.cardDraw((_deck->DrawCard(true))); //1초에한장씩등 딜레이 추가필요
-	}
+	
+	hand.cardDraw((_deck->DrawCard(true)), { float(100 * hand.numCard() + 100), 200.0f,0}); //1초에한장씩등 딜레이 추가필요
+	
 }
 
 int Dealer::GetScore()
@@ -65,7 +70,11 @@ void Dealer::OnMouse()
 {
 }
 
-bool Dealer::FinishFirst()
+void Dealer::OpenOne(float _deltaTime)
 {
-	return false;
+	//1초뒤에 뒤집어야 하나 
+	hand.hand.back()->Open();
+	finishFirst = true;
 }
+
+

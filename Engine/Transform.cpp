@@ -42,12 +42,12 @@ DXMath::Matrix Transform::GetLocalMatrix() const
 	return localMatrix;
 }
 
-DXMath::Vector3 Transform::GetPosition() const
+DXMath::Vector3& Transform::GetPosition() 
 {
 	return position;
 }
 
-DXMath::Quaternion Transform::GetQuaternion() const
+DXMath::Quaternion& Transform::GetQuaternion() 
 {
 	return rotation;
 }

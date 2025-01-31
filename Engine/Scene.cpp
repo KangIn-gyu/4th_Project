@@ -5,6 +5,7 @@
 #include "Object.h"
 #include "SceneManager.h"
 #include "EventSystem.h"
+#include "DOTweenManager.h"
 Scene::Scene(std::string_view _Name)
 {
 	sceneName.assign(_Name);
@@ -32,6 +33,7 @@ void Scene::Update(const float _deltaTime)
 {
 	objectManager->Update(_deltaTime);
 	eventSysyem->Update();
+	dotweenManager->Update(_deltaTime);
 }
 
 void Scene::MainCameraSetting(const int _index)
