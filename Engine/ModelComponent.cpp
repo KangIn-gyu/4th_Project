@@ -69,7 +69,7 @@ void ModelComponent::ComponentUpdate(const float _deltaTime)
         for (UINT j = 0; j < boneCount; j++)
         {
             AiNode* node = nodeList.find(meshs[i]->GetName())->second;
-            skeletalMesh->GetBoneReferences()[j].SetNodeWolrdTransform(node->GetPointTransform()->GetWorldMatrix());
+            //skeletalMesh->GetBoneReferences()[j].SetNodeWolrdTransform(node->GetPointTransform()->GetWorldMatrix());
         }
         skeletalMesh->UpdateMatrixPallete(&matrixPalletBuffer, skeletonInfo);
     }
