@@ -10,6 +10,7 @@
 #include "CameraInformationEditor.h"
 #include "AnimationEditor.h"
 #include <imgui.h>
+
 InspectorWindow::InspectorWindow()
 {
 	SetName("Inspector");
@@ -24,18 +25,18 @@ InspectorWindow::~InspectorWindow()
 
 void InspectorWindow::Initialize()
 {
-	editors.push_back(new TransformEditor());			 // 0
-	editors.push_back(new MeshInformationEditor());		 // 1
-	editors.push_back(new TextureInformationEditor());	 // 2
-	editors.push_back(new CameraInformationEditor());	 // 3
-	editors.push_back(new AnimationEditor());			 // 4
+	editors.emplace(EditorType::Transform , new TransformEditor());			 
+	editors.emplace(EditorType::MeshInformation ,new MeshInformationEditor());		
+	editors.emplace(EditorType::CameraInformation ,new CameraInformationEditor());	 
+	editors.emplace(EditorType::Animation, new AnimationEditor());			 
+//	editors.emplace(new TextureInformationEditor());	 
 }
 
 void InspectorWindow::Update()
 {
 	for (auto& editor : editors)
 	{
-		editor->Update();
+		editor.second->Update();
 	}
 }
 
@@ -44,7 +45,7 @@ void InspectorWindow::Draw()
 	ImGui::BeginChild("InspectorWindow", ImVec2(0, 0), true, ImGuiWindowFlags_None);
 	for (auto& editor : editors)
 	{
-		editor->Draw();
+		editor.second->Draw();
 	}
 	ImGui::EndChild();
 }
@@ -73,37 +74,39 @@ void InspectorWindow::OnDestroy()
 void InspectorWindow::SetSelectedObject(Object* _obj)
 {
 	selectedObject = _obj;
-	static_cast<TransformEditor*>(editors[0])->SetSelectedObject(selectedObject);
-	static_cast<AnimationEditor*>(editors[4])->SetSelectedObject(selectedObject);
+	auto transformEditor = dynamic_cast<TransformEditor*>(editors.find(EditorType::Transform)->second);
+	transformEditor->SetSelectedObject(selectedObject);
+	transformEditor->NodeActivation(false);
+
+	dynamic_cast<AnimationEditor*>(editors.find(EditorType::Animation)->second)->SetSelectedObject(selectedObject);
 
 	if (nullptr != _obj && _obj->GetObjectType() == Object::ObjectType::Camera)
 	{
-		static_cast<CameraInformationEditor*>(editors[3])->OnEnable();
-		static_cast<CameraInformationEditor*>(editors[3])->SetCameraObject(selectedObject);
+		auto cameraEditor = dynamic_cast<CameraInformationEditor*>(editors.find(EditorType::CameraInformation)->second);
+		cameraEditor->OnEnable();
+		cameraEditor->SetCameraObject(selectedObject);
 	}
 	else
 	{
-		static_cast<CameraInformationEditor*>(editors[3])->SetCameraObject(nullptr);
+		dynamic_cast<CameraInformationEditor*>(editors.find(EditorType::CameraInformation)->second)->OnDisable();
 	}
 }
 
 void InspectorWindow::SetSelectedMesh(Mesh* _mesh)
 {
 	selectedMesh = _mesh;
-	static_cast<MeshInformationEditor*>(editors[1])->SetSelectedMesh(selectedMesh);
-
-	{
-		static_cast<AnimationEditor*>(editors[4])->OnDisable();
-	}
+	dynamic_cast<MeshInformationEditor*>(editors.find(EditorType::MeshInformation)->second)->SetSelectedMesh(selectedMesh);
+	editors.find(EditorType::Animation)->second->OnDisable();
 }
 
 void InspectorWindow::SetSelectedTexture(Texture* _texture)
 {
-	static_cast<TextureInformationEditor*>(editors[2])->SetSelectedTexture(_texture);
+//	static_cast<TextureInformationEditor*>(editors[2])->SetSelectedTexture(_texture);
 }
 
 void InspectorWindow::SetSelectedAiNode(AiNode* _aiNode)
 {
 	selectedAiNode = _aiNode;
-	static_cast<TransformEditor*>(editors[0])->SetSelectedNode(_aiNode);
+	dynamic_cast<TransformEditor*>(editors.find(EditorType::Transform)->second)->NodeActivation(true);
+	dynamic_cast<TransformEditor*>(editors.find(EditorType::Transform)->second)->SetSelectedNode(selectedAiNode);
 }

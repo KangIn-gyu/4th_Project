@@ -551,6 +551,9 @@
     <ClCompile Include="TextObject.cpp">
       <Filter>5_Object\Component\TextComponent</Filter>
     </ClCompile>
+    <ClCompile Include="ConstantBufferData.cpp">
+      <Filter>3_Graphics\GraphicsData\Buffer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd">

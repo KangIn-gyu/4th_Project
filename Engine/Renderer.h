@@ -51,10 +51,10 @@ private:
 	ConstantBuffer matrixConstantBuffer;
 	ConstantBuffer objectBuffer;
 	ConstantBuffer cameraBuffer;
+	ConstantBuffer matrixPaletteBuffer;
 
-
-	ComPtr<ID3D11SamplerState>	linearWrapSampler;    // LINEAR ?„í„°ë§?
-	ComPtr<ID3D11SamplerState>  pointClampSampler;    // POINT ?„í„°ë§?
+	ComPtr<ID3D11SamplerState>	linearWrapSampler;    // LINEAR 
+	ComPtr<ID3D11SamplerState>  pointClampSampler;    // POINT 
 
 	std::stack<int> previousTexturerProcessing;
 	SkyBox m_skybox;

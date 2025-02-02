@@ -24,7 +24,7 @@ public:
 	bool GetLoop();
 
 	std::vector<AnimationNode*> GetAnimationNodes() { return nodes; }
-	std::string GetName() { return name; }
+	const std::string& GetName() { return name; }
 private:
 
 public:

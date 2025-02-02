@@ -32,6 +32,7 @@ private:
 	void MainDockSpace(); // 보류 코드
 
 public:
+	bool debugFlag = false;
 
 private:
 	ImGuiIO* io;
@@ -43,6 +44,6 @@ private:
 	DXMath::Color backgroundColor = { 0.5f, 0.5f, 0.5f, 1.0f};
 
 	HierarchyWindow hierarchy;
-	std::shared_ptr<InspectorWindow> inspector;
+	std::shared_ptr<InspectorWindow> inspector{};
 };
 

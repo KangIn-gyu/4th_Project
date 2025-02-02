@@ -23,11 +23,12 @@ GambleScene::GambleScene(std::string_view _Name) : Scene(_Name)
 
 void GambleScene::Enter()
 {
-	//µô·¯µµ Àü¿ªÀ¸·Î ÇÒ±î¿ä
+	//ë”œëŸ¬ë„ ì „ì—­ìœ¼ë¡œ í• ê¹Œìš”
 	BLACKJACK->dealer = ObjectCreator<Dealer>("Dealer", Object::ObjectType::Basic); 
 	BLACKJACK->dealer->GetComponent<TransformComponent>()->SetPosition({ -300, 0, 0 });
 	BLACKJACK->deck = ObjectCreator<Deck>("Deck", Object::ObjectType::Basic);
 	BLACKJACK->Setstage(1);
+
 	
 	auto deck = GetGameObject(Object::ObjectType::Basic, "Deck");
 	

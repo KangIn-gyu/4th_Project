@@ -6,6 +6,7 @@
 #include "../Engine/SceneManager.h"
 #include "../Engine/Scene.h"
 #include "../Engine/FactorySystem.h"
+
 Deck::Deck(std::string_view _name, Object::ObjectType _type) : Object(_name, _type)
 {
 

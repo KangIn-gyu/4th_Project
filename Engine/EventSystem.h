@@ -12,6 +12,7 @@ DXMath::Ray GenerateRayFromMouse(int mouseX, int mouseY, int screenWidth, int sc
 
 class EventSystem : public SingletonBase<EventSystem>
 {
+	friend class SingletonBase<EventSystem>;
 public:
 	EventSystem();
 	virtual ~EventSystem() = default;
@@ -27,6 +28,7 @@ public:
 	int dragThresholdY;
 	bool isDragging;
 	bool isClick;
+
 private:
 	Object* curHolding;
 };

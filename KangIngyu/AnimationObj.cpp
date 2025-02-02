@@ -9,7 +9,7 @@ AnimationObj::AnimationObj(std::string_view _name, Object::ObjectType _type) : O
 
 void AnimationObj::Initialize()
 {
-	CreateComponent<ModelComponent>("STAGE1/FBX/SkinningTest.fbx");  // char2 / gun / Robot_Dummy_classTest / SkinningTest
+	CreateComponent<ModelComponent>("STAGE1/FBX/Lashushya.fbx");  // char2 / gun / Robot_Dummy_classTest / SkinningTest // asdq // Lashushya
 	auto* renderComponent = CreateComponent<RenderComponent>();
 	renderComponent->SetShader(ShaderType::VS, "Shaders/VertexShaderVS.hlsl");
 	renderComponent->SetShader(ShaderType::PS, "Shaders/PixelShaderPS.hlsl");

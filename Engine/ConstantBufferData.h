@@ -1,7 +1,8 @@
 #pragma once
-#include <directxtk/SimpleMath.h> 
-namespace DX = DirectX;
-namespace DXMath = DirectX::SimpleMath;
+
+// #include <directxtk/SimpleMath.h> 
+// namespace DX = DirectX;
+// namespace DXMath = DirectX::SimpleMath;
 
 
 // 용도 : 각 버퍼의 데이터를 저장하는 곳
@@ -53,3 +54,14 @@ struct alignas(16) CameraBuffer
 	DXMath::Vector3 lightDirection;
 	float padding1{};
 };
+
+#define BoneBufferMaxSize 400
+
+struct alignas(16) MatrixPallete
+{
+	MatrixPallete()
+	{
+		ValidateConstantBufferSize<MatrixPallete>();
+	}	
+	DXMath::Matrix array[BoneBufferMaxSize]; // TODO : MatrixPallete 사이즈 고민이 있음
+}; 

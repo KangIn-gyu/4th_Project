@@ -5,6 +5,7 @@
 
 #include "Mesh.h"
 #include "AiNode.h"
+#include "BoneReference.h"
 
 class IndexBuffer;
 class VertexBuffer;
@@ -38,7 +39,7 @@ private:
 	void ProcessMaterial(const aiScene* _scene, const std::string_view _modelFilePath);
 
 	void ProcessAnimation(const aiScene* scene, const std::string_view _filePath);
-	void ProcessSkeletonInfo(aiNode* _aiNode, aiNode* _parentNode);
+	void ProcessSkeletonInfo(aiNode* _aiNode, aiNode* _parentNode, SkeletonInfo* _skeletonInfo);
 
 	// 테스트용 리소스 정보
 	void ShowMaterials();
@@ -66,7 +67,8 @@ private:
 	std::unordered_map<std::string, std::vector<Mesh*>> meshMap {};           
 	std::unordered_map<std::string, std::vector<Material*>> materials {};     
 	std::unordered_map<std::string, std::vector<Animation*>> animationMap{};
-	std::unordered_map<std::string, std::vector<SkeletonInfo*>> skeletonInfoMap{};
+	std::unordered_map<std::string, SkeletonInfo*> skeletonInfoMap{};
+	std::unordered_map<std::string, std::vector<BoneReference>> boneReferenceMap{};
 };
 
 // 텍스처는 리소스시스템에서 처리함

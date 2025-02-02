@@ -61,7 +61,7 @@ void Scene::MainCameraSetting(const int _index)
 	}
 }
 
-std::string Scene::GetName()
+const std::string& Scene::GetName()
 {
 	return sceneName;
 }
