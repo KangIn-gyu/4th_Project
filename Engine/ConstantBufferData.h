@@ -27,6 +27,8 @@ struct alignas(16) MatrixBuffer
 	DXMath::Matrix worldMatrix {};
 	DXMath::Matrix viewMatrix  {};
 	DXMath::Matrix projectionMatrix {};
+	float totalTime;
+	DXMath::Vector3 pad();
 };
 
 struct alignas(16) ObjectBuffer
@@ -48,11 +50,38 @@ struct alignas(16) CameraBuffer
 	{
 		ValidateConstantBufferSize<CameraBuffer>();
 	}
-
 	DXMath::Vector3 eyePosition;
 	float padding0{};
 	DXMath::Vector3 lightDirection;
 	float padding1{};
+};
+
+struct alignas(16) ShadowBuffer
+{
+	ShadowBuffer()
+	{
+		ValidateConstantBufferSize<ShadowBuffer>();
+	}
+	DXMath::Matrix lightviewproj;
+};
+
+struct PointLight
+{
+	DXMath::Vector4 position;
+	DXMath::Vector4 color;
+};
+
+struct alignas(16) LightBuffer
+{
+	LightBuffer()
+	{
+		ValidateConstantBufferSize<LightBuffer>();
+	}
+
+	PointLight lights[16];
+	DXMath::Vector4 eyePosition;
+	UINT numlights;
+	DXMath::Vector3 pad;
 };
 
 #define BoneBufferMaxSize 400

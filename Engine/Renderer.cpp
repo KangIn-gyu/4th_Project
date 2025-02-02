@@ -21,6 +21,7 @@
 #include "AiNode.h"
 #include "D2DFont.h"
 #include "TransformComponent.h"
+#include "TimeSystem.h"
 
 void Renderer::Initialize(WindowInfo* _windowInfo)
 {
@@ -28,7 +29,7 @@ void Renderer::Initialize(WindowInfo* _windowInfo)
 	D3DGraphics->Initialize(_windowInfo);
 	IMGUI->Initialize(_windowInfo->hWnd, D3DGraphics->GetD3DDevice(), D3DGraphics->GetD3DDeviceContext());
 
-//	m_skybox.Init();
+	//	m_skybox.Init();
 
 	matrixConstantBuffer.Create(sizeof(MatrixBuffer));
 	objectBuffer.Create(sizeof(ObjectBuffer));
@@ -54,15 +55,15 @@ void Renderer::Update(float _deltaTime)
 void Renderer::Render()
 {
 	D3DGraphics->BeginDraw(IMGUI->GetBankGroundColor());
-//m_skybox.Render(D3DClass::GetD3DDeviceContext().Get());
+	//m_skybox.Render(D3DClass::GetD3DDeviceContext().Get());
 	D3DDraw();
 
 #ifdef USE_D2D
-		D2DGraphics->BeginDraw();
-		D2DDraw();
-		D2DGraphics->EndDraw();
+	D2DGraphics->BeginDraw();
+	D2DDraw();
+	D2DGraphics->EndDraw();
 #endif
-	
+
 	D3DGraphics->ExtractFinalImage();
 	IMGUI->Render();
 	D3DGraphics->EndDraw();
@@ -80,6 +81,9 @@ void Renderer::D3DDraw()
 	CameraBuffer cameraData;
 	cameraData.eyePosition = CameraObject::g_MainCameraObject->GetComponent<TransformComponent>()->GetPosition();
 	cameraData.lightDirection = DXMath::Vector3(0, -1, 0);
+	//LightConstantBuffer cameraData;		// 다중 빛 CB
+	//DXMath::Vector3 eyePos = CameraObject::g_MainCameraObject->GetComponent<TransformComponent>()->GetPosition();
+	//cameraData.eyePosition = DXMath::Vector4(eyePos.x, eyePos.y, eyePos.z, 1.0f);
 	d3dDeviceContext->UpdateSubresource(cameraBuffer.GetBuffer().Get(), 0, nullptr, &cameraData, 0, 0);
 	for (auto& renderComponent : work)
 	{
@@ -91,7 +95,7 @@ void Renderer::D3DDraw()
 			//IA 
 			auto* vertexBuffer = meshData->vertexBuffer;
 			d3dDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-			d3dDeviceContext->IASetVertexBuffers(0, 1, vertexBuffer->GetBuffer().GetAddressOf(), &vertexBuffer->vertextBufferStride, &vertexBuffer->vertextBufferOffset); 
+			d3dDeviceContext->IASetVertexBuffers(0, 1, vertexBuffer->GetBuffer().GetAddressOf(), &vertexBuffer->vertextBufferStride, &vertexBuffer->vertextBufferOffset);
 			auto* indexBuffer = meshData->indexBuffer;
 			d3dDeviceContext->IASetIndexBuffer(indexBuffer->GetBuffer().Get(), DXGI_FORMAT_R32_UINT, 0);
 			d3dDeviceContext->IASetInputLayout(meshData->inputLayout.GetInputLayout().Get());
@@ -109,10 +113,11 @@ void Renderer::D3DDraw()
 
 			MatrixBuffer matrixData;
 			auto node = nodeData->find(meshData->meshName);
-			matrixData.worldMatrix = DX::XMMatrixTranspose(node->second->GetTransform().GetWorldMatrix());  
+			matrixData.worldMatrix = DX::XMMatrixTranspose(node->second->GetTransform().GetWorldMatrix());
 			matrixData.viewMatrix = DX::XMMatrixTranspose(CameraObject::g_MainCameraObject->GetViewMatrix());
 			matrixData.projectionMatrix = DX::XMMatrixTranspose(CameraObject::g_MainCameraObject->GetProjectionMatrix());
-		
+			matrixData.totalTime = TIMESYSTEM->GetTotalTime();
+
 			Material* material = (*modelData->materials)[meshData->GetMaterialIndex()];
 			ObjectBuffer objectData;
 			objectData.metalness = material->GetMetalness();
@@ -120,7 +125,7 @@ void Renderer::D3DDraw()
 
 			if (nullptr != modelData->matrixPallete)
 			{
-				d3dDeviceContext->UpdateSubresource(matrixPaletteBuffer.GetBuffer().Get(), 0, nullptr , &(*modelData->matrixPallete), 0, 0);
+				d3dDeviceContext->UpdateSubresource(matrixPaletteBuffer.GetBuffer().Get(), 0, nullptr, &(*modelData->matrixPallete), 0, 0);
 			}
 			else
 			{ // TODO : 이거 할필요가 있을가 고민중... 
@@ -136,10 +141,10 @@ void Renderer::D3DDraw()
 			}
 
 			for (auto& textur : material->GetTextures())
-			{ 
+			{
 				if (!textur->GetTextureTypeIndexs().empty())
 				{
-					for (auto textureIndex : textur->GetTextureTypeIndexs()) 
+					for (auto textureIndex : textur->GetTextureTypeIndexs())
 					{
 						previousTexturerProcessing.push(textureIndex);
 						d3dDeviceContext->PSSetShaderResources(textureIndex, 1, textur->GetTexture().GetAddressOf());
@@ -152,15 +157,15 @@ void Renderer::D3DDraw()
 			d3dDeviceContext->DrawIndexed(indexBuffer->GetIndexCount(), 0, 0);
 		}
 	}
-}
 
+}
 void Renderer::D2DDraw()
 {
-//	for (auto& renderComponent : work)
-//	{
-//		auto fontData = renderComponent->GetD2DFont();
-//		//fontData->Render();
-//	}
+	//	for (auto& renderComponent : work)
+	//	{
+	//		auto fontData = renderComponent->GetD2DFont();
+	//		//fontData->Render();
+	//	}
 }
 
 void Renderer::AddRenderComponent(RenderComponent* _renderComponent)
