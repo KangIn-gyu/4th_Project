@@ -16,8 +16,8 @@ ClientApp::~ClientApp()
 
 void ClientApp::Enter()
 {
-	SOUNDSYSTEM->LoadMusic(eSoundList::Main_Theme, true, "Resource/Sound/littleroot.wav");
-	SOUNDSYSTEM->SetVolumeAll(0.01f);
+	//SOUNDSYSTEM->LoadMusic(eSoundList::Main_Theme, true, "Resource/Sound/littleroot.wav");
+	//SOUNDSYSTEM->SetVolumeAll(0.01f);
 	KangScene* testScene = new KangScene("TEST");
 	ENGINE->ChangeScene("TEST");
 }
