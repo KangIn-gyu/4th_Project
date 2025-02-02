@@ -146,6 +146,9 @@
     <Filter Include="0_Utility\DOTween">
       <UniqueIdentifier>{589ca8af-b469-4e2b-9aac-923fd4476625}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2_System\Sound">
+      <UniqueIdentifier>{94d67b9a-bac3-4777-b0e0-d3fecdd451e4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowApp.h">
@@ -363,6 +366,9 @@
     <ClInclude Include="D2DFont.h">
       <Filter>3_Graphics\D2D</Filter>
     </ClInclude>
+    <ClInclude Include="SoundSystem.h">
+      <Filter>2_System\Sound</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WindowApp.cpp">
@@ -550,6 +556,8 @@
     </ClCompile>
     <ClCompile Include="ConstantBufferData.cpp">
       <Filter>3_Graphics\GraphicsData\Buffer</Filter>
+    <ClCompile Include="SoundSystem.cpp">
+      <Filter>2_System\Sound</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
