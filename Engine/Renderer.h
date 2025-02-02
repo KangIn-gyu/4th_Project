@@ -14,8 +14,8 @@ struct WindowInfo;
 class Renderer : public SingletonBase<Renderer>
 {
 	friend class SingletonBase<Renderer>;
-//	friend class D2DFont;
-//	friend class SFont;
+	friend class TextObject;
+	friend class SFont;
 public:
 	void Initialize(WindowInfo* _windowInfo);
 	void Update(float _deltaTiem);

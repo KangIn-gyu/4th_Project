@@ -100,7 +100,7 @@ void Scene::CreateLayers()
 
 void Scene::BasicObject()
 {
-	auto* mainCamera = FACTORYSYSTEM->CreatorObject<CameraObject>("MainCamera", Object::ObjectType::Camera);
+	auto* mainCamera = FACTORYSYSTEM->ObjectCreator<CameraObject>("MainCamera", Object::ObjectType::Camera);
 	mainCamera->GetComponent<TransformComponent>()->SetPosition({ 0, 0, -300.0f });
 	gameObecjts[static_cast<int>(Object::ObjectType::Camera)]->AddGameObjcet(mainCamera);
 

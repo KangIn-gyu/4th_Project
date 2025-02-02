@@ -18,7 +18,7 @@ public:
 	virtual void RateUpdate(const float _deltaTime) {};
 
 	template<succession_Object T, typename ... Arg>
-	T* CreatorObject(std::string_view _name , Object::ObjectType _Type, Arg&& ... _arguments);
+	T* ObjectCreator(std::string_view _name , Object::ObjectType _Type, Arg&& ... _arguments);
 
 	void MainCameraSetting(const int _index = 0);
 	const std::string& GetName();
@@ -49,17 +49,17 @@ private:
 // 기본 제공 오브젝트는 메인 카메라, 라이트를 제공.
 
 template<succession_Object T, typename ... Arg>
-T* Scene::CreatorObject(std::string_view _name , Object::ObjectType _Type, Arg&& ... _arguments)
+T* Scene::ObjectCreator(std::string_view _name , Object::ObjectType _Type, Arg&& ... _arguments)
 {
 	if constexpr (sizeof...(_arguments) == 0)
 	{
-		auto object = FACTORYSYSTEM->CreatorObject<T>(_name, _Type);
+		auto object = FACTORYSYSTEM->ObjectCreator<T>(_name, _Type);
 		gameObecjts[static_cast<int>(_Type)]->AddGameObjcet(object);
 		return object; // 생성한 객체를 반환
 	}
 	else
 	{
-		auto object = FACTORYSYSTEM->CreatorObject<T>(_name, _Type, std::forward<Arg>(_arguments)...);
+		auto object = FACTORYSYSTEM->ObjectCreator<T>(_name, _Type, std::forward<Arg>(_arguments)...);
 		gameObecjts[static_cast<int>(_Type)]->AddGameObjcet(object);
 		return object; // 생성한 객체를 반환
 	}
