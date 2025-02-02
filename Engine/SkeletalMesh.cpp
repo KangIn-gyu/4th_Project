@@ -17,8 +17,8 @@ void SkeletalMesh::UpdateMatrixPallete(MatrixPallete* _pallete, SkeletonInfo* _s
 	{
 		DXMath::Matrix BoneNodeWorldMatrix = *boneReferences[i].GetNodeWorldTransform(); // 본의 
 		int index = boneReferences[i].GetIndex(); // 전체 본의 이름 순서로 정한 인덱스
-		std::string name = boneReferences[i].GetName();
-		BoneInfo* boneInfo = _skeletonInfo->GetBoneInfoByName(name);
+		const std::string& name = boneReferences[i].GetName();
+		BoneInfo* boneInfo = _skeletonInfo->GetBoneInfoByName(boneReferences[i].GetName());
 	
 		if (boneInfo == nullptr)
 		{

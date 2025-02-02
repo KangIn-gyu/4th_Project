@@ -39,8 +39,7 @@ void HierarchyWindow::Update()
 void HierarchyWindow::Draw()
 {
 	const auto& objects = currentScene->GetGameObecjts();
-	std::string sceneText = "Scene : " + currentScene->GetName();
-	ImGui::Text(sceneText.c_str());
+	ImGui::Text("Scene : %s", currentScene->GetName().c_str());
 	for (const auto& objLayer : objects) 
 	{
 		for (size_t index = 0; index < objLayer->GetSize(); ++index)

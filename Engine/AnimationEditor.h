@@ -22,6 +22,8 @@ public:
 
 private:
 	Object* selectedObject = nullptr;
-	std::string loopText;
+
+	const char* loopTextch;
+	std::vector<const char*> animationNames;
 };
 

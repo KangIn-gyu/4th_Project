@@ -21,7 +21,7 @@ public:
 	void SetMesh(Mesh* _mesh);
 	
 	const std::string& GetName() { return nodeName; }
-	std::vector<AiNode*> GetChildren() { return child; }
+	std::vector<AiNode*>& GetChildren() { return child; }
 	
 	Transform GetTransform();
 	Transform* GetPtrTransform() { return &transform; }
