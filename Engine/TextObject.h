@@ -1,13 +1,12 @@
 #pragma once
 #include <dwrite_3.h>
-#include "Component.h"
+#include "Object.h"
 
-class D2DFont : public Component
+class TextObject : public Object
     {
     public:
-        D2DFont(std::wstring _Dialog);
-        ~D2DFont();
-        void SetDialog(std::wstring input);
+        TextObject(std::string_view _name, Object::ObjectType type = Object::ObjectType::UI, std::wstring _input);
+        ~TextObject();
         void LoadFont(std::wstring FontName);
         void Render();
         void CreateLayoutText(std::wstring detail);
@@ -15,10 +14,11 @@ class D2DFont : public Component
         void SetWriteTextFormat(IDWriteTextFormat* _IDWriteTextFormat);
 
         IDWriteTextLayout* GetFontLayout() { return DWriteTextLayout; }
-       // void TextDraw(const wchar_t* format, D2D1_RECT_F _rect, D2D1_COLOR_F _color, ...);
+        // void TextDraw(const wchar_t* format, D2D1_RECT_F _rect, D2D1_COLOR_F _color, ...);
 
     public:
 
+        static TextObject* fontObject;
     private:
         std::wstring Dialog;
         IDWriteTextFormat* DWriteTextFormat = nullptr;
@@ -26,23 +26,20 @@ class D2DFont : public Component
         float FontSize = 32.0f;
         D2D_SIZE_F BoxSize = { 100.f, 50.f };
         float x = 300, y = 300;
-        D2D1_RECT_F Pos = { x , y ,x+ BoxSize .width,y + BoxSize.height };
+        D2D1_RECT_F Pos = { x , y ,x + BoxSize .width,y + BoxSize.height };
 
-        std::shared_ptr<D2DFont> d2dFontData;
     };
 
 
     // SFont ======================================================
 
-    //class SFont :public SingletonBase<SFont>
+    //class SFont
     //{
     //private:
     //    SFont() = default;
     //    ~SFont() { this->UnInit(); }
     //    SFont(const SFont&) = delete;
     //    SFont& operator =(const SFont&) = delete;
-
-    //    static SFont* m_pInstance;
 
     //public:
 

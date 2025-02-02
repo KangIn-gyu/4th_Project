@@ -17,9 +17,8 @@
 
 #include "FontManager.h"
 
-
 #include "AiNode.h"
-#include "D2DFont.h"
+#include "TextObject.h"
 #include "TransformComponent.h"
 
 void Renderer::Initialize(WindowInfo* _windowInfo)
@@ -68,7 +67,7 @@ void Renderer::Render()
 void Renderer::D3DDraw()
 {
 	ComPtr<ID3D11DeviceContext> d3dDeviceContext = D3DGraphics->GetD3DDeviceContext();
-	d3dDeviceContext->PSSetSamplers(0, 1, &linearWrapSampler); 
+	d3dDeviceContext->PSSetSamplers(0, 1, &linearWrapSampler);
 	d3dDeviceContext->PSSetSamplers(1, 1, &pointClampSampler);
 
 	d3dDeviceContext->VSSetConstantBuffers(2, 1, cameraBuffer.GetBuffer().GetAddressOf());

@@ -19,7 +19,7 @@ class FactorySystem : public SingletonBase<FactorySystem>
 	friend class SingletonBase<FactorySystem>;
 public:
 	template<succession_Object T, typename ... Arg>
-	T* CreatorObject(Arg&& ... _arguments);
+	T* ObjectCreator(Arg&& ... _arguments);
 
 
 private:
@@ -31,7 +31,7 @@ private:
 };
 
 template<succession_Object T, typename ... Arg>
-T* FactorySystem::CreatorObject(Arg&& ... _arguments)
+T* FactorySystem::ObjectCreator(Arg&& ... _arguments)
 {
 	if constexpr (ObjectArgs<T, Arg...>)
 	{

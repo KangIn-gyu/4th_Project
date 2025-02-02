@@ -17,7 +17,7 @@ void Deck::Init()
 	for (Suit suit : { Suit::Spade, Suit::Diamond, Suit::Heart, Suit::Clover }) {
 		// 모든 값 순회
 		for (std::string rank : { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K" }) {
-			auto newcard = SCENEMANAGER->GetCurrentScene()->CreatorObject<Card>((enumToString(suit) + rank), Object::ObjectType::Basic, suit, rank);
+			auto newcard = SCENEMANAGER->GetCurrentScene()->ObjectCreator<Card>((enumToString(suit) + rank), Object::ObjectType::Basic, suit, rank);
 		
 			cards.push_back(newcard);
 		}

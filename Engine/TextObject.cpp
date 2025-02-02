@@ -1,23 +1,22 @@
 #include "pch.h"
-#include "D2DFont.h"
+#include "TextObject.h"
 #include "Renderer.h"
 #include <cstdarg>  // 가변 인자 처리
 #include <stdexcept>
 #include "Helper.h"
 #include "FontManager.h"
 
-D2DFont::D2DFont(const std::wstring _Dialog)
+TextObject::TextObject(std::string_view _name, Object::ObjectType type, std::wstring _input) : Object(_name, type)
 {
-    Dialog = _Dialog;
+    Dialog = _input;
     LoadFont(L"경기천년제목");
-    CreateLayoutText(Dialog);
 
     D2DClass::GetD2DBrush()->SetColor(D2D1::ColorF(D2D1::ColorF::LightPink));
     SetWriteTextFormat(FontManager::GetInstance()->FindFont(L"standard"));
-    Render();
+    CreateLayoutText(Dialog);
 }
 
-D2DFont::~D2DFont()
+TextObject::~TextObject()
 {
     if (!DWriteTextFormat)
     {
@@ -27,13 +26,7 @@ D2DFont::~D2DFont()
    DWriteTextLayout->Release();
 }
 
-void D2DFont::SetDialog(std::wstring _input)
-{
-    Dialog = _input;
-    CreateLayoutText(Dialog);
-}
-
-void D2DFont::LoadFont(std::wstring _fontName) // 외부 파일 읽을수 있도록 수정이 필요
+void TextObject::LoadFont(std::wstring _fontName) // 외부 파일 읽을수 있도록 수정이 필요
 {
     HRESULT hr = D2DClass::GetDWriteFactory()->CreateTextFormat(
         _fontName.c_str(), // FontName 제어판-모든제어판-항목-글꼴-클릭 으로 글꼴이름 확인가능 거기 이름 다음 해야됨
@@ -58,13 +51,13 @@ void D2DFont::LoadFont(std::wstring _fontName) // 외부 파일 읽을수 있도록 수정이
 //{
 //    D2DClass::GetD2DDeviceContext()->DrawTextLayout(Pos, DWriteTextLayout, D2DClass::GetD2DBrush().Get(), D2D1_DRAW_TEXT_OPTIONS_NONE);
 //}
-void D2DFont::Render()
+void TextObject::Render()
 {
     D2DClass::GetD2DDeviceContext()->DrawText(Dialog.c_str(), Dialog.length(), DWriteTextFormat, Pos, D2DClass::GetD2DBrush().Get());
     std::cout << "텍스트렌더" << std::endl;
 }
 
-void D2DFont::CreateLayoutText(std::wstring detail)
+void TextObject::CreateLayoutText(std::wstring detail)
 {
     if (DWriteTextLayout)
     {
@@ -91,12 +84,12 @@ void D2DFont::CreateLayoutText(std::wstring detail)
     DWriteTextLayout->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER);
     DWriteTextLayout->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
 }
-void D2DFont::SetSize(float _FontSize, DWRITE_TEXT_RANGE textRange)
+void TextObject::SetSize(float _FontSize, DWRITE_TEXT_RANGE textRange)
 {
     FontSize = _FontSize;
     DWriteTextLayout->SetFontSize(FontSize, textRange);
 }
-void D2DFont::SetWriteTextFormat(IDWriteTextFormat* _IDWriteTextFormat)
+void TextObject::SetWriteTextFormat(IDWriteTextFormat* _IDWriteTextFormat)
 {
     DWriteTextFormat = _IDWriteTextFormat;
     CreateLayoutText(Dialog);

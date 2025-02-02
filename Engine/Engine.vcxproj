@@ -159,7 +159,7 @@
     <ClInclude Include="ConstantBuffer.h" />
     <ClInclude Include="ConstantBufferData.h" />
     <ClInclude Include="D2DClass.h" />
-    <ClInclude Include="D2DFont.h" />
+    <ClInclude Include="TextObject.h" />
     <ClInclude Include="D3DClass.h" />
     <ClInclude Include="Declare.h" />
     <ClInclude Include="DirectXInput.h" />
@@ -233,7 +233,7 @@
     <ClCompile Include="Console.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />
     <ClCompile Include="D2DClass.cpp" />
-    <ClCompile Include="D2DFont.cpp" />
+    <ClCompile Include="TextObject.cpp" />
     <ClCompile Include="D3DClass.cpp" />
     <ClCompile Include="DirectXInput.cpp" />
     <ClCompile Include="DOTween.cpp" />
