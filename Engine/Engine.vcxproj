@@ -70,9 +70,6 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <ReferencePath>C:\Users\kkc02\Desktop\4th_Project\Engine\inc;$(ReferencePath)</ReferencePath>
-  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -207,7 +204,6 @@
     <ClInclude Include="SkeletalMesh.h" />
     <ClInclude Include="SkeletonInfo.h" />
     <ClInclude Include="SkyBox.h" />
-    <ClInclude Include="SoundSystem.h" />
     <ClInclude Include="StaticMesh.h" />
     <ClInclude Include="StringHelper.h" />
     <ClInclude Include="SystemHeader.h" />
@@ -280,7 +276,6 @@
     <ClCompile Include="SkeletalMesh.cpp" />
     <ClCompile Include="SkeletonInfo.cpp" />
     <ClCompile Include="SkyBox.cpp" />
-    <ClCompile Include="SoundSystem.cpp" />
     <ClCompile Include="StaticMesh.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureInformationEditor.cpp" />
