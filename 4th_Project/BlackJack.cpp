@@ -26,11 +26,22 @@ void BlackJack::RoundStart()
 	isRoundOver = false;
 	onDoubbleDown = false;
 	magnification = 1;
+	state = PlayerState::OPEN;
 }
 
 void BlackJack::RoundEnd()
 {
-
+	
+}
+void BlackJack::CheckTurnEnd()
+{
+	if (player->turnEnd == true)   //한 오픈 or HIT시마다 할것들
+	{
+		//dealer->turnCount--;
+		player->CheckGameOver();
+		player->turnEnd = false;
+		player->isDrawOne = false;
+	}
 }
 void BlackJack::Update(float _deltaTime)
 {
@@ -42,20 +53,22 @@ void BlackJack::Update(float _deltaTime)
 		{
 			if (curTurn == Turn::player)
 			{
+				CheckTurnEnd();
 				//베팅기능 추가
-				if (state == PlayerState::OPEN || state == PlayerState::HIT)  ///STAY아니면 똑같이 처리
+				if (state == PlayerState::OPEN) 
 				{
-					//canSelect = true;
-
-					
-					//무한반복 -> 뒤집을카드가없다 -> stay버트만 활성화되서 눌러야함
-				    //open일경우 -> 하나뒤집고 턴-
-					//hit일경우 하나 앞면받고 턴- or 하나 앞면받고 뒷면하나버리고 턴-
 					//모든카드가 open 상태일경우 처리필요
+				}
+				else if (state == PlayerState::HIT)
+				{
+					if(!player->isDrawOne)
+					player->CardDraw(deck);
+
+					//
 				}
 				else if (state == PlayerState::STAY)
 				{
-					curTurn = Turn::CheckVictory; //버튼눌러서 Stay로바꾸게할것
+					curTurn = Turn::CheckVictory; 
 				}
 			}
 			else if (curTurn == Turn::dealer)
@@ -64,7 +77,11 @@ void BlackJack::Update(float _deltaTime)
 			}
 			else if (curTurn == Turn::CheckVictory)
 			{
-				CheckVictory(_deltaTime);
+				dealer->CardDraw(deck);
+				if (dealer->finishDraw == true)
+				{
+					CheckVictory(_deltaTime);
+				}
 			}
 		}
 		else //첫턴에만 실행할거
@@ -75,30 +92,28 @@ void BlackJack::Update(float _deltaTime)
 
 			if ( player->drawFirst == false && elapsedTime >= 1.0)
 			{
-				player->CardDraw(deck); //1초에한장 딜레이주기 카드위치선정 ******
+				player->FirstDraw(deck); //1초에한장 딜레이주기 카드위치선정 ******
 				elapsedTime = 0;
 			}
 			//3초뒤에 플레이어카드  뒤집고 섞는 연출 필요
 			if (player->drawFirst == true  && player->Shuffle ==false && elapsedTime >= 3.0f)
 			{
-				player->hand.handShuffle();
+				player->ShuffleHand();
 				elapsedTime = 0;
-				player->Shuffle = true;
-				canSelect = true;
 			}
 
 			//플레이어가 2장 뒤집기 기다리고 뒤집으면 딜러2장주고 한장뒤집기
 			if (player->Open2Card() == true)
 			{
-				canSelect = false;
 				if (elapsedTime >= 2.0)
 				{
-					dealer->CardDraw(deck); //1초에한장 딜레이주기 카드위치선정 ******
+					dealer->FirstDraw(deck); // 
 					elapsedTime = 0;
 				}
 				if (dealer->finishFirst == true)
 				{
 					firstTurn = false;
+					player->turnEnd = false;
 				}
 
 			}
@@ -124,26 +139,30 @@ void BlackJack::DealerTurn(float _deltaTime)
 	
 	//딜러 다이얼로그 출력  선택지선택
 	dealer->Act();
-
+	std::cout << " 딜러턴입니다 " << std::endl;
 	//다이얼로그 패턴 끝나면 curTurn = Turn::player;
 }
 
 void BlackJack::CheckVictory(float _deltaTime)
 {
 	//승패계산
-
-	std::cout << "승패 계산 중입니다 " << " ㅇㅇ" << std::endl;
-
-	if (player->GetScore() == dealer->GetScore())
+	if (dealer->GetScore() >= 21)
 	{
+		std::cout << "딜러가 21넘었음  " << " ㅇㅇ" << std::endl;
+	}
+	else if (player->GetScore() == dealer->GetScore())
+	{
+		std::cout << " 둘이 비겼음 쇼다운으로 " << " ㅇㅇ" << std::endl;
 		ShowDown();   //점수 동일하면 쇼다운페이지로	
 	}
 	else if (player->GetScore() > dealer->GetScore())
 	{
+		std::cout << "플레이어가 이김 " << " ㅇㅇ" << std::endl;
 		//플레이어 윈 연출로
 	}
 	else
 	{
+		std::cout << "딜러가 이김 " << " ㅇㅇ" << std::endl;
 		//딜러윈 연출로
 	}
 }

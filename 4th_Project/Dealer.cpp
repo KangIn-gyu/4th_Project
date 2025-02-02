@@ -6,7 +6,7 @@
 #include "../Engine/TransformComponent.h"
 #include "Deck.h"
 #include "../Engine/Model.h"
-
+#include "../Engine/TimeSystem.h"
 Dealer::Dealer(std::string_view _name, Object::ObjectType _type) : Object(_name, _type)
 {
 	
@@ -43,11 +43,32 @@ void Dealer::Update(const float _deltaTime)
 
 
 
-void Dealer::CardDraw(Deck* _deck)
+void Dealer::FirstDraw(Deck* _deck)
 {
 	
-	hand.cardDraw((_deck->DrawCard(true)),{ float(100 * hand.numCard() + 100), 200.0f,0},true); //1초에한장씩등 딜레이 추가필요
+	hand.cardDraw((_deck->DrawCard(true)),{ float(100 * hand.numCard() + 100), 200.0f,0},true); 
 	
+}
+
+void Dealer::CardDraw(Deck* _deck)
+{
+	static float elapsedTime = 0;
+	float delta = TIMESYSTEM.get()->GetFloatDeltaTime();
+	elapsedTime += delta;
+	if(hand.GetScore() < 17 && elapsedTime >= 1.0f)
+	{
+		if(hand.hand[0]->isOpen == false)  //첫장 뒤집고
+			hand.hand[0]->Open();
+		else
+		{
+			Card* card = hand.cardDraw((_deck->DrawCard(true)), { float(100 * hand.numCard() + 100), 200.0f,0 }, true);
+			card->Open();
+		}
+		elapsedTime = 0;
+	}
+
+	if (hand.GetScore() >= 17 && elapsedTime >= 1.0f)
+		finishDraw = true;
 }
 
 int Dealer::GetScore()
