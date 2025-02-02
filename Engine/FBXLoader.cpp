@@ -26,9 +26,8 @@ DirectX::XMMATRIX ConvertMatrix(const aiMatrix4x4& _matrix); // 여기서만 사용하�
 
 std::shared_ptr<Model> FBXLoader::FBXLoad(std::string_view _filePath)
 {
-	std::string filePathKEY = _filePath.data(); // 파일 경로가 모든 맵의 키값이다
+	std::string filePathKEY(_filePath); // 파일 경로가 모든 맵의 키값이다
 
-	importFlags = 0; // 시작 플래그 초기화
 	importFlags = aiProcess_Triangulate |	 // vertex 삼각형 으로 출력         
 		aiProcess_GenUVCoords |				 // UV 좌표 생성
 		aiProcess_CalcTangentSpace |		 // 메시의 Tangent와 Bitangent를 계산한다.(Bitangent는 Tangent와 수직인 벡터이다)

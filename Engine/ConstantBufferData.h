@@ -55,7 +55,7 @@ struct alignas(16) CameraBuffer
 	float padding1{};
 };
 
-#define BoneBufferMaxSize 128
+#define BoneBufferMaxSize 400
 
 struct alignas(16) MatrixPallete
 {
