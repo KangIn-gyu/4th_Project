@@ -31,6 +31,7 @@ private:
 
 public:
 	bool isD2D = FALSE;
+
 private:
 	std::unordered_map<std::string, AiNode*>* nodeData;
 	std::shared_ptr<Model> modelData;
