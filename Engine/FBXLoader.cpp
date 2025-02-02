@@ -37,7 +37,9 @@ std::shared_ptr<Model> FBXLoader::FBXLoad(std::string_view _filePath)
 		aiProcess_LimitBoneWeights |		 // 본의 영향을 받는 정점의 최대 개수를 4개로 제한
 		aiProcess_RemoveRedundantMaterials;  // 사용되지 않는 메테리얼을 제거한다. 
 
+	importer.SetPropertyBool(AI_CONFIG_IMPORT_FBX_PRESERVE_PIVOTS, 0);
 	const aiScene* scene = importer.ReadFile(filePathKEY, importFlags);
+
 	if (nullptr == scene)
 	{ // 추후 로그 시스템 만들자
 		std::runtime_error("Error loading model" + std::string(importer.GetErrorString()));
@@ -63,7 +65,6 @@ std::shared_ptr<Model> FBXLoader::FBXLoad(std::string_view _filePath)
 		importFlags |= aiProcess_PreTransformVertices;
 		scene = importer.ReadFile(filePathKEY, importFlags);
 	}
-	importer.SetPropertyBool(AI_CONFIG_IMPORT_FBX_PRESERVE_PIVOTS, 0);
 
 	aiNode* rootaiNode = scene->mRootNode; // 어심프 노드
 	AiNode* rootNode{}; // 내가 만든 AiNode 데이터 저장용
@@ -288,6 +289,9 @@ void FBXLoader::ProcessVertexs(aiMesh* _mesh, unsigned int _vertexSize, const st
 			{
 				UINT vertexID = AiBone->mWeights[j].mVertexId;
 				float weight = AiBone->mWeights[j].mWeight;
+
+				if (weight < 1)
+					int a = 0;
 				boneWeightVertexBufferData[vertexID].AddBoneData(boneIndex, weight);
 			}
 		}	
@@ -435,6 +439,7 @@ void FBXLoader::ProcessAnimation(const aiScene* scene, const std::string_view _f
 
 void FBXLoader::ProcessSkeletonInfo(aiNode* _aiNode, aiNode* _parentNode, SkeletonInfo* _skeletonInfo)
 { // TODO : BoneInfo를 저장할 SkeletonInfo를 처리해야 된다.
+
 	BoneInfo* boneInfo = new BoneInfo;
 	boneInfo->Set(_aiNode);
 
@@ -442,7 +447,9 @@ void FBXLoader::ProcessSkeletonInfo(aiNode* _aiNode, aiNode* _parentNode, Skelet
 	{
 		boneInfo->SetParentBoneName(_parentNode->mName.C_Str());
 	}
+	
 	_skeletonInfo->AddBone(boneInfo);
+
 	for (int i = 0; i < _aiNode->mNumChildren; i++)
 	{
 		ProcessSkeletonInfo(_aiNode->mChildren[i], _aiNode, _skeletonInfo);
@@ -627,6 +634,7 @@ FBXLoader::~FBXLoader()
 	SafeExtinction::SAFE_CLEAR_CONTAINER(aiNodeMap);
 	SafeExtinction::SAFE_CLEAR_CONTAINER(animationMap);
 	SafeExtinction::SAFE_CLEAR_CONTAINER(skeletonInfoMap);
+	
 }
 
 DX::XMMATRIX ConvertMatrix(const aiMatrix4x4& _matrix) // 여기서만 사용하는 함수

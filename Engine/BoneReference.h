@@ -12,7 +12,7 @@ public:
 
 	DXMath::Matrix* GetNodeWorldTransform() { return nodeWorldTransform; }
 	int GetIndex() { return boneIndex; }
-	std::string GetName() { return name; }
+	const std::string& GetName();
 private:
 
 public:
@@ -20,6 +20,6 @@ public:
 private:
 	std::string name;
 	int boneIndex = -1;
-	DXMath::Matrix* nodeWorldTransform;
+	DXMath::Matrix* nodeWorldTransform{};
 };
 

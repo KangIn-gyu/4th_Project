@@ -26,11 +26,8 @@ void Renderer::Initialize(WindowInfo* _windowInfo)
 {
 	D3DGraphics = std::make_unique<D3DClass>();
 	D3DGraphics->Initialize(_windowInfo);
-
-#ifdef _DEBUG
-	IMGUI->debugFlag = true;
 	IMGUI->Initialize(_windowInfo->hWnd, D3DGraphics->GetD3DDevice(), D3DGraphics->GetD3DDeviceContext());
-#endif
+
 //	m_skybox.Init();
 
 	matrixConstantBuffer.Create(sizeof(MatrixBuffer));
@@ -41,54 +38,42 @@ void Renderer::Initialize(WindowInfo* _windowInfo)
 	D3DGraphics->CreateSamplerState(D3D11_FILTER_MIN_MAG_MIP_LINEAR, D3D11_TEXTURE_ADDRESS_WRAP, linearWrapSampler);
 	D3DGraphics->CreateSamplerState(D3D11_FILTER_MIN_MAG_MIP_POINT, D3D11_TEXTURE_ADDRESS_CLAMP, pointClampSampler);
 
+#ifdef USE_D2D
 	D2DGraphics = std::make_unique<D2DClass>();
 	D2DGraphics->Initialize(_windowInfo);
 	FontManager::GetInstance()->LoadFont(L"Resource/Font/standard.ttf", L"standard");
+#endif
 
 }
 
 void Renderer::Update(float _deltaTime)
 {
-#ifdef _DEBUG
 	IMGUI->Update(_deltaTime);
-#endif
 }
 
 void Renderer::Render()
 {
 	D3DGraphics->BeginDraw(IMGUI->GetBankGroundColor());
 //m_skybox.Render(D3DClass::GetD3DDeviceContext().Get());
-	D2DGraphics->BeginDraw();
-
 	D3DDraw();
-	D2DDraw();
-  
-	D3DGraphics->ExtractFinalImage();
 
-#ifdef _DEBUG
-	IMGUI->Render();
+#ifdef USE_D2D
+		D2DGraphics->BeginDraw();
+		D2DDraw();
+		D2DGraphics->EndDraw();
 #endif
-
+	
+	D3DGraphics->ExtractFinalImage();
+	IMGUI->Render();
 	D3DGraphics->EndDraw();
-	D2DGraphics->EndDraw();
 }
 
 void Renderer::D3DDraw()
 {
 	ComPtr<ID3D11DeviceContext> d3dDeviceContext = D3DGraphics->GetD3DDeviceContext();
-	D3D11_SAMPLER_DESC sampDesc = {};
-	sampDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
-	sampDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
-	sampDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
-	sampDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
-	sampDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
-	sampDesc.MinLOD = 0;
-	sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
 
-	HR_T(D3DClass::GetD3DDevice()->CreateSamplerState(&sampDesc, linearWrapSampler.GetAddressOf()));
-
-	d3dDeviceContext->PSSetSamplers(0, 1, &linearWrapSampler); 
-	d3dDeviceContext->PSSetSamplers(1, 1, &pointClampSampler);
+	ID3D11SamplerState* samplers[] = { linearWrapSampler.Get(), pointClampSampler.Get() };
+	d3dDeviceContext->PSSetSamplers(0, 2, samplers);
 
 	d3dDeviceContext->VSSetConstantBuffers(2, 1, cameraBuffer.GetBuffer().GetAddressOf());
 	d3dDeviceContext->PSSetConstantBuffers(2, 1, cameraBuffer.GetBuffer().GetAddressOf());
@@ -99,7 +84,7 @@ void Renderer::D3DDraw()
 	for (auto& renderComponent : work)
 	{
 		auto* modelData = renderComponent->GetModelData()->GetModelData();
-		auto nodeData = *renderComponent->GetNodeData();
+		std::unordered_map<std::string, AiNode*>* nodeData = renderComponent->GetNodeData();
 		for (auto& data : *modelData->meshs)
 		{
 			auto* meshData = data->GetMeshInfo();
@@ -123,8 +108,8 @@ void Renderer::D3DDraw()
 			d3dDeviceContext->PSSetConstantBuffers(1, 1, objectBuffer.GetBuffer().GetAddressOf());
 
 			MatrixBuffer matrixData;
-			auto node = *nodeData.find(meshData->meshName);
-			matrixData.worldMatrix = DX::XMMatrixTranspose(node.second->GetTransform().GetWorldMatrix());  
+			auto node = nodeData->find(meshData->meshName);
+			matrixData.worldMatrix = DX::XMMatrixTranspose(node->second->GetTransform().GetWorldMatrix());  
 			matrixData.viewMatrix = DX::XMMatrixTranspose(CameraObject::g_MainCameraObject->GetViewMatrix());
 			matrixData.projectionMatrix = DX::XMMatrixTranspose(CameraObject::g_MainCameraObject->GetProjectionMatrix());
 		
@@ -135,10 +120,10 @@ void Renderer::D3DDraw()
 
 			if (nullptr != modelData->matrixPallete)
 			{
-				d3dDeviceContext->UpdateSubresource(matrixPaletteBuffer.GetBuffer().Get(), 0, nullptr , modelData->matrixPallete->array, 0, 0);
+				d3dDeviceContext->UpdateSubresource(matrixPaletteBuffer.GetBuffer().Get(), 0, nullptr , &(*modelData->matrixPallete), 0, 0);
 			}
 			else
-			{ // 예외처리 
+			{ // TODO : 이거 할필요가 있을가 고민중... 
 				static DXMath::Matrix identityPallete[128];
 				d3dDeviceContext->UpdateSubresource(matrixPaletteBuffer.GetBuffer().Get(), 0, nullptr, identityPallete, 0, 0);
 			}
@@ -171,11 +156,11 @@ void Renderer::D3DDraw()
 
 void Renderer::D2DDraw()
 {
-	for (auto& renderComponent : work)
-	{
-		auto fontData = renderComponent->GetD2DFont();
-		//fontData->Render();
-	}
+//	for (auto& renderComponent : work)
+//	{
+//		auto fontData = renderComponent->GetD2DFont();
+//		//fontData->Render();
+//	}
 }
 
 void Renderer::AddRenderComponent(RenderComponent* _renderComponent)

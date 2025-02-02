@@ -51,7 +51,7 @@ public:
 	void SetTransform(Transform* _Transform);
 	void SetTransformParent(Transform* _Transform);
 
-	std::string GetName();
+	const std::string& GetName();
 	UINT GetFbxIndex();
 	MeshInfo* GetMeshInfo() { return meshInfo; }
 

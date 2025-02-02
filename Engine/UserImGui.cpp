@@ -13,8 +13,7 @@
 
 void UserImGui::Initialize(HWND _hwnd, ComPtr<ID3D11Device> _Device, ComPtr<ID3D11DeviceContext> _DeviceContext)
 {
-	if (true == debugFlag)
-	{
+
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
 
@@ -40,13 +39,10 @@ void UserImGui::Initialize(HWND _hwnd, ComPtr<ID3D11Device> _Device, ComPtr<ID3D
 
 		inspector = INSPECTOR;
 		inspector->Initialize();
-	}
 }
 
 void UserImGui::Update(const float _deltaTime)
 {
-	if (true == debugFlag)
-	{
 		ImGui_ImplDX11_NewFrame();
 		ImGui_ImplWin32_NewFrame();
 		ImGui::NewFrame();
@@ -54,15 +50,14 @@ void UserImGui::Update(const float _deltaTime)
 		ImGuizmo::BeginFrame();
 		ImGuizmo::SetOrthographic(false);  // 투시 뷰 사용 여부
 		ImGuizmo::SetDrawlist();
-	}
+
 //	ImGuizmo::SetRect();
 }
 
 void UserImGui::Render()
 {
 //	ImGui::ShowDemoWindow(); 데모
-	if (true == debugFlag) 
-	{
+
 		MenuBar();
 		MainMenu();
 		ConsoleMenu();
@@ -79,7 +74,7 @@ void UserImGui::Render()
 			ImGui::UpdatePlatformWindows();
 			ImGui::RenderPlatformWindowsDefault();
 		}
-	}
+	
 }
 
 void UserImGui::SetWindowSize(int _width, int _height)
@@ -210,11 +205,8 @@ void UserImGui::ImGuiScene()
 
 UserImGui::~UserImGui()
 {
-	if (true == debugFlag)
-	{
-		ImGui_ImplDX11_Shutdown();
-		ImGui_ImplWin32_Shutdown();
-		ImGui::DestroyContext();
-	}
+	ImGui_ImplDX11_Shutdown();
+	ImGui_ImplWin32_Shutdown();
+	ImGui::DestroyContext();
 }
 

@@ -17,14 +17,13 @@ BoneInfo* SkeletonInfo::GetBoneInfoByIndex(int _index)
 	return nullptr;
 }
 
-BoneInfo* SkeletonInfo::GetBoneInfoByName(std::string_view _boneName)
+BoneInfo* SkeletonInfo::GetBoneInfoByName(const std::string& _boneName)
 {
-	auto boneData = boneMappingTable.find(_boneName.data());
+	auto boneData = boneMappingTable.find(_boneName);
 	if (boneData != boneMappingTable.end())
 	{
 		return bones[boneData->second];
 	}
-	return nullptr;
 }
 
 int SkeletonInfo::GetBoneIndexByName(std::string_view _boneName)
@@ -44,9 +43,11 @@ void SkeletonInfo::AddBone(BoneInfo* _boneInfo)
 {
 	if (nullptr == _boneInfo) return;
 
-	int index = static_cast<int>(bones.size());
-	bones.push_back(_boneInfo);
-	boneMappingTable[_boneInfo->GetName()] = index;
-
-	std::cout << _boneInfo->GetName() << " " << index << '\n';
+	auto iter = boneMappingTable.find(_boneInfo->GetName());
+	if (iter == boneMappingTable.end())
+	{
+		int index = static_cast<int>(bones.size());
+		bones.push_back(_boneInfo);
+		boneMappingTable[_boneInfo->GetName()] = index;
+	}
 }

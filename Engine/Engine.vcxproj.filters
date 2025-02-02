@@ -548,6 +548,9 @@
     <ClCompile Include="D2DFont.cpp">
       <Filter>3_Graphics\D2D</Filter>
     </ClCompile>
+    <ClCompile Include="ConstantBufferData.cpp">
+      <Filter>3_Graphics\GraphicsData\Buffer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd">

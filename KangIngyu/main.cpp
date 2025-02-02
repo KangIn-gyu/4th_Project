@@ -16,7 +16,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     ClientApp* DemoApp = new ClientApp(hInstance, "test", 1024, 768, true);
 
-    //_CrtSetBreakAlloc(82408);
+    _CrtSetBreakAlloc(1025388);
 
     ENGINE->Initialize();
     ENGINE->Loop();

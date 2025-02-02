@@ -28,9 +28,8 @@ cbuffer CameraBuffer : register(b2)
 
 cbuffer MatrixPallete : register(b3)
 {
-    matrix MatrixPalleteArray[128];
+    matrix MatrixPalleteArray[512];
 }
-
 
 struct VertexInputType
 {

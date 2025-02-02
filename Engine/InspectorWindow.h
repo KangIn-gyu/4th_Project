@@ -13,7 +13,13 @@ class InspectorWindow : public EditorWindow , public SingletonBase<InspectorWind
 {
 	friend class SingletonBase<InspectorWindow>;
 public:
-	virtual ~InspectorWindow();
+	enum class EditorType
+	{
+		Transform,
+		Animation,
+		CameraInformation,
+		MeshInformation
+	};
 
 	void Initialize() override;
 	void Update() override;
@@ -30,13 +36,14 @@ public:
 
 private:
 	InspectorWindow();
+	virtual ~InspectorWindow();
 
 public:
 	Object* selectedObject;
 	Mesh* selectedMesh;
 	Texture* selectedTexture;
 	AiNode* selectedAiNode;
-private:
-	std::vector<Editor*> editors;
 
+private:
+	std::unordered_map<EditorType, Editor*> editors;
 };

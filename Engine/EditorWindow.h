@@ -27,7 +27,7 @@ public:
 	void SetState(State _state) { this->state = _state; }
 	ImVec2 GetSize() { return size; }
 	void SetSize(ImVec2 _size) { this->size = _size; }
-	const std::string GetName() { return name; }
+	const std::string& GetName() { return name; }
 protected:
 	void SetName(const std::string& _name) { name = _name; }
 

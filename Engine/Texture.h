@@ -11,7 +11,7 @@ public:
 	ComPtr<ID3D11ShaderResourceView> GetTexture() { return texture; }
 	void SetTextureTypeIndex(int _index) { textureTypeIndex.insert(_index); }
 	std::set<int> GetTextureTypeIndexs() { return textureTypeIndex; }
-	std::string GetName() { return name; }
+	const std::string& GetName() { return name; }
 	void SetName(std::string_view _naem);
 private:
 

@@ -20,7 +20,7 @@ ModelComponent::ModelComponent(std::string_view _filePath)
     model->GetModelData()->Show();
     rootNode = DeepCopyNode(model->GetModelData()->rootNode, nullptr); // 여기서 모델에 사용할 node 생성
     modelAnimation = model->GetModelData()->animations;
-    model->GetModelData()->matrixPallete = &matrixPalletBuffer;
+    model->GetModelData()->matrixPallete = &matrixPalletBuffer; // 모델 데이터한테 
 }
 
 ModelComponent::~ModelComponent()
@@ -61,21 +61,29 @@ void ModelComponent::ComponentUpdate(const float _deltaTime)
     rootNode->Update(_deltaTime, progressAnimTime); // TODO : 애니메이션 프로세스 시간 넣어야 됨
 
     auto& meshs = *model->GetModelData()->meshs;
-    for (int i = 0; i < meshs.size(); i++)
+    if (nullptr != activeAnimation)
     {
-        // 스태틱 매쉬일 경우 처리 해야 됨
-        if (typeid(*meshs[i]) == typeid(SkeletalMesh))
+        for (int i = 0; i < meshs.size(); i++)
         {
-            auto skeletalMesh = static_cast<SkeletalMesh*>(meshs[i]);
-            size_t boneCount = skeletalMesh->GetBoneReferencesSize();
-            for (UINT j = 0; j < boneCount; j++)
+            // 스태틱 매쉬일 경우 처리 해야 됨
+            if (typeid(*meshs[i]) == typeid(SkeletalMesh))
             {
-                AiNode* node = nodeList.find(meshs[i]->GetName())->second;
-                skeletalMesh->GetBoneReferences()[j].SetNodeWolrdTransform(node->GetPtrTransform()->GetPtrWorldMatrix());
+                auto skeletalMesh = static_cast<SkeletalMesh*>(meshs[i]);
+                size_t boneCount = skeletalMesh->GetBoneReferencesSize();
+                for (UINT j = 0; j < boneCount; j++)
+                {
+                    /*AiNode* node = nodeList.find(meshs[i]->GetName())->second;*/
+                    BoneReference& boneRef = skeletalMesh->GetBoneReferences()[j];
+                    AiNode* node = nodeList.find(boneRef.GetName())->second;
+                    Transform* parentTransform = node->GetPtrTransform();
+                    boneRef.SetNodeWolrdTransform(parentTransform->GetPtrWorldMatrix());
+                //    std::cout << j << " " << node->GetName() << "의 노드에 " << skeletalMesh->GetName() << "의 매쉬에다 본 레퍼런스의 정보를 넣음\n";
+                }
+                skeletalMesh->UpdateMatrixPallete(&matrixPalletBuffer, model->GetModelData()->skeletonInfo);
             }
-            skeletalMesh->UpdateMatrixPallete(&matrixPalletBuffer, skeletonInfo);
-        }  
+        }
     }
+
 }
 
 Transform* ModelComponent::GetTransform()

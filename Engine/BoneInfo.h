@@ -9,7 +9,7 @@ public:
 
 	void Set(const aiNode* _pNode);
 	void SetParentBoneName(std::string_view _name);
-	std::string GetName() { return name; }
+	const std::string& GetName() { return name; }
 	void SetOffsetMatrix(DXMath::Matrix _offsetMatrix);
 
 	DXMath::Matrix GetOffsetMatrix() { return offsetMatrix; }

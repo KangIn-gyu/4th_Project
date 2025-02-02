@@ -8,7 +8,7 @@ public:
 	~SkeletonInfo();
 
 	BoneInfo* GetBoneInfoByIndex(int _index);
-	BoneInfo* GetBoneInfoByName(std::string_view _boneName);
+	BoneInfo* GetBoneInfoByName(const std::string& _boneName);
 	int GetBoneIndexByName(std::string_view _boneName);
 
 	void AddBone(BoneInfo* _boneInfo);

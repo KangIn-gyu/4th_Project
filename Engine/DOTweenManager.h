@@ -6,9 +6,11 @@
 class DOTween;
 class DOTweenManager :public SingletonBase<DOTweenManager>
 {
+    friend class SingletonBase<DOTweenManager>;
 private:
     std::list<DOTween*> tweens;
     std::list<DOTween*> removetweens;
+
 public:
     DOTweenManager();
     ~DOTweenManager();
