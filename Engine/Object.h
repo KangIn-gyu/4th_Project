@@ -42,7 +42,7 @@ public:
 	ObjectType GetObjectType() { return type; }
 	std::string ObjectTypeToString();
 	
-	std::string GetName() { return name; }
+	const std::string& GetName() { return name; }
 
 	void SetState(State _state) { state = _state; } // 오브젝트의 상태 변경
 

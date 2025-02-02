@@ -36,7 +36,7 @@ public:
     ~Material() {};
 	void Load(std::string_view _filePath, aiTextureType _type);  // 어심프에서 로드할때 사용할 예정
 
-    std::string GetName() { return name; }
+    const std::string& GetName() { return name; }
     void SetName(const std::string_view _materialName) { name = _materialName.data(); } // 디버그 편하게 하기 위해 이름 확인용
     const  std::vector<std::shared_ptr<Texture>>& GetTextures() const { return textures; }
     float GetMetalness() const { return metalness; }

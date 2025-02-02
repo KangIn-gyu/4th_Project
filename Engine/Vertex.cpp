@@ -2,7 +2,7 @@
 #include "Vertex.h"
 #include "Helper.h"
 
-void Vertex::LoadAiMeshToVertex(aiMesh* _aiMesh, int _index)
+void Vertex::LoadAiMeshToVertex(aiMesh* _aiMesh, unsigned int _index)
 {
 	if (_aiMesh->HasPositions())   // Pos
 	{

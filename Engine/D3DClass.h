@@ -21,7 +21,7 @@ public:
 	static ComPtr<IDXGISurface> GetIDXGISurface() { return DXGISurface; }
 	static std::unique_ptr<Viewport>& GetViewport() { return viewport; }
 
-	void CreateSamplerState(D3D11_FILTER _filter, D3D11_TEXTURE_ADDRESS_MODE _addressMode, ComPtr<ID3D11SamplerState> _sampler);
+	void CreateSamplerState(D3D11_FILTER _filter, D3D11_TEXTURE_ADDRESS_MODE _addressMode, ComPtr<ID3D11SamplerState>& _sampler);
 	std::pair<int, int> GetWindowsSize();
 
 	void ExtractFinalImage(); //  프론트 버퍼 렌더링

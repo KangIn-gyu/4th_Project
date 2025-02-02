@@ -102,7 +102,7 @@ void Mesh::SetTransformParent(Transform* _Transform)
 	meshInfo->transform->SetParent(_Transform);
 }
 
-std::string Mesh::GetName()
+const std::string& Mesh::GetName()
 {
 	return meshInfo->meshName;
 }

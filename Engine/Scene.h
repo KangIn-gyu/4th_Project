@@ -21,9 +21,9 @@ public:
 	T* CreatorObject(std::string_view _name , Object::ObjectType _Type, Arg&& ... _arguments);
 
 	void MainCameraSetting(const int _index = 0);
-	std::string GetName();
+	const std::string& GetName();
 
-	std::vector<Layer*> GetGameObecjts() { return gameObecjts; } // ImGui 오브젝트 데이터 넘기기용 사용하지 마시오
+	std::vector<Layer*>& GetGameObecjts() { return gameObecjts; } // ImGui 오브젝트 데이터 넘기기용 사용하지 마시오
 
 	Object* GetGameObject(Object::ObjectType _Type, std::string_view _name);
 	Object* GetGameObject(Object::ObjectType _Type, int _index = 0);

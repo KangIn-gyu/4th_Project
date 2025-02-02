@@ -8,7 +8,6 @@ AnimationEditor::AnimationEditor()
 {
 	SetName("Animation");
 	state = State::Active;
-    loopText.reserve(11);
 }
 
 void AnimationEditor::Initialize()
@@ -28,7 +27,7 @@ void AnimationEditor::Draw()
         auto* modelComponent = selectedObject->GetComponent<ModelComponent>();
         if (ImGui::CollapsingHeader("Animation", ImGuiTreeNodeFlags_DefaultOpen))
         {
-            auto animations = *modelComponent->GetAnimations(); // 애니메이션 벡터 포인터 가져오기
+            auto& animations = *modelComponent->GetAnimations(); // 애니메이션 벡터 포인터 가져오기
             static int activeIndex = -1; // 현재 활성 애니메이션 인덱스
             static int selectedIndex = -1; // 콤보박스에서 선택된 인덱스
 
@@ -39,21 +38,14 @@ void AnimationEditor::Draw()
                 selectedIndex = activeIndex; // 콤보박스 초기화
             }
 
-            std::vector<std::string> animationNames;
+            animationNames.clear();
             for (const auto& animation : animations)
             {
-                animationNames.push_back(animation->GetName()); // std::string을 직접 추가
-            }
-
-            // 애니메이션 이름 리스트 생성
-            std::vector<const char*> animationNamePtrs;
-            for (const auto& name : animationNames)
-            {
-                animationNamePtrs.push_back(name.c_str()); // const char*로 변환하여 사용
+                animationNames.push_back(animation->GetName().c_str()); // std::string을 직접 추가
             }
 
             // 콤보박스 UI 생성
-            if (ImGui::Combo("Select Animation", &selectedIndex, animationNamePtrs.data(), static_cast<int>(animationNamePtrs.size())))
+            if (ImGui::Combo("Select Animation", &selectedIndex, animationNames.data(), static_cast<int>(animationNames.size())))
             {
                 // 선택된 애니메이션이 활성 애니메이션과 다르면 새로 설정
                 if (selectedIndex != activeIndex)
@@ -81,10 +73,8 @@ void AnimationEditor::Draw()
                 ImGui::Value("TickPerSecond : ", activeAnimation->GetTickPerSecond());
                 ImGui::Value("TotalTime : ", activeAnimation->GetTotalTime());
                 ImGui::Value("CurrTime : ", activeAnimation->GetCurrTime());
-                std::string is_loop = activeAnimation->GetLoop() ? "TRUE" : "FALSE";
-                loopText.assign("Loop : " + is_loop);
-                ImGui::Text(loopText.c_str());
-
+                ImGui::Text("Loop : %s", activeAnimation->GetLoop() ? "TRUE" : "FALSE");
+     
                 static bool loop;  // 현재 루프 상태 가져오기
                 if (ImGui::Checkbox("Loop", &loop))
                 {

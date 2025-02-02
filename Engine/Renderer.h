@@ -14,8 +14,8 @@ struct WindowInfo;
 class Renderer : public SingletonBase<Renderer>
 {
 	friend class SingletonBase<Renderer>;
-	friend class D2DFont;
-	friend class SFont;
+//	friend class D2DFont;
+//	friend class SFont;
 public:
 	void Initialize(WindowInfo* _windowInfo);
 	void Update(float _deltaTiem);
@@ -53,8 +53,8 @@ private:
 	ConstantBuffer cameraBuffer;
 	ConstantBuffer matrixPaletteBuffer;
 
-	ComPtr<ID3D11SamplerState>	linearWrapSampler;    // LINEAR ?„í„°ë§?
-	ComPtr<ID3D11SamplerState>  pointClampSampler;    // POINT ?„í„°ë§?
+	ComPtr<ID3D11SamplerState>	linearWrapSampler;    // LINEAR 
+	ComPtr<ID3D11SamplerState>  pointClampSampler;    // POINT 
 
 	std::stack<int> previousTexturerProcessing;
 	SkyBox m_skybox;

@@ -46,7 +46,6 @@ private:
 	float progressAnimTime{};
 
 	// 본처리
-	SkeletonInfo* skeletonInfo;
 	MatrixPallete matrixPalletBuffer;
 };
 // 모델 컴포넌트에 애니메이션까지 포함해서 처리하게 했다

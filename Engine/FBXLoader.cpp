@@ -16,7 +16,6 @@
 #include "AnimationNode.h"
 
 #include "BoneInfo.h"
-#include "BoneReference.h"
 #include "SkeletonInfo.h"
 
 #include "Transform.h"
@@ -27,9 +26,8 @@ DirectX::XMMATRIX ConvertMatrix(const aiMatrix4x4& _matrix); // 여기서만 사용하�
 
 std::shared_ptr<Model> FBXLoader::FBXLoad(std::string_view _filePath)
 {
-	std::string filePathKEY = _filePath.data(); // 파일 경로가 모든 맵의 키값이다
+	std::string filePathKEY(_filePath); // 파일 경로가 모든 맵의 키값이다
 
-	importFlags = 0; // 시작 플래그 초기화
 	importFlags = aiProcess_Triangulate |	 // vertex 삼각형 으로 출력         
 		aiProcess_GenUVCoords |				 // UV 좌표 생성
 		aiProcess_CalcTangentSpace |		 // 메시의 Tangent와 Bitangent를 계산한다.(Bitangent는 Tangent와 수직인 벡터이다)
@@ -38,7 +36,9 @@ std::shared_ptr<Model> FBXLoader::FBXLoad(std::string_view _filePath)
 		aiProcess_LimitBoneWeights |		 // 본의 영향을 받는 정점의 최대 개수를 4개로 제한
 		aiProcess_RemoveRedundantMaterials;  // 사용되지 않는 메테리얼을 제거한다. 
 
+	importer.SetPropertyBool(AI_CONFIG_IMPORT_FBX_PRESERVE_PIVOTS, 0);
 	const aiScene* scene = importer.ReadFile(filePathKEY, importFlags);
+
 	if (nullptr == scene)
 	{ // 추후 로그 시스템 만들자
 		std::runtime_error("Error loading model" + std::string(importer.GetErrorString()));
@@ -64,7 +64,6 @@ std::shared_ptr<Model> FBXLoader::FBXLoad(std::string_view _filePath)
 		importFlags |= aiProcess_PreTransformVertices;
 		scene = importer.ReadFile(filePathKEY, importFlags);
 	}
-	importer.SetPropertyBool(AI_CONFIG_IMPORT_FBX_PRESERVE_PIVOTS, 0);
 
 	aiNode* rootaiNode = scene->mRootNode; // 어심프 노드
 	AiNode* rootNode{}; // 내가 만든 AiNode 데이터 저장용
@@ -100,7 +99,7 @@ std::shared_ptr<Model> FBXLoader::FBXLoad(std::string_view _filePath)
 	CalculateBoundingBox(scene, modelData);
 	nameCountMap.clear();
 
-	AllShow();
+//	AllShow();
 
 	NodeAndMeshIndex(filePathKEY);
 	importer.FreeScene();
@@ -143,11 +142,11 @@ AiNode* FBXLoader::ProcessNode(aiNode* _node, const aiScene* _scene, AiNode* _pa
 				StaticMesh* staticMesh = new StaticMesh;  // 스태틱 매쉬 생성
 				staticMesh->SetFBXMeshIndex(meshIndex);	  // 인덱스 번호 만들기 없어도 될거 같은데 일단 테스트용 여기서 매쉬 인포 생성
 				staticMesh->SetMaterialIndex(materialIndex);
-				staticMesh->SetTransform(currentNode->GetPointTransform()); // AiNode라고 내가 만든 어심프의 aiNode의 데이터를 저장한 객체의 트랜스폼 설정
+				staticMesh->SetTransform(currentNode->GetPtrTransform()); // AiNode라고 내가 만든 어심프의 aiNode의 데이터를 저장한 객체의 트랜스폼 설정
 				staticMesh->SetName(nodeName);
 				if (nullptr != _parent) // 예외처리
 				{
-					staticMesh->SetTransformParent(_parent->GetPointTransform()); // 부모 설정
+					staticMesh->SetTransformParent(_parent->GetPtrTransform()); // 부모 설정
 				}
 				else
 				{
@@ -166,11 +165,11 @@ AiNode* FBXLoader::ProcessNode(aiNode* _node, const aiScene* _scene, AiNode* _pa
 			    SkeletalMesh* skeletalMesh = new SkeletalMesh;
 				skeletalMesh->SetFBXMeshIndex(meshIndex);
 				skeletalMesh->SetMaterialIndex(materialIndex); // 노드안에 매쉬 넣기 
-				skeletalMesh->SetTransform(currentNode->GetPointTransform());
+				skeletalMesh->SetTransform(currentNode->GetPtrTransform());
 				skeletalMesh->SetName(nodeName);
 				if (nullptr != _parent) // 예외처리
 				{
-					skeletalMesh->SetTransformParent(_parent->GetPointTransform()); // 부모 설정
+					skeletalMesh->SetTransformParent(_parent->GetPtrTransform()); // 부모 설정
 				}
 				else
 				{
@@ -178,7 +177,12 @@ AiNode* FBXLoader::ProcessNode(aiNode* _node, const aiScene* _scene, AiNode* _pa
 				}
 				currentNode->SetMesh(skeletalMesh);
 				ProcessMesh(mesh, _scene, _filePath);
-
+				
+				auto boneIt = boneReferenceMap.find(_filePath.data());
+				if (boneIt != boneReferenceMap.end())
+				{
+					skeletalMesh->SetBoneReference(boneIt->second);
+				}
 				skeletalMesh->SetVertexBuffer(vertexBufferMap.find(_filePath.data())->second[meshIndex]);
 				skeletalMesh->SetIndexBuffer(indexBufferMap.find(_filePath.data())->second[meshIndex]);
 				SaveMeshData(_filePath, std::move(skeletalMesh));
@@ -284,10 +288,14 @@ void FBXLoader::ProcessVertexs(aiMesh* _mesh, unsigned int _vertexSize, const st
 			{
 				UINT vertexID = AiBone->mWeights[j].mVertexId;
 				float weight = AiBone->mWeights[j].mWeight;
+
+				if (weight < 1)
+					int a = 0;
 				boneWeightVertexBufferData[vertexID].AddBoneData(boneIndex, weight);
 			}
 		}	
 		newVertexBuffer->Create<BoneWeightVertex>(boneWeightVertexBufferData);
+		boneReferenceMap[std::string(_filePath)] = boneRefers;
 	}
 	else // 본이 없는 버텍스일 경우
 	{
@@ -430,6 +438,7 @@ void FBXLoader::ProcessAnimation(const aiScene* scene, const std::string_view _f
 
 void FBXLoader::ProcessSkeletonInfo(aiNode* _aiNode, aiNode* _parentNode, SkeletonInfo* _skeletonInfo)
 { // TODO : BoneInfo를 저장할 SkeletonInfo를 처리해야 된다.
+
 	BoneInfo* boneInfo = new BoneInfo;
 	boneInfo->Set(_aiNode);
 
@@ -437,7 +446,9 @@ void FBXLoader::ProcessSkeletonInfo(aiNode* _aiNode, aiNode* _parentNode, Skelet
 	{
 		boneInfo->SetParentBoneName(_parentNode->mName.C_Str());
 	}
+	
 	_skeletonInfo->AddBone(boneInfo);
+
 	for (int i = 0; i < _aiNode->mNumChildren; i++)
 	{
 		ProcessSkeletonInfo(_aiNode->mChildren[i], _aiNode, _skeletonInfo);
@@ -622,6 +633,7 @@ FBXLoader::~FBXLoader()
 	SafeExtinction::SAFE_CLEAR_CONTAINER(aiNodeMap);
 	SafeExtinction::SAFE_CLEAR_CONTAINER(animationMap);
 	SafeExtinction::SAFE_CLEAR_CONTAINER(skeletonInfoMap);
+	
 }
 
 DX::XMMATRIX ConvertMatrix(const aiMatrix4x4& _matrix) // 여기서만 사용하는 함수
@@ -633,7 +645,6 @@ DX::XMMATRIX ConvertMatrix(const aiMatrix4x4& _matrix) // 여기서만 사용하는 함수
 		_matrix.a4, _matrix.b4, _matrix.c4, _matrix.d4    // 4열
 	);
 }
-
 
 DXMath::Vector3 FBXLoader::CalculateBoundingBox(const aiScene* scene, std::shared_ptr<Model> _modelData)
 {

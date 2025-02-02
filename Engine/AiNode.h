@@ -20,11 +20,11 @@ public:
 	void SetName(std::string_view _name);
 	void SetMesh(Mesh* _mesh);
 	
-	std::string GetName() { return nodeName; }
-	std::vector<AiNode*> GetChildren() { return child; }
+	const std::string& GetName() { return nodeName; }
+	std::vector<AiNode*>& GetChildren() { return child; }
 	
 	Transform GetTransform();
-	Transform* GetPointTransform() { return &transform; }
+	Transform* GetPtrTransform() { return &transform; }
 	Mesh* GetMesh();
 
 	void ShowChild();

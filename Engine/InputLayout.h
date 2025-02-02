@@ -15,7 +15,9 @@ public:
 			Vector2 = 8,
 			Vector3 = 12,
 			Vector4 = 16,
-			Color = 16
+			Color = 16,
+			BlendIndices = 16,  // uint4 (DXGI_FORMAT_R32G32B32A32_UINT)
+			BlendWeight = 16    // float4 (DXGI_FORMAT_R32G32B32A32_FLOAT)
 		};
 
 		UINT AlignedByteOffset{};
