@@ -12,6 +12,7 @@ cbuffer MatrixBuffer : register(b0) // ConstantBuffer ½½·Ô
     matrix worldMatrix;
     matrix viewMatrix;
     matrix projectionMatrix;
+    float totalTime;
 };
 
 cbuffer ObjectBuffer : register(b1) // ConstantBuffer ½½·Ô

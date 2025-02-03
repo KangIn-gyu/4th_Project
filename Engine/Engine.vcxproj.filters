@@ -146,6 +146,9 @@
     <Filter Include="0_Utility\DOTween">
       <UniqueIdentifier>{589ca8af-b469-4e2b-9aac-923fd4476625}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2_System\Sound">
+      <UniqueIdentifier>{4b554770-b28c-4f91-b6f9-bd872a40a1fb}</UniqueIdentifier>
+    </Filter>
     <Filter Include="5_Object\Component\TextComponent">
       <UniqueIdentifier>{ecec973e-f736-4b7a-8416-f111cbd5cb07}</UniqueIdentifier>
     </Filter>
@@ -375,6 +378,10 @@
     <ClInclude Include="csv.hpp">
       <Filter>2_System\CSVLoader</Filter>
     </ClInclude>
+    <ClInclude Include="SoundSystem.h">
+      <Filter>2_System\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="ShadowRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WindowApp.cpp">
@@ -563,6 +570,10 @@
     <ClCompile Include="ConstantBufferData.cpp">
       <Filter>3_Graphics\GraphicsData\Buffer</Filter>
     </ClCompile>
+    <ClCompile Include="SoundSystem.cpp">
+      <Filter>2_System\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="ShadowRenderer.cpp" />
     <ClCompile Include="CSVLoader.cpp">
       <Filter>2_System\CSVLoader</Filter>
     </ClCompile>
@@ -595,6 +606,9 @@
       <Filter>리소스 파일</Filter>
     </FxCompile>
     <FxCompile Include="..\4th_Project\Resource\Shaders\SkyBoxPS.hlsl">
+      <Filter>리소스 파일</Filter>
+    </FxCompile>
+    <FxCompile Include="..\4th_Project\Resource\Shaders\ShadowVS.hlsl">
       <Filter>리소스 파일</Filter>
     </FxCompile>
   </ItemGroup>
