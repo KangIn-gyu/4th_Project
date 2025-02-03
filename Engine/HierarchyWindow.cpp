@@ -39,8 +39,7 @@ void HierarchyWindow::Update()
 void HierarchyWindow::Draw()
 {
 	const auto& objects = currentScene->GetGameObecjts();
-	std::string sceneText = "Scene : " + currentScene->GetName();
-	ImGui::Text(sceneText.c_str());
+	ImGui::Text("Scene : %s", currentScene->GetName().c_str());
 	for (const auto& objLayer : objects) 
 	{
 		for (size_t index = 0; index < objLayer->GetSize(); ++index)
@@ -49,8 +48,6 @@ void HierarchyWindow::Draw()
 			{
 				if (ImGui::IsItemClicked())
 				{ 
-					INSPECTOR->SetSelectedAiNode(nullptr);
-					INSPECTOR->SetSelectedMesh(nullptr);
 					INSPECTOR->SetSelectedObject(objLayer->GetGameObject(index));
 				}
 
@@ -64,7 +61,7 @@ void HierarchyWindow::Draw()
 					{
 						rootNode = modelComponent->GetRootNode();
 					}
-					if (rootNode)
+					if (nullptr != rootNode)
 					{ // AiNode 트리 구조를 재귀적으로 그립니다.
 						DrawNodeRecursive(objLayer->GetGameObject(index)->GetComponent<ModelComponent>()->GetModel(), rootNode);
 					}
@@ -112,11 +109,10 @@ void HierarchyWindow::DrawNodeRecursive(std::shared_ptr<Model> _model, AiNode* _
 	{
 		if (ImGui::IsItemClicked())
 		{ // 노드 선택 처리 로직 
-			INSPECTOR->SetSelectedObject(nullptr);
 			INSPECTOR->SetSelectedAiNode(_node);
 			INSPECTOR->SetSelectedMesh(_node->GetMesh()); // 여기 매쉬 넣어야 됨
 			if (_node->GetMesh() != nullptr)
-			{
+			{ // TODO : 시간 없어서 텍스쳐 보는것은 처리 안함
 				int index = _node->GetMesh()->GetFbxIndex();
 				auto materials = _model->GetModelData()->materials;
 				//	INSPECTOR->SetSelectedTexture();

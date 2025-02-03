@@ -20,7 +20,7 @@ public:
 
 private:
 	Vertex vertex;
-	int blendIndeces[4] = {};
+	unsigned int blendIndeces[4] = {};
 	float blendWeights[4] = {};
 };
 

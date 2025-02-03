@@ -79,7 +79,7 @@ void D3DClass::ChangeWindowSize()
 	D3DDeviceContext->RSSetViewports(1, &viewport->Get());
 }
 
-void D3DClass::CreateSamplerState(D3D11_FILTER _filter, D3D11_TEXTURE_ADDRESS_MODE _addressMode, ComPtr<ID3D11SamplerState> _sampler)
+void D3DClass::CreateSamplerState(D3D11_FILTER _filter, D3D11_TEXTURE_ADDRESS_MODE _addressMode, ComPtr<ID3D11SamplerState>& _sampler)
 {
 	D3D11_SAMPLER_DESC sampDesc = {};
 	ZeroMemory(&sampDesc, sizeof(D3D11_SAMPLER_DESC));
@@ -105,7 +105,7 @@ void D3DClass::InitD3D()
 	DXGI_SWAP_CHAIN_DESC swapDesc = CreateSwapDesc();
 
 	// 디버그 기능 활성화
-	UINT creationFlags = D3D11_CREATE_DEVICE_DEBUG | D3D11_CREATE_DEVICE_BGRA_SUPPORT;
+	UINT creationFlags;
 
 #ifdef _DEBUG
 	// 디버그 모드에서는 디버그 플래그를 추가

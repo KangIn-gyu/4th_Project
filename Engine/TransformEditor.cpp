@@ -23,7 +23,7 @@ void TransformEditor::Update()
 
 void TransformEditor::Draw()
 { // 시간 낭비 하기 싫어서 걍 하드 코딩으로 처리함
-	if (state == State::Active && nullptr != selectedObject)
+	if (state == State::Active && nullptr != selectedObject && IsNode == false)
 	{ //TODO : 트랜스폼 정보 얻어와서 처리하는걸 만들자
         if(ImGui::CollapsingHeader("TransformComponent", ImGuiTreeNodeFlags_DefaultOpen))
         {
@@ -86,11 +86,11 @@ void TransformEditor::Draw()
             }
         }
     }
-    else if (state == State::Active && nullptr != selectedNode)
+    else if (state == State::Active && nullptr != selectedNode && IsNode == true)
     {
         if (ImGui::CollapsingHeader("Transform", ImGuiTreeNodeFlags_DefaultOpen))
         {
-            auto* transform = selectedNode->GetPointTransform();
+            auto* transform = selectedNode->GetPtrTransform();
             ImGui::Text(selectedNode->GetName().c_str());
 
             DXMath::Vector3 position = transform->GetPosition();
@@ -155,6 +155,21 @@ void TransformEditor::Draw()
 
         }
     }
+}
+
+void TransformEditor::OnEnable()
+{
+    state == State::Active;
+}
+
+void TransformEditor::OnDisable()
+{
+    state == State::Disabled;
+}
+
+void TransformEditor::OnDestroy()
+{
+    state == State::Destroyed;
 }
 
 void TransformEditor::SetSelectedObject(Object* _obj)

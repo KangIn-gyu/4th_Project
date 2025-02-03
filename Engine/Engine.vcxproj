@@ -114,6 +114,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <TreatAngleIncludeAsExternal>false</TreatAngleIncludeAsExternal>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -132,6 +133,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -158,6 +160,8 @@
     <ClInclude Include="Console.h" />
     <ClInclude Include="ConstantBuffer.h" />
     <ClInclude Include="ConstantBufferData.h" />
+    <ClInclude Include="csv.hpp" />
+    <ClInclude Include="CSVLoader.h" />
     <ClInclude Include="D2DClass.h" />
     <ClInclude Include="D2DFont.h" />
     <ClInclude Include="D3DClass.h" />
@@ -232,6 +236,8 @@
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Console.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />
+    <ClCompile Include="ConstantBufferData.cpp" />
+    <ClCompile Include="CSVLoader.cpp" />
     <ClCompile Include="D2DClass.cpp" />
     <ClCompile Include="D2DFont.cpp" />
     <ClCompile Include="D3DClass.cpp" />

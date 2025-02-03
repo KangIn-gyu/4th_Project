@@ -10,9 +10,10 @@ public:
 
 	DXMath::Matrix  GetWorldMatrix();
 	DXMath::Matrix  GetLocalMatrix() const;
+	DXMath::Matrix* GetPtrWorldMatrix();
 
-	DXMath::Vector3&	   GetPosition() ;
-	DXMath::Quaternion& GetQuaternion() ;
+	DXMath::Vector3&	   GetPosition();
+	DXMath::Quaternion& GetQuaternion();
 	DXMath::Vector3    GetScale() const;
 
 	// 로컬 회전만 고려한 방향 계산

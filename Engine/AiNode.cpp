@@ -53,7 +53,7 @@ void AiNode::SetParent(AiNode* _parent)
 	if (nullptr != _parent)
 	{
 		parent = _parent;
-		transform.SetParent(_parent->GetPointTransform());
+		transform.SetParent(_parent->GetPtrTransform());
 	}
 }
 

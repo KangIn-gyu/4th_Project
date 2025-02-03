@@ -26,8 +26,8 @@ private:
 
     ComPtr<ID3D11Buffer> m_vertexBuffer;
     ComPtr<ID3D11Buffer> m_indexBuffer;
-    std::shared_ptr<Shader> m_shader;
     ComPtr<ID3D11PixelShader> m_pixelShader;
+    std::shared_ptr<Shader> m_shader;
     ComPtr<ID3D11VertexShader> m_vertexShader;
     ComPtr<ID3D11InputLayout> m_inputLayout;
     ComPtr<ID3D11DepthStencilState> m_depthState;

@@ -91,11 +91,13 @@ void D2DFont::CreateLayoutText(std::wstring detail)
     DWriteTextLayout->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER);
     DWriteTextLayout->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
 }
+
 void D2DFont::SetSize(float _FontSize, DWRITE_TEXT_RANGE textRange)
 {
     FontSize = _FontSize;
     DWriteTextLayout->SetFontSize(FontSize, textRange);
 }
+
 void D2DFont::SetWriteTextFormat(IDWriteTextFormat* _IDWriteTextFormat)
 {
     DWriteTextFormat = _IDWriteTextFormat;
