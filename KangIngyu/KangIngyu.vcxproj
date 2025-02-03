@@ -136,6 +136,7 @@
     <ClCompile Include="AnimationObj.cpp" />
     <ClCompile Include="BaseObj.cpp" />
     <ClCompile Include="ClientApp.cpp" />
+    <ClCompile Include="D2DTestObj.cpp" />
     <ClCompile Include="KangScene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="pch.cpp">
@@ -147,6 +148,7 @@
     <ClInclude Include="AnimationObj.h" />
     <ClInclude Include="BaseObj.h" />
     <ClInclude Include="ClientApp.h" />
+    <ClInclude Include="D2DTestObj.h" />
     <ClInclude Include="KangScene.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>

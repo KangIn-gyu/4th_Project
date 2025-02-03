@@ -1,20 +1,29 @@
 #pragma once
-#include "SingletonBase.h"
 #include <dwrite_3.h>
+#include "SingletonBase.h"
 
-class FontManager:public SingletonBase<FontManager>
+#define FONTMANAGER FontManager::GetInstance()
+class D2DFont;
+class FontManager : public SingletonBase<FontManager>
 {
+	friend class SingletonBase<FontManager>;
 public:
-	virtual ~FontManager();
-	void LoadFont(const std::wstring& fontFilePath, const std::wstring& fontName);
-	void AddFont(const std::wstring& fontName, IDWriteFontCollection1* pFontCollection, IDWriteTextFormat** ppTextFormat);
-
-	IDWriteTextFormat* FindFont(const std::wstring& keyName);
+	void Initialize();
+	D2DFont* LoadFont(std::string_view _fontFilePath);
 
 private:
-	int index = 0; // ÆùÆ® °¹¼ö
+	FontManager() = default;
+	~FontManager();
 
-	IDWriteFontSetBuilder1* FontSetBuilder;
-	std::unordered_map<std::wstring, IDWriteTextFormat*> fontMap;
+	void LoadTextFormat(std::string_view _fontFilePath, std::string_view fontName);
+	void AddFont(std::string_view _fontName, IDWriteFontCollection1* _pFontCollection, IDWriteTextFormat** _ppTextFormat);
+
+public:
+	
+private:
+	int index = 0; // ÆùÆ® °¹¼ö
+	ComPtr<IDWriteFontSetBuilder1> fontSetBuilder;
+	std::unordered_map<std::string, IDWriteTextFormat*> fontMap;
+	std::string basePath = "Resource/";
 };
 

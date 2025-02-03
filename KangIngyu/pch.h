@@ -14,7 +14,6 @@
 
 #include <iostream>
 
-
 #include <directxtk/SimpleMath.h>  // #pragma comment(lib, "d3dx11.lib") ¥Î√ºµ 
 namespace DX = DirectX;
 namespace DXMath = DirectX::SimpleMath;

@@ -38,6 +38,9 @@
     <ClCompile Include="BaseObj.cpp">
       <Filter>Obj</Filter>
     </ClCompile>
+    <ClCompile Include="D2DTestObj.cpp">
+      <Filter>Obj</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ClientApp.h">
@@ -53,6 +56,9 @@
       <Filter>Obj</Filter>
     </ClInclude>
     <ClInclude Include="BaseObj.h">
+      <Filter>Obj</Filter>
+    </ClInclude>
+    <ClInclude Include="D2DTestObj.h">
       <Filter>Obj</Filter>
     </ClInclude>
   </ItemGroup>
