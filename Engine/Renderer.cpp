@@ -28,6 +28,13 @@ void Renderer::Initialize(WindowInfo* _windowInfo)
 	D3DGraphics->Initialize(_windowInfo);
 	IMGUI->Initialize(_windowInfo->hWnd, D3DGraphics->GetD3DDevice(), D3DGraphics->GetD3DDeviceContext());
 
+	// 광원 설정
+	DXMath::Vector3 lightTarget = DXMath::Vector3(0.0f, 0.0f, 0.0f);
+	IMGUI->lightPos = DXMath::Vector3(50.0f, 50.0f, -50.0f);
+	IMGUI->lightDir = DXMath::Vector3(lightTarget - IMGUI->lightPos);
+	IMGUI->lightDir.Normalize();
+	shadowRenderer.Initialize(D3DGraphics->GetD3DDevice().Get(), D3DGraphics->GetD3DDeviceContext().Get());
+	shadowRenderer.InitShadowResources(D3DGraphics->GetD3DDevice().Get());
 	//	m_skybox.Init();
 
 	matrixConstantBuffer.Create(sizeof(MatrixBuffer));
@@ -55,6 +62,7 @@ void Renderer::Render()
 {
 	D3DGraphics->BeginDraw(IMGUI->GetBankGroundColor());
 	//m_skybox.Render(D3DClass::GetD3DDeviceContext().Get());
+
 	D3DDraw();
 
 #ifdef USE_D2D
@@ -71,17 +79,66 @@ void Renderer::Render()
 void Renderer::D3DDraw()
 {
 	ComPtr<ID3D11DeviceContext> d3dDeviceContext = D3DGraphics->GetD3DDeviceContext();
+	
+
+	// 현재 렌더링 상태 저장
+	D3D11_VIEWPORT originalViewport;
+	UINT numViewports = 1;
+	d3dDeviceContext->RSGetViewports(&numViewports, &originalViewport);
+
+	ID3D11RenderTargetView* originalRTV = nullptr;
+	ID3D11DepthStencilView* originalDSV = nullptr;
+	d3dDeviceContext->OMGetRenderTargets(1, &originalRTV, &originalDSV);
+
+
+	//std::cout << "Light Position: " << lightPos.x << ", " << lightPos.y << ", " << lightPos.z << std::endl;
+	//std::cout << "Light Direction: " << lightDir.x << ", " << lightDir.y << ", " << lightDir.z << std::endl;
+
+	// 1. 그림자 맵 패스
+	shadowRenderer.BeginShadowPass(d3dDeviceContext.Get());
+	{
+		// 라이트 뷰-프로젝션 매트릭스 계산
+		DXMath::Matrix lightView = DXMath::Matrix::CreateLookAt(
+			IMGUI->lightPos,
+			IMGUI->lightPos + IMGUI->lightDir,
+			DXMath::Vector3(0.0f, 1.0f, 0.0f)       // 상향 벡터
+		);
+
+		DXMath::Matrix lightProjection = DXMath::Matrix::CreateOrthographic(
+			1000.f,  
+			1000.0f,  
+			1.0f,    
+			10000.0f   
+		);
+
+		DXMath::Matrix lightViewProj = lightView * lightProjection;
+
+		// 그림자 맵 렌더링
+		//std::cout << "Rendering shadow map..." << std::endl;
+		shadowRenderer.RenderShadow(d3dDeviceContext.Get(), lightViewProj, work);
+		IMGUI->srv = shadowRenderer.GetShadowMapSRV();
+	}
+	// 원래의 렌더링 상태로 복구
+	d3dDeviceContext->RSSetViewports(1, &originalViewport);
+	d3dDeviceContext->OMSetRenderTargets(1, &originalRTV, originalDSV);
+
 	d3dDeviceContext->PSSetSamplers(0, 1, &linearWrapSampler);
 	d3dDeviceContext->PSSetSamplers(1, 1, &pointClampSampler);
+	d3dDeviceContext->PSSetSamplers(2, 1, &shadowRenderer.GetShadowSampler());
 
-	ID3D11SamplerState* samplers[] = { linearWrapSampler.Get(), pointClampSampler.Get() };
-	d3dDeviceContext->PSSetSamplers(0, 2, samplers);
+	d3dDeviceContext->PSSetShaderResources(24, 1, shadowRenderer.GetShadowMapSRV().GetAddressOf());
+
+	//ID3D11SamplerState* samplers[] = { linearWrapSampler.Get(), pointClampSampler.Get() };
+	//d3dDeviceContext->PSSetSamplers(0, 2, samplers);
 
 	d3dDeviceContext->VSSetConstantBuffers(2, 1, cameraBuffer.GetBuffer().GetAddressOf());
 	d3dDeviceContext->PSSetConstantBuffers(2, 1, cameraBuffer.GetBuffer().GetAddressOf());
 	CameraBuffer cameraData;
 	cameraData.eyePosition = CameraObject::g_MainCameraObject->GetComponent<TransformComponent>()->GetPosition();
-	cameraData.lightDirection = DXMath::Vector3(0, -1, 0);
+	cameraData.lightDirection = IMGUI->lightDir;
+
+
+
 	//LightConstantBuffer cameraData;		// 다중 빛 CB
 	//DXMath::Vector3 eyePos = CameraObject::g_MainCameraObject->GetComponent<TransformComponent>()->GetPosition();
 	//cameraData.eyePosition = DXMath::Vector4(eyePos.x, eyePos.y, eyePos.z, 1.0f);
@@ -160,6 +217,7 @@ void Renderer::D3DDraw()
 	}
 
 }
+
 void Renderer::D2DDraw()
 {
 	//	for (auto& renderComponent : work)

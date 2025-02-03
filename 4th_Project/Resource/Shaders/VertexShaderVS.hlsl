@@ -1,5 +1,12 @@
 #include "Header.hlsli"
 
+cbuffer ShadowCB : register(b4)
+{
+    matrix lightViewProj;
+    float shadowBias;
+    float3 padding;
+}
+
 PixelInputType main(VertexInputType input) 
 {
     //PixelInputType output = (PixelInputType) 0;
@@ -69,6 +76,8 @@ PixelInputType main(VertexInputType input)
     output.worldPos = output.Position; // 로컬 좌표값이 들어가게 하기 위해서
     output.Position = mul(output.Position, viewMatrix);
     output.Position = mul(output.Position, projectionMatrix);
+    
+    output.LightSpacePos = mul(float4(output.worldPos.xyz, 1.0f), lightViewProj);
     
 	// 픽셀 셰이더에서 사용하기 위해 입력 색상을 저장합니다.
     output.Color = input.Color;

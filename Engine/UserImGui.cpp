@@ -8,6 +8,9 @@
 #include "WindowApp.h"
 #include "D3DClass.h"
 #include "Renderer.h"
+#include "ShadowRenderer.h"
+
+#include "TransformComponent.h" // 규철이 그림자때문에 추가
 
 #define TEXT_UTF8(text) reinterpret_cast<const char*>(text) // 한글 출력 매크로 문자열 옆에 접두어 u8해야됨
 
@@ -64,6 +67,8 @@ void UserImGui::Render()
 		hierarchy.Run();
 		inspector->Run();
 		ImGuiScene();
+		SRV();
+		light();
 		// 렌더링
 		ImGui::Render();
 		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
@@ -182,6 +187,26 @@ void UserImGui::MainDockSpace()
 //
 //		ImGui::End();
 //	}
+}
+
+void UserImGui::SRV()
+{
+	ImGui::Begin(TEXT_UTF8(u8"그림자"));
+	ImGui::Image((ImTextureID)srv.Get(),
+		ImVec2(256, 256),
+		ImVec2(0, 0),
+		ImVec2(1, 1),
+		ImVec4(1, 1, 1, 1),         // 흰색으로 설정
+		ImVec4(0, 0, 0, 1));        // 검정 테두리
+	ImGui::End();
+}
+
+void UserImGui::light()
+{
+	ImGui::Begin(TEXT_UTF8(u8"빛 위치"));
+	ImGui::DragFloat3("Light Direction", &lightDir.x, 0.1f, -1.0f, 1.0f);
+	ImGui::DragFloat3("Light Position", &lightPos.x, 0.1f, -1.0f, 1.0f);
+	ImGui::End();
 }
 
 void UserImGui::HierarchyCurrentSceneSetting(Scene* _currentScene)

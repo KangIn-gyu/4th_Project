@@ -43,5 +43,7 @@ VS_SHADOW_OUTPUT main(VertexInputType input)
     output.DepthPos = output.Pos;
     output.DepthPos.z /= output.DepthPos.w; // ¿ø±Ù ³ª´°¼À
     
+    output.DepthPos = float4(output.Pos.z / output.Pos.w, 0, 0, 1); // Á¤±ÔÈ­µÈ ±íÀÌ°ª
     return output;
+
 }

@@ -5,6 +5,7 @@
 #include "ConstantBuffer.h"
 
 #include "SkyBox.h"
+#include "ShadowRenderer.h"
 
 #define RENDERER Renderer::GetInstance()
 
@@ -31,6 +32,7 @@ public:
 
 	ComPtr<ID3D11ShaderResourceView> GetImGuiImageTexture();
 
+	ConstantBuffer* GetMatrixPaletteBuffer() { return &matrixPaletteBuffer; }
 private:
 	Renderer() {}
 	~Renderer() { work.clear(); }
@@ -47,6 +49,8 @@ private:
 	std::unique_ptr<D2DClass> D2DGraphics {}; 
 	std::vector<RenderComponent*> work {};
 	
+	ShadowRenderer shadowRenderer;
+
 
 	ConstantBuffer matrixConstantBuffer;
 	ConstantBuffer objectBuffer;
