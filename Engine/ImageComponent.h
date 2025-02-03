@@ -21,6 +21,8 @@ public:
 private:
 	std::shared_ptr<Bitmap> imageData;
 	D2D1_RECT_F destRect;
+	float x = 0, y = 0, width, height;
+
 };
 
 
