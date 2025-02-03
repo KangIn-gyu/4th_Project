@@ -3,6 +3,7 @@
 #include "d2d1.h"
 #include "D2DFont.h"
 
+class Bitmap;
 class D2DFont;
 class D2DRenderComponent : public Component
 {
@@ -13,7 +14,10 @@ public:
 	virtual void ComponentInitialize()override;
 	virtual void ComponentUpdate(const float _deltaTime)override;
 
-	void LoadBitMap(std::string_view _filePath);
+	// 비트맵 함수
+	void Load2DImage(std::string_view _filePath);
+	void Set2DImageSize(float _width, float _height);
+	void Set2DImagePos(float _x, float _y);
 
 	// 폰트 관련 함수들
 	void LoadFont(const std::string& _filePath);
@@ -30,6 +34,7 @@ public:
 
 private:
 	D2DFont* font;
+	std::shared_ptr<Bitmap> imageData;
 //	D2D1_RECT_F DstRect{};		// RenderTarget의 Destination 영역		
 //	D2D1_RECT_F srcRect{};		// D2D1Bitmap의 Source 영역
 

@@ -13,6 +13,10 @@ Bitmap::~Bitmap()
 {
 }
 
+void Bitmap::Update()
+{
+}
+
 void Bitmap::Load(std::string_view _filePath)
 {
     CreateBitmapFromFile(StringConverter::StringToWide(_filePath).c_str());
@@ -26,7 +30,7 @@ void Bitmap::CreateBitmapFromFile(const WCHAR* _filePath)
             CLSID_WICImagingFactory,
             nullptr,
             CLSCTX_INPROC_SERVER,
-            IID_PPV_ARGS(&wicFactory)
+            IID_PPV_ARGS(wicFactory.GetAddressOf())
         ));
     }
 
@@ -61,6 +65,22 @@ void Bitmap::CreateBitmapFromFile(const WCHAR* _filePath)
     HR_T(D2DClass::GetD2DDeviceContext()->CreateBitmapFromWicBitmap(
         converter.Get(),
         nullptr,
-        &d2dBitmap
+        d2dBitmap.GetAddressOf()
     ));
+
+    width = d2dBitmap->GetSize().width;
+    height = d2dBitmap->GetSize().height;
+    destRect = { xPos,yPos,width,height };
+}
+
+void Bitmap::SetSize(float width, float height)
+{
+    destRect.right = width;
+    destRect.bottom = height;
+}
+
+void Bitmap::SetPos(float x, float y)
+{
+    xPos = CenterX + x;
+    yPos = CenterY + y;
 }
