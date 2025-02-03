@@ -1,91 +1,135 @@
 #include "pch.h"
 #include "FontManager.h"
-
-#include "D2DClass.h"
 #include "Helper.h"
+#include "D2DClass.h"
+#include "D2DFont.h"
+
+std::string GetFileName(std::string_view _filePath)
+{
+    std::filesystem::path filePath(_filePath);
+    return filePath.filename().string();  // 파일명 + 확장자 포함한 문자열
+}
 
 FontManager::~FontManager()
 {
-    for (auto& font : fontMap) {
-        font.second->Release();
-    }
     fontMap.clear();
 }
 
-void FontManager::LoadFont(const std::wstring& fontFilePath, const std::wstring& fontName)
+void FontManager::Initialize()
 {
-    if (fontMap.find(fontName) != fontMap.end()) {
-        OutputDebugString(L"Font already loaded. Skipping.\n");
+    D2DClass::GetDWriteFactory()->CreateFontSetBuilder(&fontSetBuilder);
+}
+
+D2DFont* FontManager::LoadFont(std::string_view _fontFilePath)
+{
+    std::string filePath = basePath + _fontFilePath.data();
+    std::string fileName = GetFileName(_fontFilePath);
+    LoadTextFormat(filePath, fileName);
+
+    D2DFont* newFont = new D2DFont();
+
+    auto* format = fontMap.find(filePath)->second;
+    if (nullptr != format)
+    {
+        newFont->SetTextFormat(format);
+    }
+
+    return newFont;
+}
+
+void FontManager::LoadTextFormat(std::string_view _fontFilePath, std::string_view fontName)
+{
+    if (fontMap.find(_fontFilePath.data()) != fontMap.end())
+    {
         return;
     }
 
-    IDWriteFontFile* FontFile = nullptr;
+    IDWriteFontFile* FontFile{ nullptr };
+    IDWriteFontSet* FontSet{ nullptr };
+    IDWriteFontCollection1* FontCollection{ nullptr };
+    IDWriteFontFamily* FontFamily{ nullptr };
+    IDWriteLocalizedStrings* FontFamilyNames{ nullptr };
+
+
     HRESULT hresult = D2DClass::GetDWriteFactory()->CreateFontFileReference(
-        fontFilePath.c_str(),
+        StringConverter::StringToWide(_fontFilePath).c_str(),
         nullptr,
         &FontFile
     );
-    if (FAILED(hresult)) {
+
+    if (FAILED(hresult)) 
+    {
         MessageBoxW(nullptr, L"Failed to create font file reference.", L"Error", MB_OK);
         return;
     }
 
-    hresult = D2DClass::GetDWriteFactory()->CreateFontSetBuilder(&FontSetBuilder);
+    fontSetBuilder->AddFontFile(FontFile);
+
+    BOOL isSupported;
+    DWRITE_FONT_FILE_TYPE fileType;
+    UINT32 numberOfFonts;
+
+    fontSetBuilder->CreateFontSet(&FontSet); // 폰트 세트를 생성합니다. 이 세트는 추가된 폰트 파일들을 포함합니다.
+
+    // 폰트 세트에서 폰트 컬렉션 생성
+    hresult = D2DClass::GetDWriteFactory()->CreateFontCollectionFromFontSet(FontSet, &FontCollection);
+
     if (FAILED(hresult))
     {
-        MessageBoxW(nullptr, L"Failed to create font set builder.", L"Error", MB_OK);
-        return;
-    }
-    FontSetBuilder->AddFontFile(FontFile);
-
-    IDWriteFontSet* FontSet = nullptr;
-    hresult = FontSetBuilder->CreateFontSet(&FontSet);
-    if (FAILED(hresult)) {
-        MessageBoxW(nullptr, L"Failed to create font set.", L"Error", MB_OK);
-        FontFile->Release();
-        return;
-    }
-
-    IDWriteFontCollection1* FontCollection = nullptr;
-    hresult = D2DClass::GetDWriteFactory()->CreateFontCollectionFromFontSet(FontSet, &FontCollection);
-    if (FAILED(hresult)) {
         MessageBoxW(nullptr, L"Failed to create font collection from font set.", L"Error", MB_OK);
-        FontSet->Release();
-        FontFile->Release();
         return;
     }
 
-    IDWriteTextFormat* NewFont = nullptr;
-    AddFont(fontName, FontCollection, &NewFont);
-    if (NewFont) {
-        fontMap[fontName] = NewFont;
+    hresult = FontCollection->GetFontFamily(index, &FontFamily);
+    if (FAILED(hresult))
+    {
+        MessageBoxW(nullptr, L"Failed to get font family.", L"Error", MB_OK);
+        return;
     }
 
-    FontSet->Release();
+    // 폰트 패밀리 얻기
+    hresult = FontFamily->GetFamilyNames(&FontFamilyNames);  // FontFamilyNames 초기화
+    if (FAILED(hresult))
+    {
+        MessageBoxW(nullptr, L"Failed to get font family names.", L"Error", MB_OK);
+        return;
+    }
+    
+    WCHAR familyName[MAX_PATH];
+    hresult = FontFamilyNames->GetString(0, familyName, MAX_PATH);
+    if (FAILED(hresult))
+    {
+        MessageBoxW(nullptr, L"Failed to get string.", L"Error", MB_OK);
+        return;
+    }
+
+    IDWriteTextFormat* NewFont;
+    AddFont(fontName, FontCollection, &NewFont);
+
+    fontMap.insert(std::make_pair(_fontFilePath.data(), NewFont));
+
     FontFile->Release();
+    FontSet->Release();
     FontCollection->Release();
+    FontFamily->Release();
+    index++;
 }
 
-void FontManager::AddFont(const std::wstring& fontName, IDWriteFontCollection1* pFontCollection, IDWriteTextFormat** ppTextFormat)
+void FontManager::AddFont(std::string_view _fontName, IDWriteFontCollection1* _pFontCollection, IDWriteTextFormat** _ppTextFormat)
 {
     HRESULT hresult = D2DClass::GetDWriteFactory()->CreateTextFormat(
-        fontName.c_str(),
-        pFontCollection,
+        StringConverter::StringToWide(_fontName).c_str(),
+        _pFontCollection,
         DWRITE_FONT_WEIGHT_REGULAR,
         DWRITE_FONT_STYLE_NORMAL,
         DWRITE_FONT_STRETCH_NORMAL,
         10.0f,
         L"en-us",
-        ppTextFormat
+        _ppTextFormat
     );
 
-    if (FAILED(hresult)) {
+    if (FAILED(hresult)) 
+    {
         MessageBoxW(nullptr, L"Failed to create text format.", L"Error", MB_OK);
     }
-}
-
-IDWriteTextFormat* FontManager::FindFont(const std::wstring& keyName)
-{
-    auto it = fontMap.find(keyName);
-    return (it != fontMap.end()) ? it->second : nullptr;
 }

@@ -9,8 +9,9 @@
 #define RENDERER Renderer::GetInstance()
 
 typedef DirectX::XMFLOAT4		COLOR;
-class RenderComponent;
 struct WindowInfo;
+class RenderComponent;
+class D2DRenderComponent;
 class Renderer : public SingletonBase<Renderer>
 {
 	friend class SingletonBase<Renderer>;
@@ -22,7 +23,10 @@ public:
 	void Render();
 	void D3DDraw();
 	void D2DDraw();
+
 	void AddRenderComponent(RenderComponent* _renderComponent);
+	void D2DAddRenderComponent(D2DRenderComponent* _D2DrenderComponent);
+
 	void RemoveRenderComponent(RenderComponent* _renderComponent);
 
 	//void TextDraw(int x, int y, COLOR col, TCHAR* msg, ...);
@@ -45,8 +49,9 @@ public:
 private:
 	std::unique_ptr<D3DClass> D3DGraphics {}; 
 	std::unique_ptr<D2DClass> D2DGraphics {}; 
+
 	std::vector<RenderComponent*> work {};
-	
+	std::vector<D2DRenderComponent*> D2Dwork {};
 
 	ConstantBuffer matrixConstantBuffer;
 	ConstantBuffer objectBuffer;

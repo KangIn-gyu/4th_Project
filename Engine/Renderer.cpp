@@ -2,6 +2,7 @@
 #include "Renderer.h"
 #include "Declare.h"
 #include "RenderComponent.h"
+#include "D2DRenderComponent.h"
 #include "Object.h"
 #include "ModelComponent.h"
 #include "Model.h"
@@ -41,7 +42,6 @@ void Renderer::Initialize(WindowInfo* _windowInfo)
 #ifdef USE_D2D
 	D2DGraphics = std::make_unique<D2DClass>();
 	D2DGraphics->Initialize(_windowInfo);
-	FontManager::GetInstance()->LoadFont(L"Resource/Font/standard.ttf", L"standard");
 #endif
 
 }
@@ -162,16 +162,20 @@ void Renderer::D3DDraw()
 }
 void Renderer::D2DDraw()
 {
-	//	for (auto& renderComponent : work)
-	//	{
-	//		auto fontData = renderComponent->GetD2DFont();
-	//		//fontData->Render();
-	//	}
+	for (auto& D2DrenderComponent : D2Dwork)
+	{
+		D2DrenderComponent->Draw();
+	}
 }
 
 void Renderer::AddRenderComponent(RenderComponent* _renderComponent)
 {
 	work.emplace_back(_renderComponent);
+}
+
+void Renderer::D2DAddRenderComponent(D2DRenderComponent* _D2DRenderComponent)
+{
+	D2Dwork.push_back(_D2DRenderComponent);
 }
 
 void Renderer::RemoveRenderComponent(RenderComponent* _renderComponent)

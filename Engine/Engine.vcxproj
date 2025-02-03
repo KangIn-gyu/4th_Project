@@ -167,7 +167,12 @@
     <ClInclude Include="csv.hpp" />
     <ClInclude Include="CSVLoader.h" />
     <ClInclude Include="D2DClass.h" />
+
     <ClInclude Include="ImageComponent.h" />
+
+    <ClInclude Include="D2DFont.h" />
+    <ClInclude Include="D2DRenderComponent.h" />
+
     <ClInclude Include="TextObject.h" />
     <ClInclude Include="D3DClass.h" />
     <ClInclude Include="Declare.h" />
@@ -247,7 +252,12 @@
     <ClCompile Include="ConstantBufferData.cpp" />
     <ClCompile Include="CSVLoader.cpp" />
     <ClCompile Include="D2DClass.cpp" />
+
     <ClCompile Include="ImageComponent.cpp" />
+
+    <ClCompile Include="D2DFont.cpp" />
+    <ClCompile Include="D2DRenderComponent.cpp" />
+
     <ClCompile Include="TextObject.cpp" />
     <ClCompile Include="D3DClass.cpp" />
     <ClCompile Include="DirectXInput.cpp" />

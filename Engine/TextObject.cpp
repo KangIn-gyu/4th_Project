@@ -1,99 +1,31 @@
 #include "pch.h"
 #include "TextObject.h"
 #include "Renderer.h"
-#include <cstdarg>  // 가변 인자 처리
-#include <stdexcept>
+// #include <cstdarg>  // 가변 인자 처리
+// #include <stdexcept>
+
 #include "Helper.h"
-#include "FontManager.h"
+#include "D2DRenderComponent.h"
 
-TextObject::TextObject(std::string_view _name, Object::ObjectType type, std::wstring _input) : Object(_name, type)
+TextObject::TextObject(std::string_view _name, Object::ObjectType type) : Object(_name, type)
 {
-    Dialog = _input;
-    LoadFont(L"경기천년제목");
 
-    D2DClass::GetD2DBrush()->SetColor(D2D1::ColorF(D2D1::ColorF::LightPink));
-    SetWriteTextFormat(FontManager::GetInstance()->FindFont(L"standard"));
-    CreateLayoutText(Dialog);
 }
 
 TextObject::~TextObject()
 {
-    if (!DWriteTextFormat)
-    {
-        DWriteTextFormat->Release();
-    }
 
-   DWriteTextLayout->Release();
 }
 
-void TextObject::LoadFont(std::wstring _fontName) // 외부 파일 읽을수 있도록 수정이 필요
-{
-    HRESULT hr = D2DClass::GetDWriteFactory()->CreateTextFormat(
-        _fontName.c_str(), // FontName 제어판-모든제어판-항목-글꼴-클릭 으로 글꼴이름 확인가능 거기 이름 다음 해야됨
-        NULL,
-        DWRITE_FONT_WEIGHT_NORMAL,
-        DWRITE_FONT_STYLE_NORMAL,
-        DWRITE_FONT_STRETCH_NORMAL,
-        FontSize,   // New Font Size
-        L"", //locale
-        &DWriteTextFormat
-    );
-
-    if (FAILED(hr))
-    {
-        OutputDebugString(L"CreateTextFormat 실패");
-    }
-    DWriteTextFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER);
-    DWriteTextFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
-    CreateLayoutText(Dialog);
-}
 //void D2DFont::Render()
 //{
 //    D2DClass::GetD2DDeviceContext()->DrawTextLayout(Pos, DWriteTextLayout, D2DClass::GetD2DBrush().Get(), D2D1_DRAW_TEXT_OPTIONS_NONE);
 //}
-void TextObject::Render()
-{
-    D2DClass::GetD2DDeviceContext()->DrawText(Dialog.c_str(), Dialog.length(), DWriteTextFormat, Pos, D2DClass::GetD2DBrush().Get());
-    std::cout << "텍스트렌더" << std::endl;
-}
-
-void TextObject::CreateLayoutText(std::wstring detail)
-{
-    if (DWriteTextLayout)
-    {
-        DWriteTextLayout->Release();
-        DWriteTextLayout = nullptr;
-    }
-
-    HRESULT hr = D2DClass::GetDWriteFactory()->CreateTextLayout(
-        detail.c_str(),
-        static_cast<UINT32>(detail.length()),
-        DWriteTextFormat,
-        BoxSize.width,
-        BoxSize.height,
-        &DWriteTextLayout
-    );
-
-    SetSize(FontSize, { 0, (unsigned int)detail.length() }); //텍스트를 변경하더라도 기존사이즈를 유지
-    //DWriteTextLayout.set
-    if (FAILED(hr))
-    {
-        OutputDebugString(L"CreateTextLayout 실패");
-    }
-
-    DWriteTextLayout->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER);
-    DWriteTextLayout->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
-}
-void TextObject::SetSize(float _FontSize, DWRITE_TEXT_RANGE textRange)
-{
-    FontSize = _FontSize;
-    DWriteTextLayout->SetFontSize(FontSize, textRange);
-}
-void TextObject::SetWriteTextFormat(IDWriteTextFormat* _IDWriteTextFormat)
-{
-    DWriteTextFormat = _IDWriteTextFormat;
-    CreateLayoutText(Dialog);
-}
+//	void TextObject::Render()
+//	{
+//	 //   D2DClass::GetD2DDeviceContext()->DrawText(Dialog.c_str(), Dialog.length(), DWriteTextFormat, pos, D2DClass::GetD2DBrush().Get());
+//	 //   std::cout << "텍스트렌더" << std::endl;
+//	}
 
 //void D2DFont::TextDraw(const wchar_t* format, D2D1_RECT_F _rect, D2D1_COLOR_F _color, ...)
 //{
@@ -144,8 +76,8 @@ void TextObject::SetWriteTextFormat(IDWriteTextFormat* _IDWriteTextFormat)
 //
 //    return true;
 //}
-//
-//
+
+
 //void SFont::TextDraw(int x, int y, COLOR col, const wchar_t* format, ...)
 //{
 //    // 현재 DepthStencilState 저장
