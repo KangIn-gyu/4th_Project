@@ -29,6 +29,9 @@ public:
 	void SetShader(ShaderType _shaderType , std::string_view _filePath); // 이건 명시적으로 불러서 하는게 좋다고 판단함.
 	std::unordered_map<std::string, AiNode*>* GetNodeData() { return nodeData; }
 
+public:
+	bool isD2D = FALSE;
+
 private:
 	std::unordered_map<std::string, AiNode*>* nodeData;
 	std::shared_ptr<Model> modelData;

@@ -163,6 +163,8 @@
     <ClInclude Include="Console.h" />
     <ClInclude Include="ConstantBuffer.h" />
     <ClInclude Include="ConstantBufferData.h" />
+    <ClInclude Include="csv.hpp" />
+    <ClInclude Include="CSVLoader.h" />
     <ClInclude Include="D2DClass.h" />
     <ClInclude Include="TextObject.h" />
     <ClInclude Include="D3DClass.h" />
@@ -239,6 +241,7 @@
     <ClCompile Include="Console.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />
     <ClCompile Include="ConstantBufferData.cpp" />
+    <ClCompile Include="CSVLoader.cpp" />
     <ClCompile Include="D2DClass.cpp" />
     <ClCompile Include="TextObject.cpp" />
     <ClCompile Include="D3DClass.cpp" />

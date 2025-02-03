@@ -149,6 +149,9 @@
     <Filter Include="5_Object\Component\TextComponent">
       <UniqueIdentifier>{ecec973e-f736-4b7a-8416-f111cbd5cb07}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2_System\CSVLoader">
+      <UniqueIdentifier>{8cfcf0f4-4127-4241-82c8-ac0c3888a5af}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowApp.h">
@@ -366,6 +369,12 @@
     <ClInclude Include="TextObject.h">
       <Filter>5_Object\Component\TextComponent</Filter>
     </ClInclude>
+    <ClInclude Include="CSVLoader.h">
+      <Filter>2_System\CSVLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="csv.hpp">
+      <Filter>2_System\CSVLoader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WindowApp.cpp">
@@ -553,6 +562,9 @@
     </ClCompile>
     <ClCompile Include="ConstantBufferData.cpp">
       <Filter>3_Graphics\GraphicsData\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="CSVLoader.cpp">
+      <Filter>2_System\CSVLoader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
