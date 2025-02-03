@@ -81,30 +81,27 @@ int Card::GetValue()
 void Card::OnClick()
 {
 	std::cout << "이 카드는 : " << GetName() << " 입니다. " << std::endl;
-	if (BLACKJACK->GetState() == PlayerState::OPEN && BLACKJACK->canSelect == true)
+	if (BLACKJACK->GetState() == PlayerState::OPEN  || !PLAYER->Open2Card())
 	{
 		for (auto& card : PLAYER->hand.hand) //
 		{
-			if (card == this && isOpen == false) //누른카드가 패에있고 아직 뒷면이면
+
+			if (card != nullptr && card->GetName() == GetName() && isOpen == false) //누른카드가 패에있고 아직 뒷면이면
 			{
-				//PLAYER->selectCard.push_back(this);
-				//isSeleted = true;
 				Open();
-				//PLAYER->turnEnd = false; 오픈했으면 딜러턴 깎기 베팅은오픈 전
-				PLAYER->openCard++;
+				PLAYER->turnEnd = true;
 			}
 		}
 	}
-	else if (BLACKJACK->GetState() == PlayerState::HIT && BLACKJACK->canSelect == true)
+	
+	if (BLACKJACK->GetState() == PlayerState::HIT && PLAYER->needDiscard == true)
 	{
 		for (auto& card : PLAYER->hand.hand) //
 		{
-			if (card == this && isOpen == false) //누른카드가 패에있고 아직 뒷면이면 버리기가능
+			if (card != nullptr && card->GetName() == GetName() && isOpen == false) //누른카드가 패에있고 아직 뒷면이면
 			{
-				
-				//카드제거 추가 *****
-				//PLAYER->turnEnd = false;
-				
+				card->GetComponent<TransformComponent>()->SetPosition({ -700,0,0 }); //풀을만든들 없애든하기 일단 위치만변경
+				card = nullptr;
 			}
 		}
 	}

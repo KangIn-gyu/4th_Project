@@ -23,18 +23,21 @@ GambleScene::GambleScene(std::string_view _Name) : Scene(_Name)
 
 void GambleScene::Enter()
 {
-	//딜러도 전역으로 할까요
+	//����� �������� �ұ��
 	BLACKJACK->dealer = ObjectCreator<Dealer>("Dealer", Object::ObjectType::Basic); 
 	BLACKJACK->dealer->GetComponent<TransformComponent>()->SetPosition({ -300, 0, 0 });
-	BLACKJACK->deck = ObjectCreator<Deck>("Deck", Object::ObjectType::Basic);
+	BLACKJACK->deck = CreatorObject<Deck>("Deck", Object::ObjectType::Basic);
+	BLACKJACK->deck->GetComponent<TransformComponent>()->SetPosition({ 0, -200, 0 });
 	BLACKJACK->Setstage(1);
 
 	
 	auto deck = GetGameObject(Object::ObjectType::Basic, "Deck");
 	
-	ObjectCreator<Button>("Button", Object::ObjectType::Basic, DXMath::Vector3(900, 0, 0), []() {ClickFunc::OpenButton();});
-	ObjectCreator<Button>("Button", Object::ObjectType::Basic, DXMath::Vector3(1000, 0, 0), []() {ClickFunc::StayButton();});
-	ObjectCreator<Button>("Button", Object::ObjectType::Basic, DXMath::Vector3(1100, 0, 0), []() {ClickFunc::HitButton();});
+	CreatorObject<Button>("Button", Object::ObjectType::Basic, DXMath::Vector3(900, 0, 0), []() {ClickFunc::OpenButton();});
+	
+	CreatorObject<Button>("Button", Object::ObjectType::Basic, DXMath::Vector3(1100, -200, 0), []() {ClickFunc::HitButton();});
+
+	CreatorObject<Button>("Button", Object::ObjectType::Basic, DXMath::Vector3(1000, -400, 0), []() {ClickFunc::StayButton(); });
 }
 
 

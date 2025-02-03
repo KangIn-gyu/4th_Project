@@ -1,7 +1,13 @@
 #include "pch.h"
 #include "Player.h"
 #include "Hand.h"
- 
+#include <algorithm>
+#include <random>
+
+Player::Player()
+{
+	hand.Init(7);
+}
 
 void Player::Initialize()
 {
@@ -9,19 +15,29 @@ void Player::Initialize()
 }
 
 
+void Player::FirstDraw(Deck* _deck)
+{
+	if (hand.numCard() < 6)
+		hand.cardDraw((_deck->DrawCard()));
+	else
+		drawFirst = true;
+}
 
 void Player::CardDraw(Deck* _deck)
 {
-	
-	//카드가 7장일경우 처리필요 *****
-	if (hand.numCard() < 6)
+	if (hand.numCard() >= 7)
 	{
-		hand.cardDraw((_deck->DrawCard()), handSlots[hand.numCard()]);
+		needDiscard = true;
 	}
 	else
 	{
-		drawFirst = true;
+		needDiscard = false;
+		auto card = hand.cardDraw((_deck->DrawCard()));
+		card->Open();
+		isDrawOne = true;
+		PLAYER->turnEnd = true;
 	}
+
 }
 
 
@@ -35,9 +51,30 @@ bool Player::Open2Card()
 	int count = 0;
 	for (auto& card : hand.hand)
 	{
-		if (card->isOpen == true)
+		if (card != nullptr && card->isOpen == true)
 			count++;
 	}
 	return (count >= 2);
 }
+
+void Player::HandClear()
+{
+	
+}
+
+void Player::ShuffleHand()
+{
+	std::random_device rd;
+	std::mt19937 g(rd());
+	std::shuffle(hand.hand.begin(), hand.hand.end(), g);  //셔플연출추가
+	Shuffle = true;
+}
+
+bool Player::CheckGameOver()
+{
+	return (GetScore() >= 21);
+}
+
+
+
 

@@ -44,6 +44,7 @@ public:
 	void DoubbleDown();
 	void RoundStart(); //라운드 시작시  덱초기화, 플레이어6장주기 
 	void RoundEnd();   //각 핸드 초기화 등
+	void CheckTurnEnd();  //플레이어가 행동했는지 확인
 	int Getmagnification() 
 	{ 
 		if (onDoubbleDown)
@@ -56,7 +57,6 @@ public:
 	Dealer* dealer;
 	//bool isThrow = false; //카드 버리기모드 
 	bool onDoubbleDown = false;
-	bool canSelect = false;
 private:
 	float elapsedTime =0;
 	Turn curTurn = Turn::player;

@@ -16,7 +16,8 @@ public:
 	virtual void FixedUpdate() {};
 	virtual void LateUpdate() {};
 
-	void CardDraw(Deck* _deck);
+	void FirstDraw(Deck* _deck);
+	void CardDraw(Deck* _deck); 
 	int  GetScore();
 	void Act();
 	void SepChip(int _num) { chip = _num; }
@@ -26,7 +27,8 @@ public:
 	int turnCount = 3;     //행동카운트
 	Hand hand;
 	int chip; //딜러칩 스테이지 시작때 채워줌
-	bool finishFirst;
+	bool finishFirst = false;
+	bool finishDraw  = false;
 private:
 	
 	std::function<void(void)> pattern; //딜러 다음패턴 담아둘곳
