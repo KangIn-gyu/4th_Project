@@ -205,7 +205,7 @@ void UserImGui::light()
 {
 	ImGui::Begin(TEXT_UTF8(u8"ºû À§Ä¡"));
 	ImGui::DragFloat3("Light Direction", &lightDir.x, 0.1f, -1.0f, 1.0f);
-	ImGui::DragFloat3("Light Position", &lightPos.x, 0.1f, -1.0f, 1.0f);
+	ImGui::DragFloat3("Light Position", &lightPos.x, 0.1f, -1000.0f, 1000.0f);
 	ImGui::End();
 }
 

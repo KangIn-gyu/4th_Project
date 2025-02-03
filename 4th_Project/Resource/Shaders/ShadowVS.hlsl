@@ -1,12 +1,5 @@
  #include "Header.hlsli"
 
-cbuffer ShadowCB : register(b4)
-{
-    matrix lightViewProj;
-    float shadowBias;
-    float3 padding;
-}
-
 struct VS_SHADOW_OUTPUT
 {
     float4 Pos : SV_POSITION;
@@ -41,9 +34,7 @@ VS_SHADOW_OUTPUT main(VertexInputType input)
     
     // 정규화된 깊이값 저장
     output.DepthPos = output.Pos;
-    output.DepthPos.z /= output.DepthPos.w; // 원근 나눗셈
     
-    output.DepthPos = float4(output.Pos.z / output.Pos.w, 0, 0, 1); // 정규화된 깊이값
     return output;
 
 }

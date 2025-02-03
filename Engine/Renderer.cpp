@@ -30,9 +30,10 @@ void Renderer::Initialize(WindowInfo* _windowInfo)
 
 	// 광원 설정
 	DXMath::Vector3 lightTarget = DXMath::Vector3(0.0f, 0.0f, 0.0f);
-	IMGUI->lightPos = DXMath::Vector3(50.0f, 50.0f, -50.0f);
+	IMGUI->lightPos = DXMath::Vector3(200.0f, 200.0f, -200.0f);
 	IMGUI->lightDir = DXMath::Vector3(lightTarget - IMGUI->lightPos);
-	IMGUI->lightDir.Normalize();
+
+
 	shadowRenderer.Initialize(D3DGraphics->GetD3DDevice().Get(), D3DGraphics->GetD3DDeviceContext().Get());
 	shadowRenderer.InitShadowResources(D3DGraphics->GetD3DDevice().Get());
 	//	m_skybox.Init();
@@ -79,7 +80,7 @@ void Renderer::Render()
 void Renderer::D3DDraw()
 {
 	ComPtr<ID3D11DeviceContext> d3dDeviceContext = D3DGraphics->GetD3DDeviceContext();
-	
+	auto device = D3DGraphics->GetD3DDevice();
 
 	// 현재 렌더링 상태 저장
 	D3D11_VIEWPORT originalViewport;
@@ -98,17 +99,18 @@ void Renderer::D3DDraw()
 	shadowRenderer.BeginShadowPass(d3dDeviceContext.Get());
 	{
 		// 라이트 뷰-프로젝션 매트릭스 계산
+		DXMath::Vector3 lightTarget = DXMath::Vector3(0.0f, 0.0f, 0.0f);
 		DXMath::Matrix lightView = DXMath::Matrix::CreateLookAt(
 			IMGUI->lightPos,
-			IMGUI->lightPos + IMGUI->lightDir,
-			DXMath::Vector3(0.0f, 1.0f, 0.0f)       // 상향 벡터
+			lightTarget,  // 라이트 방향 대신 타겟 포인트 사용
+			DXMath::Vector3(0.0f, 1.0f, 0.0f)
 		);
 
 		DXMath::Matrix lightProjection = DXMath::Matrix::CreateOrthographic(
-			1000.f,  
-			1000.0f,  
-			1.0f,    
-			10000.0f   
+			1000.0f,   // 씬 크기에 맞게 조정
+			1000.0f,
+			0.1f,     // near plane을 더 가깝게
+			1000.0f
 		);
 
 		DXMath::Matrix lightViewProj = lightView * lightProjection;
@@ -121,6 +123,8 @@ void Renderer::D3DDraw()
 	// 원래의 렌더링 상태로 복구
 	d3dDeviceContext->RSSetViewports(1, &originalViewport);
 	d3dDeviceContext->OMSetRenderTargets(1, &originalRTV, originalDSV);
+
+	shadowRenderer.DebugShadowMap(device.Get(), d3dDeviceContext.Get());
 
 	d3dDeviceContext->PSSetSamplers(0, 1, &linearWrapSampler);
 	d3dDeviceContext->PSSetSamplers(1, 1, &pointClampSampler);

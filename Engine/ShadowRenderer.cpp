@@ -95,6 +95,9 @@ bool ShadowRenderer::Initialize(ID3D11Device* device, ID3D11DeviceContext* devic
 
 void ShadowRenderer::BeginShadowPass(ID3D11DeviceContext* context)
 {
+
+    std::cout << "Shadow DSV valid: " << (shadowMapDSV != nullptr) << std::endl;
+
     // 뷰포트 설정
     D3D11_VIEWPORT shadowViewport = {};
     shadowViewport.TopLeftX = 0.0f;
@@ -110,7 +113,7 @@ void ShadowRenderer::BeginShadowPass(ID3D11DeviceContext* context)
     context->OMSetRenderTargets(1, &nullRTV, shadowMapDSV.Get());
 
     // 깊이 버퍼 클리어
-    context->ClearDepthStencilView(shadowMapDSV.Get(), D3D11_CLEAR_STENCIL, 1.0f, 0);
+    context->ClearDepthStencilView(shadowMapDSV.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 }
 
 void ShadowRenderer::InitShadowResources(ID3D11Device* device)
@@ -155,7 +158,7 @@ void ShadowRenderer::InitShadowResources(ID3D11Device* device)
 	*/
 
 	D3D11_SAMPLER_DESC sampDesc = {};
-	sampDesc.Filter = D3D11_FILTER_COMPARISON_MIN_MAG_LINEAR_MIP_POINT;
+    sampDesc.Filter = D3D11_FILTER_COMPARISON_MIN_MAG_MIP_LINEAR;
 	sampDesc.AddressU = D3D11_TEXTURE_ADDRESS_BORDER;
 	sampDesc.AddressV = D3D11_TEXTURE_ADDRESS_BORDER;
 	sampDesc.AddressW = D3D11_TEXTURE_ADDRESS_BORDER;
@@ -163,7 +166,7 @@ void ShadowRenderer::InitShadowResources(ID3D11Device* device)
 	sampDesc.BorderColor[1] = 1.0f;
 	sampDesc.BorderColor[2] = 1.0f;
 	sampDesc.BorderColor[3] = 1.0f;
-	sampDesc.ComparisonFunc = D3D11_COMPARISON_LESS_EQUAL;
+    sampDesc.ComparisonFunc = D3D11_COMPARISON_LESS;
 	sampDesc.MinLOD = 0;
 	sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
 	device->CreateSamplerState(&sampDesc, shadowSampler.GetAddressOf());
@@ -177,6 +180,26 @@ void ShadowRenderer::RenderShadow(ID3D11DeviceContext* context, const DXMath::Ma
         std::cout << "NO SRV or DSV\n";
         return;
     }
+
+    // 1. 렌더링 시작할 때 파이프라인 상태 체크
+    ID3D11RenderTargetView* boundRTV;
+    ID3D11DepthStencilView* boundDSV;
+    context->OMGetRenderTargets(1, &boundRTV, &boundDSV);
+    std::cout << "RTV bound: " << (boundRTV == nullptr) << " (should be null)" << std::endl;
+    std::cout << "DSV matches: " << (boundDSV == shadowMapDSV.Get()) << " (should be true)" << std::endl;
+    if (boundRTV) boundRTV->Release();
+    if (boundDSV) boundDSV->Release();
+
+    // 2. 라이트 뷰프로젝션 행렬 체크
+    std::cout << "Light View-Proj Matrix: " << std::endl;
+    for (int i = 0; i < 4; i++) {
+        std::cout << lightViewProj.m[i][0] << ", "
+            << lightViewProj.m[i][1] << ", "
+            << lightViewProj.m[i][2] << ", "
+            << lightViewProj.m[i][3] << std::endl;
+    }
+
+
 
     // srv 초기화
     ID3D11ShaderResourceView* nullSRV = nullptr;
@@ -194,7 +217,8 @@ void ShadowRenderer::RenderShadow(ID3D11DeviceContext* context, const DXMath::Ma
 
     for (auto* renderComp : rendercomponent)
     {
-        auto* modelData = renderComp->GetModelData()->GetModelData();
+        auto* modelData = renderComp->GetModelData()->GetModelData(); 
+
         if (!modelData) {
             std::cout << "ModelData is null!" << std::endl;
             continue;
@@ -238,6 +262,11 @@ void ShadowRenderer::RenderShadow(ID3D11DeviceContext* context, const DXMath::Ma
             shadowData->lightviewproj = XMMatrixTranspose(lightViewProj);
             context->Unmap(shadowCB.Get(), 0);
 
+            float* data = (float*)mappedResource.pData;
+            for (int i = 0; i < 10; i++) {
+                std::cout << "Depth value " << i << ": " << data[i] << std::endl;  // 주석 해제
+            }
+
             // 기본 변환 매트릭스 버퍼 업데이트
             D3D11_MAPPED_SUBRESOURCE basicMappedResource;
             context->Map(basicCB.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &basicMappedResource);
@@ -251,14 +280,77 @@ void ShadowRenderer::RenderShadow(ID3D11DeviceContext* context, const DXMath::Ma
             ID3D11Buffer* shadowBuffer = shadowCB.Get();
             context->VSSetConstantBuffers(4, 1, &shadowBuffer);
 
+           //UINT indexCount = indexBuffer->GetIndexCount();
+           //std::cout << "Drawing mesh with " << indexCount << " indices" << std::endl;
+           //
+           //ID3D11Buffer* vb;
+           //UINT stride, offset;
+           //context->IAGetVertexBuffers(0, 1, &vb, &stride, &offset);
+           //std::cout << "Vertex buffer bound: " << (vb != nullptr) << std::endl;
+           //if (vb) vb->Release();
+           //
+           //ID3D11Buffer* ib;
+           //context->IAGetIndexBuffer(&ib, nullptr, nullptr);
+           //std::cout << "Index buffer bound: " << (ib != nullptr) << std::endl;
+           //if (ib) ib->Release();
+
+             // 월드 행렬 체크
+            //std::cout << "World Matrix: " << std::endl;
+            //for (int i = 0; i < 4; i++) {
+            //    std::cout << worldMatrix.m[i][0] << ", "
+            //        << worldMatrix.m[i][1] << ", "
+            //        << worldMatrix.m[i][2] << ", "
+            //        << worldMatrix.m[i][3] << std::endl;
+            //}
+
+            // DrawIndexed 호출 직전에 바인딩된 상수버퍼 확인
+            ID3D11Buffer* boundCB;
+            context->VSGetConstantBuffers(4, 1, &boundCB);
+            //std::cout << "Shadow CB bound before draw: " << (boundCB != nullptr) << std::endl;
+            if (boundCB) boundCB->Release();
+
+
             // 드로우 콜
             context->DrawIndexed(indexBuffer->GetIndexCount(), 0, 0);
         }
     }
 
     context->Flush();
+    auto device = D3DClass::GetD3DDevice();
+    DebugShadowMap(device.Get(), context);
 
     context->PSSetShaderResources(24, 1, shadowMapSRV.GetAddressOf());
     context->RSSetState(nullptr);
     context->OMSetDepthStencilState(nullptr, 0);
+}
+
+void ShadowRenderer::DebugShadowMap(ID3D11Device* device, ID3D11DeviceContext* context)
+{
+    // 그림자맵의 실제 내용을 확인하기 위한 임시 버퍼 생성
+    D3D11_TEXTURE2D_DESC desc;
+    shadowMap->GetDesc(&desc);
+
+    // 스테이징 텍스처 생성
+    desc.Usage = D3D11_USAGE_STAGING;
+    desc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
+    desc.BindFlags = 0;
+
+    ID3D11Texture2D* stagingTex = nullptr;
+    device->CreateTexture2D(&desc, nullptr, &stagingTex);
+
+    // 데이터 복사
+    context->CopyResource(stagingTex, shadowMap.Get());
+
+    // 데이터 읽기
+    D3D11_MAPPED_SUBRESOURCE mappedResource;
+    context->Map(stagingTex, 0, D3D11_MAP_READ, 0, &mappedResource);
+
+    // 첫 few rows의 데이터 출력
+    float* data = (float*)mappedResource.pData;
+    for (int i = 0; i < 10; i++) {
+        //std::cout << "Depth value " << i << ": " << data[i] << std::endl;
+    }
+
+    context->Unmap(stagingTex, 0);
+    stagingTex->Release();
 }

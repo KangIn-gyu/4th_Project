@@ -32,6 +32,11 @@ cbuffer MatrixPallete : register(b3)
     matrix MatrixPalleteArray[512];
 }
 
+cbuffer ShadowBuffer : register(b4)
+{
+    matrix lightViewProj;
+}
+
 struct VertexInputType
 {
 //    uint   VertexID : SV_VertexID; // Á¤Á¡ ID

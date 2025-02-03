@@ -1,12 +1,5 @@
 #include "Header.hlsli"
 
-cbuffer ShadowCB : register(b4)
-{
-    matrix lightViewProj;
-    float shadowBias;
-    float3 padding;
-}
-
 PixelInputType main(VertexInputType input) 
 {
     //PixelInputType output = (PixelInputType) 0;
