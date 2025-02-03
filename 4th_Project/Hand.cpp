@@ -5,9 +5,7 @@
 #include <random>
 #include "../Engine/DOTween.h"
 #include "../Engine/TransformComponent.h"
-#include "../Engine/SceneManager.h"
-#include "../Engine/Scene.h"
-#include "../Engine/FactorySystem.h"
+#include "BlackJack.h"
 void Hand::Init(int num)
 {
 	maxHand = num;
@@ -16,9 +14,21 @@ void Hand::Init(int num)
 		hand.push_back(nullptr);
 	}
 }
-void Hand::handReset()
+void Hand::handReset(bool dealer)
 {
-	hand.clear(); //카드를 pop을하든하고 다시  max만큼 nullptr채우기 
+	
+	for (int i = 0; i < numCard(); i++)
+	{
+		BLACKJACK->trashDeck->cards.push_back(hand[i]);
+		hand[i] = nullptr;
+	}
+	/*if (!dealer)
+	{
+		for (int i = 0; i < maxHand; i++)
+		{
+			hand.push_back(nullptr);
+		}
+	}*/
 }
 
 Card* Hand::cardDraw(Card* _card,DXMath::Vector3 _pos, bool dealer)
@@ -57,7 +67,7 @@ int Hand::GetScore()
 	{
 		for (auto& card : hand)
 		{
-			if (card != nullptr) //null로 손패갯수 관리해서 계속확인팔요
+			if (card != nullptr && card->isOpen == true) //null로 손패갯수 관리해서 계속확인팔요
 			{
 				if (card->suit == Suit::Diamond || card->suit == Suit::Heart)
 				{

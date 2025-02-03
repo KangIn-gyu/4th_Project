@@ -9,22 +9,22 @@
 #include "../Engine/TimeSystem.h"
 Dealer::Dealer(std::string_view _name, Object::ObjectType _type) : Object(_name, _type)
 {
-	
+	CreateComponent<ModelComponent>("STAGE1/FBX/char2.fbx");
+	CreateComponent<RenderComponent>();
+
+	CreateComponent<BoxCollider>();
+	DXMath::Vector3 extent = GetComponent<ModelComponent>()->GetModel().get()->extent;
+	DXMath::Vector3 center = GetComponent<ModelComponent>()->GetModel().get()->center;
+	GetComponent<BoxCollider>()->SetBox(center, extent, GetComponent<TransformComponent>()->GetQuaternion());
+	auto randerComponet = GetComponent<RenderComponent>();
+	randerComponet->SetShader(ShaderType::VS, "Shaders/VertexShaderVS.hlsl");
+	randerComponet->SetShader(ShaderType::PS, "Shaders/PixelShaderPS.hlsl");
 }
 
 void Dealer::Initialize()
 {
-	CreateComponent<ModelComponent>("STAGE1/FBX/char2.fbx");  // char2 / gun // asdq
-	CreateComponent<RenderComponent>();
-
-	CreateComponent<BoxCollider>();
+	//CreateComponent<ModelComponent>("STAGE1/FBX/char2.fbx");  // char2 / gun // asdq
 	
-	DXMath::Vector3 extent = GetComponent<ModelComponent>()->GetModel().get()->extent;
-	DXMath::Vector3 center = GetComponent<ModelComponent>()->GetModel().get()->center;
-	GetComponent<BoxCollider>()->SetBox( center, extent,GetComponent<TransformComponent>()->GetQuaternion());
-	auto randerComponet = GetComponent<RenderComponent>();
-	randerComponet->SetShader(ShaderType::VS, "Shaders/VertexShaderVS.hlsl");
-	randerComponet->SetShader(ShaderType::PS, "Shaders/PixelShaderPS.hlsl");
 
 }
 
@@ -42,6 +42,14 @@ void Dealer::Update(const float _deltaTime)
 }
 
 
+
+void Dealer::Init()
+{
+
+	finishFirst = false;
+	finishDraw = false;
+	hand.handReset(true);
+}
 
 void Dealer::FirstDraw(Deck* _deck)
 {

@@ -10,7 +10,7 @@ TestObj::TestObj(std::string_view _name, Object::ObjectType _type) : Object(_nam
 
 void TestObj::Initialize()
 {
-	CreateComponent<ModelComponent>("STAGE1/FBX/Cube.fbx");  // char2 / gun
+	CreateComponent<ModelComponent>("STAGE1/FBX/deck.fbx");  // char2 / gun
 
 	CreateComponent<RenderComponent>();
 

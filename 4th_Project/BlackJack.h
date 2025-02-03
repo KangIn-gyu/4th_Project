@@ -45,6 +45,7 @@ public:
 	void RoundStart(); //라운드 시작시  덱초기화, 플레이어6장주기 
 	void RoundEnd();   //각 핸드 초기화 등
 	void CheckTurnEnd();  //플레이어가 행동했는지 확인
+	void Bet();
 	int Getmagnification() 
 	{ 
 		if (onDoubbleDown)
@@ -53,17 +54,22 @@ public:
 			return magnification;
 	}
 	Deck* deck;
+	Deck* trashDeck;
 	Player* player;
 	Dealer* dealer;
 	//bool isThrow = false; //카드 버리기모드 
 	bool onDoubbleDown = false;
+	bool endBet = true;
+	bool canClick = false;
 private:
 	float elapsedTime =0;
 	Turn curTurn = Turn::player;
 	PlayerState state = PlayerState::OPEN;
 	bool firstTurn =true; //첫턴은 달라서
 	bool isRoundOver = true; //한 라운드가 끝날떄
+	
 	//bool isClicked = false;
+	int betMoney;
 	int magnification = 1; //배율   최종 = 베팅액 * 배율
 };
 

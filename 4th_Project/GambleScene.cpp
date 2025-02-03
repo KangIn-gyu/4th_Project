@@ -28,11 +28,14 @@ void GambleScene::Enter()
 	BLACKJACK->dealer->GetComponent<TransformComponent>()->SetPosition({ -300, 0, 0 });
 	BLACKJACK->deck = ObjectCreator<Deck>("Deck", Object::ObjectType::Basic);
 	BLACKJACK->deck->GetComponent<TransformComponent>()->SetPosition({ 0, -200, 0 });
+	BLACKJACK->trashDeck = ObjectCreator<Deck>("Deck", Object::ObjectType::Basic,false);
 	BLACKJACK->Setstage(1);
 
 	
 	auto deck = GetGameObject(Object::ObjectType::Basic, "Deck");
-	
+
+	ObjectCreator<Button>("Button", Object::ObjectType::Basic, DXMath::Vector3(1100, 200, 0), []() {BLACKJACK->Bet();});
+
 	ObjectCreator<Button>("Button", Object::ObjectType::Basic, DXMath::Vector3(900, 0, 0), []() {ClickFunc::OpenButton();});
 	
 	ObjectCreator<Button>("Button", Object::ObjectType::Basic, DXMath::Vector3(1100, -200, 0), []() {ClickFunc::HitButton();});

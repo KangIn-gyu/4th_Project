@@ -106,7 +106,7 @@ float4 main(PixelInputType input) : SV_TARGET
     
     // Apply outline
     float outlineBlend = edgeIntensity * outlineStrength;
-    color = lerp(color, outlineColor, outlineBlend);
+    //color = lerp(color, outlineColor, outlineBlend);
     
     // Post processing
     color = pow(color, 1.0f / GAMMA);

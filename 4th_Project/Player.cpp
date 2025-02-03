@@ -15,6 +15,17 @@ void Player::Initialize()
 }
 
 
+void Player::Init()
+{
+	turnEnd = false;
+	drawFirst = false;
+	isDrawOne = false;
+	Shuffle = false;
+	needDiscard = false;
+	openCard = 0; //d
+	hand.handReset();
+}
+
 void Player::FirstDraw(Deck* _deck)
 {
 	if (hand.numCard() < 6)
@@ -34,8 +45,10 @@ void Player::CardDraw(Deck* _deck)
 		needDiscard = false;
 		auto card = hand.cardDraw((_deck->DrawCard()));
 		card->Open();
+		if (card->rank == "A")
+			card->OpenA();
 		isDrawOne = true;
-		PLAYER->turnEnd = true;
+		turnEnd = true;
 	}
 
 }
@@ -57,10 +70,6 @@ bool Player::Open2Card()
 	return (count >= 2);
 }
 
-void Player::HandClear()
-{
-	
-}
 
 void Player::ShuffleHand()
 {

@@ -54,14 +54,19 @@ void SceneLoader::ImportUnityScene(std::string_view _path, Scene* _scene)
             if (objTypeIter != ObjectTypeMapping.end())
             {
                 auto gameobj = _scene->GetGameObject(objTypeIter->second, objData->name);
+               // std::string name = gameobj->GetName();
                 if (nullptr != gameobj)
                 {
                     DXMath::Matrix translationMatrix = DXMath::Matrix::CreateTranslation(objData->position);
                     DXMath::Matrix rotationMatrix = DXMath::Matrix::CreateFromQuaternion(objData->rotation);
                     DXMath::Matrix scaleMatrix = DXMath::Matrix::CreateScale(objData->scale);
 
-                    DXMath::Matrix finalMatrix = scaleMatrix * rotationMatrix * translationMatrix;
-                    gameobj->GetComponent<TransformComponent>()->SetLocalMatrix(finalMatrix);
+                    //DXMath::Matrix finalMatrix = translationMatrix * rotationMatrix * scaleMatrix  ;
+                    //gameobj->GetComponent<TransformComponent>()->SetLocalMatrix(finalMatrix);
+
+                    gameobj->GetComponent<TransformComponent>()->SetPosition(objData->position);
+                    gameobj->GetComponent<TransformComponent>()->SetQuaternion(objData->rotation);
+                    gameobj->GetComponent<TransformComponent>()->SetScale(objData->scale);
                 }
             }
         }

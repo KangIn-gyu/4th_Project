@@ -155,6 +155,22 @@ void CameraCompoent::OnInputProcess(const DX::Keyboard::State& _KeyState, const 
 		DXMath::Quaternion currentRotation = cameraInfo->cameraTransform->GetQuaternion();
 		UpdateViewMatrix();
 	}
+
+	static int lastWheelDelta = 0;
+	const DX::Mouse::State& mouseState = DXINPUT->mouse->GetState();
+	int wheelDelta = mouseState.scrollWheelValue;
+	if (wheelDelta != lastWheelDelta) {
+		if (wheelDelta > lastWheelDelta) {
+			std::cout << "¸¶¿ì½º ÈÙ¾÷ÇÔ " << " ";  
+			// count++;  
+		}
+		// ÈÙÀÌ ¾Æ·¡·Î ±¼·¯°¬À» ¶§
+		else if (wheelDelta < lastWheelDelta) {
+			std::cout << "¸¶¿ì½º ÈÙ ´Ù¿îÇÔ " << " ";  
+			// count--; 
+		}
+		lastWheelDelta = wheelDelta;
+	}
 }
 
 DXMath::Vector3 CameraCompoent::GetForward()

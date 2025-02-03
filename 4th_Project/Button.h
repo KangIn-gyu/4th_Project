@@ -14,6 +14,7 @@ public:
 	virtual void FixedUpdate() {}
 	virtual void LateUpdate() {}
 
+	void SetOnclick(std::function<void(void)> _func);
 	virtual void OnClick() override;
 private:
 	std::function<void(void)> clickFunc;

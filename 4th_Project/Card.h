@@ -15,7 +15,7 @@ std::string enumToString(Suit _suit);
 class Card : public Object, public IClick, public IOnmouse
 {
 public:
-	Card(std::string_view _name, Object::ObjectType _type, Suit _suit, std::string _rank);
+	Card(std::string_view _name, Object::ObjectType _type, Suit _suit = Suit::Spade, std::string _rank = "A");
 	virtual ~Card() override;
 	virtual void Initialize() override;
 	virtual void Update(const float _deltaTime) override;
@@ -26,11 +26,13 @@ public:
 	int GetValue(); //숫자 계산할때슬 카드 값리턴
 	virtual void OnClick() override;
 	virtual void OnMouse() override;
+	void OpenA();
 	Suit suit;
 	std::string rank; //카드 숫자 1~10 J Q K A // 0
 	bool isOpen = false; //카드가 오픈상태인지
 private:
 	float rotat = 0;
+	float prevRotat = rotat;
 	DXMath::Quaternion newQuat;
 	bool isSeleted = false;  //선택된 카드 표시용
 	bool AtoOne = true; //Ace를 1로쓸지 11로쓸지 true면 1로

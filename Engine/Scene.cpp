@@ -66,6 +66,11 @@ const std::string& Scene::GetName()
 	return sceneName;
 }
 
+void Scene::EraseGameObject(Layer::Tag _tag, Object* obj)
+{
+	gameObecjts[static_cast<int>(_tag)]->EraseGameObject(obj);
+}
+
 Object* Scene::GetGameObject(Object::ObjectType _Type, std::string_view _name)
 {
 	return gameObecjts[static_cast<int>(_Type)]->GetGameObject(_name);

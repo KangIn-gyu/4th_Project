@@ -4,7 +4,7 @@ class Hand
 {
 public:
 	void Init(int num);
-	void handReset(); //
+	void handReset(bool dealer = false); //
 	Card* cardDraw(Card* _card, DXMath::Vector3 _pos = {0,0,0}, bool dealer = false);
 	int GetScore(); //카드합 점수
 	int numOpenCard();
