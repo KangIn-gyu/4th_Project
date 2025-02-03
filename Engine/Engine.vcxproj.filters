@@ -155,6 +155,12 @@
     <Filter Include="2_System\CSVLoader">
       <UniqueIdentifier>{8cfcf0f4-4127-4241-82c8-ac0c3888a5af}</UniqueIdentifier>
     </Filter>
+    <Filter Include="5_Object\Component\BitmapComponent">
+      <UniqueIdentifier>{26146aad-ff96-4af7-aa50-c09c914d4d38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Resources\ResourceData\Bitmap">
+      <UniqueIdentifier>{62b7f542-6114-4aed-beef-04af22193e8a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowApp.h">
@@ -382,6 +388,12 @@
       <Filter>2_System\Sound</Filter>
     </ClInclude>
     <ClInclude Include="ShadowRenderer.h" />
+    <ClInclude Include="ImageComponent.h">
+      <Filter>5_Object\Component\BitmapComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="Bitmap.h">
+      <Filter>4_Resources\ResourceData\Bitmap</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WindowApp.cpp">
@@ -576,6 +588,12 @@
     <ClCompile Include="ShadowRenderer.cpp" />
     <ClCompile Include="CSVLoader.cpp">
       <Filter>2_System\CSVLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageComponent.cpp">
+      <Filter>5_Object\Component\BitmapComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="Bitmap.cpp">
+      <Filter>4_Resources\ResourceData\Bitmap</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
