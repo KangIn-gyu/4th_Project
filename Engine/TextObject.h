@@ -5,7 +5,7 @@
 class TextObject : public Object
     {
     public:
-        TextObject(std::string_view _name, Object::ObjectType type = Object::ObjectType::UI, std::wstring _input);
+        TextObject(std::string_view _name, Object::ObjectType type = Object::ObjectType::UI, std::wstring _input =L"Basic");
         ~TextObject();
         void LoadFont(std::wstring FontName);
         void Render();

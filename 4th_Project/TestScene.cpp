@@ -5,7 +5,6 @@
 #include "../Engine/TransformComponent.h"
 #include "../Engine/SceneLoader.h"
 #include "../Engine/SceneManager.h"
-#include "../Engine/D2DFont.h"
 #include "Deck.h"
 #include "Button.h"
 #include "BlackJack.h"
@@ -19,6 +18,6 @@ void TestScene::Enter()
 {
 
 	ObjectCreator<Button>("Button", Object::ObjectType::Basic, DXMath::Vector3(-200,0,0), []() {SCENEMANAGER->ChangeScene("GAMBLE");});
-	ObjectCreator<D2DFont>("Test"), Object::ObjectType::UI);
+	//ObjectCreator<D2DFont>("Test"), Object::ObjectType::UI);
 }
 
