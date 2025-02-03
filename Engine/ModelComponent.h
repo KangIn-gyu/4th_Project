@@ -12,7 +12,7 @@ class SkeletonInfo;
 class ModelComponent : public Component
 {
 public:
-	ModelComponent(std::string_view _filePath);
+	ModelComponent(std::string_view _filePath); 
 	virtual ~ModelComponent();
 
 	virtual void ComponentInitialize() override;                       // 초기화용
