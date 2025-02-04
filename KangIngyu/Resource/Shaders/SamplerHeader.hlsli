@@ -9,3 +9,6 @@ SamplerState samLinear : register(s0);
 // CLAMP(경계 제한)
 // 그림자 맵, UI, 스프라이트
 SamplerComparisonState samPoint : register(s1);
+
+// 일단 모르겠어서 그냥 하기
+SamplerComparisonState shadowSampler : register(s2);
