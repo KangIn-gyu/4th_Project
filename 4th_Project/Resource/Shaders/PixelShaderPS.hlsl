@@ -1,5 +1,59 @@
 #include "Helper.hlsli"
 
+//--------------------------------------------------------------------------------------
+// Shadow Helper Functions
+//--------------------------------------------------------------------------------------
+float CalculateShadow(PixelInputType input)
+{
+    float3 projCoords = input.LightSpacePos.xyz / input.LightSpacePos.w;
+    
+    // 범위 체크
+    if (projCoords.x < -1.0f || projCoords.x > 1.0f ||
+        projCoords.y < -1.0f || projCoords.y > 1.0f ||
+        projCoords.z < 0.0f || projCoords.z > 1.0f)
+    {
+        return 1.0f;
+    }
+    
+    // NDC 좌표를 UV 좌표로 변환
+    projCoords.x = projCoords.x * 0.5 + 0.5;
+    projCoords.y = -projCoords.y * 0.5 + 0.5;
+    
+    // depth test 개선
+    float currentDepth = projCoords.z;
+    float bias = 0.0025; // 고정 bias 사용
+
+    // 거리에 따른 PCF 커널 크기 조정
+    float viewDistance = length(input.worldPos.xyz - eyePosition);
+    int sampleRange = PCF_SAMPLES;
+    float shadow = 0.0;
+    float2 texelSize = 1.0f / float2(4096.0f, 4096.0f);
+    
+    // 개선된 PCF 필터링
+    [unroll]
+    for (int x = -sampleRange; x <= sampleRange; ++x)
+    {
+        [unroll]
+        for (int y = -sampleRange; y <= sampleRange; ++y)
+        {
+            float2 offset = float2(x, y) * texelSize * 0.5; // PCF 범위 축소
+            shadow += shadowMap.SampleCmpLevelZero(
+                shadowSampler,
+                projCoords.xy + offset,
+                currentDepth - bias
+            );
+        }
+    }
+    
+    int samples = (2 * sampleRange + 1) * (2 * sampleRange + 1);
+    shadow /= samples;
+    
+    // 그림자 강도 조절
+    shadow = shadow * 0.95 + 0.05; // 완전히 검은 그림자 방지
+    
+    return shadow;
+}
+
 float4 main(PixelInputType input) : SV_TARGET
 {
     //--------------------------------------------------------------------------------------
@@ -37,12 +91,17 @@ float4 main(PixelInputType input) : SV_TARGET
     {
         rough *= roughnessSample;
     }
+
+    //--------------------------------------------------------------------------------------
+    // Shadow Calculation
+    //--------------------------------------------------------------------------------------
+    float shadowFactor = CalculateShadow(input);
     
     //--------------------------------------------------------------------------------------
     // Outline Effect Parameters
     //--------------------------------------------------------------------------------------
     float edgeIntensity = 0.0f;
-    float outlineWidth = 5.0f; // 외곽선 두께
+    float outlineWidth = 1.0f; // 외곽선 두께
     float outlineStrength = 3.5f; // 외곽선 강도
     float3 outlineColor = float3(0.0f, 1.0f, 0.0f); // 외곽선 색
     
@@ -58,7 +117,7 @@ float4 main(PixelInputType input) : SV_TARGET
         float normalEdge = length(fwidth(N)) * 2.0f;
     
     // 최종 외곽선 강도 계산
-        edgeIntensity = smoothstep(0.3f, 0.7f, fresnelFactor + normalEdge);
+        edgeIntensity = smoothstep(0.4f, 0.6f, fresnelFactor + normalEdge);
     }
        
     //--------------------------------------------------------------------------------------
@@ -67,7 +126,7 @@ float4 main(PixelInputType input) : SV_TARGET
     float3 L = normalize(-lightDirection);
     float3 H = normalize(V + L);
     
-    float NdotL = max(dot(N, L), 2.0);
+    float NdotL = max(dot(N, L), 0.0);
     float NdotV = max(dot(N, V), 0.0001);
     float NdotH = max(dot(N, H), 0.0);
     float HdotV = max(dot(H, V), 0.0);
@@ -86,7 +145,7 @@ float4 main(PixelInputType input) : SV_TARGET
     //--------------------------------------------------------------------------------------
     // Direct lighting
     float3 diffuse = kD * baseColor / PI;
-    float3 directLight = (diffuse + specular) * NdotL;
+    float3 directLight = (diffuse + specular) * NdotL * shadowFactor;
     
     // Ambient lighting
     float3 ambient = baseColor * 0.3f;
@@ -101,16 +160,21 @@ float4 main(PixelInputType input) : SV_TARGET
     float3 emissive = any(EmissiveColor.Sample(samLinear, input.TexCoord).rgb > 0) ?
                      EmissiveColor.Sample(samLinear, input.TexCoord).rgb : 0;
     
+    float3 rimColor = float3(0.0, 2.0, 0.0);
+    
+    float3 rimLight = CardSelectionRimLight(N, V, rimColor); // 초록색 계열의 림라이트
+    
+    float fresnelFactor = pow(1.0 - saturate(dot(N, V)), 2.0);
+    rimLight += fresnelFactor * rimLight * 5.0;
+    rimLight = (0, 0, 0);
     // Combine all lighting
-    float3 color = directLight + ambient + iblResult + emissive;
+    float3 color = directLight + ambient + iblResult + emissive + rimLight;
     
-    // Apply outline
-    float outlineBlend = edgeIntensity * outlineStrength;
-    color = lerp(color, outlineColor, outlineBlend);
+    //float3 finalRimColor = lerp(rimLight, outlineColor, edgeIntensity); 
+    //color = color + finalRimColor;
     
-    // Post processing
     color = pow(color, 1.0f / GAMMA);
-    color = Uncharted2ToneMapping(color);
+    color = ACESFilmicToneMapping(color);
     
     //--------------------------------------------------------------------------------------
     // Alpha Handling
@@ -139,5 +203,6 @@ float4 main(PixelInputType input) : SV_TARGET
         discard;
     }
     
+    //return float4(shadowFactor.xxx, 1.0f);
     return finalColor;
 }

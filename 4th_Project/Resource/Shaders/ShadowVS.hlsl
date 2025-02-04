@@ -1,12 +1,5 @@
  #include "Header.hlsli"
 
-cbuffer ShadowCB : register(b4)
-{
-    matrix lightViewProj;
-    float shadowBias;
-    float3 padding;
-}
-
 struct VS_SHADOW_OUTPUT
 {
     float4 Pos : SV_POSITION;
@@ -24,7 +17,7 @@ VS_SHADOW_OUTPUT main(VertexInputType input)
     
     if (weightSum > 0.0f)
     {
-        float4 pos = input.Position;
+        float4 pos = float4(input.Position.xyz, 1.0f);
         skinnedPosition = mul(pos, MatrixPalleteArray[input.BlendIndices.x]) * input.BlendWeight.x +
                          mul(pos, MatrixPalleteArray[input.BlendIndices.y]) * input.BlendWeight.y +
                          mul(pos, MatrixPalleteArray[input.BlendIndices.z]) * input.BlendWeight.z +
@@ -32,16 +25,16 @@ VS_SHADOW_OUTPUT main(VertexInputType input)
     }
     else
     {
-        skinnedPosition = input.Position;
+        skinnedPosition = float4(input.Position.xyz, 1.0f);
     }
     
     // 월드 변환 후 라이트 뷰-프로젝션 적용
     float4 worldPosition = mul(skinnedPosition, worldMatrix);
     output.Pos = mul(worldPosition, lightViewProj);
     
-    // 정규화된 깊이값 저장
     output.DepthPos = output.Pos;
-    output.DepthPos.z /= output.DepthPos.w; // 원근 나눗셈
+    output.DepthPos.xyz /= output.DepthPos.w;
     
     return output;
+
 }
