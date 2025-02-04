@@ -33,7 +33,6 @@ void Renderer::Initialize(WindowInfo* _windowInfo)
 	IMGUI->lightPos = DXMath::Vector3(200.0f, 200.0f, -200.0f);
 	IMGUI->lightDir = DXMath::Vector3(lightTarget - IMGUI->lightPos);
 
-
 	shadowRenderer.Initialize(D3DGraphics->GetD3DDevice().Get(), D3DGraphics->GetD3DDeviceContext().Get());
 	shadowRenderer.InitShadowResources(D3DGraphics->GetD3DDevice().Get());
 	//	m_skybox.Init();
@@ -98,26 +97,9 @@ void Renderer::D3DDraw()
 	// 1. 그림자 맵 패스
 	shadowRenderer.BeginShadowPass(d3dDeviceContext.Get());
 	{
-		// 라이트 뷰-프로젝션 매트릭스 계산
-		DXMath::Vector3 lightTarget = DXMath::Vector3(0.0f, 0.0f, 0.0f);
-		DXMath::Matrix lightView = DXMath::Matrix::CreateLookAt(
-			IMGUI->lightPos,
-			lightTarget,  // 라이트 방향 대신 타겟 포인트 사용
-			DXMath::Vector3(0.0f, 1.0f, 0.0f)
-		);
-
-		DXMath::Matrix lightProjection = DXMath::Matrix::CreateOrthographic(
-			1000.0f,   // 씬 크기에 맞게 조정
-			1000.0f,
-			0.1f,     // near plane을 더 가깝게
-			1000.0f
-		);
-
-		DXMath::Matrix lightViewProj = lightView * lightProjection;
-
 		// 그림자 맵 렌더링
 		//std::cout << "Rendering shadow map..." << std::endl;
-		shadowRenderer.RenderShadow(d3dDeviceContext.Get(), lightViewProj, work);
+		shadowRenderer.RenderShadow(d3dDeviceContext.Get(), CreateShadowMatrix(), work);
 		IMGUI->srv = shadowRenderer.GetShadowMapSRV();
 	}
 	// 원래의 렌더링 상태로 복구
@@ -259,3 +241,59 @@ ComPtr<ID3D11ShaderResourceView> Renderer::GetImGuiImageTexture()
 	return D3DGraphics->GetImGuiImageTexture();
 }
 
+DXMath::Matrix Renderer::CreateShadowMatrix()
+{
+	// 1. Light position은 이미 IMGUI에서 설정된 값 사용
+	DXMath::Vector3 lightPos = IMGUI->lightPos;
+
+	// 2. Light direction 계산 및 정규화
+	DXMath::Vector3 lightDir = IMGUI->lightDir;
+	lightDir.Normalize();
+	IMGUI->lightDir = lightDir;  // 정규화된 방향을 다시 저장
+
+	// 3. Look-At 행렬 생성
+	DXMath::Vector3 upVector = DXMath::Vector3(0.0f, 1.0f, 0.0f);
+	DXMath::Matrix lightView = DXMath::Matrix::CreateLookAt(
+		lightPos,                    // 광원 위치
+		lightPos + lightDir,         // 광원이 바라보는 지점
+		upVector                     // Up vector
+	);
+
+	// 4. 직교 투영 행렬 생성 
+	// (이상적으로는 이 값들도 IMGUI에서 조정 가능하게 만들면 좋습니다)
+	float orthoSize = 1000.0f;        // IMGUI로 조정 가능하게 수정 권장
+	float nearPlane = 0.1f;          // IMGUI로 조정 가능하게 수정 권장
+	float farPlane = 10000.0f;         // IMGUI로 조정 가능하게 수정 권장
+
+	DXMath::Matrix lightProj = DXMath::Matrix::CreateOrthographic(
+		orthoSize,
+		orthoSize,
+		nearPlane,
+		farPlane
+	);
+
+	// View 행렬 생성 후 디버그 출력
+	std::cout << "\nView Matrix (should have normalized vectors in first 3x3):\n";
+	for (int i = 0; i < 4; i++) {
+		float length = sqrt(
+			lightView.m[i][0] * lightView.m[i][0] +
+			lightView.m[i][1] * lightView.m[i][1] +
+			lightView.m[i][2] * lightView.m[i][2]
+		);
+		std::cout << lightView.m[i][0] << ", "
+			<< lightView.m[i][1] << ", "
+			<< lightView.m[i][2] << ", "
+			<< lightView.m[i][3] << " (length: " << length << ")\n";
+	}
+
+	// Projection 행렬 요소 분석
+	std::cout << "\nProjection Matrix Analysis:\n";
+	std::cout << "Scale X (should be ~0.02 for size 100): " << lightProj.m[0][0] << "\n";
+	std::cout << "Scale Y (should be ~0.02 for size 100): " << lightProj.m[1][1] << "\n";
+	std::cout << "Depth scale (should be small positive): " << lightProj.m[2][2] << "\n";
+	std::cout << "Depth offset: " << lightProj.m[3][2] << "\n";
+
+	DXMath::Matrix final = lightView * lightProj;
+
+	return final;
+}

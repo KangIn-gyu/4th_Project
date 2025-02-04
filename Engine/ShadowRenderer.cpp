@@ -7,7 +7,7 @@
 #include "ModelComponent.h"
 #include "Renderer.h"
 #include "RenderComponent.h"
-
+#include "Object.h"
 bool ShadowRenderer::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceContext)
 {
     // 셰도우 맵 텍스처 생성
@@ -43,7 +43,7 @@ bool ShadowRenderer::Initialize(ID3D11Device* device, ID3D11DeviceContext* devic
     // 래스터라이저 상태 생성
     D3D11_RASTERIZER_DESC rasterDesc = {};
     rasterDesc.FillMode = D3D11_FILL_SOLID;
-    rasterDesc.CullMode = D3D11_CULL_NONE;
+    rasterDesc.CullMode = D3D11_CULL_BACK;
     rasterDesc.DepthBias = 1000;
     rasterDesc.DepthBiasClamp = 0.0f;
     rasterDesc.SlopeScaledDepthBias = 1.0f;
@@ -53,7 +53,7 @@ bool ShadowRenderer::Initialize(ID3D11Device* device, ID3D11DeviceContext* devic
     D3D11_DEPTH_STENCIL_DESC depthStencilDesc = {};
     depthStencilDesc.DepthEnable = TRUE;
     depthStencilDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
-    depthStencilDesc.DepthFunc = D3D11_COMPARISON_LESS;
+    depthStencilDesc.DepthFunc = D3D11_COMPARISON_LESS_EQUAL;
     device->CreateDepthStencilState(&depthStencilDesc, shadowDepthState.GetAddressOf());
 
     // 셰이더 리소스 뷰 생성
@@ -166,7 +166,7 @@ void ShadowRenderer::InitShadowResources(ID3D11Device* device)
 	sampDesc.BorderColor[1] = 1.0f;
 	sampDesc.BorderColor[2] = 1.0f;
 	sampDesc.BorderColor[3] = 1.0f;
-    sampDesc.ComparisonFunc = D3D11_COMPARISON_LESS;
+    sampDesc.ComparisonFunc = D3D11_COMPARISON_LESS_EQUAL;
 	sampDesc.MinLOD = 0;
 	sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
 	device->CreateSamplerState(&sampDesc, shadowSampler.GetAddressOf());
@@ -185,21 +185,19 @@ void ShadowRenderer::RenderShadow(ID3D11DeviceContext* context, const DXMath::Ma
     ID3D11RenderTargetView* boundRTV;
     ID3D11DepthStencilView* boundDSV;
     context->OMGetRenderTargets(1, &boundRTV, &boundDSV);
-    std::cout << "RTV bound: " << (boundRTV == nullptr) << " (should be null)" << std::endl;
-    std::cout << "DSV matches: " << (boundDSV == shadowMapDSV.Get()) << " (should be true)" << std::endl;
+    //std::cout << "RTV bound: " << (boundRTV == nullptr) << " (should be null)" << std::endl;
+    //std::cout << "DSV matches: " << (boundDSV == shadowMapDSV.Get()) << " (should be true)" << std::endl;
     if (boundRTV) boundRTV->Release();
     if (boundDSV) boundDSV->Release();
 
     // 2. 라이트 뷰프로젝션 행렬 체크
-    std::cout << "Light View-Proj Matrix: " << std::endl;
-    for (int i = 0; i < 4; i++) {
-        std::cout << lightViewProj.m[i][0] << ", "
-            << lightViewProj.m[i][1] << ", "
-            << lightViewProj.m[i][2] << ", "
-            << lightViewProj.m[i][3] << std::endl;
-    }
-
-
+    //std::cout << "Light View-Proj Matrix: " << std::endl;
+    //for (int i = 0; i < 4; i++) {
+    //    std::cout << lightViewProj.m[i][0] << ", "
+    //        << lightViewProj.m[i][1] << ", "
+    //        << lightViewProj.m[i][2] << ", "
+    //        << lightViewProj.m[i][3] << std::endl;
+    //}
 
     // srv 초기화
     ID3D11ShaderResourceView* nullSRV = nullptr;
@@ -218,6 +216,11 @@ void ShadowRenderer::RenderShadow(ID3D11DeviceContext* context, const DXMath::Ma
     for (auto* renderComp : rendercomponent)
     {
         auto* modelData = renderComp->GetModelData()->GetModelData(); 
+
+        if (renderComp->GetOwner()->GetObjectType() == Object::ObjectType::Background)
+        {
+            continue;
+        }
 
         if (!modelData) {
             std::cout << "ModelData is null!" << std::endl;
@@ -262,10 +265,10 @@ void ShadowRenderer::RenderShadow(ID3D11DeviceContext* context, const DXMath::Ma
             shadowData->lightviewproj = XMMatrixTranspose(lightViewProj);
             context->Unmap(shadowCB.Get(), 0);
 
-            float* data = (float*)mappedResource.pData;
-            for (int i = 0; i < 10; i++) {
-                std::cout << "Depth value " << i << ": " << data[i] << std::endl;  // 주석 해제
-            }
+            //float* data = (float*)mappedResource.pData;
+            //for (int i = 0; i < 10; i++) {
+            //    std::cout << "Depth value " << i << ": " << data[i] << std::endl;  // 주석 해제
+            //}
 
             // 기본 변환 매트릭스 버퍼 업데이트
             D3D11_MAPPED_SUBRESOURCE basicMappedResource;

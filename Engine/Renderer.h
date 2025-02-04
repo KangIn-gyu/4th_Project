@@ -33,6 +33,8 @@ public:
 	ComPtr<ID3D11ShaderResourceView> GetImGuiImageTexture();
 
 	ConstantBuffer* GetMatrixPaletteBuffer() { return &matrixPaletteBuffer; }
+
+	DXMath::Matrix CreateShadowMatrix();
 private:
 	Renderer() {}
 	~Renderer() { work.clear(); }
