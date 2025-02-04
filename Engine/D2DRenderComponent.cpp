@@ -45,7 +45,7 @@ void D2DRenderComponent::Set2DImagePos(float _x, float _y)
 
 void D2DRenderComponent::LoadFont(const std::string& _filePath)
 {
-	// TODO : ´Ù½Ã ¸¸µé¾î¾ß µÊ
+	// TODO : ë‹¤ì‹œ ë§Œë“¤ì–´ì•¼ ë¨
 	font = FONTMANAGER->LoadFont(_filePath);
 }
 
@@ -79,13 +79,13 @@ void D2DRenderComponent::Draw()
 #if _DEBUG
 	font->DrawTextBox();
 #endif
-	if (font != nullptr)
-	{
-		D2DClass::GetD2DDeviceContext()->DrawTextLayout(font->GetPos(), font->GetTextLayout(), font->GetBrush());
-	}
 	if (imageData != nullptr)
 	{
 		D2DClass::GetD2DDeviceContext()->DrawBitmap(imageData->GetImageData().Get(), imageData->GetRect());
+	}
+	if (font != nullptr)
+	{
+		D2DClass::GetD2DDeviceContext()->DrawTextLayout( font->GetPos(), font->GetTextLayout(), font->GetBrush());
 	}
 }
 
