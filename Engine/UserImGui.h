@@ -1,12 +1,11 @@
 #pragma once
-//#include <imgui.h>
+#include <imgui.h>
 #include "SingletonBase.h"
 #include "HierarchyWindow.h"
 #include "InspectorWindow.h"
 
-#include <imgui.h>
-
 #define IMGUI UserImGui::GetInstance()
+
 class Scene;
 class UserImGui : public SingletonBase<UserImGui>
 {
@@ -30,9 +29,14 @@ private:
 	void ImGuiScene();
 
 	void MainDockSpace(); // 보류 코드
-
+	void SRV();
+	void light();
 public:
 	bool debugFlag = false;
+	// 규철이 그림자 때문에 추가함 
+	ComPtr<ID3D11ShaderResourceView> srv; 
+	DXMath::Vector3 lightPos;
+	DXMath::Vector3 lightDir;
 
 private:
 	ImGuiIO* io;
@@ -45,5 +49,6 @@ private:
 
 	HierarchyWindow hierarchy;
 	std::shared_ptr<InspectorWindow> inspector{};
+	
 };
 

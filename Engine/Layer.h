@@ -1,5 +1,4 @@
 #pragma once
-
 // 용도 : 오브젝트 그룹이라고 생각하면 될 듯
 class Object;
 class Layer

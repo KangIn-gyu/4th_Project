@@ -28,11 +28,11 @@ struct alignas(16) MatrixBuffer
 	DXMath::Matrix viewMatrix  {};
 	DXMath::Matrix projectionMatrix {};
 	float totalTime;
-	DXMath::Vector3 pad();
+	DXMath::Vector3 pad() {};
 };
 
 struct alignas(16) ObjectBuffer
-{
+{ 
 	ObjectBuffer()
 	{
 		ValidateConstantBufferSize<ObjectBuffer>();

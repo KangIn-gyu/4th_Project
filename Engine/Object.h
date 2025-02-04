@@ -1,7 +1,6 @@
 #pragma once
 #include "Component.h"
 #include <concepts>
-#include <unordered_map>
 
 // Tag 시스템은 나중에 생각하자 지금 하기에는 애매한 부분이 많다
 // 컴포넌트는 생성과 동시에 컴포넌트의 초기화를 실행한다
@@ -15,6 +14,7 @@ public:
 		Dead,    // 죽음
 		Erase,   // 삭제
 		Next,    // 다음씬에 넘김
+		Disable, // 비활성화
 		End
 	};
 

@@ -13,7 +13,6 @@ class Material;
 class Model;
 class AiNode;
 class TextObject;
-
 class RenderComponent : public Component
 {
 public:
@@ -30,12 +29,9 @@ public:
 	std::unordered_map<std::string, AiNode*>* GetNodeData() { return nodeData; }
 
 public:
-	bool isD2D = FALSE;
 
 private:
 	std::unordered_map<std::string, AiNode*>* nodeData;
 	std::shared_ptr<Model> modelData;
 	std::unordered_map<ShaderType , std::shared_ptr<Shader>> shaders;
-
-	//std::shared_ptr<TextObject> TextObject;
 };

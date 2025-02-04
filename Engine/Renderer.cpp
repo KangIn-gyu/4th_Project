@@ -29,6 +29,13 @@ void Renderer::Initialize(WindowInfo* _windowInfo)
 	D3DGraphics->Initialize(_windowInfo);
 	IMGUI->Initialize(_windowInfo->hWnd, D3DGraphics->GetD3DDevice(), D3DGraphics->GetD3DDeviceContext());
 
+	// 광원 설정
+	DXMath::Vector3 lightTarget = DXMath::Vector3(0.0f, 0.0f, 0.0f);
+	IMGUI->lightPos = DXMath::Vector3(200.0f, 200.0f, -200.0f);
+	IMGUI->lightDir = DXMath::Vector3(lightTarget - IMGUI->lightPos);
+
+	shadowRenderer.Initialize(D3DGraphics->GetD3DDevice().Get(), D3DGraphics->GetD3DDeviceContext().Get());
+	shadowRenderer.InitShadowResources(D3DGraphics->GetD3DDevice().Get());
 	//	m_skybox.Init();
 
 	matrixConstantBuffer.Create(sizeof(MatrixBuffer));
@@ -55,6 +62,7 @@ void Renderer::Render()
 {
 	D3DGraphics->BeginDraw(IMGUI->GetBankGroundColor());
 	//m_skybox.Render(D3DClass::GetD3DDeviceContext().Get());
+
 	D3DDraw();
 
 #ifdef USE_D2D
@@ -71,17 +79,52 @@ void Renderer::Render()
 void Renderer::D3DDraw()
 {
 	ComPtr<ID3D11DeviceContext> d3dDeviceContext = D3DGraphics->GetD3DDeviceContext();
+	auto device = D3DGraphics->GetD3DDevice();
+
+	// 현재 렌더링 상태 저장
+	D3D11_VIEWPORT originalViewport;
+	UINT numViewports = 1;
+	d3dDeviceContext->RSGetViewports(&numViewports, &originalViewport);
+
+	ID3D11RenderTargetView* originalRTV = nullptr;
+	ID3D11DepthStencilView* originalDSV = nullptr;
+	d3dDeviceContext->OMGetRenderTargets(1, &originalRTV, &originalDSV);
+
+
+	//std::cout << "Light Position: " << lightPos.x << ", " << lightPos.y << ", " << lightPos.z << std::endl;
+	//std::cout << "Light Direction: " << lightDir.x << ", " << lightDir.y << ", " << lightDir.z << std::endl;
+
+	// 1. 그림자 맵 패스
+	shadowRenderer.BeginShadowPass(d3dDeviceContext.Get());
+	{
+		// 그림자 맵 렌더링
+		//std::cout << "Rendering shadow map..." << std::endl;
+		shadowRenderer.RenderShadow(d3dDeviceContext.Get(), CreateShadowMatrix(), work);
+		IMGUI->srv = shadowRenderer.GetShadowMapSRV();
+	}
+	// 원래의 렌더링 상태로 복구
+	d3dDeviceContext->RSSetViewports(1, &originalViewport);
+	d3dDeviceContext->OMSetRenderTargets(1, &originalRTV, originalDSV);
+
+	shadowRenderer.DebugShadowMap(device.Get(), d3dDeviceContext.Get());
+
 	d3dDeviceContext->PSSetSamplers(0, 1, &linearWrapSampler);
 	d3dDeviceContext->PSSetSamplers(1, 1, &pointClampSampler);
+	d3dDeviceContext->PSSetSamplers(2, 1, &shadowRenderer.GetShadowSampler());
 
-	ID3D11SamplerState* samplers[] = { linearWrapSampler.Get(), pointClampSampler.Get() };
-	d3dDeviceContext->PSSetSamplers(0, 2, samplers);
+	d3dDeviceContext->PSSetShaderResources(24, 1, shadowRenderer.GetShadowMapSRV().GetAddressOf());
+
+	//ID3D11SamplerState* samplers[] = { linearWrapSampler.Get(), pointClampSampler.Get() };
+	//d3dDeviceContext->PSSetSamplers(0, 2, samplers);
 
 	d3dDeviceContext->VSSetConstantBuffers(2, 1, cameraBuffer.GetBuffer().GetAddressOf());
 	d3dDeviceContext->PSSetConstantBuffers(2, 1, cameraBuffer.GetBuffer().GetAddressOf());
 	CameraBuffer cameraData;
 	cameraData.eyePosition = CameraObject::g_MainCameraObject->GetComponent<TransformComponent>()->GetPosition();
-	cameraData.lightDirection = DXMath::Vector3(0, -1, 0);
+	cameraData.lightDirection = IMGUI->lightDir;
+
+
+
 	//LightConstantBuffer cameraData;		// 다중 빛 CB
 	//DXMath::Vector3 eyePos = CameraObject::g_MainCameraObject->GetComponent<TransformComponent>()->GetPosition();
 	//cameraData.eyePosition = DXMath::Vector4(eyePos.x, eyePos.y, eyePos.z, 1.0f);
@@ -160,6 +203,7 @@ void Renderer::D3DDraw()
 	}
 
 }
+
 void Renderer::D2DDraw()
 {
 	for (auto& D2DrenderComponent : D2Dwork)
@@ -201,3 +245,59 @@ ComPtr<ID3D11ShaderResourceView> Renderer::GetImGuiImageTexture()
 	return D3DGraphics->GetImGuiImageTexture();
 }
 
+DXMath::Matrix Renderer::CreateShadowMatrix()
+{
+	// 1. Light position은 이미 IMGUI에서 설정된 값 사용
+	DXMath::Vector3 lightPos = IMGUI->lightPos;
+
+	// 2. Light direction 계산 및 정규화
+	DXMath::Vector3 lightDir = IMGUI->lightDir;
+	lightDir.Normalize();
+	IMGUI->lightDir = lightDir;  // 정규화된 방향을 다시 저장
+
+	// 3. Look-At 행렬 생성
+	DXMath::Vector3 upVector = DXMath::Vector3(0.0f, 1.0f, 0.0f);
+	DXMath::Matrix lightView = DXMath::Matrix::CreateLookAt(
+		lightPos,                    // 광원 위치
+		lightPos + lightDir,         // 광원이 바라보는 지점
+		upVector                     // Up vector
+	);
+
+	// 4. 직교 투영 행렬 생성 
+	// (이상적으로는 이 값들도 IMGUI에서 조정 가능하게 만들면 좋습니다)
+	float orthoSize = 1000.0f;        // IMGUI로 조정 가능하게 수정 권장
+	float nearPlane = 0.1f;          // IMGUI로 조정 가능하게 수정 권장
+	float farPlane = 10000.0f;         // IMGUI로 조정 가능하게 수정 권장
+
+	DXMath::Matrix lightProj = DXMath::Matrix::CreateOrthographic(
+		orthoSize,
+		orthoSize,
+		nearPlane,
+		farPlane
+	);
+
+	// View 행렬 생성 후 디버그 출력
+	//std::cout << "\nView Matrix (should have normalized vectors in first 3x3):\n";
+	//for (int i = 0; i < 4; i++) {
+	//	float length = sqrt(
+	//		lightView.m[i][0] * lightView.m[i][0] +
+	//		lightView.m[i][1] * lightView.m[i][1] +
+	//		lightView.m[i][2] * lightView.m[i][2]
+	//	);
+	//	std::cout << lightView.m[i][0] << ", "
+	//		<< lightView.m[i][1] << ", "
+	//		<< lightView.m[i][2] << ", "
+	//		<< lightView.m[i][3] << " (length: " << length << ")\n";
+	//}
+
+	// Projection 행렬 요소 분석
+	//std::cout << "\nProjection Matrix Analysis:\n";
+	//std::cout << "Scale X (should be ~0.02 for size 100): " << lightProj.m[0][0] << "\n";
+	//std::cout << "Scale Y (should be ~0.02 for size 100): " << lightProj.m[1][1] << "\n";
+	//std::cout << "Depth scale (should be small positive): " << lightProj.m[2][2] << "\n";
+	//std::cout << "Depth offset: " << lightProj.m[3][2] << "\n";
+
+	DXMath::Matrix final = lightView * lightProj;
+
+	return final;
+}

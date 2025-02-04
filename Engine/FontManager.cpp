@@ -50,7 +50,6 @@ void FontManager::LoadTextFormat(std::string_view _fontFilePath, std::string_vie
     IDWriteFontFamily* FontFamily{ nullptr };
     IDWriteLocalizedStrings* FontFamilyNames{ nullptr };
 
-
     HRESULT hresult = D2DClass::GetDWriteFactory()->CreateFontFileReference(
         StringConverter::StringToWide(_fontFilePath).c_str(),
         nullptr,
