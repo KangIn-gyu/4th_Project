@@ -3,17 +3,24 @@
 
 void SoundSystem::LoadMusic(eSoundList soundlist, bool loopcheck, const char* music)
 {
+	FMOD_RESULT result;
 	if (loopcheck)
-		mSystem->createSound(music, FMOD_LOOP_NORMAL, 0, &mSoundList[(int)(soundlist)]);
+		result = mSystem->createSound(music, FMOD_LOOP_NORMAL, 0, &mSoundList[(int)(soundlist)]);
 	else
-		mSystem->createSound(music, FMOD_LOOP_OFF, 0, &mSoundList[(int)(soundlist)]);
+		result = mSystem->createSound(music, FMOD_LOOP_OFF, 0, &mSoundList[(int)(soundlist)]);
+
+	assert(result == FMOD_OK && "FMOD: Sound creation failed");
 }
 
 void SoundSystem::PlayMusic(eSoundList soundlist, eSoundChannel channel)
 {
 	int k = (int)(channel);
 	mChannel[k]->stop();
-	mSystem->playSound(mSoundList[(int)(soundlist)], nullptr, false, &mChannel[k]);
+	FMOD_RESULT result = mSystem->playSound(mSoundList[(int)(soundlist)], nullptr, false, &mChannel[k]);
+
+	// FMOD 오류 처리
+	assert(result == FMOD_OK && "FMOD: PlaySound failed");
+
 	mChannel[k]->setVolume(mVolume);
 }
 
@@ -71,8 +78,12 @@ bool SoundSystem::isChannelPlaying(eSoundChannel channel) {
 
 SoundSystem::SoundSystem() : mSystem(), mChannel{}, mSoundList{}, mVolume()
 {
-	System_Create(&mSystem);
-	mSystem->init(6, FMOD_INIT_NORMAL, 0);
+	// FMOD 시스템 초기화 예외 처리
+	FMOD_RESULT result = System_Create(&mSystem);
+	assert(result == FMOD_OK && "FMOD: System_Create failed");
+
+	result = mSystem->init(6, FMOD_INIT_NORMAL, 0);
+	assert(result == FMOD_OK && "FMOD: System initialization failed");
 }
 
 SoundSystem::~SoundSystem()

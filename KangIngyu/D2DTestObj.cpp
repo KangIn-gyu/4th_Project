@@ -10,5 +10,9 @@ void D2DTestObj::Initialize()
 	D2D->SetDialog(L"¾È³çÇÏ¼¼¿ä");
 	D2D->SetFontPos(100, 100);
 	D2D->SetFontBoxSize(300, 300);
+
+	D2D->Load2DImage("STAGE1/UI/mybutton.png");
+	D2D->Set2DImageSize(100, 100);
+//	D2D->Set2DImagePos(100, 100);
 //	D2D->SetTextSize(50);
 }

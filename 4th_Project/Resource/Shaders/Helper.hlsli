@@ -81,60 +81,6 @@ float2 IntegrateBRDF(float NdotV, float roughness)
     return BRDFLUT.Sample(samLinear, float2(NdotV, roughness)).rg;
 }
 
-//--------------------------------------------------------------------------------------
-// Shadow Helper Functions
-//--------------------------------------------------------------------------------------
-float CalculateShadow(PixelInputType input)
-{
-    float3 projCoords = input.LightSpacePos.xyz / input.LightSpacePos.w;
-    
-    // 범위 체크
-    if (projCoords.x < -1.0f || projCoords.x > 1.0f ||
-        projCoords.y < -1.0f || projCoords.y > 1.0f ||
-        projCoords.z < 0.0f || projCoords.z > 1.0f)
-    {
-        return 1.0f;
-    }
-    
-    // NDC 좌표를 UV 좌표로 변환
-    projCoords.x = projCoords.x * 0.5 + 0.5;
-    projCoords.y = -projCoords.y * 0.5 + 0.5;
-    
-    // depth test 개선
-    float currentDepth = projCoords.z;
-    float bias = 0.0025; // 고정 bias 사용
-
-    // 거리에 따른 PCF 커널 크기 조정
-    float viewDistance = length(input.worldPos.xyz - eyePosition);
-    int sampleRange = PCF_SAMPLES;
-    float shadow = 0.0;
-    float2 texelSize = 1.0f / float2(4096.0f, 4096.0f);
-    
-    // 개선된 PCF 필터링
-    [unroll]
-    for (int x = -sampleRange; x <= sampleRange; ++x)
-    {
-        [unroll]
-        for (int y = -sampleRange; y <= sampleRange; ++y)
-        {
-            float2 offset = float2(x, y) * texelSize * 0.5; // PCF 범위 축소
-            shadow += shadowMap.SampleCmpLevelZero(
-                samPoint,
-                projCoords.xy + offset,
-                currentDepth - bias
-            );
-        }
-    }
-    
-    int samples = (2 * sampleRange + 1) * (2 * sampleRange + 1);
-    shadow /= samples;
-    
-    // 그림자 강도 조절
-    shadow = shadow * 0.95 + 0.05; // 완전히 검은 그림자 방지
-    
-    return shadow;
-}
-
 // 기타 렌더링 연산 함수
 
 // Uncharted 2 톤매핑 - 게임용으로 최적화된 톤매핑
@@ -185,8 +131,8 @@ float3 CardSelectionRimLight(float3 normal, float3 viewDir, float3 rimColor)
     float rimFactor = 1.0 - max(dot(normal, viewDir), 0.0);
     
     // 림라이트 강화를 위한 파라미터
-    float rimPower = 3.0; // 림라이트 선명도
-    float rimStrength = 2.0; // 림라이트 강도
+    float rimPower = 10.0; // 림라이트 선명도
+    float rimStrength = 8.0; // 림라이트 강도
     float pulseSpeed = 10.0; // 밝기 변화 속도
     
     // 시간에 따른 펄스 효과
@@ -245,3 +191,4 @@ float GetLaplacianEdge(float3 centerNormal, float3 tangent, float2 texCoord)
     float edgeIntensity = length(normalSum);
     return saturate(edgeIntensity);
 }
+

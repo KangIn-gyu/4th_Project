@@ -152,6 +152,15 @@
     <Filter Include="5_Object\Component\TextComponent">
       <UniqueIdentifier>{ecec973e-f736-4b7a-8416-f111cbd5cb07}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2_System\CSVLoader">
+      <UniqueIdentifier>{8cfcf0f4-4127-4241-82c8-ac0c3888a5af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="5_Object\Component\BitmapComponent">
+      <UniqueIdentifier>{26146aad-ff96-4af7-aa50-c09c914d4d38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Resources\ResourceData\Bitmap">
+      <UniqueIdentifier>{62b7f542-6114-4aed-beef-04af22193e8a}</UniqueIdentifier>
+    </Filter>
     <Filter Include="4_Resources\ResourceData\Font">
       <UniqueIdentifier>{76cc16ee-3d3a-45da-873f-6525ddb13fe7}</UniqueIdentifier>
     </Filter>
@@ -385,6 +394,12 @@
       <Filter>2_System\Sound</Filter>
     </ClInclude>
     <ClInclude Include="ShadowRenderer.h" />
+    <ClInclude Include="ImageComponent.h">
+      <Filter>5_Object\Component\BitmapComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="Bitmap.h">
+      <Filter>4_Resources\ResourceData\Bitmap</Filter>
+    </ClInclude>
     <ClInclude Include="D2DRenderComponent.h">
       <Filter>5_Object\Component\RenderComponent</Filter>
     </ClInclude>
@@ -585,6 +600,12 @@
     <ClCompile Include="ShadowRenderer.cpp" />
     <ClCompile Include="CSVLoader.cpp">
       <Filter>4_Resources\CSVLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageComponent.cpp">
+      <Filter>5_Object\Component\BitmapComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="Bitmap.cpp">
+      <Filter>4_Resources\ResourceData\Bitmap</Filter>
     </ClCompile>
     <ClCompile Include="D2DRenderComponent.cpp">
       <Filter>5_Object\Component\RenderComponent</Filter>

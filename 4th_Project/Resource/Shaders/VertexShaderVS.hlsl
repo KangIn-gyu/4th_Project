@@ -70,6 +70,8 @@ PixelInputType main(VertexInputType input)
     output.Position = mul(output.Position, viewMatrix);
     output.Position = mul(output.Position, projectionMatrix);
     
+    output.LightSpacePos = mul(float4(output.worldPos.xyz, 1.0f), lightViewProj);
+    
 	// 픽셀 셰이더에서 사용하기 위해 입력 색상을 저장합니다.
     output.Color = input.Color;
     output.TexCoord = input.TexCoord;

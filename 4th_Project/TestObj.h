@@ -2,6 +2,7 @@
 #include "../Engine/Object.h"
 #include "../Engine/IClick.h"
 #include "../Engine/IOnmouse.h"
+
 class TestObj : public Object, public IClick, public IOnmouse
 {
 public:
