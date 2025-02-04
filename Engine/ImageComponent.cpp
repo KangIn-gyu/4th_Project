@@ -8,7 +8,6 @@ ImageComponent::ImageComponent(std::string_view _filePath)
 	imageData = RESOURCESYSTEM->Load<Bitmap>(_filePath);
 	width = imageData->GetImageData().Get()->GetSize().width;
 	height = imageData->GetImageData().Get()->GetSize().height;
-	destRect = { x,y,width,height };
 }
 
 ImageComponent::~ImageComponent()
@@ -29,6 +28,6 @@ void ImageComponent::SetSize(float width, float height)
 }
 void ImageComponent::SetPos(float x, float y)
 {
-	destRect.left += x;
-	destRect.top += y;
+	destRect.left = x;
+	destRect.top = y;
 }

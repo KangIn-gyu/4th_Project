@@ -184,14 +184,14 @@ void Renderer::D3DDraw()
 				previousTexturerProcessing.pop();
 			}
 
-			for (auto& textur : material->GetTextures())
+			for (auto& texture : material->GetTextures())
 			{
-				if (!textur->GetTextureTypeIndexs().empty())
+				if (!texture->GetTextureTypeIndexs().empty())
 				{
-					for (auto textureIndex : textur->GetTextureTypeIndexs())
+					for (auto textureIndex : texture->GetTextureTypeIndexs())
 					{
 						previousTexturerProcessing.push(textureIndex);
-						d3dDeviceContext->PSSetShaderResources(textureIndex, 1, textur->GetTexture().GetAddressOf());
+						d3dDeviceContext->PSSetShaderResources(textureIndex, 1, texture->GetTexture().GetAddressOf());
 					}
 				}
 			}
