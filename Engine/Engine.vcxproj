@@ -247,6 +247,7 @@
     <ClCompile Include="CameraInformationEditor.cpp" />
     <ClCompile Include="CameraObject.cpp" />
     <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="Component.cpp" />
     <ClCompile Include="Console.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />
     <ClCompile Include="ConstantBufferData.cpp" />

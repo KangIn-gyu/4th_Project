@@ -28,6 +28,7 @@ private:
 	std::unordered_map<std::string, Scene*> ScenesCollection; // 씬 저장하는 곳
 	//Scene* currentScene {}; // 현재 씬
 	bool changeSceneTrigger = false;
+	Scene* previousScene{};
 	std::string changeSceneName;
 };
 // 순수하게 씬만 관리

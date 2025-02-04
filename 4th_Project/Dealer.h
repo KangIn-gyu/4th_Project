@@ -16,17 +16,18 @@ public:
 	virtual void FixedUpdate() {};
 	virtual void LateUpdate() {};
 
+	void Init();
 	void FirstDraw(Deck* _deck);
 	void CardDraw(Deck* _deck); 
 	int  GetScore();
 	void Act();
-	void SepChip(int _num) { chip = _num; }
+	void SetChip(int _num) { chip += _num; }
 	virtual void OnClick() override;
 	virtual void OnMouse() override;
 	void OpenOne(float _deltaTime);
 	int turnCount = 3;     //행동카운트
 	Hand hand;
-	int chip; //딜러칩 스테이지 시작때 채워줌
+	int chip =1000; //딜러칩 스테이지 시작때 채워줌
 	bool finishFirst = false;
 	bool finishDraw  = false;
 private:

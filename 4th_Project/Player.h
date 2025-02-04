@@ -14,17 +14,16 @@ class Player : public SingletonBase<Player>
 public:
 	
 	virtual void Initialize();
-	virtual void Update(const float _deltaTime) {};
+	virtual void Update(const float _deltaTime);
 	virtual void FixedUpdate() {}
 	virtual void LateUpdate() {}
 
-
+	void Init();
 	void FirstDraw(Deck* _deck);
 	void CardDraw(Deck* _deck);
 	int Bet() { return betChip; }
 	int GetScore(); //카드합 점수
 	bool Open2Card(); //첨에 2개뒤집었는지 확인용
-	void HandClear();
 	void ShuffleHand();
 	bool CheckGameOver();
 private:
@@ -39,10 +38,10 @@ public:
 	bool drawFirst   = false;
 	bool isDrawOne   = false;
 	bool Shuffle     = false;
-	bool endBet      = false;
 	bool needDiscard = false;
 	int  openCard  = 0; //d
-	int  chip = 100; //겜블때 쓸 칩 수,전체 돈
+	int  skillPoint = 0; 
+	int  chip = 1000; //겜블때 쓸 칩 수,전체 돈
 	Hand hand;
 	
 };

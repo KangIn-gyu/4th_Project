@@ -50,7 +50,6 @@ public:
 
 	bool IsActive() const;
 	bool IsDead() const;
-
 	void SetActive(bool _state);
 	void Erase();
 
@@ -76,6 +75,7 @@ protected:
 private:
 	std::string name;
 	State state = State::Active;  // 해당 타입은 set 만들면 안됨.
+	bool isActive = true; //일단만듬 인규형 나중에 수정하거나 그냥 두죠 
 	ObjectType type;
 	std::unordered_map<std::type_index, std::vector<Component*>> components;
 };

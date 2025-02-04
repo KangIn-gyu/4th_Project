@@ -15,6 +15,7 @@
     <ClInclude Include="ClickFunc.h">
       <Filter>UI</Filter>
     </ClInclude>
+    <ClInclude Include="GameManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -23,6 +24,7 @@
     <ClCompile Include="ClickFunc.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="GameManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Client">

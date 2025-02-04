@@ -141,15 +141,16 @@ LRESULT WindowApp::WndProc(HWND _hWnd, UINT _message, WPARAM _wParam, LPARAM _lP
             EventSystem::GetInstance().get()->checkClickobj(DXINPUT.get()->mouseState.x, DXINPUT.get()->mouseState.y);
         }
         break;
-        break;
     case WM_RBUTTONDOWN:
     case WM_RBUTTONUP:
     case WM_MBUTTONDOWN:
     case WM_MBUTTONUP:
     case WM_MOUSEWHEEL:
+        DirectX::Mouse::ProcessMessage(_message, _wParam, _lParam);
+        break;
     case WM_XBUTTONDOWN:
     case WM_XBUTTONUP:
-    case WM_MOUSEHOVER:       //ÈÙ º£ÆÃ¿ë *****
+    case WM_MOUSEHOVER:       
         DirectX::Mouse::ProcessMessage(_message, _wParam, _lParam);
         break;
 

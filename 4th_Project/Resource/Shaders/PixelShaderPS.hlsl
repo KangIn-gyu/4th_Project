@@ -170,8 +170,9 @@ float4 main(PixelInputType input) : SV_TARGET
     // Combine all lighting
     float3 color = directLight + ambient + iblResult + emissive + rimLight;
     
-    float3 finalRimColor = lerp(rimLight, outlineColor, edgeIntensity); 
-    color = color + finalRimColor;
+    // Apply outline
+    float outlineBlend = edgeIntensity * outlineStrength;
+    //color = lerp(color, outlineColor, outlineBlend);
     
     color = pow(color, 1.0f / GAMMA);
     color = ACESFilmicToneMapping(color);
