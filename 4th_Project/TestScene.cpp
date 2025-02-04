@@ -21,7 +21,6 @@ void TestScene::Enter()
 	auto* test = ObjectCreator<TestObj>("test", Object::ObjectType::Background);
 	test->GetComponent<TransformComponent>()->SetScale({ 100.f, 0.1f,100.f });
 	test->GetComponent<TransformComponent>()->SetPosition({ 0,-50.f, 0 });
-	test->SetEffect(Object::Effect::OutLine);
 
 
 	//ObjectCreator<D2DFont>("Test"), Object::ObjectType::UI);

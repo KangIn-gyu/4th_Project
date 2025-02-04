@@ -162,21 +162,15 @@ float4 main(PixelInputType input) : SV_TARGET
     
     float3 rimColor = float3(0.0, 2.0, 0.0);
     
+    float3 rimLight = CardSelectionRimLight(N, V, rimColor); // 초록색 계열의 림라이트
     
-    //rimLight = (0, 0, 0);
+    float fresnelFactor = pow(1.0 - saturate(dot(N, V)), 2.0);
+    rimLight += fresnelFactor * rimLight * 5.0;
+    rimLight = (0, 0, 0);
     // Combine all lighting
-    float3 finalRimColor = (0, 0, 0);
-    float3 rimLight = (0, 0, 0);
-    if(onOutline)
-    {
-        finalRimColor = lerp(rimLight, outlineColor, edgeIntensity);
-        rimLight = CardSelectionRimLight(N, V, rimColor);
-    
-        float fresnelFactor = pow(1.0 - saturate(dot(N, V)), 2.0);
-        rimLight += fresnelFactor * rimLight * 5.0;
-    } 
-    
     float3 color = directLight + ambient + iblResult + emissive + rimLight;
+    
+    float3 finalRimColor = lerp(rimLight, outlineColor, edgeIntensity); 
     color = color + finalRimColor;
     
     color = pow(color, 1.0f / GAMMA);

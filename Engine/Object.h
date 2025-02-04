@@ -27,13 +27,6 @@ public:
 		UI,
 		End
 	};
-
-	enum class Effect
-	{
-		None,
-		OutLine,
-	};
-	
 	Object(std::string_view _name , Object::ObjectType _type = ObjectType::Basic); // 명시 안해놓으면 기본 오브젝트로 생성
 	virtual ~Object() { ClearComponents(); }
 
@@ -44,11 +37,8 @@ public:
 	virtual void FixedUpdate() {}
 	virtual void LateUpdate() {}
 
-	void SetEffect(Effect _effect) { effect = _effect; }
-
 	State GetState() { return state; }
 	ObjectType GetObjectType() { return type; }
-	Effect GetEffect() { return effect; }
 	std::string ObjectTypeToString();
 	
 	const std::string& GetName() { return name; }
@@ -87,7 +77,6 @@ private:
 	std::string name;
 	State state = State::Active;  // 해당 타입은 set 만들면 안됨.
 	ObjectType type;
-	Effect effect = Effect::None;
 	std::unordered_map<std::type_index, std::vector<Component*>> components;
 };
 

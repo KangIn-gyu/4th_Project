@@ -24,22 +24,24 @@ struct alignas(16) MatrixBuffer
 		ValidateConstantBufferSize<MatrixBuffer>();
 	}
 
-	DXMath::Matrix worldMatrix{};
-	DXMath::Matrix viewMatrix{};
-	DXMath::Matrix projectionMatrix{};
+	DXMath::Matrix worldMatrix {};
+	DXMath::Matrix viewMatrix  {};
+	DXMath::Matrix projectionMatrix {};
+	float totalTime;
+	DXMath::Vector3 pad() {};
 };
 
 struct alignas(16) ObjectBuffer
-{
+{ 
 	ObjectBuffer()
 	{
 		ValidateConstantBufferSize<ObjectBuffer>();
 	}
 
-	float metalness{};
-	float roughness{};
-	int   onOutline{};
-	float padding0{};
+	float metalness {};
+	float roughness {};
+	float padding0	{};
+	float padding1	{};
 };
 
 struct alignas(16) CameraBuffer
@@ -89,18 +91,6 @@ struct alignas(16) MatrixPallete
 	MatrixPallete()
 	{
 		ValidateConstantBufferSize<MatrixPallete>();
-	}
+	}	
 	DXMath::Matrix array[BoneBufferMaxSize]; // TODO : MatrixPallete 사이즈 고민이 있음
-};
-
-struct alignas(16) ProductBuffer
-{
-	ProductBuffer()
-	{
-		ValidateConstantBufferSize<ProductBuffer>();
-	}
-	float totalTime{};
-	DXMath::Vector3 pad;
-};
-
-// 빛 구성을 기본적인 directional light 한개와 spot light 7개로 구성해서 최대한 연산 안잡아먹게끔 해보기 ( 안되면 1개로 그냥 진행)
+}; 

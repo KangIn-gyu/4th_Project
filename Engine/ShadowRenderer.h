@@ -1,7 +1,6 @@
 #pragma once
 #include "InputLayout.h"
 
-class Shader;
 class RenderComponent;
 class ShadowRenderer
 {
@@ -13,12 +12,9 @@ public:
 	void DebugShadowMap(ID3D11Device* device, ID3D11DeviceContext* context);
 	//ComPtr<ID3D11Buffer> shadowCB;
 	//ComPtr<ID3D11Buffer> basicCB;
-	//ComPtr<ID3D11VertexShader> shadowVS;
+	ComPtr<ID3D11VertexShader> shadowVS;
 	
-	std::shared_ptr<Shader> shadowVS;
-
 	ComPtr<ID3D11SamplerState> shadowSampler;
-	ComPtr<ID3D11SamplerState> basicSampler;
 	InputLayout shadowIA;		// 어차피 메인이랑 똑같은데 왜 또 선언해야하지?
 
 	bool useCustomWolrdMatrix = false;
