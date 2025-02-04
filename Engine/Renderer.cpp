@@ -42,6 +42,7 @@ void Renderer::Initialize(WindowInfo* _windowInfo)
 	objectBuffer.Create(sizeof(ObjectBuffer));
 	cameraBuffer.Create(sizeof(CameraBuffer));
 	matrixPaletteBuffer.Create(sizeof(MatrixPallete));
+	productBuffer.Create(sizeof(ProductBuffer));
 
 	D3DGraphics->CreateSamplerState(D3D11_FILTER_MIN_MAG_MIP_LINEAR, D3D11_TEXTURE_ADDRESS_WRAP, linearWrapSampler);
 	D3DGraphics->CreateSamplerState(D3D11_FILTER_MIN_MAG_MIP_POINT, D3D11_TEXTURE_ADDRESS_CLAMP, pointClampSampler);
@@ -79,7 +80,7 @@ void Renderer::Render()
 void Renderer::D3DDraw()
 {
 	ComPtr<ID3D11DeviceContext> d3dDeviceContext = D3DGraphics->GetD3DDeviceContext();
-	auto device = D3DGraphics->GetD3DDevice();
+	ComPtr <ID3D11Device> device = D3DGraphics->GetD3DDevice();
 
 	// 현재 렌더링 상태 저장
 	D3D11_VIEWPORT originalViewport;
@@ -90,27 +91,23 @@ void Renderer::D3DDraw()
 	ID3D11DepthStencilView* originalDSV = nullptr;
 	d3dDeviceContext->OMGetRenderTargets(1, &originalRTV, &originalDSV);
 
-
-	//std::cout << "Light Position: " << lightPos.x << ", " << lightPos.y << ", " << lightPos.z << std::endl;
-	//std::cout << "Light Direction: " << lightDir.x << ", " << lightDir.y << ", " << lightDir.z << std::endl;
+	d3dDeviceContext->PSSetSamplers(0, 1, &linearWrapSampler);
+	d3dDeviceContext->PSSetSamplers(1, 1, &pointClampSampler);
+	d3dDeviceContext->PSSetSamplers(2, 1, &shadowRenderer.GetShadowSampler());
 
 	// 1. 그림자 맵 패스
 	shadowRenderer.BeginShadowPass(d3dDeviceContext.Get());
 	{
 		// 그림자 맵 렌더링
-		//std::cout << "Rendering shadow map..." << std::endl;
 		shadowRenderer.RenderShadow(d3dDeviceContext.Get(), CreateShadowMatrix(), work);
 		IMGUI->srv = shadowRenderer.GetShadowMapSRV();
 	}
 	// 원래의 렌더링 상태로 복구
+
 	d3dDeviceContext->RSSetViewports(1, &originalViewport);
 	d3dDeviceContext->OMSetRenderTargets(1, &originalRTV, originalDSV);
 
-	shadowRenderer.DebugShadowMap(device.Get(), d3dDeviceContext.Get());
-
-	d3dDeviceContext->PSSetSamplers(0, 1, &linearWrapSampler);
-	d3dDeviceContext->PSSetSamplers(1, 1, &pointClampSampler);
-	d3dDeviceContext->PSSetSamplers(2, 1, &shadowRenderer.GetShadowSampler());
+	//shadowRenderer.DebugShadowMap(device.Get(), d3dDeviceContext.Get());
 
 	d3dDeviceContext->PSSetShaderResources(24, 1, shadowRenderer.GetShadowMapSRV().GetAddressOf());
 
@@ -119,16 +116,23 @@ void Renderer::D3DDraw()
 
 	d3dDeviceContext->VSSetConstantBuffers(2, 1, cameraBuffer.GetBuffer().GetAddressOf());
 	d3dDeviceContext->PSSetConstantBuffers(2, 1, cameraBuffer.GetBuffer().GetAddressOf());
+
+	// 상수버퍼 설정 (렌더 오브젝트 제외)
 	CameraBuffer cameraData;
 	cameraData.eyePosition = CameraObject::g_MainCameraObject->GetComponent<TransformComponent>()->GetPosition();
 	cameraData.lightDirection = IMGUI->lightDir;
 
+	ProductBuffer productData;
+	productData.totalTime = TIMESYSTEM->GetTotalTime();
 
+	d3dDeviceContext->PSSetConstantBuffers(5, 1, productBuffer.GetBuffer().GetAddressOf());
 
-	//LightConstantBuffer cameraData;		// 다중 빛 CB
+	//LightConstantBuffer cameraData;		// 다중 빛 CB (폐기)
 	//DXMath::Vector3 eyePos = CameraObject::g_MainCameraObject->GetComponent<TransformComponent>()->GetPosition();
 	//cameraData.eyePosition = DXMath::Vector4(eyePos.x, eyePos.y, eyePos.z, 1.0f);
 	d3dDeviceContext->UpdateSubresource(cameraBuffer.GetBuffer().Get(), 0, nullptr, &cameraData, 0, 0);
+	d3dDeviceContext->UpdateSubresource(productBuffer.GetBuffer().Get(), 0, nullptr, &productData, 0, 0);
+
 	for (auto& renderComponent : work)
 	{
 		auto* modelData = renderComponent->GetModelData()->GetModelData();
@@ -160,12 +164,18 @@ void Renderer::D3DDraw()
 			matrixData.worldMatrix = DX::XMMatrixTranspose(node->second->GetTransform().GetWorldMatrix());
 			matrixData.viewMatrix = DX::XMMatrixTranspose(CameraObject::g_MainCameraObject->GetViewMatrix());
 			matrixData.projectionMatrix = DX::XMMatrixTranspose(CameraObject::g_MainCameraObject->GetProjectionMatrix());
-			matrixData.totalTime = TIMESYSTEM->GetTotalTime();
+			
 
 			Material* material = (*modelData->materials)[meshData->GetMaterialIndex()];
 			ObjectBuffer objectData;
 			objectData.metalness = material->GetMetalness();
 			objectData.roughness = material->GetRoughness();
+			objectData.onOutline = false;
+
+			if (renderComponent->GetOwner()->GetEffect() == Object::Effect::OutLine)
+			{
+				objectData.onOutline = true;
+			}
 
 			if (nullptr != modelData->matrixPallete)
 			{
