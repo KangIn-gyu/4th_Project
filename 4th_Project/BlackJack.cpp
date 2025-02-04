@@ -16,17 +16,18 @@ void BlackJack::Setstage(int num)
 
 void BlackJack::RoundStart()
 {
+	dealer->Init();
+	player->Init();
 	deck->Init();
 	deck->ShuffleDeck();
-	dealer->Init(); 
-	player->Init();
+	
 	firstTurn = true;
 	curTurn = Turn::player;
 	isRoundOver = false;
 	onDoubbleDown = false;
 	magnification = 1;
 	state = PlayerState::OPEN;
-	endBet = true;
+	endBet = false;
 	canClick = false;
 }
 
@@ -39,19 +40,24 @@ void BlackJack::CheckTurnEnd()
 	if (player->turnEnd == true)   //한 오픈 or HIT시마다 할것들
 	{
 		//dealer->turnCount--;
-		player->CheckGameOver();
+		if (true == player->CheckGameOver())
+		{
+
+		}
 		player->turnEnd = false;
 		player->isDrawOne = false;
 		endBet = false;
+		canClick = false;
 	}
 }
 void BlackJack::Bet()
 {
-	if (endBet != true)
+	if (endBet == false) //베팅이 안끝났으면 베팅하고 베팅끝
 	{
 		betMoney = player->Bet();
 		std::cout << "베팅완료 " << std::endl;
 		endBet = true;
+		canClick = true;
 	}
 }
 void BlackJack::Update(float _deltaTime)
@@ -71,8 +77,10 @@ void BlackJack::Update(float _deltaTime)
 				}
 				else if (state == PlayerState::HIT)
 				{
-					if(!player->isDrawOne && endBet == true)
-					player->CardDraw(deck);
+					if (!player->isDrawOne && true == endBet)
+					{
+						player->CardDraw(deck);
+					}
 
 				}
 				else if (state == PlayerState::STAY)
@@ -102,11 +110,12 @@ void BlackJack::Update(float _deltaTime)
 				elapsedTime = 0;
 			}
 			//3초뒤에 플레이어카드  뒤집고 섞는 연출 필요
-			if (player->drawFirst == true  && player->Shuffle == false && elapsedTime >= 3.0f)
+			if (player->drawFirst == true  && player->Shuffle == false)
 			{
 				player->ShuffleHand();
 				elapsedTime = 0;
-				canClick = true;
+				if(player->Shuffle)
+					canClick = true;
 			}
 
 			//플레이어가 2장 뒤집기 기다리고 뒤집으면 딜러2장주고 한장뒤집기
@@ -121,9 +130,8 @@ void BlackJack::Update(float _deltaTime)
 				if (dealer->finishFirst == true)
 				{
 					firstTurn = false;
-					endBet = false;
 					player->turnEnd = false;
-					canClick = true;
+					//canClick = true;
 				}
 
 			}
@@ -156,9 +164,9 @@ void BlackJack::DealerTurn(float _deltaTime)
 void BlackJack::CheckVictory(float _deltaTime)
 {
 	//승패계산
-	if (dealer->GetScore() >= 21)
+	if (dealer->GetScore() >= 22)
 	{
-		std::cout << "딜러가 21넘었음  " << " ㅇㅇ" << std::endl;
+		std::cout << "딜러가 22넘었음  " << " ㅇㅇ" << std::endl;
 	}
 	else if (player->GetScore() == dealer->GetScore())
 	{

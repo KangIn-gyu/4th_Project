@@ -57,11 +57,28 @@ void Object::SetActive(bool _state)
     {
         state = State::Paused;
     }
+
+    if (isActive != _state)
+    {
+        for (auto& component : components)
+        {
+            if (component.second.empty()) continue; // 비어 있는 경우 방어 코드 추가
+
+            for (auto com : component.second)
+            {
+                if (com == nullptr) continue; // nullptr 체크
+                com->SetActive(_state);
+            }
+        }
+    }
+
 }
 
 void Object::Erase()
 {
     state = State::Erase;
+    //setactive 끄고 위치도 10000,10000
+    //Layer Erase 모아뒀다가 내가 특정 타입을 부르면 >> erase 있으면? 얘를 갖다줘 없으면 그냥 생성
 }
 
 void Object::ClearComponents()

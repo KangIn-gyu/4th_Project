@@ -3,6 +3,7 @@
 #include "Hand.h"
 #include <algorithm>
 #include <random>
+#include "../Engine/TransformComponent.h"
 
 Player::Player()
 {
@@ -12,6 +13,11 @@ Player::Player()
 void Player::Initialize()
 {
 	
+}
+
+void Player::Update(const float _deltaTime)
+{
+	//std::cout << hand.numCard();
 }
 
 
@@ -29,7 +35,7 @@ void Player::Init()
 void Player::FirstDraw(Deck* _deck)
 {
 	if (hand.numCard() < 6)
-		hand.cardDraw((_deck->DrawCard()));
+		hand.cardDraw((_deck->DrawCard(false)));
 	else
 		drawFirst = true;
 }
@@ -43,7 +49,7 @@ void Player::CardDraw(Deck* _deck)
 	else
 	{
 		needDiscard = false;
-		auto card = hand.cardDraw((_deck->DrawCard()));
+		auto card = hand.cardDraw((_deck->DrawCard(false)));
 		card->Open();
 		if (card->rank == "A")
 			card->OpenA();
@@ -73,15 +79,19 @@ bool Player::Open2Card()
 
 void Player::ShuffleHand()
 {
-	std::random_device rd;
-	std::mt19937 g(rd());
-	std::shuffle(hand.hand.begin(), hand.hand.end(), g);  //셔플연출추가
-	Shuffle = true;
+	
+	/*for (int i = 0; i < hand.numCard(); i++)
+	{
+		hand.hand[i]->GetComponent<TransformComponent>()->SetPosition(playerSlots[i]);
+	}*/
+
+	if(true == hand.ShuffleHand())
+		Shuffle = true;
 }
 
 bool Player::CheckGameOver()
 {
-	return (GetScore() >= 21);
+	return (GetScore() >= 22);
 }
 
 

@@ -295,9 +295,6 @@
     <ClInclude Include="InputLayout.h">
       <Filter>3_Graphics\GraphicsData\InputLayout</Filter>
     </ClInclude>
-    <ClInclude Include="Object.h">
-      <Filter>5_Object</Filter>
-    </ClInclude>
     <ClInclude Include="Component.h">
       <Filter>5_Object\Component</Filter>
     </ClInclude>
@@ -382,6 +379,9 @@
       <Filter>2_System\Sound</Filter>
     </ClInclude>
     <ClInclude Include="ShadowRenderer.h" />
+    <ClInclude Include="Object.h">
+      <Filter>5_Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WindowApp.cpp">
@@ -576,6 +576,9 @@
     <ClCompile Include="ShadowRenderer.cpp" />
     <ClCompile Include="CSVLoader.cpp">
       <Filter>2_System\CSVLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>5_Object\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

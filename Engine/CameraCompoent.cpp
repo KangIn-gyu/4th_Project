@@ -32,6 +32,7 @@ void CameraCompoent::ComponentInitialize()
 		delete GetOwner();
 		owner = nullptr;
 	}
+
 }
 
 void CameraCompoent::ComponentUpdate(const float _deltaTime)

@@ -59,7 +59,7 @@ public:
 	Dealer* dealer;
 	//bool isThrow = false; //카드 버리기모드 
 	bool onDoubbleDown = false;
-	bool endBet = true;
+	bool endBet = false;
 	bool canClick = false;
 private:
 	float elapsedTime =0;
@@ -69,6 +69,8 @@ private:
 	bool isRoundOver = true; //한 라운드가 끝날떄
 	
 	//bool isClicked = false;
+	//클릭전까지 게임돌아가는거 멈추기;
+	//앞면으로 한번에 뒤집고 3초? 뒤 다시 뒤집고 셔플
 	int betMoney;
 	int magnification = 1; //배율   최종 = 베팅액 * 배율
 };

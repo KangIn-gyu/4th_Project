@@ -25,15 +25,18 @@ Object* EventSystem::FindObj(DXMath::Vector3 _rayOrigin, DXMath::Vector3 _rayDir
 			for (size_t index = 0; index < objlayer->GetSize(); ++index) {
 				auto obj = objlayer->GetGameObject(index);
 				// 레이가 AABB와 교차하는지 확인)
-				auto boxcol = obj->GetComponent<BoxCollider>();
-				if (boxcol != nullptr)
+				if (obj->IsActive())
 				{
-					float distance;
-					if (boxcol->IntersectsRay(_rayOrigin, _rayDirection, distance))
+					auto boxcol = obj->GetComponent<BoxCollider>();
+					if (boxcol != nullptr)
 					{
-						if (distance < closestDistance) {
-							closestDistance = distance;  // 가장 가까운 거리 갱신
-							closestObject = obj;  // 가장 가까운 오브젝트 저장
+						float distance;
+						if (boxcol->IntersectsRay(_rayOrigin, _rayDirection, distance))
+						{
+							if (distance < closestDistance) {
+								closestDistance = distance;  // 가장 가까운 거리 갱신
+								closestObject = obj;  // 가장 가까운 오브젝트 저장
+							}
 						}
 					}
 				}

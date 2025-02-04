@@ -32,7 +32,9 @@ void TestScene::Enter()
 	//auto test = ObjectCreator<Card>("Cube", Object::ObjectType::Basic);
 	//test->GetComponent<TransformComponent>()->SetPosition({ 0,-100,0 });
 	//auto test2 = ObjectCreator<Card>("Cube", Object::ObjectType::Basic);
-	//test2->GetComponent<TransformComponent>()->SetPosition({ 210,-100,0 });
+	//test2->GetComponent<TransformComponent>()->SetPosition({ 
+	// 
+	// 0,-100,0 });
 	//SceneLoader loader;
 	//loader.Load("../4th_Project/2345.json");
 	//loader.ImportUnityScene("../4th_Project/2345.json", this);

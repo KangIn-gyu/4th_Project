@@ -71,6 +71,21 @@ void Scene::EraseGameObject(Layer::Tag _tag, Object* obj)
 	gameObecjts[static_cast<int>(_tag)]->EraseGameObject(obj);
 }
 
+void Scene::SetActive(bool _Active)
+{
+	for (auto layer : gameObecjts)
+	{
+		if (layer != nullptr)
+		{
+			for (int i = 0; i < layer->GetSize(); i++)
+			{
+				auto obj = layer->GetGameObject(i);
+				obj->SetActive(_Active);
+			}
+		}
+	}
+}
+
 Object* Scene::GetGameObject(Object::ObjectType _Type, std::string_view _name)
 {
 	return gameObecjts[static_cast<int>(_Type)]->GetGameObject(_name);
@@ -106,7 +121,7 @@ void Scene::CreateLayers()
 void Scene::BasicObject()
 {
 	auto* mainCamera = FACTORYSYSTEM->ObjectCreator<CameraObject>("MainCamera", Object::ObjectType::Camera);
-	mainCamera->GetComponent<TransformComponent>()->SetPosition({ 0, 0, -300.0f });
+	mainCamera->GetComponent<TransformComponent>()->SetPosition({ 0, 0, -2000.0f });
 	gameObecjts[static_cast<int>(Object::ObjectType::Camera)]->AddGameObjcet(mainCamera);
 
 	// TODO : 라이트 추가 해야됨.

@@ -14,7 +14,7 @@ class Player : public SingletonBase<Player>
 public:
 	
 	virtual void Initialize();
-	virtual void Update(const float _deltaTime) {};
+	virtual void Update(const float _deltaTime);
 	virtual void FixedUpdate() {}
 	virtual void LateUpdate() {}
 
@@ -40,6 +40,7 @@ public:
 	bool Shuffle     = false;
 	bool needDiscard = false;
 	int  openCard  = 0; //d
+	int  skillPoint = 0; 
 	int  chip = 1000; //°×ºí¶§ ¾µ Ä¨ ¼ö,ÀüÃ¼ µ·
 	Hand hand;
 	
