@@ -80,28 +80,11 @@ DXMath::Vector3 Transform::GetLocalRight() const
 void Transform::SetLocalMatrix(const DXMath::Matrix _localMatrix)
 {
 	localMatrix = _localMatrix;
-
 	DirectX::XMVECTOR s, r, t;
 	DirectX::XMMatrixDecompose(&s, &r, &t, _localMatrix);
 	scale = s;
 	rotation = r;
 	position = t;
-
-	//// Position 추출
-	//position = DXMath::Vector3(localMatrix._41, localMatrix._42, localMatrix._43);
-
-	//// Scale 추출
-	//scale.x = DXMath::Vector3(localMatrix._11, localMatrix._12, localMatrix._13).Length();
-	//scale.y = DXMath::Vector3(localMatrix._21, localMatrix._22, localMatrix._23).Length();
-	//scale.z = DXMath::Vector3(localMatrix._31, localMatrix._32, localMatrix._33).Length();
-
-	//// Rotation 추출 (스케일 제거 후 쿼터니언 계산)
-	//DXMath::Matrix rotationMatrix = localMatrix;
-	//rotationMatrix._11 /= scale.x; rotationMatrix._12 /= scale.x; rotationMatrix._13 /= scale.x;
-	//rotationMatrix._21 /= scale.y; rotationMatrix._22 /= scale.y; rotationMatrix._23 /= scale.y;
-	//rotationMatrix._31 /= scale.z; rotationMatrix._32 /= scale.z; rotationMatrix._33 /= scale.z;
-
-	// rotation = DXMath::Quaternion::CreateFromRotationMatrix(rotationMatrix);
 }
 
 void Transform::SetPosition(const DXMath::Vector3 _position)

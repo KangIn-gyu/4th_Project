@@ -22,7 +22,7 @@ public:
 
 	void SetWindowSize(int _width, int _height);
 	DXMath::Vector2 GetWindowSize();
-	void ChangeScene(std::string_view _SceneName);
+	void ChangeScene(std::string_view _SceneName); // TODO : 이거 왜 만들었지 기억이 안남
 
 private:
 	Engine() = default;

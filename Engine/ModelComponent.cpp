@@ -58,7 +58,7 @@ void ModelComponent::ComponentUpdate(const float _deltaTime)
         activeAnimation->SetCurrTime(progressAnimTime);
     }
 
-    rootNode->Update(_deltaTime, progressAnimTime); // TODO : 애니메이션 프로세스 시간 넣어야 됨
+    rootNode->Update(_deltaTime, progressAnimTime); // 애니메이션 프로세스 시간 넣어야 됨
 
     auto& meshs = *model->GetModelData()->meshs;
     if (nullptr != activeAnimation)
@@ -72,18 +72,15 @@ void ModelComponent::ComponentUpdate(const float _deltaTime)
                 size_t boneCount = skeletalMesh->GetBoneReferencesSize();
                 for (UINT j = 0; j < boneCount; j++)
                 {
-                    /*AiNode* node = nodeList.find(meshs[i]->GetName())->second;*/
                     BoneReference& boneRef = skeletalMesh->GetBoneReferences()[j];
                     AiNode* node = nodeList.find(boneRef.GetName())->second;
                     Transform* parentTransform = node->GetPtrTransform();
                     boneRef.SetNodeWolrdTransform(parentTransform->GetPtrWorldMatrix());
-                //    std::cout << j << " " << node->GetName() << "의 노드에 " << skeletalMesh->GetName() << "의 매쉬에다 본 레퍼런스의 정보를 넣음\n";
                 }
                 skeletalMesh->UpdateMatrixPallete(&matrixPalletBuffer, model->GetModelData()->skeletonInfo);
             }
         }
     }
-
 }
 
 Transform* ModelComponent::GetTransform()
@@ -93,6 +90,8 @@ Transform* ModelComponent::GetTransform()
 
 void ModelComponent::SetAnimation(int _index)
 {
+    progressAnimTime = 0;
+
     if (_index < 0 || _index >= modelAnimation->size() || (*modelAnimation)[_index] == nullptr)
     {
         return;

@@ -20,7 +20,6 @@ Scene::Scene(std::string_view _Name)
 
 Scene::~Scene()
 {
-	std::cout << "¾À »èÁ¦" << "\n";
 	SafeExtinction::SAFE_CLEAR_CONTAINER(gameObecjts);
 }
 

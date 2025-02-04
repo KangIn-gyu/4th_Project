@@ -24,7 +24,7 @@ void TransformEditor::Update()
 void TransformEditor::Draw()
 { // 시간 낭비 하기 싫어서 걍 하드 코딩으로 처리함
 	if (state == State::Active && nullptr != selectedObject && IsNode == false)
-	{ //TODO : 트랜스폼 정보 얻어와서 처리하는걸 만들자
+	{ 
         if(ImGui::CollapsingHeader("TransformComponent", ImGuiTreeNodeFlags_DefaultOpen))
         {
             auto* transform = selectedObject->GetComponent<TransformComponent>();

@@ -59,6 +59,11 @@ void CameraCompoent::UpdateViewMatrix()
 	DXMath::Vector3 forward = cameraInfo->cameraTransform->GetWorldForward();
 	DXMath::Vector3 up = cameraInfo->cameraTransform->GetLocalUp();
 	
+	if (DX::XMVector3Equal(forward, DX::XMVectorZero()))
+	{
+		forward = DXMath::Vector3(0.0f, 0.0f, 1.0f);
+	}
+
 	viewMatrix = DX::XMMatrixLookAtLH(position, position + forward, up);
 }
 

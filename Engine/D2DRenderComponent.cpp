@@ -44,8 +44,7 @@ void D2DRenderComponent::Set2DImagePos(float _x, float _y)
 }
 
 void D2DRenderComponent::LoadFont(const std::string& _filePath)
-{
-	// TODO : 다시 만들어야 됨
+{	// TODO : 다시 만들어야 됨
 	font = FONTMANAGER->LoadFont(_filePath);
 }
 

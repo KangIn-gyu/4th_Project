@@ -57,8 +57,7 @@ public:
 	int GetLayerOrder() { return layerOrder; };
 
 	bool operator<(const Object& other) const
-	{
-		// 예시로 layerOrder를 기준으로 정렬
+	{ // 예시로 layerOrder를 기준으로 정렬	
 		return this->layerOrder < other.layerOrder;
 	}
 protected:

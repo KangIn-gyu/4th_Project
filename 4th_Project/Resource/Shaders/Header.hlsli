@@ -29,7 +29,7 @@ cbuffer CameraBuffer : register(b2)
 
 cbuffer MatrixPallete : register(b3)
 {
-    matrix MatrixPalleteArray[512];
+    matrix MatrixPalleteArray[400];
 }
 
 cbuffer ShadowBuffer : register(b4)

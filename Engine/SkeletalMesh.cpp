@@ -3,6 +3,7 @@
 #include "BoneInfo.h"
 #include "ConstantBufferData.h"
 #include "SkeletonInfo.h"
+#include "ConstantBufferData.h"
 
 void SkeletalMesh::UpdateMatrixPallete(MatrixPallete* _pallete, SkeletonInfo* _skeletonInfo)
 {
@@ -23,8 +24,8 @@ void SkeletalMesh::UpdateMatrixPallete(MatrixPallete* _pallete, SkeletonInfo* _s
 		if (boneInfo == nullptr)
 		{
 			throw std::runtime_error("BoneInfo is NULL! Bone name: " + name);
-		}
-		_pallete->array[index] = (boneInfo->GetOffsetMatrix() * BoneNodeWorldMatrix).Transpose(); //  여기 인덱스 문제 있음 문제 해결해야됨
+		} 
+		_pallete->array[index] = (boneInfo->GetOffsetMatrix() * BoneNodeWorldMatrix).Transpose(); 
 	}
 }
 

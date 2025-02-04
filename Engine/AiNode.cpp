@@ -25,9 +25,12 @@ void AiNode::Update(const float _deltaTime, const float _progressTime)
 		DXMath::Vector3 position {}, scaling {};
 		DXMath::Quaternion rotation {};
 		animationNode->Evaluate(_progressTime, position, rotation, scaling);
-		transform.SetLocalMatrix({ DirectX::SimpleMath::Matrix::CreateScale(scaling)
-								 * DirectX::SimpleMath::Matrix::CreateFromQuaternion(rotation)
-								 * DirectX::SimpleMath::Matrix::CreateTranslation(position) });
+
+		DXMath::Matrix localTransform = DXMath::Matrix::CreateScale(scaling)
+										* DXMath::Matrix::CreateFromQuaternion(rotation)
+										* DXMath::Matrix::CreateTranslation(position);
+
+		transform.SetLocalMatrix(localTransform);
 	}
 
 	transform.UpdateTransform(); // Transform에 맞는 업데이트 구현 필요

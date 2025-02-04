@@ -85,12 +85,11 @@ struct alignas(16) LightBuffer
 };
 
 #define BoneBufferMaxSize 400
-
 struct alignas(16) MatrixPallete
 {
 	MatrixPallete()
 	{
 		ValidateConstantBufferSize<MatrixPallete>();
 	}	
-	DXMath::Matrix array[BoneBufferMaxSize]; // TODO : MatrixPallete 사이즈 고민이 있음
+	DXMath::Matrix array[BoneBufferMaxSize];
 }; 

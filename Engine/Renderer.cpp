@@ -90,7 +90,6 @@ void Renderer::D3DDraw()
 	ID3D11DepthStencilView* originalDSV = nullptr;
 	d3dDeviceContext->OMGetRenderTargets(1, &originalRTV, &originalDSV);
 
-
 	//std::cout << "Light Position: " << lightPos.x << ", " << lightPos.y << ", " << lightPos.z << std::endl;
 	//std::cout << "Light Direction: " << lightDir.x << ", " << lightDir.y << ", " << lightDir.z << std::endl;
 
