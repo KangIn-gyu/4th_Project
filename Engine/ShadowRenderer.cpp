@@ -98,7 +98,7 @@ bool ShadowRenderer::Initialize(ID3D11Device* device, ID3D11DeviceContext* devic
 void ShadowRenderer::BeginShadowPass(ID3D11DeviceContext* context)
 {
 
-    //std::cout << "Shadow DSV valid: " << (shadowMapDSV != nullptr) << std::endl;
+    std::cout << "Shadow DSV valid: " << (shadowMapDSV != nullptr) << std::endl;
 
     ID3D11RenderTargetView* nullRTV = nullptr;
     ID3D11DepthStencilView* nullDSV = nullptr;
@@ -135,9 +135,8 @@ void ShadowRenderer::InitShadowResources(ID3D11Device* device)
 	shadowBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 	device->CreateBuffer(&shadowBufferDesc, nullptr, shadowCB.GetAddressOf());
 
-	InputLayout::Layout offset;
 	// float4 -> R32G32B32A32 / float3 -> R32G32B32 / float2 -> R32G32
-	std::initializer_list<D3D11_INPUT_ELEMENT_DESC> elements =
+    D3D11_INPUT_ELEMENT_DESC layout[] =
 	{
 		{ "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT,	 0, D3D11_APPEND_ALIGNED_ELEMENT,	D3D11_INPUT_PER_VERTEX_DATA, 0},
 		{ "COLOR",    0, DXGI_FORMAT_R32G32B32A32_FLOAT,	 0, D3D11_APPEND_ALIGNED_ELEMENT,	D3D11_INPUT_PER_VERTEX_DATA, 0},
@@ -150,9 +149,26 @@ void ShadowRenderer::InitShadowResources(ID3D11Device* device)
 	};
 
 	// 설정하는걸
-	shadowIA.IASetInputLayout(elements, "Shaders/ShadowVS.hlsl");
+	//shadowIA.IASetInputLayout(elements, "Shaders/ShadowVS.hlsl");
     shadowVS = RESOURCESYSTEM->Load<Shader>("Shaders/ShadowVS.hlsl");
-	//shadowVS = temp->GetVertexShader();
+
+    ID3DBlob* vsBlob = shadowVS->GetVSBlob();
+
+    if (!vsBlob)
+    {
+        // 에러 처리
+        return;
+    }
+
+    HR_T(device->CreateInputLayout(
+        layout,
+        ARRAYSIZE(layout),
+        vsBlob->GetBufferPointer(),    // vsData 대신 vsBlob 사용
+        vsBlob->GetBufferSize(),       // vsData 대신 vsBlob 사용
+        shadowIA.GetAddressOf()));
+
+    // Blob 해제
+    if (vsBlob) vsBlob->Release();
 
 	/*
 	update
@@ -232,16 +248,19 @@ void ShadowRenderer::RenderShadow(ID3D11DeviceContext* context, const DXMath::Ma
     context->PSSetSamplers(0, 1, basicSampler.GetAddressOf());
     context->PSSetSamplers(2, 1, shadowSampler.GetAddressOf());
 
-    auto inputLayout = shadowIA.GetInputLayout();
-    if (!inputLayout)
-    {
-        std::cout << "Shadow Input Layout is null! Check if InitShadowResources was called." << std::endl;
-        return;
-    }
+    //auto inputLayout = shadowIA.GetInputLayout();
+    //if (!inputLayout)
+    //{
+    //    std::cout << "Shadow Input Layout is null! Check if InitShadowResources was called." << std::endl;
+    //    return;
+    //}
 
     context->VSSetShader(shadowVS->GetVertexShader().Get(), nullptr, 0);
     context->PSSetShader(nullptr, nullptr, 0);
-    context->IASetInputLayout(inputLayout.Get());
+
+    //auto tmp = shadowIA.GetInputLayout().GetAddressOf();
+    
+    context->IASetInputLayout(shadowIA.Get());
     context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
     // input layout이 제대로 설정되었는지 확인
@@ -285,6 +304,15 @@ void ShadowRenderer::RenderShadow(ID3D11DeviceContext* context, const DXMath::Ma
             // 해당 메시의 노드 찾기
             auto nodeIter = nodeData->find(meshInfo->meshName);
             if (nodeIter == nodeData->end()) continue;
+
+            UINT stride = sizeof(Vertex); // 정점 구조체의 크기
+            UINT offset = 0;
+            ID3D11Buffer* vertexBuffer = meshInfo->vertexBuffer->GetBuffer().Get();
+            context->IASetVertexBuffers(0, 1, &vertexBuffer, &stride, &offset);
+
+            // Index Buffer도 설정
+            context->IASetIndexBuffer(meshInfo->indexBuffer->GetBuffer().Get(),
+                DXGI_FORMAT_R32_UINT, 0);
 
             auto* indexBuffer = meshInfo->indexBuffer;
             // World Matrix 가져오기

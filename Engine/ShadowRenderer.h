@@ -19,8 +19,8 @@ public:
 
 	ComPtr<ID3D11SamplerState> shadowSampler;
 	ComPtr<ID3D11SamplerState> basicSampler;
-	InputLayout shadowIA;		// 어차피 메인이랑 똑같은데 왜 또 선언해야하지?
-
+	//InputLayout shadowIA;		// 어차피 메인이랑 똑같은데 왜 또 선언해야하지?
+	ComPtr<ID3D11InputLayout> shadowIA;
 	bool useCustomWolrdMatrix = false;
 
 	ComPtr<ID3D11ShaderResourceView> GetShadowMapSRV() const { return shadowMapSRV.Get(); }

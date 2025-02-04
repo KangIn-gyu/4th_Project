@@ -1,5 +1,6 @@
 #pragma once
 
+class Shader;
 class InputLayout
 {
 public:
@@ -38,6 +39,7 @@ public:
 private:
 	int a = 0;
 	ComPtr<ID3D11InputLayout> inputLayout;
+	std::shared_ptr<Shader> VSshader;
 };
 
 // float4 -> R32G32B32A32 / float3 -> R32G32B32 / float2 -> R32G32
