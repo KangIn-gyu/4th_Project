@@ -96,12 +96,23 @@ void Renderer::D3DDraw()
 	d3dDeviceContext->PSSetSamplers(2, 1, &shadowRenderer.GetShadowSampler());
 
 	// 1. 그림자 맵 패스
-	shadowRenderer.BeginShadowPass(d3dDeviceContext.Get());
-	{
-		// 그림자 맵 렌더링
-		shadowRenderer.RenderShadow(d3dDeviceContext.Get(), CreateShadowMatrix(), work);
-		IMGUI->srv = shadowRenderer.GetShadowMapSRV();
+	ID3D11InputLayout* currentLayout;
+	d3dDeviceContext->IAGetInputLayout(&currentLayout);
+	if (!currentLayout) {
+		std::cout << "Input Layout is null before shadow pass\n";
 	}
+
+	shadowRenderer.BeginShadowPass(d3dDeviceContext.Get());
+
+	ID3D11InputLayout* currentLayout1;
+	d3dDeviceContext->IAGetInputLayout(&currentLayout1);
+	if (!currentLayout1) {
+		std::cout << "Input Layout is null before shadow pass\n";
+	}
+	// 그림자 맵 렌더링
+	shadowRenderer.RenderShadow(d3dDeviceContext.Get(), CreateShadowMatrix(), work);
+	IMGUI->srv = shadowRenderer.GetShadowMapSRV();
+	
 	// 원래의 렌더링 상태로 복구
 
 	d3dDeviceContext->RSSetViewports(1, &originalViewport);
@@ -146,7 +157,27 @@ void Renderer::D3DDraw()
 			d3dDeviceContext->IASetVertexBuffers(0, 1, vertexBuffer->GetBuffer().GetAddressOf(), &vertexBuffer->vertextBufferStride, &vertexBuffer->vertextBufferOffset);
 			auto* indexBuffer = meshData->indexBuffer;
 			d3dDeviceContext->IASetIndexBuffer(indexBuffer->GetBuffer().Get(), DXGI_FORMAT_R32_UINT, 0);
+			// 문제점 발견
+			// 한번 물어볼것 
+			// meshdata를 돌면서 meshdata안에 inputlayout이 없는게 있을수 있나?
+			// 메모리 손상이나 잘못된 참조
+			// ComPtr나 스마트 포인터의 잘못된 관리
+			// meshData->inputLayout의 수명주기 문제
+			// 멀티스레딩 관련 동기화 문제
+			// 제안하는 디버깅 방법 :
+			//
+			// meshData->inputLayout의 생성 / 소멸 시점 확인
+			// GetInputLayout() 구현 검토
+			// COM 참조 카운트 확인
+			// ID3D11DeviceContext가 올바른 스레드에서 호출되는지 확인
 			d3dDeviceContext->IASetInputLayout(meshData->inputLayout.GetInputLayout().Get());
+			if (meshData->inputLayout.GetInputLayout().GetAddressOf())
+			{
+				// IA의 주소와 실제 인터페이스 값
+				std::cout << "Layout Address: " << meshData->inputLayout.GetInputLayout().GetAddressOf()
+					<< ", Interface: " << meshData->inputLayout.GetInputLayout().Get() << "\n";
+			}
+
 
 			// VS 
 			d3dDeviceContext->VSSetShader(renderComponent->GetShader(ShaderType::VS)->GetVertexShader().Get(), nullptr, 0);
@@ -285,27 +316,6 @@ DXMath::Matrix Renderer::CreateShadowMatrix()
 		nearPlane,
 		farPlane
 	);
-
-	// View 행렬 생성 후 디버그 출력
-	//std::cout << "\nView Matrix (should have normalized vectors in first 3x3):\n";
-	//for (int i = 0; i < 4; i++) {
-	//	float length = sqrt(
-	//		lightView.m[i][0] * lightView.m[i][0] +
-	//		lightView.m[i][1] * lightView.m[i][1] +
-	//		lightView.m[i][2] * lightView.m[i][2]
-	//	);
-	//	std::cout << lightView.m[i][0] << ", "
-	//		<< lightView.m[i][1] << ", "
-	//		<< lightView.m[i][2] << ", "
-	//		<< lightView.m[i][3] << " (length: " << length << ")\n";
-	//}
-
-	// Projection 행렬 요소 분석
-	//std::cout << "\nProjection Matrix Analysis:\n";
-	//std::cout << "Scale X (should be ~0.02 for size 100): " << lightProj.m[0][0] << "\n";
-	//std::cout << "Scale Y (should be ~0.02 for size 100): " << lightProj.m[1][1] << "\n";
-	//std::cout << "Depth scale (should be small positive): " << lightProj.m[2][2] << "\n";
-	//std::cout << "Depth offset: " << lightProj.m[3][2] << "\n";
 
 	DXMath::Matrix final = lightView * lightProj;
 

@@ -6,21 +6,21 @@
 #include "ResourceSystem.h"
 #include "Shader.h"
 
-void InputLayout::IASetInputLayout(const std::initializer_list<D3D11_INPUT_ELEMENT_DESC>& _elements, std::string_view _vertexShaderfilePath)
+bool InputLayout::IASetInputLayout(const std::initializer_list<D3D11_INPUT_ELEMENT_DESC>& _elements, std::string_view _vertexShaderfilePath)
 {
     VSshader = RESOURCESYSTEM->Load<Shader>(_vertexShaderfilePath);
 
     if (!VSshader)
     {
         std::cout << "Failed to load vertex shader" << std::endl;
-        return;
+        return false;
     }
 
     ID3DBlob* vsBlod = VSshader->GetVSBlob();
     if (nullptr == vsBlod)
     {
         std::cout << "IASetInputLayout 실패" << std::endl; // 추후 로그 시스템으로 해야됨
-        return;
+        return false;
     }
 
     // 3. elements를 벡터로 변환 (안전한 메모리 관리를 위해)
@@ -34,4 +34,6 @@ void InputLayout::IASetInputLayout(const std::initializer_list<D3D11_INPUT_ELEME
                                                      vsBlod->GetBufferSize(),
                                                      inputLayout.GetAddressOf()
                                                     ));
+
+    return true;
 }

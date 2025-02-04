@@ -8,7 +8,7 @@ class ShadowRenderer
 public:
 	bool Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceContext);
 	void BeginShadowPass(ID3D11DeviceContext* context);
-	void InitShadowResources(ID3D11Device* device);
+	bool InitShadowResources(ID3D11Device* device);
 	void RenderShadow(ID3D11DeviceContext* context, const DXMath::Matrix& lightViewProj, std::vector<RenderComponent*> rendercomponent);
 	void DebugShadowMap(ID3D11Device* device, ID3D11DeviceContext* context);
 	//ComPtr<ID3D11Buffer> shadowCB;
@@ -25,6 +25,7 @@ public:
 
 	ComPtr<ID3D11ShaderResourceView> GetShadowMapSRV() const { return shadowMapSRV.Get(); }
 	ComPtr<ID3D11SamplerState> GetShadowSampler() const { return shadowSampler.Get(); }
+	bool ValidateInputLayout();
 private:
 	static const UINT SHADOW_MAP_SIZE = 4096;
 
