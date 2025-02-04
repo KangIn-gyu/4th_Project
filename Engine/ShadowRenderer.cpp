@@ -98,7 +98,7 @@ bool ShadowRenderer::Initialize(ID3D11Device* device, ID3D11DeviceContext* devic
 void ShadowRenderer::BeginShadowPass(ID3D11DeviceContext* context)
 {
 
-    std::cout << "Shadow DSV valid: " << (shadowMapDSV != nullptr) << std::endl;
+    //std::cout << "Shadow DSV valid: " << (shadowMapDSV != nullptr) << std::endl;
 
     ID3D11RenderTargetView* nullRTV = nullptr;
     ID3D11DepthStencilView* nullDSV = nullptr;
@@ -135,40 +135,31 @@ void ShadowRenderer::InitShadowResources(ID3D11Device* device)
 	shadowBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 	device->CreateBuffer(&shadowBufferDesc, nullptr, shadowCB.GetAddressOf());
 
-	// float4 -> R32G32B32A32 / float3 -> R32G32B32 / float2 -> R32G32
-    D3D11_INPUT_ELEMENT_DESC layout[] =
-	{
-		{ "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT,	 0, D3D11_APPEND_ALIGNED_ELEMENT,	D3D11_INPUT_PER_VERTEX_DATA, 0},
-		{ "COLOR",    0, DXGI_FORMAT_R32G32B32A32_FLOAT,	 0, D3D11_APPEND_ALIGNED_ELEMENT,	D3D11_INPUT_PER_VERTEX_DATA, 0},
-		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT,			 0, D3D11_APPEND_ALIGNED_ELEMENT,	D3D11_INPUT_PER_VERTEX_DATA, 0},
-		{ "NORMAL",   0, DXGI_FORMAT_R32G32B32_FLOAT,		 0, D3D11_APPEND_ALIGNED_ELEMENT,	D3D11_INPUT_PER_VERTEX_DATA, 0},
-		{ "TANGENT",  0, DXGI_FORMAT_R32G32B32_FLOAT,		 0, D3D11_APPEND_ALIGNED_ELEMENT,	D3D11_INPUT_PER_VERTEX_DATA, 0},
-		{ "BINORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT,		 0, D3D11_APPEND_ALIGNED_ELEMENT,	D3D11_INPUT_PER_VERTEX_DATA, 0},
-		{ "BLENDINDICES", 0, DXGI_FORMAT_R32G32B32A32_UINT,  0, D3D11_APPEND_ALIGNED_ELEMENT,	D3D11_INPUT_PER_VERTEX_DATA, 0},
-		{ "BLENDWEIGHT",  0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT,	D3D11_INPUT_PER_VERTEX_DATA, 0}
-	};
-
-	// 설정하는걸
-	//shadowIA.IASetInputLayout(elements, "Shaders/ShadowVS.hlsl");
     shadowVS = RESOURCESYSTEM->Load<Shader>("Shaders/ShadowVS.hlsl");
 
-    ID3DBlob* vsBlob = shadowVS->GetVSBlob();
-
-    if (!vsBlob)
+	// float4 -> R32G32B32A32 / float3 -> R32G32B32 / float2 -> R32G32
+    std::initializer_list<D3D11_INPUT_ELEMENT_DESC> elements =
     {
-        // 에러 처리
+        { "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT,	 0, D3D11_APPEND_ALIGNED_ELEMENT,	D3D11_INPUT_PER_VERTEX_DATA, 0},
+        { "COLOR",    0, DXGI_FORMAT_R32G32B32A32_FLOAT,	 0, D3D11_APPEND_ALIGNED_ELEMENT,	D3D11_INPUT_PER_VERTEX_DATA, 0},
+        { "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT,			 0, D3D11_APPEND_ALIGNED_ELEMENT,	D3D11_INPUT_PER_VERTEX_DATA, 0},
+        { "NORMAL",   0, DXGI_FORMAT_R32G32B32_FLOAT,		 0, D3D11_APPEND_ALIGNED_ELEMENT,	D3D11_INPUT_PER_VERTEX_DATA, 0},
+        { "TANGENT",  0, DXGI_FORMAT_R32G32B32_FLOAT,		 0, D3D11_APPEND_ALIGNED_ELEMENT,	D3D11_INPUT_PER_VERTEX_DATA, 0},
+        { "BINORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT,		 0, D3D11_APPEND_ALIGNED_ELEMENT,	D3D11_INPUT_PER_VERTEX_DATA, 0},
+        { "BLENDINDICES", 0, DXGI_FORMAT_R32G32B32A32_UINT,  0, D3D11_APPEND_ALIGNED_ELEMENT,	D3D11_INPUT_PER_VERTEX_DATA, 0},
+        { "BLENDWEIGHT",  0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT,	D3D11_INPUT_PER_VERTEX_DATA, 0}
+    };
+
+	// 설정하는걸
+	shadowIA.IASetInputLayout(elements, "Shaders/ShadowVS.hlsl");
+
+    if (!shadowIA.GetInputLayout().Get())
+    {
+        std::cout << "Failed to create shadow input layout!" << std::endl;
         return;
     }
 
-    HR_T(device->CreateInputLayout(
-        layout,
-        ARRAYSIZE(layout),
-        vsBlob->GetBufferPointer(),    // vsData 대신 vsBlob 사용
-        vsBlob->GetBufferSize(),       // vsData 대신 vsBlob 사용
-        shadowIA.GetAddressOf()));
 
-    // Blob 해제
-    if (vsBlob) vsBlob->Release();
 
 	/*
 	update
@@ -260,7 +251,7 @@ void ShadowRenderer::RenderShadow(ID3D11DeviceContext* context, const DXMath::Ma
 
     //auto tmp = shadowIA.GetInputLayout().GetAddressOf();
     
-    context->IASetInputLayout(shadowIA.Get());
+    context->IASetInputLayout(shadowIA.GetInputLayout().Get());
     context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
     // input layout이 제대로 설정되었는지 확인
