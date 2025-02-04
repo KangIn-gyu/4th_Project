@@ -25,16 +25,6 @@ D2DRenderComponent::~D2DRenderComponent()
 
 void D2DRenderComponent::SceneCSVDataLoad(std::string_view _filePath)
 {
-	if (auto* imageComponent = owner->GetComponent<ImageComponent>();nullptr != imageComponent)
-	{
-		imageData = imageComponent->GetImage();
-	}
-}
-
-void D2DRenderComponent::ComponentUpdate(const float _deltaTime)
-{
-//	float CenterX = (DstRect.right - DstRect.left) / 2;
-//	float CenterY = (DstRect.bottom - DstRect.top) / 2;
 	CSVdatas = CSVLOADER->FindData(_filePath);
 }
 
@@ -99,7 +89,4 @@ void D2DRenderComponent::Draw()
 	}
 }
 
-void D2DRenderComponent::LoadBitMap(std::string_view _filePath)
-{
-	// 비트맵 처리 필요
-}
+

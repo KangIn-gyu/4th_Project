@@ -13,7 +13,7 @@ KangScene::KangScene(std::string_view _Name) : Scene(_Name)
 
 void KangScene::Enter()
 {
-	SOUNDSYSTEM->PlayMusic(eSoundList::Main_Theme, eSoundChannel::BGM);
+//	SOUNDSYSTEM->PlayMusic(eSoundList::Main_Theme, eSoundChannel::BGM);
 	ObjectCreator<AnimationObj>("AnimationObj", Object::ObjectType::Basic);
 	ObjectCreator<BaseObj>("BaseObj", Object::ObjectType::Basic);
 
