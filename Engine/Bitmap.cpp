@@ -70,17 +70,27 @@ void Bitmap::CreateBitmapFromFile(const WCHAR* _filePath)
 
     width = d2dBitmap->GetSize().width;
     height = d2dBitmap->GetSize().height;
-    destRect = { xPos,yPos,width,height };
 }
 
-void Bitmap::SetSize(float width, float height)
+void Bitmap::SetSize(float _width, float _height)
 {
-    destRect.right = width;
-    destRect.bottom = height;
+    //destRect.right = width;
+    //destRect.bottom = height;
+
+    width = _width;
+    height = _height;
+    destRect = { xPos,yPos,width + xPos,height + yPos };
 }
 
-void Bitmap::SetPos(float x, float y)
+void Bitmap::SetPos(float _x, float _y)
 {
-    xPos = CenterX + x;
-    yPos = CenterY + y;
+    //destRect.left = _x;
+    //destRect.top = _y;
+    //
+    //destRect.right += _x;
+    //destRect.bottom += _y;
+
+    xPos = _x;
+    yPos = _y;
+    destRect = { xPos,yPos,width + xPos,height + yPos };
 }

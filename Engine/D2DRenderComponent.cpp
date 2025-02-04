@@ -84,12 +84,12 @@ void D2DRenderComponent::SetTextSize(float _FontSize, DWRITE_TEXT_RANGE _textRan
 
 void D2DRenderComponent::Draw()
 {
-	if (font != nullptr)
-	{
-		D2DClass::GetD2DDeviceContext()->DrawTextLayout( font->GetPos(), font->GetTextLayout(), font->GetBrush());
-	}
 	if (imageData != nullptr)
 	{
 		D2DClass::GetD2DDeviceContext()->DrawBitmap(imageData->GetImageData().Get(), imageData->GetRect());
+	}
+	if (font != nullptr)
+	{
+		D2DClass::GetD2DDeviceContext()->DrawTextLayout( font->GetPos(), font->GetTextLayout(), font->GetBrush());
 	}
 }
