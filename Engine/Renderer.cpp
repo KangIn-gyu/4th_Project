@@ -277,25 +277,25 @@ DXMath::Matrix Renderer::CreateShadowMatrix()
 	);
 
 	// View 행렬 생성 후 디버그 출력
-	std::cout << "\nView Matrix (should have normalized vectors in first 3x3):\n";
-	for (int i = 0; i < 4; i++) {
-		float length = sqrt(
-			lightView.m[i][0] * lightView.m[i][0] +
-			lightView.m[i][1] * lightView.m[i][1] +
-			lightView.m[i][2] * lightView.m[i][2]
-		);
-		std::cout << lightView.m[i][0] << ", "
-			<< lightView.m[i][1] << ", "
-			<< lightView.m[i][2] << ", "
-			<< lightView.m[i][3] << " (length: " << length << ")\n";
-	}
+	//std::cout << "\nView Matrix (should have normalized vectors in first 3x3):\n";
+	//for (int i = 0; i < 4; i++) {
+	//	float length = sqrt(
+	//		lightView.m[i][0] * lightView.m[i][0] +
+	//		lightView.m[i][1] * lightView.m[i][1] +
+	//		lightView.m[i][2] * lightView.m[i][2]
+	//	);
+	//	std::cout << lightView.m[i][0] << ", "
+	//		<< lightView.m[i][1] << ", "
+	//		<< lightView.m[i][2] << ", "
+	//		<< lightView.m[i][3] << " (length: " << length << ")\n";
+	//}
 
 	// Projection 행렬 요소 분석
-	std::cout << "\nProjection Matrix Analysis:\n";
-	std::cout << "Scale X (should be ~0.02 for size 100): " << lightProj.m[0][0] << "\n";
-	std::cout << "Scale Y (should be ~0.02 for size 100): " << lightProj.m[1][1] << "\n";
-	std::cout << "Depth scale (should be small positive): " << lightProj.m[2][2] << "\n";
-	std::cout << "Depth offset: " << lightProj.m[3][2] << "\n";
+	//std::cout << "\nProjection Matrix Analysis:\n";
+	//std::cout << "Scale X (should be ~0.02 for size 100): " << lightProj.m[0][0] << "\n";
+	//std::cout << "Scale Y (should be ~0.02 for size 100): " << lightProj.m[1][1] << "\n";
+	//std::cout << "Depth scale (should be small positive): " << lightProj.m[2][2] << "\n";
+	//std::cout << "Depth offset: " << lightProj.m[3][2] << "\n";
 
 	DXMath::Matrix final = lightView * lightProj;
 

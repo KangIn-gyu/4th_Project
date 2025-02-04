@@ -96,7 +96,7 @@ bool ShadowRenderer::Initialize(ID3D11Device* device, ID3D11DeviceContext* devic
 void ShadowRenderer::BeginShadowPass(ID3D11DeviceContext* context)
 {
 
-    std::cout << "Shadow DSV valid: " << (shadowMapDSV != nullptr) << std::endl;
+    //std::cout << "Shadow DSV valid: " << (shadowMapDSV != nullptr) << std::endl;
 
     // ºäÆ÷Æ® ¼³Á¤
     D3D11_VIEWPORT shadowViewport = {};
