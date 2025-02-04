@@ -18,7 +18,7 @@ public:
 	~D2DFont() = default;
 
 	void SetDialog(std::wstring_view _dialog);
-	void SetColor(D2D1_COLOR_F color) { FontBrush->SetColor(color); } // 컬러 변경 주의사항 : 렌더 하기전에 색을 변경해야 됨
+	void SetColor(D2D1_COLOR_F color) { fontBrush->SetColor(color); } // 컬러 변경 주의사항 : 렌더 하기전에 색을 변경해야 됨
 	void SetPos(float _X, float _Y) { pos = { _X , _Y }; } // 위치 조정 로컬좌표일때 사용
 	void SetBoxSize(float _width, float _height);
 	void SetTextFormat(IDWriteTextFormat* _Format);
@@ -27,8 +27,10 @@ public:
 	void Alignment(Setting _SortX, Setting _SortY); // 왼쪽, 가운데, 오른쪽 정렬
 
 	D2D1_POINT_2F GetPos() { return pos; }
-	ID2D1SolidColorBrush* GetBrush() { return FontBrush; }
+	ID2D1SolidColorBrush* GetBrush() { return fontBrush; }
 	IDWriteTextLayout* GetTextLayout() { return DWriteTextLayout; }
+
+	void DrawTextBox();
 
 private:
 	void CreateLayoutText(std::wstring_view _detail);
@@ -41,7 +43,8 @@ private:
 	D2D_SIZE_F boxSize = { 100.f, 50.f }; // 텍스트 박스 사이즈
 	std::wstring dialog {};  // 내용
 
-	ID2D1SolidColorBrush* FontBrush {};
+	ID2D1SolidColorBrush* fontBrush {};
+	ID2D1SolidColorBrush* boxBrush{};
 	IDWriteTextFormat* DWriteTextFormat {};
 	IDWriteTextLayout* DWriteTextLayout {};
 

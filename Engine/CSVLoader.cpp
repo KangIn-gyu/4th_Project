@@ -4,41 +4,45 @@
 void CSVLoader::Reader(std::string_view _filePath)
 { 
 	CSVReader reader(_filePath);
+	CSVData sceneData;
 
 	for (auto& row : reader)
 	{
 		std::string name;
-		if (row["name"].is_null())
+		if (row["Name"].is_null())
 		{
 			name = "";
 		}
 		else
 		{
-			name = row["name"].get<std::string>();
+			name = row["Name"].get<std::string>();
 		}
 
-
-		int age;
-		if (row["age"].is_null())
+		std::string text;
+		if (row["Text"].is_null())
 		{
-			age = 1;
+			text = "";
 		}
 		else
 		{
-			age = row["age"].get<int>();
+			text = row["Text"].get<std::string>();
 		}
+		sceneData.emplace_back(name, text);
+	}
 
-		std::string city;
-		if (row["city"].is_null())
-		{
-			name = "";
-		}
-		else
-		{
-			name = row["city"].get<std::string>();
-		}
+	csvDatas[std::string(_filePath)] = std::move(sceneData);
+}
 
-		// 여기서 구조체 만들어서 처리하면 될거 같다
-		std::cout << "이름: " << name << ", 나이: " << age << ", 도시: " << city << std::endl;
+std::vector<std::pair<std::string, std::string>> CSVLoader::FindData(std::string_view _filePath)
+{
+	auto it = csvDatas.find(_filePath.data());
+	
+	if (it != csvDatas.end())
+	{
+		return it->second;
+	}
+	else
+	{
+		std::cout << "CSVLoader::FindData 오류\n";
 	}
 }

@@ -164,6 +164,9 @@
     <Filter Include="4_Resources\ResourceData\Font">
       <UniqueIdentifier>{76cc16ee-3d3a-45da-873f-6525ddb13fe7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="4_Resources\CSVLoader">
+      <UniqueIdentifier>{8cfcf0f4-4127-4241-82c8-ac0c3888a5af}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowApp.h">
@@ -382,10 +385,10 @@
       <Filter>5_Object\Component\TextComponent</Filter>
     </ClInclude>
     <ClInclude Include="CSVLoader.h">
-      <Filter>2_System\CSVLoader</Filter>
+      <Filter>4_Resources\CSVLoader</Filter>
     </ClInclude>
     <ClInclude Include="csv.hpp">
-      <Filter>2_System\CSVLoader</Filter>
+      <Filter>4_Resources\CSVLoader</Filter>
     </ClInclude>
     <ClInclude Include="SoundSystem.h">
       <Filter>2_System\Sound</Filter>
@@ -596,7 +599,7 @@
     </ClCompile>
     <ClCompile Include="ShadowRenderer.cpp" />
     <ClCompile Include="CSVLoader.cpp">
-      <Filter>2_System\CSVLoader</Filter>
+      <Filter>4_Resources\CSVLoader</Filter>
     </ClCompile>
     <ClCompile Include="ImageComponent.cpp">
       <Filter>5_Object\Component\BitmapComponent</Filter>

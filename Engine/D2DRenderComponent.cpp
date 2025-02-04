@@ -11,6 +11,7 @@
 #include "Object.h"
 #include "Renderer.h"
 #include "ResourceSystem.h"
+#include "CSVLoader.h"
 
 D2DRenderComponent::D2DRenderComponent()
 {
@@ -22,7 +23,7 @@ D2DRenderComponent::~D2DRenderComponent()
 	SafeExtinction::SAFE_DELETE(font);
 }
 
-void D2DRenderComponent::ComponentInitialize()
+void D2DRenderComponent::SceneCSVDataLoad(std::string_view _filePath)
 {
 	if (auto* imageComponent = owner->GetComponent<ImageComponent>();nullptr != imageComponent)
 	{
@@ -34,6 +35,7 @@ void D2DRenderComponent::ComponentUpdate(const float _deltaTime)
 {
 //	float CenterX = (DstRect.right - DstRect.left) / 2;
 //	float CenterY = (DstRect.bottom - DstRect.top) / 2;
+	CSVdatas = CSVLOADER->FindData(_filePath);
 }
 
 void D2DRenderComponent::Load2DImage(std::string_view _filePath)
@@ -84,12 +86,20 @@ void D2DRenderComponent::SetTextSize(float _FontSize, DWRITE_TEXT_RANGE _textRan
 
 void D2DRenderComponent::Draw()
 {
+#if _DEBUG
+	font->DrawTextBox();
+#endif
 	if (font != nullptr)
 	{
-		D2DClass::GetD2DDeviceContext()->DrawTextLayout( font->GetPos(), font->GetTextLayout(), font->GetBrush());
+		D2DClass::GetD2DDeviceContext()->DrawTextLayout(font->GetPos(), font->GetTextLayout(), font->GetBrush());
 	}
 	if (imageData != nullptr)
 	{
 		D2DClass::GetD2DDeviceContext()->DrawBitmap(imageData->GetImageData().Get(), imageData->GetRect());
 	}
+}
+
+void D2DRenderComponent::LoadBitMap(std::string_view _filePath)
+{
+	// 비트맵 처리 필요
 }

@@ -4,9 +4,14 @@
 #include "Helper.h"
 #include "D2DClass.h"
 
+
 D2DFont::D2DFont()
 {
-	HRESULT hr = D2DClass::GetD2DDeviceContext()->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::Black), &FontBrush);
+	D2DClass::GetD2DDeviceContext()->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::Black), &fontBrush);
+
+#if _DEBUG
+	D2DClass::GetD2DDeviceContext()->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::Green), &boxBrush);
+#endif
 }
 
 void D2DFont::SetDialog(std::wstring_view _dialog)
@@ -79,6 +84,12 @@ void D2DFont::Alignment(Setting _SortX, Setting _SortY)
 	{
 		DWriteTextLayout->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
 	}
+}
+
+void D2DFont::DrawTextBox()
+{
+	D2D1_RECT_F rect = { pos.x, pos.y,  pos.x + boxSize.width, pos.y + boxSize.height};
+	D2DClass::GetD2DDeviceContext()->DrawRectangle(&rect, boxBrush);
 }
 
 void D2DFont::CreateLayoutText(std::wstring_view _detail)
