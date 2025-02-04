@@ -5,6 +5,7 @@
 
 #include "Mesh.h"
 #include "AiNode.h"
+#include "BoneInfo.h"
 #include "BoneReference.h"
 
 class IndexBuffer;

@@ -12,7 +12,6 @@ AnimationObj::AnimationObj(std::string_view _name, Object::ObjectType _type) : O
 void AnimationObj::Initialize()
 {
 	auto* model = CreateComponent<ModelComponent>("STAGE1/FBX/SkinningTest.fbx");  // char2 / gun / Robot_Dummy_classTest / SkinningTest // asdq // Lashushya // Evelyn // Test
-//	model->GetRootNode()->GetPtrTransform()->SetParent(GetComponent<TransformComponent>(0)->GetTransform());
 //	model->SetAnimation(4);
 	auto* renderComponent = CreateComponent<RenderComponent>();
 	renderComponent->SetShader(ShaderType::VS, "Shaders/VertexShaderVS.hlsl");

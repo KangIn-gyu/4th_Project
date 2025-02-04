@@ -116,9 +116,6 @@
     <Filter Include="5_Object\Component\CameraCompoent">
       <UniqueIdentifier>{079e488a-73f8-43eb-9bd5-58b2b8346e5f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="5_Object\Component\TransformComponet">
-      <UniqueIdentifier>{a7193f69-120c-4923-9993-55eae6f08afb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="5_Object\Component\RenderComponent">
       <UniqueIdentifier>{697cd2c6-acb7-4fbe-8d89-386ec958a596}</UniqueIdentifier>
     </Filter>
@@ -166,6 +163,12 @@
     </Filter>
     <Filter Include="4_Resources\CSVLoader">
       <UniqueIdentifier>{8cfcf0f4-4127-4241-82c8-ac0c3888a5af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="5_Object\Script">
+      <UniqueIdentifier>{30921f06-e632-4700-a745-8a32e91b9f86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="5_Object\Component\TransformComponent">
+      <UniqueIdentifier>{a7193f69-120c-4923-9993-55eae6f08afb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -320,10 +323,10 @@
       <Filter>5_Object\Component\CameraCompoent</Filter>
     </ClInclude>
     <ClInclude Include="Transform.h">
-      <Filter>5_Object\Component\TransformComponet</Filter>
+      <Filter>5_Object\Component\TransformComponent</Filter>
     </ClInclude>
     <ClInclude Include="TransformComponent.h">
-      <Filter>5_Object\Component\TransformComponet</Filter>
+      <Filter>5_Object\Component\TransformComponent</Filter>
     </ClInclude>
     <ClInclude Include="RenderComponent.h">
       <Filter>5_Object\Component\RenderComponent</Filter>
@@ -405,6 +408,9 @@
     </ClInclude>
     <ClInclude Include="D2DFont.h">
       <Filter>4_Resources\ResourceData\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="Script.h">
+      <Filter>5_Object\Script</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -529,10 +535,10 @@
       <Filter>5_Object\Component\CameraCompoent</Filter>
     </ClCompile>
     <ClCompile Include="Transform.cpp">
-      <Filter>5_Object\Component\TransformComponet</Filter>
+      <Filter>5_Object\Component\TransformComponent</Filter>
     </ClCompile>
     <ClCompile Include="TransformComponent.cpp">
-      <Filter>5_Object\Component\TransformComponet</Filter>
+      <Filter>5_Object\Component\TransformComponent</Filter>
     </ClCompile>
     <ClCompile Include="RenderComponent.cpp">
       <Filter>5_Object\Component\RenderComponent</Filter>
@@ -612,6 +618,9 @@
     </ClCompile>
     <ClCompile Include="D2DFont.cpp">
       <Filter>4_Resources\ResourceData\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="Script.cpp">
+      <Filter>5_Object\Script</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

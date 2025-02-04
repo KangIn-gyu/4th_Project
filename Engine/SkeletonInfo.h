@@ -1,6 +1,6 @@
 #pragma once
-
-class BoneInfo;
+#include "BoneInfo.h"
+// class BoneInfo;
 class SkeletonInfo // 읽기용 정보
 {
 public:

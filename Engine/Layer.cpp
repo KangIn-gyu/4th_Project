@@ -2,12 +2,18 @@
 #include "Layer.h"
 #include "Object.h"
 #include "Helper.h"
+#include "Script.h"
 
 void Layer::Initialize()
 {
 	for (auto& obj : objects)
 	{
 		obj->Initialize();
+
+		if (nullptr != obj->script)
+		{
+			obj->script->ComponentSetting();
+		}
 	}
 }
 

@@ -16,16 +16,16 @@ void SkeletalMesh::UpdateMatrixPallete(MatrixPallete* _pallete, SkeletonInfo* _s
 
 	for (UINT i = 0; i < boneReferences.size(); ++i)
 	{
-		DXMath::Matrix BoneNodeWorldMatrix = *boneReferences[i].GetNodeWorldTransform(); // 본의 
+		DXMath::Matrix& BoneNodeWorldMatrix = *boneReferences[i].GetNodeWorldTransform(); // 본의 
 		int index = boneReferences[i].GetIndex(); // 전체 본의 이름 순서로 정한 인덱스
 		const std::string& name = boneReferences[i].GetName();
-		BoneInfo* boneInfo = _skeletonInfo->GetBoneInfoByName(boneReferences[i].GetName());
+		BoneInfo* boneInfo = _skeletonInfo->GetBoneInfoByName(name);
 	
 		if (boneInfo == nullptr)
 		{
 			throw std::runtime_error("BoneInfo is NULL! Bone name: " + name);
 		} 
-		_pallete->array[index] = (boneInfo->GetOffsetMatrix() * BoneNodeWorldMatrix).Transpose(); 
+		_pallete->array[index] = (boneInfo->GetOffsetMatrix() * BoneNodeWorldMatrix).Transpose();
 	}
 }
 

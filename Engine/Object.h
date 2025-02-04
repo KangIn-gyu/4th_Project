@@ -1,6 +1,7 @@
 #pragma once
 #include "Component.h"
 #include <concepts>
+#include "Script.h"
 
 // Tag 시스템은 나중에 생각하자 지금 하기에는 애매한 부분이 많다
 // 컴포넌트는 생성과 동시에 컴포넌트의 초기화를 실행한다
@@ -57,8 +58,8 @@ public:
 	int GetLayerOrder() { return layerOrder; };
 
 	bool operator<(const Object& other) const
-	{ // 예시로 layerOrder를 기준으로 정렬	
-		return this->layerOrder < other.layerOrder;
+	{ 
+		return this->layerOrder < other.layerOrder;  // 예시로 layerOrder를 기준으로 정렬	
 	}
 protected:
 	template<ComponentType T, typename ... Arg> // 함수 오버로드함
@@ -68,6 +69,7 @@ private:
 	void ClearComponents();
 
 public:
+	Script* script = nullptr; // 용도 : 여기다 생성된 오브젝트의 컴포넌트의 설정값을 넣는 곳이다
 
 protected:
 	int layerOrder{}; // 2D일때 그리는 순서 정하게 할 경우

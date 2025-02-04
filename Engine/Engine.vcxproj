@@ -170,6 +170,7 @@
     <ClInclude Include="ImageComponent.h" />
     <ClInclude Include="D2DFont.h" />
     <ClInclude Include="D2DRenderComponent.h" />
+    <ClInclude Include="Script.h" />
     <ClInclude Include="TextObject.h" />
     <ClInclude Include="D3DClass.h" />
     <ClInclude Include="Declare.h" />
@@ -252,6 +253,7 @@
     <ClCompile Include="ImageComponent.cpp" />
     <ClCompile Include="D2DFont.cpp" />
     <ClCompile Include="D2DRenderComponent.cpp" />
+    <ClCompile Include="Script.cpp" />
     <ClCompile Include="TextObject.cpp" />
     <ClCompile Include="D3DClass.cpp" />
     <ClCompile Include="DirectXInput.cpp" />

@@ -1,11 +1,11 @@
 #pragma once
 #include "Vertex.h"
 
-
 class BoneWeightVertex
 {
 public:
 	BoneWeightVertex(){}
+	~BoneWeightVertex() = default;
     BoneWeightVertex(const BoneWeightVertex& other);
     BoneWeightVertex(BoneWeightVertex&& other) noexcept;				// 이동 생성자
 	BoneWeightVertex& operator = (const BoneWeightVertex& _other);

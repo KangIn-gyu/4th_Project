@@ -17,9 +17,9 @@ ModelComponent::ModelComponent(std::string_view _filePath)
 {
 	model = RESOURCESYSTEM->Load<Model>(_filePath);
 	model->SetOwner(this);
-    model->GetModelData()->Show();
     rootNode = DeepCopyNode(model->GetModelData()->rootNode, nullptr); // 여기서 모델에 사용할 node 생성
     modelAnimation = model->GetModelData()->animations;
+ //   SetAnimation(0);
     model->GetModelData()->matrixPallete = &matrixPalletBuffer; // 모델 데이터한테 
 }
 
@@ -43,10 +43,11 @@ void ModelComponent::ComponentUpdate(const float _deltaTime)
 
         if (true == activeAnimation->GetLoop())
         {
-            if (progressAnimTime >= activeAnimation->GetTotalTime())
-            {
-                progressAnimTime = 0.f;
-            }
+            //if (progressAnimTime >= activeAnimation->GetTotalTime())
+            //{
+            //    progressAnimTime = 0.f;
+                progressAnimTime = fmod(progressAnimTime, activeAnimation->GetTotalTime());
+            //}
         }
         else
         {
@@ -74,8 +75,8 @@ void ModelComponent::ComponentUpdate(const float _deltaTime)
                 {
                     BoneReference& boneRef = skeletalMesh->GetBoneReferences()[j];
                     AiNode* node = nodeList.find(boneRef.GetName())->second;
-                    Transform* parentTransform = node->GetPtrTransform();
-                    boneRef.SetNodeWolrdTransform(parentTransform->GetPtrWorldMatrix());
+                    Transform* nodeTransform = node->GetPtrTransform();
+                    boneRef.SetNodeWolrdTransform(nodeTransform->GetPtrWorldMatrix());
                 }
                 skeletalMesh->UpdateMatrixPallete(&matrixPalletBuffer, model->GetModelData()->skeletonInfo);
             }
@@ -92,6 +93,11 @@ void ModelComponent::SetAnimation(int _index)
 {
     progressAnimTime = 0;
 
+    if (nullptr == modelAnimation)
+    {
+        return;
+    }
+
     if (_index < 0 || _index >= modelAnimation->size() || (*modelAnimation)[_index] == nullptr)
     {
         return;
@@ -100,10 +106,7 @@ void ModelComponent::SetAnimation(int _index)
     // 모든 AiNode의 AnimationNode 포인터 초기화
     for (auto& [name, node] : nodeList)
     {
-        if (nullptr != node)
-        { // 이전 애니메이션 노드 초기화
-            node->SetAnimationNode(nullptr);
-        }
+        node->SetAnimationNode(nullptr); 
     }
 
     activeAnimation = (*modelAnimation)[_index];
@@ -145,7 +148,7 @@ AiNode* ModelComponent::DeepCopyNode(AiNode* _originalNode, AiNode* _parentNode)
     copiedNode->SetParent(_parentNode);
 
     nodeList.emplace(copiedNode->GetName(), copiedNode);
-    copiedNode->GetChildren().clear();
+    copiedNode->GetChildren().clear(); 
     for (AiNode* child : _originalNode->GetChildren())
     {
         AiNode* copiedChild = DeepCopyNode(child, copiedNode);

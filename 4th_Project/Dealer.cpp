@@ -14,7 +14,7 @@ Dealer::Dealer(std::string_view _name, Object::ObjectType _type) : Object(_name,
 
 void Dealer::Initialize()
 {
-	CreateComponent<ModelComponent>("STAGE1/FBX/char2.fbx");  // char2 / gun // asdq
+	CreateComponent<ModelComponent>("STAGE1/FBX/Evelyn.fbx");  // char2 / gun // asdq
 	CreateComponent<RenderComponent>();
 
 	CreateComponent<BoxCollider>();
