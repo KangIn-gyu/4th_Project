@@ -1,11 +1,7 @@
 #include "pch.h"
 #include "TextObject.h"
-#include "Renderer.h"
-// #include <cstdarg>  // 가변 인자 처리
-// #include <stdexcept>
-
-#include "Helper.h"
 #include "D2DRenderComponent.h"
+#include "Helper.h"
 
 TextObject::TextObject(std::string_view _name, Object::ObjectType type) : Object(_name, type)
 {
@@ -17,28 +13,12 @@ TextObject::~TextObject()
 
 }
 
-//void D2DFont::Render()
-//{
-//    D2DClass::GetD2DDeviceContext()->DrawTextLayout(Pos, DWriteTextLayout, D2DClass::GetD2DBrush().Get(), D2D1_DRAW_TEXT_OPTIONS_NONE);
-//}
-//	void TextObject::Render()
-//	{
-//	 //   D2DClass::GetD2DDeviceContext()->DrawText(Dialog.c_str(), Dialog.length(), DWriteTextFormat, pos, D2DClass::GetD2DBrush().Get());
-//	 //   std::cout << "텍스트렌더" << std::endl;
-//	}
+void TextObject::Initialize()
+{
+	CreateComponent<D2DRenderComponent>();
+}
 
-//void D2DFont::TextDraw(const wchar_t* format, D2D1_RECT_F _rect, D2D1_COLOR_F _color, ...)
-//{
-//    // 텍스트 그리기
-//    D2DClass::GetD2DBrush()->SetColor(_color);
-//
-//    D2DClass::GetD2DDeviceContext()->DrawText(
-//        format,              // 텍스트 내용
-//        lstrlen(format) + 1,
-//        DWriteTextLayout,
-//        _rect,
-//        D2DClass::GetD2DBrush().Get());
-//}
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //void SFont::Init()
