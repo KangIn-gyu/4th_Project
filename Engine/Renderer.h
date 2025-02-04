@@ -64,6 +64,7 @@ private:
 	ConstantBuffer objectBuffer;
 	ConstantBuffer cameraBuffer;
 	ConstantBuffer matrixPaletteBuffer;
+	ConstantBuffer productBuffer;
 
 	ComPtr<ID3D11SamplerState>	linearWrapSampler;    // LINEAR 
 	ComPtr<ID3D11SamplerState>  pointClampSampler;    // POINT 

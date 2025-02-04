@@ -8,6 +8,8 @@
 #include "Renderer.h"
 #include "RenderComponent.h"
 #include "Object.h"
+#include "IndexBuffer.h"
+
 bool ShadowRenderer::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceContext)
 {
     // 셰도우 맵 텍스처 생성
@@ -81,7 +83,7 @@ bool ShadowRenderer::Initialize(ID3D11Device* device, ID3D11DeviceContext* devic
 
     D3D11_BUFFER_DESC basicBufferDesc = {};
     basicBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
-    basicBufferDesc.ByteWidth = sizeof(MatrixBuffer);
+    basicBufferDesc.ByteWidth = sizeof(MatrixPallete);
     basicBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
     basicBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 
@@ -98,6 +100,13 @@ void ShadowRenderer::BeginShadowPass(ID3D11DeviceContext* context)
 
     //std::cout << "Shadow DSV valid: " << (shadowMapDSV != nullptr) << std::endl;
 
+    ID3D11RenderTargetView* nullRTV = nullptr;
+    ID3D11DepthStencilView* nullDSV = nullptr;
+    ID3D11ShaderResourceView* nullSRV = nullptr;
+    context->OMSetRenderTargets(1, &nullRTV, nullDSV);
+    context->PSSetShaderResources(24, 1, &nullSRV);
+
+    context->Flush();
     // 뷰포트 설정
     D3D11_VIEWPORT shadowViewport = {};
     shadowViewport.TopLeftX = 0.0f;
@@ -109,9 +118,9 @@ void ShadowRenderer::BeginShadowPass(ID3D11DeviceContext* context)
     context->RSSetViewports(1, &shadowViewport);
 
     // 렌더 타겟을 null로 설정하고 깊이 버퍼만 사용
-    ID3D11RenderTargetView* nullRTV = nullptr;
-    context->OMSetRenderTargets(1, &nullRTV, shadowMapDSV.Get());
 
+
+    context->OMSetRenderTargets(1, &nullRTV, shadowMapDSV.Get());
     // 깊이 버퍼 클리어
     context->ClearDepthStencilView(shadowMapDSV.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 }
@@ -142,8 +151,8 @@ void ShadowRenderer::InitShadowResources(ID3D11Device* device)
 
 	// 설정하는걸
 	shadowIA.IASetInputLayout(elements, "Shaders/ShadowVS.hlsl");
-	auto temp = RESOURCESYSTEM->Load<Shader>("Shaders/ShadowVS.hlsl");
-	shadowVS = temp->GetVertexShader();
+    shadowVS = RESOURCESYSTEM->Load<Shader>("Shaders/ShadowVS.hlsl");
+	//shadowVS = temp->GetVertexShader();
 
 	/*
 	update
@@ -157,19 +166,29 @@ void ShadowRenderer::InitShadowResources(ID3D11Device* device)
 	포워드 오브젝트 그리기
 	*/
 
-	D3D11_SAMPLER_DESC sampDesc = {};
+    D3D11_SAMPLER_DESC sampDesc = {};
     sampDesc.Filter = D3D11_FILTER_COMPARISON_MIN_MAG_MIP_LINEAR;
-	sampDesc.AddressU = D3D11_TEXTURE_ADDRESS_BORDER;
-	sampDesc.AddressV = D3D11_TEXTURE_ADDRESS_BORDER;
-	sampDesc.AddressW = D3D11_TEXTURE_ADDRESS_BORDER;
-	sampDesc.BorderColor[0] = 1.0f;
-	sampDesc.BorderColor[1] = 1.0f;
-	sampDesc.BorderColor[2] = 1.0f;
-	sampDesc.BorderColor[3] = 1.0f;
+    sampDesc.AddressU = D3D11_TEXTURE_ADDRESS_BORDER;
+    sampDesc.AddressV = D3D11_TEXTURE_ADDRESS_BORDER;
+    sampDesc.AddressW = D3D11_TEXTURE_ADDRESS_BORDER;
+    sampDesc.BorderColor[0] = 1.0f;
+    sampDesc.BorderColor[1] = 1.0f;
+    sampDesc.BorderColor[2] = 1.0f;
+    sampDesc.BorderColor[3] = 1.0f;
     sampDesc.ComparisonFunc = D3D11_COMPARISON_LESS_EQUAL;
-	sampDesc.MinLOD = 0;
-	sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
-	device->CreateSamplerState(&sampDesc, shadowSampler.GetAddressOf());
+    sampDesc.MinLOD = 0;
+    sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
+    device->CreateSamplerState(&sampDesc, shadowSampler.GetAddressOf());
+
+    D3D11_SAMPLER_DESC basicSampDesc = {};
+    basicSampDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;  // 기본 필터링
+    basicSampDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+    basicSampDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+    basicSampDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+    basicSampDesc.MinLOD = 0;
+    basicSampDesc.MaxLOD = D3D11_FLOAT32_MAX;
+    device->CreateSamplerState(&basicSampDesc, basicSampler.GetAddressOf());
+
 }
 
 //이거 어캐함?
@@ -202,12 +221,37 @@ void ShadowRenderer::RenderShadow(ID3D11DeviceContext* context, const DXMath::Ma
     // srv 초기화
     ID3D11ShaderResourceView* nullSRV = nullptr;
     context->PSSetShaderResources(24, 1, &nullSRV);
+
+    // 잠시 대기하여 리소스 해제가 완료되도록 함
+    context->Flush();
+
     context->RSSetState(shadowRasterState.Get());
     context->OMSetDepthStencilState(shadowDepthState.Get(), 0);
-    context->VSSetShader(shadowVS.Get(), nullptr, 0);
+
+    ID3D11SamplerState* nullSampler = nullptr;
+    context->PSSetSamplers(0, 1, basicSampler.GetAddressOf());
+    context->PSSetSamplers(2, 1, shadowSampler.GetAddressOf());
+
+    auto inputLayout = shadowIA.GetInputLayout();
+    if (!inputLayout)
+    {
+        std::cout << "Shadow Input Layout is null! Check if InitShadowResources was called." << std::endl;
+        return;
+    }
+
+    context->VSSetShader(shadowVS->GetVertexShader().Get(), nullptr, 0);
     context->PSSetShader(nullptr, nullptr, 0);
-    context->IASetInputLayout(shadowIA.GetInputLayout().Get());
+    context->IASetInputLayout(inputLayout.Get());
     context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+    // input layout이 제대로 설정되었는지 확인
+    ID3D11InputLayout* boundLayout;
+    context->IAGetInputLayout(&boundLayout);
+    if (!boundLayout)
+    {
+        std::cout << "Failed to bind Input Layout!" << std::endl;
+    }
+    if (boundLayout) boundLayout->Release();
 
     // 본 매트릭스 버퍼 바인딩
     auto temp = RENDERER->GetMatrixPaletteBuffer();
@@ -238,23 +282,11 @@ void ShadowRenderer::RenderShadow(ID3D11DeviceContext* context, const DXMath::Ma
             auto* meshInfo = mesh->GetMeshInfo();
             if (!meshInfo) continue;
 
-            // IA 설정
-            auto* vertexBuffer = meshInfo->vertexBuffer;
-            context->IASetVertexBuffers(0, 1,
-                vertexBuffer->GetBuffer().GetAddressOf(),
-                &vertexBuffer->vertextBufferStride,
-                &vertexBuffer->vertextBufferOffset);
-
-            auto* indexBuffer = meshInfo->indexBuffer;
-            context->IASetIndexBuffer(
-                indexBuffer->GetBuffer().Get(),
-                DXGI_FORMAT_R32_UINT,
-                0);
-
             // 해당 메시의 노드 찾기
             auto nodeIter = nodeData->find(meshInfo->meshName);
             if (nodeIter == nodeData->end()) continue;
 
+            auto* indexBuffer = meshInfo->indexBuffer;
             // World Matrix 가져오기
             DXMath::Matrix worldMatrix = nodeIter->second->GetTransform().GetWorldMatrix();
 
@@ -319,9 +351,12 @@ void ShadowRenderer::RenderShadow(ID3D11DeviceContext* context, const DXMath::Ma
     }
 
     context->Flush();
-    auto device = D3DClass::GetD3DDevice();
-    DebugShadowMap(device.Get(), context);
+    //auto device = D3DClass::GetD3DDevice();
+    //DebugShadowMap(device.Get(), context);
 
+    ID3D11RenderTargetView* nullRTV = nullptr;
+    context->OMSetRenderTargets(1, &nullRTV, nullptr);
+    context->Flush();
     context->PSSetShaderResources(24, 1, shadowMapSRV.GetAddressOf());
     context->RSSetState(nullptr);
     context->OMSetDepthStencilState(nullptr, 0);
