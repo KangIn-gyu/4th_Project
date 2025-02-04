@@ -12,6 +12,7 @@ cbuffer MatrixBuffer : register(b0) // ConstantBuffer ½½·Ô
     matrix worldMatrix;
     matrix viewMatrix;
     matrix projectionMatrix;
+    float totalTime;
 };
 
 cbuffer ObjectBuffer : register(b1) // ConstantBuffer ½½·Ô
@@ -28,7 +29,12 @@ cbuffer CameraBuffer : register(b2)
 
 cbuffer MatrixPallete : register(b3)
 {
-    matrix MatrixPalleteArray[128];
+    matrix MatrixPalleteArray[512];
+}
+
+cbuffer ShadowBuffer : register(b4)
+{
+    matrix lightViewProj;
 }
 
 struct VertexInputType
