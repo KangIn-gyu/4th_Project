@@ -24,8 +24,8 @@ private:
 	ComPtr<IWICImagingFactory> wicFactory;
 	ComPtr<ID2D1Bitmap> d2dBitmap;
 
-	D2D1_RECT_F destRect;
 	float xPos = 0, yPos = 0, width, height;
+	D2D1_RECT_F destRect = { xPos,yPos,width+ xPos,height+ yPos };
 
 	float CenterX = (destRect.right - destRect.left) / 2;
 	float CenterY = (destRect.bottom - destRect.top) / 2;
