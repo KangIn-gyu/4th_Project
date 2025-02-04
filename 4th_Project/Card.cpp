@@ -64,10 +64,10 @@ void Card::Update(const float _deltaTime)
 	if (needRevers)
 	{
 		isOpen = true;
-		elpasedTime += _deltaTime;   //움직일땐 안열리고 움직임멈추면 열리고? 앞 뒷 SetRevers(bool revers) true isOpen
-		if (elpasedTime >= 1.0f)
+		elpasedTime += _deltaTime;   //여기서 1초제한이아니라 뽑고 1초뒤에 needRevers 바꾸게끔 수정필요 *****
+		if (elpasedTime >= 1.0f) 
 		{
-			new DOTween(rotat, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 1.f, rotat, rotat + 180);
+			Reverse();
 			needRevers = false;
 			elpasedTime = 0;
 		}
@@ -106,6 +106,11 @@ void Card::Close()
 {
 	if(true == isOpen)
 		needRevers = true;
+}
+
+void Card::Reverse()
+{
+	new DOTween(rotat, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 1.f, rotat, rotat + 180);
 }
 
 int Card::GetValue()

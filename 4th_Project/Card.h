@@ -25,6 +25,7 @@ public:
 	void Init(DXMath::Vector3 _pos);
 	void Open(); //뒤집어져있다가 오픈할떄 쓸꺼
 	void Close(); //오픈되있으면 뒤집을떄 쓸꺼
+	void Reverse(); //뒤집음 호출
 	int GetValue(); //숫자 계산할때슬 카드 값리턴
 	virtual void OnClick() override;
 	virtual void OnMouse() override;
