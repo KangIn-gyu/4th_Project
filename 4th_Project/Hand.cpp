@@ -23,6 +23,7 @@ void Hand::handReset(bool dealer)
 	elapsedTime = 0;
 	isSenter = false;
 	endShuffle = false;
+	curHand = HandState::Open;
 	if(dealer)
 	{
 		while(!hand.empty())
@@ -129,11 +130,33 @@ bool Hand::ShuffleHand()
 {
 	float delta = TIMESYSTEM.get()->GetFloatDeltaTime();
 	elapsedTime += delta;
-	if (elapsedTime >= 3.0f && false == isSenter )
+
+	if (curHand == HandState::Open && elapsedTime >= 1.0f) //카드다받았으면 오픈하기
+	{
+
+		for (int i = 0; i < numCard(); i++)
+		{
+			hand[i]->Reverse();
+		}
+		elapsedTime = 0;
+		SetState(HandState::Close);
+	}
+	
+	if (curHand == HandState::Close && elapsedTime >= 2.0f) //일정시간후 다시 닫기
+	{
+
+		for (int i = 0; i < numCard(); i++)
+		{
+			hand[i]->Reverse();
+		}
+		elapsedTime = 0;
+		SetState(HandState::Center);
+	}
+	if (curHand == HandState::Center && elapsedTime >= 3.0f )  // 중앙으로 모으기 모으면서 카드 값이미 바뀜
 	{
 		std::random_device rd;
 		std::mt19937 g(rd());
-		std::shuffle(hand.begin(), hand.end() - 1, g);  //셔플연출추가 셔플이문제였네
+		std::shuffle(hand.begin(), hand.end() - 1, g);  
 		for (int i = 0; i < numCard(); i++)
 		{
 			auto& cardpos = hand[i]->GetComponent<TransformComponent>()->GetPosition();
@@ -142,11 +165,10 @@ bool Hand::ShuffleHand()
 			new DOTween(cardpos.y, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 1.f, cardpos.y, playerSlots[3].y);
 		}
 		elapsedTime = 0;
-		isSenter = true;
+		SetState(HandState::Shuffle);
 	}
 
-
-	if (elapsedTime >= 1.0f && true == isSenter && false == endShuffle )
+	if (curHand == HandState::Shuffle && elapsedTime >= 1.0f  )   //모은카드 펼치면서 위치 재선정
 	{
 		for (int i = 0; i < numCard(); i++)
 		{
@@ -155,9 +177,11 @@ bool Hand::ShuffleHand()
 			new DOTween(cardpos.x, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 1.f, cardpos.x, playerSlots[i].x);
 			new DOTween(cardpos.y, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 1.f, cardpos.y, playerSlots[i].y);
 		}
-		endShuffle = true;
-		return true;
+		elapsedTime = 0;
+		SetState(HandState::Finish);
+		
 	}
 
-	return false;
+	
+	return (curHand == HandState::Finish);
 }

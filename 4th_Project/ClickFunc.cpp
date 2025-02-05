@@ -26,3 +26,10 @@ void ClickFunc::DoubleDown()
 	//더블다운 컷신넣기 *****
 	BLACKJACK->onDoubbleDown = true;
 }
+
+void ClickFunc::SetPlayerSkill(Player* player, PSkill _skill)
+{
+	player->SetSkill(_skill);
+}
+
+

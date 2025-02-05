@@ -52,5 +52,4 @@ void GambleScene::Update(const float _deltaTime)
 	__super::Update(_deltaTime);
 
 	BLACKJACK->Update(_deltaTime);
-	PLAYER->Update(_deltaTime);
 }

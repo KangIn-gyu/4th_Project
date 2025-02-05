@@ -13,8 +13,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0_규칙", "0_규칙", "{F2
 		규칙.txt = 규칙.txt
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KangIngyu", "KangIngyu\KangIngyu.vcxproj", "{FBF51D34-8DD2-468E-9E7E-1FC1094C4124}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1_TEST", "1_TEST", "{D1F09DDA-A1CA-45F2-AB6C-183C280F496A}"
 EndProject
 Global
@@ -41,20 +39,9 @@ Global
 		{2B9AAEE5-BB8C-42D9-8B74-4581EEE22004}.Release|x64.Build.0 = Release|x64
 		{2B9AAEE5-BB8C-42D9-8B74-4581EEE22004}.Release|x86.ActiveCfg = Release|Win32
 		{2B9AAEE5-BB8C-42D9-8B74-4581EEE22004}.Release|x86.Build.0 = Release|Win32
-		{FBF51D34-8DD2-468E-9E7E-1FC1094C4124}.Debug|x64.ActiveCfg = Debug|x64
-		{FBF51D34-8DD2-468E-9E7E-1FC1094C4124}.Debug|x64.Build.0 = Debug|x64
-		{FBF51D34-8DD2-468E-9E7E-1FC1094C4124}.Debug|x86.ActiveCfg = Debug|Win32
-		{FBF51D34-8DD2-468E-9E7E-1FC1094C4124}.Debug|x86.Build.0 = Debug|Win32
-		{FBF51D34-8DD2-468E-9E7E-1FC1094C4124}.Release|x64.ActiveCfg = Release|x64
-		{FBF51D34-8DD2-468E-9E7E-1FC1094C4124}.Release|x64.Build.0 = Release|x64
-		{FBF51D34-8DD2-468E-9E7E-1FC1094C4124}.Release|x86.ActiveCfg = Release|Win32
-		{FBF51D34-8DD2-468E-9E7E-1FC1094C4124}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{FBF51D34-8DD2-468E-9E7E-1FC1094C4124} = {D1F09DDA-A1CA-45F2-AB6C-183C280F496A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {45AA81FA-30F0-44EF-83AA-455685E7D3AC}

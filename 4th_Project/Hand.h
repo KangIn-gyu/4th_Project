@@ -1,5 +1,15 @@
 #pragma once
 #include "Card.h"
+enum class HandState
+{
+	Base,   //제일 처음
+	Open,  //Base상태에서 카드 첫드로 다하고나면 -> Open  해서 3~ 초간 카드보여주고 
+	Close,   //보여주고나면 Close해서 다시 뒤집고 
+	Center, //뒤집고나면 Center  중앙으로 모으는 
+	Shuffle,//셔플연출 필요
+	Finish, //연출끝
+	
+};
 class Hand
 {
 public:
@@ -10,14 +20,16 @@ public:
 	int numOpenCard();
 	int numCard();
 	bool ShuffleHand();
-	
+	void SetState(HandState _state) { curHand = _state; }
 private:
 	float elapsedTime = 0;
 	bool isSenter = false;
 	bool endShuffle = false;
+	HandState curHand = HandState::Open;
 public:
 	int maxHand; //손패 최대치
 	std::vector<Card*> hand;
+	
 	//핸드의 각위치 정해줘야 하는대 map으로 바꾸기
 };
 

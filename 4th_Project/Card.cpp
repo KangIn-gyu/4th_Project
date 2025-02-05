@@ -54,7 +54,7 @@ void Card::Init(DXMath::Vector3 _pos)
 	isSeleted = false;
 	elpasedTime = 0;
 	GetComponent<TransformComponent>()->SetPosition(_pos);
-	//GetComponent<TransformComponent>()->SetQuaternion(_quater); //회전값
+	
 }
 
 void Card::Update(const float _deltaTime)
@@ -63,11 +63,10 @@ void Card::Update(const float _deltaTime)
 
 	if (needRevers)
 	{
-		isOpen = true;
-		elpasedTime += _deltaTime;   //움직일땐 안열리고 움직임멈추면 열리고? 앞 뒷 SetRevers(bool revers) true isOpen
-		if (elpasedTime >= 1.0f)
+		elpasedTime += _deltaTime;   //단순 오픈과 이동후 오픈 구별 가능하게끔  수정필요 *****
+		if (elpasedTime >= 1.0f) 
 		{
-			new DOTween(rotat, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 1.f, rotat, rotat + 180);
+			Reverse();
 			needRevers = false;
 			elpasedTime = 0;
 		}
@@ -93,19 +92,22 @@ void Card::Update(const float _deltaTime)
 
 void Card::Open()
 {
-	needRevers = true;
-	/*if (isOpen == false)
-	{
-		isOpen = true;
-		new DOTween(rotat, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 1.f, rotat, rotat + 180);
-	}*/
-	
+	if (isOpen == false)
+		needRevers = true;
+	isOpen = true;
+
 }
 
 void Card::Close()
 {
 	if(true == isOpen)
 		needRevers = true;
+	isOpen = false;
+}
+
+void Card::Reverse()
+{
+	new DOTween(rotat, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 1.f, rotat, rotat + 180);
 }
 
 int Card::GetValue()
@@ -120,6 +122,21 @@ int Card::GetValue()
 	if (rank == "Jack" || rank == "Queen" || rank == "King") return 10;
 
 	return std::stoi(rank);
+}
+
+bool Card::RevereseSec(float _sec)
+{
+
+	Open();
+	float delta = TIMESYSTEM.get()->GetFloatDeltaTime();
+	reversTime += delta;
+	if (reversTime >= _sec)
+	{
+		Close();
+		reversTime = 0;
+		return true;
+	}
+	return false;
 }
 
 void Card::OnClick()

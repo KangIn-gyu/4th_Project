@@ -21,6 +21,7 @@ enum class PlayerState   //플레이어 행동상태
 	HIT,
 	STAY,
 	SHOWDOWN, //쇼다운 필요한가
+	Skill,    //
 };
 
 std::string stateToString(PlayerState _state);
@@ -61,6 +62,7 @@ public:
 	bool onDoubbleDown = false;
 	bool endBet = false;
 	bool canClick = false;
+	int magnification = 1;
 private:
 	float elapsedTime =0;
 	Turn curTurn = Turn::player;
@@ -72,6 +74,6 @@ private:
 	//클릭전까지 게임돌아가는거 멈추기;
 	//앞면으로 한번에 뒤집고 3초? 뒤 다시 뒤집고 셔플
 	int betMoney;
-	int magnification = 1; //배율   최종 = 베팅액 * 배율
+	 //배율   최종 = 베팅액 * 배율
 };
 
