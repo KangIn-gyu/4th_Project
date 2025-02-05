@@ -25,7 +25,6 @@ void Model::Initialize()
 	{
 		if (owner->GetOwner()->GetObjectType() == Object::ObjectType::Basic)
 		{
-			InputLayout::Layout offset;
 			// float4 -> R32G32B32A32 / float3 -> R32G32B32 / float2 -> R32G32
 			std::initializer_list<D3D11_INPUT_ELEMENT_DESC> elements = 
 			{			

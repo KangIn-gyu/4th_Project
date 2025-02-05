@@ -24,24 +24,22 @@ struct alignas(16) MatrixBuffer
 		ValidateConstantBufferSize<MatrixBuffer>();
 	}
 
-	DXMath::Matrix worldMatrix {};
-	DXMath::Matrix viewMatrix  {};
-	DXMath::Matrix projectionMatrix {};
-	float totalTime;
-	DXMath::Vector3 pad() {};
+	DXMath::Matrix worldMatrix{};
+	DXMath::Matrix viewMatrix{};
+	DXMath::Matrix projectionMatrix{};
 };
 
 struct alignas(16) ObjectBuffer
-{ 
+{
 	ObjectBuffer()
 	{
 		ValidateConstantBufferSize<ObjectBuffer>();
 	}
 
-	float metalness {};
-	float roughness {};
-	float padding0	{};
-	float padding1	{};
+	float metalness{};
+	float roughness{};
+	int   onOutline{};
+	float padding0{};
 };
 
 struct alignas(16) CameraBuffer
@@ -65,10 +63,39 @@ struct alignas(16) ShadowBuffer
 	DXMath::Matrix lightviewproj;
 };
 
-struct PointLight
+#define BoneBufferMaxSize 400
+
+struct alignas(16) MatrixPallete
 {
-	DXMath::Vector4 position;
-	DXMath::Vector4 color;
+	MatrixPallete()
+	{
+		ValidateConstantBufferSize<MatrixPallete>();
+	}
+	DXMath::Matrix array[BoneBufferMaxSize]; // TODO : MatrixPallete 사이즈 고민이 있음
+};
+
+struct alignas(16) ProductBuffer
+{
+	ProductBuffer()
+	{
+		ValidateConstantBufferSize<ProductBuffer>();
+	}
+	float totalTime{};
+	DXMath::Vector3 pad;
+};
+
+struct SpotLightData
+{
+	DXMath::Vector3 position;
+	float pad1;
+	DXMath::Vector3 direction;
+	float pad2;
+	DXMath::Vector3 color;
+	float range;
+	float innerCone;
+	float outerCone;
+	float intensity;
+	float pad3;
 };
 
 struct alignas(16) LightBuffer
@@ -77,19 +104,7 @@ struct alignas(16) LightBuffer
 	{
 		ValidateConstantBufferSize<LightBuffer>();
 	}
-
-	PointLight lights[16];
-	DXMath::Vector4 eyePosition;
-	UINT numlights;
-	DXMath::Vector3 pad;
+	SpotLightData spotLights[7];
+	int LIGHT_NUM;
+	DXMath::Vector3 pad[3];
 };
-
-#define BoneBufferMaxSize 400
-struct alignas(16) MatrixPallete
-{
-	MatrixPallete()
-	{
-		ValidateConstantBufferSize<MatrixPallete>();
-	}	
-	DXMath::Matrix array[BoneBufferMaxSize];
-}; 
