@@ -161,7 +161,9 @@ void Renderer::D3DDraw()
 	bool hasSetLayout = false;
 	for (auto& renderComponent : work)
 	{
-		if (renderComponent->GetActive())
+		auto* modelData = renderComponent->GetModelData()->GetModelData();
+		std::unordered_map<std::string, AiNode*>* nodeData = renderComponent->GetNodeData();
+		for (auto& data : *modelData->meshs)
 		{
 			auto* meshData = data->GetMeshInfo();
 			//IA 
@@ -226,71 +228,36 @@ void Renderer::D3DDraw()
 
 			if (nullptr != modelData->matrixPallete)
 			{
-				auto* meshData = data->GetMeshInfo();
-				//IA 
-				auto* vertexBuffer = meshData->vertexBuffer;
-				d3dDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-				d3dDeviceContext->IASetVertexBuffers(0, 1, vertexBuffer->GetBuffer().GetAddressOf(), &vertexBuffer->vertextBufferStride, &vertexBuffer->vertextBufferOffset);
-				auto* indexBuffer = meshData->indexBuffer;
-				d3dDeviceContext->IASetIndexBuffer(indexBuffer->GetBuffer().Get(), DXGI_FORMAT_R32_UINT, 0);
-				d3dDeviceContext->IASetInputLayout(meshData->inputLayout.GetInputLayout().Get());
+				d3dDeviceContext->UpdateSubresource(matrixPaletteBuffer.GetBuffer().Get(), 0, nullptr, &(*modelData->matrixPallete), 0, 0);
+			}
+			else
+			{ // TODO : 이거 할필요가 있을가 고민중... 
+				static DXMath::Matrix identityPallete[128];
+				d3dDeviceContext->UpdateSubresource(matrixPaletteBuffer.GetBuffer().Get(), 0, nullptr, identityPallete, 0, 0);
+			}
 
-				// VS 
-				d3dDeviceContext->VSSetShader(renderComponent->GetShader(ShaderType::VS)->GetVertexShader().Get(), nullptr, 0);
-				d3dDeviceContext->VSSetConstantBuffers(0, 1, matrixConstantBuffer.GetBuffer().GetAddressOf());
-				d3dDeviceContext->VSSetConstantBuffers(1, 1, objectBuffer.GetBuffer().GetAddressOf());
-				d3dDeviceContext->VSSetConstantBuffers(3, 1, matrixPaletteBuffer.GetBuffer().GetAddressOf());
+			while (!previousTexturerProcessing.empty())
+			{
+				ID3D11ShaderResourceView* nullSRV = nullptr;
+				d3dDeviceContext->PSSetShaderResources(previousTexturerProcessing.top(), 1, &nullSRV);
+				previousTexturerProcessing.pop();
+			}
 
-				// PS 
-				d3dDeviceContext->PSSetShader(renderComponent->GetShader(ShaderType::PS)->GetPixelShader().Get(), nullptr, 0);
-				d3dDeviceContext->PSSetConstantBuffers(0, 1, matrixConstantBuffer.GetBuffer().GetAddressOf());
-				d3dDeviceContext->PSSetConstantBuffers(1, 1, objectBuffer.GetBuffer().GetAddressOf());
-
-				MatrixBuffer matrixData;
-				auto node = nodeData->find(meshData->meshName);
-				matrixData.worldMatrix = DX::XMMatrixTranspose(node->second->GetTransform().GetWorldMatrix());
-				matrixData.viewMatrix = DX::XMMatrixTranspose(CameraObject::g_MainCameraObject->GetViewMatrix());
-				matrixData.projectionMatrix = DX::XMMatrixTranspose(CameraObject::g_MainCameraObject->GetProjectionMatrix());
-				matrixData.totalTime = TIMESYSTEM->GetTotalTime();
-
-				Material* material = (*modelData->materials)[meshData->GetMaterialIndex()];
-				ObjectBuffer objectData;
-				objectData.metalness = material->GetMetalness();
-				objectData.roughness = material->GetRoughness();
-
-				if (nullptr != modelData->matrixPallete)
+			for (auto& textur : material->GetTextures())
+			{
+				if (!textur->GetTextureTypeIndexs().empty())
 				{
-					d3dDeviceContext->UpdateSubresource(matrixPaletteBuffer.GetBuffer().Get(), 0, nullptr, &(*modelData->matrixPallete), 0, 0);
-				}
-				else
-				{ // TODO : 이거 할필요가 있을가 고민중... 
-					static DXMath::Matrix identityPallete[128];
-					d3dDeviceContext->UpdateSubresource(matrixPaletteBuffer.GetBuffer().Get(), 0, nullptr, identityPallete, 0, 0);
-				}
-
-				while (!previousTexturerProcessing.empty())
-				{
-					ID3D11ShaderResourceView* nullSRV = nullptr;
-					d3dDeviceContext->PSSetShaderResources(previousTexturerProcessing.top(), 1, &nullSRV);
-					previousTexturerProcessing.pop();
-				}
-
-				for (auto& textur : material->GetTextures())
-				{
-					if (!textur->GetTextureTypeIndexs().empty())
+					for (auto textureIndex : textur->GetTextureTypeIndexs())
 					{
-						for (auto textureIndex : textur->GetTextureTypeIndexs())
-						{
-							previousTexturerProcessing.push(textureIndex);
-							d3dDeviceContext->PSSetShaderResources(textureIndex, 1, textur->GetTexture().GetAddressOf());
-						}
+						previousTexturerProcessing.push(textureIndex);
+						d3dDeviceContext->PSSetShaderResources(textureIndex, 1, textur->GetTexture().GetAddressOf());
 					}
 				}
-
-				d3dDeviceContext->UpdateSubresource(matrixConstantBuffer.GetBuffer().Get(), 0, nullptr, &matrixData, 0, 0); // CPU -> GPU
-				d3dDeviceContext->UpdateSubresource(objectBuffer.GetBuffer().Get(), 0, nullptr, &objectData, 0, 0);			// CPU -> GPU
-				d3dDeviceContext->DrawIndexed(indexBuffer->GetIndexCount(), 0, 0);
 			}
+
+			d3dDeviceContext->UpdateSubresource(matrixConstantBuffer.GetBuffer().Get(), 0, nullptr, &matrixData, 0, 0); // CPU -> GPU
+			d3dDeviceContext->UpdateSubresource(objectBuffer.GetBuffer().Get(), 0, nullptr, &objectData, 0, 0);			// CPU -> GPU
+			d3dDeviceContext->DrawIndexed(indexBuffer->GetIndexCount(), 0, 0);
 		}
 	}
 
