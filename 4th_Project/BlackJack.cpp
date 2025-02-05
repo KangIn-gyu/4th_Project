@@ -83,6 +83,10 @@ void BlackJack::Update(float _deltaTime)
 					}
 
 				}
+				else if (state == PlayerState::Skill)
+				{
+					player->ActiveSkill();
+				}
 				else if (state == PlayerState::STAY)
 				{
 					curTurn = Turn::CheckVictory; 

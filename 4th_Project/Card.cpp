@@ -64,7 +64,7 @@ void Card::Update(const float _deltaTime)
 	if (needRevers)
 	{
 		isOpen = true;
-		elpasedTime += _deltaTime;   //여기서 1초제한이아니라 뽑고 1초뒤에 needRevers 바꾸게끔 수정필요 *****
+		elpasedTime += _deltaTime;   //단순 오픈과 이동후 오픈 구별 가능하게끔  수정필요 *****
 		if (elpasedTime >= 1.0f) 
 		{
 			Reverse();

@@ -23,9 +23,22 @@ public:
 	void CardDraw(Deck* _deck);
 	int Bet() { return betChip; }
 	int GetScore(); //카드합 점수
+	void ActiveSkill();
 	bool Open2Card(); //첨에 2개뒤집었는지 확인용
 	void ShuffleHand();
 	bool CheckGameOver();
+
+	//손은 눈보다 빠르다
+	void skiil1();  
+	//베짱
+	void skill2();  
+	//명상
+	void skill3();  
+	//인슈어런스
+	void skill4();  
+	
+	// skill 버튼 누르면  스킬 1,2,3,4 버튼등장 -> 플레이어 기력받아와서 기력이없으면 스킬버튼 불가능 ->
+	// 스킬 1,2,3,4 버튼 클릭되면 플레이어  기력-하고 스킬func 바뀌면서 해당스킬 실행
 private:
 	Player();
 	Player(std::string_view _name, Object::ObjectType _type);
@@ -42,6 +55,10 @@ public:
 	int  openCard  = 0; //d
 	int  skillPoint = 0; 
 	int  chip = 1000; //겜블때 쓸 칩 수,전체 돈
+	Card* selectCard;  //스킬 쓸때 손패에서 선택중인 카드
 	Hand hand;
+	std::function<void()>  skil;
 	
 };
+
+

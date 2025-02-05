@@ -146,6 +146,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BetTable.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="ClickFunc.h" />
     <ClInclude Include="Card.h" />
@@ -165,6 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="4th_Project.cpp" />
+    <ClCompile Include="BetTable.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="ClickFunc.cpp" />
     <ClCompile Include="Card.cpp" />

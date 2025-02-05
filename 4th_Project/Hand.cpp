@@ -23,6 +23,7 @@ void Hand::handReset(bool dealer)
 	elapsedTime = 0;
 	isSenter = false;
 	endShuffle = false;
+	curHand = HandState::Open;
 	if(dealer)
 	{
 		while(!hand.empty())
