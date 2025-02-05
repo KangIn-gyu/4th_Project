@@ -32,9 +32,9 @@ std::shared_ptr<Model> FBXLoader::FBXLoad(std::string_view _filePath)
 		aiProcess_CalcTangentSpace |		 // 메시의 Tangent와 Bitangent를 계산한다.(Bitangent는 Tangent와 수직인 벡터이다)
 		aiProcess_GenNormals |				 // Normal 정보 생성  
 		aiProcess_ConvertToLeftHanded |		 // 우측 좌표계를 사용하는 모델을 좌측 좌표계로 변환해줌 단순히 좌표를 반대로 바꾸는 것이 아니라, 법선 벡터, 카메라 방향, 뼈대 애니메이션의 방향등 좌표계 변환에 따라 영향을 받는 요소들을 모두 적절하게 변환
-		aiProcess_LimitBoneWeights |		 // 본의 영향을 받는 정점의 최대 개수를 4개로 제한
-		aiProcess_RemoveRedundantMaterials |  // 사용되지 않는 메테리얼을 제거한다. 
-		aiProcess_OptimizeMeshes;// |			 // 메시 구조 최적화
+		aiProcess_LimitBoneWeights;// |		 // 본의 영향을 받는 정점의 최대 개수를 4개로 제한
+//		aiProcess_RemoveRedundantMaterials |  // 사용되지 않는 메테리얼을 제거한다. 
+//		aiProcess_OptimizeMeshes;// |			 // 메시 구조 최적화
 //		aiProcess_OptimizeGraph;			 // 노드 트리 최적화
 
 	importer.SetPropertyBool(AI_CONFIG_IMPORT_FBX_PRESERVE_PIVOTS, 0);

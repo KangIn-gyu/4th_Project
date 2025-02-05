@@ -5,6 +5,7 @@
 #include "D2DFont.h"
 
 class Bitmap;
+class BoxCollider;
 class D2DRenderComponent : public Component
 {
 public:
@@ -38,8 +39,9 @@ private:
 public:
 
 private:
-	D2DFont* font = {};
-	std::shared_ptr<Bitmap> imageData = {};
+	D2DFont* font{};
+	std::shared_ptr<Bitmap> imageData{};
+	BoxCollider* boundBox{};
 
 	std::vector<std::pair<std::string, std::string>> CSVdatas;
 };

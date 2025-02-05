@@ -12,6 +12,7 @@
 #include "Renderer.h"
 #include "ResourceSystem.h"
 #include "CSVLoader.h"
+#include "BoxCollider.h"
 
 D2DRenderComponent::D2DRenderComponent()
 {
@@ -90,7 +91,9 @@ void D2DRenderComponent::SetAlignment(D2DFont::Setting _SortX, D2DFont::Setting 
 void D2DRenderComponent::Draw()
 {
 #if _DEBUG
-	//font->DrawTextBox();
+	font->DrawTextBox();
+	boundBox->DrawBoundBox();
+
 #endif
 	if (imageData != nullptr)
 	{

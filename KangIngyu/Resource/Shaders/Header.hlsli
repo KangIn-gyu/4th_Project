@@ -12,13 +12,13 @@ cbuffer MatrixBuffer : register(b0) // ConstantBuffer 슬롯
     matrix worldMatrix;
     matrix viewMatrix;
     matrix projectionMatrix;
-    float totalTime;
 };
 
 cbuffer ObjectBuffer : register(b1) // ConstantBuffer 슬롯
 {
     float metalness;
     float roughness;
+    int   onOutline;
 };
 
 cbuffer CameraBuffer : register(b2)
@@ -35,6 +35,28 @@ cbuffer MatrixPallete : register(b3)
 cbuffer ShadowBuffer : register(b4)
 {
     matrix lightViewProj;
+}
+
+cbuffer ProductBuffer : register(b5)
+{
+    float totalTime;
+}
+
+struct SpotLightData
+{
+    float3 position; // 광원의 위치
+    float3 direction; // 광원이 비추는 방향
+    float3 color; // 광원의 색상
+    float range; // 광원의 영향 범위
+    float innerCone; // 내부 콘의 코사인 값
+    float outerCone; // 외부 콘의 코사인 값
+    float intensity; // 광원의 강도
+};
+
+cbuffer LightBuffer : register(b6)
+{
+    SpotLightData spotLights[7];
+    int LIGHT_NUM;
 }
 
 struct VertexInputType
