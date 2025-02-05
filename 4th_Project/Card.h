@@ -27,6 +27,7 @@ public:
 	void Close(); //오픈되있으면 뒤집을떄 쓸꺼
 	void Reverse(); //뒤집음 호출
 	int GetValue(); //숫자 계산할때슬 카드 값리턴
+	bool RevereseSec(float _sec); 
 	virtual void OnClick() override;
 	virtual void OnMouse() override;
 	void OpenA();
@@ -39,7 +40,8 @@ private:
 	float rotat = 0;
 	float prevRotat = rotat;
 	//DXMath::Quaternion newQuat;
-	bool isSeleted = false;  //선택된 카드 표시용
+	bool isSeleted = false;  //선택된 카드 표시용 
 	bool AtoOne = true; //Ace를 1로쓸지 11로쓸지 true면 1로
+	float reversTime = 0;
 };
 

@@ -66,10 +66,7 @@ int Player::GetScore()
 	return hand.GetScore();
 }
 
-void Player::ActiveSkill()
-{
-	skil();
-}
+
 
 bool Player::Open2Card()
 {
@@ -100,14 +97,28 @@ bool Player::CheckGameOver()
 	return (GetScore() >= 22);
 }
 
-void Player::skiil1()
+void Player::SetSkill(PSkill _skill)
 {
-	//사용하면 뒷면카드에 테두리 생성카드 클릭들어오면 카드 뒤집히고 2초뒤 다시 뒤집히고 스킬끝
-	
+	if (_skill == PSkill::fastEye)
+		skill = [this]() { fastEye(); };
+	else if(_skill == PSkill::guts)
+		skill = [this]() { guts(); };
+	else if (_skill == PSkill::meditation)
+		skill = [this]() { meditation(); };
+	else if(_skill == PSkill::Insurance)
+		skill = [this]() { Insurance(); };
+}
+
+void Player::fastEye()
+{
 	if (selectCard != nullptr)  //카드 선택 완료했으면
 	{
-		selectCard->Reverse();  //앞면으로 뒤집고
-		
+		if (true == selectCard->RevereseSec(3.0f))
+		{
+
+		}
+
+
 	}
 	else                        //카드선택 전까진
 	{
@@ -116,31 +127,34 @@ void Player::skiil1()
 			if (card != nullptr && card->isOpen == false)
 			{
 				//빨간색 테두리 생성bool변수 설정
-				
+
 			}
 		}
 	}
-
-	
-	
-	
 }
 
-void Player::skill2()
+void Player::guts()
 {
-	//최대치 설정해서 제한필요
 	BLACKJACK->magnification *= 2;
 }
 
-void Player::skill3()
+void Player::meditation()
 {
 	chip *= 1.1f;
 }
 
-void Player::skill4()
+void Player::Insurance()
 {
 }
 
+
+
+bool Player::ActiveSkill()
+{
+	skill();
+
+	return true;
+}
 
 
 

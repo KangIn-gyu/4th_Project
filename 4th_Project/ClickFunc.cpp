@@ -27,7 +27,9 @@ void ClickFunc::DoubleDown()
 	BLACKJACK->onDoubbleDown = true;
 }
 
-void ClickFunc::SetPlayerSkill(Player* player)
+void ClickFunc::SetPlayerSkill(Player* player, PSkill _skill)
 {
-	
+	player->SetSkill(_skill);
 }
+
+
