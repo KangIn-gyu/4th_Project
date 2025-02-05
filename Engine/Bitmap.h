@@ -14,6 +14,7 @@ public:
 	void CreateBitmapFromFile(const WCHAR* _filePath);
 	ComPtr<ID2D1Bitmap> GetImageData() { return d2dBitmap; }
 
+	DXMath::Vector2 GetXY() { return DXMath::Vector2(d2dBitmap.Get()->GetSize().width, d2dBitmap.Get()->GetSize().height); }
 	D2D1_RECT_F GetRect() { return  destRect; }
 
 	void SetSize(float width, float height);

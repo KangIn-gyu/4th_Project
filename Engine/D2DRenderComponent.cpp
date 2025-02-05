@@ -41,6 +41,11 @@ D2D_VECTOR_2F D2DRenderComponent::Get2DImageSize()
 {
 	return { imageData->GetRect().right, imageData->GetRect().bottom };
 }
+
+DXMath::Vector2 D2DRenderComponent::Get2DImageXY()
+{
+	return imageData->GetXY();
+}
 void D2DRenderComponent::Set2DImagePos(float _x, float _y)
 {
 	imageData->SetPos(_x, _y);
@@ -85,7 +90,7 @@ void D2DRenderComponent::SetAlignment(D2DFont::Setting _SortX, D2DFont::Setting 
 void D2DRenderComponent::Draw()
 {
 #if _DEBUG
-	font->DrawTextBox();
+	//font->DrawTextBox();
 #endif
 	if (imageData != nullptr)
 	{
@@ -93,7 +98,7 @@ void D2DRenderComponent::Draw()
 	}
 	if (font != nullptr)
 	{
-		D2DClass::GetD2DDeviceContext()->DrawTextLayout( font->GetPos(), font->GetTextLayout(), font->GetBrush());
+		//D2DClass::GetD2DDeviceContext()->DrawTextLayout( font->GetPos(), font->GetTextLayout(), font->GetBrush());
 	}
 }
 

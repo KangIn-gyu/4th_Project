@@ -11,6 +11,23 @@ void BoxCollider::SetBox(const DXMath::Vector3 center, const DXMath::Vector3 ext
 	obBox.Orientation = orientation;
 }
 
+bool BoxCollider::Check2D(float mousex, float mousey)
+{
+	float minX = modelCenter.x - modelExtent.x;
+	float maxX = modelCenter.x + modelExtent.x;
+	float minY = modelCenter.y - modelExtent.y;
+	float maxY = modelCenter.y + modelExtent.y;
+
+	// 마우스가 AABB 안에 있는지 확인
+	if (mousex >= minX && mousex <= maxX &&
+		mousey >= minY && mousey <= maxY)
+	{
+		return true;  // 충돌함
+	}
+
+	return false;  // 충돌 안 함
+}
+
 void BoxCollider::ComponentInitialize()
 {
 }

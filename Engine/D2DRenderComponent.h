@@ -20,7 +20,7 @@ public:
 	D2D_VECTOR_2F Get2DImageSize();
 	void Set2DImagePos(float _x, float _y);
 	D2D_VECTOR_2F Get2DImagePos();
-
+	DXMath::Vector2 Get2DImageXY();
 	// 폰트 관련 함수들 데이터 조정
 	void SceneCSVDataLoad(std::string_view _filePath);
 	void LoadFont(const std::string& _filePath);
@@ -38,8 +38,8 @@ private:
 public:
 
 private:
-	D2DFont* font;
-	std::shared_ptr<Bitmap> imageData;
+	D2DFont* font = {};
+	std::shared_ptr<Bitmap> imageData = {};
 
 	std::vector<std::pair<std::string, std::string>> CSVdatas;
 };

@@ -32,8 +32,8 @@ void GambleScene::Enter()
 	BLACKJACK->deck->GetComponent<TransformComponent>()->SetPosition({ -60, 65, 0 });
 	BLACKJACK->trashDeck = ObjectCreator<Deck>("Deck", Object::ObjectType::Basic,false);
 	BLACKJACK->Setstage(1);
-
-	auto test = ObjectCreator<TestObj>("Table", Object::ObjectType::Basic);
+	ObjectCreator<TestObj>("IngameMods", Object::ObjectType::Basic);
+	//auto test = ObjectCreator<TestObj>("Table", Object::ObjectType::Basic);
 	auto deck = GetGameObject(Object::ObjectType::Basic, "Deck");
 
 	ObjectCreator<Button>("Button", Object::ObjectType::Basic, DXMath::Vector3(1100, 200, 0), []() {BLACKJACK->Bet();});

@@ -12,7 +12,7 @@ public:
 
 	// 충돌 검사 함수 다른거랑 충돌할일이 있을까
 	bool CheckCollision(const BoxCollider& other) const;
-
+	bool Check2D(float mousex, float mousey);
 	virtual void ComponentInitialize() override;                    // 초기화용
 	virtual void ComponentUpdate(const float _deltaTime) override;  // 업데이트
 	// OBB 업데이트 함수

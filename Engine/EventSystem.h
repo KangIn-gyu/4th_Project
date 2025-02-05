@@ -23,6 +23,7 @@ public:
 	void BeginDrag(); //꾹 누르는거  일단 나중에 
 	void StayDrag();
 	void EndDrag();
+	Object* Check2D(int _mouseX, int _mouseY);
 	POINT startPoint;
 	int dragThresholdX;
 	int dragThresholdY;
