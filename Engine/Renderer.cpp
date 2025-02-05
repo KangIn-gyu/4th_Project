@@ -159,105 +159,109 @@ void Renderer::D3DDraw()
 	d3dDeviceContext->UpdateSubresource(productBuffer.GetBuffer().Get(), 0, nullptr, &productData, 0, 0);
 
 	bool hasSetLayout = false;
+	
 	for (auto& renderComponent : work)
 	{
-		auto* modelData = renderComponent->GetModelData()->GetModelData();
-		std::unordered_map<std::string, AiNode*>* nodeData = renderComponent->GetNodeData();
-		for (auto& data : *modelData->meshs)
+		if (renderComponent->GetActive() == true)
 		{
-			auto* meshData = data->GetMeshInfo();
-			//IA 
-			auto* vertexBuffer = meshData->vertexBuffer;
-			d3dDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-			d3dDeviceContext->IASetVertexBuffers(0, 1, vertexBuffer->GetBuffer().GetAddressOf(), &vertexBuffer->vertextBufferStride, &vertexBuffer->vertextBufferOffset);
-			auto* indexBuffer = meshData->indexBuffer;
-			d3dDeviceContext->IASetIndexBuffer(indexBuffer->GetBuffer().Get(), DXGI_FORMAT_R32_UINT, 0);
-			//	comptr을 항상 맹신하지 말것
-			//	InputLayout같은걸 계속 유지시키면서 재할당 하는 식으로 해야하는데
-			//	문제점은 그냥 comptr의 임시객체를 생성해서 넣어버려서
-			//	문장이 끝나면 바로 소멸되서 참조카운트가 불안정해져서 원래있던 InputLayout를 날린다는것
-			//	meshData->inputLayout.GetInputLayout().Get(); 이걸 강제로 문장에 때려박으면 날라갈수도있다는거
-			//	전에 되었던 이유는 input layout을 여기서만 할당하기때문에 참조카운팅이 날라갈 이유가 없고
-			//	지금은 ia를 날렸다가 다시 할당했다가 날렸다가 메인 렌더링 루프에서 재할당을 하기때문에 가지고 있던
-			//	문제가 생겼던것
-			//	comptr은 무적이 아니다 comptr의 자동참조 카운트 관리가 문제를 일으킬 가능성이 있다.
-			//	렌더링 파이프라인중에서 comptr의 스코프가 끝나면서 자동으로 release가 호출되었거나
-			//	여러곳에서 같은 리소스를 참조할 때 comptr의 참조 카운트관리가 의도치 않게 작동할 가능성이 있다.
-			//	그러므로 comptr은 무적이 아니다.
-			auto layout = meshData->inputLayout.GetInputLayout().Get();
-			if (!hasSetLayout && layout)
+			auto* modelData = renderComponent->GetModelData()->GetModelData();
+			std::unordered_map<std::string, AiNode*>* nodeData = renderComponent->GetNodeData();
+			for (auto& data : *modelData->meshs)
 			{
-				d3dDeviceContext->IASetInputLayout(layout);
-				hasSetLayout = true;
-			}
-			//if (layout)
-			//{
-			//	// IA의 주소와 실제 인터페이스 값
-			//	std::cout << "Layout Address: " << meshData->inputLayout.GetInputLayout().GetAddressOf()
-			//		<< ", Interface: " << meshData->inputLayout.GetInputLayout().Get() << "\n";
-			//}
-
-			// VS 
-			d3dDeviceContext->VSSetShader(renderComponent->GetShader(ShaderType::VS)->GetVertexShader().Get(), nullptr, 0);
-			d3dDeviceContext->VSSetConstantBuffers(0, 1, matrixConstantBuffer.GetBuffer().GetAddressOf());
-			d3dDeviceContext->VSSetConstantBuffers(1, 1, objectBuffer.GetBuffer().GetAddressOf());
-			d3dDeviceContext->VSSetConstantBuffers(3, 1, matrixPaletteBuffer.GetBuffer().GetAddressOf());
-
-			// PS 
-			d3dDeviceContext->PSSetShader(renderComponent->GetShader(ShaderType::PS)->GetPixelShader().Get(), nullptr, 0);
-			d3dDeviceContext->PSSetConstantBuffers(0, 1, matrixConstantBuffer.GetBuffer().GetAddressOf());
-			d3dDeviceContext->PSSetConstantBuffers(1, 1, objectBuffer.GetBuffer().GetAddressOf());
-
-			MatrixBuffer matrixData;
-			auto node = nodeData->find(meshData->meshName);
-			matrixData.worldMatrix = DX::XMMatrixTranspose(node->second->GetTransform().GetWorldMatrix());
-			matrixData.viewMatrix = DX::XMMatrixTranspose(CameraObject::g_MainCameraObject->GetViewMatrix());
-			matrixData.projectionMatrix = DX::XMMatrixTranspose(CameraObject::g_MainCameraObject->GetProjectionMatrix());
-			
-
-			Material* material = (*modelData->materials)[meshData->GetMaterialIndex()];
-			ObjectBuffer objectData;
-			objectData.metalness = material->GetMetalness();
-			objectData.roughness = material->GetRoughness();
-			objectData.onOutline = false;
-
-			if (renderComponent->GetOwner()->GetEffect() == Object::Effect::OutLine)
-			{
-				objectData.onOutline = true;
-			}
-
-			if (nullptr != modelData->matrixPallete)
-			{
-				d3dDeviceContext->UpdateSubresource(matrixPaletteBuffer.GetBuffer().Get(), 0, nullptr, &(*modelData->matrixPallete), 0, 0);
-			}
-			else
-			{ // TODO : 이거 할필요가 있을가 고민중... 
-				static DXMath::Matrix identityPallete[128];
-				d3dDeviceContext->UpdateSubresource(matrixPaletteBuffer.GetBuffer().Get(), 0, nullptr, identityPallete, 0, 0);
-			}
-
-			while (!previousTexturerProcessing.empty())
-			{
-				ID3D11ShaderResourceView* nullSRV = nullptr;
-				d3dDeviceContext->PSSetShaderResources(previousTexturerProcessing.top(), 1, &nullSRV);
-				previousTexturerProcessing.pop();
-			}
-
-			for (auto& textur : material->GetTextures())
-			{
-				if (!textur->GetTextureTypeIndexs().empty())
+				auto* meshData = data->GetMeshInfo();
+				//IA 
+				auto* vertexBuffer = meshData->vertexBuffer;
+				d3dDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+				d3dDeviceContext->IASetVertexBuffers(0, 1, vertexBuffer->GetBuffer().GetAddressOf(), &vertexBuffer->vertextBufferStride, &vertexBuffer->vertextBufferOffset);
+				auto* indexBuffer = meshData->indexBuffer;
+				d3dDeviceContext->IASetIndexBuffer(indexBuffer->GetBuffer().Get(), DXGI_FORMAT_R32_UINT, 0);
+				//	comptr을 항상 맹신하지 말것
+				//	InputLayout같은걸 계속 유지시키면서 재할당 하는 식으로 해야하는데
+				//	문제점은 그냥 comptr의 임시객체를 생성해서 넣어버려서
+				//	문장이 끝나면 바로 소멸되서 참조카운트가 불안정해져서 원래있던 InputLayout를 날린다는것
+				//	meshData->inputLayout.GetInputLayout().Get(); 이걸 강제로 문장에 때려박으면 날라갈수도있다는거
+				//	전에 되었던 이유는 input layout을 여기서만 할당하기때문에 참조카운팅이 날라갈 이유가 없고
+				//	지금은 ia를 날렸다가 다시 할당했다가 날렸다가 메인 렌더링 루프에서 재할당을 하기때문에 가지고 있던
+				//	문제가 생겼던것
+				//	comptr은 무적이 아니다 comptr의 자동참조 카운트 관리가 문제를 일으킬 가능성이 있다.
+				//	렌더링 파이프라인중에서 comptr의 스코프가 끝나면서 자동으로 release가 호출되었거나
+				//	여러곳에서 같은 리소스를 참조할 때 comptr의 참조 카운트관리가 의도치 않게 작동할 가능성이 있다.
+				//	그러므로 comptr은 무적이 아니다.
+				auto layout = meshData->inputLayout.GetInputLayout().Get();
+				if (!hasSetLayout && layout)
 				{
-					for (auto textureIndex : textur->GetTextureTypeIndexs())
+					d3dDeviceContext->IASetInputLayout(layout);
+					hasSetLayout = true;
+				}
+				//if (layout)
+				//{
+				//	// IA의 주소와 실제 인터페이스 값
+				//	std::cout << "Layout Address: " << meshData->inputLayout.GetInputLayout().GetAddressOf()
+				//		<< ", Interface: " << meshData->inputLayout.GetInputLayout().Get() << "\n";
+				//}
+
+				// VS 
+				d3dDeviceContext->VSSetShader(renderComponent->GetShader(ShaderType::VS)->GetVertexShader().Get(), nullptr, 0);
+				d3dDeviceContext->VSSetConstantBuffers(0, 1, matrixConstantBuffer.GetBuffer().GetAddressOf());
+				d3dDeviceContext->VSSetConstantBuffers(1, 1, objectBuffer.GetBuffer().GetAddressOf());
+				d3dDeviceContext->VSSetConstantBuffers(3, 1, matrixPaletteBuffer.GetBuffer().GetAddressOf());
+
+				// PS 
+				d3dDeviceContext->PSSetShader(renderComponent->GetShader(ShaderType::PS)->GetPixelShader().Get(), nullptr, 0);
+				d3dDeviceContext->PSSetConstantBuffers(0, 1, matrixConstantBuffer.GetBuffer().GetAddressOf());
+				d3dDeviceContext->PSSetConstantBuffers(1, 1, objectBuffer.GetBuffer().GetAddressOf());
+
+				MatrixBuffer matrixData;
+				auto node = nodeData->find(meshData->meshName);
+				matrixData.worldMatrix = DX::XMMatrixTranspose(node->second->GetTransform().GetWorldMatrix());
+				matrixData.viewMatrix = DX::XMMatrixTranspose(CameraObject::g_MainCameraObject->GetViewMatrix());
+				matrixData.projectionMatrix = DX::XMMatrixTranspose(CameraObject::g_MainCameraObject->GetProjectionMatrix());
+
+
+				Material* material = (*modelData->materials)[meshData->GetMaterialIndex()];
+				ObjectBuffer objectData;
+				objectData.metalness = material->GetMetalness();
+				objectData.roughness = material->GetRoughness();
+				objectData.onOutline = false;
+
+				if (renderComponent->GetOwner()->GetEffect() == Object::Effect::OutLine)
+				{
+					objectData.onOutline = true;
+				}
+
+				if (nullptr != modelData->matrixPallete)
+				{
+					d3dDeviceContext->UpdateSubresource(matrixPaletteBuffer.GetBuffer().Get(), 0, nullptr, &(*modelData->matrixPallete), 0, 0);
+				}
+				else
+				{ // TODO : 이거 할필요가 있을가 고민중... 
+					static DXMath::Matrix identityPallete[128];
+					d3dDeviceContext->UpdateSubresource(matrixPaletteBuffer.GetBuffer().Get(), 0, nullptr, identityPallete, 0, 0);
+				}
+
+				while (!previousTexturerProcessing.empty())
+				{
+					ID3D11ShaderResourceView* nullSRV = nullptr;
+					d3dDeviceContext->PSSetShaderResources(previousTexturerProcessing.top(), 1, &nullSRV);
+					previousTexturerProcessing.pop();
+				}
+
+				for (auto& textur : material->GetTextures())
+				{
+					if (!textur->GetTextureTypeIndexs().empty())
 					{
-						previousTexturerProcessing.push(textureIndex);
-						d3dDeviceContext->PSSetShaderResources(textureIndex, 1, textur->GetTexture().GetAddressOf());
+						for (auto textureIndex : textur->GetTextureTypeIndexs())
+						{
+							previousTexturerProcessing.push(textureIndex);
+							d3dDeviceContext->PSSetShaderResources(textureIndex, 1, textur->GetTexture().GetAddressOf());
+						}
 					}
 				}
-			}
 
-			d3dDeviceContext->UpdateSubresource(matrixConstantBuffer.GetBuffer().Get(), 0, nullptr, &matrixData, 0, 0); // CPU -> GPU
-			d3dDeviceContext->UpdateSubresource(objectBuffer.GetBuffer().Get(), 0, nullptr, &objectData, 0, 0);			// CPU -> GPU
-			d3dDeviceContext->DrawIndexed(indexBuffer->GetIndexCount(), 0, 0);
+				d3dDeviceContext->UpdateSubresource(matrixConstantBuffer.GetBuffer().Get(), 0, nullptr, &matrixData, 0, 0); // CPU -> GPU
+				d3dDeviceContext->UpdateSubresource(objectBuffer.GetBuffer().Get(), 0, nullptr, &objectData, 0, 0);			// CPU -> GPU
+				d3dDeviceContext->DrawIndexed(indexBuffer->GetIndexCount(), 0, 0);
+			}
 		}
 	}
 
