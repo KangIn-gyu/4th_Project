@@ -9,14 +9,14 @@ class FontManager : public SingletonBase<FontManager>
 	friend class SingletonBase<FontManager>;
 public:
 	void Initialize();
-	D2DFont* LoadFont(std::string_view _fontFilePath);
+	D2DFont* LoadFont(std::string_view _fontFilePath, float fontsize);
 
 private:
 	FontManager() = default;
 	~FontManager();
 
-	void LoadTextFormat(std::string_view _fontFilePath, std::string_view fontName);
-	void AddFont(std::string_view _fontName, IDWriteFontCollection1* _pFontCollection, IDWriteTextFormat** _ppTextFormat);
+	void LoadTextFormat(std::string_view _fontFilePath, std::string_view fontName, float fontsize);
+	void AddFont(std::string_view _fontName, IDWriteFontCollection1* _pFontCollection, IDWriteTextFormat** _ppTextFormat, float fontsize);
 
 public:
 	
@@ -25,5 +25,6 @@ private:
 	ComPtr<IDWriteFontSetBuilder1> fontSetBuilder;
 	std::unordered_map<std::string, IDWriteTextFormat*> fontMap;
 	std::string basePath = "Resource/";
+	
 };
 
