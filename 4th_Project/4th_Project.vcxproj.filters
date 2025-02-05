@@ -18,12 +18,20 @@
     <ClInclude Include="ClickFunc.h">
       <Filter>UI</Filter>
     </ClInclude>
+    <ClInclude Include="GameManager.h" />
+    <ClInclude Include="UIButton.h">
+      <Filter>UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
       <Filter>pch</Filter>
     </ClCompile>
     <ClCompile Include="ClickFunc.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="UIButton.cpp">
       <Filter>UI</Filter>
     </ClCompile>
   </ItemGroup>

@@ -78,6 +78,7 @@ void ModelComponent::ComponentUpdate(const float _deltaTime)
                     Transform* nodeTransform = node->GetPtrTransform();
                     boneRef.SetNodeWolrdTransform(nodeTransform->GetPtrWorldMatrix());
                 }
+
                 skeletalMesh->UpdateMatrixPallete(&matrixPalletBuffer, model->GetModelData()->skeletonInfo);
             }
         }

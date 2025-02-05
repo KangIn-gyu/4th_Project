@@ -7,6 +7,7 @@ void BoxCollider::SetBox(const DXMath::Vector3 center, const DXMath::Vector3 ext
 	obBox.Center = center;
 	modelCenter = center; 
 	obBox.Extents = extents;
+	modelExtent = extents;
 	obBox.Orientation = orientation;
 }
 
@@ -18,6 +19,9 @@ void BoxCollider::ComponentUpdate(const float _deltaTime)
 {
 	
 	auto trans = owner->GetComponent<TransformComponent>();
+	objScale = trans->GetScale();
+	DXMath::Vector3 realExtent;
+	realExtent = modelExtent * objScale;
 	DXMath::Vector3 center = trans->GetPosition() + modelCenter;
 	obBox.Center = center;
 	obBox.Orientation = trans->GetQuaternion();

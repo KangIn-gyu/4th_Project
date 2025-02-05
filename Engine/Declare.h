@@ -25,7 +25,7 @@ struct CameraInfo
 	// 투영 관련 변수
 	float FovAngleY = 1.0f;
 	float Near = 1.0f;           // 근거리 클리핑 평면
-	float Far = 1000.0f;          // 원거리 클리핑 평면
+	float Far = 10000.0f;          // 원거리 클리핑 평면 *************************
 
 	// 고민 사항
 	bool Update = false;

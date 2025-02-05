@@ -37,12 +37,18 @@ void D2DRenderComponent::Set2DImageSize(float _width, float _height)
 {
 	imageData->SetSize(_width, _height);
 }
-
+D2D_VECTOR_2F D2DRenderComponent::Get2DImageSize()
+{
+	return { imageData->GetRect().right, imageData->GetRect().bottom };
+}
 void D2DRenderComponent::Set2DImagePos(float _x, float _y)
 {
 	imageData->SetPos(_x, _y);
 }
-
+D2D_VECTOR_2F D2DRenderComponent::Get2DImagePos()
+{
+	return { imageData->GetRect().left, imageData->GetRect().top };
+}
 void D2DRenderComponent::LoadFont(const std::string& _filePath)
 {	// TODO : 다시 만들어야 됨
 	font = FONTMANAGER->LoadFont(_filePath);
@@ -72,7 +78,10 @@ void D2DRenderComponent::SetTextSize(float _FontSize, DWRITE_TEXT_RANGE _textRan
 {
 	font->SetTextSize(_FontSize, _textRange);
 }
-
+void D2DRenderComponent::SetAlignment(D2DFont::Setting _SortX, D2DFont::Setting _SortY)
+{
+	font->Alignment(_SortX, _SortY);
+}
 void D2DRenderComponent::Draw()
 {
 #if _DEBUG

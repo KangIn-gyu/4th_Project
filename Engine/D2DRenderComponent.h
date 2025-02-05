@@ -2,9 +2,9 @@
 #include "Component.h"
 #include "d2d1.h"
 #include <dwrite.h>
+#include "D2DFont.h"
 
 class Bitmap;
-class D2DFont;
 class D2DRenderComponent : public Component
 {
 public:
@@ -17,7 +17,9 @@ public:
 	// 비트맵 함수
 	void Load2DImage(std::string_view _filePath);
 	void Set2DImageSize(float _width, float _height);
+	D2D_VECTOR_2F Get2DImageSize();
 	void Set2DImagePos(float _x, float _y);
+	D2D_VECTOR_2F Get2DImagePos();
 
 	// 폰트 관련 함수들 데이터 조정
 	void SceneCSVDataLoad(std::string_view _filePath);
@@ -26,6 +28,7 @@ public:
 	void SetFontColor(D2D1_COLOR_F color); // 컬러 변경 주의사항 : 렌더 하기전에 색을 변경해야 됨
 	void SetFontPos(float _X, float _Y); // 위치 조정 로컬좌표일때 사용
 	void SetFontBoxSize(float _width, float _height);
+	void SetAlignment(D2DFont::Setting _SortX, D2DFont::Setting _SortY);
 	void SetTextSize(float _FontSize, DWRITE_TEXT_RANGE _textRange);
 
 	// 폰트맵과 비트맵 같이 처리함

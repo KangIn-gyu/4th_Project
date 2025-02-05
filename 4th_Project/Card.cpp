@@ -9,7 +9,10 @@
 #include "BlackJack.h"
 #include "../Engine/Model.h"
 #include "../Engine/DOTween.h"
-
+#include "../Engine/SceneManager.h"
+#include "../Engine/Scene.h"
+#include "../Engine/FactorySystem.h"
+#include "Button.h"
 Card::Card(std::string_view _name, Object::ObjectType _type,Suit _suit, std::string _rank) : Object(_name, _type)
 {
 	suit = _suit;
@@ -22,7 +25,8 @@ Card::~Card()
 
 void Card::Initialize()
 {
-	CreateComponent<ModelComponent>("STAGE1/FBX/gun.fbx");  // char2 / gun // asdq
+	//CreateComponent<ModelComponent>("STAGE1/FBX/Card/Clover_Ace.fbx");  // char2 / gun // asdq
+	CreateComponent<ModelComponent>("STAGE1/FBX/Card/" + GetName() + ".fbx");
 	CreateComponent<RenderComponent>();
 	CreateComponent<BoxCollider>();
 
@@ -34,46 +38,86 @@ void Card::Initialize()
 	randerComponet->SetShader(ShaderType::PS, "Shaders/PixelShaderPS.hlsl");
 }
 
+void Card::Init(DXMath::Vector3 _pos)
+{
+	if (isOpen)
+	{
+		float eulerAngle = DirectX::XMConvertToRadians(rotat +180);
+		DXMath::Quaternion eulerToQuaternion = DXMath::Quaternion::CreateFromYawPitchRoll(0.f, eulerAngle, 0.f);
+		GetComponent<TransformComponent>()->SetQuaternion(eulerToQuaternion);
+	}
+	isOpen = false;
+	needRevers = false;
+	rotat = 0;
+	prevRotat = rotat;
+	AtoOne = true;
+	isSeleted = false;
+	elpasedTime = 0;
+	GetComponent<TransformComponent>()->SetPosition(_pos);
+	//GetComponent<TransformComponent>()->SetQuaternion(_quater); //회전값
+}
+
 void Card::Update(const float _deltaTime)
 {
 	__super::Update(_deltaTime);
-	
-	
-	auto quater = GetComponent<TransformComponent>()->GetQuaternion();
-	
-	float eulerAngle = DirectX::XMConvertToRadians(rotat);
-	DXMath::Quaternion eulerToQuaternion = DXMath::Quaternion::CreateFromYawPitchRoll(0.f, eulerAngle, 0.f);
+
+	if (needRevers)
+	{
+		isOpen = true;
+		elpasedTime += _deltaTime;   //움직일땐 안열리고 움직임멈추면 열리고? 앞 뒷 SetRevers(bool revers) true isOpen
+		if (elpasedTime >= 1.0f)
+		{
+			new DOTween(rotat, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 1.f, rotat, rotat + 180);
+			needRevers = false;
+			elpasedTime = 0;
+		}
+
+	}
+
+
+	if (prevRotat != rotat)
+	{
+		//auto quater = GetComponent<TransformComponent>()->GetQuaternion();
+		float eulerAngle = DirectX::XMConvertToRadians(rotat);
+		DXMath::Quaternion eulerToQuaternion = DXMath::Quaternion::CreateFromYawPitchRoll(0.f, eulerAngle, 0.f);
 		//newQuat = quater * eulerToQuaternion;
-	GetComponent<TransformComponent>()->SetQuaternion(eulerToQuaternion);
-	
+		GetComponent<TransformComponent>()->SetQuaternion(eulerToQuaternion);
+		prevRotat = rotat;
+	}
+
+
+
+
 }
+
 
 void Card::Open()
 {
-	
-	if (isOpen == false)
+	needRevers = true;
+	/*if (isOpen == false)
 	{
-		if (this->rank == "A")
-		{
-			//화면에 팝업2개출력해서 1 or 11선택하게끔
-			AtoOne = true;
-		}
 		isOpen = true;
 		new DOTween(rotat, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 1.f, rotat, rotat + 180);
-	}
-	//카드 뒤집히는 연출 필요 A일경우 1,11정하는 코드필요 *****
+	}*/
+	
+}
+
+void Card::Close()
+{
+	if(true == isOpen)
+		needRevers = true;
 }
 
 int Card::GetValue()
 {
-	if (rank == "A")
+	if (rank == "Ace")
 	{
 		if (AtoOne)
 			return 1;
 		else
 			return 11;
 	}
-	if (rank == "J" || rank == "Q" || rank == "K") return 10;
+	if (rank == "Jack" || rank == "Queen" || rank == "King") return 10;
 
 	return std::stoi(rank);
 }
@@ -81,36 +125,58 @@ int Card::GetValue()
 void Card::OnClick()
 {
 	std::cout << "이 카드는 : " << GetName() << " 입니다. " << std::endl;
-	if (BLACKJACK->GetState() == PlayerState::OPEN  || !PLAYER->Open2Card())
+	if (BLACKJACK->canClick == true)
 	{
-		for (auto& card : PLAYER->hand.hand) //
+		if (BLACKJACK->GetState() == PlayerState::OPEN || !PLAYER->Open2Card())
 		{
+			for (auto& card : PLAYER->hand.hand) //
+			{
 
-			if (card != nullptr && card->GetName() == GetName() && isOpen == false) //누른카드가 패에있고 아직 뒷면이면
-			{
-				Open();
-				PLAYER->turnEnd = true;
+				if (card != nullptr && card->GetName() == GetName() && isOpen == false) //누른카드가 패에있고 아직 뒷면이면
+				{
+					Open();
+					if (card->rank == "Ace") 
+						OpenA();
+					PLAYER->turnEnd = true;
+				}
 			}
 		}
-	}
-	
-	if (BLACKJACK->GetState() == PlayerState::HIT && PLAYER->needDiscard == true)
-	{
-		for (auto& card : PLAYER->hand.hand) //
+		if (BLACKJACK->GetState() == PlayerState::HIT && PLAYER->needDiscard == true)
 		{
-			if (card != nullptr && card->GetName() == GetName() && isOpen == false) //누른카드가 패에있고 아직 뒷면이면
+			for (int i = 0; i < PLAYER->hand.numCard(); i++) 
 			{
-				card->GetComponent<TransformComponent>()->SetPosition({ -700,0,0 }); //풀을만든들 없애든하기 일단 위치만변경
-				card = nullptr;
+				if (PLAYER->hand.hand[i] != nullptr && PLAYER->hand.hand[i]->GetName() == GetName() && isOpen == false) //누른카드가 패에있고 아직 뒷면이면
+				{		
+					PLAYER->hand.hand[i]->SetActive(false);
+					BLACKJACK->trashDeck->cards.push_back(PLAYER->hand.hand[i]); //카메라 문젠지 자꾸 잘못된게 지워지는듯? 잘모르겠음
+					PLAYER->hand.hand[i] = nullptr;
+				}
+					
 			}
 		}
 	}
-	
 }
 
 void Card::OnMouse()
 {
 	//std::cout << "현재 마우스가 " << GetName() << " 오브젝트 위에 있습니다" << std::endl;
+}
+
+void Card::OpenA()
+{
+	auto btn1 = SCENEMANAGER->GetCurrentScene()->ObjectCreator<Button>("Ato1", Object::ObjectType::Basic, DXMath::Vector3(0, -50, 0), []() {;});
+	auto btn2 = SCENEMANAGER->GetCurrentScene()->ObjectCreator<Button>("Ato2", Object::ObjectType::Basic, DXMath::Vector3(100, -50, 0), []() {;});
+	btn1->SetOnclick([this, btn1, btn2]() {this->AtoOne = true,
+		btn1->SetActive(false),
+		btn2->SetActive(false);});
+		//SCENEMANAGER->GetCurrentScene()->EraseGameObject(Layer::Tag::Basic, btn1),
+		//
+		//SCENEMANAGER->GetCurrentScene()->EraseGameObject(Layer::Tag::Basic, btn2);});// *****
+	btn2->SetOnclick([this, btn1, btn2]() {this->AtoOne = false,
+		btn1->SetActive(false),
+		btn2->SetActive(false);});
+			//SCENEMANAGER->GetCurrentScene()->EraseGameObject(Layer::Tag::Basic, btn1),
+			//SCENEMANAGER->GetCurrentScene()->EraseGameObject(Layer::Tag::Basic, btn2);});// *****
 }
 
 std::string enumToString(Suit _suit)

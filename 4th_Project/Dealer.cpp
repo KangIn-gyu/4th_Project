@@ -9,22 +9,27 @@
 #include "../Engine/TimeSystem.h"
 Dealer::Dealer(std::string_view _name, Object::ObjectType _type) : Object(_name, _type)
 {
-	
+	auto model = CreateComponent<ModelComponent>("STAGE1/FBX/char2.fbx"); // Evelyn char2
+	/*if (model->GetAnimations() != nullptr)
+	{
+		model->SetAnimation(0);
+	}*/
+
+	CreateComponent<RenderComponent>();
+
+	CreateComponent<BoxCollider>();
+	DXMath::Vector3 extent = GetComponent<ModelComponent>()->GetModel().get()->extent * 0.6;
+	DXMath::Vector3 center = GetComponent<ModelComponent>()->GetModel().get()->center;
+	GetComponent<BoxCollider>()->SetBox(center, extent, GetComponent<TransformComponent>()->GetQuaternion());
+	auto randerComponet = GetComponent<RenderComponent>();
+	randerComponet->SetShader(ShaderType::VS, "Shaders/VertexShaderVS.hlsl");
+	randerComponet->SetShader(ShaderType::PS, "Shaders/PixelShaderPS.hlsl");
 }
 
 void Dealer::Initialize()
 {
-	CreateComponent<ModelComponent>("STAGE1/FBX/Evelyn.fbx");  // char2 / gun // asdq
-	CreateComponent<RenderComponent>();
-
-	CreateComponent<BoxCollider>();
+	//CreateComponent<ModelComponent>("STAGE1/FBX/char2.fbx");  // char2 / gun // asdq
 	
-	DXMath::Vector3 extent = GetComponent<ModelComponent>()->GetModel().get()->extent;
-	DXMath::Vector3 center = GetComponent<ModelComponent>()->GetModel().get()->center;
-	GetComponent<BoxCollider>()->SetBox( center, extent,GetComponent<TransformComponent>()->GetQuaternion());
-	auto randerComponet = GetComponent<RenderComponent>();
-	randerComponet->SetShader(ShaderType::VS, "Shaders/VertexShaderVS.hlsl");
-	randerComponet->SetShader(ShaderType::PS, "Shaders/PixelShaderPS.hlsl");
 
 }
 
@@ -43,10 +48,18 @@ void Dealer::Update(const float _deltaTime)
 
 
 
+void Dealer::Init()
+{
+
+	finishFirst = false;
+	finishDraw = false;
+	hand.handReset(true);
+}
+
 void Dealer::FirstDraw(Deck* _deck)
 {
 	
-	hand.cardDraw((_deck->DrawCard(true)),{ float(100 * hand.numCard() + 100), 200.0f,0},true); 
+	hand.cardDraw((_deck->DrawCard(true)),{ dealerSlots.x + hand.numCard() * 5.0f, dealerSlots.y + hand.numCard() * 0.1f, dealerSlots.z},true);
 	
 }
 
@@ -61,13 +74,13 @@ void Dealer::CardDraw(Deck* _deck)
 			hand.hand[0]->Open();
 		else
 		{
-			Card* card = hand.cardDraw((_deck->DrawCard(true)), { float(100 * hand.numCard() + 100), 200.0f,0 }, true);
+			Card* card = hand.cardDraw((_deck->DrawCard(true)),{ dealerSlots.x + hand.numCard() * 5.0f, dealerSlots.y + hand.numCard() * 0.1f, dealerSlots.z},true);
 			card->Open();
 		}
 		elapsedTime = 0;
 	}
 
-	if (hand.GetScore() >= 17 && elapsedTime >= 1.0f)
+	if (hand.GetScore() >= 17 && elapsedTime >= 3.0f)
 		finishDraw = true;
 }
 
@@ -94,8 +107,10 @@ void Dealer::OnMouse()
 void Dealer::OpenOne(float _deltaTime)
 {
 	//1초뒤에 뒤집어야 하나 
-
-	hand.hand.back()->Open();
+	if (!finishFirst)
+	{
+		hand.hand.back()->Open();
+	}
 	finishFirst = true;
 }
 

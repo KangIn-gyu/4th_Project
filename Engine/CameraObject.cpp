@@ -10,6 +10,7 @@ CameraObject* CameraObject::g_MainCameraObject = nullptr;
 CameraObject::CameraObject(std::string_view _name, Object::ObjectType type) : Object(_name, type)
 {
 	windowInfo = ENGINE->GetWindowInfo();
+	//CreateComponent<CameraCompoent>();
 }
 
 void CameraObject::Initialize()

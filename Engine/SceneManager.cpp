@@ -41,6 +41,7 @@ void SceneManager::ChangeScene(std::string_view _SceneName)
 {
 	changeSceneTrigger = true;
 	changeSceneName.assign(_SceneName);
+	previousScene = currentScene;
 	// TODO : 여기서 다음 씬에 필요한 오브젝트 처리하는걸 실행하면 좋을 거 같음
 }
 
@@ -59,7 +60,11 @@ void SceneManager::Change(std::string_view _SceneName)
 	auto it = ScenesCollection.find(_SceneName.data());
 	if (it != ScenesCollection.end()) // 해당 씬이 있다면?
 	{
+		if(previousScene != nullptr)
+			previousScene->SetActive(false);
 		currentScene = it->second;
+		if (currentScene != nullptr)
+			currentScene->SetActive(true);
 		currentScene->Initialize();
 		currentScene->MainCameraSetting(0); // 메인 카메라 변경
 		IMGUI->HierarchyCurrentSceneSetting(currentScene); 

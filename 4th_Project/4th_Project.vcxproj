@@ -155,12 +155,14 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="GambleScene.h" />
     <ClInclude Include="BlackJack.h" />
+    <ClInclude Include="GameManager.h" />
     <ClInclude Include="Hand.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="TestObj.h" />
     <ClInclude Include="TestObj2.h" />
     <ClInclude Include="TestScene.h" />
+    <ClInclude Include="UIButton.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="4th_Project.cpp" />
@@ -172,6 +174,7 @@
     <ClCompile Include="Deck.cpp" />
     <ClCompile Include="GambleScene.cpp" />
     <ClCompile Include="BlackJack.cpp" />
+    <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="Hand.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -183,6 +186,7 @@
     <ClCompile Include="TestObj.cpp" />
     <ClCompile Include="TestObj2.cpp" />
     <ClCompile Include="TestScene.cpp" />
+    <ClCompile Include="UIButton.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.vcxproj">

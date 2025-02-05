@@ -51,7 +51,6 @@ public:
 
 	bool IsActive() const;
 	bool IsDead() const;
-
 	void SetActive(bool _state);
 	void Erase();
 	bool IsScript() { return script != nullptr; }
@@ -83,6 +82,7 @@ protected:
 private:
 	std::string name;
 	State state = State::Active;  // 해당 타입은 set 만들면 안됨.
+	bool isActive = true; //일단만듬 인규형 나중에 수정하거나 그냥 두죠 
 	ObjectType type;
 	std::unordered_map<std::type_index, std::vector<Component*>> components;
 	Script* script = nullptr; // 용도 : 여기다 생성된 오브젝트의 컴포넌트의 설정값을 넣는 곳이다 벡터로 담는 형식이 정식이지만 그냥 한개로 제한을 함.
