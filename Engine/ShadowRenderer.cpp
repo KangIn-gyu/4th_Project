@@ -109,6 +109,10 @@ void ShadowRenderer::BeginShadowPass(ID3D11DeviceContext* context)
 
     //std::cout << "Shadow DSV valid: " << (shadowMapDSV != nullptr) << std::endl;
 
+    // 이전 상태를 클리어하기 전에 현재 상태 저장
+    ID3D11InputLayout* previousLayout;
+    context->IAGetInputLayout(&previousLayout);
+
     ID3D11RenderTargetView* nullRTV = nullptr;
     ID3D11DepthStencilView* nullDSV = nullptr;
     ID3D11ShaderResourceView* nullSRV = nullptr;
@@ -132,7 +136,19 @@ void ShadowRenderer::BeginShadowPass(ID3D11DeviceContext* context)
     context->ClearDepthStencilView(shadowMapDSV.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 
     // Input Layout 설정 추가
+    if (!shadowIA.GetInputLayout()) {
+        std::cout << "Shadow Input Layout is null in BeginShadowPass!\n";
+        return;
+    }
     context->IASetInputLayout(shadowIA.GetInputLayout().Get());
+
+    ID3D11InputLayout* currentLayout;
+    context->IAGetInputLayout(&currentLayout);
+    if (!currentLayout) {
+        std::cout << "Failed to set Input Layout in BeginShadowPass!\n";
+    }
+    if (currentLayout) currentLayout->Release();
+    if (previousLayout) previousLayout->Release();
 }
 
 bool ShadowRenderer::InitShadowResources(ID3D11Device* device)
@@ -230,6 +246,8 @@ void ShadowRenderer::RenderShadow(ID3D11DeviceContext* context, const DXMath::Ma
     ID3D11RenderTargetView* boundRTV;
     ID3D11DepthStencilView* boundDSV;
     context->OMGetRenderTargets(1, &boundRTV, &boundDSV);
+    ID3D11InputLayout* originalLayout;
+    context->IAGetInputLayout(&originalLayout);
     //std::cout << "RTV bound: " << (boundRTV == nullptr) << " (should be null)" << std::endl;
     //std::cout << "DSV matches: " << (boundDSV == shadowMapDSV.Get()) << " (should be true)" << std::endl;
     if (boundRTV) boundRTV->Release();
@@ -270,7 +288,7 @@ void ShadowRenderer::RenderShadow(ID3D11DeviceContext* context, const DXMath::Ma
 
     //auto tmp = shadowIA.GetInputLayout().GetAddressOf();
     
-    context->IASetInputLayout(shadowIA.GetInputLayout().Get());
+    //context->IASetInputLayout(shadowIA.GetInputLayout().Get());
 
     ID3D11InputLayout* boundLayout;
     context->IAGetInputLayout(&boundLayout);
@@ -372,6 +390,11 @@ void ShadowRenderer::RenderShadow(ID3D11DeviceContext* context, const DXMath::Ma
     context->PSSetShaderResources(24, 1, shadowMapSRV.GetAddressOf());
     context->RSSetState(nullptr);
     context->OMSetDepthStencilState(nullptr, 0);
+    if (originalLayout)
+    {
+        context->IASetInputLayout(originalLayout);
+        originalLayout->Release();
+    }
 }
 
 void ShadowRenderer::DebugShadowMap(ID3D11Device* device, ID3D11DeviceContext* context)

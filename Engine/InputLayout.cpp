@@ -6,34 +6,28 @@
 #include "ResourceSystem.h"
 #include "Shader.h"
 
-bool InputLayout::IASetInputLayout(const std::initializer_list<D3D11_INPUT_ELEMENT_DESC>& _elements, std::string_view _vertexShaderfilePath)
+bool InputLayout::IASetInputLayout(const std::initializer_list<D3D11_INPUT_ELEMENT_DESC>& elements, std::string_view vertexShaderfilePath)
 {
-    VSshader = RESOURCESYSTEM->Load<Shader>(_vertexShaderfilePath);
-
+    VSshader = RESOURCESYSTEM->Load<Shader>(vertexShaderfilePath);
     if (!VSshader)
     {
         std::cout << "Failed to load vertex shader" << std::endl;
         return false;
     }
 
-    ID3DBlob* vsBlod = VSshader->GetVSBlob();
-    if (nullptr == vsBlod)
+    ID3DBlob* vsBlob = VSshader->GetVSBlob();
+    if (nullptr == vsBlob)
     {
-        std::cout << "IASetInputLayout 실패" << std::endl; // 추후 로그 시스템으로 해야됨
+        std::cout << "IASetInputLayout 실패" << std::endl;
         return false;
     }
 
-    // 3. elements를 벡터로 변환 (안전한 메모리 관리를 위해)
-    std::vector<D3D11_INPUT_ELEMENT_DESC> elements(_elements.begin(), _elements.end());
-
-
-
-    HR_T(D3DClass::GetD3DDevice()->CreateInputLayout(_elements.begin(),
-                                                     static_cast<UINT>(_elements.size()),
-                                                     vsBlod->GetBufferPointer(),
-                                                     vsBlod->GetBufferSize(),
-                                                     inputLayout.GetAddressOf()
-                                                    ));
-
+    // elements를 직접 사용
+    HR_T(D3DClass::GetD3DDevice()->CreateInputLayout(elements.begin(),
+        static_cast<UINT>(elements.size()),
+        vsBlob->GetBufferPointer(),
+        vsBlob->GetBufferSize(),
+        inputLayout.GetAddressOf()
+    ));
     return true;
 }

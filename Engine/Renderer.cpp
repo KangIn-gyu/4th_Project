@@ -95,6 +95,20 @@ void Renderer::D3DDraw()
 	d3dDeviceContext->PSSetSamplers(1, 1, &pointClampSampler);
 	d3dDeviceContext->PSSetSamplers(2, 1, &shadowRenderer.GetShadowSampler());
 
+	//if (!work.empty() && work[0]->GetModelData()->GetModelData()->meshs->size() > 0)
+	//{
+	//	// 모든 메쉬를 순회하면서 유효한 첫 번째 InputLayout을 찾음
+	//	for (auto& mesh : *work[0]->GetModelData()->GetModelData()->meshs)
+	//	{
+	//		if (mesh->GetMeshInfo() && mesh->GetMeshInfo()->inputLayout.GetInputLayout())
+	//		{
+	//			std::cout << "Found valid layout in mesh\n";
+	//			d3dDeviceContext->IASetInputLayout(mesh->GetMeshInfo()->inputLayout.GetInputLayout().Get());
+	//			break;
+	//		}
+	//	}
+	//}
+
 	// 1. 그림자 맵 패스
 	ID3D11InputLayout* currentLayout;
 	d3dDeviceContext->IAGetInputLayout(&currentLayout);
@@ -112,7 +126,7 @@ void Renderer::D3DDraw()
 	// 그림자 맵 렌더링
 	shadowRenderer.RenderShadow(d3dDeviceContext.Get(), CreateShadowMatrix(), work);
 	IMGUI->srv = shadowRenderer.GetShadowMapSRV();
-	
+	//d3dDeviceContext->IASetInputLayout(nullptr);
 	// 원래의 렌더링 상태로 복구
 
 	d3dDeviceContext->RSSetViewports(1, &originalViewport);
@@ -144,6 +158,7 @@ void Renderer::D3DDraw()
 	d3dDeviceContext->UpdateSubresource(cameraBuffer.GetBuffer().Get(), 0, nullptr, &cameraData, 0, 0);
 	d3dDeviceContext->UpdateSubresource(productBuffer.GetBuffer().Get(), 0, nullptr, &productData, 0, 0);
 
+	bool hasSetLayout = false;
 	for (auto& renderComponent : work)
 	{
 		auto* modelData = renderComponent->GetModelData()->GetModelData();
@@ -157,27 +172,30 @@ void Renderer::D3DDraw()
 			d3dDeviceContext->IASetVertexBuffers(0, 1, vertexBuffer->GetBuffer().GetAddressOf(), &vertexBuffer->vertextBufferStride, &vertexBuffer->vertextBufferOffset);
 			auto* indexBuffer = meshData->indexBuffer;
 			d3dDeviceContext->IASetIndexBuffer(indexBuffer->GetBuffer().Get(), DXGI_FORMAT_R32_UINT, 0);
-			// 문제점 발견
-			// 한번 물어볼것 
-			// meshdata를 돌면서 meshdata안에 inputlayout이 없는게 있을수 있나?
-			// 메모리 손상이나 잘못된 참조
-			// ComPtr나 스마트 포인터의 잘못된 관리
-			// meshData->inputLayout의 수명주기 문제
-			// 멀티스레딩 관련 동기화 문제
-			// 제안하는 디버깅 방법 :
-			//
-			// meshData->inputLayout의 생성 / 소멸 시점 확인
-			// GetInputLayout() 구현 검토
-			// COM 참조 카운트 확인
-			// ID3D11DeviceContext가 올바른 스레드에서 호출되는지 확인
-			d3dDeviceContext->IASetInputLayout(meshData->inputLayout.GetInputLayout().Get());
-			if (meshData->inputLayout.GetInputLayout().GetAddressOf())
+			//	comptr을 항상 맹신하지 말것
+			//	InputLayout같은걸 계속 유지시키면서 재할당 하는 식으로 해야하는데
+			//	문제점은 그냥 comptr의 임시객체를 생성해서 넣어버려서
+			//	문장이 끝나면 바로 소멸되서 참조카운트가 불안정해져서 원래있던 InputLayout를 날린다는것
+			//	meshData->inputLayout.GetInputLayout().Get(); 이걸 강제로 문장에 때려박으면 날라갈수도있다는거
+			//	전에 되었던 이유는 input layout을 여기서만 할당하기때문에 참조카운팅이 날라갈 이유가 없고
+			//	지금은 ia를 날렸다가 다시 할당했다가 날렸다가 메인 렌더링 루프에서 재할당을 하기때문에 가지고 있던
+			//	문제가 생겼던것
+			//	comptr은 무적이 아니다 comptr의 자동참조 카운트 관리가 문제를 일으킬 가능성이 있다.
+			//	렌더링 파이프라인중에서 comptr의 스코프가 끝나면서 자동으로 release가 호출되었거나
+			//	여러곳에서 같은 리소스를 참조할 때 comptr의 참조 카운트관리가 의도치 않게 작동할 가능성이 있다.
+			//	그러므로 comptr은 무적이 아니다.
+			auto layout = meshData->inputLayout.GetInputLayout().Get();
+			if (!hasSetLayout && layout)
+			{
+				d3dDeviceContext->IASetInputLayout(layout);
+				hasSetLayout = true;
+			}
+			if (layout)
 			{
 				// IA의 주소와 실제 인터페이스 값
 				std::cout << "Layout Address: " << meshData->inputLayout.GetInputLayout().GetAddressOf()
 					<< ", Interface: " << meshData->inputLayout.GetInputLayout().Get() << "\n";
 			}
-
 
 			// VS 
 			d3dDeviceContext->VSSetShader(renderComponent->GetShader(ShaderType::VS)->GetVertexShader().Get(), nullptr, 0);
