@@ -29,7 +29,7 @@ bool ShadowRenderer::Initialize(ID3D11Device* device, ID3D11DeviceContext* devic
         std::cout << "Failed to create shadow map texture\n";
         return false;
     }
-    std::cout << "Shadow map texture created\n";
+    //std::cout << "Shadow map texture created\n";
 
     // 뎁스 스텐실 뷰 생성
     D3D11_DEPTH_STENCIL_VIEW_DESC dsvDesc = {};
@@ -40,7 +40,7 @@ bool ShadowRenderer::Initialize(ID3D11Device* device, ID3D11DeviceContext* devic
         std::cout << "Failed to create depth stencil view\n";
         return false;
     }
-    std::cout << "Depth stencil view created\n";
+    //std::cout << "Depth stencil view created\n";
 
     // 래스터라이저 상태 생성
     D3D11_RASTERIZER_DESC rasterDesc = {};
@@ -53,7 +53,7 @@ bool ShadowRenderer::Initialize(ID3D11Device* device, ID3D11DeviceContext* devic
         std::cout << "Failed to create rasterizer state\n";
         return false;
     }
-    std::cout << "Rasterizer state created\n";
+    //std::cout << "Rasterizer state created\n";
 
     // 깊이 스텐실 상태 생성
     D3D11_DEPTH_STENCIL_DESC depthStencilDesc = {};
@@ -64,7 +64,7 @@ bool ShadowRenderer::Initialize(ID3D11Device* device, ID3D11DeviceContext* devic
         std::cout << "Failed to create depth stencil state\n";
         return false;
     }
-    std::cout << "Depth stencil state created\n";
+    //std::cout << "Depth stencil state created\n";
 
     // 셰이더 리소스 뷰 생성
     D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
@@ -75,7 +75,7 @@ bool ShadowRenderer::Initialize(ID3D11Device* device, ID3D11DeviceContext* devic
         std::cout << "Failed to create shader resource view\n";
         return false;
     }
-    std::cout << "Shader resource view created\n";
+    //std::cout << "Shader resource view created\n";
 
     // 상수 버퍼 생성
     D3D11_BUFFER_DESC shadowBufferDesc = {};
@@ -87,7 +87,7 @@ bool ShadowRenderer::Initialize(ID3D11Device* device, ID3D11DeviceContext* devic
         std::cout << "Failed to create shadow constant buffer\n";
         return false;
     }
-    std::cout << "Shadow constant buffer created\n";
+    //std::cout << "Shadow constant buffer created\n";
 
     D3D11_BUFFER_DESC basicBufferDesc = {};
     basicBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
@@ -98,9 +98,9 @@ bool ShadowRenderer::Initialize(ID3D11Device* device, ID3D11DeviceContext* devic
         std::cout << "Failed to create basic constant buffer\n";
         return false;
     }
-    std::cout << "Basic constant buffer created\n";
+    //std::cout << "Basic constant buffer created\n";
 
-    std::cout << "Shadow renderer initialization completed\n";
+    //std::cout << "Shadow renderer initialization completed\n";
     return true;
 }
 

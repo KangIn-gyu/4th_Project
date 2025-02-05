@@ -133,31 +133,53 @@ float3 RimLight(float3 normal, float3 viewDir, float rimPower, float3 rimColor)
 
 float3 CardSelectionRimLight(float3 normal, float3 viewDir, float3 rimColor)
 {
-    // 기본 프레넬 림라이트 계산
+    // 기본 프레넬 림라이트 계산 - 얼마나 각 픽셀이 외곽에 가까운지
+    // 각 픽셀이 얼마나 rimlight효과를 받아야 하는지 결정하는 계수
     float rimFactor = 1.0 - max(dot(normal, viewDir), 0.0);
     
     // 림라이트 강화를 위한 파라미터
-    float rimPower = 3.0; // 림라이트 선명도
+    float rimPower = 2.0;     //  낮을수록 더 넓은 영역에 림라이트가 적용됨
     float rimStrength = 12.0; // 림라이트 강도
-    float pulseSpeed = 10.0; // 밝기 변화 속도
+
+    // 위치에 따른 효과 계산
+   //float xPos = dot(normal, float3(1, 0, 0));
+   //float yPos = dot(normal, float3(0, 1, 0));
+   //
+   //// 시간과 위치 기반 펄스
+   //float pulseSpeed = 10.0; // 밝기 변화 속도
+   //float positionOffset = xPos * 15.0 + yPos * 13.0;
+   //float pulse = sin(totalTime * pulseSpeed + positionOffset);
+   //pulse = (pulse * 0.5 + 0.5) * 0.5 + 0.5;
     
-    // 시간에 따른 펄스 효과
-    float pulse = (sin(totalTime * pulseSpeed) * 0.5 + 0.5) * 0.5 + 0.5;
+    // 시간 기반 펄스
+    float pulseSpeed = 4.0; // 숨쉬는 속도 (낮출수록 천천히 변함)
+    float pulse = sin(totalTime * pulseSpeed);
+    pulse = (pulse * 0.5 + 0.5); // 0~1 범위로 변환 ( 음수값 제거 위해)
     
-    // 향상된 림라이트 계산
+    // 향상된 림라이트 계산 - 림파워가 높을수록 외곽선이 날카로워짐
     rimFactor = pow(rimFactor, rimPower);
     
-    // 임계값 기반 강화
-    float threshold = 0.4;
-    rimFactor = smoothstep(threshold, threshold + 0.2, rimFactor);
+    // threshold + 0.2 == 림라이트 그라데이션의 끝점을 결정 60% 지점에서 최대 강도 도달
+     // 임계값 기반 강화 - 펄스에 따라 임계값 변화
+    float baseThreshold = 0.4;  // 림라이트가 시작되는 임계값 ( 낮을수록 일찍시작됨 ) 림팩터가 40% 이상인 지점부터 림라이트가 시작됨
+    float thresholdRange = 0.2; // 임계값 변화 범위
+    // pulse가 0 일때 0.4 pulse가 1 일때 0.6을 가지게끔 하는 과정 threshold는 0.4 ~ 0.6 사이를 시간에 따라 변화됨
+    float threshold = baseThreshold + (pulse * thresholdRange); // 임계값이 시간에 따라 변화
+    // 특정 임계값 기준(threshold) 으로 rim효과를 부드럽게
+    // 그러므로 0.4 ~ 0.55 에서 0.6 ~ 0.75 사이를 순회
+    rimFactor = smoothstep(threshold, threshold + 0.15, rimFactor);
     
+    //rimStrength로 전체적인 강도를 조절하고
+    //pulse로 시간에 따른 변화를 줌
     rimFactor *= rimStrength * pulse;
     
-    // 부드러운 가장자리를 위한 스무딩
-    float smoothFactor = smoothstep(0.3, 0.7, rimFactor);
+    // 부드러운 가장자리를 위한 스무딩 (두 값이 차이가 클수록 부드러워지고 작을수록 날카로워짐 또한 두 값이 모두 낮다면 더 넓은 영역에 림라이트가 적용됨)
+    // 림라이트의 강도를 0~1 사이로 정규화 하는 역할
+    // 강도가 0.2 미만이면 0 반환 0.6 초과면 1 반환
+    float smoothFactor = smoothstep(0.2, 0.6, rimFactor);
     
     // 최종 림라이트 색상
-    return rimColor * smoothFactor * 1.5;
+    return rimColor * smoothFactor;
 }
 
 // 라플라시안 필터 상수
@@ -217,7 +239,7 @@ float GetLaplacianEdge(float3 centerNormal, float3 tangent, float2 texCoord)
 // Spot Light Helper Functions
 //--------------------------------------------------------------------------------------
 
-float3 CalculateSpotLight(SpotLight light, float3 worldPos, float3 N, float3 V,
+float3 CalculateSpotLight(SpotLightData light, float3 worldPos, float3 N, float3 V,
                          float3 baseColor, float metallic, float roughness, float3 F0)
 {
     float3 L = normalize(light.position - worldPos);

@@ -112,17 +112,17 @@ void Renderer::D3DDraw()
 	// 1. 그림자 맵 패스
 	ID3D11InputLayout* currentLayout;
 	d3dDeviceContext->IAGetInputLayout(&currentLayout);
-	if (!currentLayout) {
-		std::cout << "Input Layout is null before shadow pass\n";
-	}
+	//if (!currentLayout) {
+	//	std::cout << "Input Layout is null before shadow pass\n";
+	//}
 
 	shadowRenderer.BeginShadowPass(d3dDeviceContext.Get());
 
 	ID3D11InputLayout* currentLayout1;
 	d3dDeviceContext->IAGetInputLayout(&currentLayout1);
-	if (!currentLayout1) {
-		std::cout << "Input Layout is null before shadow pass\n";
-	}
+	//if (!currentLayout1) {
+	//	std::cout << "Input Layout is null before shadow pass\n";
+	//}
 	// 그림자 맵 렌더링
 	shadowRenderer.RenderShadow(d3dDeviceContext.Get(), CreateShadowMatrix(), work);
 	IMGUI->srv = shadowRenderer.GetShadowMapSRV();
@@ -190,12 +190,12 @@ void Renderer::D3DDraw()
 				d3dDeviceContext->IASetInputLayout(layout);
 				hasSetLayout = true;
 			}
-			if (layout)
-			{
-				// IA의 주소와 실제 인터페이스 값
-				std::cout << "Layout Address: " << meshData->inputLayout.GetInputLayout().GetAddressOf()
-					<< ", Interface: " << meshData->inputLayout.GetInputLayout().Get() << "\n";
-			}
+			//if (layout)
+			//{
+			//	// IA의 주소와 실제 인터페이스 값
+			//	std::cout << "Layout Address: " << meshData->inputLayout.GetInputLayout().GetAddressOf()
+			//		<< ", Interface: " << meshData->inputLayout.GetInputLayout().Get() << "\n";
+			//}
 
 			// VS 
 			d3dDeviceContext->VSSetShader(renderComponent->GetShader(ShaderType::VS)->GetVertexShader().Get(), nullptr, 0);

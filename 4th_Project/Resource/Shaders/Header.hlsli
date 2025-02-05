@@ -42,22 +42,21 @@ cbuffer ProductBuffer : register(b5)
     float totalTime;
 }
 
-struct SpotLight
+struct SpotLightData
 {
-    float3 position;    // 광원의 위치
-    float3 direction;   // 광원이 비추는 방향
-    float3 color;       // 광원의 색상
-    float  range;       // 광원의 영향 범위
-    float  innerCone;   // 내부 콘의 코사인 값
-    float  outerCone;   // 외부 콘의 코사인 값
-    float  intensity;   // 광원의 강도
+    float3 position; // 광원의 위치
+    float3 direction; // 광원이 비추는 방향
+    float3 color; // 광원의 색상
+    float range; // 광원의 영향 범위
+    float innerCone; // 내부 콘의 코사인 값
+    float outerCone; // 외부 콘의 코사인 값
+    float intensity; // 광원의 강도
 };
-
 
 cbuffer LightBuffer : register(b6)
 {
-    SpotLight spotLights[7];    // 7개의 스팟라이트 배열
-    int LIGHT_NUM;              // 활성화된 스팟라이트 수
+    SpotLightData spotLights[7];
+    int LIGHT_NUM;
 }
 
 struct VertexInputType

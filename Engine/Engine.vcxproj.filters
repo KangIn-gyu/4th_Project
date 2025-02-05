@@ -164,6 +164,9 @@
     <Filter Include="4_Resources\ResourceData\Font">
       <UniqueIdentifier>{76cc16ee-3d3a-45da-873f-6525ddb13fe7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="3_Graphics\GraphicsData\Shadow">
+      <UniqueIdentifier>{c23541e9-95a0-4fe4-85c5-ffb90f9a617a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowApp.h">
@@ -390,7 +393,6 @@
     <ClInclude Include="SoundSystem.h">
       <Filter>2_System\Sound</Filter>
     </ClInclude>
-    <ClInclude Include="ShadowRenderer.h" />
     <ClInclude Include="ImageComponent.h">
       <Filter>5_Object\Component\BitmapComponent</Filter>
     </ClInclude>
@@ -402,6 +404,9 @@
     </ClInclude>
     <ClInclude Include="D2DFont.h">
       <Filter>4_Resources\ResourceData\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="ShadowRenderer.h">
+      <Filter>3_Graphics\GraphicsData\Shadow</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -594,7 +599,6 @@
     <ClCompile Include="SoundSystem.cpp">
       <Filter>2_System\Sound</Filter>
     </ClCompile>
-    <ClCompile Include="ShadowRenderer.cpp" />
     <ClCompile Include="CSVLoader.cpp">
       <Filter>2_System\CSVLoader</Filter>
     </ClCompile>
@@ -609,6 +613,9 @@
     </ClCompile>
     <ClCompile Include="D2DFont.cpp">
       <Filter>4_Resources\ResourceData\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="ShadowRenderer.cpp">
+      <Filter>3_Graphics\GraphicsData\Shadow</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

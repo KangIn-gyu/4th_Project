@@ -63,25 +63,6 @@ struct alignas(16) ShadowBuffer
 	DXMath::Matrix lightviewproj;
 };
 
-struct PointLight
-{
-	DXMath::Vector4 position;
-	DXMath::Vector4 color;
-};
-
-struct alignas(16) LightBuffer
-{
-	LightBuffer()
-	{
-		ValidateConstantBufferSize<LightBuffer>();
-	}
-
-	PointLight lights[16];
-	DXMath::Vector4 eyePosition;
-	UINT numlights;
-	DXMath::Vector3 pad;
-};
-
 #define BoneBufferMaxSize 400
 
 struct alignas(16) MatrixPallete
@@ -102,5 +83,31 @@ struct alignas(16) ProductBuffer
 	float totalTime{};
 	DXMath::Vector3 pad;
 };
+
+struct SpotLightData
+{
+	DXMath::Vector3 position;
+	float pad1;
+	DXMath::Vector3 direction;
+	float pad2;
+	DXMath::Vector3 color;
+	float range;
+	float innerCone;
+	float outerCone;
+	float intensity;
+	float pad3;
+};
+
+struct alignas(16) LightBuffer
+{
+	LightBuffer()
+	{
+		ValidateConstantBufferSize<LightBuffer>();
+	}
+	SpotLightData spotLights[7];
+	int LIGHT_NUM;
+	DXMath::Vector3 pad[3];
+};
+
 
 // 빛 구성을 기본적인 directional light 한개와 spot light 7개로 구성해서 최대한 연산 안잡아먹게끔 해보기 ( 안되면 1개로 그냥 진행)
