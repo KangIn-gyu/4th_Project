@@ -10,7 +10,7 @@ public:
 	Scene(std::string_view _Name);
 	virtual ~Scene();
 
-	void Initialize();
+	virtual void Initialize();
 	virtual void Enter() {}; // 해당 씬에서 내가 만들 오브젝트 초기화 하는 곳 Initialize 보다 먼저 시작됨으로 오브젝트를 생성하고 이후 오브젝트의 초기화를 한다
 
 	virtual void Update(const float _deltaTime);

@@ -403,9 +403,15 @@
     <ClInclude Include="D2DFont.h">
       <Filter>4_Resources\ResourceData\Font</Filter>
     </ClInclude>
+
+    <ClInclude Include="ButtonColider.h" />
+
+    <ClInclude Include="AABB.h" />
+
     <ClInclude Include="Object.h">
       <Filter>5_Object</Filter>
     </ClInclude>
+
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WindowApp.cpp">
@@ -613,9 +619,13 @@
     <ClCompile Include="D2DFont.cpp">
       <Filter>4_Resources\ResourceData\Font</Filter>
     </ClCompile>
-    <ClCompile Include="Component.cpp">
+
+    <ClCompile Include="ButtonColider.cpp" />
+    <ClCompile Include="AABB.cpp" />
+<ClCompile Include="Component.cpp">
       <Filter>5_Object\Component</Filter>
     </ClCompile>
+
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd">
