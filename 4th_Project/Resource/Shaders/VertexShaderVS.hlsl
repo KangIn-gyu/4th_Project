@@ -62,10 +62,16 @@ PixelInputType main(VertexInputType input)
         skinnedNormal = normalize(skinnedNormal);
         skinnedTangent = normalize(skinnedTangent);
         skinnedBinormal = normalize(skinnedBinormal);
+        output.Position = skinnedPosition;
+
     }
-   
+	else
+	{
+        //스테틱 메시
+        output.Position = mul(input.Position, worldMatrix);
+    }
 	// 정점의 위치를 월드, 뷰, 사영의 순으로 계산합니다.
-    output.Position = mul(skinnedPosition, worldMatrix);
+
     output.worldPos = output.Position; // 로컬 좌표값이 들어가게 하기 위해서
     output.Position = mul(output.Position, viewMatrix);
     output.Position = mul(output.Position, projectionMatrix);

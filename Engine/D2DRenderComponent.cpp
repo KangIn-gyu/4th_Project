@@ -12,6 +12,7 @@
 #include "Renderer.h"
 #include "ResourceSystem.h"
 #include "CSVLoader.h"
+#include "BoxCollider.h"
 
 D2DRenderComponent::D2DRenderComponent()
 {
@@ -86,6 +87,8 @@ void D2DRenderComponent::Draw()
 {
 #if _DEBUG
 	font->DrawTextBox();
+	boundBox->DrawBoundBox();
+
 #endif
 	if (imageData != nullptr)
 	{
