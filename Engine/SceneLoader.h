@@ -17,9 +17,18 @@ public:
     {
         name = j.at("objectName").get<std::string>();
         type = j.at("objectType").get<std::string>();
-        position = DXMath::Vector3(j["position"]["x"], j["position"]["y"], j["position"]["z"]);
-        rotation = DXMath::Quaternion::CreateFromYawPitchRoll(j["rotation"]["y"], j["rotation"]["x"], j["rotation"]["z"]);
-        scale = DXMath::Vector3(j["scale"]["x"], j["scale"]["y"], j["scale"]["z"]);
+        float x = j["position"]["x"];
+        float y = j["position"]["y"];
+        float z = j["position"]["z"];
+        x *= 100.f;
+        y *= 100.f;
+        z *= -1.0f;
+        position = DXMath::Vector3(x, y, z);
+        float x2 = j["rotation"]["x"];
+        float z2 = j["rotation"]["z"];
+        z2 *= -1.0f;
+        rotation = DXMath::Quaternion(x2, j["rotation"]["y"], z2,j["rotation"]["w"]);
+        scale = DXMath::Vector3(j["scale"]["x"], j["scale"]["y"] , j["scale"]["z"] );
     }
 };
 

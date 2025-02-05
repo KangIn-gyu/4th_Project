@@ -79,6 +79,7 @@ void ModelComponent::ComponentUpdate(const float _deltaTime)
                     boneRef.SetNodeWolrdTransform(parentTransform->GetPtrWorldMatrix());
                 //    std::cout << j << " " << node->GetName() << "의 노드에 " << skeletalMesh->GetName() << "의 매쉬에다 본 레퍼런스의 정보를 넣음\n";
                 }
+
                 skeletalMesh->UpdateMatrixPallete(&matrixPalletBuffer, model->GetModelData()->skeletonInfo);
             }
         }
@@ -93,6 +94,7 @@ Transform* ModelComponent::GetTransform()
 
 void ModelComponent::SetAnimation(int _index)
 {
+    progressAnimTime = 0;
     if (_index < 0 || _index >= modelAnimation->size() || (*modelAnimation)[_index] == nullptr)
     {
         return;

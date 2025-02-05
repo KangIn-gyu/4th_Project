@@ -25,5 +25,7 @@ public:
 private:
 	DirectX::BoundingOrientedBox obBox; //계산때쓸 움직인지점 센터
 	DXMath::Vector3 modelCenter;	   //모델고유센터
+	DXMath::Vector3 modelExtent;
+	DXMath::Vector3 objScale;
 };
 

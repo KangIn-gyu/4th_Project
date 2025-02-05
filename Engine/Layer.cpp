@@ -2,7 +2,7 @@
 #include "Layer.h"
 #include "Object.h"
 #include "Helper.h"
-
+#include "TransformComponent.h"
 void Layer::Initialize()
 {
 	for (auto& obj : objects)
@@ -55,6 +55,7 @@ void Layer::AddGameObjcet(Object* _gameObject)
 
 void Layer::EraseGameObject(Object* _eraseGameObj)
 {
+
 	std::erase_if(objects,
 		[=](Object* gameObj)
 		{
