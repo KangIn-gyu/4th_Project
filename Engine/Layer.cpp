@@ -10,9 +10,9 @@ void Layer::Initialize()
 	{
 		obj->Initialize();
 
-		if (nullptr != obj->script)
+		if (obj->IsScript())
 		{
-			obj->script->ComponentSetting();
+			obj->ComponentSetting();
 		}
 	}
 }

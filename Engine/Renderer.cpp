@@ -123,7 +123,6 @@ void Renderer::D3DDraw()
 	cameraData.lightDirection = IMGUI->lightDir;
 
 
-
 	//LightConstantBuffer cameraData;		// 다중 빛 CB
 	//DXMath::Vector3 eyePos = CameraObject::g_MainCameraObject->GetComponent<TransformComponent>()->GetPosition();
 	//cameraData.eyePosition = DXMath::Vector4(eyePos.x, eyePos.y, eyePos.z, 1.0f);

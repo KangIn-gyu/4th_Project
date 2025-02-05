@@ -1,10 +1,4 @@
 #pragma once
-#include "TransformComponent.h"
-#include "CameraCompoent.h"
-#include "RenderComponent.h"
-#include "D2DRenderComponent.h"
-#include "ModelComponent.h"
-#include "BoxCollider.h"
 
 class Objcet;
 class Script

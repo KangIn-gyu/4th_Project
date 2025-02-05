@@ -31,6 +31,7 @@ void Scene::Initialize()
 		for (auto& obj : gameObecjts)
 		{
 			obj->Initialize();
+
 		}
 
 		is_initialize = true;

@@ -170,6 +170,9 @@
     <Filter Include="5_Object\Component\TransformComponent">
       <UniqueIdentifier>{a7193f69-120c-4923-9993-55eae6f08afb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="5_Object\Layer">
+      <UniqueIdentifier>{db60ab09-f2b5-4003-8349-e88a8409c900}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowApp.h">
@@ -351,9 +354,6 @@
     <ClInclude Include="AnimationEditor.h">
       <Filter>0_Utility\MyImGui\Editor\ComponentEditor</Filter>
     </ClInclude>
-    <ClInclude Include="Layer.h">
-      <Filter>5_Object</Filter>
-    </ClInclude>
     <ClInclude Include="SceneLoader.h">
       <Filter>4_Resources\SceneLoader</Filter>
     </ClInclude>
@@ -411,6 +411,9 @@
     </ClInclude>
     <ClInclude Include="Script.h">
       <Filter>5_Object\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="Layer.h">
+      <Filter>5_Object\Layer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -561,9 +564,6 @@
     <ClCompile Include="AnimationEditor.cpp">
       <Filter>0_Utility\MyImGui\Editor\ComponentEditor</Filter>
     </ClCompile>
-    <ClCompile Include="Layer.cpp">
-      <Filter>5_Object</Filter>
-    </ClCompile>
     <ClCompile Include="SceneLoader.cpp">
       <Filter>4_Resources\SceneLoader</Filter>
     </ClCompile>
@@ -621,6 +621,9 @@
     </ClCompile>
     <ClCompile Include="Script.cpp">
       <Filter>5_Object\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="Layer.cpp">
+      <Filter>5_Object\Layer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

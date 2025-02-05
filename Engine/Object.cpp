@@ -9,6 +9,12 @@ Object::Object(std::string_view _name, ObjectType _type) : name(_name), type(_ty
 	CreateComponent<TransformComponent>();
 }
 
+Object::~Object()
+{
+    ClearComponents();
+    SafeExtinction::SAFE_DELETE(script);
+}
+
 void Object::ComponentsUpdate(const float _deltaTime)
 {
     for (auto& map : components)
@@ -17,6 +23,11 @@ void Object::ComponentsUpdate(const float _deltaTime)
         {
             component->ComponentUpdate(_deltaTime);
         }
+    }
+
+    if (nullptr != script)
+    {
+        script->ComponentUpdate(_deltaTime);
     }
 }
 
@@ -62,6 +73,11 @@ void Object::SetActive(bool _state)
 void Object::Erase()
 {
     state = State::Erase;
+}
+
+void Object::ComponentSetting()
+{
+    script->ComponentSetting();
 }
 
 void Object::ClearComponents()

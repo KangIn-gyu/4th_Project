@@ -19,6 +19,6 @@ void KangScene::Enter()
 {
 //	SOUNDSYSTEM->PlayMusic(eSoundList::Main_Theme, eSoundChannel::BGM);
 	auto testani = ObjectCreator<AnimationObj>("AnimationObj", Object::ObjectType::Basic);
-	ObjectCreator<BaseObj>("BaseObj", Object::ObjectType::Basic);
-	ObjectCreator<D2DTestObj>("TEXT", Object::ObjectType::UI);
+	//ObjectCreator<BaseObj>("BaseObj", Object::ObjectType::Basic);
+	//ObjectCreator<D2DTestObj>("TEXT", Object::ObjectType::UI);
 }
