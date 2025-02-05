@@ -8,7 +8,6 @@ public:
 
 private:
 	virtual void Enter() override;
-	virtual void Initialize() override;
 	virtual void FixedUpdate(const float _deltaTime)override {};
 	virtual void RateUpdate(const float _deltaTime)override {};
 

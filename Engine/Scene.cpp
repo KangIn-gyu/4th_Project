@@ -36,7 +36,6 @@ void Scene::Initialize()
 
 		is_initialize = true;
 	}
-	
 }
 
 void Scene::Update(const float _deltaTime)

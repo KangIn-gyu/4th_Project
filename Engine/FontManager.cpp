@@ -20,11 +20,11 @@ void FontManager::Initialize()
     D2DClass::GetDWriteFactory()->CreateFontSetBuilder(&fontSetBuilder);
 }
 
-D2DFont* FontManager::LoadFont(std::string_view _fontFilePath, float _fontsize)
+D2DFont* FontManager::LoadFont(std::string_view _fontFilePath)
 {
     std::string filePath = basePath + _fontFilePath.data();
     std::string fileName = GetFileName(_fontFilePath);
-    LoadTextFormat(filePath, fileName, _fontsize);
+    LoadTextFormat(filePath, fileName);
 
     D2DFont* newFont = new D2DFont();
 
@@ -37,7 +37,7 @@ D2DFont* FontManager::LoadFont(std::string_view _fontFilePath, float _fontsize)
     return newFont;
 }
 
-void FontManager::LoadTextFormat(std::string_view _fontFilePath, std::string_view fontName, float fontsize)
+void FontManager::LoadTextFormat(std::string_view _fontFilePath, std::string_view fontName)
 {
     if (fontMap.find(_fontFilePath.data()) != fontMap.end())
     {
@@ -103,7 +103,7 @@ void FontManager::LoadTextFormat(std::string_view _fontFilePath, std::string_vie
     }
 
     IDWriteTextFormat* NewFont;
-    AddFont(fontName, FontCollection, &NewFont, fontsize);
+    AddFont(fontName, FontCollection, &NewFont);
 
     fontMap.insert(std::make_pair(_fontFilePath.data(), NewFont));
 
@@ -113,8 +113,8 @@ void FontManager::LoadTextFormat(std::string_view _fontFilePath, std::string_vie
     FontFamily->Release();
     index++;
 }
- 
-void FontManager::AddFont(std::string_view _fontName, IDWriteFontCollection1* _pFontCollection, IDWriteTextFormat** _ppTextFormat ,float fontsize)
+
+void FontManager::AddFont(std::string_view _fontName, IDWriteFontCollection1* _pFontCollection, IDWriteTextFormat** _ppTextFormat)
 {
     HRESULT hresult = D2DClass::GetDWriteFactory()->CreateTextFormat(
         StringConverter::StringToWide(_fontName).c_str(),
@@ -122,7 +122,7 @@ void FontManager::AddFont(std::string_view _fontName, IDWriteFontCollection1* _p
         DWRITE_FONT_WEIGHT_REGULAR,
         DWRITE_FONT_STYLE_NORMAL,
         DWRITE_FONT_STRETCH_NORMAL,
-        fontsize,
+        10.0f,
         L"en-us",
         _ppTextFormat
     );
