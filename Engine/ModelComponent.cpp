@@ -62,8 +62,8 @@ void ModelComponent::ComponentUpdate(const float _deltaTime)
     rootNode->Update(_deltaTime, progressAnimTime); // 애니메이션 프로세스 시간 넣어야 됨
 
     auto& meshs = *model->GetModelData()->meshs;
-    if (nullptr != activeAnimation)
-    {
+   // if (nullptr != activeAnimation)
+   // {
         for (int i = 0; i < meshs.size(); i++)
         {
             // 스태틱 매쉬일 경우 처리 해야 됨
@@ -82,7 +82,7 @@ void ModelComponent::ComponentUpdate(const float _deltaTime)
                 skeletalMesh->UpdateMatrixPallete(&matrixPalletBuffer, model->GetModelData()->skeletonInfo);
             }
         }
-    }
+    //}
 }
 
 Transform* ModelComponent::GetTransform()

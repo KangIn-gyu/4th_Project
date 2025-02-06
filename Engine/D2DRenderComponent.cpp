@@ -91,8 +91,8 @@ void D2DRenderComponent::SetAlignment(D2DFont::Setting _SortX, D2DFont::Setting 
 void D2DRenderComponent::Draw()
 {
 #if _DEBUG
-	font->DrawTextBox();
-	boundBox->DrawBoundBox();
+	//font->DrawTextBox();
+	//boundBox->DrawBoundBox();
 
 #endif
 	if (imageData != nullptr)

@@ -25,6 +25,7 @@ DirectX::XMMATRIX ConvertMatrix(const aiMatrix4x4& _matrix); // 여기서만 사용하�
 
 std::shared_ptr<Model> FBXLoader::FBXLoad(std::string_view _filePath)
 {
+	isStaticMesh = true;
 	std::string filePathKEY(_filePath); // 파일 경로가 모든 맵의 키값이다
 
 	importFlags = aiProcess_Triangulate |	 // vertex 삼각형 으로 출력         

@@ -2,30 +2,7 @@
 
 PixelInputType main(VertexInputType input) 
 {
-    //PixelInputType output = (PixelInputType) 0;
-    //input.Position.w = 1.0f;
-    
-    //matrix boneMatrix = mul(MatrixPalleteArray[input.BlendIndices.x], input.BlendWeight.x);
-    //boneMatrix += mul(MatrixPalleteArray[input.BlendIndices.y], input.BlendWeight.y);
-    //boneMatrix += mul(MatrixPalleteArray[input.BlendIndices.z], input.BlendWeight.z);
-    //boneMatrix += mul(MatrixPalleteArray[input.BlendIndices.w], input.BlendWeight.w);
-    
-    //matrix world = mul(boneMatrix, worldMatrix);
-    
-    //output.Position = mul(input.Position, world);
-    //output.worldPos = output.Position;
-    //output.Position = mul(output.Position, viewMatrix);
-    //output.Position = mul(output.Position, projectionMatrix);
-    
-    //output.Normal = normalize(mul(input.Normal, (float3x3) world));
-    //output.Tangent = normalize(mul(input.Tangent, (float3x3) world));
-    //output.Binormal = normalize(mul(input.Binormal, (float3x3) world));
-    
-    //output.Color = input.Color;
-    //output.TexCoord = input.TexCoord;
-    
-    //return output;
-    
+
     PixelInputType output;
 	// 올바르게 행렬 연산을 하기 위하여 position 벡터를 w까지 있는 4성분이 있는 것으로 사용합니다.
     input.Position.w = 1.0f;
@@ -62,16 +39,14 @@ PixelInputType main(VertexInputType input)
         skinnedNormal = normalize(skinnedNormal);
         skinnedTangent = normalize(skinnedTangent);
         skinnedBinormal = normalize(skinnedBinormal);
-        output.Position = skinnedPosition;
-
     }
-	else
-	{
-        //스테틱 메시
-        output.Position = mul(input.Position, worldMatrix);
+    else
+    {
+        skinnedPosition = mul(float4(input.Normal, 1.0f), worldMatrix);
     }
+	
 	// 정점의 위치를 월드, 뷰, 사영의 순으로 계산합니다.
-
+    output.Position = skinnedPosition;
     output.worldPos = output.Position; // 로컬 좌표값이 들어가게 하기 위해서
     output.Position = mul(output.Position, viewMatrix);
     output.Position = mul(output.Position, projectionMatrix);
