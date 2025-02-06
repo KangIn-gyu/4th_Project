@@ -6,6 +6,7 @@
 
 #include "SkyBox.h"
 #include "ShadowRenderer.h"
+#include "ConstantBufferData.h"
 
 #define RENDERER Renderer::GetInstance()
 
@@ -66,10 +67,25 @@ private:
 	ConstantBuffer matrixPaletteBuffer;
 	ConstantBuffer productBuffer;
 
+
 	ComPtr<ID3D11SamplerState>	linearWrapSampler;    // LINEAR 
 	ComPtr<ID3D11SamplerState>  pointClampSampler;    // POINT 
 
 	std::stack<int> previousTexturerProcessing;
 	SkyBox m_skybox;
+public:
+
+	// 테스트 용
+	ConstantBuffer lightBuffer;
+	std::vector<SpotLightData> spotLights;
+
+	void AddSpotLight(const SpotLightData& light);
+	void UpdateSpotLights();
+	void ClearSpotLight() { spotLights.clear(); }
+
+	ComPtr<ID3D11DepthStencilState> outlineStencilState;
+	ComPtr<ID3D11DepthStencilState> outlineMaskState;
+
+	void CreateOutlineStates();
 
 };

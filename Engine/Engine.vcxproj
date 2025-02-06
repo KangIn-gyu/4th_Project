@@ -169,6 +169,7 @@
     <ClInclude Include="csv.hpp" />
     <ClInclude Include="CSVLoader.h" />
     <ClInclude Include="D2DClass.h" />
+    <ClInclude Include="D2DLoader.h" />
     <ClInclude Include="ImageComponent.h" />
     <ClInclude Include="D2DFont.h" />
     <ClInclude Include="D2DRenderComponent.h" />
@@ -255,6 +256,7 @@
     <ClCompile Include="ConstantBufferData.cpp" />
     <ClCompile Include="CSVLoader.cpp" />
     <ClCompile Include="D2DClass.cpp" />
+    <ClCompile Include="D2DLoader.cpp" />
     <ClCompile Include="ImageComponent.cpp" />
     <ClCompile Include="D2DFont.cpp" />
     <ClCompile Include="D2DRenderComponent.cpp" />
@@ -318,7 +320,9 @@
     <None Include="..\4th_Project\Resource\Shaders\Header.hlsli" />
     <None Include="..\4th_Project\Resource\Shaders\Helper.hlsli" />
     <None Include="..\4th_Project\Resource\Shaders\SamplerHeader.hlsli" />
-    <None Include="..\4th_Project\Resource\Shaders\TextureHeader.hlsli" />
+    <None Include="..\4th_Project\Resource\Shaders\TextureHeader.hlsli">
+      <DeploymentContent>false</DeploymentContent>
+    </None>
     <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
@@ -355,6 +359,30 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="..\4th_Project\Resource\Shaders\StaticVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="..\4th_Project\Resource\Shaders\OutLineVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </FxCompile>
+    <FxCompile Include="..\4th_Project\Resource\Shaders\OutLinePS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </FxCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

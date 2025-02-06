@@ -3,10 +3,17 @@
 class ConstantBuffer
 {
 public:
+	enum class Usage
+	{
+		DEFAULT,    // GPU read only, rare CPU updates
+		DYNAMIC,    // GPU read only, frequent CPU updates
+	};
+
 	ConstantBuffer() = default;
 	~ConstantBuffer() = default;
 
-	void Create(size_t _size); // 구조체 용량 넣으면 됨.
+	void Create(size_t _size, Usage usage = Usage::DEFAULT); // 구조체 용량 넣으면 됨.
+	void Update(const void* data, size_t size);
 	ComPtr<ID3D11Buffer> GetBuffer() { return constantBuffer; }
 
 private:

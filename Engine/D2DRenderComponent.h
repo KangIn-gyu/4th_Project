@@ -5,6 +5,7 @@
 #include "D2DFont.h"
 
 class Bitmap;
+class BoxCollider;
 class D2DRenderComponent : public Component
 {
 public:
@@ -21,8 +22,11 @@ public:
 	void Set2DImagePos(float _x, float _y);
 	D2D_VECTOR_2F Get2DImagePos();
 	DXMath::Vector2 Get2DImageXY();
+	void ChangeBitmap(int _index);
+	Bitmap* GetBitmap(int _index);
+
 	// 폰트 관련 함수들 데이터 조정
-	void SceneCSVDataLoad(std::string_view _filePath);
+	void SceneCSVDataLoad(std::string_view _filePath); // TODO : 여기 있는게 맞을가 고민중
 	void LoadFont(const std::string& _filePath);
 	void SetDialog(std::wstring_view _dialog);
 	void SetFontColor(D2D1_COLOR_F color); // 컬러 변경 주의사항 : 렌더 하기전에 색을 변경해야 됨
@@ -38,9 +42,10 @@ private:
 public:
 
 private:
-	D2DFont* font = {};
-	std::shared_ptr<Bitmap> imageData = {};
+	D2DFont* font{};
+	Bitmap* drawBitmap; // 메인 비트맵 처리
 
+	std::vector<Bitmap*> imageDatas; // 여러개의 비트맵을 들고 있는 비트맵
 	std::vector<std::pair<std::string, std::string>> CSVdatas;
 };
 

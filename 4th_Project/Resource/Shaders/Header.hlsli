@@ -45,12 +45,15 @@ cbuffer ProductBuffer : register(b5)
 struct SpotLightData
 {
     float3 position; // 광원의 위치
+    float pad1;
     float3 direction; // 광원이 비추는 방향
+    float pad2;
     float3 color; // 광원의 색상
     float range; // 광원의 영향 범위
     float innerCone; // 내부 콘의 코사인 값
     float outerCone; // 외부 콘의 코사인 값
     float intensity; // 광원의 강도
+    float pad3;
 };
 
 cbuffer LightBuffer : register(b6)

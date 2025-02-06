@@ -8,6 +8,7 @@ public:
 	Client(HINSTANCE _hInstance, std::string_view _GameName, int _screenWidth, int _screenHeight, bool _windoweMode);
 	~Client();
 	virtual void Enter() override;
+
 private:
 
 protected:

@@ -31,10 +31,16 @@ void Scene::Initialize()
 		for (auto& obj : gameObecjts)
 		{
 			obj->Initialize();
-
 		}
-
 		is_initialize = true;
+	}
+}
+
+void Scene::ResetInformation()
+{
+	for (auto& obj : gameObecjts)
+	{
+		obj->ResetInformation();
 	}
 }
 
@@ -121,7 +127,7 @@ void Scene::CreateLayers()
 void Scene::BasicObject()
 {
 	auto* mainCamera = FACTORYSYSTEM->ObjectCreator<CameraObject>("MainCamera", Object::ObjectType::Camera);
-	mainCamera->GetComponent<TransformComponent>()->SetPosition({ 0, 0, -2000.0f });
+	mainCamera->GetComponent<TransformComponent>()->SetPosition({ 0, 0, -300.0f });
 	gameObecjts[static_cast<int>(Object::ObjectType::Camera)]->AddGameObjcet(mainCamera);
 
 	// TODO : 라이트 추가 해야됨.

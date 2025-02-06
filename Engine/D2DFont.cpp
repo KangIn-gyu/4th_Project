@@ -11,7 +11,18 @@ D2DFont::D2DFont()
 
 #if _DEBUG
 	D2DClass::GetD2DDeviceContext()->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::Green), &boxBrush);
+	D2DClass::GetD2DDeviceContext()->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::LightPink), &boundBrush);
 #endif
+}
+
+D2DFont::~D2DFont()
+{
+#if _DEBUG
+	boxBrush->Release();
+#endif
+
+	fontBrush->Release();
+	DWriteTextLayout->Release();
 }
 
 void D2DFont::SetDialog(std::wstring_view _dialog)

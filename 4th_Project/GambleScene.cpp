@@ -15,10 +15,7 @@
 
 GambleScene::GambleScene(std::string_view _Name) : Scene(_Name)
 {
-	
-	BLACKJACK->player = PLAYER;
-	
-	
+	BLACKJACK->player = PLAYER;	
 }
 
 

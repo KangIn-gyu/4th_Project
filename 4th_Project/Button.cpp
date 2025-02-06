@@ -23,11 +23,12 @@ Button::Button(std::string_view _name, Object::ObjectType _type, DXMath::Vector3
 	CreateComponent<ModelComponent>("STAGE1/FBX/" + GetName() + ".fbx");
 	CreateComponent<RenderComponent>();
 	CreateComponent<BoxCollider>();
+	SetEffect(Object::Effect::OutLine);
 	DXMath::Vector3 extent = GetComponent<ModelComponent>()->GetModel().get()->extent;
 	DXMath::Vector3 center = GetComponent<ModelComponent>()->GetModel().get()->center;
 	GetComponent<BoxCollider>()->SetBox(center, extent, GetComponent<TransformComponent>()->GetQuaternion());
 	auto randerComponet = GetComponent<RenderComponent>();
-	randerComponet->SetShader(ShaderType::VS, "Shaders/VertexShaderVS.hlsl");
+	randerComponet->SetShader(ShaderType::VS, "Shaders/StaticVS.hlsl");
 	randerComponet->SetShader(ShaderType::PS, "Shaders/PixelShaderPS.hlsl");
 
 	GetComponent<TransformComponent>()->SetPosition(_pos);  

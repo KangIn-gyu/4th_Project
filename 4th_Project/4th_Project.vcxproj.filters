@@ -4,6 +4,15 @@
     <Filter Include="pch">
       <UniqueIdentifier>{87545f9d-cb84-45f8-9539-8d582f28c070}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Script">
+      <UniqueIdentifier>{b4e9889a-70c5-44fb-9724-2e9266b2da3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Obj">
+      <UniqueIdentifier>{0fb4edb3-3323-4519-9b22-6de591e64206}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Obj\TestObj">
+      <UniqueIdentifier>{b7ba875d-5234-481e-b4dd-d50fd7d62763}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -25,6 +34,15 @@
     <ClInclude Include="TestObj2.h">
       <Filter>Client\Character</Filter>
     </ClInclude>
+    <ClInclude Include="D3DObjScript.h">
+      <Filter>Script</Filter>
+    </ClInclude>
+    <ClInclude Include="D3DBaseObj.h">
+      <Filter>Obj</Filter>
+    </ClInclude>
+    <ClInclude Include="IntroCutScene.h">
+      <Filter>Client\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -42,6 +60,15 @@
     </ClCompile>
     <ClCompile Include="TestObj2.cpp">
       <Filter>Client\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="D3DObjScript.cpp">
+      <Filter>Script</Filter>
+    </ClCompile>
+    <ClCompile Include="D3DBaseObj.cpp">
+      <Filter>Obj</Filter>
+    </ClCompile>
+    <ClCompile Include="IntroCutScene.cpp">
+      <Filter>Client\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -80,6 +107,12 @@
     <ClInclude Include="TestScene.h">
       <Filter>Client\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="TestObj.h">
+      <Filter>Obj\TestObj</Filter>
+    </ClInclude>
+    <ClInclude Include="TestObj2.h">
+      <Filter>Obj\TestObj</Filter>
+    </ClInclude>
     <ClInclude Include="Button.h">
       <Filter>UI</Filter>
     </ClInclude>
@@ -117,6 +150,12 @@
     </ClCompile>
     <ClCompile Include="TestScene.cpp">
       <Filter>Client\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="TestObj.cpp">
+      <Filter>Obj\TestObj</Filter>
+    </ClCompile>
+    <ClCompile Include="TestObj2.cpp">
+      <Filter>Obj\TestObj</Filter>
     </ClCompile>
     <ClCompile Include="GambleScene.cpp">
       <Filter>Client\Scene</Filter>
