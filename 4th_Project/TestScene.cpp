@@ -8,7 +8,6 @@
 #include "UIButton.h"
 #include "TestObj.h"
 
-
 TestScene::TestScene(std::string_view _Name) : Scene(_Name)
 {
 	
@@ -25,7 +24,6 @@ TestScene::TestScene(std::string_view _Name) : Scene(_Name)
 
 void TestScene::Enter()
 {
-
 	//SceneLoader loader;
 	//loader.Load("../4th_Project/2345.json");
 	//loader.ImportUnityScene("../4th_Project/2345.json", this);

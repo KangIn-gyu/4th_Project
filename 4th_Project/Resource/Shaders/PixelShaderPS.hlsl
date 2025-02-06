@@ -101,28 +101,28 @@ float4 main(PixelInputType input) : SV_TARGET
     //--------------------------------------------------------------------------------------
     // Outline Effect Parameters
     //--------------------------------------------------------------------------------------
-    float edgeIntensity = 0.0f;
-    float innerEdgeIntensity = 0.0f;    // 안쪽 외곽선 변수
-    float outlineWidth = 5.0f;    // 외곽선 두께
-    float outlineStrength = 3.5f; // 외곽선 강도
-    float3 outlineColor = float3(1.0f, 0.0f, 0.0f); // 바깥 쪽 외곽선 색
-    float3 innerOutlineColor = float3(0.0f, 0.5f, 0.0f); // 안쪽 외곽선 색상
-    bool useOutline = true;
-    if (useOutline)
-    {
-        // 시야 방향과의 각도를 더 부드럽게 계산
-        float rim = 1.0f - max(0.0f, dot(N, V));
-        float rimPower = 3.0f; // 더 낮은 값으로 조정
-        float fresnelFactor = pow(rim, rimPower);
-    
-        // 노말맵의 급격한 변화 감지
-        float normalEdge = length(fwidth(N)) * 2.0f;
-    
-        // 최종 외곽선 강도 계산 ( 임계 구간을 좁힐수록 더욱 선명해짐)
-        // 현재는 85% ~ 100% 구간에서 변화 
-        edgeIntensity = smoothstep(0.5f, 1.0f, fresnelFactor + normalEdge);
-        
-    }
+    //float edgeIntensity = 0.0f;
+    //float innerEdgeIntensity = 0.0f;    // 안쪽 외곽선 변수
+    //float outlineWidth = 5.0f;    // 외곽선 두께
+    //float outlineStrength = 3.5f; // 외곽선 강도
+    //float3 outlineColor = float3(1.0f, 0.0f, 0.0f); // 바깥 쪽 외곽선 색
+    //float3 innerOutlineColor = float3(0.0f, 0.5f, 0.0f); // 안쪽 외곽선 색상
+    //bool useOutline = true;
+    //if (useOutline)
+    //{
+    //    // 시야 방향과의 각도를 더 부드럽게 계산
+    //    float rim = 1.0f - max(0.0f, dot(N, V));
+    //    float rimPower = 3.0f; // 더 낮은 값으로 조정
+    //    float fresnelFactor = pow(rim, rimPower);
+    //
+    //    // 노말맵의 급격한 변화 감지
+    //    float normalEdge = length(fwidth(N)) * 2.0f;
+    //
+    //    // 최종 외곽선 강도 계산 ( 임계 구간을 좁힐수록 더욱 선명해짐)
+    //    // 현재는 85% ~ 100% 구간에서 변화 
+    //    edgeIntensity = smoothstep(0.5f, 1.0f, fresnelFactor + normalEdge);
+    //    
+    //}
        
     //--------------------------------------------------------------------------------------
     // Lighting Calculation
@@ -207,17 +207,17 @@ float4 main(PixelInputType input) : SV_TARGET
     float3 rimColor = float3(0.0, 2.0, 0.0);
     
     // Combine all lighting
-    float3 finalRimColor = (0, 0, 0);
-    float3 rimLight = (0, 0, 0);
-    if(onOutline)
-    {
-        float3 outerOutline = lerp(float3(0, 0, 0), outlineColor, edgeIntensity);
-        float3 innerOutline = CardSelectionRimLight(N, V, innerOutlineColor);
-       
-    
-        finalRimColor = outerOutline + innerOutline;
-        //finalRimColor = innerOutline;
-    } 
+    //float3 finalRimColor = (0, 0, 0);
+    //float3 rimLight = (0, 0, 0);
+    //if(onOutline)
+    //{
+    //    float3 outerOutline = lerp(float3(0, 0, 0), outlineColor, edgeIntensity);
+    //    float3 innerOutline = CardSelectionRimLight(N, V, innerOutlineColor);
+    //   
+    //
+    //    finalRimColor = outerOutline + innerOutline;
+    //    //finalRimColor = innerOutline;
+    //} 
     
     // 디버그용 
     float3 debugVisualization = float3(0, 0, 0);
@@ -230,7 +230,7 @@ float4 main(PixelInputType input) : SV_TARGET
         }
     }
     
-    float3 color = directionalLight + totalSpotLight + ambient + iblResult + emissive + finalRimColor;
+    float3 color = directionalLight + totalSpotLight + ambient + iblResult + emissive;
     
     color = pow(color, 1.0f / GAMMA);
     color = ACESFilmicToneMapping(color);

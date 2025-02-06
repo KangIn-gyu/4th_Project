@@ -42,6 +42,30 @@ void Renderer::Initialize(WindowInfo* _windowInfo)
 	cameraBuffer.Create(sizeof(CameraBuffer));
 	matrixPaletteBuffer.Create(sizeof(MatrixPallete));
 	productBuffer.Create(sizeof(ProductBuffer));
+	lightBuffer.Create(sizeof(LightBuffer), ConstantBuffer::Usage::DYNAMIC);
+
+	SpotLightData test;
+	test.position = DXMath::Vector3(0.0f, 100.0f, 0.0f);
+	test.direction = DXMath::Vector3(0.0f, -1.0f, 0.0f);
+	test.color = DXMath::Vector3(0.0f, 0.0f, 1.0f);
+	test.range = 100.0f;
+	test.innerCone = cos(DX::XMConvertToRadians(30.0f));
+	test.outerCone = cos(DX::XMConvertToRadians(45.0f));
+	test.intensity = 100.0f;
+
+	AddSpotLight(test);
+
+	SpotLightData test2;
+	test2.position = DXMath::Vector3(300.0f, 100.0f, 0.0f);
+	test2.direction = DXMath::Vector3(0.0f, -1.0f, 0.0f);
+	test2.color = DXMath::Vector3(1.0f, 0.0f, 1.0f);
+	test2.range = 100.0f;
+	test2.innerCone = cos(DX::XMConvertToRadians(30.0f));
+	test2.outerCone = cos(DX::XMConvertToRadians(45.0f));
+	test2.intensity = 100.0f;
+
+	AddSpotLight(test2);
+
 
 	D3DGraphics->CreateSamplerState(D3D11_FILTER_MIN_MAG_MIP_LINEAR, D3D11_TEXTURE_ADDRESS_WRAP, linearWrapSampler);
 	D3DGraphics->CreateSamplerState(D3D11_FILTER_MIN_MAG_MIP_POINT, D3D11_TEXTURE_ADDRESS_CLAMP, pointClampSampler);
@@ -156,6 +180,11 @@ void Renderer::D3DDraw()
 	//cameraData.eyePosition = DXMath::Vector4(eyePos.x, eyePos.y, eyePos.z, 1.0f);
 	d3dDeviceContext->UpdateSubresource(cameraBuffer.GetBuffer().Get(), 0, nullptr, &cameraData, 0, 0);
 	d3dDeviceContext->UpdateSubresource(productBuffer.GetBuffer().Get(), 0, nullptr, &productData, 0, 0);
+
+	// 임시
+	d3dDeviceContext->PSSetConstantBuffers(6, 1, lightBuffer.GetBuffer().GetAddressOf());
+
+	UpdateSpotLights();
 
 	bool hasSetLayout = false;
 	
@@ -341,4 +370,24 @@ DXMath::Matrix Renderer::CreateShadowMatrix()
 	DXMath::Matrix final = lightView * lightProj;
 
 	return final;
+}
+
+void Renderer::AddSpotLight(const SpotLightData& light)
+{
+	if (spotLights.size() < 7)
+	{
+		spotLights.push_back(light);
+	}
+}
+
+void Renderer::UpdateSpotLights()
+{
+	LightBuffer lightData;
+	lightData.LIGHT_NUM = static_cast<int>(spotLights.size());
+
+	for (size_t i = 0; i < spotLights.size(); i++)
+	{
+		lightData.spotLights[i] = spotLights[i];
+	}
+	lightBuffer.Update(&lightData, sizeof(LightBuffer));
 }

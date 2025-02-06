@@ -422,6 +422,7 @@
     <ClInclude Include="ShadowRenderer.h">
       <Filter>3_Graphics\GraphicsData\Shadow</Filter>
     </ClInclude>
+    <ClInclude Include="Outline.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WindowApp.cpp">
@@ -637,6 +638,7 @@
     <ClCompile Include="ShadowRenderer.cpp">
       <Filter>3_Graphics\GraphicsData\Shadow</Filter>
     </ClCompile>
+    <ClCompile Include="Outline.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd">
@@ -672,6 +674,12 @@
       <Filter>리소스 파일</Filter>
     </FxCompile>
     <FxCompile Include="..\4th_Project\Resource\Shaders\StaticVS.hlsl">
+      <Filter>리소스 파일</Filter>
+    </FxCompile>
+    <FxCompile Include="..\4th_Project\Resource\Shaders\OutLineVS.hlsl">
+      <Filter>리소스 파일</Filter>
+    </FxCompile>
+    <FxCompile Include="..\4th_Project\Resource\Shaders\OutLinePS.hlsl">
       <Filter>리소스 파일</Filter>
     </FxCompile>
   </ItemGroup>
