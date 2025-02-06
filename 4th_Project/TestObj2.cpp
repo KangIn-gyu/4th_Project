@@ -12,7 +12,7 @@ TestObj2::TestObj2(std::string_view _name, Object::ObjectType _type) : Object(_n
 
 void TestObj2::Initialize()
 {
-	CreateComponent<ModelComponent>("STAGE1/FBX/Map_test.fbx");  // char2 / gun
+	CreateComponent<ModelComponent>("STAGE1/FBX/1277.fbx");  // char2 / gun
 	auto* randerComponet = CreateComponent<RenderComponent>();
 	randerComponet->SetShader(ShaderType::VS, "Shaders/StaticVS.hlsl");
 	randerComponet->SetShader(ShaderType::PS, "Shaders/PixelShaderPS.hlsl");

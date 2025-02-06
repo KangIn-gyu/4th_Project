@@ -24,7 +24,7 @@
     <ClInclude Include="ClickFunc.h">
       <Filter>UI</Filter>
     </ClInclude>
-    <ClInclude Include="GameManager.h" />
+    <ClInclude Include="MyGameManager.h" />
     <ClInclude Include="UIButton.h">
       <Filter>UI</Filter>
     </ClInclude>
@@ -57,7 +57,7 @@
     <ClCompile Include="ClickFunc.cpp">
       <Filter>UI</Filter>
     </ClCompile>
-    <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="MyGameManager.cpp" />
     <ClCompile Include="UIButton.cpp">
       <Filter>UI</Filter>
     </ClCompile>
