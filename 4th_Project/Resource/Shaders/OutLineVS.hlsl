@@ -1,6 +1,6 @@
 #include "Helper.hlsli"
 
-PixelInputType OutlineVS(VertexInputType input)
+PixelInputType main(VertexInputType input)
 {
     PixelInputType output = (PixelInputType) 0; // 나머지 값들은 0으로
     

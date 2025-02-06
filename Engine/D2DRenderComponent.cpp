@@ -52,7 +52,7 @@ D2D_VECTOR_2F D2DRenderComponent::Get2DImageSize()
 
 DXMath::Vector2 D2DRenderComponent::Get2DImageXY()
 {
-	return imageData->GetXY();
+	return drawBitmap->GetXY();
 }
 void D2DRenderComponent::Set2DImagePos(float _x, float _y)
 {

@@ -16,6 +16,7 @@ public:
 	void SetSize(float width, float height);
 	void SetPos(float x, float y);
 
+	DXMath::Vector2 GetXY() { return DXMath::Vector2(d2dBitmap->GetSize().width, d2dBitmap->GetSize().height); }
 private:
 	ID2D1Bitmap* d2dBitmap; // 한번에 여러개 넣어 주기 위해서            
 

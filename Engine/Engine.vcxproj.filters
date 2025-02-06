@@ -422,10 +422,7 @@
     <ClInclude Include="ShadowRenderer.h">
       <Filter>3_Graphics\GraphicsData\Shadow</Filter>
     </ClInclude>
-    <ClInclude Include="Outline.h" />
-    <ClInclude Include="D2DLoader.h">
-      <Filter>3_Graphics\D2D</Filter>
-    </ClInclude>
+    <ClInclude Include="D2DLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WindowApp.cpp">
@@ -641,10 +638,7 @@
     <ClCompile Include="ShadowRenderer.cpp">
       <Filter>3_Graphics\GraphicsData\Shadow</Filter>
     </ClCompile>
-    <ClCompile Include="Outline.cpp" />
-    <ClCompile Include="D2DLoader.cpp">
-      <Filter>3_Graphics\D2D</Filter>
-    </ClCompile>
+    <ClCompile Include="D2DLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd">
