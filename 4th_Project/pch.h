@@ -20,7 +20,7 @@
 #include <typeindex>
 
 #include <iostream>
-
+#include "../Engine/TimeSystem.h"
 
 #include <directxtk/SimpleMath.h>  // #pragma comment(lib, "d3dx11.lib") 대체됨
 namespace DX = DirectX;

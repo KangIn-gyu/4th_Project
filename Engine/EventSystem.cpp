@@ -22,6 +22,8 @@ Object* EventSystem::FindObj(DXMath::Vector3 _rayOrigin, DXMath::Vector3 _rayDir
 	const auto& layers = SCENEMANAGER.get()->GetCurrentScene()->GetGameObecjts();
 	for (const auto& objlayer : layers)
 	{
+		if (objlayer->GetTag() != Layer::Tag::Basic)
+			continue;
 			for (size_t index = 0; index < objlayer->GetSize(); ++index) {
 				auto obj = objlayer->GetGameObject(index);
 				// 레이가 AABB와 교차하는지 확인)
@@ -47,6 +49,33 @@ Object* EventSystem::FindObj(DXMath::Vector3 _rayOrigin, DXMath::Vector3 _rayDir
 	return closestObject;
 }
 
+Object* EventSystem::Check2D(int _mouseX, int _mouseY)
+{
+	Object* closestObject = nullptr; // 가장 가까운 오브젝트 포인터
+	const auto& layers = SCENEMANAGER.get()->GetCurrentScene()->GetGameObecjts();
+	for (const auto& objlayer : layers)
+	{
+		if (objlayer->GetTag() != Layer::Tag::UI)
+			continue;
+		for (size_t index = 0; index < objlayer->GetSize(); ++index) {
+			auto obj = objlayer->GetGameObject(index);
+			if (obj->IsActive())
+			{
+				auto boxcol = obj->GetComponent<BoxCollider>();
+				if (boxcol != nullptr)
+				{
+					if(true == boxcol->Check2D(_mouseX, _mouseY))
+						closestObject = obj;
+				}
+			}
+		}
+
+	}
+
+	
+	return closestObject;
+}
+
 void EventSystem::checkClickobj(int _mouseX, int _mouseY)
 {
 
@@ -57,15 +86,24 @@ void EventSystem::checkClickobj(int _mouseX, int _mouseY)
 	int screenWidth = Engine::GetInstance().get()->GetWindowSize().x;
 	int screenHeight = Engine::GetInstance().get()->GetWindowSize().y;
 
-	std::cout << _mouseX << " " << _mouseY << std::endl;
-	DXMath::Ray ray = GenerateRayFromMouse(_mouseX, _mouseY, screenWidth, screenHeight, CameraObject::g_MainCameraObject->GetViewMatrix()
-		, CameraObject::g_MainCameraObject->GetProjectionMatrix());
 
-	Object* curobj = FindObj(ray.position, ray.direction);
-	if (curobj != nullptr)
+	
+	std::cout << _mouseX << " " << _mouseY << std::endl;
+
+	Object* curobj = Check2D(_mouseX, _mouseY);
+	if (curobj == nullptr)
 	{
-		//std::cout << curobj->name << std::endl;
+		DXMath::Ray ray = GenerateRayFromMouse(_mouseX, _mouseY, screenWidth, screenHeight, CameraObject::g_MainCameraObject->GetViewMatrix()
+			, CameraObject::g_MainCameraObject->GetProjectionMatrix());
+
+		curobj = FindObj(ray.position, ray.direction);
+		if (curobj != nullptr)
+		{
+			//std::cout << curobj->name << std::endl;
+		}
 	}
+
+
 	IClick* ClickAble = dynamic_cast<IClick*>(curobj);
 	if (ClickAble)
 		ClickAble->OnClick();

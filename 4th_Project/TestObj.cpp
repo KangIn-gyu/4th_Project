@@ -13,7 +13,7 @@ TestObj::TestObj(std::string_view _name, Object::ObjectType _type) : Object(_nam
 
 void TestObj::Initialize()
 {
-	CreateComponent<ModelComponent>("STAGE1/FBX/Table.fbx");  // char2 / gun
+	CreateComponent<ModelComponent>("STAGE1/FBX/IngameMods.fbx");  // char2 / gun
 
 	CreateComponent<RenderComponent>();
 
@@ -21,7 +21,7 @@ void TestObj::Initialize()
 	GetComponent<BoxCollider>()->SetBox({ GetComponent<TransformComponent>()->GetPosition() }, { 0,0,0 },
 		GetComponent<TransformComponent>()->GetQuaternion());
 	auto randerComponet = GetComponent<RenderComponent>();
-	randerComponet->SetShader(ShaderType::VS, "Shaders/VertexShaderVS.hlsl");
+	randerComponet->SetShader(ShaderType::VS, "Shaders/StaticVS.hlsl");
 	randerComponet->SetShader(ShaderType::PS, "Shaders/PixelShaderPS.hlsl");
 
 	auto D2DComponent = CreateComponent<D2DRenderComponent>();

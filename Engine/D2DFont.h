@@ -28,6 +28,7 @@ public:
 
 	D2D1_POINT_2F GetPos() { return pos; }
 	ID2D1SolidColorBrush* GetBrush() { return fontBrush; }
+	ID2D1SolidColorBrush* GetBoundBrush() { return boundBrush; }
 	IDWriteTextLayout* GetTextLayout() { return DWriteTextLayout; }
 
 	void DrawTextBox();
@@ -45,6 +46,7 @@ private:
 
 	ID2D1SolidColorBrush* fontBrush {};
 	ID2D1SolidColorBrush* boxBrush{};
+	ID2D1SolidColorBrush* boundBrush{};
 	IDWriteTextFormat* DWriteTextFormat {};
 	IDWriteTextLayout* DWriteTextLayout {};
 

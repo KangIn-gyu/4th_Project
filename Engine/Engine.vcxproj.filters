@@ -173,6 +173,9 @@
     <Filter Include="5_Object\Layer">
       <UniqueIdentifier>{db60ab09-f2b5-4003-8349-e88a8409c900}</UniqueIdentifier>
     </Filter>
+    <Filter Include="3_Graphics\GraphicsData\Shadow">
+      <UniqueIdentifier>{c23541e9-95a0-4fe4-85c5-ffb90f9a617a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowApp.h">
@@ -393,7 +396,6 @@
     <ClInclude Include="SoundSystem.h">
       <Filter>2_System\Sound</Filter>
     </ClInclude>
-    <ClInclude Include="ShadowRenderer.h" />
     <ClInclude Include="ImageComponent.h">
       <Filter>5_Object\Component\BitmapComponent</Filter>
     </ClInclude>
@@ -417,6 +419,10 @@
     <ClInclude Include="Layer.h">
       <Filter>5_Object\Layer</Filter>
     </ClInclude>
+    <ClInclude Include="ShadowRenderer.h">
+      <Filter>3_Graphics\GraphicsData\Shadow</Filter>
+    </ClInclude>
+    <ClInclude Include="Outline.h" />
     <ClInclude Include="D2DLoader.h">
       <Filter>3_Graphics\D2D</Filter>
     </ClInclude>
@@ -608,7 +614,6 @@
     <ClCompile Include="SoundSystem.cpp">
       <Filter>2_System\Sound</Filter>
     </ClCompile>
-    <ClCompile Include="ShadowRenderer.cpp" />
     <ClCompile Include="CSVLoader.cpp">
       <Filter>4_Resources\CSVLoader</Filter>
     </ClCompile>
@@ -633,6 +638,10 @@
     <ClCompile Include="Layer.cpp">
       <Filter>5_Object\Layer</Filter>
     </ClCompile>
+    <ClCompile Include="ShadowRenderer.cpp">
+      <Filter>3_Graphics\GraphicsData\Shadow</Filter>
+    </ClCompile>
+    <ClCompile Include="Outline.cpp" />
     <ClCompile Include="D2DLoader.cpp">
       <Filter>3_Graphics\D2D</Filter>
     </ClCompile>
@@ -668,6 +677,15 @@
       <Filter>리소스 파일</Filter>
     </FxCompile>
     <FxCompile Include="..\4th_Project\Resource\Shaders\ShadowVS.hlsl">
+      <Filter>리소스 파일</Filter>
+    </FxCompile>
+    <FxCompile Include="..\4th_Project\Resource\Shaders\StaticVS.hlsl">
+      <Filter>리소스 파일</Filter>
+    </FxCompile>
+    <FxCompile Include="..\4th_Project\Resource\Shaders\OutLineVS.hlsl">
+      <Filter>리소스 파일</Filter>
+    </FxCompile>
+    <FxCompile Include="..\4th_Project\Resource\Shaders\OutLinePS.hlsl">
       <Filter>리소스 파일</Filter>
     </FxCompile>
   </ItemGroup>

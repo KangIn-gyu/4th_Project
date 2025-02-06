@@ -12,6 +12,7 @@
 #include "Renderer.h"
 #include "ResourceSystem.h"
 #include "CSVLoader.h"
+#include "BoxCollider.h"
 
 D2DRenderComponent::D2DRenderComponent()
 {
@@ -47,6 +48,11 @@ void D2DRenderComponent::Set2DImageSize(float _width, float _height)
 D2D_VECTOR_2F D2DRenderComponent::Get2DImageSize()
 {
 	return { drawBitmap->GetRect().right, drawBitmap->GetRect().bottom };
+}
+
+DXMath::Vector2 D2DRenderComponent::Get2DImageXY()
+{
+	return imageData->GetXY();
 }
 void D2DRenderComponent::Set2DImagePos(float _x, float _y)
 {

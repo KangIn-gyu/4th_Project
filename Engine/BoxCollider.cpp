@@ -1,7 +1,11 @@
 #include "pch.h"
 #include "BoxCollider.h"
+
+#include "D2DClass.h"
+#include "D2DFont.h"
 #include "Object.h"
 #include "TransformComponent.h"
+
 void BoxCollider::SetBox(const DXMath::Vector3 center, const DXMath::Vector3 extents, const DXMath::Quaternion orientation)
 {
 	obBox.Center = center;
@@ -9,6 +13,30 @@ void BoxCollider::SetBox(const DXMath::Vector3 center, const DXMath::Vector3 ext
 	obBox.Extents = extents;
 	modelExtent = extents;
 	obBox.Orientation = orientation;
+}
+
+bool BoxCollider::Check2D(float mousex, float mousey)
+{
+	float minX = modelCenter.x - modelExtent.x;
+	float maxX = modelCenter.x + modelExtent.x;
+	float minY = modelCenter.y - modelExtent.y;
+	float maxY = modelCenter.y + modelExtent.y;
+
+	// 마우스가 AABB 안에 있는지 확인
+	if (mousex >= minX && mousex <= maxX &&
+		mousey >= minY && mousey <= maxY)
+	{
+		return true;  // 충돌함
+	}
+
+	return false;  // 충돌 안 함
+}
+
+void BoxCollider::DrawBoundBox()
+{
+	D2D1_RECT_F rect = { 0, 0,  obBox.Center.x*2, obBox.Center.y * 2 };
+	D2DFont* b = new D2DFont;
+	D2DClass::GetD2DDeviceContext()->DrawRectangle(&rect, b->GetBoundBrush());
 }
 
 void BoxCollider::ComponentInitialize()

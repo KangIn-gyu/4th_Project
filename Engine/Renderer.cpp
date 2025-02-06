@@ -12,7 +12,6 @@
 #include "Shader.h"
 #include "Material.h"
 #include "Texture.h"
-#include "ConstantBufferData.h"
 #include "CameraObject.h"
 #include "UserImGui.h"
 
@@ -42,6 +41,31 @@ void Renderer::Initialize(WindowInfo* _windowInfo)
 	objectBuffer.Create(sizeof(ObjectBuffer));
 	cameraBuffer.Create(sizeof(CameraBuffer));
 	matrixPaletteBuffer.Create(sizeof(MatrixPallete));
+	productBuffer.Create(sizeof(ProductBuffer));
+	lightBuffer.Create(sizeof(LightBuffer), ConstantBuffer::Usage::DYNAMIC);
+
+	SpotLightData test;
+	test.position = DXMath::Vector3(0.0f, 100.0f, 0.0f);
+	test.direction = DXMath::Vector3(0.0f, -1.0f, 0.0f);
+	test.color = DXMath::Vector3(0.0f, 0.0f, 1.0f);
+	test.range = 100.0f;
+	test.innerCone = cos(DX::XMConvertToRadians(30.0f));
+	test.outerCone = cos(DX::XMConvertToRadians(45.0f));
+	test.intensity = 100.0f;
+
+	AddSpotLight(test);
+
+	SpotLightData test2;
+	test2.position = DXMath::Vector3(300.0f, 100.0f, 0.0f);
+	test2.direction = DXMath::Vector3(0.0f, -1.0f, 0.0f);
+	test2.color = DXMath::Vector3(1.0f, 0.0f, 1.0f);
+	test2.range = 100.0f;
+	test2.innerCone = cos(DX::XMConvertToRadians(30.0f));
+	test2.outerCone = cos(DX::XMConvertToRadians(45.0f));
+	test2.intensity = 100.0f;
+
+	AddSpotLight(test2);
+
 
 	D3DGraphics->CreateSamplerState(D3D11_FILTER_MIN_MAG_MIP_LINEAR, D3D11_TEXTURE_ADDRESS_WRAP, linearWrapSampler);
 	D3DGraphics->CreateSamplerState(D3D11_FILTER_MIN_MAG_MIP_POINT, D3D11_TEXTURE_ADDRESS_CLAMP, pointClampSampler);
@@ -79,7 +103,7 @@ void Renderer::Render()
 void Renderer::D3DDraw()
 {
 	ComPtr<ID3D11DeviceContext> d3dDeviceContext = D3DGraphics->GetD3DDeviceContext();
-	auto device = D3DGraphics->GetD3DDevice();
+	ComPtr <ID3D11Device> device = D3DGraphics->GetD3DDevice();
 
 	// 현재 렌더링 상태 저장
 	D3D11_VIEWPORT originalViewport;
@@ -90,26 +114,48 @@ void Renderer::D3DDraw()
 	ID3D11DepthStencilView* originalDSV = nullptr;
 	d3dDeviceContext->OMGetRenderTargets(1, &originalRTV, &originalDSV);
 
-	//std::cout << "Light Position: " << lightPos.x << ", " << lightPos.y << ", " << lightPos.z << std::endl;
-	//std::cout << "Light Direction: " << lightDir.x << ", " << lightDir.y << ", " << lightDir.z << std::endl;
-
-	// 1. 그림자 맵 패스
-	shadowRenderer.BeginShadowPass(d3dDeviceContext.Get());
-	{
-		// 그림자 맵 렌더링
-		//std::cout << "Rendering shadow map..." << std::endl;
-		shadowRenderer.RenderShadow(d3dDeviceContext.Get(), CreateShadowMatrix(), work);
-		IMGUI->srv = shadowRenderer.GetShadowMapSRV();
-	}
-	// 원래의 렌더링 상태로 복구
-	d3dDeviceContext->RSSetViewports(1, &originalViewport);
-	d3dDeviceContext->OMSetRenderTargets(1, &originalRTV, originalDSV);
-
-	shadowRenderer.DebugShadowMap(device.Get(), d3dDeviceContext.Get());
-
 	d3dDeviceContext->PSSetSamplers(0, 1, &linearWrapSampler);
 	d3dDeviceContext->PSSetSamplers(1, 1, &pointClampSampler);
 	d3dDeviceContext->PSSetSamplers(2, 1, &shadowRenderer.GetShadowSampler());
+
+	//if (!work.empty() && work[0]->GetModelData()->GetModelData()->meshs->size() > 0)
+	//{
+	//	// 모든 메쉬를 순회하면서 유효한 첫 번째 InputLayout을 찾음
+	//	for (auto& mesh : *work[0]->GetModelData()->GetModelData()->meshs)
+	//	{
+	//		if (mesh->GetMeshInfo() && mesh->GetMeshInfo()->inputLayout.GetInputLayout())
+	//		{
+	//			std::cout << "Found valid layout in mesh\n";
+	//			d3dDeviceContext->IASetInputLayout(mesh->GetMeshInfo()->inputLayout.GetInputLayout().Get());
+	//			break;
+	//		}
+	//	}
+	//}
+
+	// 1. 그림자 맵 패스
+	ID3D11InputLayout* currentLayout;
+	d3dDeviceContext->IAGetInputLayout(&currentLayout);
+	//if (!currentLayout) {
+	//	std::cout << "Input Layout is null before shadow pass\n";
+	//}
+
+	shadowRenderer.BeginShadowPass(d3dDeviceContext.Get());
+
+	ID3D11InputLayout* currentLayout1;
+	d3dDeviceContext->IAGetInputLayout(&currentLayout1);
+	//if (!currentLayout1) {
+	//	std::cout << "Input Layout is null before shadow pass\n";
+	//}
+	// 그림자 맵 렌더링
+	shadowRenderer.RenderShadow(d3dDeviceContext.Get(), CreateShadowMatrix(), work);
+	IMGUI->srv = shadowRenderer.GetShadowMapSRV();
+	//d3dDeviceContext->IASetInputLayout(nullptr);
+	// 원래의 렌더링 상태로 복구
+
+	d3dDeviceContext->RSSetViewports(1, &originalViewport);
+	d3dDeviceContext->OMSetRenderTargets(1, &originalRTV, originalDSV);
+
+	//shadowRenderer.DebugShadowMap(device.Get(), d3dDeviceContext.Get());
 
 	d3dDeviceContext->PSSetShaderResources(24, 1, shadowRenderer.GetShadowMapSRV().GetAddressOf());
 
@@ -118,18 +164,33 @@ void Renderer::D3DDraw()
 
 	d3dDeviceContext->VSSetConstantBuffers(2, 1, cameraBuffer.GetBuffer().GetAddressOf());
 	d3dDeviceContext->PSSetConstantBuffers(2, 1, cameraBuffer.GetBuffer().GetAddressOf());
+
+	// 상수버퍼 설정 (렌더 오브젝트 제외)
 	CameraBuffer cameraData;
 	cameraData.eyePosition = CameraObject::g_MainCameraObject->GetComponent<TransformComponent>()->GetPosition();
 	cameraData.lightDirection = IMGUI->lightDir;
 
+	ProductBuffer productData;
+	productData.totalTime = TIMESYSTEM->GetTotalTime();
 
-	//LightConstantBuffer cameraData;		// 다중 빛 CB
+	d3dDeviceContext->PSSetConstantBuffers(5, 1, productBuffer.GetBuffer().GetAddressOf());
+
+	//LightConstantBuffer cameraData;		// 다중 빛 CB (폐기)
 	//DXMath::Vector3 eyePos = CameraObject::g_MainCameraObject->GetComponent<TransformComponent>()->GetPosition();
 	//cameraData.eyePosition = DXMath::Vector4(eyePos.x, eyePos.y, eyePos.z, 1.0f);
 	d3dDeviceContext->UpdateSubresource(cameraBuffer.GetBuffer().Get(), 0, nullptr, &cameraData, 0, 0);
+	d3dDeviceContext->UpdateSubresource(productBuffer.GetBuffer().Get(), 0, nullptr, &productData, 0, 0);
+
+	// 임시
+	d3dDeviceContext->PSSetConstantBuffers(6, 1, lightBuffer.GetBuffer().GetAddressOf());
+
+	UpdateSpotLights();
+
+	bool hasSetLayout = false;
+	
 	for (auto& renderComponent : work)
 	{
-		if (renderComponent->GetActive())
+		if (renderComponent->GetActive() == true)
 		{
 			auto* modelData = renderComponent->GetModelData()->GetModelData();
 			std::unordered_map<std::string, AiNode*>* nodeData = renderComponent->GetNodeData();
@@ -142,7 +203,30 @@ void Renderer::D3DDraw()
 				d3dDeviceContext->IASetVertexBuffers(0, 1, vertexBuffer->GetBuffer().GetAddressOf(), &vertexBuffer->vertextBufferStride, &vertexBuffer->vertextBufferOffset);
 				auto* indexBuffer = meshData->indexBuffer;
 				d3dDeviceContext->IASetIndexBuffer(indexBuffer->GetBuffer().Get(), DXGI_FORMAT_R32_UINT, 0);
-				d3dDeviceContext->IASetInputLayout(meshData->inputLayout.GetInputLayout().Get());
+				//	comptr을 항상 맹신하지 말것
+				//	InputLayout같은걸 계속 유지시키면서 재할당 하는 식으로 해야하는데
+				//	문제점은 그냥 comptr의 임시객체를 생성해서 넣어버려서
+				//	문장이 끝나면 바로 소멸되서 참조카운트가 불안정해져서 원래있던 InputLayout를 날린다는것
+				//	meshData->inputLayout.GetInputLayout().Get(); 이걸 강제로 문장에 때려박으면 날라갈수도있다는거
+				//	전에 되었던 이유는 input layout을 여기서만 할당하기때문에 참조카운팅이 날라갈 이유가 없고
+				//	지금은 ia를 날렸다가 다시 할당했다가 날렸다가 메인 렌더링 루프에서 재할당을 하기때문에 가지고 있던
+				//	문제가 생겼던것
+				//	comptr은 무적이 아니다 comptr의 자동참조 카운트 관리가 문제를 일으킬 가능성이 있다.
+				//	렌더링 파이프라인중에서 comptr의 스코프가 끝나면서 자동으로 release가 호출되었거나
+				//	여러곳에서 같은 리소스를 참조할 때 comptr의 참조 카운트관리가 의도치 않게 작동할 가능성이 있다.
+				//	그러므로 comptr은 무적이 아니다.
+				auto layout = meshData->inputLayout.GetInputLayout().Get();
+				if (!hasSetLayout && layout)
+				{
+					d3dDeviceContext->IASetInputLayout(layout);
+					hasSetLayout = true;
+				}
+				//if (layout)
+				//{
+				//	// IA의 주소와 실제 인터페이스 값
+				//	std::cout << "Layout Address: " << meshData->inputLayout.GetInputLayout().GetAddressOf()
+				//		<< ", Interface: " << meshData->inputLayout.GetInputLayout().Get() << "\n";
+				//}
 
 				// VS 
 				d3dDeviceContext->VSSetShader(renderComponent->GetShader(ShaderType::VS)->GetVertexShader().Get(), nullptr, 0);
@@ -160,12 +244,18 @@ void Renderer::D3DDraw()
 				matrixData.worldMatrix = DX::XMMatrixTranspose(node->second->GetTransform().GetWorldMatrix());
 				matrixData.viewMatrix = DX::XMMatrixTranspose(CameraObject::g_MainCameraObject->GetViewMatrix());
 				matrixData.projectionMatrix = DX::XMMatrixTranspose(CameraObject::g_MainCameraObject->GetProjectionMatrix());
-				matrixData.totalTime = TIMESYSTEM->GetTotalTime();
+
 
 				Material* material = (*modelData->materials)[meshData->GetMaterialIndex()];
 				ObjectBuffer objectData;
 				objectData.metalness = material->GetMetalness();
 				objectData.roughness = material->GetRoughness();
+				objectData.onOutline = false;
+
+				if (renderComponent->GetOwner()->GetEffect() == Object::Effect::OutLine)
+				{
+					objectData.onOutline = true;
+				}
 
 				if (nullptr != modelData->matrixPallete)
 				{
@@ -277,28 +367,27 @@ DXMath::Matrix Renderer::CreateShadowMatrix()
 		farPlane
 	);
 
-	// View 행렬 생성 후 디버그 출력
-	//std::cout << "\nView Matrix (should have normalized vectors in first 3x3):\n";
-	//for (int i = 0; i < 4; i++) {
-	//	float length = sqrt(
-	//		lightView.m[i][0] * lightView.m[i][0] +
-	//		lightView.m[i][1] * lightView.m[i][1] +
-	//		lightView.m[i][2] * lightView.m[i][2]
-	//	);
-	//	std::cout << lightView.m[i][0] << ", "
-	//		<< lightView.m[i][1] << ", "
-	//		<< lightView.m[i][2] << ", "
-	//		<< lightView.m[i][3] << " (length: " << length << ")\n";
-	//}
-
-	// Projection 행렬 요소 분석
-	//std::cout << "\nProjection Matrix Analysis:\n";
-	//std::cout << "Scale X (should be ~0.02 for size 100): " << lightProj.m[0][0] << "\n";
-	//std::cout << "Scale Y (should be ~0.02 for size 100): " << lightProj.m[1][1] << "\n";
-	//std::cout << "Depth scale (should be small positive): " << lightProj.m[2][2] << "\n";
-	//std::cout << "Depth offset: " << lightProj.m[3][2] << "\n";
-
 	DXMath::Matrix final = lightView * lightProj;
 
 	return final;
+}
+
+void Renderer::AddSpotLight(const SpotLightData& light)
+{
+	if (spotLights.size() < 7)
+	{
+		spotLights.push_back(light);
+	}
+}
+
+void Renderer::UpdateSpotLights()
+{
+	LightBuffer lightData;
+	lightData.LIGHT_NUM = static_cast<int>(spotLights.size());
+
+	for (size_t i = 0; i < spotLights.size(); i++)
+	{
+		lightData.spotLights[i] = spotLights[i];
+	}
+	lightBuffer.Update(&lightData, sizeof(LightBuffer));
 }

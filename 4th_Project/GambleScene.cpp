@@ -29,7 +29,7 @@ void GambleScene::Enter()
 	BLACKJACK->deck->GetComponent<TransformComponent>()->SetPosition({ -60, 65, 0 });
 	BLACKJACK->trashDeck = ObjectCreator<Deck>("Deck", Object::ObjectType::Basic,false);
 	BLACKJACK->Setstage(1);
-
+	ObjectCreator<TestObj>("IngameMods", Object::ObjectType::Basic);
 	//auto test = ObjectCreator<TestObj>("Table", Object::ObjectType::Basic);
 	auto deck = GetGameObject(Object::ObjectType::Basic, "Deck");
 
@@ -46,5 +46,4 @@ void GambleScene::Update(const float _deltaTime)
 	__super::Update(_deltaTime);
 
 	BLACKJACK->Update(_deltaTime);
-	PLAYER->Update(_deltaTime);
 }

@@ -1,5 +1,6 @@
 #pragma once
 
+class Shader;
 class InputLayout
 {
 public:
@@ -29,8 +30,9 @@ public:
 		}
 	};
 
-	 void IASetInputLayout(const std::initializer_list<D3D11_INPUT_ELEMENT_DESC>& _elements, std::string_view _vertexShaderfilePath);
+	 bool IASetInputLayout(const std::initializer_list<D3D11_INPUT_ELEMENT_DESC>& _elements, std::string_view _vertexShaderfilePath);
 	 ComPtr<ID3D11InputLayout> GetInputLayout() { return inputLayout; }
+	 std::shared_ptr<Shader> GetVSShader() { return VSshader; }
 private:
 
 public:
@@ -38,6 +40,7 @@ public:
 private:
 	int a = 0;
 	ComPtr<ID3D11InputLayout> inputLayout;
+	std::shared_ptr<Shader> VSshader;
 };
 
 // float4 -> R32G32B32A32 / float3 -> R32G32B32 / float2 -> R32G32

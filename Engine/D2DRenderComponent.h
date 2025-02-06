@@ -5,6 +5,7 @@
 #include "D2DFont.h"
 
 class Bitmap;
+class BoxCollider;
 class D2DRenderComponent : public Component
 {
 public:

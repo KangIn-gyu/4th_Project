@@ -34,6 +34,8 @@ class SoundSystem : public SingletonBase<SoundSystem>
 {
 	friend class SingletonBase<SoundSystem>;
 public:
+	void Init();
+
 	void LoadMusic(eSoundList list, bool loopcheck, const char* music);
 
 	void PlayMusic(eSoundList list, eSoundChannel channel);

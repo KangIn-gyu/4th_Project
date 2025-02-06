@@ -23,12 +23,14 @@ void UIButton::Initialize()
 	Object::Initialize();
 	imagedata = CreateComponent<D2DRenderComponent>();
 	imagedata->Load2DImage(imageFilepath);
-
-	CreateComponent<TransformComponent>()->SetPosition({ 50 ,50,0 });
-	imagedata->Set2DImagePos(50, 50);
-
+	//GetComponent<ButtonColider>()->SetBoundBox(0, 0, { imagedata->Get2DImageSize().x,imagedata->Get2DImageSize().y,0 });
+	imagedata->Set2DImagePos(150, 150);
 	CreateComponent<BoxCollider>();
-	GetComponent<BoxCollider>()->SetBox({ imagedata->Get2DImageSize().x / 2, imagedata->Get2DImageSize().y / 2 ,0.1 }, { imagedata->Get2DImageSize().x/2, imagedata->Get2DImageSize().y/2 ,0 }, DXMath::Quaternion::Quaternion(0,0,0,1));
+	auto xy = imagedata->Get2DImageXY();
+	DXMath::Vector3 center = { 150 + xy.x/2,150 + xy.y/2, 0.f};
+	std::cout << imagedata->Get2DImageSize().x << " dawdawd" << imagedata->Get2DImageSize().y << std::endl;
+	DXMath::Vector3 extent = { xy.x / 2 ,xy.y / 2 , 0.1f };
+	GetComponent<BoxCollider>()->SetBox(center, extent, DXMath::Quaternion::Quaternion(0,0,0,1));
 }
 
 void UIButton::Update(const float _deltaTime)
@@ -38,6 +40,6 @@ void UIButton::Update(const float _deltaTime)
 
 void UIButton::OnClick()
 {
-	std::cout << "2ddddd" << std::endl;
-	clickFunc();
+	std::cout << "2d´­·¶À½ " << std::endl;
+	//clickFunc();
 }

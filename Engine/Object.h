@@ -29,7 +29,12 @@ public:
 		End
 	};
 
-
+	enum class Effect
+	{
+		None,
+		OutLine,
+	};
+	
 	Object(std::string_view _name , Object::ObjectType _type = ObjectType::Basic); // 명시 안해놓으면 기본 오브젝트로 생성
 	virtual ~Object();
 
@@ -41,8 +46,11 @@ public:
 	virtual void LateUpdate() {}
 	virtual void ResetInformation() {}  // 용도 : 씬 전환 이후 내부 정보 초기화
 
+	void SetEffect(Effect _effect) { effect = _effect; }
+
 	State GetState() { return state; }
 	ObjectType GetObjectType() { return type; }
+	Effect GetEffect() { return effect; }
 	std::string ObjectTypeToString();
 	
 	const std::string& GetName() { return name; }
@@ -87,6 +95,7 @@ private:
 	State state = State::Active;  // 해당 타입은 set 만들면 안됨.
 	bool isActive = true; //일단만듬 인규형 나중에 수정하거나 그냥 두죠 
 	ObjectType type;
+	Effect effect = Effect::None;
 	std::unordered_map<std::type_index, std::vector<Component*>> components;
 	Script* script = nullptr; // 용도 : 여기다 생성된 오브젝트의 컴포넌트의 설정값을 넣는 곳이다 벡터로 담는 형식이 정식이지만 그냥 한개로 제한을 함.
 };
