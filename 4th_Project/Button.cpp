@@ -13,7 +13,7 @@ Button::Button(std::string_view _name, Object::ObjectType _type, std::function<v
 	
 
 
-	GetComponent<TransformComponent>()->SetPosition({ 20000,0,0 });  //생성할떄 저장한거 받아오게끔
+	//GetComponent<TransformComponent>()->SetPosition({ 20000,0,0 });  //생성할떄 저장한거 받아오게끔
 }
 
 Button::Button(std::string_view _name, Object::ObjectType _type, DXMath::Vector3 _pos, std::function<void(void)> _func) : Object(_name, _type)

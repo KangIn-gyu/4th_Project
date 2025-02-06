@@ -30,12 +30,10 @@ void BlackJack::RoundStart()
 	canClick = false;
 }
 
-void BlackJack::RoundEnd()
-{
-	
-}
+
 void BlackJack::CheckTurnEnd()
 {
+	ChangeState();
 	if (player->turnEnd == true)   //한 오픈 or HIT시마다 할것들
 	{
 		//dealer->turnCount--;
@@ -84,7 +82,9 @@ void BlackJack::Update(float _deltaTime)
 				}
 				else if (state == PlayerState::Skill)
 				{
-					player->ActiveSkill();
+
+					if(true == player->ActiveSkill())
+						SetState(PlayerState::OPEN);
 				}
 				else if (state == PlayerState::STAY)
 				{
@@ -208,8 +208,6 @@ std::string stateToString(PlayerState _state)
 		return "HIT";
 	case PlayerState::STAY:
 		return "STAY";
-	case PlayerState::SHOWDOWN:
-		return "SHOWDOWN";
 	default:
 		return "OPEN";
 	};

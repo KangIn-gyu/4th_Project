@@ -71,6 +71,7 @@ void Object::SetActive(bool _state)
 
     if (isActive != _state)
     {
+        isActive = _state;
         for (auto& component : components)
         {
             if (component.second.empty()) continue; // 비어 있는 경우 방어 코드 추가

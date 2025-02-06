@@ -20,7 +20,6 @@ enum class PlayerState   //플레이어 행동상태
 	OPEN,
 	HIT,
 	STAY,
-	SHOWDOWN, //쇼다운 필요한가
 	Skill,    //
 };
 
@@ -37,14 +36,20 @@ public:
 	
 	PlayerState GetState() const { return state; }
 	std::string getstatestring() { return stateToString(state); } //실험용 지울거
-	void SetState(PlayerState _state) { state = _state; } //
+	void SetState(PlayerState _state) { nextState = _state; } //다음꺼 세팅해주고
+	void ChangeState() 
+	{
+		if (nextState != state && canChange ==true) //다음꺼 정한게 지금이랑다르면 스테이트 교체
+		{
+			state = nextState;
+		}
+	};
 	void DealerTurn(float _deltaTime); //딜러턴 시작? 딜러 카운트가0이됬을떄 딜러턴끝나면 다시 플레이어턴
 
-	void CheckVictory(float _deltaTime); //일단 만듬 stay누를시 승패결정하기
+	void CheckVictory(float _deltaTime); 
 	void ShowDown();   //승패 계산떄 숫자합이 같으면 발생
 	void DoubbleDown();
-	void RoundStart(); //라운드 시작시  덱초기화, 플레이어6장주기 
-	void RoundEnd();   //각 핸드 초기화 등
+	void RoundStart(); //라운드 시작시  덱초기화, 플레이어6장주기  
 	void CheckTurnEnd();  //플레이어가 행동했는지 확인
 	void Bet();
 	int Getmagnification() 
@@ -67,9 +72,10 @@ private:
 	float elapsedTime =0;
 	Turn curTurn = Turn::player;
 	PlayerState state = PlayerState::OPEN;
+	PlayerState nextState;
 	bool firstTurn =true; //첫턴은 달라서
 	bool isRoundOver = true; //한 라운드가 끝날떄
-	
+	bool canChange;
 	//bool isClicked = false;
 	//클릭전까지 게임돌아가는거 멈추기;
 	//앞면으로 한번에 뒤집고 3초? 뒤 다시 뒤집고 셔플

@@ -30,6 +30,7 @@ void Card::Initialize()
 	CreateComponent<RenderComponent>();
 	CreateComponent<BoxCollider>();
 
+	//SetEffect(Object::Effect::OutLine);
 	DXMath::Vector3 extent = GetComponent<ModelComponent>()->GetModel().get()->extent;
 	DXMath::Vector3 center = GetComponent<ModelComponent>()->GetModel().get()->center;
 	GetComponent<BoxCollider>()->SetBox(center, extent, GetComponent<TransformComponent>()->GetQuaternion());
@@ -40,9 +41,10 @@ void Card::Initialize()
 
 void Card::Init(DXMath::Vector3 _pos)
 {
+
 	if (isOpen)
 	{
-		float eulerAngle = DirectX::XMConvertToRadians(rotat +180);
+		float eulerAngle = DirectX::XMConvertToRadians(rotat -180);
 		DXMath::Quaternion eulerToQuaternion = DXMath::Quaternion::CreateFromYawPitchRoll(0.f, eulerAngle, 0.f);
 		GetComponent<TransformComponent>()->SetQuaternion(eulerToQuaternion);
 	}
@@ -54,6 +56,7 @@ void Card::Init(DXMath::Vector3 _pos)
 	isSeleted = false;
 	elpasedTime = 0;
 	GetComponent<TransformComponent>()->SetPosition(_pos);
+	SetActive(true);
 	
 }
 
@@ -165,7 +168,7 @@ void Card::OnClick()
 				if (PLAYER->hand.hand[i] != nullptr && PLAYER->hand.hand[i]->GetName() == GetName() && isOpen == false) //누른카드가 패에있고 아직 뒷면이면
 				{		
 					PLAYER->hand.hand[i]->SetActive(false);
-					BLACKJACK->trashDeck->cards.push_back(PLAYER->hand.hand[i]); //카메라 문젠지 자꾸 잘못된게 지워지는듯? 잘모르겠음
+					BLACKJACK->trashDeck->cards.push_back(PLAYER->hand.hand[i]); 
 					PLAYER->hand.hand[i] = nullptr;
 				}
 					

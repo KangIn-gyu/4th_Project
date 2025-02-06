@@ -100,25 +100,25 @@ bool Player::CheckGameOver()
 void Player::SetSkill(PSkill _skill)
 {
 	if (_skill == PSkill::fastEye)
-		skill = [this]() { fastEye(); };
-	else if(_skill == PSkill::guts)
-		skill = [this]() { guts(); };
+		skill = [this]() { return fastEye(); };
+	else if (_skill == PSkill::guts)
+		skill = [this]() { return guts(); };
 	else if (_skill == PSkill::meditation)
-		skill = [this]() { meditation(); };
-	else if(_skill == PSkill::Insurance)
-		skill = [this]() { Insurance(); };
+		skill = [this]() { return meditation(); };
+	else if (_skill == PSkill::Insurance)
+		skill = [this]() { return Insurance(); };
 }
 
-void Player::fastEye()
+bool Player::fastEye()
 {
+	selectCard = hand.hand[0];
 	if (selectCard != nullptr)  //카드 선택 완료했으면
 	{
 		if (true == selectCard->RevereseSec(3.0f))
 		{
-
+			selectCard = nullptr;
+			return true;
 		}
-
-
 	}
 	else                        //카드선택 전까진
 	{
@@ -126,34 +126,37 @@ void Player::fastEye()
 		{
 			if (card != nullptr && card->isOpen == false)
 			{
+				//card.is테두리 = ture;
 				//빨간색 테두리 생성bool변수 설정
 
 			}
 		}
 	}
+	return false;
 }
 
-void Player::guts()
+bool Player::guts()
 {
 	BLACKJACK->magnification *= 2;
+	return true;
 }
 
-void Player::meditation()
+bool Player::meditation()
 {
 	chip *= 1.1f;
+	return true;
 }
 
-void Player::Insurance()
+bool Player::Insurance()
 {
+	return true;
 }
 
 
 
 bool Player::ActiveSkill()
 {
-	skill();
-
-	return true;
+	return skill(); //스킬 발동이 끝나면 true 리턴
 }
 
 

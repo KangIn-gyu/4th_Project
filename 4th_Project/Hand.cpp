@@ -28,7 +28,8 @@ void Hand::handReset(bool dealer)
 	{
 		while(!hand.empty())
 		{
-			BLACKJACK->trashDeck->cards.push_back(hand.back());
+			if(hand.back() !=nullptr) 
+				BLACKJACK->trashDeck->cards.push_back(hand.back());
 			hand.pop_back();
 		}
 	}
@@ -59,7 +60,6 @@ Card* Hand::cardDraw(Card* _card,DXMath::Vector3 _pos, bool dealer)
 				new DOTween(cardpos.x, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 1.f, cardpos.x, playerSlots[i].x);
 				new DOTween(cardpos.y, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 1.f, cardpos.y, playerSlots[i].y);
 				new DOTween(cardpos.z, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 1.f, cardpos.z, playerSlots[i].z);
-				
 				break;
 			}
 		}

@@ -11,6 +11,7 @@ public:
 	static void HitButton();
 	static void DoubleDown();
 
+	static void OnSetSkillBtn();
 	static void SetPlayerSkill(Player* player, PSkill _skill);
 };
 
