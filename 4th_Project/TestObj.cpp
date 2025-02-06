@@ -24,12 +24,12 @@ void TestObj::Initialize()
 	randerComponet->SetShader(ShaderType::VS, "Shaders/StaticVS.hlsl");
 	randerComponet->SetShader(ShaderType::PS, "Shaders/PixelShaderPS.hlsl");
 
-	auto D2DComponent = CreateComponent<D2DRenderComponent>();
-	D2DComponent->LoadFont("Font/ABCD.ttf");
+	//auto D2DComponent = CreateComponent<D2DRenderComponent>();
+	/*D2DComponent->LoadFont("Font/ABCD.ttf");
 	D2DComponent->Load2DImage("STAGE1/UI/mybutton.png");
 	D2DComponent->Set2DImagePos(0, 0);
 	D2DComponent->SetFontPos(100, 100);
-	D2DComponent->SetDialog(L"gdgdgdgdgæ»≥Á«œººø‰");
+	D2DComponent->SetDialog(L"gdgdgdgdgæ»≥Á«œººø‰");*/
 }
 
 void TestObj::OnClick()

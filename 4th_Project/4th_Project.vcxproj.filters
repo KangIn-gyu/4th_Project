@@ -43,6 +43,12 @@
     <ClInclude Include="IntroCutScene.h">
       <Filter>Client\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="Client.h">
+      <Filter>Client</Filter>
+    </ClInclude>
+    <ClInclude Include="TestScene.h">
+      <Filter>Client\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -95,17 +101,11 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Client.h">
-      <Filter>Client</Filter>
-    </ClInclude>
     <ClInclude Include="pch.h">
       <Filter>pch</Filter>
     </ClInclude>
     <ClInclude Include="framework.h">
       <Filter>pch</Filter>
-    </ClInclude>
-    <ClInclude Include="TestScene.h">
-      <Filter>Client\Scene</Filter>
     </ClInclude>
     <ClInclude Include="TestObj.h">
       <Filter>Obj\TestObj</Filter>
