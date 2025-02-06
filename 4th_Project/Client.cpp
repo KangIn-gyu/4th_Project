@@ -26,5 +26,5 @@ void Client::Enter()
 	IntroCutScene* intorCutScene = new IntroCutScene("IntroCut");
 
 	BLACKJACK->player = PLAYER;
-	ENGINE->ChangeScene("IntroCut");
+	ENGINE->ChangeScene("TEST");
 }

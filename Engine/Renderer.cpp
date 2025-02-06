@@ -21,6 +21,8 @@
 #include "TextObject.h"
 #include "TransformComponent.h"
 #include "TimeSystem.h"
+#include "ResourceSystem.h"
+#include "InputLayout.h"
 
 void Renderer::Initialize(WindowInfo* _windowInfo)
 {
@@ -32,6 +34,8 @@ void Renderer::Initialize(WindowInfo* _windowInfo)
 	DXMath::Vector3 lightTarget = DXMath::Vector3(0.0f, 0.0f, 0.0f);
 	IMGUI->lightPos = DXMath::Vector3(200.0f, 200.0f, -200.0f);
 	IMGUI->lightDir = DXMath::Vector3(lightTarget - IMGUI->lightPos);
+
+	CreateOutlineStates();
 
 	shadowRenderer.Initialize(D3DGraphics->GetD3DDevice().Get(), D3DGraphics->GetD3DDeviceContext().Get());
 	shadowRenderer.InitShadowResources(D3DGraphics->GetD3DDevice().Get());
@@ -118,44 +122,35 @@ void Renderer::D3DDraw()
 	d3dDeviceContext->PSSetSamplers(1, 1, &pointClampSampler);
 	d3dDeviceContext->PSSetSamplers(2, 1, &shadowRenderer.GetShadowSampler());
 
-	//if (!work.empty() && work[0]->GetModelData()->GetModelData()->meshs->size() > 0)
-	//{
-	//	// 모든 메쉬를 순회하면서 유효한 첫 번째 InputLayout을 찾음
-	//	for (auto& mesh : *work[0]->GetModelData()->GetModelData()->meshs)
-	//	{
-	//		if (mesh->GetMeshInfo() && mesh->GetMeshInfo()->inputLayout.GetInputLayout())
-	//		{
-	//			std::cout << "Found valid layout in mesh\n";
-	//			d3dDeviceContext->IASetInputLayout(mesh->GetMeshInfo()->inputLayout.GetInputLayout().Get());
-	//			break;
-	//		}
-	//	}
-	//}
+	// 명시적으로 스텐실 초기화
+	if (originalDSV)
+	{
+		d3dDeviceContext->ClearDepthStencilView(
+			originalDSV,
+			D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL,
+			1.0f,    // depth clear value
+			0        // stencil clear value
+		);
+	}
 
 	// 1. 그림자 맵 패스
-	ID3D11InputLayout* currentLayout;
-	d3dDeviceContext->IAGetInputLayout(&currentLayout);
-	//if (!currentLayout) {
-	//	std::cout << "Input Layout is null before shadow pass\n";
-	//}
 
 	shadowRenderer.BeginShadowPass(d3dDeviceContext.Get());
 
 	ID3D11InputLayout* currentLayout1;
 	d3dDeviceContext->IAGetInputLayout(&currentLayout1);
-	//if (!currentLayout1) {
-	//	std::cout << "Input Layout is null before shadow pass\n";
-	//}
+
 	// 그림자 맵 렌더링
 	shadowRenderer.RenderShadow(d3dDeviceContext.Get(), CreateShadowMatrix(), work);
 	IMGUI->srv = shadowRenderer.GetShadowMapSRV();
-	//d3dDeviceContext->IASetInputLayout(nullptr);
 	// 원래의 렌더링 상태로 복구
 
 	d3dDeviceContext->RSSetViewports(1, &originalViewport);
 	d3dDeviceContext->OMSetRenderTargets(1, &originalRTV, originalDSV);
 
 	//shadowRenderer.DebugShadowMap(device.Get(), d3dDeviceContext.Get());
+
+
 
 	d3dDeviceContext->PSSetShaderResources(24, 1, shadowRenderer.GetShadowMapSRV().GetAddressOf());
 
@@ -165,142 +160,47 @@ void Renderer::D3DDraw()
 	d3dDeviceContext->VSSetConstantBuffers(2, 1, cameraBuffer.GetBuffer().GetAddressOf());
 	d3dDeviceContext->PSSetConstantBuffers(2, 1, cameraBuffer.GetBuffer().GetAddressOf());
 
-	// 상수버퍼 설정 (렌더 오브젝트 제외)
-	CameraBuffer cameraData;
-	cameraData.eyePosition = CameraObject::g_MainCameraObject->GetComponent<TransformComponent>()->GetPosition();
-	cameraData.lightDirection = IMGUI->lightDir;
-
-	ProductBuffer productData;
-	productData.totalTime = TIMESYSTEM->GetTotalTime();
-
-	d3dDeviceContext->PSSetConstantBuffers(5, 1, productBuffer.GetBuffer().GetAddressOf());
-
-	//LightConstantBuffer cameraData;		// 다중 빛 CB (폐기)
-	//DXMath::Vector3 eyePos = CameraObject::g_MainCameraObject->GetComponent<TransformComponent>()->GetPosition();
-	//cameraData.eyePosition = DXMath::Vector4(eyePos.x, eyePos.y, eyePos.z, 1.0f);
-	d3dDeviceContext->UpdateSubresource(cameraBuffer.GetBuffer().Get(), 0, nullptr, &cameraData, 0, 0);
-	d3dDeviceContext->UpdateSubresource(productBuffer.GetBuffer().Get(), 0, nullptr, &productData, 0, 0);
-
-	// 임시
-	d3dDeviceContext->PSSetConstantBuffers(6, 1, lightBuffer.GetBuffer().GetAddressOf());
-
-	UpdateSpotLights();
-
-	bool hasSetLayout = false;
-	
+	// 1. 먼저 마스크 패스
 	for (auto& renderComponent : work)
 	{
-		if (renderComponent->GetActive() == true)
+		if (renderComponent->GetOwner()->GetEffect() == Object::Effect::OutLine)
 		{
-			auto* modelData = renderComponent->GetModelData()->GetModelData();
-			std::unordered_map<std::string, AiNode*>* nodeData = renderComponent->GetNodeData();
-			for (auto& data : *modelData->meshs)
-			{
-				auto* meshData = data->GetMeshInfo();
-				//IA 
-				auto* vertexBuffer = meshData->vertexBuffer;
-				d3dDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-				d3dDeviceContext->IASetVertexBuffers(0, 1, vertexBuffer->GetBuffer().GetAddressOf(), &vertexBuffer->vertextBufferStride, &vertexBuffer->vertextBufferOffset);
-				auto* indexBuffer = meshData->indexBuffer;
-				d3dDeviceContext->IASetIndexBuffer(indexBuffer->GetBuffer().Get(), DXGI_FORMAT_R32_UINT, 0);
-				//	comptr을 항상 맹신하지 말것
-				//	InputLayout같은걸 계속 유지시키면서 재할당 하는 식으로 해야하는데
-				//	문제점은 그냥 comptr의 임시객체를 생성해서 넣어버려서
-				//	문장이 끝나면 바로 소멸되서 참조카운트가 불안정해져서 원래있던 InputLayout를 날린다는것
-				//	meshData->inputLayout.GetInputLayout().Get(); 이걸 강제로 문장에 때려박으면 날라갈수도있다는거
-				//	전에 되었던 이유는 input layout을 여기서만 할당하기때문에 참조카운팅이 날라갈 이유가 없고
-				//	지금은 ia를 날렸다가 다시 할당했다가 날렸다가 메인 렌더링 루프에서 재할당을 하기때문에 가지고 있던
-				//	문제가 생겼던것
-				//	comptr은 무적이 아니다 comptr의 자동참조 카운트 관리가 문제를 일으킬 가능성이 있다.
-				//	렌더링 파이프라인중에서 comptr의 스코프가 끝나면서 자동으로 release가 호출되었거나
-				//	여러곳에서 같은 리소스를 참조할 때 comptr의 참조 카운트관리가 의도치 않게 작동할 가능성이 있다.
-				//	그러므로 comptr은 무적이 아니다.
-				auto layout = meshData->inputLayout.GetInputLayout().Get();
-				if (!hasSetLayout && layout)
-				{
-					d3dDeviceContext->IASetInputLayout(layout);
-					hasSetLayout = true;
-				}
-				//if (layout)
-				//{
-				//	// IA의 주소와 실제 인터페이스 값
-				//	std::cout << "Layout Address: " << meshData->inputLayout.GetInputLayout().GetAddressOf()
-				//		<< ", Interface: " << meshData->inputLayout.GetInputLayout().Get() << "\n";
-				//}
-
-				// VS 
-				d3dDeviceContext->VSSetShader(renderComponent->GetShader(ShaderType::VS)->GetVertexShader().Get(), nullptr, 0);
-				d3dDeviceContext->VSSetConstantBuffers(0, 1, matrixConstantBuffer.GetBuffer().GetAddressOf());
-				d3dDeviceContext->VSSetConstantBuffers(1, 1, objectBuffer.GetBuffer().GetAddressOf());
-				d3dDeviceContext->VSSetConstantBuffers(3, 1, matrixPaletteBuffer.GetBuffer().GetAddressOf());
-
-				// PS 
-				d3dDeviceContext->PSSetShader(renderComponent->GetShader(ShaderType::PS)->GetPixelShader().Get(), nullptr, 0);
-				d3dDeviceContext->PSSetConstantBuffers(0, 1, matrixConstantBuffer.GetBuffer().GetAddressOf());
-				d3dDeviceContext->PSSetConstantBuffers(1, 1, objectBuffer.GetBuffer().GetAddressOf());
-
-				MatrixBuffer matrixData;
-				auto node = nodeData->find(meshData->meshName);
-				matrixData.worldMatrix = DX::XMMatrixTranspose(node->second->GetTransform().GetWorldMatrix());
-				matrixData.viewMatrix = DX::XMMatrixTranspose(CameraObject::g_MainCameraObject->GetViewMatrix());
-				matrixData.projectionMatrix = DX::XMMatrixTranspose(CameraObject::g_MainCameraObject->GetProjectionMatrix());
-
-
-				Material* material = (*modelData->materials)[meshData->GetMaterialIndex()];
-				ObjectBuffer objectData;
-				objectData.metalness = material->GetMetalness();
-				objectData.roughness = material->GetRoughness();
-				objectData.onOutline = false;
-
-				if (renderComponent->GetOwner()->GetEffect() == Object::Effect::OutLine)
-				{
-					objectData.onOutline = true;
-				}
-
-				if (nullptr != modelData->matrixPallete)
-				{
-					d3dDeviceContext->UpdateSubresource(matrixPaletteBuffer.GetBuffer().Get(), 0, nullptr, &(*modelData->matrixPallete), 0, 0);
-				}
-				else
-				{ // TODO : 이거 할필요가 있을가 고민중... 
-					static DXMath::Matrix identityPallete[128];
-					d3dDeviceContext->UpdateSubresource(matrixPaletteBuffer.GetBuffer().Get(), 0, nullptr, identityPallete, 0, 0);
-				}
-
-				while (!previousTexturerProcessing.empty())
-				{
-					ID3D11ShaderResourceView* nullSRV = nullptr;
-					d3dDeviceContext->PSSetShaderResources(previousTexturerProcessing.top(), 1, &nullSRV);
-					previousTexturerProcessing.pop();
-				}
-
-				for (auto& textur : material->GetTextures())
-				{
-					if (!textur->GetTextureTypeIndexs().empty())
-					{
-						for (auto textureIndex : textur->GetTextureTypeIndexs())
-						{
-							previousTexturerProcessing.push(textureIndex);
-							d3dDeviceContext->PSSetShaderResources(textureIndex, 1, textur->GetTexture().GetAddressOf());
-						}
-					}
-				}
-
-				d3dDeviceContext->UpdateSubresource(matrixConstantBuffer.GetBuffer().Get(), 0, nullptr, &matrixData, 0, 0); // CPU -> GPU
-				d3dDeviceContext->UpdateSubresource(objectBuffer.GetBuffer().Get(), 0, nullptr, &objectData, 0, 0);			// CPU -> GPU
-				d3dDeviceContext->DrawIndexed(indexBuffer->GetIndexCount(), 0, 0);
-			}
+			d3dDeviceContext->OMSetDepthStencilState(outlineMaskState.Get(), 1);
+			RenderObject(renderComponent, false);  // 일반 셰이더로 마스크 생성
 		}
 	}
 
+	// 2. 그 다음 아웃라인 패스
+	for (auto& renderComponent : work)
+	{
+		if (renderComponent->GetOwner()->GetEffect() == Object::Effect::OutLine)
+		{
+			d3dDeviceContext->OMSetDepthStencilState(outlineStencilState.Get(), 1);
+			d3dDeviceContext->RSSetState(outlineRasterizerState.Get());  // 래스터라이저 상태 설정
+			RenderObject(renderComponent, true);   // 아웃라인 셰이더로 렌더링
+		}
+	}
+
+	// 3. 마지막으로 일반 오브젝트
+	d3dDeviceContext->OMSetDepthStencilState(nullptr, 0);
+	d3dDeviceContext->RSSetState(nullptr);
+	for (auto& renderComponent : work)
+	{
+		if (renderComponent->GetOwner()->GetEffect() != Object::Effect::OutLine)
+		{
+			RenderObject(renderComponent, false);
+		}
+	}
+
+	if (originalDSV) originalDSV->Release();
+	if (originalRTV) originalRTV->Release();
 }
 
 void Renderer::D2DDraw()
 {
 	for (auto& D2DrenderComponent : D2Dwork)
 	{
-		if(D2DrenderComponent->GetActive() == true)
-			D2DrenderComponent->Draw();
+		D2DrenderComponent->Draw();
 	}
 }
 
@@ -391,4 +291,194 @@ void Renderer::UpdateSpotLights()
 		lightData.spotLights[i] = spotLights[i];
 	}
 	lightBuffer.Update(&lightData, sizeof(LightBuffer));
+}
+
+void Renderer::CreateOutlineStates()
+{
+	// 1. 마스크 생성을 위한 스텐실 상태
+	D3D11_DEPTH_STENCIL_DESC maskDesc = {};
+	maskDesc.DepthEnable = true;
+	maskDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+	maskDesc.DepthFunc = D3D11_COMPARISON_LESS;  // 기본 깊이 테스트
+
+	// 스텐실 설정
+	maskDesc.StencilEnable = true;
+	maskDesc.StencilReadMask = 0xFF;
+	maskDesc.StencilWriteMask = 0xFF;
+
+	// 전면 페이스 스텐실 설정
+	maskDesc.FrontFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
+	maskDesc.FrontFace.StencilPassOp = D3D11_STENCIL_OP_REPLACE;
+	maskDesc.FrontFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
+	maskDesc.FrontFace.StencilDepthFailOp = D3D11_STENCIL_OP_KEEP;
+
+	// 후면 페이스도 동일하게 설정
+	maskDesc.BackFace = maskDesc.FrontFace;
+
+	// 마스크 스테이트 생성
+	HRESULT hr = D3DGraphics->GetD3DDevice()->CreateDepthStencilState(&maskDesc, &outlineMaskState);
+	if (FAILED(hr)) {
+		// 에러 처리
+		// LOG_ERROR("Failed to create outline mask state");
+		return;
+	}
+
+	// 2. 아웃라인 렌더링을 위한 스텐실 상태
+	D3D11_DEPTH_STENCIL_DESC outlineDesc = {};
+	outlineDesc.DepthEnable = true;
+	outlineDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;  // 깊이 쓰기 비활성화
+	outlineDesc.DepthFunc = D3D11_COMPARISON_LESS_EQUAL;             // 정확한 깊이 테스트
+
+	// 스텐실 설정
+	outlineDesc.StencilEnable = true;
+	outlineDesc.StencilReadMask = 0xFF;
+	outlineDesc.StencilWriteMask = 0xFF;
+
+	// 스텐실이 마킹되지 않은 영역에만 아웃라인 그리기
+	outlineDesc.FrontFace.StencilFunc = D3D11_COMPARISON_NOT_EQUAL;
+	outlineDesc.FrontFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
+	outlineDesc.FrontFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
+	outlineDesc.FrontFace.StencilDepthFailOp = D3D11_STENCIL_OP_KEEP;
+
+	// 후면 페이스도 동일하게 설정
+	outlineDesc.BackFace = outlineDesc.FrontFace;
+
+	// 아웃라인 스테이트 생성
+	hr = D3DGraphics->GetD3DDevice()->CreateDepthStencilState(&outlineDesc, &outlineStencilState);
+	if (FAILED(hr)) {
+		// 에러 처리
+		// LOG_ERROR("Failed to create outline stencil state");
+		return;
+	}
+
+	// 3. 아웃라인용 래스터라이저 상태 생성
+	D3D11_RASTERIZER_DESC rastDesc = {};
+	rastDesc.FillMode = D3D11_FILL_SOLID;
+	rastDesc.CullMode = D3D11_CULL_BACK;
+	rastDesc.DepthBias = 5000;              // Z-fighting 방지를 위한 깊이 바이어스
+	rastDesc.DepthBiasClamp = 0.0f;
+	rastDesc.SlopeScaledDepthBias = 1.0f;
+	rastDesc.MultisampleEnable = true;       // MSAA 활성화
+
+	hr = D3DGraphics->GetD3DDevice()->CreateRasterizerState(&rastDesc, &outlineRasterizerState);
+	if (FAILED(hr)) {
+		// 에러 처리
+		// LOG_ERROR("Failed to create outline rasterizer state");
+		return;
+	}
+
+	// 4. 쉐이더 로드
+	outlineShader = RESOURCESYSTEM->Load<Shader>("Shaders/OutLineVS.hlsl");
+	if (outlineShader) {
+		outlineShader->Load("Resource/Shaders/OutLinePS.hlsl");
+	}
+}
+
+void Renderer::RenderObject(RenderComponent* renderComponent, bool isOutlinePass)
+{
+	if (renderComponent->GetActive() == false)
+		return;
+	auto d3dDeviceContext = D3DGraphics->GetD3DDeviceContext();
+	auto* modelData = renderComponent->GetModelData()->GetModelData();
+	std::unordered_map<std::string, AiNode*>* nodeData = renderComponent->GetNodeData();
+
+	for (auto& data : *modelData->meshs)
+	{
+		auto* meshData = data->GetMeshInfo();
+
+		// IA Stage Setup
+		auto* vertexBuffer = meshData->vertexBuffer;
+		d3dDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+		d3dDeviceContext->IASetVertexBuffers(0, 1, vertexBuffer->GetBuffer().GetAddressOf(),
+			&vertexBuffer->vertextBufferStride, &vertexBuffer->vertextBufferOffset);
+
+		auto* indexBuffer = meshData->indexBuffer;
+		d3dDeviceContext->IASetIndexBuffer(indexBuffer->GetBuffer().Get(), DXGI_FORMAT_R32_UINT, 0);
+		auto layout = meshData->inputLayout.GetInputLayout().Get();
+		if (layout)
+		{
+			d3dDeviceContext->IASetInputLayout(layout);
+		}
+
+		// VS Stage Setup
+		if (isOutlinePass)
+		{
+			d3dDeviceContext->VSSetShader(outlineShader->GetVertexShader().Get(), nullptr, 0);
+		}
+		else
+		{
+			d3dDeviceContext->VSSetShader(renderComponent->GetShader(ShaderType::VS)->GetVertexShader().Get(), nullptr, 0);
+		}
+
+		d3dDeviceContext->VSSetConstantBuffers(0, 1, matrixConstantBuffer.GetBuffer().GetAddressOf());
+		d3dDeviceContext->VSSetConstantBuffers(1, 1, objectBuffer.GetBuffer().GetAddressOf());
+		d3dDeviceContext->VSSetConstantBuffers(3, 1, matrixPaletteBuffer.GetBuffer().GetAddressOf());
+
+		// PS Stage Setup
+		if (isOutlinePass)
+		{
+			d3dDeviceContext->PSSetShader(outlineShader->GetPixelShader().Get(), nullptr, 0);
+		}
+		else
+		{
+			d3dDeviceContext->PSSetShader(renderComponent->GetShader(ShaderType::PS)->GetPixelShader().Get(), nullptr, 0);
+		}
+
+		d3dDeviceContext->PSSetConstantBuffers(0, 1, matrixConstantBuffer.GetBuffer().GetAddressOf());
+		d3dDeviceContext->PSSetConstantBuffers(1, 1, objectBuffer.GetBuffer().GetAddressOf());
+
+		// Update Constant Buffers
+		MatrixBuffer matrixData;
+		auto node = nodeData->find(meshData->meshName);
+		matrixData.worldMatrix = DX::XMMatrixTranspose(node->second->GetTransform().GetWorldMatrix());
+		matrixData.viewMatrix = DX::XMMatrixTranspose(CameraObject::g_MainCameraObject->GetViewMatrix());
+		matrixData.projectionMatrix = DX::XMMatrixTranspose(CameraObject::g_MainCameraObject->GetProjectionMatrix());
+
+		Material* material = (*modelData->materials)[meshData->GetMaterialIndex()];
+		ObjectBuffer objectData;
+		objectData.metalness = material->GetMetalness();
+		objectData.roughness = material->GetRoughness();
+		objectData.onOutline = isOutlinePass;
+
+		// Update Matrix Palette if needed
+		if (nullptr != modelData->matrixPallete)
+		{
+			d3dDeviceContext->UpdateSubresource(matrixPaletteBuffer.GetBuffer().Get(), 0, nullptr,
+				&(*modelData->matrixPallete), 0, 0);
+		}
+		else
+		{
+			static DXMath::Matrix identityPallete[128];
+			d3dDeviceContext->UpdateSubresource(matrixPaletteBuffer.GetBuffer().Get(), 0, nullptr,
+				identityPallete, 0, 0);
+		}
+
+		// Handle Textures
+		if (!isOutlinePass)  // 아웃라인 패스에서는 텍스처가 필요 없음
+		{
+			while (!previousTexturerProcessing.empty())
+			{
+				ID3D11ShaderResourceView* nullSRV = nullptr;
+				d3dDeviceContext->PSSetShaderResources(previousTexturerProcessing.top(), 1, &nullSRV);
+				previousTexturerProcessing.pop();
+			}
+
+			for (auto& textur : material->GetTextures())
+			{
+				if (!textur->GetTextureTypeIndexs().empty())
+				{
+					for (auto textureIndex : textur->GetTextureTypeIndexs())
+					{
+						previousTexturerProcessing.push(textureIndex);
+						d3dDeviceContext->PSSetShaderResources(textureIndex, 1, textur->GetTexture().GetAddressOf());
+					}
+				}
+			}
+		}
+
+		// Update and Draw
+		d3dDeviceContext->UpdateSubresource(matrixConstantBuffer.GetBuffer().Get(), 0, nullptr, &matrixData, 0, 0);
+		d3dDeviceContext->UpdateSubresource(objectBuffer.GetBuffer().Get(), 0, nullptr, &objectData, 0, 0);
+		d3dDeviceContext->DrawIndexed(indexBuffer->GetIndexCount(), 0, 0);
+	}
 }

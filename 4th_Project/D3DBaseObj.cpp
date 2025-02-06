@@ -9,8 +9,9 @@ void D3DBaseObj::Initialize()
 	CreateComponent<ModelComponent>(filePath);
 	CreateScript<D3DObjScript>();
 	auto renderComponent = CreateComponent<RenderComponent>();
-	renderComponent->SetShader(ShaderType::VS, "Shaders/VertexShaderVS.hlsl");
+	renderComponent->SetShader(ShaderType::VS, "Shaders/StaticVS.hlsl");
 	renderComponent->SetShader(ShaderType::PS, "Shaders/PixelShaderPS.hlsl");
+	SetEffect(Object::Effect::OutLine);
 }
 
 void D3DBaseObj::Update(const float _deltaTime)

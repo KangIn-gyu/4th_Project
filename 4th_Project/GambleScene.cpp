@@ -32,7 +32,7 @@ void GambleScene::Enter()
 	BLACKJACK->Setstage(1);
 	ObjectCreator<TestObj>("Table", Object::ObjectType::Basic);
 
-	auto test = ObjectCreator<TestObj2>("Map", Object::ObjectType::Basic);
+	//auto test = ObjectCreator<TestObj2>("Map", Object::ObjectType::Basic);
 	//test->GetComponent<TransformComponent>()->SetPosition({ 0, -10, 0 });
 	auto deck = GetGameObject(Object::ObjectType::Basic, "Deck");
 
