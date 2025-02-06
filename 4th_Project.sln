@@ -13,8 +13,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0_규칙", "0_규칙", "{F2
 		규칙.txt = 규칙.txt
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1_TEST", "1_TEST", "{D1F09DDA-A1CA-45F2-AB6C-183C280F496A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64

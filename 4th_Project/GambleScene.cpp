@@ -14,10 +14,7 @@
 
 GambleScene::GambleScene(std::string_view _Name) : Scene(_Name)
 {
-	
-	BLACKJACK->player = PLAYER;
-	
-	
+	BLACKJACK->player = PLAYER;	
 }
 
 
@@ -37,11 +34,8 @@ void GambleScene::Enter()
 	auto deck = GetGameObject(Object::ObjectType::Basic, "Deck");
 
 	ObjectCreator<Button>("Button", Object::ObjectType::Basic, DXMath::Vector3(1100, 200, 0), []() {BLACKJACK->Bet();});
-
-	ObjectCreator<Button>("Button", Object::ObjectType::Basic, DXMath::Vector3(900, 0, 0), []() {ClickFunc::OpenButton();});
-	
+	ObjectCreator<Button>("Button", Object::ObjectType::Basic, DXMath::Vector3(900, 0, 0), []() {ClickFunc::OpenButton();});	
 	ObjectCreator<Button>("Button", Object::ObjectType::Basic, DXMath::Vector3(1100, -200, 0), []() {ClickFunc::HitButton();});
-
 	ObjectCreator<Button>("Button", Object::ObjectType::Basic, DXMath::Vector3(1000, -400, 0), []() {ClickFunc::StayButton(); });
 }
 

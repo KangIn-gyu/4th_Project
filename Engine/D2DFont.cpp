@@ -15,6 +15,16 @@ D2DFont::D2DFont()
 #endif
 }
 
+D2DFont::~D2DFont()
+{
+#if _DEBUG
+	boxBrush->Release();
+#endif
+
+	fontBrush->Release();
+	DWriteTextLayout->Release();
+}
+
 void D2DFont::SetDialog(std::wstring_view _dialog)
 {
 	dialog = _dialog;

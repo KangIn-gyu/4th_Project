@@ -22,6 +22,7 @@ D2DRenderComponent::D2DRenderComponent()
 D2DRenderComponent::~D2DRenderComponent()
 {
 	SafeExtinction::SAFE_DELETE(font);
+	SafeExtinction::SAFE_CLEAR_CONTAINER(imageDatas);
 }
 
 void D2DRenderComponent::SceneCSVDataLoad(std::string_view _filePath)
@@ -31,30 +32,53 @@ void D2DRenderComponent::SceneCSVDataLoad(std::string_view _filePath)
 
 void D2DRenderComponent::Load2DImage(std::string_view _filePath)
 {
-	imageData = RESOURCESYSTEM->Load<Bitmap>(_filePath);
+	Bitmap* newBitmap = new Bitmap;
+	newBitmap->Load(_filePath);
+	if (imageDatas.size() == 0)
+	{ // 사이즈가 0일때는 자동으로 그릴 비트맵 설정하게 처리한거임
+		drawBitmap = newBitmap;
+	}
+	imageDatas.push_back(newBitmap);
 }
 
 void D2DRenderComponent::Set2DImageSize(float _width, float _height)
 {
-	imageData->SetSize(_width, _height);
+	drawBitmap->SetSize(_width, _height);
 }
 D2D_VECTOR_2F D2DRenderComponent::Get2DImageSize()
 {
-	return { imageData->GetRect().right, imageData->GetRect().bottom };
+	return { drawBitmap->GetRect().right, drawBitmap->GetRect().bottom };
 }
 
 DXMath::Vector2 D2DRenderComponent::Get2DImageXY()
 {
-	return imageData->GetXY();
+	return drawBitmap->GetXY();
 }
 void D2DRenderComponent::Set2DImagePos(float _x, float _y)
 {
-	imageData->SetPos(_x, _y);
+	drawBitmap->SetPos(_x, _y);
 }
 D2D_VECTOR_2F D2DRenderComponent::Get2DImagePos()
 {
-	return { imageData->GetRect().left, imageData->GetRect().top };
+	return { drawBitmap->GetRect().left, drawBitmap->GetRect().top };
 }
+
+void D2DRenderComponent::ChangeBitmap(int _index)
+{
+	if (_index > 0 && _index < imageDatas.size())
+	{
+		drawBitmap = imageDatas[_index];
+	}
+}
+
+Bitmap* D2DRenderComponent::GetBitmap(int _index)
+{
+	if (_index > 0 && _index < imageDatas.size())
+	{
+		return imageDatas[_index];
+	}
+}
+
 void D2DRenderComponent::LoadFont(const std::string& _filePath)
 {	// TODO : 다시 만들어야 됨
 	font = FONTMANAGER->LoadFont(_filePath);
@@ -84,6 +108,7 @@ void D2DRenderComponent::SetTextSize(float _FontSize, DWRITE_TEXT_RANGE _textRan
 {
 	font->SetTextSize(_FontSize, _textRange);
 }
+
 void D2DRenderComponent::SetAlignment(D2DFont::Setting _SortX, D2DFont::Setting _SortY)
 {
 	font->Alignment(_SortX, _SortY);
@@ -91,17 +116,18 @@ void D2DRenderComponent::SetAlignment(D2DFont::Setting _SortX, D2DFont::Setting 
 void D2DRenderComponent::Draw()
 {
 #if _DEBUG
-	//font->DrawTextBox();
-	//boundBox->DrawBoundBox();
-
-#endif
-	if (imageData != nullptr)
+	if (font != nullptr)
 	{
-		D2DClass::GetD2DDeviceContext()->DrawBitmap(imageData->GetImageData().Get(), imageData->GetRect());
+		font->DrawTextBox();
+	}
+#endif
+	if (drawBitmap != nullptr)
+	{
+		D2DClass::GetD2DDeviceContext()->DrawBitmap(drawBitmap->GetImageData(), drawBitmap->GetRect(), 1.0f, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR);
 	}
 	if (font != nullptr)
 	{
-		//D2DClass::GetD2DDeviceContext()->DrawTextLayout( font->GetPos(), font->GetTextLayout(), font->GetBrush());
+		D2DClass::GetD2DDeviceContext()->DrawTextLayout( font->GetPos(), font->GetTextLayout(), font->GetBrush());
 	}
 }
 

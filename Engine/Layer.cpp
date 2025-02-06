@@ -36,6 +36,14 @@ void Layer::LateUpdate(const float _deltaTime)
 	}
 }
 
+void Layer::ResetInformation()
+{
+	for (auto& obj : objects)
+	{ // TODO : 보류 사항 레이트업데이트 추후 만들어야 됨
+		obj->ResetInformation();
+	}
+}
+
 void Layer::Destroy()
 {
 	// TODO : 오브젝트 삭제 어떻게 구현할지 고민

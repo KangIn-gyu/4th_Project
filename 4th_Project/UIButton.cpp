@@ -10,6 +10,8 @@ UIButton::UIButton(std::string_view _name, Object::ObjectType _type, std::string
 {
 	clickFunc = _func;
 	imageFilepath = _filePath;
+
+
 }
 
 UIButton::~UIButton()

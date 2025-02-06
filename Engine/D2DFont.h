@@ -15,7 +15,7 @@ public:
 	};
 
 	D2DFont();
-	~D2DFont() = default;
+	~D2DFont();
 
 	void SetDialog(std::wstring_view _dialog);
 	void SetColor(D2D1_COLOR_F color) { fontBrush->SetColor(color); } // 컬러 변경 주의사항 : 렌더 하기전에 색을 변경해야 됨

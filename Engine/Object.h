@@ -44,6 +44,7 @@ public:
 	virtual void Update(const float _deltaTime) {}; // 용도 : 오브젝트 개인의 업데이트가 필요할때 정의
 	virtual void FixedUpdate() {}
 	virtual void LateUpdate() {}
+	virtual void ResetInformation() {}  // 용도 : 씬 전환 이후 내부 정보 초기화
 
 	void SetEffect(Effect _effect) { effect = _effect; }
 
@@ -73,18 +74,18 @@ public:
 	}
 
 	void ComponentSetting();
+
+	template<class T>
+	void CreateScript(); // 오브젝트 생성하고 부르면 됨
+
 protected:
 	template<ComponentType T, typename ... Arg> // 함수 오버로드함
 	T* CreateComponent(Arg&&... _arguments);
-
-	template<class T>
-	void CreateScript();
 
 private:
 	void ClearComponents();
 
 public:
-	
 
 protected:
 	int layerOrder{}; // 2D일때 그리는 순서 정하게 할 경우
@@ -136,7 +137,7 @@ T* Object::CreateComponent(Arg&& ... _arguments)
 	}
 }
 
-template<class T>
+template<class T> 
 void Object::CreateScript()
 {
 	script = new T(this);
