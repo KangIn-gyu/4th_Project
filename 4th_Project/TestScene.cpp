@@ -9,6 +9,7 @@
 #include "Button.h"
 #include "BlackJack.h"
 #include "Card.h"
+#include "UIButton.h"
 
 
 TestScene::TestScene(std::string_view _Name) : Scene(_Name)
@@ -24,8 +25,7 @@ TestScene::TestScene(std::string_view _Name) : Scene(_Name)
 	ObjectCreator<Card>("Card_Pack", Object::ObjectType::Basic);
 	ObjectCreator<Card>("Card_Spades_King", Object::ObjectType::Basic);
 	ObjectCreator<Card>("Blackjack_Table", Object::ObjectType::Basic);*/
-	ObjectCreator<TestObj>("1234", Object::ObjectType::Basic);
-	
+	//ObjectCreator<TestObj>("1234", Object::ObjectType::Basic);
 }
 
 void TestScene::Enter()
@@ -39,9 +39,13 @@ void TestScene::Enter()
 	//SceneLoader loader;
 	//loader.Load("../4th_Project/2345.json");
 	//loader.ImportUnityScene("../4th_Project/2345.json", this);
-	ObjectCreator<Button>("Button", Object::ObjectType::Basic, DXMath::Vector3(-200,0,0), []() {SCENEMANAGER->ChangeScene("GAMBLE");});
+	//ObjectCreator<Button>("Button", Object::ObjectType::Basic, DXMath::Vector3(-200,0,0), []() {SCENEMANAGER->ChangeScene("GAMBLE");});
 	//ObjectCreator<D2DFont>("Test"), Object::ObjectType::UI);
-
-
+	//ObjectCreator<UIButton>("Start", Object::ObjectType::UI, "STAGE1/UI/mybutton.png", []() {SCENEMANAGER->ChangeScene("GAMBLE");});
+	//ObjectCreator<UIButton>("Start", Object::ObjectType::UI, "STAGE1/UI/mybutton.png");
+	//ObjectCreator<Dealer>("Dealer", Object::ObjectType::Basic);
+	
+	// 폰트 테스트용	
+	ObjectCreator<TestObj>("Font", Object::ObjectType::UI);
 }
 

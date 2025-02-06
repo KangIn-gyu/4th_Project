@@ -9,7 +9,7 @@ BlackJack::BlackJack()
 
 void BlackJack::Setstage(int num)
 {
-	dealer->SepChip(num * 100); 
+	dealer->SetChip(num * 100);
 	RoundStart();
 }
 

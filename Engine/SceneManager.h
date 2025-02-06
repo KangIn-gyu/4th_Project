@@ -12,11 +12,12 @@ public:
 	void FixedUpdate(const float _deltaTime);
 	void RateUpdate(const float _deltaTime);
 
-	void LoadScene(Scene* _scene);  // 일단 테스트 씬 하나 제공하고선 처리해야 할듯
 	void ChangeScene(std::string_view _SceneName);
 
 	bool isCurrecntScene();
 	Scene* GetCurrentScene() const { return currentScene; }
+
+	void LoadScene(Scene* _scene);  // 씬이 생성되면 자동으로 함
 private:
 	virtual ~SceneManager();
 	void Change(std::string_view _SceneName);

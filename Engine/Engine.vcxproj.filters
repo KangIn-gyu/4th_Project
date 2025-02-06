@@ -417,6 +417,9 @@
     <ClInclude Include="Layer.h">
       <Filter>5_Object\Layer</Filter>
     </ClInclude>
+    <ClInclude Include="D2DLoader.h">
+      <Filter>3_Graphics\D2D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WindowApp.cpp">
@@ -629,6 +632,9 @@
     </ClCompile>
     <ClCompile Include="Layer.cpp">
       <Filter>5_Object\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="D2DLoader.cpp">
+      <Filter>3_Graphics\D2D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

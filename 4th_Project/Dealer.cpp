@@ -9,7 +9,7 @@
 #include "../Engine/TimeSystem.h"
 Dealer::Dealer(std::string_view _name, Object::ObjectType _type) : Object(_name, _type)
 {
-	auto model = CreateComponent<ModelComponent>("STAGE1/FBX/char2.fbx"); // Evelyn char2
+	auto model = CreateComponent<ModelComponent>("STAGE1/FBX/Evelyn.fbx"); // Evelyn char2
 	/*if (model->GetAnimations() != nullptr)
 	{
 		model->SetAnimation(0);

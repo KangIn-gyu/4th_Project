@@ -20,6 +20,7 @@ public:
 	void Initialize();
 	void Update(const float _deltaTime);
 	void LateUpdate(const float _deltaTime);
+	void ResetInformation();
 	void Destroy();
 
 	void AddGameObjcet(Object* _gameObject);

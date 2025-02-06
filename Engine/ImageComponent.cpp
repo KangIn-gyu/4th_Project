@@ -5,9 +5,8 @@
 
 ImageComponent::ImageComponent(std::string_view _filePath)
 {
-	imageData = RESOURCESYSTEM->Load<Bitmap>(_filePath);
-	width = imageData->GetImageData().Get()->GetSize().width;
-	height = imageData->GetImageData().Get()->GetSize().height;
+//	width = imageData->GetImageData().Get()->GetSize().width;
+//	height = imageData->GetImageData().Get()->GetSize().height;
 }
 
 ImageComponent::~ImageComponent()

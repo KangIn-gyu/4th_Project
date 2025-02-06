@@ -7,6 +7,12 @@
     <Filter Include="Script">
       <UniqueIdentifier>{b4e9889a-70c5-44fb-9724-2e9266b2da3f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Obj">
+      <UniqueIdentifier>{0fb4edb3-3323-4519-9b22-6de591e64206}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Obj\TestObj">
+      <UniqueIdentifier>{b7ba875d-5234-481e-b4dd-d50fd7d62763}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -22,6 +28,15 @@
     <ClInclude Include="UIButton.h">
       <Filter>UI</Filter>
     </ClInclude>
+    <ClInclude Include="D3DObjScript.h">
+      <Filter>Script</Filter>
+    </ClInclude>
+    <ClInclude Include="D3DBaseObj.h">
+      <Filter>Obj</Filter>
+    </ClInclude>
+    <ClInclude Include="IntroCutScene.h">
+      <Filter>Client\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -33,6 +48,15 @@
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="UIButton.cpp">
       <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="D3DObjScript.cpp">
+      <Filter>Script</Filter>
+    </ClCompile>
+    <ClCompile Include="D3DBaseObj.cpp">
+      <Filter>Obj</Filter>
+    </ClCompile>
+    <ClCompile Include="IntroCutScene.cpp">
+      <Filter>Client\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -47,9 +71,6 @@
     </Filter>
     <Filter Include="Client\Scene">
       <UniqueIdentifier>{2b35123f-8814-4a6c-b931-6ebd42129bda}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Client\Scene\TestObj">
-      <UniqueIdentifier>{b7ba875d-5234-481e-b4dd-d50fd7d62763}</UniqueIdentifier>
     </Filter>
     <Filter Include="UI">
       <UniqueIdentifier>{b8f0d884-cc04-4e24-8d31-dacbcce76e29}</UniqueIdentifier>
@@ -75,10 +96,10 @@
       <Filter>Client\Scene</Filter>
     </ClInclude>
     <ClInclude Include="TestObj.h">
-      <Filter>Client\Scene\TestObj</Filter>
+      <Filter>Obj\TestObj</Filter>
     </ClInclude>
     <ClInclude Include="TestObj2.h">
-      <Filter>Client\Scene\TestObj</Filter>
+      <Filter>Obj\TestObj</Filter>
     </ClInclude>
     <ClInclude Include="Button.h">
       <Filter>UI</Filter>
@@ -119,10 +140,10 @@
       <Filter>Client\Scene</Filter>
     </ClCompile>
     <ClCompile Include="TestObj.cpp">
-      <Filter>Client\Scene\TestObj</Filter>
+      <Filter>Obj\TestObj</Filter>
     </ClCompile>
     <ClCompile Include="TestObj2.cpp">
-      <Filter>Client\Scene\TestObj</Filter>
+      <Filter>Obj\TestObj</Filter>
     </ClCompile>
     <ClCompile Include="GambleScene.cpp">
       <Filter>Client\Scene</Filter>

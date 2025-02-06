@@ -150,6 +150,11 @@
     <ClInclude Include="ClickFunc.h" />
     <ClInclude Include="Card.h" />
     <ClInclude Include="Client.h" />
+    <ClInclude Include="D3DBaseObj.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="D3DObjScript.h" />
     <ClInclude Include="Dealer.h" />
     <ClInclude Include="Deck.h" />
     <ClInclude Include="framework.h" />
@@ -157,6 +162,7 @@
     <ClInclude Include="BlackJack.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="Hand.h" />
+    <ClInclude Include="IntroCutScene.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="TestObj.h" />
@@ -170,12 +176,18 @@
     <ClCompile Include="ClickFunc.cpp" />
     <ClCompile Include="Card.cpp" />
     <ClCompile Include="Client.cpp" />
+    <ClCompile Include="D3DBaseObj.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="D3DObjScript.cpp" />
     <ClCompile Include="Dealer.cpp" />
     <ClCompile Include="Deck.cpp" />
     <ClCompile Include="GambleScene.cpp" />
     <ClCompile Include="BlackJack.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="Hand.cpp" />
+    <ClCompile Include="IntroCutScene.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
