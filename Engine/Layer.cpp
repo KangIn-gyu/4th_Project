@@ -22,9 +22,14 @@ void Layer::Update(const float _deltaTime)
 	auto UpdateObj = objects | std::ranges::views::filter([](auto& obj) { return obj->IsActive(); });
 
 	for (auto& obj : UpdateObj)
-	{
+	{ // TODO :  여기 업데이트 순서 정해야 됨
 		obj->Update(_deltaTime);
 		obj->ComponentsUpdate(_deltaTime);
+
+		if (obj->IsScript())
+		{
+			obj->script->Update(_deltaTime);
+		}
 	}
 }
 

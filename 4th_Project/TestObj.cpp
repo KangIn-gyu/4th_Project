@@ -6,7 +6,6 @@
 #include "../Engine/TransformComponent.h"
 #include "../Engine/D2DRenderComponent.h"
 
-
 TestObj::TestObj(std::string_view _name, Object::ObjectType _type) : Object(_name , _type)
 {
 }
@@ -14,7 +13,6 @@ TestObj::TestObj(std::string_view _name, Object::ObjectType _type) : Object(_nam
 void TestObj::Initialize()
 {
 	CreateComponent<ModelComponent>("STAGE1/FBX/table.fbx");  // char2 / gun
-
 	CreateComponent<RenderComponent>();
 
 	CreateComponent<BoxCollider>();

@@ -13,7 +13,6 @@
 Scene::Scene(std::string_view _Name)
 {
 	sceneName.assign(_Name);
-	SCENEMANAGER->LoadScene(this);
 	CreateLayers();
 	BasicObject();
 }

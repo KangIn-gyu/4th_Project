@@ -12,14 +12,13 @@ public:
 
 	void Initialize();
 	void ResetInformation();
-	void Update(const float _deltaTime);
-
 	virtual void Enter() {}; // 해당 씬에서 내가 만들 오브젝트 초기화 하는 곳 Initialize 보다 먼저 시작됨으로 오브젝트를 생성하고 이후 오브젝트의 초기화를 한다
+	virtual void Update(const float _deltaTime); // 사용할때 슈퍼 꼭 해야됨
 	virtual void FixedUpdate(const float _deltaTime) {};
 	virtual void RateUpdate(const float _deltaTime) {};
 
 	template<succession_Object T, typename ... Arg>
-	T* ObjectCreator(std::string_view _name , Object::ObjectType _Type, Arg&& ... _arguments);
+	T* CreatorObject(std::string_view _name , Object::ObjectType _Type, Arg&& ... _arguments);
 
 	void MainCameraSetting(const int _index = 0);
 	const std::string& GetName();
@@ -51,7 +50,7 @@ private:
 // 기본 제공 오브젝트는 메인 카메라, 라이트를 제공.
 
 template<succession_Object T, typename ... Arg>
-T* Scene::ObjectCreator(std::string_view _name , Object::ObjectType _Type, Arg&& ... _arguments)
+T* Scene::CreatorObject(std::string_view _name , Object::ObjectType _Type, Arg&& ... _arguments)
 {
 	if constexpr (sizeof...(_arguments) == 0)
 	{

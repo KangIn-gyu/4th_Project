@@ -28,15 +28,6 @@ void SceneManager::RateUpdate(const float _deltaTime)
 	currentScene->RateUpdate(_deltaTime);
 }
 
-void SceneManager::LoadScene(Scene* _scene)
-{
-	auto it = ScenesCollection.find(_scene->GetName());
-	if (it == ScenesCollection.end())
-	{
-		ScenesCollection.emplace(_scene->GetName(), _scene);
-	}
-}
-
 void SceneManager::ChangeScene(std::string_view _SceneName)
 {
 	changeSceneTrigger = true;

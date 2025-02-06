@@ -7,6 +7,7 @@
 #include "Helper.h"
 #include "SceneManager.h"
 #include "Declare.h" 
+#include "GameManager.h"
 
 void Engine::Initialize()
 {
@@ -48,6 +49,12 @@ void Engine::Loop()
  
             Update(deltaTime);
             RateUpdate(deltaTime);
+
+            if (nullptr != clientGameManager)
+            {
+                clientGameManager->Update(deltaTime);
+            }
+
             Render(deltaTime); // 시간이 과연 필요할가? 일단 보류
         }
     }
@@ -79,13 +86,15 @@ DXMath::Vector2 Engine::GetWindowSize()
     return DXMath::Vector2(clientApp->GetWindowInfo()->screenWidth, clientApp->GetWindowInfo()->screenHeight);
 }
 
-void Engine::ChangeScene(std::string_view _SceneName)
+void Engine::CollectionGameManager(GameManager* _gameManager)
 {
-    std::string name;
-    name.assign(_SceneName.data());
-    sceneManager->ChangeScene(name);
+    clientGameManager = _gameManager;
 }
 
+Engine::~Engine()
+{
+    SafeExtinction::SAFE_DELETE(clientGameManager);
+}
 
 void Engine::Update(const float _deltaTime)
 {

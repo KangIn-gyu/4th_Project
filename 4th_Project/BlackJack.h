@@ -1,5 +1,4 @@
 #pragma once
-#include "../Engine/Object.h"
 #include "../Engine/SingletonBase.h"
 
 #include "Deck.h"
@@ -68,6 +67,7 @@ public:
 	bool endBet = false;
 	bool canClick = false;
 	int magnification = 1;
+
 private:
 	float elapsedTime =0;
 	Turn curTurn = Turn::player;

@@ -1,0 +1,27 @@
+#include "pch.h"
+#include "TutorialScene.h"
+#include "D2DBaseObj.h"
+#include "ClickNextBimapScript.h"
+
+#include "../Engine/SceneManager.h"
+#include "UIButton.h"
+
+void TutorialScene::Enter()
+{
+    std::vector<std::string> bitmapFilePaths;
+    std::string basePath = "TutorialScene/Textures/";
+    for (int i = 1; i <= 14; ++i) // 1_Tutorial.png ~ 10_Tutorial.png
+    {
+        bitmapFilePaths.push_back(basePath + std::to_string(i) + "_Tutorial.png");
+    }
+	auto* tutorialBitmap = CreatorObject<D2DBaseObj>("tutorial", Object::ObjectType::UI, bitmapFilePaths);
+    tutorialBitmap->CreateScript<ClickNextBimapScript>();
+
+    // 신아 / 세환 오면 버튼 물어보기
+//    CreatorObject<UIButton>("Skip", Object::ObjectType::UI,"TutorialScene/UI/UI 43_Skip.png", DXMath::Vector2(0, 0),[]() {SCENEMANAGER->ChangeScene("GAMBLE");});
+}
+
+void TutorialScene::Update(const float _deltaTime)
+{
+
+}

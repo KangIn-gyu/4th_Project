@@ -4,11 +4,11 @@
 
 
 #define GAMEMANAGER BlackJack::GetInstance().get()
-class GameManager : public SingletonBase<GameManager>
+class MyGameManager : public SingletonBase<MyGameManager>
 {
-	GameManager() {};
-	virtual ~GameManager();
-	friend class SingletonBase<GameManager>;
+	MyGameManager() {};
+	virtual ~MyGameManager();
+	friend class SingletonBase<MyGameManager>;
 public:
 	void Update(float _deltaTime);
 	//¸Ó³ÖÁö

@@ -176,6 +176,9 @@
     <Filter Include="3_Graphics\GraphicsData\Shadow">
       <UniqueIdentifier>{c23541e9-95a0-4fe4-85c5-ffb90f9a617a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="1_Engine\GameManager">
+      <UniqueIdentifier>{e5fd7d3a-7115-478e-bb83-ed80904895d5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowApp.h">
@@ -423,6 +426,9 @@
       <Filter>3_Graphics\GraphicsData\Shadow</Filter>
     </ClInclude>
     <ClInclude Include="D2DLoader.h" />
+    <ClInclude Include="GameManager.h">
+      <Filter>1_Engine\GameManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WindowApp.cpp">
@@ -639,6 +645,9 @@
       <Filter>3_Graphics\GraphicsData\Shadow</Filter>
     </ClCompile>
     <ClCompile Include="D2DLoader.cpp" />
+    <ClCompile Include="GameManager.cpp">
+      <Filter>1_Engine\GameManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd">
