@@ -12,12 +12,12 @@ TestObj2::TestObj2(std::string_view _name, Object::ObjectType _type) : Object(_n
 
 void TestObj2::Initialize()
 {
-	CreateComponent<ModelComponent>("STAGE1/FBX/char2.fbx");  // char2 / gun
+	CreateComponent<ModelComponent>("STAGE1/FBX/Blackjack_Table.fbx");  // char2 / gun
 	auto* randerComponet = CreateComponent<RenderComponent>();
 	randerComponet->SetShader(ShaderType::VS, "Shaders/VertexShaderVS.hlsl");
 	randerComponet->SetShader(ShaderType::PS, "Shaders/PixelShaderPS.hlsl");
 	CreateComponent<BoxCollider>();
-	GetComponent<BoxCollider>()->SetBox({ GetComponent<TransformComponent>()->GetPosition() }, { 40,40,40 },
+	GetComponent<BoxCollider>()->SetBox({ GetComponent<TransformComponent>()->GetPosition() }, { -40,-40,-40 },
 		GetComponent<TransformComponent>()->GetQuaternion());
 }
 

@@ -27,13 +27,15 @@ void GambleScene::Enter()
 	GetGameObject(Object::ObjectType::Camera)->GetComponent<TransformComponent>()->SetPosition({ -30.0f, 130.0f, -83.0f });
 	GetGameObject(Object::ObjectType::Camera)->GetComponent<TransformComponent>()->SetQuaternion(DXMath::Quaternion::Quaternion(0.3f, 0.171f, -0.059f, 0.93f));
 	BLACKJACK->dealer = ObjectCreator<Dealer>("Dealer", Object::ObjectType::Basic); 
-	BLACKJACK->dealer->GetComponent<TransformComponent>()->SetPosition({ 0, -13.0f, 50.0f });
+	BLACKJACK->dealer->GetComponent<TransformComponent>()->SetPosition({ 500, -13.0f, 50.0f });
 	BLACKJACK->deck = ObjectCreator<Deck>("Deck", Object::ObjectType::Basic);
 	BLACKJACK->deck->GetComponent<TransformComponent>()->SetPosition({ -60, 65, 0 });
 	BLACKJACK->trashDeck = ObjectCreator<Deck>("Deck", Object::ObjectType::Basic,false);
 	BLACKJACK->Setstage(1);
-	ObjectCreator<TestObj>("IngameMods", Object::ObjectType::Basic);
-	//auto test = ObjectCreator<TestObj>("Table", Object::ObjectType::Basic);
+	//ObjectCreator<TestObj>("IngameMods", Object::ObjectType::Basic);
+
+	auto test = ObjectCreator<TestObj2>("Table", Object::ObjectType::Basic);
+	test->GetComponent<TransformComponent>()->SetPosition({ 0, -40, 0 });
 	auto deck = GetGameObject(Object::ObjectType::Basic, "Deck");
 
 	ObjectCreator<Button>("Button", Object::ObjectType::Basic, DXMath::Vector3(1100, 200, 0), []() {BLACKJACK->Bet();});
