@@ -6,6 +6,7 @@
 
 #include "SkyBox.h"
 #include "ShadowRenderer.h"
+#include "ConstantBufferData.h"
 
 #define RENDERER Renderer::GetInstance()
 

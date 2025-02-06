@@ -1,4 +1,5 @@
 #include "Helper.hlsli"
+//#define LIGHT_NUM 1 
 
 //--------------------------------------------------------------------------------------
 // Shadow Helper Functions
@@ -126,29 +127,63 @@ float4 main(PixelInputType input) : SV_TARGET
     //--------------------------------------------------------------------------------------
     // Lighting Calculation
     //--------------------------------------------------------------------------------------
-    float3 L = normalize(-lightDirection);
-    float3 H = normalize(V + L);
+    float3 L_dir = normalize(-lightDirection);
+    float3 H_dir = normalize(V + L_dir);
     
-    float NdotL = max(dot(N, L), 0.0);
+    float NdotL_dir = max(dot(N, L_dir), 0.0);
     float NdotV = max(dot(N, V), 0.0001);
-    float NdotH = max(dot(N, H), 0.0);
-    float HdotV = max(dot(H, V), 0.0);
+    float NdotH_dir = max(dot(N, H_dir), 0.0);
+    float HdotV_dir = max(dot(H_dir, V), 0.0);
     
     // PBR Parameters
     float3 F0 = lerp(float3(0.04, 0.04, 0.04), baseColor, metallic);
-    float D = D_GGX(NdotH, max(0.1f, rough));
-    float3 F = F_Schlick(HdotV, F0);
-    float G = G_Smith(NdotV, NdotL, rough);
+    float D_dir = D_GGX(NdotH_dir, max(0.1f, rough));
+    float3 F_dir = F_Schlick(HdotV_dir, F0);
+    float G_dir = G_Smith(NdotV, NdotL_dir, rough);
     
-    float3 specular = (D * F * G) / (4.0 * NdotV * NdotL + 0.0001);
-    float3 kD = (1.0 - F) * (1.0 - metallic);
+    float3 specular_dir = (D_dir * F_dir * G_dir) / (4.0 * NdotV * NdotL_dir + 0.0001);
+    float3 kD_dir = (1.0 - F_dir) * (1.0 - metallic);
     
     //--------------------------------------------------------------------------------------
     // Final Color Composition
     //--------------------------------------------------------------------------------------
     // Direct lighting
-    float3 diffuse = kD * baseColor / PI;
-    float3 directLight = (diffuse + specular) * NdotL * shadowFactor;
+    float3 diffuse_dir = kD_dir * baseColor / PI;
+    float3 directionalLight = (diffuse_dir + specular_dir) * NdotL_dir * shadowFactor;
+    
+    // Initialize total lighting
+    float3 totalSpotLight = float3(0, 0, 0);
+    float3 F_accumulated = F_dir;           // 디렉셔널 라이트의 F로 초기화
+    float3 kD_accumulated = kD_dir;         // 디렉셔널 라이트의 kD로 초기화
+
+     // Add spot lights contribution
+    for (int i = 0; i < LIGHT_NUM; i++)
+    {
+        // 스팟라이트 방향과 하프 벡터
+        float3 L_spot = normalize(spotLights[i].position - input.worldPos.xyz);
+        float3 H_spot = normalize(V + L_spot);
+        float HdotV_spot = max(dot(H_spot, V), 0.0);
+        
+        // 이 스팟라이트의 프레넬 계산
+        float3 F_spot = F_Schlick(HdotV_spot, F0);
+        float3 kD_spot = (1.0 - F_spot) * (1.0 - metallic);
+        
+        // 프레넬과 kD 누적 (가중 평균 0.5)
+        F_accumulated = lerp(F_accumulated, F_spot, 0.5);
+        kD_accumulated = lerp(kD_accumulated, kD_spot, 0.5);
+        
+        // 기존 스팟라이트 계산
+        totalSpotLight += CalculateSpotLight(
+            spotLights[i],
+            input.worldPos.xyz,
+            N,
+            V,
+            baseColor,
+            metallic,
+            rough,
+            F0
+        );
+    }
     
     // Ambient lighting
     float3 ambient = baseColor * 0.3f;
@@ -157,8 +192,14 @@ float4 main(PixelInputType input) : SV_TARGET
     float3 iblDiffuse = GetIBLIrradiance(N);
     float3 iblSpecular = GetIBLRadiance(N, V, rough);
     float2 brdf = IntegrateBRDF(NdotV, rough);
-    float3 iblResult = lerp(kD * iblDiffuse * baseColor, iblSpecular * (F * brdf.x + brdf.y), metallic);
+    //float3 iblResult = lerp(kD_dir * iblDiffuse * baseColor, iblSpecular * (F_dir * brdf.x + brdf.y), metallic);
     
+    // spotlight 누적된 값 선형보간
+    float3 iblResult = lerp(
+        kD_accumulated * iblDiffuse * baseColor,
+        iblSpecular * (F_accumulated * brdf.x + brdf.y),
+        metallic
+    );
     // Emissive
     float3 emissive = any(EmissiveColor.Sample(samLinear, input.TexCoord).rgb > 0) ?
                      EmissiveColor.Sample(samLinear, input.TexCoord).rgb : 0;
@@ -178,8 +219,18 @@ float4 main(PixelInputType input) : SV_TARGET
         //finalRimColor = innerOutline;
     } 
     
-    float3 color = directLight + ambient + iblResult + emissive;
-    color = color + finalRimColor;
+    // 디버그용 
+    float3 debugVisualization = float3(0, 0, 0);
+    bool showSpotLightDebug = true;
+    if (showSpotLightDebug) // 디버그 플래그 추가 필요
+    {
+        for (int i = 0; i < LIGHT_NUM; i++)
+        {
+            debugVisualization += VisualizeSpotLightCone(input.worldPos.xyz, spotLights[i], baseColor);
+        }
+    }
+    
+    float3 color = directionalLight + totalSpotLight + ambient + iblResult + emissive + finalRimColor;
     
     color = pow(color, 1.0f / GAMMA);
     color = ACESFilmicToneMapping(color);
@@ -210,6 +261,8 @@ float4 main(PixelInputType input) : SV_TARGET
     {
         discard;
     }
-    
+
     return finalColor;
+    //return float4(totalSpotLight, 1.0f);
+    
 }

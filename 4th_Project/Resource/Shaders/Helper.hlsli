@@ -246,8 +246,7 @@ float3 CalculateSpotLight(SpotLightData light, float3 worldPos, float3 N, float3
     float3 H = normalize(V + L);
     
     float distance = length(light.position - worldPos);
-    float attenuation = 1.0 - saturate(distance / light.range);
-    attenuation = attenuation * attenuation;
+    float attenuation = 1.0 / (1.0 + 0.045 * distance + 0.0075 * distance * distance);
     
     // Spot light cone calculation
     float theta = dot(L, normalize(-light.direction));
@@ -269,5 +268,46 @@ float3 CalculateSpotLight(SpotLightData light, float3 worldPos, float3 N, float3
     
     float3 diffuse = kD * baseColor / PI;
     
-    return (diffuse + specular) * light.color * light.intensity * NdotL * attenuation * spotIntensity;
+    float baseIntensity = light.intensity * 100.0f;
+    return (diffuse + specular) * light.color * baseIntensity * NdotL * attenuation * spotIntensity;
 }
+
+float3 VisualizeSpotLightCone(float3 pixelWorldPos, SpotLightData light, float3 baseColor)
+{
+    float3 lightToPixel = normalize(pixelWorldPos - light.position);
+    float3 spotDir = normalize(light.direction);
+    float cosAngle = dot(lightToPixel, -spotDir);
+    
+    // 스팟라이트 원뿔 경계 계산
+    float cosOuterCone = cos(light.outerCone);
+    float cosInnerCone = cos(light.innerCone);
+    
+    // 원뿔 경계 시각화
+    float3 visualColor = float3(0, 0, 0);
+    float distance = length(pixelWorldPos - light.position);
+    
+    if (cosAngle > cosOuterCone)
+    {
+        // 원뿔 내부
+        float t = smoothstep(cosOuterCone, cosInnerCone, cosAngle);
+        float intensityFalloff = 1.0 - saturate(distance / light.range);
+        
+        // 원뿔 경계선 강조
+        float edgeFactor = 1.0 - abs(smoothstep(cosOuterCone, cosInnerCone, cosAngle) - 0.5) * 2.0;
+        float borderWidth = 0.1;
+        
+        if (edgeFactor > (1.0 - borderWidth))
+        {
+            // 경계선은 빨간색으로 표시
+            visualColor = float3(1.0, 0.0, 0.0) * intensityFalloff;
+        }
+        else
+        {
+            // 내부는 반투명한 노란색으로 표시
+            visualColor = float3(1.0, 1.0, 0.0) * t * intensityFalloff * 0.3;
+        }
+    }
+    
+    return visualColor;
+}
+
