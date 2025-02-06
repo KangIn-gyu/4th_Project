@@ -39,6 +39,7 @@ public:
 
 	// CSV 로드
 	void SceneCSVDataLoad(std::string_view _filePath);
+	std::vector<std::pair<int, std::wstring>>& GetCSVDData() { return CSVdatas; }
 private:
 
 public:
@@ -48,6 +49,6 @@ private:
 	Bitmap* drawBitmap; // 메인 비트맵 처리
 
 	std::vector<Bitmap*> imageDatas; // 여러개의 비트맵을 들고 있는 비트맵
-	std::vector<std::pair<std::string, std::string>> CSVdatas;
+	std::vector<std::pair<int, std::wstring>> CSVdatas;
 };
 

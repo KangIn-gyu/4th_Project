@@ -23,13 +23,13 @@ void Client::Enter()
 	SCENEMANAGER->CreatorScene<GambleScene>("GAMBLE");
 	SCENEMANAGER->CreatorScene<TitleScene>("Title");
 	SCENEMANAGER->CreatorScene<TutorialScene>("TutorialScene");
-
+	SCENEMANAGER->CreatorScene<DialogScene1>("DialogScene1");
 //	TitleScene* titleScene = new TitleScene("Title");
 //	SceneManager
 	BLACKJACK->player = PLAYER;
 
 
-	SCENEMANAGER->ChangeScene("TutorialScene");
+	SCENEMANAGER->ChangeScene("DialogScene1");
 
 
 }

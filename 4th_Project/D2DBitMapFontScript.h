@@ -25,5 +25,6 @@ public:
 
 private:
 	D2DRenderComponent* ownerD2D;
+	int index = 0;
 };
 
