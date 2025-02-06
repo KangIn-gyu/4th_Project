@@ -27,7 +27,7 @@ Button::Button(std::string_view _name, Object::ObjectType _type, DXMath::Vector3
 	DXMath::Vector3 center = GetComponent<ModelComponent>()->GetModel().get()->center;
 	GetComponent<BoxCollider>()->SetBox(center, extent, GetComponent<TransformComponent>()->GetQuaternion());
 	auto randerComponet = GetComponent<RenderComponent>();
-	randerComponet->SetShader(ShaderType::VS, "Shaders/VertexShaderVS.hlsl");
+	randerComponet->SetShader(ShaderType::VS, "Shaders/StaticVS.hlsl");
 	randerComponet->SetShader(ShaderType::PS, "Shaders/PixelShaderPS.hlsl");
 
 	GetComponent<TransformComponent>()->SetPosition(_pos);  

@@ -62,27 +62,24 @@ void ModelComponent::ComponentUpdate(const float _deltaTime)
     rootNode->Update(_deltaTime, progressAnimTime); // 애니메이션 프로세스 시간 넣어야 됨
 
     auto& meshs = *model->GetModelData()->meshs;
-   // if (nullptr != activeAnimation)
-   // {
-        for (int i = 0; i < meshs.size(); i++)
+    for (int i = 0; i < meshs.size(); i++)
+    {
+        // 스태틱 매쉬일 경우 처리 해야 됨
+        if (typeid(*meshs[i]) == typeid(SkeletalMesh))
         {
-            // 스태틱 매쉬일 경우 처리 해야 됨
-            if (typeid(*meshs[i]) == typeid(SkeletalMesh))
+            auto skeletalMesh = static_cast<SkeletalMesh*>(meshs[i]);
+            size_t boneCount = skeletalMesh->GetBoneReferencesSize();
+            for (UINT j = 0; j < boneCount; j++)
             {
-                auto skeletalMesh = static_cast<SkeletalMesh*>(meshs[i]);
-                size_t boneCount = skeletalMesh->GetBoneReferencesSize();
-                for (UINT j = 0; j < boneCount; j++)
-                {
-                    BoneReference& boneRef = skeletalMesh->GetBoneReferences()[j];
-                    AiNode* node = nodeList.find(boneRef.GetName())->second;
-                    Transform* nodeTransform = node->GetPtrTransform();
-                    boneRef.SetNodeWolrdTransform(nodeTransform->GetPtrWorldMatrix());
-                }
-
-                skeletalMesh->UpdateMatrixPallete(&matrixPalletBuffer, model->GetModelData()->skeletonInfo);
+                BoneReference& boneRef = skeletalMesh->GetBoneReferences()[j];
+                AiNode* node = nodeList.find(boneRef.GetName())->second;
+                Transform* nodeTransform = node->GetPtrTransform();
+                boneRef.SetNodeWolrdTransform(nodeTransform->GetPtrWorldMatrix());
             }
+
+            skeletalMesh->UpdateMatrixPallete(&matrixPalletBuffer, model->GetModelData()->skeletonInfo);
         }
-    //}
+    }
 }
 
 Transform* ModelComponent::GetTransform()

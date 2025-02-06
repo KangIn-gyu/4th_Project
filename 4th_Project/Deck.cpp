@@ -27,7 +27,7 @@ Deck::Deck(std::string_view _name, Object::ObjectType _type,bool real) : Object(
 		CreateComponent<RenderComponent>();
 
 		auto randerComponet = GetComponent<RenderComponent>();
-		randerComponet->SetShader(ShaderType::VS, "Shaders/VertexShaderVS.hlsl");
+		randerComponet->SetShader(ShaderType::VS, "Shaders/StaticVS.hlsl");
 		randerComponet->SetShader(ShaderType::PS, "Shaders/PixelShaderPS.hlsl");
 	}
 }
