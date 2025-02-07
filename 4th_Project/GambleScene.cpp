@@ -13,7 +13,9 @@
 #include "ClickFunc.h"
 #include "UIButton.h"
 #include "MyGameManager.h"
-
+#include "GambleButton.h"
+#include "SkillButton.h"
+#include "ToopTip2D.h"
 GambleScene::GambleScene(std::string_view _Name) : Scene(_Name)
 {
 	BLACKJACK->player = PLAYER;	
@@ -35,34 +37,34 @@ void GambleScene::Enter()
 	BLACKJACK->Setstage(1);
 	CreatorObject<TestObj>("Table", Object::ObjectType::Basic);
 
-
 	auto test = CreatorObject<TestObj2>("Map", Object::ObjectType::Basic);
-
-	//auto test = ObjectCreator<TestObj2>("Map", Object::ObjectType::Basic);
-
-	//test->GetComponent<TransformComponent>()->SetPosition({ 0, -10, 0 });
 	auto deck = GetGameObject(Object::ObjectType::Basic, "Deck");
 
-	
-	CreatorObject<UIButton>("bu1", Object::ObjectType::UI, "STAGE1/UI/mybutton2.png", DXMath::Vector2(500,0), []() {BLACKJACK->Bet();});
-	CreatorObject<UIButton>("bu2", Object::ObjectType::UI, "STAGE1/UI/mybutton3.png", DXMath::Vector2(800, 0), []() {ClickFunc::OpenButton();});
-	CreatorObject<UIButton>("bu3", Object::ObjectType::UI, "STAGE1/UI/mybutton4.png", DXMath::Vector2(1100, 0), []() {ClickFunc::HitButton();});
-	CreatorObject<UIButton>("bu4", Object::ObjectType::UI, "STAGE1/UI/Stay.png", DXMath::Vector2(1500, 0), []() {ClickFunc::StayButton();});
+	CreatorObject<UIButton>("Bet", Object::ObjectType::UI, "UI/Button/Bet.png", DXMath::Vector2(500,50), []() {BLACKJACK->Bet();});
+	CreatorObject<GambleButton>("Open", Object::ObjectType::UI,DXMath::Vector2(800, 0), []() {ClickFunc::OpenButton();});
+	CreatorObject<GambleButton>("Hit", Object::ObjectType::UI,DXMath::Vector2(1100, 0), []() {ClickFunc::HitButton();});
+	CreatorObject<GambleButton>("Stay", Object::ObjectType::UI,DXMath::Vector2(1500, 0), []() {ClickFunc::StayButton();});
 
 	//클릭시 스킬4개 버튼 출력할 버튼
-	CreatorObject<UIButton>("bu5", Object::ObjectType::UI, "STAGE1/UI/mybutton6.png", DXMath::Vector2(1800, 0), []() {ClickFunc::OnSetSkillBtn();});
+	CreatorObject<GambleButton>("Skill", Object::ObjectType::UI,DXMath::Vector2(1800, 0), []() {ClickFunc::OnSetSkillBtn();});
 
-	CreatorObject<UIButton>("SKill1", Object::ObjectType::UI, "STAGE1/UI/mybutton7.png", DXMath::Vector2(500, 200), []() {ClickFunc::SetPlayerSkill(PLAYER, PSkill::fastEye);})->SetActive(false);
-	CreatorObject<UIButton>("SKill2", Object::ObjectType::UI, "STAGE1/UI/OnGut.png", DXMath::Vector2(800, 200), []() {ClickFunc::SetPlayerSkill(PLAYER, PSkill::guts);})->SetActive(false);
-	CreatorObject<UIButton>("SKill3", Object::ObjectType::UI, "STAGE1/UI/mybutton9.png", DXMath::Vector2(1100, 200), []() {ClickFunc::SetPlayerSkill(PLAYER, PSkill::meditation);})->SetActive(false);
-	CreatorObject<UIButton>("SKill4", Object::ObjectType::UI, "STAGE1/UI/mybutton10.png", DXMath::Vector2(1500, 200), []() {ClickFunc::SetPlayerSkill(PLAYER, PSkill::Insurance);})->SetActive(false);
+	CreatorObject<SkillButton>("Handfaster", Object::ObjectType::UI, DXMath::Vector2(500, 200), 3,[]() {ClickFunc::SetPlayerSkill(PLAYER, PSkill::fastEye);})->SetActive(false);
+	CreatorObject<SkillButton>("Guts", Object::ObjectType::UI,  DXMath::Vector2(800, 200), 1,  [](){ClickFunc::SetPlayerSkill(PLAYER, PSkill::guts);})->SetActive(false);
+	CreatorObject<SkillButton>("Meditation", Object::ObjectType::UI, DXMath::Vector2(1100, 200), 2,[]() {ClickFunc::SetPlayerSkill(PLAYER, PSkill::meditation);})->SetActive(false);
+	CreatorObject<SkillButton>("Insurance", Object::ObjectType::UI,DXMath::Vector2(1500, 200), 5,[]() {ClickFunc::SetPlayerSkill(PLAYER, PSkill::Insurance);})->SetActive(false);
+
+	CreatorObject<ToopTip2D>("Handfaster_ToolTip", Object::ObjectType::UI, DXMath::Vector2(50, 200))->SetActive(false);
+	CreatorObject<ToopTip2D>("Guts_ToolTip", Object::ObjectType::UI, DXMath::Vector2(50, 200))->SetActive(false);
+	CreatorObject<ToopTip2D>("Meditation_ToolTip", Object::ObjectType::UI, DXMath::Vector2(50, 200))->SetActive(false);
+	CreatorObject<ToopTip2D>("Insurance_ToolTip", Object::ObjectType::UI, DXMath::Vector2(50, 200))->SetActive(false);
+
 }
 
 
 
 void GambleScene::Update(const float _deltaTime)
 {
-	MYGAMEMANAGER->Update(_deltaTime);
+	//MYGAMEMANAGER->Update(_deltaTime);
 	__super::Update(_deltaTime);
 	
 	BLACKJACK->Update(_deltaTime);

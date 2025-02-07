@@ -82,6 +82,12 @@
     <ClInclude Include="GambleButton.h">
       <Filter>UI</Filter>
     </ClInclude>
+    <ClInclude Include="SkillButton.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="ToopTip2D.h">
+      <Filter>UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -134,6 +140,12 @@
       <Filter>Script</Filter>
     </ClCompile>
     <ClCompile Include="GambleButton.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillButton.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="ToopTip2D.cpp">
       <Filter>UI</Filter>
     </ClCompile>
   </ItemGroup>

@@ -24,6 +24,7 @@ public:
 	void SetChip(int _num) { chip += _num; }
 	virtual void OnClick() override;
 	virtual void OnMouse() override;
+	virtual void ExitMouse() override;
 	void OpenOne(float _deltaTime);
 	int turnCount = 3;     //행동카운트
 	Hand hand;

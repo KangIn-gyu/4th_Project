@@ -173,10 +173,12 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SceneHeaders.h" />
+    <ClInclude Include="SkillButton.h" />
     <ClInclude Include="TestObj.h" />
     <ClInclude Include="TestObj2.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="TitleScene.h" />
+    <ClInclude Include="ToopTip2D.h" />
     <ClInclude Include="TutorialScene.h" />
     <ClInclude Include="UIButton.h" />
   </ItemGroup>
@@ -196,13 +198,10 @@
     <ClCompile Include="D3DObjScript.cpp" />
     <ClCompile Include="Dealer.cpp" />
     <ClCompile Include="Deck.cpp" />
-
     <ClCompile Include="DialogScene1.cpp" />
     <ClCompile Include="DialogScene2.cpp" />
     <ClCompile Include="DialogScene3.cpp" />
-
     <ClCompile Include="GambleButton.cpp" />
-
     <ClCompile Include="GambleScene.cpp" />
     <ClCompile Include="BlackJack.cpp" />
     <ClCompile Include="MyGameManager.cpp" />
@@ -215,10 +214,12 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="SkillButton.cpp" />
     <ClCompile Include="TestObj.cpp" />
     <ClCompile Include="TestObj2.cpp" />
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="TitleScene.cpp" />
+    <ClCompile Include="ToopTip2D.cpp" />
     <ClCompile Include="TutorialScene.cpp" />
     <ClCompile Include="UIButton.cpp" />
   </ItemGroup>

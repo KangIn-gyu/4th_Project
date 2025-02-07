@@ -4,9 +4,9 @@
 
 #include "Player.h"
 #include "BlackJack.h"
-
+#include "../Engine/Engine.h"
 #include "SceneHeaders.h" // ����� ����
-
+#include "MyGameManager.h"
 Client::Client(HINSTANCE _hInstance, std::string_view _GameName, int _screenWidth, int _screenHeight, bool _windoweMode) :
 	WindowApp(_hInstance, _GameName, _screenWidth, _screenHeight, _windoweMode)
 {
@@ -28,6 +28,6 @@ void Client::Enter()
 //	SceneManager
 	BLACKJACK->player = PLAYER;
 
-	SCENEMANAGER->ChangeScene("TutorialScene");
-
+	SCENEMANAGER->ChangeScene("GAMBLE");
+	ENGINE->CollectionGameManager(MYGAMEMANAGER);
 }

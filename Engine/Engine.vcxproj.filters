@@ -53,30 +53,6 @@
     <Filter Include="0_Utility\MyImGui\Editor">
       <UniqueIdentifier>{7a5f7204-ff02-481c-adbe-f365d09d03f6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="4_Resources">
-      <UniqueIdentifier>{826cf9b3-6119-4823-9c0e-dc5158657305}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="4_Resources\FBX">
-      <UniqueIdentifier>{7ca5d70d-a7d5-41f4-bc2b-74136f9bf1ba}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="4_Resources\SceneLoader">
-      <UniqueIdentifier>{383be747-6873-475b-a24e-4cd610a61fa8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="4_Resources\ResourceData">
-      <UniqueIdentifier>{f652a164-998d-47fa-9cd0-5acf19fa51f6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="4_Resources\ResourceData\Node">
-      <UniqueIdentifier>{70554e4b-1ac8-4a71-b4fa-374401e51f4b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="4_Resources\ResourceData\Texture">
-      <UniqueIdentifier>{fa534847-4219-4f67-9ac1-7c88d09c57a8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="4_Resources\ResourceData\Animation">
-      <UniqueIdentifier>{f0c46f20-629d-44e1-aade-0966d234aa21}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="4_Resources\ResourceData\Mesh">
-      <UniqueIdentifier>{ee2ce6a2-fbd4-4c34-b3a5-88b330292871}</UniqueIdentifier>
-    </Filter>
     <Filter Include="5_Object">
       <UniqueIdentifier>{9acb12fc-5b25-43a4-bfdb-12c1c71d7192}</UniqueIdentifier>
     </Filter>
@@ -95,20 +71,8 @@
     <Filter Include="5_Object\Component\ModelComponent">
       <UniqueIdentifier>{b957154e-9c51-4f20-b4ce-9d9f2cf28fda}</UniqueIdentifier>
     </Filter>
-    <Filter Include="4_Resources\ResourceData\Model">
-      <UniqueIdentifier>{07c0599b-cfe6-4df1-a258-a9334f4d9c71}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="4_Resources\ResourceData\Material">
-      <UniqueIdentifier>{25c097d7-7933-4066-b5b2-d1eb59e6af62}</UniqueIdentifier>
-    </Filter>
     <Filter Include="0_Utility\MyImGui\Editor\ComponentEditor">
       <UniqueIdentifier>{6ba90df5-9c1b-49e5-ba87-9cf1604c1a6b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="4_Resources\ResourceData\Bone">
-      <UniqueIdentifier>{9ed2f025-3a13-4e54-bb34-6ad67ce23dfa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="4_Resources\ResourceData\Vertex">
-      <UniqueIdentifier>{ef7e8d08-e038-45b5-bead-6ad8adf6dfcf}</UniqueIdentifier>
     </Filter>
     <Filter Include="0_Utility\DOTween">
       <UniqueIdentifier>{589ca8af-b469-4e2b-9aac-923fd4476625}</UniqueIdentifier>
@@ -121,15 +85,6 @@
     </Filter>
     <Filter Include="5_Object\Component\BitmapComponent">
       <UniqueIdentifier>{26146aad-ff96-4af7-aa50-c09c914d4d38}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="4_Resources\ResourceData\Bitmap">
-      <UniqueIdentifier>{62b7f542-6114-4aed-beef-04af22193e8a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="4_Resources\ResourceData\Font">
-      <UniqueIdentifier>{76cc16ee-3d3a-45da-873f-6525ddb13fe7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="4_Resources\CSVLoader">
-      <UniqueIdentifier>{8cfcf0f4-4127-4241-82c8-ac0c3888a5af}</UniqueIdentifier>
     </Filter>
     <Filter Include="3_Graphics">
       <UniqueIdentifier>{e65d0abc-173f-4022-b78d-e024e33fee4b}</UniqueIdentifier>
@@ -175,6 +130,51 @@
     </Filter>
     <Filter Include="1_Engine\GameManager">
       <UniqueIdentifier>{e5fd7d3a-7115-478e-bb83-ed80904895d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Resources">
+      <UniqueIdentifier>{826cf9b3-6119-4823-9c0e-dc5158657305}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Resources\FBX">
+      <UniqueIdentifier>{7ca5d70d-a7d5-41f4-bc2b-74136f9bf1ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Resources\SceneLoader">
+      <UniqueIdentifier>{383be747-6873-475b-a24e-4cd610a61fa8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Resources\ResourceData">
+      <UniqueIdentifier>{f652a164-998d-47fa-9cd0-5acf19fa51f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Resources\ResourceData\Node">
+      <UniqueIdentifier>{70554e4b-1ac8-4a71-b4fa-374401e51f4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Resources\ResourceData\Texture">
+      <UniqueIdentifier>{fa534847-4219-4f67-9ac1-7c88d09c57a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Resources\ResourceData\Animation">
+      <UniqueIdentifier>{f0c46f20-629d-44e1-aade-0966d234aa21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Resources\ResourceData\Mesh">
+      <UniqueIdentifier>{ee2ce6a2-fbd4-4c34-b3a5-88b330292871}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Resources\ResourceData\Model">
+      <UniqueIdentifier>{07c0599b-cfe6-4df1-a258-a9334f4d9c71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Resources\ResourceData\Material">
+      <UniqueIdentifier>{25c097d7-7933-4066-b5b2-d1eb59e6af62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Resources\ResourceData\Bone">
+      <UniqueIdentifier>{9ed2f025-3a13-4e54-bb34-6ad67ce23dfa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Resources\ResourceData\Vertex">
+      <UniqueIdentifier>{ef7e8d08-e038-45b5-bead-6ad8adf6dfcf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Resources\ResourceData\Bitmap">
+      <UniqueIdentifier>{62b7f542-6114-4aed-beef-04af22193e8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Resources\ResourceData\Font">
+      <UniqueIdentifier>{76cc16ee-3d3a-45da-873f-6525ddb13fe7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="4_Resources\CSVLoader">
+      <UniqueIdentifier>{8cfcf0f4-4127-4241-82c8-ac0c3888a5af}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -626,7 +626,6 @@
     <ClCompile Include="D2DFont.cpp">
       <Filter>4_Resources\ResourceData\Font</Filter>
     </ClCompile>
-    <ClCompile Include="Component.cpp" />
     <ClCompile Include="AABB.cpp" />
     <ClCompile Include="ButtonColider.cpp" />
     <ClCompile Include="Script.cpp">
@@ -644,6 +643,9 @@
     </ClCompile>
     <ClCompile Include="CSVLoader.cpp">
       <Filter>4_Resources\CSVLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>5_Object\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
