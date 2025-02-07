@@ -66,7 +66,7 @@ D2D_VECTOR_2F D2DRenderComponent::Get2DImagePos()
 
 void D2DRenderComponent::ChangeBitmap(int _index)
 {
-	if (_index > 0 && _index < imageDatas.size())
+	if (_index >= 0 && _index < imageDatas.size())
 	{
 		drawBitmap = imageDatas[_index];
 	}
@@ -110,18 +110,17 @@ void D2DRenderComponent::SetTextSize(float _FontSize, DWRITE_TEXT_RANGE _textRan
 	font->SetTextSize(_FontSize, _textRange);
 }
 
+void D2DRenderComponent::SetLineSpacing(float _lineSpacing)
+{
+	font->SetLineSpacing(_lineSpacing);
+}
+
 void D2DRenderComponent::SetAlignment(D2DFont::Setting _SortX, D2DFont::Setting _SortY)
 {
 	font->Alignment(_SortX, _SortY);
 }
 void D2DRenderComponent::Draw()
 {
-#if _DEBUG
-	if (font != nullptr)
-	{
-		font->DrawTextBox();
-	}
-#endif
 	if (drawBitmap != nullptr)
 	{
 		if (drawBitmap->fade != nullptr)
@@ -132,6 +131,9 @@ void D2DRenderComponent::Draw()
 	}
 	if (font != nullptr)
 	{
+#if _DEBUG
+		if (font != nullptr){ font->DrawTextBox(); }
+#endif
 		D2DClass::GetD2DDeviceContext()->DrawTextLayout( font->GetPos(), font->GetTextLayout(), font->GetBrush());
 	}
 }

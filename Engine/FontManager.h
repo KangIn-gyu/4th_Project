@@ -16,13 +16,13 @@ private:
 	~FontManager();
 
 	void LoadTextFormat(std::string_view _fontFilePath, std::string_view fontName);
-	void AddFont(std::string_view _fontName, IDWriteFontCollection1* _pFontCollection, IDWriteTextFormat** _ppTextFormat);
+	void AddFont(const std::wstring& _fontName, IDWriteFontCollection1* _pFontCollection, IDWriteTextFormat** _ppTextFormat);
 
 public:
 	
 private:
 	int index = 0; // ÆùÆ® °¹¼ö
-	ComPtr<IDWriteFontSetBuilder1> fontSetBuilder;
+	IDWriteFontSetBuilder1* fontSetBuilder;
 	std::unordered_map<std::string, IDWriteTextFormat*> fontMap;
 	std::string basePath = "Resource/";
 };

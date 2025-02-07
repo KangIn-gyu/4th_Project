@@ -13,7 +13,7 @@ public:
 
 	virtual void ComponentSetting() override;               // 컴포넌트가 다 생성된 이후 수치 조정하는것
 	virtual void Update(const float _deltaTime) override;  // 업데이트
-	virtual void ResetInformation() {};
+	virtual void ResetInformation();
 
 private:
 	virtual void OnInputProcess(const DX::Keyboard::State& _KeyState,
@@ -25,6 +25,10 @@ public:
 
 private:
 	D2DRenderComponent* ownerD2D;
+	std::wstring displayedText;
+	std::vector<std::pair<int, std::wstring>> csvData;
+	std::string changeSceneName;
 	int index = 0;
+	bool isClicked = false;
 };
 
