@@ -88,7 +88,7 @@ void Renderer::Update(float _deltaTime)
 
 void Renderer::Render()
 {
-	D3DGraphics->BeginDraw(IMGUI->GetBankGroundColor());
+	D3DGraphics->BeginDraw(IMGUI->GetBackGroundColor());
 	//m_skybox.Render(D3DClass::GetD3DDeviceContext().Get());
 
 	D3DDraw();
