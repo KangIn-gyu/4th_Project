@@ -25,7 +25,8 @@ void BlackJack::RoundStart()
 	isRoundOver = false;
 	onDoubbleDown = false;
 	magnification = 1;
-	state = PlayerState::OPEN;
+	SetState(PlayerState::OPEN);
+	ChangeState();
 	endBet = false;
 	canClick = false;
 }
@@ -41,6 +42,7 @@ void BlackJack::CheckTurnEnd()
 		{
 
 		}
+		SetState(PlayerState::OPEN);
 		player->turnEnd = false;
 		player->isDrawOne = false;
 		endBet = false;
@@ -76,13 +78,17 @@ void BlackJack::Update(float _deltaTime)
 				{
 					if (!player->isDrawOne && true == endBet)
 					{
-						player->CardDraw(deck);
+						if (true == player->CardDraw(deck))
+						{
+							player->turnEnd = true;
+						}
+						
 					}
 
 				}
 				else if (state == PlayerState::Skill)
 				{
-
+					canClick = true;
 					if(true == player->ActiveSkill())
 						SetState(PlayerState::OPEN);
 				}

@@ -57,6 +57,11 @@ DXMath::Vector2 D2DRenderComponent::Get2DImageXY()
 void D2DRenderComponent::Set2DImagePos(float _x, float _y)
 {
 	drawBitmap->SetPos(_x, _y);
+	
+	for (auto& bit : imageDatas)
+	{
+		bit->SetPos(_x, _y);
+	}
 }
 D2D_VECTOR_2F D2DRenderComponent::Get2DImagePos()
 {
@@ -73,7 +78,7 @@ void D2DRenderComponent::ChangeBitmap(int _index)
 
 Bitmap* D2DRenderComponent::GetBitmap(int _index)
 {
-	if (_index > 0 && _index < imageDatas.size())
+	if (_index >= 0 && _index < imageDatas.size())
 	{
 		return imageDatas[_index];
 	}

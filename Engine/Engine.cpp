@@ -93,7 +93,7 @@ void Engine::CollectionGameManager(GameManager* _gameManager)
 
 Engine::~Engine()
 {
-    SafeExtinction::SAFE_DELETE(clientGameManager);
+    //SafeExtinction::SAFE_DELETE(clientGameManager); 인규형한테 물어보기
 }
 
 void Engine::Update(const float _deltaTime)

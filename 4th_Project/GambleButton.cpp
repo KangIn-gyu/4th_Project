@@ -3,19 +3,13 @@
 
 #include "../Engine/D2DRenderComponent.h"
 #include "../Engine/BoxCollider.h"
-
-GambleButton::GambleButton(std::string_view _name, Object::ObjectType _type, std::string_view _filePath, std::function<void()> _func) :Object(_name, _type)
-{
-	clickFunc = _func;
-	imageFilepath = _filePath;
-	imagedata = CreateComponent<D2DRenderComponent>();
-}
-
-GambleButton::GambleButton(std::string_view _name, Object::ObjectType _type, std::string_view _filePath, DXMath::Vector2 _pos, std::function<void()> _func) :Object(_name, _type)
+#include "BlackJack.h"
+#include "../Engine/TimeSystem.h"
+GambleButton::GambleButton(std::string_view _name, Object::ObjectType _type,DXMath::Vector2 _pos, std::function<void()> _func) :Object(_name, _type)
 {
 	pos = _pos;
 	clickFunc = _func;
-	imageFilepath = _filePath;
+	imageFilepath = _name;
 	imagedata = CreateComponent<D2DRenderComponent>();
 }
 
@@ -26,13 +20,13 @@ GambleButton::~GambleButton()
 void GambleButton::Initialize()
 {
 	Object::Initialize();
-	imagedata->Load2DImage(imageFilepath);
-	//GetComponent<ButtonColider>()->SetBoundBox(0, 0, { imagedata->Get2DImageSize().x,imagedata->Get2DImageSize().y,0 });
-	imagedata->Set2DImagePos(pos.x, pos.y);
+	imagedata->Load2DImage("UI/Button/" + GetName() + ".png"); //0
+	imagedata->Load2DImage("UI/Button/" + GetName() + "_On.png");     //1
+	imagedata->Load2DImage("UI/Button/" + GetName() + "_Toggle.png"); //2
+	imagedata->Set2DImagePos(pos.x, pos.y);  // "UI/Button/" +Getname() + ".png" or + "_Click.png"
 	CreateComponent<BoxCollider>();
 	auto xy = imagedata->Get2DImageXY();
-	DXMath::Vector3 center = { pos.x + xy.x / 2,  pos.y + xy.y / 2,    0.f };
-	std::cout << imagedata->Get2DImageSize().x << " dawdawd" << imagedata->Get2DImageSize().y << std::endl;
+	DXMath::Vector3 center = { pos.x + xy.x / 2,  pos.y + xy.y / 2, 0.f };
 	DXMath::Vector3 extent = { xy.x / 2 ,xy.y / 2 , 0.1f };
 	GetComponent<BoxCollider>()->SetBox(center, extent, DXMath::Quaternion::Quaternion(0, 0, 0, 1));
 }
@@ -40,10 +34,61 @@ void GambleButton::Initialize()
 void GambleButton::Update(const float _deltaTime)
 {
 	Object::Update(_deltaTime);
+	ChangeBit();
+	//현재상태일떈 계속 점등하게 on -> basic -> onbasic
+
+}
+
+void GambleButton::Blink()
+{
+	float delta = TIMESYSTEM.get()->GetFloatDeltaTime();
+	elapsedTime += delta;
+
+	int n = static_cast<int>(fmod(elapsedTime, 1.0f) >= 0.5f); // 0.5초마다 0  1 전환
+	imagedata->ChangeBitmap(n);
+}
+
+void GambleButton::ChangeBit()
+{
+	curState = nextState;
+		switch (curState)
+		{
+		case gbState::On:
+			Blink();
+			break;
+		case gbState::Toggle:
+			imagedata->ChangeBitmap(2);
+			break;
+		default:
+			imagedata->ChangeBitmap(0);
+			break;
+		}
+}
+
+void GambleButton::ChangeState(gbState _state)
+{
+	if (_state != nextState)
+	{
+		nextState = _state;
+	}
 }
 
 void GambleButton::OnClick()
 {
-	std::cout << "2d눌렀음 " << std::endl;
-	clickFunc();
+	//블랙잭의 상태에 따라조건 stay 누를수있는조건 skill 조건 ㅇ
+	if(BLACKJACK->firstTurn == false)
+		clickFunc();
 }
+
+void GambleButton::OnMouse()
+{
+	if(nextState != gbState::On || curState != gbState::On)
+		ChangeState(gbState::Toggle);
+}
+
+void GambleButton::ExitMouse()
+{
+	if(nextState != gbState::On)
+		ChangeState(gbState::Off);
+}
+

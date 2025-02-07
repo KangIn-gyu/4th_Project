@@ -6,6 +6,8 @@
 #include "../Engine/Scene.h"
 #include "UIButton.h"
 #include "MyGameManager.h"
+#include "GambleButton.h"
+
 void ClickFunc::SelectCard()
 {
 	
@@ -13,16 +15,34 @@ void ClickFunc::SelectCard()
 void ClickFunc::OpenButton()
 {
 	BLACKJACK->SetState(PlayerState::OPEN); //다른연출중일땐 클릭불가하게끔 hit은 카드받고 뒤집은다음, 스킬발동끝난다음
+	/*Object* hitBtn = SCENEMANAGER.get()->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "Hit");
+	Object* stayBtn = SCENEMANAGER.get()->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "Stay");
+	Object* skillBtn = SCENEMANAGER.get()->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "Skill");
+	Object* openBtn = SCENEMANAGER.get()->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "Open");
+	dynamic_cast<GambleButton*>(openBtn)->ChangeState(gbState::On);
+	dynamic_cast<GambleButton*>(hitBtn)->ChangeState(gbState::Off);
+	dynamic_cast<GambleButton*>(stayBtn)->ChangeState(gbState::Off);
+	dynamic_cast<GambleButton*>(skillBtn)->ChangeState(gbState::Off);*/
 }
 
 void ClickFunc::StayButton()
 {
 	BLACKJACK->SetState(PlayerState::STAY);
+
 }
 
 void ClickFunc::HitButton()
 {
 	BLACKJACK->SetState(PlayerState::HIT);
+
+}
+
+void ClickFunc::SetPlayerSkill(Player* player, PSkill _skill)
+{
+	player->SetSkill(_skill);
+	BLACKJACK->SetState(PlayerState::Skill);
+	MYGAMEMANAGER->isBtnOn = false;
+
 }
 
 void ClickFunc::DoubleDown()
@@ -40,15 +60,6 @@ void ClickFunc::OnSetSkillBtn()
 	
 }
 
-void ClickFunc::SetPlayerSkill(Player* player, PSkill _skill)
-{
-	player->SetSkill(_skill);
-	BLACKJACK->SetState(PlayerState::Skill);
-	MYGAMEMANAGER->isBtnOn = false;
-	SCENEMANAGER.get()->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "SKill1")->SetActive(false);
-	SCENEMANAGER.get()->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "SKill2")->SetActive(false);
-	SCENEMANAGER.get()->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "SKill3")->SetActive(false);
-	SCENEMANAGER.get()->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "SKill4")->SetActive(false);
-}
+
 
 

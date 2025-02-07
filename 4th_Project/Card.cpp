@@ -95,10 +95,9 @@ void Card::Update(const float _deltaTime)
 
 void Card::Open()
 {
-	if (isOpen == false)
-		needRevers = true;
+	if (false == isOpen)
+		Reverse();
 	isOpen = true;
-
 }
 
 void Card::Close()
@@ -106,6 +105,14 @@ void Card::Close()
 	if(true == isOpen)
 		needRevers = true;
 	isOpen = false;
+}
+
+void Card::MoveOpen()
+{
+	if (false == isOpen)
+		needRevers = true;
+	isOpen = true;
+
 }
 
 void Card::Reverse()
@@ -174,12 +181,30 @@ void Card::OnClick()
 					
 			}
 		}
+
+		if (BLACKJACK->GetState() == PlayerState::Skill)
+		{
+			for (auto card : PLAYER->hand.hand) //
+			{
+
+				if (card != nullptr && card->GetName() == GetName() && isOpen == false) //누른카드가 패에있고 아직 뒷면이면
+				{
+					PLAYER->selectCard = this;
+				}
+			}
+		}
+
 	}
 }
 
 void Card::OnMouse()
 {
 	//std::cout << "현재 마우스가 " << GetName() << " 오브젝트 위에 있습니다" << std::endl;
+
+}
+
+void Card::ExitMouse()
+{
 }
 
 void Card::OpenA()
