@@ -21,7 +21,7 @@ std::vector<std::pair<int, std::wstring>>& CSVLoader::CSVLoad(std::string_view _
 
 		std::string text;
 		std::wstring maintext;
-	// TODO : 문자열 변경에 대해서 고민중
+	    // TODO : 문자열 변경에 대해서 고민중
 		if (!row["Text"].is_null())
 		{
 			text = row["Text"].get<std::string>();

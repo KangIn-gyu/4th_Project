@@ -53,7 +53,7 @@ public:
 	static std::wstring Utf8ToWString(const std::u8string& u8str_text)
 	{
 		int buffer_size = MultiByteToWideChar(CP_UTF8, 0, reinterpret_cast<const char*>(u8str_text.c_str()), -1, nullptr, 0);
-		std::wstring text;
+		std::wstring text(buffer_size, L'\0');
 		if (buffer_size > 0) 
 		{
 			text.resize(buffer_size - 1); // 널 종료 문자 제외

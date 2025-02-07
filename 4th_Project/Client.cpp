@@ -29,7 +29,7 @@ void Client::Enter()
 	BLACKJACK->player = PLAYER;
 
 
-	SCENEMANAGER->ChangeScene("DialogScene1");
+	SCENEMANAGER->ChangeScene("TutorialScene");
 
 
 }
