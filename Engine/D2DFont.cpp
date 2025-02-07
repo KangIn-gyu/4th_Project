@@ -29,6 +29,7 @@ void D2DFont::SetDialog(std::wstring_view _dialog)
 {
 	dialog = _dialog;
 	CreateLayoutText(_dialog.data());
+	SetTextSize(fontSize);
 }
 
 void D2DFont::SetBoxSize(float _width, float _height)
@@ -49,6 +50,14 @@ void D2DFont::SetTextSize(float _fontSize, DWRITE_TEXT_RANGE _textRange)
 {
 	fontSize = _fontSize;
 	DWriteTextLayout->SetFontSize(fontSize, _textRange);
+}
+
+void D2DFont::SetLineSpacing(float _lineSpacing)
+{
+	if (DWriteTextFormat)
+	{
+		DWriteTextFormat->SetLineSpacing(DWRITE_LINE_SPACING_METHOD_UNIFORM, _lineSpacing, _lineSpacing * 0.8f);
+	}
 }
 
 void D2DFont::Alignment(Setting _SortX, Setting _SortY)
@@ -99,19 +108,20 @@ void D2DFont::Alignment(Setting _SortX, Setting _SortY)
 
 void D2DFont::DrawTextBox()
 {
-	D2D1_RECT_F rect = { pos.x, pos.y,  pos.x + boxSize.width, pos.y + boxSize.height};
+	D2D1_RECT_F rect = { pos.x, pos.y,  pos.x + boxSize.width,  pos.y + boxSize.height};
 	D2DClass::GetD2DDeviceContext()->DrawRectangle(&rect, boxBrush);
 }
 
-void D2DFont::CreateLayoutText(std::wstring_view _detail)
+void D2DFont::CreateLayoutText(const std::wstring& _detail)
 {
 	if (nullptr != DWriteTextLayout)
 	{
 		DWriteTextLayout->Release();
+		DWriteTextLayout = nullptr;
 	}
 
 	HRESULT hr = D2DClass::GetDWriteFactory()->CreateTextLayout(
-		_detail.data(),
+		_detail.c_str(),
 		static_cast<UINT32>(_detail.length()),
 		DWriteTextFormat,
 		static_cast<float>(boxSize.width),
@@ -119,6 +129,7 @@ void D2DFont::CreateLayoutText(std::wstring_view _detail)
 		&DWriteTextLayout
 	);
 
+	SetTextSize(fontSize, { 0, (unsigned int)dialog.length() });
 	if (FAILED(hr))
 	{
 		throw std::runtime_error("Failed to create text Layout.");

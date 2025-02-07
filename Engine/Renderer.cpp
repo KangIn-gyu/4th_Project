@@ -201,7 +201,9 @@ void Renderer::D2DDraw()
 	for (auto& D2DrenderComponent : D2Dwork)
 	{
 		if (true == D2DrenderComponent->GetActive())
+		{
 			D2DrenderComponent->Draw();
+		}
 	}
 }
 

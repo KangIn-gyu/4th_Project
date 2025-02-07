@@ -4,7 +4,7 @@
 
 void TitleScene::Enter()
 {
-	//	auto* map = ObjectCreator<D3DBaseObj>("STAGE1/FBX/Map_test.fbx", Object::ObjectType::Basic);
+//	auto* map = CreatorObject<D3DBaseObj>("STAGE1/FBX/Map_test_Lowpoly.fbx", Object::ObjectType::Basic);
 
 	// 맵
 	// 캐릭터이다. 바에 있는 캐릭터 

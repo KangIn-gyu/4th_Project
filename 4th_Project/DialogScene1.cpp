@@ -13,12 +13,14 @@ void DialogScene1::Enter()
         "DialogScene1/Textures/5_Main,DealerA.png",
         "DialogScene1/Textures/6_Black,Normal,cocktail.png"
     };
-    // Font/DialogScene.ttf
-	auto* dialog = CreatorObject<D2DBaseObj>("Dialog", Object::ObjectType::UI, dialogScenebitmap,"Font/DNFBitBitv2.ttf", "DialogScene1/CSV/baseCSV.csv");
+
+    // Font/DialogScene.ttf  // GyeonggiMillenniumBackground_Regular
+	auto* dialog = CreatorObject<D2DBaseObj>("Dialog", Object::ObjectType::UI, dialogScenebitmap,"Font/Bold.ttf", "DialogScene1/CSV/Scene0.csv", "TutorialScene");
     dialog->CreateScript<D2DBitMapFontScript>();
+   
 }
 
 void DialogScene1::Update(const float _deltaTime)
 {
-
+    Scene::Update(_deltaTime);
 }

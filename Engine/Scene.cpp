@@ -24,9 +24,9 @@ Scene::~Scene()
 
 void Scene::Initialize()
 {
-	Enter(); // 생성된 오브젝트 오브젝트 매니저에 넣기
 	if (is_initialize == false)
 	{
+		Enter(); // 생성된 오브젝트 오브젝트 매니저에 넣기
 		for (auto& obj : gameObecjts)
 		{
 			obj->Initialize();

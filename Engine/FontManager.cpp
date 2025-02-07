@@ -12,7 +12,12 @@ std::string GetFileName(std::string_view _filePath)
 
 FontManager::~FontManager()
 {
-    fontMap.clear();
+    for (auto& data : fontMap)
+    {
+        data.second->Release();
+    }
+
+    fontSetBuilder->Release();
 }
 
 void FontManager::Initialize()
@@ -102,8 +107,12 @@ void FontManager::LoadTextFormat(std::string_view _fontFilePath, std::string_vie
         return;
     }
 
-    IDWriteTextFormat* NewFont;
-    AddFont(fontName, FontCollection, &NewFont);
+#if( _DEBUG)
+    wprintf(L"Loaded Font: %s\n", familyName);  // µð¹ö±ë Ãâ·Â
+#endif
+
+    IDWriteTextFormat* NewFont = nullptr;
+    AddFont(familyName, FontCollection, &NewFont);
 
     fontMap.insert(std::make_pair(_fontFilePath.data(), NewFont));
 
@@ -114,10 +123,10 @@ void FontManager::LoadTextFormat(std::string_view _fontFilePath, std::string_vie
     index++;
 }
 
-void FontManager::AddFont(std::string_view _fontName, IDWriteFontCollection1* _pFontCollection, IDWriteTextFormat** _ppTextFormat)
+void FontManager::AddFont(const std::wstring& _fontName, IDWriteFontCollection1* _pFontCollection, IDWriteTextFormat** _ppTextFormat)
 {
     HRESULT hresult = D2DClass::GetDWriteFactory()->CreateTextFormat(
-        StringConverter::StringToWide(_fontName).c_str(),
+        _fontName.c_str(),
         _pFontCollection,
         DWRITE_FONT_WEIGHT_REGULAR,
         DWRITE_FONT_STYLE_NORMAL,
