@@ -82,6 +82,9 @@
     <ClInclude Include="GambleButton.h">
       <Filter>UI</Filter>
     </ClInclude>
+    <ClInclude Include="FadeEffectScript.h">
+      <Filter>Script</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -135,6 +138,9 @@
     </ClCompile>
     <ClCompile Include="GambleButton.cpp">
       <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="FadeEffectScript.cpp">
+      <Filter>Script</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

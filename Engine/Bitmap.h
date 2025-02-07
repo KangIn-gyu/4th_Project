@@ -17,6 +17,8 @@ public:
 
 	void SetSize(float width, float height);
 	void SetPos(float x, float y);
+	void SetAlpha(float _alpha) { alpha = _alpha; }
+	float GetAlpha() { return alpha; }
 
 	DXMath::Vector2 GetXY() { return DXMath::Vector2(d2dBitmap->GetSize().width, d2dBitmap->GetSize().height); }
 	FadeEffect* fade{};
@@ -25,6 +27,8 @@ private:
 
 	float xPos = 0, yPos = 0, width{}, height;
 	D2D1_RECT_F destRect = { xPos,yPos,width+ xPos,height+ yPos };
+
+	float alpha = 1;
 
 	float CenterX = (destRect.right - destRect.left) / 2;
 	float CenterY = (destRect.bottom - destRect.top) / 2;
