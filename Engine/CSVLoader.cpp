@@ -1,48 +1,36 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CSVLoader.h"
+#include "Helper.h"
 
-void CSVLoader::Reader(std::string_view _filePath)
-{ 
-	CSVReader reader(_filePath);
+std::vector<std::pair<int, std::wstring>>& CSVLoader::CSVLoad(std::string_view _filePath)
+{
+	std::string filePath = basePath + _filePath.data();
+
+	auto it = csvDatas.find(std::string(filePath));
+	if(it != csvDatas.end())
+	{
+		return it->second;
+	}
+
+	CSVReader reader(filePath);
 	CSVData sceneData;
 
 	for (auto& row : reader)
 	{
-		std::string name;
-		if (row["Name"].is_null())
-		{
-			name = "";
-		}
-		else
-		{
-			name = row["Name"].get<std::string>();
-		}
+		int index = row["Index"].is_null() ? -1 : row["Index"].get<int>();
 
 		std::string text;
-		if (row["Text"].is_null())
-		{
-			text = "";
-		}
-		else
+		std::wstring maintext;
+	    // TODO : 문자열 변경에 대해서 고민중
+		if (!row["Text"].is_null())
 		{
 			text = row["Text"].get<std::string>();
+			std::u8string u8str_text(text.begin(), text.end());
+			maintext = StringConverter::Utf8ToWString(u8str_text);
 		}
-		sceneData.emplace_back(name, text);
+
+		sceneData.emplace_back(index, std::move(maintext));
 	}
 
-	csvDatas[std::string(_filePath)] = std::move(sceneData);
-}
-
-std::vector<std::pair<std::string, std::string>> CSVLoader::FindData(std::string_view _filePath)
-{
-	auto it = csvDatas.find(_filePath.data());
-	
-	if (it != csvDatas.end())
-	{
-		return it->second;
-	}
-	else
-	{
-		std::cout << "CSVLoader::FindData ����\n";
-	}
+	return csvDatas[std::string(filePath)] = std::move(sceneData);
 }

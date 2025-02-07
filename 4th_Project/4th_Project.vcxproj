@@ -149,7 +149,10 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="ClickFunc.h" />
     <ClInclude Include="Card.h" />
+    <ClInclude Include="ClickNextBimapScript.h" />
     <ClInclude Include="Client.h" />
+    <ClInclude Include="D2DBaseObj.h" />
+    <ClInclude Include="D2DBitMapFontScript.h" />
     <ClInclude Include="D3DBaseObj.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
@@ -157,17 +160,24 @@
     <ClInclude Include="D3DObjScript.h" />
     <ClInclude Include="Dealer.h" />
     <ClInclude Include="Deck.h" />
+    <ClInclude Include="DialogScene1.h" />
+    <ClInclude Include="DialogScene2.h" />
+    <ClInclude Include="DialogScene3.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="GambleButton.h" />
     <ClInclude Include="GambleScene.h" />
     <ClInclude Include="BlackJack.h" />
-    <ClInclude Include="GameManager.h" />
+    <ClInclude Include="MyGameManager.h" />
     <ClInclude Include="Hand.h" />
-    <ClInclude Include="IntroCutScene.h" />
+    <ClInclude Include="LobbyScene.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="SceneHeaders.h" />
     <ClInclude Include="TestObj.h" />
     <ClInclude Include="TestObj2.h" />
     <ClInclude Include="TestScene.h" />
+    <ClInclude Include="TitleScene.h" />
+    <ClInclude Include="TutorialScene.h" />
     <ClInclude Include="UIButton.h" />
   </ItemGroup>
   <ItemGroup>
@@ -175,7 +185,10 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="ClickFunc.cpp" />
     <ClCompile Include="Card.cpp" />
+    <ClCompile Include="ClickNextBimapScript.cpp" />
     <ClCompile Include="Client.cpp" />
+    <ClCompile Include="D2DBaseObj.cpp" />
+    <ClCompile Include="D2DBitMapFontScript.cpp" />
     <ClCompile Include="D3DBaseObj.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
@@ -183,11 +196,18 @@
     <ClCompile Include="D3DObjScript.cpp" />
     <ClCompile Include="Dealer.cpp" />
     <ClCompile Include="Deck.cpp" />
+
+    <ClCompile Include="DialogScene1.cpp" />
+    <ClCompile Include="DialogScene2.cpp" />
+    <ClCompile Include="DialogScene3.cpp" />
+
+    <ClCompile Include="GambleButton.cpp" />
+
     <ClCompile Include="GambleScene.cpp" />
     <ClCompile Include="BlackJack.cpp" />
-    <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="MyGameManager.cpp" />
     <ClCompile Include="Hand.cpp" />
-    <ClCompile Include="IntroCutScene.cpp" />
+    <ClCompile Include="LobbyScene.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -198,6 +218,8 @@
     <ClCompile Include="TestObj.cpp" />
     <ClCompile Include="TestObj2.cpp" />
     <ClCompile Include="TestScene.cpp" />
+    <ClCompile Include="TitleScene.cpp" />
+    <ClCompile Include="TutorialScene.cpp" />
     <ClCompile Include="UIButton.cpp" />
   </ItemGroup>
   <ItemGroup>

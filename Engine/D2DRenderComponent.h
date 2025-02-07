@@ -26,7 +26,6 @@ public:
 	Bitmap* GetBitmap(int _index);
 
 	// 폰트 관련 함수들 데이터 조정
-	void SceneCSVDataLoad(std::string_view _filePath); // TODO : 여기 있는게 맞을가 고민중
 	void LoadFont(const std::string& _filePath);
 	void SetDialog(std::wstring_view _dialog);
 	void SetFontColor(D2D1_COLOR_F color); // 컬러 변경 주의사항 : 렌더 하기전에 색을 변경해야 됨
@@ -37,6 +36,10 @@ public:
 
 	// 폰트맵과 비트맵 같이 처리함
 	void Draw();
+
+	// CSV 로드
+	void SceneCSVDataLoad(std::string_view _filePath);
+	std::vector<std::pair<int, std::wstring>>& GetCSVDData() { return CSVdatas; }
 private:
 
 public:
@@ -46,6 +49,6 @@ private:
 	Bitmap* drawBitmap; // 메인 비트맵 처리
 
 	std::vector<Bitmap*> imageDatas; // 여러개의 비트맵을 들고 있는 비트맵
-	std::vector<std::pair<std::string, std::string>> CSVdatas;
+	std::vector<std::pair<int, std::wstring>> CSVdatas;
 };
 

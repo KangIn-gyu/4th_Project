@@ -6,7 +6,6 @@
 #include "../Engine/TransformComponent.h"
 #include "../Engine/D2DRenderComponent.h"
 
-
 TestObj::TestObj(std::string_view _name, Object::ObjectType _type) : Object(_name , _type)
 {
 }
@@ -14,7 +13,6 @@ TestObj::TestObj(std::string_view _name, Object::ObjectType _type) : Object(_nam
 void TestObj::Initialize()
 {
 	CreateComponent<ModelComponent>("STAGE1/FBX/table.fbx");  // char2 / gun
-
 	CreateComponent<RenderComponent>();
 
 	CreateComponent<BoxCollider>();
@@ -23,7 +21,7 @@ void TestObj::Initialize()
 	auto randerComponet = GetComponent<RenderComponent>();
 	randerComponet->SetShader(ShaderType::VS, "Shaders/StaticVS.hlsl");
 	randerComponet->SetShader(ShaderType::PS, "Shaders/PixelShaderPS.hlsl");
-
+	SetEffect(Object::Effect::OutLine);
 	//auto D2DComponent = CreateComponent<D2DRenderComponent>();
 	/*D2DComponent->LoadFont("Font/ABCD.ttf");
 	D2DComponent->Load2DImage("STAGE1/UI/mybutton.png");

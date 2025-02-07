@@ -13,6 +13,9 @@
     <Filter Include="Obj\TestObj">
       <UniqueIdentifier>{b7ba875d-5234-481e-b4dd-d50fd7d62763}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{2b35123f-8814-4a6c-b931-6ebd42129bda}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -24,7 +27,7 @@
     <ClInclude Include="ClickFunc.h">
       <Filter>UI</Filter>
     </ClInclude>
-    <ClInclude Include="GameManager.h" />
+    <ClInclude Include="MyGameManager.h" />
     <ClInclude Include="UIButton.h">
       <Filter>UI</Filter>
     </ClInclude>
@@ -40,14 +43,44 @@
     <ClInclude Include="D3DBaseObj.h">
       <Filter>Obj</Filter>
     </ClInclude>
-    <ClInclude Include="IntroCutScene.h">
-      <Filter>Client\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="Client.h">
       <Filter>Client</Filter>
     </ClInclude>
     <ClInclude Include="TestScene.h">
-      <Filter>Client\Scene</Filter>
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="TutorialScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="LobbyScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogScene1.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogScene2.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogScene3.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneHeaders.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="D2DBaseObj.h">
+      <Filter>Obj</Filter>
+    </ClInclude>
+    <ClInclude Include="D2DBitMapFontScript.h">
+      <Filter>Script</Filter>
+    </ClInclude>
+    <ClInclude Include="ClickNextBimapScript.h">
+      <Filter>Script</Filter>
+    </ClInclude>
+    <ClInclude Include="GambleButton.h">
+      <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -57,7 +90,7 @@
     <ClCompile Include="ClickFunc.cpp">
       <Filter>UI</Filter>
     </ClCompile>
-    <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="MyGameManager.cpp" />
     <ClCompile Include="UIButton.cpp">
       <Filter>UI</Filter>
     </ClCompile>
@@ -73,8 +106,35 @@
     <ClCompile Include="D3DBaseObj.cpp">
       <Filter>Obj</Filter>
     </ClCompile>
-    <ClCompile Include="IntroCutScene.cpp">
-      <Filter>Client\Scene</Filter>
+    <ClCompile Include="TutorialScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="LobbyScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogScene1.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogScene2.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogScene3.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="D2DBaseObj.cpp">
+      <Filter>Obj</Filter>
+    </ClCompile>
+    <ClCompile Include="D2DBitMapFontScript.cpp">
+      <Filter>Script</Filter>
+    </ClCompile>
+    <ClCompile Include="ClickNextBimapScript.cpp">
+      <Filter>Script</Filter>
+    </ClCompile>
+    <ClCompile Include="GambleButton.cpp">
+      <Filter>UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -86,9 +146,6 @@
     </Filter>
     <Filter Include="pch">
       <UniqueIdentifier>{79249e8d-63bf-45d5-8fe8-3efb6a3493f3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Client\Scene">
-      <UniqueIdentifier>{2b35123f-8814-4a6c-b931-6ebd42129bda}</UniqueIdentifier>
     </Filter>
     <Filter Include="UI">
       <UniqueIdentifier>{b8f0d884-cc04-4e24-8d31-dacbcce76e29}</UniqueIdentifier>
@@ -120,7 +177,7 @@
       <Filter>Client\Character</Filter>
     </ClInclude>
     <ClInclude Include="GambleScene.h">
-      <Filter>Client\Scene</Filter>
+      <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="Card.h">
       <Filter>Client\BlackJack</Filter>
@@ -149,7 +206,7 @@
       <Filter>Main</Filter>
     </ClCompile>
     <ClCompile Include="TestScene.cpp">
-      <Filter>Client\Scene</Filter>
+      <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="TestObj.cpp">
       <Filter>Obj\TestObj</Filter>
@@ -158,7 +215,7 @@
       <Filter>Obj\TestObj</Filter>
     </ClCompile>
     <ClCompile Include="GambleScene.cpp">
-      <Filter>Client\Scene</Filter>
+      <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="Button.cpp">
       <Filter>UI</Filter>

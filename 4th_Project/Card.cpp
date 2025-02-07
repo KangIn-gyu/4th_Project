@@ -30,7 +30,7 @@ void Card::Initialize()
 	CreateComponent<RenderComponent>();
 	CreateComponent<BoxCollider>();
 
-	//SetEffect(Object::Effect::OutLine);
+	SetEffect(Object::Effect::OutLine);
 	DXMath::Vector3 extent = GetComponent<ModelComponent>()->GetModel().get()->extent;
 	DXMath::Vector3 center = GetComponent<ModelComponent>()->GetModel().get()->center;
 	GetComponent<BoxCollider>()->SetBox(center, extent, GetComponent<TransformComponent>()->GetQuaternion());
@@ -184,8 +184,8 @@ void Card::OnMouse()
 
 void Card::OpenA()
 {
-	auto btn1 = SCENEMANAGER->GetCurrentScene()->ObjectCreator<Button>("Ato1", Object::ObjectType::Basic, DXMath::Vector3(0, -50, 0), []() {;});
-	auto btn2 = SCENEMANAGER->GetCurrentScene()->ObjectCreator<Button>("Ato2", Object::ObjectType::Basic, DXMath::Vector3(100, -50, 0), []() {;});
+	auto btn1 = SCENEMANAGER->GetCurrentScene()->CreatorObject<Button>("Ato1", Object::ObjectType::Basic, DXMath::Vector3(0, -50, 0), []() {;});
+	auto btn2 = SCENEMANAGER->GetCurrentScene()->CreatorObject<Button>("Ato2", Object::ObjectType::Basic, DXMath::Vector3(100, -50, 0), []() {;});
 	btn1->SetOnclick([this, btn1, btn2]() {this->AtoOne = true,
 		btn1->SetActive(false),
 		btn2->SetActive(false);});

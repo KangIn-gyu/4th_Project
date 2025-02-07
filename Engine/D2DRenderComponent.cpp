@@ -28,7 +28,7 @@ D2DRenderComponent::~D2DRenderComponent()
 
 void D2DRenderComponent::SceneCSVDataLoad(std::string_view _filePath)
 {
-	CSVdatas = CSVLOADER->FindData(_filePath);
+	CSVdatas = CSVLOADER->CSVLoad(_filePath);
 }
 
 void D2DRenderComponent::Load2DImage(std::string_view _filePath)

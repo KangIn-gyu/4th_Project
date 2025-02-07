@@ -27,7 +27,7 @@ void Object::ComponentsUpdate(const float _deltaTime)
 
     if (nullptr != script)
     {
-        script->ComponentUpdate(_deltaTime);
+        script->Update(_deltaTime);
     }
 }
 
