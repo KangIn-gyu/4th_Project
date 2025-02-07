@@ -1,7 +1,7 @@
 #pragma once
 #include "../Engine/Scene.h"
-
-class TutorialScene : public Scene
+#include "../Engine/DirectXInput.h" // 테스트용으로 만듬
+class TutorialScene : public Scene , public IinputProcesser
 {
 public:
 	TutorialScene(std::string_view _Name) : Scene(_Name) {}
@@ -12,6 +12,10 @@ public:
 	virtual void RateUpdate(const float _deltaTime)override {};
 
 private:
+	virtual void OnInputProcess(const DX::Keyboard::State& _KeyState,
+		const DX::Keyboard::KeyboardStateTracker& _KeyTracker,
+		const DX::Mouse::State& _MouseState,
+		const DX::Mouse::ButtonStateTracker& _MouseTracker);
 
 public:
 

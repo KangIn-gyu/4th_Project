@@ -32,7 +32,8 @@ public:
 	void SetFontPos(float _X, float _Y); // 위치 조정 로컬좌표일때 사용
 	void SetFontBoxSize(float _width, float _height);
 	void SetAlignment(D2DFont::Setting _SortX, D2DFont::Setting _SortY);
-	void SetTextSize(float _FontSize, DWRITE_TEXT_RANGE _textRange);
+	void SetTextSize(float _FontSize, DWRITE_TEXT_RANGE _textRange = {0, UINT32_MAX});
+	void SetLineSpacing(float _lineSpacing);
 
 	// 폰트맵과 비트맵 같이 처리함
 	void Draw();
@@ -46,7 +47,7 @@ public:
 
 private:
 	D2DFont* font{};
-	Bitmap* drawBitmap; // 메인 비트맵 처리
+	Bitmap* drawBitmap{}; // 메인 비트맵 처리
 
 	std::vector<Bitmap*> imageDatas; // 여러개의 비트맵을 들고 있는 비트맵
 	std::vector<std::pair<int, std::wstring>> CSVdatas;

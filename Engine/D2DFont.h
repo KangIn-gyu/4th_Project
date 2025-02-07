@@ -22,8 +22,9 @@ public:
 	void SetPos(float _X, float _Y) { pos = { _X , _Y }; } // 위치 조정 로컬좌표일때 사용
 	void SetBoxSize(float _width, float _height);
 	void SetTextFormat(IDWriteTextFormat* _Format);
-	void SetTextSize(float _fontSize, DWRITE_TEXT_RANGE _textRange);  // DWRITE_TEXT_RANGE 사용법 {0 , 9 } 이렇게 했을때 0부터 9번째 까지의 글자 크기를 변경
-
+	void SetTextSize(float _fontSize, DWRITE_TEXT_RANGE _textRange = { 0, UINT32_MAX });  // DWRITE_TEXT_RANGE 사용법 {0 , 9 } 이렇게 했을때 0부터 9번째 까지의 글자 크기를 변경
+	void SetLineSpacing(float _lineSpacing);
+	
 	void Alignment(Setting _SortX, Setting _SortY); // 왼쪽, 가운데, 오른쪽 정렬
 
 	D2D1_POINT_2F GetPos() { return pos; }
@@ -34,7 +35,7 @@ public:
 	void DrawTextBox();
 
 private:
-	void CreateLayoutText(std::wstring_view _detail);
+	void CreateLayoutText(const std::wstring& _detail);
 
 public:
 
