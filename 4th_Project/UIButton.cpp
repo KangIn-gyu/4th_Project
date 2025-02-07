@@ -10,7 +10,6 @@ UIButton::UIButton(std::string_view _name, Object::ObjectType _type, std::string
 {
 	clickFunc = _func;
 	imageFilepath = _filePath;
-	imagedata = CreateComponent<D2DRenderComponent>();
 }
 
 UIButton::UIButton(std::string_view _name, Object::ObjectType _type, std::string_view _filePath, DXMath::Vector2 _pos, std::function<void()> _func) :Object(_name, _type)
@@ -18,7 +17,6 @@ UIButton::UIButton(std::string_view _name, Object::ObjectType _type, std::string
 	pos = _pos;
 	clickFunc = _func;
 	imageFilepath = _filePath;
-	imagedata = CreateComponent<D2DRenderComponent>();
 }
 
 UIButton::~UIButton()
@@ -28,6 +26,7 @@ UIButton::~UIButton()
 void UIButton::Initialize()
 {
 	Object::Initialize();
+	imagedata = CreateComponent<D2DRenderComponent>();
 	imagedata->Load2DImage(imageFilepath);
 	//GetComponent<ButtonColider>()->SetBoundBox(0, 0, { imagedata->Get2DImageSize().x,imagedata->Get2DImageSize().y,0 });
 	imagedata->Set2DImagePos(pos.x, pos.y);

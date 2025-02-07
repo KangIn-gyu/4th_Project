@@ -46,6 +46,10 @@ void Layer::ResetInformation()
 	for (auto& obj : objects)
 	{ // TODO : 보류 사항 레이트업데이트 추후 만들어야 됨
 		obj->ResetInformation();
+		if (nullptr != obj->script)
+		{
+			obj->script->ResetInformation();
+		}
 	}
 }
 

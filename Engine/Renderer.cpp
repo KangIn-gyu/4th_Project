@@ -28,12 +28,15 @@ void Renderer::Initialize(WindowInfo* _windowInfo)
 {
 	D3DGraphics = std::make_unique<D3DClass>();
 	D3DGraphics->Initialize(_windowInfo);
+
+#ifdef IMGUIFLAG
 	IMGUI->Initialize(_windowInfo->hWnd, D3DGraphics->GetD3DDevice(), D3DGraphics->GetD3DDeviceContext());
+#endif
 
 	// 광원 설정
-	DXMath::Vector3 lightTarget = DXMath::Vector3(0.0f, 0.0f, 0.0f);
-	IMGUI->lightPos = DXMath::Vector3(200.0f, 200.0f, -200.0f);
-	IMGUI->lightDir = DXMath::Vector3(lightTarget - IMGUI->lightPos);
+	lightTarget = DXMath::Vector3(0.0f, 0.0f, 0.0f);
+	lightPos = DXMath::Vector3(200.0f, 200.0f, -200.0f);
+	lightDir = DXMath::Vector3(lightTarget - lightPos);
 
 	CreateOutlineStates();
 
@@ -70,7 +73,6 @@ void Renderer::Initialize(WindowInfo* _windowInfo)
 
 	AddSpotLight(test2);
 
-
 	D3DGraphics->CreateSamplerState(D3D11_FILTER_MIN_MAG_MIP_LINEAR, D3D11_TEXTURE_ADDRESS_WRAP, linearWrapSampler);
 	D3DGraphics->CreateSamplerState(D3D11_FILTER_MIN_MAG_MIP_POINT, D3D11_TEXTURE_ADDRESS_CLAMP, pointClampSampler);
 
@@ -83,12 +85,17 @@ void Renderer::Initialize(WindowInfo* _windowInfo)
 
 void Renderer::Update(float _deltaTime)
 {
+#ifdef IMGUIFLAG
 	IMGUI->Update(_deltaTime);
+#endif
 }
 
 void Renderer::Render()
 {
+	D3DGraphics->BeginDraw({ 0.0f , 0.0f , 0.0f , 1.0f });
+#ifdef IMGUIFLAG
 	D3DGraphics->BeginDraw(IMGUI->GetBackGroundColor());
+#endif
 	//m_skybox.Render(D3DClass::GetD3DDeviceContext().Get());
 
 	D3DDraw();
@@ -99,8 +106,10 @@ void Renderer::Render()
 	D2DGraphics->EndDraw();
 #endif
 
+#ifdef IMGUIFLAG
 	D3DGraphics->ExtractFinalImage();
 	IMGUI->Render();
+#endif
 	D3DGraphics->EndDraw();
 }
 
@@ -142,15 +151,16 @@ void Renderer::D3DDraw()
 
 	// 그림자 맵 렌더링
 	shadowRenderer.RenderShadow(d3dDeviceContext.Get(), CreateShadowMatrix(), work);
+
+#ifdef IMGUIFLAG
 	IMGUI->srv = shadowRenderer.GetShadowMapSRV();
+#endif
 	// 원래의 렌더링 상태로 복구
 
 	d3dDeviceContext->RSSetViewports(1, &originalViewport);
 	d3dDeviceContext->OMSetRenderTargets(1, &originalRTV, originalDSV);
 
 	//shadowRenderer.DebugShadowMap(device.Get(), d3dDeviceContext.Get());
-
-
 
 	d3dDeviceContext->PSSetShaderResources(24, 1, shadowRenderer.GetShadowMapSRV().GetAddressOf());
 
@@ -243,12 +253,11 @@ ComPtr<ID3D11ShaderResourceView> Renderer::GetImGuiImageTexture()
 DXMath::Matrix Renderer::CreateShadowMatrix()
 {
 	// 1. Light position은 이미 IMGUI에서 설정된 값 사용
-	DXMath::Vector3 lightPos = IMGUI->lightPos;
+
 
 	// 2. Light direction 계산 및 정규화
-	DXMath::Vector3 lightDir = IMGUI->lightDir;
 	lightDir.Normalize();
-	IMGUI->lightDir = lightDir;  // 정규화된 방향을 다시 저장
+
 
 	// 3. Look-At 행렬 생성
 	DXMath::Vector3 upVector = DXMath::Vector3(0.0f, 1.0f, 0.0f);

@@ -82,6 +82,9 @@
     <ClInclude Include="GambleButton.h">
       <Filter>UI</Filter>
     </ClInclude>
+    <ClInclude Include="D3DAniObj.h">
+      <Filter>Obj</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -135,6 +138,9 @@
     </ClCompile>
     <ClCompile Include="GambleButton.cpp">
       <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="D3DAniObj.cpp">
+      <Filter>Obj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
