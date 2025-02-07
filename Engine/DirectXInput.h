@@ -44,28 +44,10 @@ private:
 class IinputProcesser
 {
 public:
-	enum class State
-	{
-		Active,
-		Disable
-	};
-
 	IinputProcesser() { DXINPUT->InputProcesserAdd(this); }
 	virtual ~IinputProcesser()
 	{  
 		DXINPUT->RemoveInputProcesser(this);
-	}
-
-	void SetState(bool _flag)
-	{
-		if (true == _flag)
-		{
-			state = State::Active;
-		}
-		else
-		{
-			state = State::Disable;
-		}
 	}
 
 	virtual void OnInputProcess(const DX::Keyboard::State& _KeyState,
@@ -73,5 +55,4 @@ public:
 		const DX::Mouse::State& _MouseState,
 		const DX::Mouse::ButtonStateTracker& _MouseTracker) = 0;
 
-	State state = State::Disable;
 };
