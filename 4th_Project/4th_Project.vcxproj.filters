@@ -79,6 +79,9 @@
     <ClInclude Include="ClickNextBimapScript.h">
       <Filter>Script</Filter>
     </ClInclude>
+    <ClInclude Include="GambleButton.h">
+      <Filter>UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -129,6 +132,9 @@
     </ClCompile>
     <ClCompile Include="ClickNextBimapScript.cpp">
       <Filter>Script</Filter>
+    </ClCompile>
+    <ClCompile Include="GambleButton.cpp">
+      <Filter>UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

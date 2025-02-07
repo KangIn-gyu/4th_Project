@@ -12,6 +12,7 @@
 #include "BlackJack.h"
 #include "ClickFunc.h"
 #include "UIButton.h"
+#include "MyGameManager.h"
 
 GambleScene::GambleScene(std::string_view _Name) : Scene(_Name)
 {
@@ -24,15 +25,21 @@ void GambleScene::Enter()
 	
 	GetGameObject(Object::ObjectType::Camera)->GetComponent<TransformComponent>()->SetPosition({ -30.0f, 130.0f, -83.0f });
 	GetGameObject(Object::ObjectType::Camera)->GetComponent<TransformComponent>()->SetQuaternion(DXMath::Quaternion::Quaternion(0.3f, 0.171f, -0.059f, 0.93f));
-	BLACKJACK->dealer = CreatorObject<Dealer>("Dealer", Object::ObjectType::Basic); 
-	BLACKJACK->dealer->GetComponent<TransformComponent>()->SetPosition({ 500, -13.0f, 50.0f });
-	BLACKJACK->deck = CreatorObject<Deck>("Deck", Object::ObjectType::Basic);
+
+	BLACKJACK->dealer = ObjectCreator<Dealer>("Dealer", Object::ObjectType::Basic); 
+	BLACKJACK->dealer->GetComponent<TransformComponent>()->SetPosition({ 00, -13.0f, 50.0f });
+	BLACKJACK->deck = ObjectCreator<Deck>("Deck", Object::ObjectType::Basic);
 	BLACKJACK->deck->GetComponent<TransformComponent>()->SetPosition({ -60, 65, 0 });
-	BLACKJACK->trashDeck = CreatorObject<Deck>("Deck", Object::ObjectType::Basic,false);
+	BLACKJACK->trashDeck = ObjectCreator<Deck>("trashDeck", Object::ObjectType::Basic,false);
+
 	BLACKJACK->Setstage(1);
 	CreatorObject<TestObj>("Table", Object::ObjectType::Basic);
 
+
 	auto test = CreatorObject<TestObj2>("Map", Object::ObjectType::Basic);
+
+	//auto test = ObjectCreator<TestObj2>("Map", Object::ObjectType::Basic);
+
 	//test->GetComponent<TransformComponent>()->SetPosition({ 0, -10, 0 });
 	auto deck = GetGameObject(Object::ObjectType::Basic, "Deck");
 
@@ -42,7 +49,7 @@ void GambleScene::Enter()
 	CreatorObject<UIButton>("bu3", Object::ObjectType::UI, "STAGE1/UI/mybutton4.png", DXMath::Vector2(1100, 0), []() {ClickFunc::HitButton();});
 	CreatorObject<UIButton>("bu4", Object::ObjectType::UI, "STAGE1/UI/Stay.png", DXMath::Vector2(1500, 0), []() {ClickFunc::StayButton();});
 
-	//≈¨∏ØΩ√ Ω∫≈≥4∞≥ πˆ∆∞ √‚∑¬«“ πˆ∆∞
+	//ÌÅ¥Î¶≠Ïãú Ïä§ÌÇ¨4Í∞ú Î≤ÑÌäº Ï∂úÎ†•Ìï† Î≤ÑÌäº
 	CreatorObject<UIButton>("bu5", Object::ObjectType::UI, "STAGE1/UI/mybutton6.png", DXMath::Vector2(1800, 0), []() {ClickFunc::OnSetSkillBtn();});
 
 	CreatorObject<UIButton>("SKill1", Object::ObjectType::UI, "STAGE1/UI/mybutton7.png", DXMath::Vector2(500, 200), []() {ClickFunc::SetPlayerSkill(PLAYER, PSkill::fastEye);})->SetActive(false);
@@ -55,7 +62,9 @@ void GambleScene::Enter()
 
 void GambleScene::Update(const float _deltaTime)
 {
+	MYGAMEMANAGER->Update(_deltaTime);
 	__super::Update(_deltaTime);
-
+	
 	BLACKJACK->Update(_deltaTime);
+	
 }

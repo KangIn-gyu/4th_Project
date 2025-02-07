@@ -1,16 +1,24 @@
 #pragma once
 #include "../Engine/SingletonBase.h"
+#include "../Engine/DirectXInput.h"
 
 
-
-#define GAMEMANAGER BlackJack::GetInstance().get()
+#define MYGAMEMANAGER MyGameManager::GetInstance().get()
 class MyGameManager : public SingletonBase<MyGameManager>
 {
+	friend class SingletonBase<MyGameManager>;
+
 	MyGameManager() {};
 	virtual ~MyGameManager();
 	friend class SingletonBase<MyGameManager>;
 public:
+
 	void Update(float _deltaTime);
-	//∏”≥÷¡ˆ
+
+	void setSkillBtn(bool _state);
+	bool CheckClick();
+	//¬∏√ì¬≥√ñ√Å√∂
+	bool wasPressed = false;
+	bool isBtnOn = false;
 };
 

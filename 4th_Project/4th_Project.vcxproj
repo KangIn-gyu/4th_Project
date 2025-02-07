@@ -164,6 +164,7 @@
     <ClInclude Include="DialogScene2.h" />
     <ClInclude Include="DialogScene3.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="GambleButton.h" />
     <ClInclude Include="GambleScene.h" />
     <ClInclude Include="BlackJack.h" />
     <ClInclude Include="MyGameManager.h" />
@@ -195,9 +196,13 @@
     <ClCompile Include="D3DObjScript.cpp" />
     <ClCompile Include="Dealer.cpp" />
     <ClCompile Include="Deck.cpp" />
+
     <ClCompile Include="DialogScene1.cpp" />
     <ClCompile Include="DialogScene2.cpp" />
     <ClCompile Include="DialogScene3.cpp" />
+
+    <ClCompile Include="GambleButton.cpp" />
+
     <ClCompile Include="GambleScene.cpp" />
     <ClCompile Include="BlackJack.cpp" />
     <ClCompile Include="MyGameManager.cpp" />

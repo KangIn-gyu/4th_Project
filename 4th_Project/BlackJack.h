@@ -26,8 +26,9 @@ std::string stateToString(PlayerState _state);
 class BlackJack : public SingletonBase<BlackJack>
 {
 	friend class SingletonBase<BlackJack>;
-public:
 	BlackJack();
+public:
+	
 
 	void Setstage(int num);   //스테이지 숫자로 스테이지 설정?
 	
@@ -38,7 +39,7 @@ public:
 	void SetState(PlayerState _state) { nextState = _state; } //다음꺼 세팅해주고
 	void ChangeState() 
 	{
-		if (nextState != state && canChange ==true) //다음꺼 정한게 지금이랑다르면 스테이트 교체
+		if (nextState != state) //다음꺼 정한게 지금이랑다르면 스테이트 교체 
 		{
 			state = nextState;
 		}
@@ -62,7 +63,6 @@ public:
 	Deck* trashDeck;
 	Player* player;
 	Dealer* dealer;
-	//bool isThrow = false; //카드 버리기모드 
 	bool onDoubbleDown = false;
 	bool endBet = false;
 	bool canClick = false;
@@ -75,10 +75,7 @@ private:
 	PlayerState nextState;
 	bool firstTurn =true; //첫턴은 달라서
 	bool isRoundOver = true; //한 라운드가 끝날떄
-	bool canChange;
-	//bool isClicked = false;
-	//클릭전까지 게임돌아가는거 멈추기;
-	//앞면으로 한번에 뒤집고 3초? 뒤 다시 뒤집고 셔플
+	//bool canChange = true;
 	int betMoney;
 	 //배율   최종 = 베팅액 * 배율
 };

@@ -4,7 +4,7 @@
 #include "Layer.h"
 
 class Object;
-class Scene // ±â¹İ Å¬·¡½º ÀÌ°É »ó¼ÓÇØ¼­ º»ÀÎµéÀÌ ¿øÇÏ´Â ¾ÀÀ» ¸¸µé¸é µÊ
+class Scene // ê¸°ë°˜ í´ë˜ìŠ¤ ì´ê±¸ ìƒì†í•´ì„œ ë³¸ì¸ë“¤ì´ ì›í•˜ëŠ” ì”¬ì„ ë§Œë“¤ë©´ ë¨
 {
 public:
 	Scene(std::string_view _Name);
@@ -12,8 +12,9 @@ public:
 
 	void Initialize();
 	void ResetInformation();
-	virtual void Enter() {}; // ÇØ´ç ¾À¿¡¼­ ³»°¡ ¸¸µé ¿ÀºêÁ§Æ® ÃÊ±âÈ­ ÇÏ´Â °÷ Initialize º¸´Ù ¸ÕÀú ½ÃÀÛµÊÀ¸·Î ¿ÀºêÁ§Æ®¸¦ »ı¼ºÇÏ°í ÀÌÈÄ ¿ÀºêÁ§Æ®ÀÇ ÃÊ±âÈ­¸¦ ÇÑ´Ù
-	virtual void Update(const float _deltaTime); // »ç¿ëÇÒ¶§ ½´ÆÛ ²À ÇØ¾ßµÊ
+
+	virtual void Enter() {}; // í•´ë‹¹ ì”¬ì—ì„œ ë‚´ê°€ ë§Œë“¤ ì˜¤ë¸Œì íŠ¸ ì´ˆê¸°í™” í•˜ëŠ” ê³³ Initialize ë³´ë‹¤ ë¨¼ì € ì‹œì‘ë¨ìœ¼ë¡œ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•˜ê³  ì´í›„ ì˜¤ë¸Œì íŠ¸ì˜ ì´ˆê¸°í™”ë¥¼ í•œë‹¤
+	virtual void Update(const float _deltaTime); // ì‚¬ìš©í• ë•Œ ìŠˆí¼ ê¼­ í•´ì•¼ë¨
 	virtual void FixedUpdate(const float _deltaTime) {};
 	virtual void RateUpdate(const float _deltaTime) {};
 
@@ -24,7 +25,7 @@ public:
 	const std::string& GetName();
 	void EraseGameObject(Layer::Tag tag, Object* obj);
 	void SetActive(bool _Active);
-	std::vector<Layer*>& GetGameObecjts() { return gameObecjts; } // ImGui ¿ÀºêÁ§Æ® µ¥ÀÌÅÍ ³Ñ±â±â¿ë »ç¿ëÇÏÁö ¸¶½Ã¿À
+	std::vector<Layer*>& GetGameObecjts() { return gameObecjts; } // ImGui ì˜¤ë¸Œì íŠ¸ ë°ì´í„° ë„˜ê¸°ê¸°ìš© ì‚¬ìš©í•˜ì§€ ë§ˆì‹œì˜¤
 
 	Object* GetGameObject(Object::ObjectType _Type, std::string_view _name);
 	Object* GetGameObject(Object::ObjectType _Type, int _index = 0);
@@ -32,7 +33,7 @@ public:
 	std::vector<Layer*> NextSceneUseObjcet();
 private:
 	void CreateLayers();
-	void BasicObject(); // ±âº» Á¦°ø ¿ÀºêÁ§Æ®
+	void BasicObject(); // ê¸°ë³¸ ì œê³µ ì˜¤ë¸Œì íŠ¸
 
 public:
 
@@ -46,8 +47,8 @@ private:
 
 };
 
-// ÀÌ°É »ó¼ÓÇØ¼­ ¾ÀÀ» ¸¸µç ´ÙÀ½ ±×°É ·Îµå ÇÏ¸é µÈ´Ù.
-// ±âº» Á¦°ø ¿ÀºêÁ§Æ®´Â ¸ŞÀÎ Ä«¸Ş¶ó, ¶óÀÌÆ®¸¦ Á¦°ø.
+// ì´ê±¸ ìƒì†í•´ì„œ ì”¬ì„ ë§Œë“  ë‹¤ìŒ ê·¸ê±¸ ë¡œë“œ í•˜ë©´ ëœë‹¤.
+// ê¸°ë³¸ ì œê³µ ì˜¤ë¸Œì íŠ¸ëŠ” ë©”ì¸ ì¹´ë©”ë¼, ë¼ì´íŠ¸ë¥¼ ì œê³µ.
 
 template<succession_Object T, typename ... Arg>
 T* Scene::CreatorObject(std::string_view _name , Object::ObjectType _Type, Arg&& ... _arguments)
@@ -56,12 +57,12 @@ T* Scene::CreatorObject(std::string_view _name , Object::ObjectType _Type, Arg&&
 	{
 		auto object = FACTORYSYSTEM->ObjectCreator<T>(_name, _Type);
 		gameObecjts[static_cast<int>(_Type)]->AddGameObjcet(object);
-		return object; // »ı¼ºÇÑ °´Ã¼¸¦ ¹İÈ¯
+		return object; // ìƒì„±í•œ ê°ì²´ë¥¼ ë°˜í™˜
 	}
 	else
 	{
 		auto object = FACTORYSYSTEM->ObjectCreator<T>(_name, _Type, std::forward<Arg>(_arguments)...);
 		gameObecjts[static_cast<int>(_Type)]->AddGameObjcet(object);
-		return object; // »ı¼ºÇÑ °´Ã¼¸¦ ¹İÈ¯
+		return object; // ìƒì„±í•œ ê°ì²´ë¥¼ ë°˜í™˜
 	}
 }

@@ -5,6 +5,7 @@
 #include "../Engine/SceneManager.h"
 #include "../Engine/Scene.h"
 #include "UIButton.h"
+#include "MyGameManager.h"
 void ClickFunc::SelectCard()
 {
 	
@@ -32,16 +33,18 @@ void ClickFunc::DoubleDown()
 
 void ClickFunc::OnSetSkillBtn()
 {
-	SCENEMANAGER.get()->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "SKill1")->SetActive(true);
-	SCENEMANAGER.get()->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "SKill2")->SetActive(true);
-	SCENEMANAGER.get()->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "SKill3")->SetActive(true);
-	SCENEMANAGER.get()->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "SKill4")->SetActive(true);
+	if(MYGAMEMANAGER->isBtnOn == true)
+		MYGAMEMANAGER->isBtnOn = false;
+	else
+		MYGAMEMANAGER->isBtnOn = true;
+	
 }
 
 void ClickFunc::SetPlayerSkill(Player* player, PSkill _skill)
 {
 	player->SetSkill(_skill);
 	BLACKJACK->SetState(PlayerState::Skill);
+	MYGAMEMANAGER->isBtnOn = false;
 	SCENEMANAGER.get()->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "SKill1")->SetActive(false);
 	SCENEMANAGER.get()->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "SKill2")->SetActive(false);
 	SCENEMANAGER.get()->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "SKill3")->SetActive(false);

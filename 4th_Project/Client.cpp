@@ -5,7 +5,7 @@
 #include "Player.h"
 #include "BlackJack.h"
 
-#include "SceneHeaders.h" // ¾ÀÇì´õ ¸ðÀ½
+#include "SceneHeaders.h" // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 Client::Client(HINSTANCE _hInstance, std::string_view _GameName, int _screenWidth, int _screenHeight, bool _windoweMode) :
 	WindowApp(_hInstance, _GameName, _screenWidth, _screenHeight, _windoweMode)
@@ -28,8 +28,6 @@ void Client::Enter()
 //	SceneManager
 	BLACKJACK->player = PLAYER;
 
-
 	SCENEMANAGER->ChangeScene("TutorialScene");
-
 
 }
