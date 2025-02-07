@@ -29,8 +29,8 @@ void Client::Enter()
 //	SceneManager
 	BLACKJACK->player = PLAYER;
 
-	SCENEMANAGER->ChangeScene("GAMBLE");
-	ENGINE->CollectionGameManager(MYGAMEMANAGER);
+	//SCENEMANAGER->ChangeScene("GAMBLE");
+	//ENGINE->CollectionGameManager(MYGAMEMANAGER);
 	SOUNDSYSTEM->LoadMusic(eSoundList::Main_Theme, true, "Resource\\STAGE1\\Sounds\\dancer.mp3");
 	SOUNDSYSTEM->SetVolumeAll(0.5f);
 

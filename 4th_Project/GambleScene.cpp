@@ -19,6 +19,17 @@
 GambleScene::GambleScene(std::string_view _Name) : Scene(_Name)
 {
 	BLACKJACK->player = PLAYER;	
+	CreatorObject<UIButton>("Bet", Object::ObjectType::UI, "UI/Button/Bet.png", DXMath::Vector2(500, 50), []() {BLACKJACK->Bet();});
+	CreatorObject<GambleButton>("Open", Object::ObjectType::UI, DXMath::Vector2(800, 0), []() {ClickFunc::OpenButton();});
+	CreatorObject<GambleButton>("Hit", Object::ObjectType::UI, DXMath::Vector2(1100, 0), []() {ClickFunc::HitButton();});
+	CreatorObject<GambleButton>("Stay", Object::ObjectType::UI, DXMath::Vector2(1500, 0), []() {ClickFunc::StayButton();});
+
+	CreatorObject<GambleButton>("Skill", Object::ObjectType::UI, DXMath::Vector2(1800, 0), []() {ClickFunc::OnSetSkillBtn();});
+
+	CreatorObject<SkillButton>("Handfaster", Object::ObjectType::UI, DXMath::Vector2(500, 200), 3, []() {ClickFunc::SetPlayerSkill(PLAYER, PSkill::fastEye);})->SetActive(false);
+	CreatorObject<SkillButton>("Guts", Object::ObjectType::UI, DXMath::Vector2(800, 200), 1, []() {ClickFunc::SetPlayerSkill(PLAYER, PSkill::guts);})->SetActive(false);
+	CreatorObject<SkillButton>("Meditation", Object::ObjectType::UI, DXMath::Vector2(1100, 200), 2, []() {ClickFunc::SetPlayerSkill(PLAYER, PSkill::meditation);})->SetActive(false);
+	CreatorObject<SkillButton>("Insurance", Object::ObjectType::UI, DXMath::Vector2(1500, 200), 5, []() {ClickFunc::SetPlayerSkill(PLAYER, PSkill::Insurance);})->SetActive(false);
 }
 
 
@@ -40,18 +51,10 @@ void GambleScene::Enter()
 	auto test = CreatorObject<TestObj2>("Map", Object::ObjectType::Basic);
 	auto deck = GetGameObject(Object::ObjectType::Basic, "Deck");
 
-	CreatorObject<UIButton>("Bet", Object::ObjectType::UI, "UI/Button/Bet.png", DXMath::Vector2(500,50), []() {BLACKJACK->Bet();});
-	CreatorObject<GambleButton>("Open", Object::ObjectType::UI,DXMath::Vector2(800, 0), []() {ClickFunc::OpenButton();});
-	CreatorObject<GambleButton>("Hit", Object::ObjectType::UI,DXMath::Vector2(1100, 0), []() {ClickFunc::HitButton();});
-	CreatorObject<GambleButton>("Stay", Object::ObjectType::UI,DXMath::Vector2(1500, 0), []() {ClickFunc::StayButton();});
+	
 
 	//클릭시 스킬4개 버튼 출력할 버튼
-	CreatorObject<GambleButton>("Skill", Object::ObjectType::UI,DXMath::Vector2(1800, 0), []() {ClickFunc::OnSetSkillBtn();});
-
-	CreatorObject<SkillButton>("Handfaster", Object::ObjectType::UI, DXMath::Vector2(500, 200), 3,[]() {ClickFunc::SetPlayerSkill(PLAYER, PSkill::fastEye);})->SetActive(false);
-	CreatorObject<SkillButton>("Guts", Object::ObjectType::UI,  DXMath::Vector2(800, 200), 1,  [](){ClickFunc::SetPlayerSkill(PLAYER, PSkill::guts);})->SetActive(false);
-	CreatorObject<SkillButton>("Meditation", Object::ObjectType::UI, DXMath::Vector2(1100, 200), 2,[]() {ClickFunc::SetPlayerSkill(PLAYER, PSkill::meditation);})->SetActive(false);
-	CreatorObject<SkillButton>("Insurance", Object::ObjectType::UI,DXMath::Vector2(1500, 200), 5,[]() {ClickFunc::SetPlayerSkill(PLAYER, PSkill::Insurance);})->SetActive(false);
+	
 
 	CreatorObject<ToopTip2D>("Handfaster_ToolTip", Object::ObjectType::UI, DXMath::Vector2(50, 200))->SetActive(false);
 	CreatorObject<ToopTip2D>("Guts_ToolTip", Object::ObjectType::UI, DXMath::Vector2(50, 200))->SetActive(false);
