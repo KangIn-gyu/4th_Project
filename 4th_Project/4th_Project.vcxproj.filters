@@ -82,6 +82,9 @@
     <ClInclude Include="GambleButton.h">
       <Filter>UI</Filter>
     </ClInclude>
+    <ClInclude Include="D3DAniObj.h">
+      <Filter>Obj</Filter>
+    </ClInclude>
     <ClInclude Include="FadeEffectScript.h">
       <Filter>Script</Filter>
     </ClInclude>
@@ -138,6 +141,9 @@
     </ClCompile>
     <ClCompile Include="GambleButton.cpp">
       <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="D3DAniObj.cpp">
+      <Filter>Obj</Filter>
     </ClCompile>
     <ClCompile Include="FadeEffectScript.cpp">
       <Filter>Script</Filter>

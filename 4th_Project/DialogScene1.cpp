@@ -2,6 +2,7 @@
 #include "DialogScene1.h"
 #include "D2DBaseObj.h"
 #include "D2DBitMapFontScript.h" // 스크립트
+#include "../Engine/SoundSystem.h"
 void DialogScene1::Enter()
 {
 	std::vector<std::string> dialogScenebitmap = {
@@ -15,12 +16,19 @@ void DialogScene1::Enter()
     };
 
     // Font/DialogScene.ttf  // GyeonggiMillenniumBackground_Regular
-	auto* dialog = CreatorObject<D2DBaseObj>("Dialog", Object::ObjectType::UI, dialogScenebitmap,"Font/Bold.ttf", "DialogScene1/CSV/Scene0.csv", "TutorialScene");
+	auto* dialog = CreatorObject<D2DBaseObj>("Dialog", Object::ObjectType::UI, dialogScenebitmap,"Font/GyeonggiMillenniumBackground_Regular.ttf", "DialogScene1/CSV/Scene0.csv", "TutorialScene");
     dialog->CreateScript<D2DBitMapFontScript>();
-   
+    SOUNDSYSTEM->PlayMusic(eSoundList::Main_Theme, eSoundChannel::BGM);
 }
 
 void DialogScene1::Update(const float _deltaTime)
 {
     Scene::Update(_deltaTime);
+}
+
+void DialogScene1::ResetInformation()
+{
+    Scene::ResetInformation();
+    SOUNDSYSTEM->PlayMusic(eSoundList::Main_Theme, eSoundChannel::BGM);
+    static_cast<D2DBitMapFontScript*>(GetGameObject(Object::ObjectType::UI, "Dialog")->script)->SetState(true);
 }

@@ -153,6 +153,7 @@
     <ClInclude Include="Client.h" />
     <ClInclude Include="D2DBaseObj.h" />
     <ClInclude Include="D2DBitMapFontScript.h" />
+    <ClInclude Include="D3DAniObj.h" />
     <ClInclude Include="D3DBaseObj.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
@@ -190,6 +191,7 @@
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="D2DBaseObj.cpp" />
     <ClCompile Include="D2DBitMapFontScript.cpp" />
+    <ClCompile Include="D3DAniObj.cpp" />
     <ClCompile Include="D3DBaseObj.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
@@ -200,7 +202,6 @@
     <ClCompile Include="DialogScene1.cpp" />
     <ClCompile Include="DialogScene2.cpp" />
     <ClCompile Include="DialogScene3.cpp" />
-    <ClCompile Include="FadeEffectScript.cpp" />
     <ClCompile Include="GambleButton.cpp" />
     <ClCompile Include="GambleScene.cpp" />
     <ClCompile Include="BlackJack.cpp" />

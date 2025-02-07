@@ -131,3 +131,4 @@ void Scene::BasicObject()
 
 	// TODO : 라이트 추가 해야됨.
 }
+

@@ -13,5 +13,7 @@ public:
 
 protected:
 	Object* ownerObject; // 이걸 생성한 오브젝트가 주인이다.
+
+public:
 };
 

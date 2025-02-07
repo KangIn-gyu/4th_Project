@@ -5,6 +5,7 @@
 #include "../Engine/D2DRenderComponent.h"
 #include "../Engine/Helper.h"
 #include "../Engine/SceneManager.h"
+
 void D2DBitMapFontScript::ComponentSetting()
 {// 걍 하드 코딩 함
 	if (typeid(*ownerObject) == typeid(D2DBaseObj))
@@ -62,35 +63,36 @@ void D2DBitMapFontScript::ResetInformation()
 	index = 0;
 	displayedText = L"";
 	ownerD2D->SetDialog(displayedText);
-	state = State::Active;
-	
 }
 
 void D2DBitMapFontScript::OnInputProcess(const DX::Keyboard::State& _KeyState, const DX::Keyboard::KeyboardStateTracker& _KeyTracker, const DX::Mouse::State& _MouseState, const DX::Mouse::ButtonStateTracker& _MouseTracker)
 {
-	if (_MouseTracker.rightButton == DX::Mouse::ButtonStateTracker::PRESSED)
+	if (ownerObject->IsActive() == true)
 	{
-		if (index == csvData.size())
+		if (_MouseTracker.rightButton == DX::Mouse::ButtonStateTracker::PRESSED)
 		{
-			index = 0;
-			state = State::Disable;
-			SCENEMANAGER->ChangeScene(changeSceneName);
-		}
-
-		if (displayedText.length() < csvData[index].second.length())
-		{
-			isClicked = true;
-			ownerD2D->SetDialog(csvData[index].second);
-			displayedText = csvData[index].second;
-		}
-		else
-		{
-			index++;
-			if (index < csvData.size())
+			if (index == csvData.size())
 			{
-				int ChangeBitmapindex = csvData[index].first;
-				ownerD2D->ChangeBitmap(ChangeBitmapindex);
-				displayedText = L"";
+				index = 0;
+				state = State::Disable;
+				SCENEMANAGER->ChangeScene(changeSceneName);
+			}
+
+			if (displayedText.length() < csvData[index].second.length())
+			{
+				isClicked = true;
+				ownerD2D->SetDialog(csvData[index].second);
+				displayedText = csvData[index].second;
+			}
+			else
+			{
+				index++;
+				if (index < csvData.size())
+				{
+					int ChangeBitmapindex = csvData[index].first;
+					ownerD2D->ChangeBitmap(ChangeBitmapindex);
+					displayedText = L"";
+				}
 			}
 		}
 	}
