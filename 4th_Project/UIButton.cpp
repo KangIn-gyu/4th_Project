@@ -31,7 +31,6 @@ void UIButton::Initialize()
 	CreateComponent<BoxCollider>();
 	auto xy = imagedata->Get2DImageXY();
 	DXMath::Vector3 center = { pos.x + xy.x/2,  pos.y + xy.y/2,    0.f};
-	std::cout << imagedata->Get2DImageSize().x << " dawdawd" << imagedata->Get2DImageSize().y << std::endl;
 	DXMath::Vector3 extent = { xy.x / 2 ,xy.y / 2 , 0.1f };
 	GetComponent<BoxCollider>()->SetBox(center, extent, DXMath::Quaternion::Quaternion(0,0,0,1));
 }
