@@ -13,6 +13,7 @@
 #include "ResourceSystem.h"
 #include "CSVLoader.h"
 #include "BoxCollider.h"
+#include "FadeEffect.h"
 
 D2DRenderComponent::D2DRenderComponent()
 {
@@ -123,6 +124,10 @@ void D2DRenderComponent::Draw()
 #endif
 	if (drawBitmap != nullptr)
 	{
+		if (drawBitmap->fade != nullptr)
+		{
+			D2DClass::GetD2DDeviceContext()->DrawBitmap(drawBitmap->GetImageData(), drawBitmap->GetRect(), drawBitmap->fade->GetAlpha(), D2D1_BITMAP_INTERPOLATION_MODE_LINEAR);
+		}
 		D2DClass::GetD2DDeviceContext()->DrawBitmap(drawBitmap->GetImageData(), drawBitmap->GetRect(), 1.0f, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR);
 	}
 	if (font != nullptr)

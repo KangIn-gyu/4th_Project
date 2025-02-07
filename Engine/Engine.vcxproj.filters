@@ -423,6 +423,7 @@
       <Filter>3_Graphics\GraphicsData\Shadow</Filter>
     </ClInclude>
     <ClInclude Include="D2DLoader.h" />
+    <ClInclude Include="FadeEffect.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WindowApp.cpp">
@@ -639,6 +640,7 @@
       <Filter>3_Graphics\GraphicsData\Shadow</Filter>
     </ClCompile>
     <ClCompile Include="D2DLoader.cpp" />
+    <ClCompile Include="FadeEffect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd">

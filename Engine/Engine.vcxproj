@@ -170,6 +170,7 @@
     <ClInclude Include="CSVLoader.h" />
     <ClInclude Include="D2DClass.h" />
     <ClInclude Include="D2DLoader.h" />
+    <ClInclude Include="FadeEffect.h" />
     <ClInclude Include="ImageComponent.h" />
     <ClInclude Include="D2DFont.h" />
     <ClInclude Include="D2DRenderComponent.h" />
@@ -257,6 +258,7 @@
     <ClCompile Include="CSVLoader.cpp" />
     <ClCompile Include="D2DClass.cpp" />
     <ClCompile Include="D2DLoader.cpp" />
+    <ClCompile Include="FadeEffect.cpp" />
     <ClCompile Include="ImageComponent.cpp" />
     <ClCompile Include="D2DFont.cpp" />
     <ClCompile Include="D2DRenderComponent.cpp" />
