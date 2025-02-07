@@ -20,7 +20,7 @@ public:
 
 	void SetWindowSize(int _width, int _height);
 	void HierarchyCurrentSceneSetting(Scene* _currentScene);
-	DXMath::Color GetBankGroundColor() { return backgroundColor; }
+	DXMath::Color GetBackGroundColor() { return backgroundColor; }
 
 private:
 	void MenuBar();

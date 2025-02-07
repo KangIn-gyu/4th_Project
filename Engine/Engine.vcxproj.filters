@@ -417,6 +417,7 @@
       <Filter>3_Graphics\GraphicsData\Shadow</Filter>
     </ClInclude>
     <ClInclude Include="D2DLoader.h" />
+    <ClInclude Include="FadeEffect.h" />
     <ClInclude Include="GameManager.h">
       <Filter>1_Engine\GameManager</Filter>
     </ClInclude>
@@ -639,6 +640,7 @@
       <Filter>3_Graphics\GraphicsData\Shadow</Filter>
     </ClCompile>
     <ClCompile Include="D2DLoader.cpp" />
+    <ClCompile Include="FadeEffect.cpp" />
     <ClCompile Include="GameManager.cpp">
       <Filter>1_Engine\GameManager</Filter>
     </ClCompile>
