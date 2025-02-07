@@ -405,8 +405,6 @@
     <ClInclude Include="Object.h">
       <Filter>5_Object</Filter>
     </ClInclude>
-    <ClInclude Include="AABB.h" />
-    <ClInclude Include="ButtonColider.h" />
     <ClInclude Include="Script.h">
       <Filter>5_Object\Script</Filter>
     </ClInclude>
@@ -417,7 +415,6 @@
       <Filter>3_Graphics\GraphicsData\Shadow</Filter>
     </ClInclude>
     <ClInclude Include="D2DLoader.h" />
-    <ClInclude Include="FadeEffect.h" />
     <ClInclude Include="GameManager.h">
       <Filter>1_Engine\GameManager</Filter>
     </ClInclude>
@@ -628,8 +625,6 @@
       <Filter>4_Resources\ResourceData\Font</Filter>
     </ClCompile>
     <ClCompile Include="Component.cpp" />
-    <ClCompile Include="AABB.cpp" />
-    <ClCompile Include="ButtonColider.cpp" />
     <ClCompile Include="Script.cpp">
       <Filter>5_Object\Script</Filter>
     </ClCompile>
@@ -640,7 +635,6 @@
       <Filter>3_Graphics\GraphicsData\Shadow</Filter>
     </ClCompile>
     <ClCompile Include="D2DLoader.cpp" />
-    <ClCompile Include="FadeEffect.cpp" />
     <ClCompile Include="GameManager.cpp">
       <Filter>1_Engine\GameManager</Filter>
     </ClCompile>

@@ -2,8 +2,6 @@
 #include "GambleButton.h"
 
 #include "../Engine/D2DRenderComponent.h"
-#include "../Engine/TransformComponent.h"
-#include "../Engine/ButtonColider.h"
 #include "../Engine/BoxCollider.h"
 
 GambleButton::GambleButton(std::string_view _name, Object::ObjectType _type, std::string_view _filePath, std::function<void()> _func) :Object(_name, _type)
