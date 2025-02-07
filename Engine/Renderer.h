@@ -87,7 +87,6 @@ public:
 	ComPtr<ID3D11DepthStencilState> outlineMaskState;
 	ComPtr<ID3D11RasterizerState> outlineRasterizerState;
 	void CreateOutlineStates();
-	void UpdateConstantBuffer();
 
 	std::shared_ptr<Shader> outlineShader;
 

@@ -149,6 +149,7 @@ bool Player::meditation()
 
 bool Player::Insurance()
 {
+	
 	return true;
 }
 

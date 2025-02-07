@@ -6,7 +6,7 @@
 
 #ifndef PCH_H
 #define PCH_H
-#define USE_D2D // D2D를 사용하려면 활성화, 사용하지 않으려면 주석 처리
+//#define USE_D2D // D2D를 사용하려면 활성화, 사용하지 않으려면 주석 처리
 // 여기에 미리 컴파일하려는 헤더 추가
 #include "framework.h"
 

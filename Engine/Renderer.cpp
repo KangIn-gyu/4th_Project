@@ -31,9 +31,8 @@ void Renderer::Initialize(WindowInfo* _windowInfo)
 	IMGUI->Initialize(_windowInfo->hWnd, D3DGraphics->GetD3DDevice(), D3DGraphics->GetD3DDeviceContext());
 
 	// 광원 설정
-	DXMath::Vector3 lightTarget = DXMath::Vector3(0.0f, 0.0f, 0.0f);
-	IMGUI->lightPos = DXMath::Vector3(200.0f, 200.0f, -200.0f);
-	IMGUI->lightDir = DXMath::Vector3(lightTarget - IMGUI->lightPos);
+	IMGUI->lightPos = DXMath::Vector3(0.0f, 200.0f, 0.0f);  // 위치는 자유롭게 변경 가능
+	IMGUI->lightDir = DXMath::Vector3(0.0f, -1.0f, 0.1f);
 
 	CreateOutlineStates();
 
@@ -160,6 +159,27 @@ void Renderer::D3DDraw()
 	d3dDeviceContext->VSSetConstantBuffers(2, 1, cameraBuffer.GetBuffer().GetAddressOf());
 	d3dDeviceContext->PSSetConstantBuffers(2, 1, cameraBuffer.GetBuffer().GetAddressOf());
 
+	// 상수버퍼 설정 (렌더 오브젝트 제외)
+	CameraBuffer cameraData;
+	cameraData.eyePosition = CameraObject::g_MainCameraObject->GetComponent<TransformComponent>()->GetPosition();
+	cameraData.lightDirection = IMGUI->lightDir;
+
+	ProductBuffer productData;
+	productData.totalTime = TIMESYSTEM->GetTotalTime();
+
+	d3dDeviceContext->PSSetConstantBuffers(5, 1, productBuffer.GetBuffer().GetAddressOf());
+
+	//LightConstantBuffer cameraData;		// 다중 빛 CB (폐기)
+	//DXMath::Vector3 eyePos = CameraObject::g_MainCameraObject->GetComponent<TransformComponent>()->GetPosition();
+	//cameraData.eyePosition = DXMath::Vector4(eyePos.x, eyePos.y, eyePos.z, 1.0f);
+	d3dDeviceContext->UpdateSubresource(cameraBuffer.GetBuffer().Get(), 0, nullptr, &cameraData, 0, 0);
+	d3dDeviceContext->UpdateSubresource(productBuffer.GetBuffer().Get(), 0, nullptr, &productData, 0, 0);
+
+	// 임시
+	d3dDeviceContext->PSSetConstantBuffers(6, 1, lightBuffer.GetBuffer().GetAddressOf());
+
+	UpdateSpotLights();
+
 	// 1. 먼저 마스크 패스
 	for (auto& renderComponent : work)
 	{
@@ -200,7 +220,8 @@ void Renderer::D2DDraw()
 {
 	for (auto& D2DrenderComponent : D2Dwork)
 	{
-		D2DrenderComponent->Draw();
+		if (true == D2DrenderComponent->GetActive())
+			D2DrenderComponent->Draw();
 	}
 }
 
@@ -259,7 +280,7 @@ DXMath::Matrix Renderer::CreateShadowMatrix()
 	// (이상적으로는 이 값들도 IMGUI에서 조정 가능하게 만들면 좋습니다)
 	float orthoSize = 1000.0f;        // IMGUI로 조정 가능하게 수정 권장
 	float nearPlane = 0.1f;          // IMGUI로 조정 가능하게 수정 권장
-	float farPlane = 10000.0f;         // IMGUI로 조정 가능하게 수정 권장
+	float farPlane = 1000.0f;         // IMGUI로 조정 가능하게 수정 권장
 
 	DXMath::Matrix lightProj = DXMath::Matrix::CreateOrthographic(
 		orthoSize,

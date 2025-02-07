@@ -23,8 +23,8 @@ GambleScene::GambleScene(std::string_view _Name) : Scene(_Name)
 void GambleScene::Enter()
 {
 	
-	GetGameObject(Object::ObjectType::Camera)->GetComponent<TransformComponent>()->SetPosition({ -30.0f, 130.0f, -83.0f });
-	GetGameObject(Object::ObjectType::Camera)->GetComponent<TransformComponent>()->SetQuaternion(DXMath::Quaternion::Quaternion(0.3f, 0.171f, -0.059f, 0.93f));
+	//GetGameObject(Object::ObjectType::Camera)->GetComponent<TransformComponent>()->SetPosition({ -30.0f, 130.0f, -83.0f });
+	//GetGameObject(Object::ObjectType::Camera)->GetComponent<TransformComponent>()->SetQuaternion(DXMath::Quaternion::Quaternion(0.3f, 0.171f, -0.059f, 0.93f));
 
 	BLACKJACK->dealer = CreatorObject<Dealer>("Dealer", Object::ObjectType::Basic);
 	BLACKJACK->dealer->GetComponent<TransformComponent>()->SetPosition({ 00, -13.0f, 50.0f });
@@ -36,7 +36,7 @@ void GambleScene::Enter()
 	CreatorObject<TestObj>("Table", Object::ObjectType::Basic);
 
 
-	auto test = CreatorObject<TestObj2>("Map", Object::ObjectType::Basic);
+	auto test = CreatorObject<TestObj2>("Map", Object::ObjectType::Background);
 
 	//auto test = ObjectCreator<TestObj2>("Map", Object::ObjectType::Basic);
 

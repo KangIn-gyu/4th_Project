@@ -147,6 +147,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Button.h" />
+    <ClInclude Include="CardRotation.h" />
     <ClInclude Include="ClickFunc.h" />
     <ClInclude Include="Card.h" />
     <ClInclude Include="ClickNextBimapScript.h" />
@@ -183,6 +184,7 @@
   <ItemGroup>
     <ClCompile Include="4th_Project.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="CardRotation.cpp" />
     <ClCompile Include="ClickFunc.cpp" />
     <ClCompile Include="Card.cpp" />
     <ClCompile Include="ClickNextBimapScript.cpp" />
@@ -196,13 +198,10 @@
     <ClCompile Include="D3DObjScript.cpp" />
     <ClCompile Include="Dealer.cpp" />
     <ClCompile Include="Deck.cpp" />
-
     <ClCompile Include="DialogScene1.cpp" />
     <ClCompile Include="DialogScene2.cpp" />
     <ClCompile Include="DialogScene3.cpp" />
-
     <ClCompile Include="GambleButton.cpp" />
-
     <ClCompile Include="GambleScene.cpp" />
     <ClCompile Include="BlackJack.cpp" />
     <ClCompile Include="MyGameManager.cpp" />
