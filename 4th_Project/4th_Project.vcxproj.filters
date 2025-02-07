@@ -24,7 +24,7 @@
     <ClInclude Include="ClickFunc.h">
       <Filter>UI</Filter>
     </ClInclude>
-    <ClInclude Include="GameManager.h" />
+    <ClInclude Include="MyGameManager.h" />
     <ClInclude Include="UIButton.h">
       <Filter>UI</Filter>
     </ClInclude>
@@ -49,6 +49,9 @@
     <ClInclude Include="TestScene.h">
       <Filter>Client\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="GambleButton.h">
+      <Filter>UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -57,7 +60,7 @@
     <ClCompile Include="ClickFunc.cpp">
       <Filter>UI</Filter>
     </ClCompile>
-    <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="MyGameManager.cpp" />
     <ClCompile Include="UIButton.cpp">
       <Filter>UI</Filter>
     </ClCompile>
@@ -75,6 +78,9 @@
     </ClCompile>
     <ClCompile Include="IntroCutScene.cpp">
       <Filter>Client\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="GambleButton.cpp">
+      <Filter>UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

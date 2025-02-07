@@ -158,9 +158,10 @@
     <ClInclude Include="Dealer.h" />
     <ClInclude Include="Deck.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="GambleButton.h" />
     <ClInclude Include="GambleScene.h" />
     <ClInclude Include="BlackJack.h" />
-    <ClInclude Include="GameManager.h" />
+    <ClInclude Include="MyGameManager.h" />
     <ClInclude Include="Hand.h" />
     <ClInclude Include="IntroCutScene.h" />
     <ClInclude Include="pch.h" />
@@ -183,9 +184,10 @@
     <ClCompile Include="D3DObjScript.cpp" />
     <ClCompile Include="Dealer.cpp" />
     <ClCompile Include="Deck.cpp" />
+    <ClCompile Include="GambleButton.cpp" />
     <ClCompile Include="GambleScene.cpp" />
     <ClCompile Include="BlackJack.cpp" />
-    <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="MyGameManager.cpp" />
     <ClCompile Include="Hand.cpp" />
     <ClCompile Include="IntroCutScene.cpp" />
     <ClCompile Include="pch.cpp">

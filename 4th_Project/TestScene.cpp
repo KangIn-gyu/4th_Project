@@ -30,6 +30,6 @@ void TestScene::Enter()
 	//ObjectCreator<TestObj>("IngameMods", Object::ObjectType::Basic);
 	ObjectCreator<Button>("Button", Object::ObjectType::Basic, DXMath::Vector3(-200,0,0), []() {SCENEMANAGER->ChangeScene("GAMBLE");});
 	ObjectCreator<UIButton>("bu", Object::ObjectType::UI, "STAGE1/UI/mybutton2.png", []() {SCENEMANAGER->ChangeScene("GAMBLE");});
-	ObjectCreator<TestObj>("Font", Object::ObjectType::UI);
+	//ObjectCreator<TestObj>("Font", Object::ObjectType::UI);
 }
 

@@ -133,8 +133,6 @@ void BlackJack::Update(float _deltaTime)
 				if (dealer->finishFirst == true)
 				{
 					firstTurn = false;
-					player->turnEnd = false;
-					//canClick = true;
 				}
 
 			}
