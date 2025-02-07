@@ -86,6 +86,7 @@ private:
 	void ClearComponents();
 
 public:
+	Script* script = nullptr; // 용도 : 여기다 생성된 오브젝트의 컴포넌트의 설정값을 넣는 곳이다 벡터로 담는 형식이 정식이지만 그냥 한개로 제한을 함.
 
 protected:
 	int layerOrder{}; // 2D일때 그리는 순서 정하게 할 경우
@@ -97,7 +98,7 @@ private:
 	ObjectType type;
 	Effect effect = Effect::None;
 	std::unordered_map<std::type_index, std::vector<Component*>> components;
-	Script* script = nullptr; // 용도 : 여기다 생성된 오브젝트의 컴포넌트의 설정값을 넣는 곳이다 벡터로 담는 형식이 정식이지만 그냥 한개로 제한을 함.
+	
 };
 
 template <typename T, typename... Args>

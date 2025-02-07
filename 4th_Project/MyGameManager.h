@@ -12,13 +12,12 @@ class MyGameManager : public SingletonBase<MyGameManager>
 	virtual ~MyGameManager();
 	friend class SingletonBase<MyGameManager>;
 public:
-	
 
 	void Update(float _deltaTime);
 
 	void setSkillBtn(bool _state);
 	bool CheckClick();
-	//¸Ó³ÖÁö
+	//Â¸Ã“Â³Ã–ÃÃ¶
 	bool wasPressed = false;
 	bool isBtnOn = false;
 };

@@ -184,8 +184,8 @@ void Card::OnMouse()
 
 void Card::OpenA()
 {
-	auto btn1 = SCENEMANAGER->GetCurrentScene()->ObjectCreator<Button>("Ato1", Object::ObjectType::Basic, DXMath::Vector3(0, -50, 0), []() {;});
-	auto btn2 = SCENEMANAGER->GetCurrentScene()->ObjectCreator<Button>("Ato2", Object::ObjectType::Basic, DXMath::Vector3(100, -50, 0), []() {;});
+	auto btn1 = SCENEMANAGER->GetCurrentScene()->CreatorObject<Button>("Ato1", Object::ObjectType::Basic, DXMath::Vector3(0, -50, 0), []() {;});
+	auto btn2 = SCENEMANAGER->GetCurrentScene()->CreatorObject<Button>("Ato2", Object::ObjectType::Basic, DXMath::Vector3(100, -50, 0), []() {;});
 	btn1->SetOnclick([this, btn1, btn2]() {this->AtoOne = true,
 		btn1->SetActive(false),
 		btn2->SetActive(false);});

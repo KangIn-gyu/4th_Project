@@ -9,6 +9,7 @@ class DirectXInput;
 class Renderer;
 class TimeSystem;
 class SceneManager;
+class GameManager;
 class Engine : public SingletonBase<Engine>
 {
 	friend class SingletonBase<Engine>;
@@ -22,11 +23,11 @@ public:
 
 	void SetWindowSize(int _width, int _height);
 	DXMath::Vector2 GetWindowSize();
-	void ChangeScene(std::string_view _SceneName); // TODO : 이거 왜 만들었지 기억이 안남
 
+	void CollectionGameManager(GameManager* _gameManager);
 private:
 	Engine() = default;
-	~Engine() = default;
+	~Engine();
 	Engine(const Engine& _engine) = delete;
 	Engine(Engine&& _engine) noexcept = delete;
 
@@ -39,6 +40,8 @@ public:
 
 private:
 	WindowApp* clientApp {}; // 더블 프리 때문에 원시 포인터로 처리함
+	GameManager* clientGameManager{};
+
 	std::shared_ptr<Renderer> graphicsSystem {};
 	std::shared_ptr<DirectXInput> inputSystem {};
 	std::shared_ptr<TimeSystem> timeSystem{};
