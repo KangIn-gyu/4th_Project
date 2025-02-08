@@ -105,7 +105,7 @@ void CardRotation::RotateCards(std::vector<Card*>& cards)
 				// 현재 카드를 비활성화하고 덱으로 이동
 				slots[i].isActive = false;
 				if (slots[i].card) {
-					float rotat = -90.0f;
+					float rotat = 90.0f;
 					float eulerAngle = DirectX::XMConvertToRadians(rotat);
 					auto transform = slots[i].card->GetComponent<TransformComponent>();
 					if (transform) {
@@ -190,11 +190,12 @@ void CardRotation::UpdateCardPositions(float t)
 
 		// 카드의 기본 90도 x축 회전 유지
 		float pitch = DirectX::XMConvertToRadians(90.0f);
+		float roll = DirectX::XMConvertToRadians(180.0f);
 		// 중심을 향하는 y축 회전 계산
 		float yaw = atan2(toCenter.x, toCenter.z);
 
 		// 최종 회전 쿼터니언 생성
-		DXMath::Quaternion rotation = DXMath::Quaternion::CreateFromYawPitchRoll(yaw, pitch, 0.0f);
+		DXMath::Quaternion rotation = DXMath::Quaternion::CreateFromYawPitchRoll(yaw, pitch, roll);
 		transform->SetQuaternion(rotation);
     }
 }

@@ -94,7 +94,6 @@ int Dealer::GetScore()
 void Dealer::Act()
 {
 	//pattern(); 한번쓰고나면 다른패턴 담아둬야함
-	
 }
 
 void Dealer::OnClick()
@@ -124,14 +123,16 @@ void Dealer::OpenOne(float _deltaTime)
 
 void Dealer::Reverse()
 {
-	//int max = BLACKJACK->player->hand.maxHand;
-	//std::random_device rd;
-	//std::mt19937 gen(rd);
-	//std::uniform_int_distribution<int> distrib(1, max);
-	//
-	//int randomSlot = distrib(gen);
-	//
-	//playerSlots[randomSlot];
+	int max = BLACKJACK->player->hand.maxHand - 1;
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<int> distrib(0, max);
+	
+	int randomSlot = distrib(gen);
+	if (BLACKJACK->player->hand.hand[randomSlot] != nullptr && BLACKJACK->player->hand.hand[randomSlot]->isOpen == true)
+	{
+		BLACKJACK->player->hand.hand[randomSlot]->Reverse();
+	}
 }
 
 
