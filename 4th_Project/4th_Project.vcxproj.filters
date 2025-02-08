@@ -83,6 +83,17 @@
       <Filter>UI</Filter>
     </ClInclude>
     <ClInclude Include="CardRotation.h">
+    </ClInclude>
+    <ClInclude Include="SkillButton.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="ToopTip2D.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="D3DAniObj.h">
+      <Filter>Obj</Filter>
+    </ClInclude>
+    <ClInclude Include="FadeEffectScript.h">
       <Filter>Script</Filter>
     </ClInclude>
   </ItemGroup>
@@ -140,6 +151,17 @@
       <Filter>UI</Filter>
     </ClCompile>
     <ClCompile Include="CardRotation.cpp">
+     </ClCompile>
+    <ClCompile Include="SkillButton.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="ToopTip2D.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="D3DAniObj.cpp">
+      <Filter>Obj</Filter>
+    </ClCompile>
+    <ClCompile Include="FadeEffectScript.cpp">
       <Filter>Script</Filter>
     </ClCompile>
   </ItemGroup>

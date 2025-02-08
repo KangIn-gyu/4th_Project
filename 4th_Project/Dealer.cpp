@@ -75,7 +75,7 @@ void Dealer::CardDraw(Deck* _deck)
 		else
 		{
 			Card* card = hand.cardDraw((_deck->DrawCard(true)),{ dealerSlots.x + hand.numCard() * 5.0f, dealerSlots.y + hand.numCard() * 0.1f, dealerSlots.z},true);
-			card->Open();
+			card->MoveOpen();
 		}
 		elapsedTime = 0;
 	}
@@ -102,6 +102,11 @@ void Dealer::OnClick()
 
 void Dealer::OnMouse()
 {
+	
+}
+
+void Dealer::ExitMouse()
+{
 }
 
 void Dealer::OpenOne(float _deltaTime)
@@ -109,7 +114,7 @@ void Dealer::OpenOne(float _deltaTime)
 	//1초뒤에 뒤집어야 하나 
 	if (!finishFirst)
 	{
-		hand.hand.back()->Open();
+		hand.hand.back()->MoveOpen();
 	}
 	finishFirst = true;
 }

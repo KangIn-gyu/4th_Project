@@ -1,0 +1,104 @@
+#include "pch.h"
+#include "SkillButton.h"
+#include "../Engine/D2DRenderComponent.h"
+#include "../Engine/TransformComponent.h"
+#include "../Engine/BoxCollider.h"
+#include "BlackJack.h"
+#include "../Engine/TimeSystem.h"
+#include "../Engine/SceneManager.h"
+SkillButton::SkillButton(std::string_view _name, Object::ObjectType _type, DXMath::Vector2 _pos, int _cost,std::function<void()> _func) :Object(_name, _type)
+{
+	pos = _pos;
+	clickFunc = _func;
+	imageFilepath = _name;
+	imagedata = CreateComponent<D2DRenderComponent>();
+
+	cost = _cost;
+	
+}
+
+SkillButton::~SkillButton()
+{
+}
+
+void SkillButton::Initialize()
+{
+	Object::Initialize();
+	imagedata->Load2DImage("UI/Button/" + GetName() + ".png"); //0 기본
+	imagedata->Load2DImage("UI/Button/" + GetName() + "_On.png");     //1  //꺼진상태 or 블링크
+	imagedata->Load2DImage("UI/Button/" + GetName() + "_Toggle.png"); //2  // 마우스올린상태
+	imagedata->Set2DImagePos(pos.x, pos.y);  // "UI/Button/" +Getname() + ".png" or + "_Toggle.png"
+	CreateComponent<BoxCollider>();
+	auto xy = imagedata->Get2DImageXY();
+	DXMath::Vector3 center = { pos.x + xy.x / 2,  pos.y + xy.y / 2, 0.f };
+	DXMath::Vector3 extent = { xy.x / 2 ,xy.y / 2 , 0.1f };
+	GetComponent<BoxCollider>()->SetBox(center, extent, DXMath::Quaternion::Quaternion(0, 0, 0, 1));
+}
+
+void SkillButton::Update(const float _deltaTime)
+{
+	Object::Update(_deltaTime);
+	if (PLAYER->skillPoint >= cost) //
+		ChangeState(gbState::On);
+	else
+		ChangeState(gbState::Off);
+	ChangeBit();
+
+
+}
+
+
+void SkillButton::ChangeBit()
+{
+	curState = nextState;
+	switch (curState)
+	{
+	case gbState::On:
+		imagedata->ChangeBitmap(0);
+		break;
+	case gbState::Off:
+		imagedata->ChangeBitmap(1);
+		break;
+	case gbState::Toggle:
+		imagedata->ChangeBitmap(2);
+		break;
+	default:
+		imagedata->ChangeBitmap(0);
+		break;
+	}
+}
+
+void SkillButton::ChangeState(gbState _state)
+{
+	if (_state != nextState)
+		nextState = _state;
+}
+
+void SkillButton::OnClick()
+{
+	
+	if (curState == gbState::On)
+	{
+		PLAYER->skillPoint -= cost;
+		clickFunc();
+	}
+}
+
+void SkillButton::OnMouse()
+{
+	if (nextState != gbState::On || curState != gbState::On) // //툴팁출력*****
+		ChangeState(gbState::Toggle);
+
+	//툴팁찾아서 출력
+	SCENEMANAGER.get()->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, GetName() + "_ToolTip")->SetActive(true);
+}
+
+void SkillButton::ExitMouse()
+{
+
+	if (nextState != gbState::On)                       
+		ChangeState(gbState::Off);
+
+	SCENEMANAGER.get()->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, GetName() + "_ToolTip")->SetActive(false);
+}
+

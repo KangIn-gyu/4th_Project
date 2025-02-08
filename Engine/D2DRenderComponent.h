@@ -2,6 +2,8 @@
 #include "Component.h"
 #include "d2d1.h"
 #include <dwrite.h>
+
+#include "Bitmap.h"
 #include "D2DFont.h"
 
 class Bitmap;
@@ -16,14 +18,19 @@ public:
 	virtual void ComponentUpdate(const float _deltaTime)override {};
 
 	// 비트맵 함수
-	void Load2DImage(std::string_view _filePath);
-	void Set2DImageSize(float _width, float _height);
-	D2D_VECTOR_2F Get2DImageSize();
-	void Set2DImagePos(float _x, float _y);
-	D2D_VECTOR_2F Get2DImagePos();
+	void			Load2DImage(std::string_view _filePath);
+	void			Set2DImageSize(float _width, float _height);
+	D2D_VECTOR_2F	Get2DImageSize();
+
+	void			SetAlpha(float _alpha) { drawBitmap->SetAlpha(_alpha); }
+	float			GetAlpha() { return drawBitmap->GetAlpha(); };
+
 	DXMath::Vector2 Get2DImageXY();
-	void ChangeBitmap(int _index);
-	Bitmap* GetBitmap(int _index);
+	D2D_VECTOR_2F	Get2DImagePos();
+	void			Set2DImagePos(float _x, float _y);
+
+	void  			ChangeBitmap(int _index);
+	Bitmap*			GetBitmap(int _index);
 
 	// 폰트 관련 함수들 데이터 조정
 	void LoadFont(const std::string& _filePath);
@@ -32,7 +39,8 @@ public:
 	void SetFontPos(float _X, float _Y); // 위치 조정 로컬좌표일때 사용
 	void SetFontBoxSize(float _width, float _height);
 	void SetAlignment(D2DFont::Setting _SortX, D2DFont::Setting _SortY);
-	void SetTextSize(float _FontSize, DWRITE_TEXT_RANGE _textRange);
+	void SetTextSize(float _FontSize, DWRITE_TEXT_RANGE _textRange = {0, UINT32_MAX});
+	void SetLineSpacing(float _lineSpacing);
 
 	// 폰트맵과 비트맵 같이 처리함
 	void Draw();
@@ -46,7 +54,7 @@ public:
 
 private:
 	D2DFont* font{};
-	Bitmap* drawBitmap; // 메인 비트맵 처리
+	Bitmap* drawBitmap{}; // 메인 비트맵 처리
 
 	std::vector<Bitmap*> imageDatas; // 여러개의 비트맵을 들고 있는 비트맵
 	std::vector<std::pair<int, std::wstring>> CSVdatas;

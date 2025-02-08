@@ -27,6 +27,7 @@ void ClickNextBimapScript::ResetInformation()
 {
 	index = 0;
 	ownerD2D->ChangeBitmap(index);
+	state = State::Active;
 }
 
 void ClickNextBimapScript::OnInputProcess(const DX::Keyboard::State& _KeyState, const DX::Keyboard::KeyboardStateTracker& _KeyTracker, const DX::Mouse::State& _MouseState, const DX::Mouse::ButtonStateTracker& _MouseTracker)

@@ -41,7 +41,7 @@ void Player::FirstDraw(Deck* _deck)
 		drawFirst = true;
 }
 
-void Player::CardDraw(Deck* _deck)
+bool Player::CardDraw(Deck* _deck)
 {
 	if (hand.numCard() >= 7)
 	{
@@ -50,14 +50,14 @@ void Player::CardDraw(Deck* _deck)
 	else
 	{
 		needDiscard = false;
-		auto card = hand.cardDraw((_deck->DrawCard(false)));
-		card->Open();
+		auto card = hand.cardDraw((_deck->DrawCard(false))); //카드 이동이랑 뒤집기 연출 맞추기*****
+		card->MoveOpen();
 		if (card->rank == "A")
 			card->OpenA();
 		isDrawOne = true;
-		turnEnd = true;
+		return true;
 	}
-
+	return false;
 }
 
 
@@ -111,7 +111,7 @@ void Player::SetSkill(PSkill _skill)
 
 bool Player::fastEye()
 {
-	selectCard = hand.hand[0];
+	//selectCard = hand.hand[0];
 	if (selectCard != nullptr)  //카드 선택 완료했으면
 	{
 		if (true == selectCard->RevereseSec(3.0f))
@@ -132,6 +132,7 @@ bool Player::fastEye()
 			}
 		}
 	}
+
 	return false;
 }
 

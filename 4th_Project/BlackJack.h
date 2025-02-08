@@ -16,7 +16,7 @@ enum class Turn
 };
 enum class PlayerState   //플레이어 행동상태 
 {
-	OPEN,
+	OPEN,    //기본시작은 open
 	HIT,
 	STAY,
 	Skill,    //
@@ -67,13 +67,13 @@ public:
 	bool endBet = false;
 	bool canClick = false;
 	int magnification = 1;
-
+	bool firstTurn = true; //첫턴은 달라서
 private:
 	float elapsedTime =0;
 	Turn curTurn = Turn::player;
 	PlayerState state = PlayerState::OPEN;
 	PlayerState nextState;
-	bool firstTurn =true; //첫턴은 달라서
+	
 	bool isRoundOver = true; //한 라운드가 끝날떄
 	//bool canChange = true;
 	int betMoney;

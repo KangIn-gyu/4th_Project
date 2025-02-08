@@ -1,11 +1,14 @@
 #include "pch.h"
 #include "TutorialScene.h"
 #include "D2DBaseObj.h"
-#include "ClickNextBimapScript.h"
 
 #include "../Engine/SceneManager.h"
-#include "UIButton.h"
 
+#include "ClickNextBimapScript.h"
+#include "FadeEffectScript.h"
+
+#include "UIButton.h"
+#include "../Engine/SoundSystem.h"
 void TutorialScene::Enter()
 {
     std::vector<std::string> bitmapFilePaths;
@@ -16,12 +19,27 @@ void TutorialScene::Enter()
     }
 	auto* tutorialBitmap = CreatorObject<D2DBaseObj>("tutorial", Object::ObjectType::UI, bitmapFilePaths);
     tutorialBitmap->CreateScript<ClickNextBimapScript>();
+    SOUNDSYSTEM->StopMusic(eSoundChannel::BGM);
 
+    //static_cast<FadeEffectScript*>(test->script)->StartFadeOut();
     // 신아 / 세환 오면 버튼 물어보기
-//    CreatorObject<UIButton>("Skip", Object::ObjectType::UI,"TutorialScene/UI/UI 43_Skip.png", DXMath::Vector2(0, 0),[]() {SCENEMANAGER->ChangeScene("GAMBLE");});
+    CreatorObject<UIButton>("Skip", Object::ObjectType::UI,"TutorialScene/UI/UI 43_Skip.png", DXMath::Vector2(50, 50),[]() {SCENEMANAGER->ChangeScene("GAMBLE");});
 }
 
 void TutorialScene::Update(const float _deltaTime)
 {
+    Scene::Update(_deltaTime);
+}
 
+void TutorialScene::ResetInformation()
+{
+    SetState(true);
+}
+
+void TutorialScene::OnInputProcess(const DX::Keyboard::State& _KeyState, const DX::Keyboard::KeyboardStateTracker& _KeyTracker, const DX::Mouse::State& _MouseState, const DX::Mouse::ButtonStateTracker& _MouseTracker)
+{
+    if (_KeyState.IsKeyDown(DirectX::Keyboard::Keys::D1))
+    {
+        SCENEMANAGER->ChangeScene("DialogScene1");
+    }
 }

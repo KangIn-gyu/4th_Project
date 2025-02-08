@@ -147,7 +147,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="AABB.h" />
     <ClInclude Include="AiNode.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AnimationEditor.h" />
@@ -157,7 +156,6 @@
     <ClInclude Include="BoneReference.h" />
     <ClInclude Include="BoneWeightVertex.h" />
     <ClInclude Include="BoxCollider.h" />
-    <ClInclude Include="ButtonColider.h" />
     <ClInclude Include="CameraCompoent.h" />
     <ClInclude Include="CameraInformationEditor.h" />
     <ClInclude Include="CameraObject.h" />
@@ -170,7 +168,6 @@
     <ClInclude Include="CSVLoader.h" />
     <ClInclude Include="D2DClass.h" />
     <ClInclude Include="D2DLoader.h" />
-    <ClInclude Include="FadeEffect.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="ImageComponent.h" />
     <ClInclude Include="D2DFont.h" />
@@ -237,7 +234,6 @@
     <ClInclude Include="WindowApp.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AABB.cpp" />
     <ClCompile Include="AiNode.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AnimationEditor.cpp" />
@@ -247,7 +243,6 @@
     <ClCompile Include="BoneReference.cpp" />
     <ClCompile Include="BoneWeightVertex.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
-    <ClCompile Include="ButtonColider.cpp" />
     <ClCompile Include="CameraCompoent.cpp" />
     <ClCompile Include="CameraInformationEditor.cpp" />
     <ClCompile Include="CameraObject.cpp" />
@@ -259,7 +254,6 @@
     <ClCompile Include="CSVLoader.cpp" />
     <ClCompile Include="D2DClass.cpp" />
     <ClCompile Include="D2DLoader.cpp" />
-    <ClCompile Include="FadeEffect.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="ImageComponent.cpp" />
     <ClCompile Include="D2DFont.cpp" />

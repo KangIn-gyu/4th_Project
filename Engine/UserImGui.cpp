@@ -16,7 +16,6 @@
 
 void UserImGui::Initialize(HWND _hwnd, ComPtr<ID3D11Device> _Device, ComPtr<ID3D11DeviceContext> _DeviceContext)
 {
-
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
 
@@ -230,8 +229,10 @@ void UserImGui::ImGuiScene()
 
 UserImGui::~UserImGui()
 {
+#ifdef IMGUIFLAG
 	ImGui_ImplDX11_Shutdown();
 	ImGui_ImplWin32_Shutdown();
 	ImGui::DestroyContext();
+#endif
 }
 
