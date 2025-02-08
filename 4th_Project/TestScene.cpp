@@ -27,8 +27,6 @@ void TestScene::Enter()
 	//loader.ImportUnityScene("../4th_Project/2345.json", this);
 	//CreatorObject<TestObj2>("IngameMods", Object::ObjectType::Background);
 	//CreatorObject<Dealer>("Dealer", Object::ObjectType::Background);
-	
-	Cards({ 0,0,0 });
 
 	cardrot.Init(BLACKJACK->deck);
 	CreatorObject<Button>("Button", Object::ObjectType::Basic, DXMath::Vector3(0, 200, 0), []() {}); //{SCENEMANAGER->ChangeScene("GAMBLE");});
@@ -41,22 +39,4 @@ void TestScene::Update(const float _deltaTime)
 {
 	__super::Update(_deltaTime);
 	cardrot.Update(_deltaTime, BLACKJACK->deck->cards);
-}
-
-void TestScene::Cards(DXMath::Vector3 spos)
-{
-	//auto test = CreatorObject<Card>("Clover_Ace", Object::ObjectType::Basic);
-	//
-	float rotat = 90;
-	float eulerAngle = DirectX::XMConvertToRadians(rotat);
-	DXMath::Quaternion eulerToQuaternion = DXMath::Quaternion::CreateFromYawPitchRoll(0.f, eulerAngle, 0.f);
-	//auto testTrans = test->GetComponent<TransformComponent>();
-	//testTrans->SetPosition(pos);
-	//testTrans->SetQuaternion(eulerToQuaternion);
-	//testTrans->SetScale({ 10.0f,10.0f,10.0f });
-
-	BLACKJACK->deck = CreatorObject<Deck>("Deck", Object::ObjectType::Basic);
-	//BLACKJACK->deck->GetComponent<TransformComponent>()->SetPosition({ 100,0,0 });
-
-	//CreatorObject<Card>()
 }
