@@ -7,24 +7,28 @@
 #include "../Engine/SceneManager.h"
 
 void D2DBitMapFontScript::ComponentSetting()
-{// °Á ÇÏµå ÄÚµù ÇÔ
+{// ê± í•˜ë“œ ì½”ë”© í•¨
 	if (typeid(*ownerObject) == typeid(D2DBaseObj))
 	{
-		{ // ºñÆ®¸Ê Ã³¸®
+		{ // ë¹„íŠ¸ë§µ ì²˜ë¦¬
 			ownerD2D = ownerObject->GetComponent<D2DRenderComponent>();
-			std::vector<std::string>& bitmapFilePath = static_cast<D2DBaseObj*>(ownerObject)->bitmapFilePath; // ºñÆ®¸Ê Ã³¸®
-			for (int i = 0; i < bitmapFilePath.size(); i++)
+			startImage = static_cast<D2DBaseObj*>(ownerObject)->start;
+			endImage = static_cast<D2DBaseObj*>(ownerObject)->end;
+
+			std::string basePath = "DialogScene1/Textures/";
+			for (int i = startImage; i <= endImage; i++)
 			{
-				ownerD2D->Load2DImage(bitmapFilePath[i]);
+				std::string filePath =  basePath + std::to_string(i);
+				ownerD2D->Load2DImage(filePath + ".png");
 			}
 
 			changeSceneName = static_cast<D2DBaseObj*>(ownerObject)->sceneName;
 		}
 
-		{ // ÆùÆ® ÃÊ±âÈ­ ¿¹½Ã
-			ownerD2D->LoadFont(static_cast<D2DBaseObj*>(ownerObject)->fontFilePath);  // ÆùÆ®·Îµå
+		{ // í°íŠ¸ ì´ˆê¸°í™” ì˜ˆì‹œ
+			ownerD2D->LoadFont(static_cast<D2DBaseObj*>(ownerObject)->fontFilePath);  // í°íŠ¸ë¡œë“œ
 			ownerD2D->SetDialog(L"");
-			//ownerD2D->SetTextSize(20.0f, { 0, static_cast<UINT32>(text.length()) }); // »çÀÌÁî º¯°æ
+			//ownerD2D->SetTextSize(20.0f, { 0, static_cast<UINT32>(text.length()) }); // ì‚¬ì´ì¦ˆ ë³€ê²½
 			ownerD2D->SetTextSize(35);
 			ownerD2D->SetFontPos(450, 850);
 			ownerD2D->SetFontBoxSize(1200, 200);
@@ -33,17 +37,17 @@ void D2DBitMapFontScript::ComponentSetting()
 			ownerD2D->SetFontColor(D2D1::ColorF(D2D1::ColorF::White));
 		}
 	
-		ownerD2D->SceneCSVDataLoad(static_cast<D2DBaseObj*>(ownerObject)->CsvFilePath); // CSVÃ³¸®
+		ownerD2D->SceneCSVDataLoad(static_cast<D2DBaseObj*>(ownerObject)->CsvFilePath); // CSVì²˜ë¦¬
 		csvData = ownerD2D->GetCSVDData();
 	}
 }
 
 void D2DBitMapFontScript::Update(const float _deltaTime)
 {
-	static float elapsedTime = 0.0f;  // ½Ã°£ ´©Àû º¯¼ö
-	const float interval = 0.1f;      // ±ÛÀÚ Ãß°¡ °£°İ (ÃÊ ´ÜÀ§)
+	static float elapsedTime = 0.0f;  // ì‹œê°„ ëˆ„ì  ë³€ìˆ˜
+	const float interval = 0.1f;      // ê¸€ì ì¶”ê°€ ê°„ê²© (ì´ˆ ë‹¨ìœ„)
 
-	if (index >= csvData.size()) return;  // ´õ ÀÌ»ó Ãâ·ÂÇÒ µ¥ÀÌÅÍ°¡ ¾øÀ¸¸é Á¾·á
+	if (index >= csvData.size()) return;  // ë” ì´ìƒ ì¶œë ¥í•  ë°ì´í„°ê°€ ì—†ìœ¼ë©´ ì¢…ë£Œ
 
 	if (displayedText.length() < csvData[index].second.length())
 	{
@@ -51,9 +55,9 @@ void D2DBitMapFontScript::Update(const float _deltaTime)
 
 		if (elapsedTime >= interval)
 		{
-			elapsedTime = 0.0f;  // Å¸ÀÌ¸Ó ÃÊ±âÈ­
-			displayedText += csvData[index].second[displayedText.length()];  // ÇÑ ±ÛÀÚ Ãß°¡
-			ownerD2D->SetDialog(displayedText);  // ÅØ½ºÆ® ¾÷µ¥ÀÌÆ®
+			elapsedTime = 0.0f;  // íƒ€ì´ë¨¸ ì´ˆê¸°í™”
+			displayedText += csvData[index].second[displayedText.length()];  // í•œ ê¸€ì ì¶”ê°€
+			ownerD2D->SetDialog(displayedText);  // í…ìŠ¤íŠ¸ ì—…ë°ì´íŠ¸
 		}
 	}
 }
@@ -89,7 +93,7 @@ void D2DBitMapFontScript::OnInputProcess(const DX::Keyboard::State& _KeyState, c
 				if (index < csvData.size())
 				{
 					int ChangeBitmapindex = csvData[index].first;
-					ownerD2D->ChangeBitmap(ChangeBitmapindex);
+				  ownerD2D->ChangeBitmap(ChangeBitmapindex - startImage);
 					displayedText = L"";
 				}
 			}

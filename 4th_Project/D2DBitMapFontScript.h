@@ -30,5 +30,8 @@ private:
 	std::string changeSceneName;
 	int index = 0;
 	bool isClicked = false;
+
+	int startImage = 0;
+	int endImage = 0;
 };
 

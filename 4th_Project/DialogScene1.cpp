@@ -1,22 +1,14 @@
 #include "pch.h"
 #include "DialogScene1.h"
 #include "D2DBaseObj.h"
-#include "D2DBitMapFontScript.h" // ��ũ��Ʈ
+#include "D2DBitMapFontScript.h" // ½ºÅ©¸³Æ®
 #include "../Engine/SoundSystem.h"
 void DialogScene1::Enter()
 {
-	std::vector<std::string> dialogScenebitmap = {
-        "DialogScene1/Textures/0_Black,Normal.png",
-        "DialogScene1/Textures/1_Main,Normal.png",
-        "DialogScene1/Textures/2_Main,CustomerA.png",
-        "DialogScene1/Textures/3_Main,CustomerB.png",
-        "DialogScene1/Textures/4_Main,Player.png",
-        "DialogScene1/Textures/5_Main,DealerA.png",
-        "DialogScene1/Textures/6_Black,Normal,cocktail.png"
-    };
-
     // Font/DialogScene.ttf  // GyeonggiMillenniumBackground_Regular
-	auto* dialog = CreatorObject<D2DBaseObj>("Dialog", Object::ObjectType::UI, dialogScenebitmap,"Font/GyeonggiMillenniumBackground_Regular.ttf", "DialogScene1/CSV/Scene0.csv", "TutorialScene");
+	auto* dialog = CreatorObject<D2DBaseObj>("DialogScene1", Object::ObjectType::UI,
+        7,23,"Font/Bold.ttf", "DialogScenes/CSV/Scene1.csv", "¿©±â¼öÁ¤ÇØ¾ßÇÔ");
+  
     dialog->CreateScript<D2DBitMapFontScript>();
     SOUNDSYSTEM->PlayMusic(eSoundList::Main_Theme, eSoundChannel::BGM);
 }
