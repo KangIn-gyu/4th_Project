@@ -27,7 +27,7 @@ void TestScene::Enter()
 	//loader.ImportUnityScene("../4th_Project/2345.json", this);
 	//CreatorObject<TestObj2>("IngameMods", Object::ObjectType::Background);
 	//CreatorObject<Dealer>("Dealer", Object::ObjectType::Background);
-
+	BLACKJACK->deck = CreatorObject<Deck>("Deck", Object::ObjectType::Basic);
 	cardrot.Init(BLACKJACK->deck);
 	CreatorObject<Button>("Button", Object::ObjectType::Basic, DXMath::Vector3(0, 200, 0), []() {}); //{SCENEMANAGER->ChangeScene("GAMBLE");});
 	//CreatorObject<UIButton>("bu", Object::ObjectType::UI, "STAGE1/UI/mybutton2.png", []() {SCENEMANAGER->ChangeScene("GAMBLE");});
