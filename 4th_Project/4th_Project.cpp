@@ -20,7 +20,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     ENGINE->Initialize();
     ENGINE->Loop();
 
-   _CrtDumpMemoryLeaks();
+//   _CrtDumpMemoryLeaks();
 
     delete DemoApp;
 }

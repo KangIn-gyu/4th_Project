@@ -335,8 +335,6 @@ void ShadowRenderer::RenderShadow(ID3D11DeviceContext* context, const DXMath::Ma
             auto nodeIter = nodeData->find(meshInfo->meshName);
             if (nodeIter == nodeData->end()) continue;
 
-            UINT stride = sizeof(Vertex); // 정점 구조체의 크기
-            UINT offset = 0;
             VertexBuffer* vertexBuffer = meshInfo->vertexBuffer;
             context->IASetVertexBuffers(0, 1, vertexBuffer->GetBuffer().GetAddressOf(), &vertexBuffer->vertextBufferStride, &vertexBuffer->vertextBufferOffset);
 
@@ -396,6 +394,9 @@ void ShadowRenderer::RenderShadow(ID3D11DeviceContext* context, const DXMath::Ma
         context->IASetInputLayout(originalLayout);
         originalLayout->Release();
     }
+
+    if (nullSRV) { nullSRV->Release(); }
+    if (nullRTV) { nullRTV->Release(); }
 }
 
 void ShadowRenderer::DebugShadowMap(ID3D11Device* device, ID3D11DeviceContext* context)

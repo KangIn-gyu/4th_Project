@@ -220,7 +220,7 @@ void Renderer::D3DDraw()
 
 	if (originalDSV) originalDSV->Release();
 	if (originalRTV) originalRTV->Release();
-	if (currentLayout1) currentLayout1->Release(); // TODD : 규철이한테 물어봐야됨 이거 1회용사용하고 제거해야 되는거 아닌가?
+	if (currentLayout1) currentLayout1->Release(); // TODO : 규철이한테 물어봐야됨 이거 1회용사용하고 제거해야 되는거 아닌가?
 }
 
 void Renderer::D2DDraw()
