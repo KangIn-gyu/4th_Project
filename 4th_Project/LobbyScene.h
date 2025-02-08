@@ -13,6 +13,11 @@ public:
 
 private:
 
+	
+	float startX;
+	float startZ;
+	float endX;
+	float endZ;
 public:
 
 private:

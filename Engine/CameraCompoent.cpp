@@ -7,7 +7,7 @@
 #include "Helper.h"
 #include "DirectXInput.h"
 
-CameraCompoent::CameraCompoent()
+ CameraCompoent::CameraCompoent()
 {
 	cameraInfo = new CameraInfo;
 }
