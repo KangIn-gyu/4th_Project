@@ -30,5 +30,4 @@ void DialogScene1::ResetInformation()
 {
     Scene::ResetInformation();
     SOUNDSYSTEM->PlayMusic(eSoundList::Main_Theme, eSoundChannel::BGM);
-    static_cast<D2DBitMapFontScript*>(GetGameObject(Object::ObjectType::UI, "Dialog")->script)->SetState(true);
 }
