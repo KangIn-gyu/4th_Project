@@ -85,6 +85,15 @@
     <ClInclude Include="FadeEffectScript.h">
       <Filter>Script</Filter>
     </ClInclude>
+    <ClInclude Include="DialogScene0.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogScene4.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogScene5.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -141,6 +150,15 @@
     </ClCompile>
     <ClCompile Include="FadeEffectScript.cpp">
       <Filter>Script</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogScene0.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogScene4.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogScene5.cpp">
+      <Filter>Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

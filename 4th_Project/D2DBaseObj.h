@@ -12,8 +12,8 @@ public:
 	D2DBaseObj(std::string_view _name, ObjectType _type, std::string _fontFilePath) :fontFilePath(_fontFilePath), Object(_name, _type) {}
 	// 폰트 비트맵, 폰트
 	D2DBaseObj(std::string_view _name, ObjectType _type, std::vector<std::string> _bitmapFilePath, std::string _fontFilePath) :bitmapFilePath(_bitmapFilePath), fontFilePath(_fontFilePath), Object(_name, _type) {}
-	// 폰트 비트맵, 폰트, CSV, 다음씬 이름
-	D2DBaseObj(std::string_view _name, ObjectType _type, std::vector<std::string> _bitmapFilePath, std::string _fontFilePath, std::string _CsvFilePath, std::string _sceneName) :bitmapFilePath(_bitmapFilePath), fontFilePath(_fontFilePath), CsvFilePath(_CsvFilePath), sceneName(_sceneName), Object(_name, _type) {}
+	// 폰트 비트맵 시작 인덱스, 끝 인덱스, 폰트, CSV, 다음씬 이름
+	D2DBaseObj(std::string_view _name, ObjectType _type, int _start, int _end, std::string _fontFilePath, std::string _CsvFilePath, std::string _sceneName) :start(_start), end(_end), fontFilePath(_fontFilePath), CsvFilePath(_CsvFilePath), sceneName(_sceneName), Object(_name, _type) {}
 	virtual ~D2DBaseObj() = default;
 
 	virtual void Initialize() override;                       // 용도 : 내가 필요한 컴포넌트 생성하는 곳 초기화나
@@ -29,6 +29,7 @@ public:
 	std::string fontFilePath{};
 	std::string CsvFilePath{};
 	std::string sceneName{};
+	int start, end;
 
 private:
 };

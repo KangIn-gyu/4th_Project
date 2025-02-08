@@ -160,9 +160,12 @@
     <ClInclude Include="D3DObjScript.h" />
     <ClInclude Include="Dealer.h" />
     <ClInclude Include="Deck.h" />
+    <ClInclude Include="DialogScene0.h" />
     <ClInclude Include="DialogScene1.h" />
     <ClInclude Include="DialogScene2.h" />
     <ClInclude Include="DialogScene3.h" />
+    <ClInclude Include="DialogScene4.h" />
+    <ClInclude Include="DialogScene5.h" />
     <ClInclude Include="FadeEffectScript.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GambleButton.h" />
@@ -197,9 +200,12 @@
     <ClCompile Include="D3DObjScript.cpp" />
     <ClCompile Include="Dealer.cpp" />
     <ClCompile Include="Deck.cpp" />
+    <ClCompile Include="DialogScene0.cpp" />
     <ClCompile Include="DialogScene1.cpp" />
     <ClCompile Include="DialogScene2.cpp" />
     <ClCompile Include="DialogScene3.cpp" />
+    <ClCompile Include="DialogScene4.cpp" />
+    <ClCompile Include="DialogScene5.cpp" />
     <ClCompile Include="FadeEffectScript.cpp" />
     <ClCompile Include="GambleButton.cpp" />
     <ClCompile Include="GambleScene.cpp" />

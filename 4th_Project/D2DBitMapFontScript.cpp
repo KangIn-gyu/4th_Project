@@ -5,16 +5,21 @@
 #include "../Engine/D2DRenderComponent.h"
 #include "../Engine/Helper.h"
 #include "../Engine/SceneManager.h"
+
 void D2DBitMapFontScript::ComponentSetting()
 {// 걍 하드 코딩 함
 	if (typeid(*ownerObject) == typeid(D2DBaseObj))
 	{
 		{ // 비트맵 처리
 			ownerD2D = ownerObject->GetComponent<D2DRenderComponent>();
-			std::vector<std::string>& bitmapFilePath = static_cast<D2DBaseObj*>(ownerObject)->bitmapFilePath; // 비트맵 처리
-			for (int i = 0; i < bitmapFilePath.size(); i++)
+			startImage = static_cast<D2DBaseObj*>(ownerObject)->start;
+			endImage = static_cast<D2DBaseObj*>(ownerObject)->end;
+
+			std::string basePath = "DialogScene1/Textures/";
+			for (int i = startImage; i <= endImage; i++)
 			{
-				ownerD2D->Load2DImage(bitmapFilePath[i]);
+				std::string filePath =  basePath + std::to_string(i);
+				ownerD2D->Load2DImage(filePath + ".png");
 			}
 
 			changeSceneName = static_cast<D2DBaseObj*>(ownerObject)->sceneName;
@@ -89,7 +94,7 @@ void D2DBitMapFontScript::OnInputProcess(const DX::Keyboard::State& _KeyState, c
 			if (index < csvData.size())
 			{
 				int ChangeBitmapindex = csvData[index].first;
-				ownerD2D->ChangeBitmap(ChangeBitmapindex);
+				ownerD2D->ChangeBitmap(ChangeBitmapindex - startImage);
 				displayedText = L"";
 			}
 		}
