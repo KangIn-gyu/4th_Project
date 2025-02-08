@@ -74,7 +74,6 @@ void D2DBitMapFontScript::OnInputProcess(const DX::Keyboard::State& _KeyState, c
 			if (index == csvData.size())
 			{
 				index = 0;
-				state = State::Disable;
 				SCENEMANAGER->ChangeScene(changeSceneName);
 			}
 

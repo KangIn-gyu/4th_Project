@@ -31,6 +31,8 @@ public:
 	int chip =1000; //딜러칩 스테이지 시작때 채워줌
 	bool finishFirst = false;
 	bool finishDraw  = false;
+
+	void Reverse();
 private:
 	
 	std::function<void(void)> pattern; //딜러 다음패턴 담아둘곳
