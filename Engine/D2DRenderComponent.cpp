@@ -123,18 +123,23 @@ void D2DRenderComponent::SetAlignment(D2DFont::Setting _SortX, D2DFont::Setting 
 {
 	font->Alignment(_SortX, _SortY);
 }
-void D2DRenderComponent::Draw()
+
+void D2DRenderComponent::BitDraw()
 {
 	if (drawBitmap != nullptr)
 	{
 		D2DClass::GetD2DDeviceContext()->DrawBitmap(drawBitmap->GetImageData(), drawBitmap->GetRect(), drawBitmap->GetAlpha());
 	}
+}
+
+void D2DRenderComponent::FontDraw()
+{
 	if (font != nullptr)
 	{
 #if _DEBUG
-		if (font != nullptr){ font->DrawTextBox(); }
+		if (font != nullptr) { font->DrawTextBox(); }
 #endif
-		D2DClass::GetD2DDeviceContext()->DrawTextLayout( font->GetPos(), font->GetTextLayout(), font->GetBrush());
+		D2DClass::GetD2DDeviceContext()->DrawTextLayout(font->GetPos(), font->GetTextLayout(), font->GetBrush());
 	}
 }
 

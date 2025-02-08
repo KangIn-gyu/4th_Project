@@ -7,7 +7,7 @@ void DialogScene0::Enter()
 {
 	Scene::Enter();
     auto* dialog = CreatorObject<D2DBaseObj>("DialogScene0", Object::ObjectType::UI,
-		1,6,"Font/Bold.ttf", "DialogScenes/CSV/Scene0.csv", "TutorialScene");
+		1,6,"Font/GyeonggiMillenniumBackground_Regular.ttf", "DialogScenes/CSV/Scene0.csv", "TutorialScene");
 
     dialog->CreateScript<D2DBitMapFontScript>();
 }

@@ -5,15 +5,15 @@ class D2DBaseObj : public Object
 {
 public:
 	// 기본
-	D2DBaseObj(std::string_view _name, ObjectType _type) : Object(_name, _type) {}
+	D2DBaseObj(std::string_view _name, ObjectType _type);
 	// 비트맵용
-	D2DBaseObj(std::string_view _name, ObjectType _type, std::vector<std::string> _bitmapFilePath) : bitmapFilePath(_bitmapFilePath), Object(_name, _type) {}
+	D2DBaseObj(std::string_view _name, ObjectType _type, std::vector<std::string> _bitmapFilePath);
 	// 폰트 전용
-	D2DBaseObj(std::string_view _name, ObjectType _type, std::string _fontFilePath) :fontFilePath(_fontFilePath), Object(_name, _type) {}
+	D2DBaseObj(std::string_view _name, ObjectType _type, std::string _fontFilePath);
 	// 폰트 비트맵, 폰트
-	D2DBaseObj(std::string_view _name, ObjectType _type, std::vector<std::string> _bitmapFilePath, std::string _fontFilePath) :bitmapFilePath(_bitmapFilePath), fontFilePath(_fontFilePath), Object(_name, _type) {}
+	D2DBaseObj(std::string_view _name, ObjectType _type, std::vector<std::string> _bitmapFilePath, std::string _fontFilePath);
 	// 폰트 비트맵 시작 인덱스, 끝 인덱스, 폰트, CSV, 다음씬 이름
-	D2DBaseObj(std::string_view _name, ObjectType _type, int _start, int _end, std::string _fontFilePath, std::string _CsvFilePath, std::string _sceneName) :start(_start), end(_end), fontFilePath(_fontFilePath), CsvFilePath(_CsvFilePath), sceneName(_sceneName), Object(_name, _type) {}
+	D2DBaseObj(std::string_view _name, ObjectType _type, int _start, int _end, std::string _fontFilePath, std::string _CsvFilePath, std::string _sceneName);
 	virtual ~D2DBaseObj() = default;
 
 	virtual void Initialize() override;                       // 용도 : 내가 필요한 컴포넌트 생성하는 곳 초기화나
@@ -22,6 +22,8 @@ public:
 	virtual void LateUpdate() {}
 	virtual void ResetInformation() {}
 
+	// 레이어의 순서는 낮은 순서가 가장 빨리 그리고 가장 높은 숫자일수록 늦게 그림
+	void SetD2DLayerOrder(int _index); 
 private:
 
 public:
@@ -29,7 +31,7 @@ public:
 	std::string fontFilePath{};
 	std::string CsvFilePath{};
 	std::string sceneName{};
-	int start, end;
+	int start{}, end{};
 
 private:
 };

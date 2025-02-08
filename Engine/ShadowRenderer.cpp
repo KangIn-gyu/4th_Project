@@ -106,7 +106,6 @@ bool ShadowRenderer::Initialize(ID3D11Device* device, ID3D11DeviceContext* devic
 
 void ShadowRenderer::BeginShadowPass(ID3D11DeviceContext* context)
 {
-
     //std::cout << "Shadow DSV valid: " << (shadowMapDSV != nullptr) << std::endl;
 
     // 이전 상태를 클리어하기 전에 현재 상태 저장
@@ -144,9 +143,11 @@ void ShadowRenderer::BeginShadowPass(ID3D11DeviceContext* context)
 
     ID3D11InputLayout* currentLayout;
     context->IAGetInputLayout(&currentLayout);
-    if (!currentLayout) {
+    if (!currentLayout) 
+    {
         std::cout << "Failed to set Input Layout in BeginShadowPass!\n";
     }
+
     if (currentLayout) currentLayout->Release();
     if (previousLayout) previousLayout->Release();
 }
@@ -336,8 +337,8 @@ void ShadowRenderer::RenderShadow(ID3D11DeviceContext* context, const DXMath::Ma
 
             UINT stride = sizeof(Vertex); // 정점 구조체의 크기
             UINT offset = 0;
-            ID3D11Buffer* vertexBuffer = meshInfo->vertexBuffer->GetBuffer().Get();
-            context->IASetVertexBuffers(0, 1, &vertexBuffer, &stride, &offset);
+            VertexBuffer* vertexBuffer = meshInfo->vertexBuffer;
+            context->IASetVertexBuffers(0, 1, vertexBuffer->GetBuffer().GetAddressOf(), &vertexBuffer->vertextBufferStride, &vertexBuffer->vertextBufferOffset);
 
             // Index Buffer도 설정
             context->IASetIndexBuffer(meshInfo->indexBuffer->GetBuffer().Get(),

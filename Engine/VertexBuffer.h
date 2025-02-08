@@ -1,7 +1,7 @@
 #pragma once
 #include "Vertex.h"
 #include "BoneWeightVertex.h"
-#include "D3DClass.h" // TODO : 만약 헤더 꼬임 나오면 의심해 보셈
+#include "D3DClass.h" 
 #include "Helper.h"
 
 template<class T> // T가 Vertex 상속한 존재인지와 포인터 타입이 아닐경우만 처리
