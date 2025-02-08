@@ -127,7 +127,7 @@ void D2DRenderComponent::Draw()
 {
 	if (drawBitmap != nullptr)
 	{
-		std::cout << drawBitmap->GetAlpha() << std::endl;
+		//std::cout << drawBitmap->GetAlpha() << std::endl;
 		D2DClass::GetD2DDeviceContext()->DrawBitmap(drawBitmap->GetImageData(), drawBitmap->GetRect(), drawBitmap->GetAlpha());
 	}
 	if (font != nullptr)

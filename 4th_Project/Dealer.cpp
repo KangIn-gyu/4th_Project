@@ -93,12 +93,14 @@ int Dealer::GetScore()
 
 void Dealer::Act()
 {
+	// 여기서 한번 다이얼로그 시작하고 그거에 맞춰서 결과가 true false로 나오고 그게 false일때만 패턴 실행
 	//pattern(); 한번쓰고나면 다른패턴 담아둬야함
 }
 
 void Dealer::OnClick()
 {
 	std::cout << "누르지 마세요 " << std::endl;
+	std::cout << chip << "\n";
 	//this->~Dealer();
 }
 
@@ -121,18 +123,86 @@ void Dealer::OpenOne(float _deltaTime)
 	finishFirst = true;
 }
 
-void Dealer::Reverse()
+bool Dealer::reverse()
 {
-	int max = BLACKJACK->player->hand.maxHand - 1;
+	int max = BLACKJACK->player->hand.numCard();
 	std::random_device rd;
 	std::mt19937 gen(rd());
 	std::uniform_int_distribution<int> distrib(0, max);
 	
-	int randomSlot = distrib(gen);
-	if (BLACKJACK->player->hand.hand[randomSlot] != nullptr && BLACKJACK->player->hand.hand[randomSlot]->isOpen == true)
+	bool isFlipped = false;
+	
+	while (!isFlipped)
 	{
-		BLACKJACK->player->hand.hand[randomSlot]->Reverse();
+		int randomSlot = distrib(gen);
+
+		if (BLACKJACK->player->hand.hand[randomSlot] != nullptr && BLACKJACK->player->hand.hand[randomSlot]->isOpen == true)
+		{
+			BLACKJACK->player->hand.hand[randomSlot]->Close();
+			isFlipped = true;
+		}
 	}
+	
+	return true;
+}
+
+bool Dealer::meditation()
+{
+	chip *= 1.1f;
+	return true;
+}
+
+bool Dealer::skillBan()
+{
+	BLACKJACK->player->canSkill = false;
+	return true;
+}
+
+bool Dealer::slotBan()
+{
+
+	int max = BLACKJACK->player->hand.numCard();
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<int> distrib(0, max);
+
+	int randomSlot = distrib(gen);
+	bool isClose = false;
+	while (!isClose)
+	{
+		if (BLACKJACK->player->hand.hand[randomSlot] != nullptr)
+		{
+			BLACKJACK->player->hand.hand[randomSlot]->slotActive = false;
+			isClose = true;
+		}
+	}
+	
+	return true;
+}
+
+void Dealer::SetSkill()
+{
+	static const DSkill allSkills[] = { DSkill::reverse, DSkill::meditation, DSkill::skillBan, DSkill::slotBan };
+	static const size_t skillCount = sizeof(allSkills) / sizeof(DSkill);
+
+	std::random_device rd;
+	std::mt19937 gen(rd());
+
+	DSkill selectedSkill;
+	do {
+		selectedSkill = allSkills[gen() % skillCount];
+	} while (selectedSkill == previousSkill || selectedSkill == DSkill::none);
+
+	previousSkill = selectedSkill;
+
+	if (previousSkill == DSkill::reverse)
+		pattern = [this]() { return reverse(); };
+	else if (previousSkill == DSkill::meditation)
+		pattern = [this]() { return meditation(); };
+	else if (previousSkill == DSkill::skillBan)
+		pattern = [this]() { return skillBan(); };
+	else if (previousSkill == DSkill::slotBan)
+		pattern = [this]() { return slotBan(); };
 }
 
 

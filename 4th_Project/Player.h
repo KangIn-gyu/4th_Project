@@ -67,6 +67,8 @@ public:
 	Card* selectCard = nullptr;  //스킬 쓸때 손패에서 선택중인 카드
 	Hand hand;
 	std::function<bool()> skill;
+
+	bool canSkill = true;
 };
 
 
