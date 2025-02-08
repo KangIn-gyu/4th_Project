@@ -15,7 +15,7 @@ void D2DBitMapFontScript::ComponentSetting()
 			startImage = static_cast<D2DBaseObj*>(ownerObject)->start;
 			endImage = static_cast<D2DBaseObj*>(ownerObject)->end;
 
-			std::string basePath = "DialogScene1/Textures/";
+			std::string basePath = "DialogScenes/Textures/";
 			for (int i = startImage; i <= endImage; i++)
 			{
 				std::string filePath =  basePath + std::to_string(i);
