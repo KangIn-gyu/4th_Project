@@ -10,6 +10,7 @@ public:
 	virtual void Update(const float _deltaTime);
 	virtual void FixedUpdate(const float _deltaTime)override {};
 	virtual void RateUpdate(const float _deltaTime)override {};
+	virtual void ResetInformation();
 
 private:
 	virtual void OnInputProcess(const DX::Keyboard::State& _KeyState,

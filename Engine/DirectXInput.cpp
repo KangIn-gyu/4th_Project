@@ -23,7 +23,6 @@ void DirectXInput::Update(const float _DeltaTime)
 	{ // 컨테이너가 비워있지 않다면
 		for (auto& processer : inputProcessers) 
 		{
-			if(processer->state == IinputProcesser::State::Active)
 			processer->OnInputProcess(keyboardState, keyboardStateTracker, mouseState, mouseStateTracker);
 		}
 	}

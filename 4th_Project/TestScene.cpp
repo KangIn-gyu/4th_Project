@@ -7,6 +7,8 @@
 #include "BlackJack.h"
 #include "UIButton.h"
 #include "TestObj.h"
+#include "TestObj2.h"
+
 
 TestScene::TestScene(std::string_view _Name) : Scene(_Name)
 {
@@ -23,11 +25,18 @@ void TestScene::Enter()
 	//SceneLoader loader;
 	//loader.Load("../4th_Project/2345.json");
 	//loader.ImportUnityScene("../4th_Project/2345.json", this);
-	//ObjectCreator<TestObj>("IngameMods", Object::ObjectType::Basic);
-
-	CreatorObject<Button>("Button", Object::ObjectType::Basic, DXMath::Vector3(-200,0,0), []() {SCENEMANAGER->ChangeScene("GAMBLE");});
-	CreatorObject<UIButton>("bu", Object::ObjectType::UI, "STAGE1/UI/mybutton2.png", []() {SCENEMANAGER->ChangeScene("GAMBLE");});
-	CreatorObject<TestObj>("Font", Object::ObjectType::UI);
+	//CreatorObject<TestObj2>("IngameMods", Object::ObjectType::Background);
+	//CreatorObject<Dealer>("Dealer", Object::ObjectType::Background);
+	BLACKJACK->deck = CreatorObject<Deck>("Deck", Object::ObjectType::Basic);
+	cardrot.Init(BLACKJACK->deck);
+	CreatorObject<Button>("Button", Object::ObjectType::Basic, DXMath::Vector3(0, 200, 0), []() {}); //{SCENEMANAGER->ChangeScene("GAMBLE");});
+	//CreatorObject<UIButton>("bu", Object::ObjectType::UI, "STAGE1/UI/mybutton2.png", []() {SCENEMANAGER->ChangeScene("GAMBLE");});
+	//CreatorObject<TestObj>("Font", Object::ObjectType::UI);
 
 }
 
+void TestScene::Update(const float _deltaTime)
+{
+	__super::Update(_deltaTime);
+	cardrot.Update(_deltaTime, BLACKJACK->deck->cards);
+}

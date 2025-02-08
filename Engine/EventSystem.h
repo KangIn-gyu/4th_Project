@@ -31,6 +31,7 @@ public:
 	bool isClick;
 
 private:
+	Object* preObj = nullptr;
 	Object* curHolding;
 };
 

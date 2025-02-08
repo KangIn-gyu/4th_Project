@@ -28,12 +28,15 @@ void Renderer::Initialize(WindowInfo* _windowInfo)
 {
 	D3DGraphics = std::make_unique<D3DClass>();
 	D3DGraphics->Initialize(_windowInfo);
+
+#ifdef IMGUIFLAG
 	IMGUI->Initialize(_windowInfo->hWnd, D3DGraphics->GetD3DDevice(), D3DGraphics->GetD3DDeviceContext());
+#endif
 
 	// 광원 설정
-	DXMath::Vector3 lightTarget = DXMath::Vector3(0.0f, 0.0f, 0.0f);
-	IMGUI->lightPos = DXMath::Vector3(200.0f, 200.0f, -200.0f);
-	IMGUI->lightDir = DXMath::Vector3(lightTarget - IMGUI->lightPos);
+	lightTarget = DXMath::Vector3(0.0f, 0.0f, 0.0f);
+	lightPos = DXMath::Vector3(200.0f, 200.0f, -200.0f);
+	lightDir = DXMath::Vector3(lightTarget - lightPos);
 
 	CreateOutlineStates();
 
@@ -70,7 +73,6 @@ void Renderer::Initialize(WindowInfo* _windowInfo)
 
 	AddSpotLight(test2);
 
-
 	D3DGraphics->CreateSamplerState(D3D11_FILTER_MIN_MAG_MIP_LINEAR, D3D11_TEXTURE_ADDRESS_WRAP, linearWrapSampler);
 	D3DGraphics->CreateSamplerState(D3D11_FILTER_MIN_MAG_MIP_POINT, D3D11_TEXTURE_ADDRESS_CLAMP, pointClampSampler);
 
@@ -83,12 +85,17 @@ void Renderer::Initialize(WindowInfo* _windowInfo)
 
 void Renderer::Update(float _deltaTime)
 {
+#ifdef IMGUIFLAG
 	IMGUI->Update(_deltaTime);
+#endif
 }
 
 void Renderer::Render()
 {
+	D3DGraphics->BeginDraw({ 0.0f , 0.0f , 0.0f , 1.0f });
+#ifdef IMGUIFLAG
 	D3DGraphics->BeginDraw(IMGUI->GetBackGroundColor());
+#endif
 	//m_skybox.Render(D3DClass::GetD3DDeviceContext().Get());
 
 	D3DDraw();
@@ -99,8 +106,10 @@ void Renderer::Render()
 	D2DGraphics->EndDraw();
 #endif
 
+#ifdef IMGUIFLAG
 	D3DGraphics->ExtractFinalImage();
 	IMGUI->Render();
+#endif
 	D3DGraphics->EndDraw();
 }
 
@@ -134,7 +143,6 @@ void Renderer::D3DDraw()
 	}
 
 	// 1. 그림자 맵 패스
-
 	shadowRenderer.BeginShadowPass(d3dDeviceContext.Get());
 
 	ID3D11InputLayout* currentLayout1;
@@ -142,15 +150,16 @@ void Renderer::D3DDraw()
 
 	// 그림자 맵 렌더링
 	shadowRenderer.RenderShadow(d3dDeviceContext.Get(), CreateShadowMatrix(), work);
+
+#ifdef IMGUIFLAG
 	IMGUI->srv = shadowRenderer.GetShadowMapSRV();
+#endif
 	// 원래의 렌더링 상태로 복구
 
 	d3dDeviceContext->RSSetViewports(1, &originalViewport);
 	d3dDeviceContext->OMSetRenderTargets(1, &originalRTV, originalDSV);
 
 	//shadowRenderer.DebugShadowMap(device.Get(), d3dDeviceContext.Get());
-
-
 
 	d3dDeviceContext->PSSetShaderResources(24, 1, shadowRenderer.GetShadowMapSRV().GetAddressOf());
 
@@ -160,13 +169,30 @@ void Renderer::D3DDraw()
 	d3dDeviceContext->VSSetConstantBuffers(2, 1, cameraBuffer.GetBuffer().GetAddressOf());
 	d3dDeviceContext->PSSetConstantBuffers(2, 1, cameraBuffer.GetBuffer().GetAddressOf());
 
+	// 상수버퍼 설정 (렌더 오브젝트 제외)
+	CameraBuffer cameraData;
+	cameraData.eyePosition = CameraObject::g_MainCameraObject->GetComponent<TransformComponent>()->GetPosition();
+	cameraData.lightDirection = IMGUI->lightDir;
+
+	ProductBuffer productData;
+	productData.totalTime = TIMESYSTEM->GetTotalTime();
+
+	d3dDeviceContext->PSSetConstantBuffers(5, 1, productBuffer.GetBuffer().GetAddressOf());
+
+	d3dDeviceContext->UpdateSubresource(cameraBuffer.GetBuffer().Get(), 0, nullptr, &cameraData, 0, 0);
+	d3dDeviceContext->UpdateSubresource(productBuffer.GetBuffer().Get(), 0, nullptr, &productData, 0, 0);
+
+	d3dDeviceContext->PSSetConstantBuffers(6, 1, lightBuffer.GetBuffer().GetAddressOf());
+
+	UpdateSpotLights();
+
 	// 1. 먼저 마스크 패스
 	for (auto& renderComponent : work)
 	{
 		if (renderComponent->GetOwner()->GetEffect() == Object::Effect::OutLine)
 		{
 			d3dDeviceContext->OMSetDepthStencilState(outlineMaskState.Get(), 1);
-			RenderObject(renderComponent, false);  // 일반 셰이더로 마스크 생성
+			RenderObject(renderComponent, false);
 		}
 	}
 
@@ -176,8 +202,8 @@ void Renderer::D3DDraw()
 		if (renderComponent->GetOwner()->GetEffect() == Object::Effect::OutLine)
 		{
 			d3dDeviceContext->OMSetDepthStencilState(outlineStencilState.Get(), 1);
-			d3dDeviceContext->RSSetState(outlineRasterizerState.Get());  // 래스터라이저 상태 설정
-			RenderObject(renderComponent, true);   // 아웃라인 셰이더로 렌더링
+			d3dDeviceContext->RSSetState(outlineRasterizerState.Get());
+			RenderObject(renderComponent, true);
 		}
 	}
 
@@ -200,10 +226,8 @@ void Renderer::D2DDraw()
 {
 	for (auto& D2DrenderComponent : D2Dwork)
 	{
-		if (true == D2DrenderComponent->GetActive())
-		{
+		if(true == D2DrenderComponent->GetActive())
 			D2DrenderComponent->Draw();
-		}
 	}
 }
 
@@ -243,14 +267,13 @@ ComPtr<ID3D11ShaderResourceView> Renderer::GetImGuiImageTexture()
 DXMath::Matrix Renderer::CreateShadowMatrix()
 {
 	// 1. Light position은 이미 IMGUI에서 설정된 값 사용
-	DXMath::Vector3 lightPos = IMGUI->lightPos;
+
 
 	// 2. Light direction 계산 및 정규화
-	DXMath::Vector3 lightDir = IMGUI->lightDir;
 	lightDir.Normalize();
-	IMGUI->lightDir = lightDir;  // 정규화된 방향을 다시 저장
 
-	// 3. Look-At 행렬 생성
+
+		// 3. Look-At 행렬 생성
 	DXMath::Vector3 upVector = DXMath::Vector3(0.0f, 1.0f, 0.0f);
 	DXMath::Matrix lightView = DXMath::Matrix::CreateLookAt(
 		lightPos,                    // 광원 위치
@@ -259,10 +282,9 @@ DXMath::Matrix Renderer::CreateShadowMatrix()
 	);
 
 	// 4. 직교 투영 행렬 생성 
-	// (이상적으로는 이 값들도 IMGUI에서 조정 가능하게 만들면 좋습니다)
-	float orthoSize = 1000.0f;        // IMGUI로 조정 가능하게 수정 권장
-	float nearPlane = 0.1f;          // IMGUI로 조정 가능하게 수정 권장
-	float farPlane = 10000.0f;         // IMGUI로 조정 가능하게 수정 권장
+	float orthoSize = 1000.0f;
+	float nearPlane = 0.1f;   
+	float farPlane = 1000.0f; 
 
 	DXMath::Matrix lightProj = DXMath::Matrix::CreateOrthographic(
 		orthoSize,
@@ -302,7 +324,7 @@ void Renderer::CreateOutlineStates()
 	D3D11_DEPTH_STENCIL_DESC maskDesc = {};
 	maskDesc.DepthEnable = true;
 	maskDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
-	maskDesc.DepthFunc = D3D11_COMPARISON_LESS;  // 기본 깊이 테스트
+	maskDesc.DepthFunc = D3D11_COMPARISON_LESS;
 
 	// 스텐실 설정
 	maskDesc.StencilEnable = true;
@@ -321,16 +343,14 @@ void Renderer::CreateOutlineStates()
 	// 마스크 스테이트 생성
 	HRESULT hr = D3DGraphics->GetD3DDevice()->CreateDepthStencilState(&maskDesc, &outlineMaskState);
 	if (FAILED(hr)) {
-		// 에러 처리
-		// LOG_ERROR("Failed to create outline mask state");
 		return;
 	}
 
 	// 2. 아웃라인 렌더링을 위한 스텐실 상태
 	D3D11_DEPTH_STENCIL_DESC outlineDesc = {};
 	outlineDesc.DepthEnable = true;
-	outlineDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;  // 깊이 쓰기 비활성화
-	outlineDesc.DepthFunc = D3D11_COMPARISON_LESS_EQUAL;             // 정확한 깊이 테스트
+	outlineDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+	outlineDesc.DepthFunc = D3D11_COMPARISON_LESS_EQUAL;
 
 	// 스텐실 설정
 	outlineDesc.StencilEnable = true;
@@ -349,8 +369,6 @@ void Renderer::CreateOutlineStates()
 	// 아웃라인 스테이트 생성
 	hr = D3DGraphics->GetD3DDevice()->CreateDepthStencilState(&outlineDesc, &outlineStencilState);
 	if (FAILED(hr)) {
-		// 에러 처리
-		// LOG_ERROR("Failed to create outline stencil state");
 		return;
 	}
 
@@ -358,15 +376,13 @@ void Renderer::CreateOutlineStates()
 	D3D11_RASTERIZER_DESC rastDesc = {};
 	rastDesc.FillMode = D3D11_FILL_SOLID;
 	rastDesc.CullMode = D3D11_CULL_BACK;
-	rastDesc.DepthBias = 5000;              // Z-fighting 방지를 위한 깊이 바이어스
+	rastDesc.DepthBias = 5000;
 	rastDesc.DepthBiasClamp = 0.0f;
 	rastDesc.SlopeScaledDepthBias = 1.0f;
-	rastDesc.MultisampleEnable = true;       // MSAA 활성화
+	rastDesc.MultisampleEnable = true;
 
 	hr = D3DGraphics->GetD3DDevice()->CreateRasterizerState(&rastDesc, &outlineRasterizerState);
 	if (FAILED(hr)) {
-		// 에러 처리
-		// LOG_ERROR("Failed to create outline rasterizer state");
 		return;
 	}
 
@@ -457,7 +473,7 @@ void Renderer::RenderObject(RenderComponent* renderComponent, bool isOutlinePass
 		}
 
 		// Handle Textures
-		if (!isOutlinePass)  // 아웃라인 패스에서는 텍스처가 필요 없음
+		if (!isOutlinePass)  // ?��?��?��?�� ?��?��?��?��?�� ?��?��처�?? ?��?�� ?��?��
 		{
 			while (!previousTexturerProcessing.empty())
 			{

@@ -3,6 +3,7 @@
 
 class DialogScene3 : public Scene
 {
+
 public:
 	DialogScene3(std::string_view _Name) : Scene(_Name) {}
 

@@ -1,5 +1,6 @@
 #pragma once
 #include "../Engine/Scene.h"
+#include "../Engine/DirectXInput.h"
 
 class DialogScene1 : public Scene
 {
@@ -10,6 +11,7 @@ public:
 	virtual void Update(const float _deltaTime);
 	virtual void FixedUpdate(const float _deltaTime)override {};
 	virtual void RateUpdate(const float _deltaTime)override {};
+	virtual void ResetInformation();
 private:
 
 public:

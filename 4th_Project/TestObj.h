@@ -3,7 +3,7 @@
 #include "../Engine/IClick.h"
 #include "../Engine/IOnmouse.h"
 
-class TestObj : public Object, public IClick, public IOnmouse
+class TestObj : public Object, public IClick
 {
 public:
 	TestObj(std::string_view _name , Object::ObjectType _type);
@@ -14,6 +14,5 @@ public:
 	virtual void LateUpdate() {}
 
 	virtual void OnClick() override;
-	virtual void OnMouse() override;
 };
 

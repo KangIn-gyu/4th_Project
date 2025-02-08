@@ -56,6 +56,7 @@ void SceneManager::Change(std::string_view _SceneName)
 		currentScene = it->second;
 		if (currentScene != nullptr)
 			currentScene->SetActive(true);
+
 		currentScene->Initialize();
 		currentScene->ResetInformation();
 		currentScene->MainCameraSetting(0); // 메인 카메라 변경

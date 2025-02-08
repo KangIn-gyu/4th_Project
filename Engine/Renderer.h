@@ -74,6 +74,9 @@ private:
 	std::stack<int> previousTexturerProcessing;
 	SkyBox m_skybox;
 public:
+	DXMath::Vector3 lightTarget;
+	DXMath::Vector3 lightPos;
+	DXMath::Vector3 lightDir;
 
 	// 테스트 용
 	ConstantBuffer lightBuffer;
@@ -87,7 +90,6 @@ public:
 	ComPtr<ID3D11DepthStencilState> outlineMaskState;
 	ComPtr<ID3D11RasterizerState> outlineRasterizerState;
 	void CreateOutlineStates();
-	void UpdateConstantBuffer();
 
 	std::shared_ptr<Shader> outlineShader;
 

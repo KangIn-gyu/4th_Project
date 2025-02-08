@@ -28,7 +28,7 @@ public:
 
 	void Init();
 	void FirstDraw(Deck* _deck);
-	void CardDraw(Deck* _deck);
+	bool CardDraw(Deck* _deck);
 	int Bet() { return betChip; }
 	int GetScore(); //카드합 점수
 	bool ActiveSkill();
@@ -62,9 +62,9 @@ public:
 	bool Shuffle     = false;
 	bool needDiscard = false;
 	int  openCard  = 0; //d
-	int  skillPoint = 0; 
+	int  skillPoint = 2; 
 	int  chip = 1000; //겜블때 쓸 칩 수,전체 돈
-	Card* selectCard;  //스킬 쓸때 손패에서 선택중인 카드
+	Card* selectCard = nullptr;  //스킬 쓸때 손패에서 선택중인 카드
 	Hand hand;
 	std::function<bool()> skill;
 };
