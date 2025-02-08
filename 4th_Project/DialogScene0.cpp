@@ -2,6 +2,7 @@
 #include "DialogScene0.h"
 #include "D2DBaseObj.h"
 #include "D2DBitMapFontScript.h"
+
 void DialogScene0::Enter()
 {
 	Scene::Enter();

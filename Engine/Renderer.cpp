@@ -223,8 +223,8 @@ void Renderer::D3DDraw()
 }
 
 void Renderer::D2DDraw()
-{
-	for (auto& D2DrenderComponent : D2Dwork)
+{ // 여기에다 오브젝트 상태가 true 이면서 레이어 오더가 큰 순서대로 정렬시키는 코드 만들어야 함 
+	for (auto& D2DrenderComponent : D2Dwork) 
 	{
 		if(true == D2DrenderComponent->GetActive())
 			D2DrenderComponent->Draw();

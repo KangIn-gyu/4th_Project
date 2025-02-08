@@ -51,6 +51,7 @@ public:
 private:
 
 public:
+	int bitmapLayerOrder = 0; // 0부터 순서대로 그려진다 그렇기 때문에 가장 높은 수가 가장 나중에 그림을 그림.
 
 private:
 	D2DFont* font{};
