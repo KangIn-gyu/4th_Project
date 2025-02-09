@@ -180,6 +180,7 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SceneHeaders.h" />
+    <ClInclude Include="SelectionDialogScript.h" />
     <ClInclude Include="SkillButton.h" />
     <ClInclude Include="TestObj.h" />
     <ClInclude Include="TestObj2.h" />
@@ -228,6 +229,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="SelectionDialogScript.cpp" />
     <ClCompile Include="SkillButton.cpp" />
     <ClCompile Include="TestObj.cpp" />
     <ClCompile Include="TestObj2.cpp" />

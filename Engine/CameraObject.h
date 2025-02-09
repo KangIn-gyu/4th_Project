@@ -14,6 +14,8 @@ public:
 	virtual void FixedUpdate() override {};
 	virtual void LateUpdate() override {};
 
+	void MovingFlag(bool _flag);
+
 	std::pair<int, int> GetWindowSize() const;
 	DXMath::Matrix GetProjectionMatrix();
 	DXMath::Matrix GetViewMatrix();

@@ -16,7 +16,7 @@ private:
     std::vector<DXMath::Vector3> positions;
     std::vector<CardSlot> slots;
     float timer = 0.0f;
-    const float ROTATION_INTERVAL = 10.f; // 몇 초마다 한 칸씩 이동할지
+    const float ROTATION_INTERVAL = 1.f; // 몇 초마다 한 칸씩 이동할지
     int currentIndex = 0;
     int completedRotations = 0;
     int currentCardIndex = 0;

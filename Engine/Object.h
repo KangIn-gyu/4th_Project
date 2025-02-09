@@ -76,7 +76,7 @@ public:
 	void ComponentSetting();
 
 	template<class T>
-	void CreateScript(); // 오브젝트 생성하고 부르면 됨
+	T* CreateScript(); // 오브젝트 생성하고 부르면 됨
 
 protected:
 	template<ComponentType T, typename ... Arg> // 함수 오버로드함
@@ -139,9 +139,10 @@ T* Object::CreateComponent(Arg&& ... _arguments)
 }
 
 template<class T> 
-void Object::CreateScript()
+T* Object::CreateScript()
 {
 	script = new T(this);
+	return static_cast<T*>(script);
 }
 
 // 타입을 넣고 해당 타입의 벡터를 받을 수 있다. 

@@ -27,6 +27,7 @@ private:
 	void ConsoleMenu();
 	void MainMenu();
 	void ImGuiScene();
+	void SceneChange();
 
 	void MainDockSpace(); // 보류 코드
 	void SRV();

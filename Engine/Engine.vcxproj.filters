@@ -366,9 +366,6 @@
     <ClInclude Include="BoneReference.h">
       <Filter>4_Resources\ResourceData\Bone</Filter>
     </ClInclude>
-    <ClInclude Include="BoneWeightVertex.h">
-      <Filter>4_Resources\ResourceData\Bone</Filter>
-    </ClInclude>
     <ClInclude Include="VertexBuffer.h">
       <Filter>3_Graphics\GraphicsData\Buffer</Filter>
     </ClInclude>
@@ -423,6 +420,9 @@
     </ClInclude>
     <ClInclude Include="CSVLoader.h">
       <Filter>4_Resources\CSVLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="BoneWeightVertex.h">
+      <Filter>4_Resources\ResourceData\Vertex</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -585,9 +585,6 @@
     <ClCompile Include="BoneReference.cpp">
       <Filter>4_Resources\ResourceData\Bone</Filter>
     </ClCompile>
-    <ClCompile Include="BoneWeightVertex.cpp">
-      <Filter>4_Resources\ResourceData\Bone</Filter>
-    </ClCompile>
     <ClCompile Include="VertexBuffer.cpp">
       <Filter>3_Graphics\GraphicsData\Buffer</Filter>
     </ClCompile>
@@ -625,8 +622,6 @@
       <Filter>4_Resources\ResourceData\Font</Filter>
     </ClCompile>
     <ClCompile Include="Component.cpp" />
-    <ClCompile Include="AABB.cpp" />
-    <ClCompile Include="ButtonColider.cpp" />
     <ClCompile Include="Script.cpp">
       <Filter>5_Object\Script</Filter>
     </ClCompile>
@@ -645,6 +640,9 @@
     </ClCompile>
     <ClCompile Include="Component.cpp">
       <Filter>5_Object\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="BoneWeightVertex.cpp">
+      <Filter>4_Resources\ResourceData\Vertex</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

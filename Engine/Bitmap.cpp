@@ -5,6 +5,8 @@
 #include "D2DClass.h"
 #include "D2DLoader.h"
 
+
+
 void Bitmap::Load(std::string_view _filePath)
 {
    d2dBitmap = D2DLOADER->Load(StringConverter::StringToWide(_filePath));

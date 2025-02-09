@@ -93,7 +93,7 @@ void D2DBitMapFontScript::OnInputProcess(const DX::Keyboard::State& _KeyState, c
 				if (index < csvData.size())
 				{
 					int ChangeBitmapindex = csvData[index].first;
-				  ownerD2D->ChangeBitmap(ChangeBitmapindex - startImage);
+					ownerD2D->ChangeBitmap(ChangeBitmapindex - startImage);
 					displayedText = L"";
 				}
 			}

@@ -4,6 +4,7 @@
 #include "Card.h"
 #include "Deck.h"
 #include "BlackJack.h"
+
 CardRotation::CardRotation()
 {
 	// 원형 배치를 위한 설정
@@ -17,7 +18,7 @@ CardRotation::CardRotation()
 		float angle = DirectX::XMConvertToRadians(startAngle + (i * angleStep));
 		positions[i] = {
 			radius * cos(angle),
-			0.0f,
+			90.0f,			// 높이
 			radius * sin(angle)
 		};
 	}
@@ -54,16 +55,17 @@ void CardRotation::Init(Deck* deckPtr)
 	currentCardIndex = numInitialCards - 1;
 
 	// 초기 회전 설정
-	float rotat = 90.0f;
-	float eulerAngle = DirectX::XMConvertToRadians(rotat);
-	DXMath::Quaternion initialRotation = DXMath::Quaternion::CreateFromYawPitchRoll(0.f, eulerAngle, 0.f);
+	float rotatX = 90.0f;
+	float eulerAngleX = DirectX::XMConvertToRadians(rotatX);
+	DXMath::Quaternion xRotation = DXMath::Quaternion::CreateFromYawPitchRoll(0.f, eulerAngleX, 0.f);
 
 	// 활성 슬롯의 카드만 회전 적용
 	for (int i = 0; i < ACTIVE_SLOTS; i++) {
 		if (slots[i].isActive && slots[i].card) {
 			auto transform = slots[i].card->GetComponent<TransformComponent>();
 			if (transform) {
-				transform->SetQuaternion(initialRotation);
+				auto currentRotation = transform->GetQuaternion();
+				transform->SetQuaternion(xRotation);
 			}
 		}
 	}
@@ -103,10 +105,17 @@ void CardRotation::RotateCards(std::vector<Card*>& cards)
 				// 현재 카드를 비활성화하고 덱으로 이동
 				slots[i].isActive = false;
 				if (slots[i].card) {
+					float rotat = 90.0f;
+					float eulerAngle = DirectX::XMConvertToRadians(rotat);
 					auto transform = slots[i].card->GetComponent<TransformComponent>();
 					if (transform) {
 						auto deckPos = BLACKJACK->deck->GetComponent<TransformComponent>()->GetPosition();
 						transform->SetPosition(deckPos);
+
+						DXMath::Quaternion xRotation = DXMath::Quaternion::CreateFromYawPitchRoll(0.f, eulerAngle, 0.f);
+						auto currentRotation = transform->GetQuaternion();
+						auto afterXRotation = currentRotation * xRotation;
+						transform->SetQuaternion(afterXRotation);
 					}
 				}
 
@@ -173,5 +182,20 @@ void CardRotation::UpdateCardPositions(float t)
             interpolatedPosition
         );
         transform->SetPosition(interpolatedPosition);
+
+		// 카드가 중심을 향하도록 회전 계산
+		DXMath::Vector3 toCenter = deckPosition - interpolatedPosition;
+		toCenter.y = 0; // y축 회전만 고려
+		toCenter.Normalize();
+
+		// 카드의 기본 90도 x축 회전 유지
+		float pitch = DirectX::XMConvertToRadians(90.0f);
+		float roll = DirectX::XMConvertToRadians(180.0f);
+		// 중심을 향하는 y축 회전 계산
+		float yaw = atan2(toCenter.x, toCenter.z);
+
+		// 최종 회전 쿼터니언 생성
+		DXMath::Quaternion rotation = DXMath::Quaternion::CreateFromYawPitchRoll(yaw, pitch, roll);
+		transform->SetQuaternion(rotation);
     }
 }

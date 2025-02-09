@@ -32,6 +32,8 @@ public:
 	void  			ChangeBitmap(int _index);
 	Bitmap*			GetBitmap(int _index);
 
+	bool IsBitmap() { return drawBitmap; }
+
 	// 폰트 관련 함수들 데이터 조정
 	void LoadFont(const std::string& _filePath);
 	void SetDialog(std::wstring_view _dialog);
@@ -41,9 +43,11 @@ public:
 	void SetAlignment(D2DFont::Setting _SortX, D2DFont::Setting _SortY);
 	void SetTextSize(float _FontSize, DWRITE_TEXT_RANGE _textRange = {0, UINT32_MAX});
 	void SetLineSpacing(float _lineSpacing);
+	bool IsFont() { return font; }
 
-	// 폰트맵과 비트맵 같이 처리함
-	void Draw();
+	// 폰트맵과 비트맵 Draw 분리
+	void BitDraw();
+	void FontDraw();
 
 	// CSV 로드
 	void SceneCSVDataLoad(std::string_view _filePath);
@@ -51,6 +55,7 @@ public:
 private:
 
 public:
+	int bitmapLayerOrder = 0; // 0부터 순서대로 그려진다 그렇기 때문에 가장 높은 수가 가장 나중에 그림을 그림.
 
 private:
 	D2DFont* font{};

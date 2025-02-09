@@ -68,6 +68,18 @@ void SceneManager::Change(std::string_view _SceneName)
 	}
 }
 
+std::vector<std::string> SceneManager::GetSceneNameList()
+{ // 계속 생성 삭제를 해서 좀 그렇지만 걍 해 시간 없어
+	std::vector<std::string> list;
+
+	for(auto& it : ScenesCollection)
+	{
+		list.push_back(it.first);
+	}
+
+	return list;
+}
+
 SceneManager::~SceneManager()
 {
 	SafeExtinction::SAFE_CLEAR_CONTAINER(ScenesCollection);

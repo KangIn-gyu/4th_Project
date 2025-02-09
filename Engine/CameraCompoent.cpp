@@ -7,7 +7,7 @@
 #include "Helper.h"
 #include "DirectXInput.h"
 
-CameraCompoent::CameraCompoent()
+ CameraCompoent::CameraCompoent()
 {
 	cameraInfo = new CameraInfo;
 }
@@ -118,65 +118,68 @@ void CameraCompoent::OnInputProcess(const DX::Keyboard::State& _KeyState, const 
 	DXMath::Vector3 right = GetRight();
 	DXMath::Vector3 up = cameraInfo->cameraTransform->GetLocalUp();
 
-	if (_KeyState.IsKeyDown(DirectX::Keyboard::Keys::W))
+	if (true == movingFlag)
 	{
-		AddInputVector(forward);
-	}
-	else if (_KeyState.IsKeyDown(DirectX::Keyboard::Keys::S))
-	{
-		AddInputVector(-forward);
-	}
-
-	if (_KeyState.IsKeyDown(DirectX::Keyboard::Keys::A))
-	{
-		AddInputVector(-right);
-	}
-	else if (_KeyState.IsKeyDown(DirectX::Keyboard::Keys::D))
-	{
-		AddInputVector(right);
-	}
-
-	if (_KeyState.IsKeyDown(DirectX::Keyboard::Keys::Space))
-	{	// E 키 - 위로 이동
-		AddInputVector(up);
-	}
-	else if (_KeyState.IsKeyDown(DirectX::Keyboard::Keys::LeftShift))
-	{	// Q 키 - 아래로 이동
-		AddInputVector(-up);
-	}
-	
-	if (_KeyState.IsKeyDown(DirectX::Keyboard::Keys::Escape))
-	{
-		PostQuitMessage(0);
-	}
-
-	DXINPUT->mouse->SetMode(_MouseState.rightButton ? DX::Mouse::MODE_RELATIVE : DX::Mouse::MODE_ABSOLUTE);
-	if (_MouseState.positionMode == DX::Mouse::MODE_RELATIVE)
-	{
-		DXMath::Vector3 delta = DXMath::Vector3(float(_MouseState.x), float(_MouseState.y), 0.f) * cameraInfo->RotationSpeed;
-		// 구한 이동량으로 회전
-		cameraInfo->cameraTransform->AddYaw(delta.x);
-		cameraInfo->cameraTransform->AddPithc(delta.y);
-
-		DXMath::Quaternion currentRotation = cameraInfo->cameraTransform->GetQuaternion();
-		UpdateViewMatrix();
-	}
-
-	static int lastWheelDelta = 0;
-	const DX::Mouse::State& mouseState = DXINPUT->mouse->GetState();
-	int wheelDelta = mouseState.scrollWheelValue;
-	if (wheelDelta != lastWheelDelta) {
-		if (wheelDelta > lastWheelDelta) {
-			std::cout << "마우스 휠업함 " << " ";  
-			// count++;  
+		if (_KeyState.IsKeyDown(DirectX::Keyboard::Keys::W))
+		{
+			AddInputVector(forward);
 		}
-		// 휠이 아래로 굴러갔을 때
-		else if (wheelDelta < lastWheelDelta) {
-			std::cout << "마우스 휠 다운함 " << " ";  
-			// count--; 
+		else if (_KeyState.IsKeyDown(DirectX::Keyboard::Keys::S))
+		{
+			AddInputVector(-forward);
 		}
-		lastWheelDelta = wheelDelta;
-	}
+
+		if (_KeyState.IsKeyDown(DirectX::Keyboard::Keys::A))
+		{
+			AddInputVector(-right);
+		}
+		else if (_KeyState.IsKeyDown(DirectX::Keyboard::Keys::D))
+		{
+			AddInputVector(right);
+		}
+
+		if (_KeyState.IsKeyDown(DirectX::Keyboard::Keys::Space))
+		{	// E 키 - 위로 이동
+			AddInputVector(up);
+		}
+		else if (_KeyState.IsKeyDown(DirectX::Keyboard::Keys::LeftShift))
+		{	// Q 키 - 아래로 이동
+			AddInputVector(-up);
+		}
+
+		if (_KeyState.IsKeyDown(DirectX::Keyboard::Keys::Escape))
+		{
+			PostQuitMessage(0);
+		}
+
+		DXINPUT->mouse->SetMode(_MouseState.rightButton ? DX::Mouse::MODE_RELATIVE : DX::Mouse::MODE_ABSOLUTE);
+		if (_MouseState.positionMode == DX::Mouse::MODE_RELATIVE)
+		{
+			DXMath::Vector3 delta = DXMath::Vector3(float(_MouseState.x), float(_MouseState.y), 0.f) * cameraInfo->RotationSpeed;
+			// 구한 이동량으로 회전
+			cameraInfo->cameraTransform->AddYaw(delta.x);
+			cameraInfo->cameraTransform->AddPithc(delta.y);
+
+			DXMath::Quaternion currentRotation = cameraInfo->cameraTransform->GetQuaternion();
+			UpdateViewMatrix();
+		}
+
+		static int lastWheelDelta = 0;
+		const DX::Mouse::State& mouseState = DXINPUT->mouse->GetState();
+		int wheelDelta = mouseState.scrollWheelValue;
+		if (wheelDelta != lastWheelDelta) {
+			if (wheelDelta > lastWheelDelta) {
+				std::cout << "마우스 휠업함 " << " ";
+				// count++;  
+			}
+			// 휠이 아래로 굴러갔을 때
+			else if (wheelDelta < lastWheelDelta) {
+				std::cout << "마우스 휠 다운함 " << " ";
+				// count--; 
+			}
+			lastWheelDelta = wheelDelta;
+		}
+	}	
 }
 
 DXMath::Vector3 CameraCompoent::GetForward()

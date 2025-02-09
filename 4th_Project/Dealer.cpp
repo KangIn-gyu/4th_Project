@@ -7,6 +7,8 @@
 #include "Deck.h"
 #include "../Engine/Model.h"
 #include "../Engine/TimeSystem.h"
+#include "BlackJack.h"
+
 Dealer::Dealer(std::string_view _name, Object::ObjectType _type) : Object(_name, _type)
 {
 	auto model = CreateComponent<ModelComponent>("STAGE1/FBX/Evelyn_LowPoly.fbx"); // Evelyn char2 SkinningTest Evelyn_LowPoly
@@ -117,6 +119,20 @@ void Dealer::OpenOne(float _deltaTime)
 		hand.hand.back()->MoveOpen();
 	}
 	finishFirst = true;
+}
+
+void Dealer::Reverse()
+{
+	int max = BLACKJACK->player->hand.maxHand - 1;
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<int> distrib(0, max);
+	
+	int randomSlot = distrib(gen);
+	if (BLACKJACK->player->hand.hand[randomSlot] != nullptr && BLACKJACK->player->hand.hand[randomSlot]->isOpen == true)
+	{
+		BLACKJACK->player->hand.hand[randomSlot]->Reverse();
+	}
 }
 
 

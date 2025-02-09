@@ -8,10 +8,7 @@
 #define MYGAMEMANAGER MyGameManager::GetInstance().get()
 class MyGameManager : public GameManager, public SingletonBase<MyGameManager>
 {
-	
-
 	MyGameManager() {};
-
 	friend class SingletonBase<MyGameManager>;
 public:
 

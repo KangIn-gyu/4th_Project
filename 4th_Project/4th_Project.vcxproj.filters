@@ -105,6 +105,9 @@
     <ClInclude Include="DialogScene5.h">
       <Filter>Scene</Filter>
     </ClInclude>
+    <ClInclude Include="SelectionDialogScript.h">
+      <Filter>Script</Filter>
+    </ClInclude>
     <ClInclude Include="DialogIntro.h">
       <Filter>Scene</Filter>
     </ClInclude>
@@ -184,6 +187,9 @@
     </ClCompile>
     <ClCompile Include="DialogScene5.cpp">
       <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectionDialogScript.cpp">
+      <Filter>Script</Filter>
     </ClCompile>
     <ClCompile Include="DialogIntro.cpp">
       <Filter>Scene</Filter>

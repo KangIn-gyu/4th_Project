@@ -78,7 +78,6 @@ void Layer::AddGameObjcet(Object* _gameObject)
 
 void Layer::EraseGameObject(Object* _eraseGameObj)
 {
-
 	std::erase_if(objects,
 		[=](Object* gameObj)
 		{
