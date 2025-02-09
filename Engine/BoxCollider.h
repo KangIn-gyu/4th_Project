@@ -1,5 +1,11 @@
 #pragma once
 #include "Collider.h"
+
+enum class Type
+{
+	None, // 단순 클릭검사등
+	Block, //충돌시 못 넘어가게할것
+};
 class BoxCollider : public Collider
 {
 public:
@@ -8,11 +14,11 @@ public:
 	//나중에 인규형한테 물어보기 따로 해야하는지 
 	~BoxCollider() = default;
 	//쿼터니언으로 회전값 주기 이미 다 쿼터니언이라 걍주면될듯?
-	void SetBox(const DXMath::Vector3 center, const DXMath::Vector3 extents, const DXMath::Quaternion orientation);
+	void SetBox(const DXMath::Vector3 center, const DXMath::Vector3 extents, const DXMath::Quaternion orientation,Type _tpye = Type::None);
 	void DrawBoundBox();
 
 	// 충돌 검사 함수 다른거랑 충돌할일이 있을까
-	bool CheckCollision(const BoxCollider& other) const;
+	virtual bool CheckCollision(Collider* _other)override ;
 	bool Check2D(float mousex, float mousey);
 	virtual void ComponentInitialize() override;                    // 초기화용
 	virtual void ComponentUpdate(const float _deltaTime) override;  // 업데이트
@@ -20,6 +26,7 @@ public:
 	//클릭용 레이검사할 함수
 	bool IntersectsRay(const  DXMath::Vector3& rayOrigin, const  DXMath::Vector3& rayDirection, float& distance) const;
 
+	Type colliderType = Type::None;
 protected:
 private:
 public:

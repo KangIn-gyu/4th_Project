@@ -5,14 +5,28 @@
 #include "D2DFont.h"
 #include "Object.h"
 #include "TransformComponent.h"
-
-void BoxCollider::SetBox(const DXMath::Vector3 center, const DXMath::Vector3 extents, const DXMath::Quaternion orientation)
+#include "ColliderManager.h"
+void BoxCollider::SetBox(const DXMath::Vector3 center, const DXMath::Vector3 extents, const DXMath::Quaternion orientation,Type _type)
 {
 	obBox.Center = center;
 	modelCenter = center; 
 	obBox.Extents = extents;
 	modelExtent = extents;
 	obBox.Orientation = orientation;
+	colliderType = _type;
+	if (colliderType == Type::Block)
+	{
+		CollidersManager->AddCollider(this);
+		//블럭인것만 모으기
+	}
+}
+
+bool BoxCollider::CheckCollision(Collider* _other)
+{
+	BoxCollider* boxcol = dynamic_cast<BoxCollider*>(_other);
+	if(_other != nullptr)
+		return obBox.Intersects(boxcol->obBox);
+
 }
 
 bool BoxCollider::Check2D(float mousex, float mousey)

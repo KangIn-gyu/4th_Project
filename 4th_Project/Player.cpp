@@ -5,12 +5,23 @@
 #include <random>
 #include "../Engine/TransformComponent.h"
 #include "BlackJack.h"
+#include "../Engine/BoxCollider.h"
 
-Player::Player()
+
+
+Player* Player::g_player = nullptr;
+
+Player::Player(std::string_view _name, Object::ObjectType _type) : Object(_name, _type)
 {
+	g_player = this;
 	hand.Init(7);
-}
 
+	CreateComponent<BoxCollider>();
+	DXMath::Vector3 extent = { 100.0f,100.0f,100.f };
+	DXMath::Vector3 center = { 0,0,0 };
+	GetComponent<BoxCollider>()->SetBox(center, extent, GetComponent<TransformComponent>()->GetQuaternion(),Type::Block);
+	GetComponent<BoxCollider>()->SetNotify(this);
+}
 void Player::Initialize()
 {
 	
@@ -155,8 +166,6 @@ bool Player::Insurance()
 	return true;
 }
 
-
-
 bool Player::ActiveSkill()
 {
 	return skill(); //스킬 발동이 끝나면 true 리턴
@@ -164,3 +173,12 @@ bool Player::ActiveSkill()
 
 
 
+void Player::OnInputProcess(const DX::Keyboard::State& _KeyState, const DX::Keyboard::KeyboardStateTracker& _KeyTracker, const DX::Mouse::State& _MouseState, const DX::Mouse::ButtonStateTracker& _MouseTracker)
+{
+}
+
+
+void Player::OnBlock(Collider* _myCol, Collider* _otherCol)
+{
+	std::cout << "부딪혔음" << std::endl;
+}

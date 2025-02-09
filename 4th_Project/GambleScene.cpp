@@ -16,9 +16,10 @@
 #include "GambleButton.h"
 #include "SkillButton.h"
 #include "ToopTip2D.h"
+
 GambleScene::GambleScene(std::string_view _Name) : Scene(_Name)
 {
-	BLACKJACK->player = PLAYER;	
+	BLACKJACK->player = CreatorObject<Player>("Player", Object::ObjectType::Basic);
 	CreatorObject<UIButton>("Bet", Object::ObjectType::UI, "UI/Button/Bet.png", DXMath::Vector2(500, 50), []() {BLACKJACK->Bet();});
 	CreatorObject<GambleButton>("Open", Object::ObjectType::UI, DXMath::Vector2(800, 0), []() {ClickFunc::OpenButton();});
 	CreatorObject<GambleButton>("Hit", Object::ObjectType::UI, DXMath::Vector2(1100, 0), []() {ClickFunc::HitButton();});

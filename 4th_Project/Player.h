@@ -4,8 +4,12 @@
 #include "Deck.h"
 #include "Hand.h"
 #include "Card.h"
+#include "../Engine/IColliderNotify.h"
+#include "../Engine/DirectXInput.h"
 
-#define PLAYER Player::GetInstance().get()
+#define PLAYER Player::GetInstance()
+
+
 
 enum class PSkill
 {
@@ -15,17 +19,17 @@ enum class PSkill
 	meditation,
 	Insurance
 };
-class Player : public SingletonBase<Player>
+class Player : public Object, public IColliderNotify , public IinputProcesser
 {
-	friend class SingletonBase<Player>;
-
 public:
-	
+	Player(std::string_view _name, Object::ObjectType _type);
 	virtual void Initialize();
 	virtual void Update(const float _deltaTime);
 	virtual void FixedUpdate() {}
 	virtual void LateUpdate() {}
 
+	virtual void OnBlock(Collider* _myCol, Collider* _otherCol) override;
+	static Player* GetInstance() { return g_player; }
 	void Init();
 	void FirstDraw(Deck* _deck);
 	bool CardDraw(Deck* _deck);
@@ -48,14 +52,16 @@ public:
 	
 	// skill 버튼 누르면  스킬 1,2,3,4 버튼등장 -> 플레이어 기력받아와서 기력이없으면 스킬버튼 불가능 ->
 	// 스킬 1,2,3,4 버튼 클릭되면 플레이어  기력-하고 스킬func 바뀌면서 해당스킬 실행
-private:
-	Player();
-	Player(std::string_view _name, Object::ObjectType _type);
 
-	
+	virtual void OnInputProcess(const DX::Keyboard::State& _KeyState,
+		const DX::Keyboard::KeyboardStateTracker& _KeyTracker,
+		const DX::Mouse::State& _MouseState,
+		const DX::Mouse::ButtonStateTracker& _MouseTracker) override;
+private:
 	float love{};    //호감도 딜러랑만의 호감
 	int   betChip{}; //베팅떄 걸칩갯수 마우스휠로 조절
 public:
+	static Player* g_player;
 	bool turnEnd     = false;
 	bool drawFirst   = false;
 	bool isDrawOne   = false;

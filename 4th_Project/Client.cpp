@@ -28,10 +28,8 @@ void Client::Enter()
 	SCENEMANAGER->CreatorScene<LobbyScene>("Lobby");
 //	TitleScene* titleScene = new TitleScene("Title");
 //	SceneManager
-	BLACKJACK->player = PLAYER;
-
 	//SCENEMANAGER->ChangeScene("GAMBLE");
-	//ENGINE->CollectionGameManager(MYGAMEMANAGER);
+	ENGINE->CollectionGameManager(MYGAMEMANAGER);
 	SOUNDSYSTEM->LoadMusic(eSoundList::Main_Theme, true, "Resource\\STAGE1\\Sounds\\dancer.mp3");
 	SOUNDSYSTEM->SetVolumeAll(0.5f);
 

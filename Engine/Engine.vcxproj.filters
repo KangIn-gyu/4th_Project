@@ -429,6 +429,8 @@
     <ClInclude Include="D2DLoader.h">
       <Filter>4_Resources\D2DLoader</Filter>
     </ClInclude>
+    <ClInclude Include="ColliderManager.h" />
+    <ClInclude Include="IColliderNotify.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WindowApp.cpp">
@@ -651,6 +653,7 @@
     <ClCompile Include="D2DLoader.cpp">
       <Filter>4_Resources\D2DLoader</Filter>
     </ClCompile>
+    <ClCompile Include="ColliderManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd">

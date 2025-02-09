@@ -8,21 +8,24 @@
 void MyGameManager::Update(float _deltaTime)
 {
 
-	if (isBtnOn == true)
+	if (SCENEMANAGER.get()->GetCurrentScene()->GetName() == "GAMBLE")
 	{
-		setSkillBtn(true);
+		if (isBtnOn == true)
+		{
+			setSkillBtn(true);
 
-		//if (true == CheckClick())
-		//{
-		//	isBtnOn = false;
-		//	setSkillBtn(false);
-		//}
+			//if (true == CheckClick())
+			//{
+			//	isBtnOn = false;
+			//	setSkillBtn(false);
+			//}
+		}
+		else
+		{
+			setSkillBtn(false);
+		}
+		UpdateGambleButton();
 	}
-	else
-	{
-		setSkillBtn(false);
-	}
-	UpdateGambleButton();
 
 	
 }
@@ -76,6 +79,7 @@ void MyGameManager::UpdateGambleButton()
 
 void MyGameManager::setSkillBtn(bool _state)
 {
+	
 	SCENEMANAGER.get()->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "Handfaster")->SetActive(_state);
 	SCENEMANAGER.get()->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "Guts")->SetActive(_state);
 	SCENEMANAGER.get()->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "Meditation")->SetActive(_state);

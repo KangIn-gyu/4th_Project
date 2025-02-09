@@ -8,7 +8,7 @@
 
 #include "CameraObject.h"
 #include "TransformComponent.h"
-
+#include "ColliderManager.h"
 #include "DOTweenManager.h"
 Scene::Scene(std::string_view _Name)
 {
@@ -49,7 +49,7 @@ void Scene::Update(const float _deltaTime)
 	{
 		obj->Update(_deltaTime);
 	}
-
+	CollidersManager->CollisionCheck();
 	eventSysyem->Update();
 	dotweenManager->Update(_deltaTime);
 }
