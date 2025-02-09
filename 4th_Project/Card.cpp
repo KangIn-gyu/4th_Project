@@ -205,7 +205,7 @@ void Card::OnMouse()
 
 void Card::ExitMouse()
 {
-	RemoveEffect(Object::Effect::None);
+	RemoveEffect(Object::Effect::OutLine);
 }
 
 void Card::OpenA()

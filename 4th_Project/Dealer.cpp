@@ -102,6 +102,7 @@ void Dealer::OnClick()
 	std::cout << "누르지 마세요 " << std::endl;
 	std::cout << chip << "\n";
 	//this->~Dealer();
+	slotBan();
 }
 
 void Dealer::OnMouse()
@@ -125,24 +126,27 @@ void Dealer::OpenOne(float _deltaTime)
 
 bool Dealer::reverse()
 {
-	int max = BLACKJACK->player->hand.numCard();
-	std::random_device rd;
-	std::mt19937 gen(rd());
-	std::uniform_int_distribution<int> distrib(0, max);
-	
-	bool isFlipped = false;
-	
-	while (!isFlipped)
-	{
-		int randomSlot = distrib(gen);
-
-		if (BLACKJACK->player->hand.hand[randomSlot] != nullptr && BLACKJACK->player->hand.hand[randomSlot]->isOpen == true)
-		{
-			BLACKJACK->player->hand.hand[randomSlot]->Close();
-			isFlipped = true;
+	std::vector<int> openSlots;
+	int cardCount = BLACKJACK->player->hand.numCard();
+	for (int i = 0; i < cardCount; i++) {
+		if (BLACKJACK->player->hand.hand[i] != nullptr &&
+			BLACKJACK->player->hand.hand[i]->isOpen) {
+			openSlots.push_back(i);
 		}
 	}
+
+	if (openSlots.empty()) {
+		return false;
+	}
 	
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<int> distrib(0, openSlots.size() - 1);
+	int randomIndex = distrib(gen);
+
+	int targetSlot = openSlots[randomIndex];
+	BLACKJACK->player->hand.hand[targetSlot]->Close();
+
 	return true;
 }
 
@@ -160,22 +164,31 @@ bool Dealer::skillBan()
 
 bool Dealer::slotBan()
 {
+	std::vector<int> activeSlots;
 
-	int max = BLACKJACK->player->hand.numCard();
-	std::random_device rd;
-	std::mt19937 gen(rd());
-	std::uniform_int_distribution<int> distrib(0, max);
+	int cardCount = BLACKJACK->player->hand.numCard();
 
-	int randomSlot = distrib(gen);
-	bool isClose = false;
-	while (!isClose)
-	{
-		if (BLACKJACK->player->hand.hand[randomSlot] != nullptr)
-		{
-			BLACKJACK->player->hand.hand[randomSlot]->slotActive = false;
-			isClose = true;
+	for (int i = 0; i < cardCount; i++) {
+		if (BLACKJACK->player->hand.hand[i] != nullptr &&
+			BLACKJACK->player->hand.hand[i]->slotActive) {
+			activeSlots.push_back(i);
 		}
 	}
+
+	if (activeSlots.empty()) {
+		return false;
+	}
+
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<int> distrib(0, activeSlots.size() - 1);
+	int randomIndex = distrib(gen);
+
+	int targetSlot = activeSlots[randomIndex];
+	BLACKJACK->player->hand.hand[targetSlot]->slotActive = false;
+	BLACKJACK->player->hand.hand[targetSlot]->AddEffect(Object::Effect::Banned);
+
+	return true;
 	
 	return true;
 }

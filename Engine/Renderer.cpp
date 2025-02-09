@@ -186,7 +186,7 @@ void Renderer::D3DDraw()
 	// 1. 먼저 마스크 패스
 	for (auto& renderComponent : work)
 	{
-		if (renderComponent->GetOwner()->GetEffects().f)
+		if (renderComponent->GetOwner()->HasEffect(Object::Effect::OutLine) == true)
 		{
 			d3dDeviceContext->OMSetDepthStencilState(outlineMaskState.Get(), 1);
 			RenderObject(renderComponent, false);
@@ -198,7 +198,7 @@ void Renderer::D3DDraw()
 	// 2. 그 다음 아웃라인 패스
 	for (auto& renderComponent : work)
 	{
-		if (renderComponent->GetOwner()->GetEffect() == Object::Effect::OutLine)
+		if (renderComponent->GetOwner()->HasEffect(Object::Effect::OutLine) == true)
 		{
 			d3dDeviceContext->OMSetDepthStencilState(outlineStencilState.Get(), 1);
 			d3dDeviceContext->RSSetState(outlineRasterizerState.Get());
@@ -211,7 +211,7 @@ void Renderer::D3DDraw()
 	d3dDeviceContext->RSSetState(nullptr);
 	for (auto& renderComponent : work)
 	{
-		if (renderComponent->GetOwner()->GetEffect() != Object::Effect::OutLine)
+		if (renderComponent->GetOwner()->HasEffect(Object::Effect::OutLine) == false)
 		{
 			RenderObject(renderComponent, false);
 		}
@@ -457,6 +457,16 @@ void Renderer::RenderObject(RenderComponent* renderComponent, bool isOutlinePass
 		objectData.metalness = material->GetMetalness();
 		objectData.roughness = material->GetRoughness();
 		objectData.outlineColor = renderComponent->GetOwner()->GetOutlineColor();
+		
+		if (renderComponent->GetOwner()->HasEffect(Object::Effect::Banned))
+		{
+			objectData.onBanned = true;
+		}
+		else
+		{
+			objectData.onBanned = false;
+		}
+
 		objectData.onOutline = isOutlinePass;
 
 		// Update Matrix Palette if needed
