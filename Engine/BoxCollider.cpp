@@ -32,11 +32,11 @@ bool BoxCollider::Check2D(float mousex, float mousey)
 	return false;  // 충돌 안 함
 }
 
-void BoxCollider::DrawBoundBox()
+D2D1_RECT_F BoxCollider::GetBoundBox()
 {
-	D2D1_RECT_F rect = { 0, 0,  obBox.Center.x*2, obBox.Center.y * 2 };
-	D2DFont* b = new D2DFont;
-	D2DClass::GetD2DDeviceContext()->DrawRectangle(&rect, b->GetBoundBrush());
+	float r = obBox.Center.x * 2;
+	D2D1_RECT_F rect = { 0, 0,  r, obBox.Center.y * 2 };
+	return rect;
 }
 
 void BoxCollider::ComponentInitialize()

@@ -28,6 +28,7 @@ public:
 	DXMath::Vector2 Get2DImageXY();
 	D2D_VECTOR_2F	Get2DImagePos();
 	void			Set2DImagePos(float _x, float _y);
+	void			SetBoundBox(D2D1_RECT_F _box);
 
 	void  			ChangeBitmap(int _index);
 	Bitmap*			GetBitmap(int _index);

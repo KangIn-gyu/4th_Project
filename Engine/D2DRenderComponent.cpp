@@ -63,6 +63,13 @@ void D2DRenderComponent::Set2DImagePos(float _x, float _y)
 		bit->SetPos(_x, _y);
 	}
 }
+
+void D2DRenderComponent::SetBoundBox(D2D1_RECT_F _box)
+{
+	drawBitmap->SetBoundBox(_box);
+}
+
+
 D2D_VECTOR_2F D2DRenderComponent::Get2DImagePos()
 {
 	return { drawBitmap->GetRect().left, drawBitmap->GetRect().top };
@@ -128,10 +135,17 @@ void D2DRenderComponent::BitDraw()
 {
 	if (drawBitmap != nullptr)
 	{
+#if _DEBUG
+		if (drawBitmap != nullptr)
+		{
+			ID2D1SolidColorBrush* boundBrush;
+			D2DClass::GetD2DDeviceContext()->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::LightPink), &boundBrush);
+			D2DClass::GetD2DDeviceContext()->DrawRectangle(drawBitmap->GetBoundBox(), boundBrush);
+		}
+#endif
 		D2DClass::GetD2DDeviceContext()->DrawBitmap(drawBitmap->GetImageData(), drawBitmap->GetRect(), drawBitmap->GetAlpha());
 	}
 }
-
 void D2DRenderComponent::FontDraw()
 {
 	if (font != nullptr)

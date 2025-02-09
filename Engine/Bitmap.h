@@ -17,6 +17,8 @@ public:
 
 	void SetSize(float width, float height);
 	void SetPos(float x, float y);
+	void SetBoundBox(D2D1_RECT_F _box);
+	D2D1_RECT_F GetBoundBox() { return bitmapBoundbox; }
 	void SetAlpha(float _alpha) { alpha = _alpha; }
 	float GetAlpha() { return alpha; }
 
@@ -27,6 +29,7 @@ private:
 
 	float xPos = 0, yPos = 0, width{}, height;
 	D2D1_RECT_F destRect = { xPos,yPos,width+ xPos,height+ yPos };
+	D2D1_RECT_F bitmapBoundbox;
 
 	float alpha = 1;
 
