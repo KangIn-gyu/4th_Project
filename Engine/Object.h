@@ -31,8 +31,9 @@ public:
 
 	enum class Effect
 	{
-		None,
-		OutLine,
+		None = 0,
+		OutLine = 1 << 0,
+		Banned = 1 << 1,
 	};
 	
 	Object(std::string_view _name , Object::ObjectType _type = ObjectType::Basic); // 명시 안해놓으면 기본 오브젝트로 생성
@@ -46,11 +47,12 @@ public:
 	virtual void LateUpdate() {}
 	virtual void ResetInformation() {}  // 용도 : 씬 전환 이후 내부 정보 초기화
 
-	void SetEffect(Effect _effect) { effect = _effect; }
+	void AddEffect(Effect effect) { effects |= static_cast<uint32_t>(effect); }
+	void RemoveEffect(Effect effect) { effects &= ~static_cast<uint32_t>(effect); }
+	bool HasEffect(Effect effect) const { return (effects & static_cast<uint32_t>(effect)) != 0; }
 
 	State GetState() { return state; }
 	ObjectType GetObjectType() { return type; }
-	Effect GetEffect() { return effect; }
 	std::string ObjectTypeToString();
 	
 	const std::string& GetName() { return name; }
@@ -78,6 +80,10 @@ public:
 	template<class T>
 	T* CreateScript(); // 오브젝트 생성하고 부르면 됨
 
+	// 결국 뺄수밖에 없는 구조 -> 더 좋은 구조가 있겠지만 일단은 이렇게
+	void SetOutlineColor(const DXMath::Vector4& color) { outlineColor = color; }
+	const DXMath::Vector4& GetOutlineColor() const { return outlineColor; }
+
 protected:
 	template<ComponentType T, typename ... Arg> // 함수 오버로드함
 	T* CreateComponent(Arg&&... _arguments);
@@ -96,9 +102,12 @@ private:
 	State state = State::Active;  // 해당 타입은 set 만들면 안됨.
 	bool isActive = true; //일단만듬 인규형 나중에 수정하거나 그냥 두죠 
 	ObjectType type;
-	Effect effect = Effect::None;
+
+	// effect를 모아놓는 연산 ( 벡터는 연산 많이 먹으니깐 비트 플래그연산)
+	uint32_t effects = 0;
+
 	std::unordered_map<std::type_index, std::vector<Component*>> components;
-	
+	DXMath::Vector4 outlineColor = { 0.0f, 0.0f, 0.0f, 1.0f };
 };
 
 template <typename T, typename... Args>

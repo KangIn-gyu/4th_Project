@@ -39,7 +39,8 @@ struct alignas(16) ObjectBuffer
 	float metalness{};
 	float roughness{};
 	int   onOutline{};
-	float padding0{};
+	int	  onBanned{};
+	DXMath::Vector4 outlineColor{};
 };
 
 struct alignas(16) CameraBuffer

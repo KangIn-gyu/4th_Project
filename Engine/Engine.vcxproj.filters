@@ -176,6 +176,9 @@
     <Filter Include="4_Resources\CSVLoader">
       <UniqueIdentifier>{8cfcf0f4-4127-4241-82c8-ac0c3888a5af}</UniqueIdentifier>
     </Filter>
+    <Filter Include="4_Resources\D2DLoader">
+      <UniqueIdentifier>{5d3ef893-c5bd-4008-9a1a-eb500bab85cd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowApp.h">
@@ -411,7 +414,6 @@
     <ClInclude Include="ShadowRenderer.h">
       <Filter>3_Graphics\GraphicsData\Shadow</Filter>
     </ClInclude>
-    <ClInclude Include="D2DLoader.h" />
     <ClInclude Include="GameManager.h">
       <Filter>1_Engine\GameManager</Filter>
     </ClInclude>
@@ -423,6 +425,9 @@
     </ClInclude>
     <ClInclude Include="BoneWeightVertex.h">
       <Filter>4_Resources\ResourceData\Vertex</Filter>
+    </ClInclude>
+    <ClInclude Include="D2DLoader.h">
+      <Filter>4_Resources\D2DLoader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -631,7 +636,6 @@
     <ClCompile Include="ShadowRenderer.cpp">
       <Filter>3_Graphics\GraphicsData\Shadow</Filter>
     </ClCompile>
-    <ClCompile Include="D2DLoader.cpp" />
     <ClCompile Include="GameManager.cpp">
       <Filter>1_Engine\GameManager</Filter>
     </ClCompile>
@@ -643,6 +647,9 @@
     </ClCompile>
     <ClCompile Include="BoneWeightVertex.cpp">
       <Filter>4_Resources\ResourceData\Vertex</Filter>
+    </ClCompile>
+    <ClCompile Include="D2DLoader.cpp">
+      <Filter>4_Resources\D2DLoader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

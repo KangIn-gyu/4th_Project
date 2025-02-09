@@ -30,7 +30,7 @@ void Card::Initialize()
 	CreateComponent<RenderComponent>();
 	CreateComponent<BoxCollider>();
 
-	SetEffect(Object::Effect::OutLine);
+	//SetEffect(Object::Effect::OutLine);
 	DXMath::Vector3 extent = GetComponent<ModelComponent>()->GetModel().get()->extent;
 	DXMath::Vector3 center = GetComponent<ModelComponent>()->GetModel().get()->center;
 	GetComponent<BoxCollider>()->SetBox(center, extent, GetComponent<TransformComponent>()->GetQuaternion());
@@ -57,7 +57,7 @@ void Card::Init(DXMath::Vector3 _pos)
 	elpasedTime = 0;
 	GetComponent<TransformComponent>()->SetPosition(_pos);
 	SetActive(true);
-	
+	SetOutlineColor({ 0.0f, 1.0f, 0.0f, 1.0f });
 }
 
 void Card::Update(const float _deltaTime)
@@ -199,11 +199,12 @@ void Card::OnClick()
 void Card::OnMouse()
 {
 	//std::cout << "현재 마우스가 " << GetName() << " 오브젝트 위에 있습니다" << std::endl;
-
+	AddEffect(Object::Effect::OutLine);
 }
 
 void Card::ExitMouse()
 {
+	RemoveEffect(Object::Effect::OutLine);
 }
 
 void Card::OpenA()

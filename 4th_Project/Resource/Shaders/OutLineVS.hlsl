@@ -38,6 +38,6 @@ PixelInputType main(VertexInputType input)
     }
     
     output.Position = projPos;
-    output.Color = float4(0.0f, 0.0f, 1.0f, 1.0f);
+    output.Color = outlineColor;
     return output;
 }

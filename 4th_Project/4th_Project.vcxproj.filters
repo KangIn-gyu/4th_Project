@@ -16,6 +16,21 @@
     <Filter Include="Scene">
       <UniqueIdentifier>{2b35123f-8814-4a6c-b931-6ebd42129bda}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scene\DialogScene">
+      <UniqueIdentifier>{29bc1a80-bf40-4d6b-b8db-f384d0914438}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\GambleScene">
+      <UniqueIdentifier>{213508e3-d542-4a54-a146-e0ab94678ffd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\LobbyScene">
+      <UniqueIdentifier>{53eb4966-39eb-4cb9-ba4d-d07c270f0086}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\TitleScene">
+      <UniqueIdentifier>{d27566d4-d245-45fe-b36b-e1f1e7edf4ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\TutorialScene">
+      <UniqueIdentifier>{0623843f-2113-4c1d-8a92-a4dc8c2c1ddc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -96,17 +111,38 @@
     <ClInclude Include="FadeEffectScript.h">
       <Filter>Script</Filter>
     </ClInclude>
-    <ClInclude Include="DialogScene0.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="DialogScene4.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="DialogScene5.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
     <ClInclude Include="SelectionDialogScript.h">
       <Filter>Script</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogScene0.h">
+      <Filter>Scene\DialogScene</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogScene1.h">
+      <Filter>Scene\DialogScene</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogScene2.h">
+      <Filter>Scene\DialogScene</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogScene3.h">
+      <Filter>Scene\DialogScene</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogScene4.h">
+      <Filter>Scene\DialogScene</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogScene5.h">
+      <Filter>Scene\DialogScene</Filter>
+    </ClInclude>
+    <ClInclude Include="GambleScene.h">
+      <Filter>Scene\GambleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="LobbyScene.h">
+      <Filter>Scene\LobbyScene</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScene.h">
+      <Filter>Scene\TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="TutorialScene.h">
+      <Filter>Scene\TutorialScene</Filter>
     </ClInclude>
     <ClInclude Include="DialogIntro.h">
       <Filter>Scene</Filter>
@@ -135,24 +171,6 @@
     <ClCompile Include="D3DBaseObj.cpp">
       <Filter>Obj</Filter>
     </ClCompile>
-    <ClCompile Include="TutorialScene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="LobbyScene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="TitleScene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="DialogScene1.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="DialogScene2.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="DialogScene3.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
     <ClCompile Include="D2DBaseObj.cpp">
       <Filter>Obj</Filter>
     </ClCompile>
@@ -179,17 +197,38 @@
     <ClCompile Include="FadeEffectScript.cpp">
       <Filter>Script</Filter>
     </ClCompile>
-    <ClCompile Include="DialogScene0.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="DialogScene4.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="DialogScene5.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
     <ClCompile Include="SelectionDialogScript.cpp">
       <Filter>Script</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogScene0.cpp">
+      <Filter>Scene\DialogScene</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogScene1.cpp">
+      <Filter>Scene\DialogScene</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogScene2.cpp">
+      <Filter>Scene\DialogScene</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogScene3.cpp">
+      <Filter>Scene\DialogScene</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogScene4.cpp">
+      <Filter>Scene\DialogScene</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogScene5.cpp">
+      <Filter>Scene\DialogScene</Filter>
+    </ClCompile>
+    <ClCompile Include="GambleScene.cpp">
+      <Filter>Scene\GambleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="LobbyScene.cpp">
+      <Filter>Scene\LobbyScene</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScene.cpp">
+      <Filter>Scene\TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="TutorialScene.cpp">
+      <Filter>Scene\TutorialScene</Filter>
     </ClCompile>
     <ClCompile Include="DialogIntro.cpp">
       <Filter>Scene</Filter>
@@ -234,9 +273,6 @@
     <ClInclude Include="Dealer.h">
       <Filter>Client\Character</Filter>
     </ClInclude>
-    <ClInclude Include="GambleScene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
     <ClInclude Include="Card.h">
       <Filter>Client\BlackJack</Filter>
     </ClInclude>
@@ -271,9 +307,6 @@
     </ClCompile>
     <ClCompile Include="TestObj2.cpp">
       <Filter>Obj\TestObj</Filter>
-    </ClCompile>
-    <ClCompile Include="GambleScene.cpp">
-      <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="Button.cpp">
       <Filter>UI</Filter>

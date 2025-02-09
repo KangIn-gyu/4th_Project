@@ -262,6 +262,11 @@ float4 main(PixelInputType input) : SV_TARGET
         discard;
     }
 
+    if(onBanned)
+    {
+        finalColor *= 0.2f;
+    }
+    
     return finalColor;
     //return float4(totalSpotLight, 1.0f);
     

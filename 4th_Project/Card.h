@@ -38,6 +38,8 @@ public:
 	bool isOpen = false; //카드가 오픈상태인지
 	bool needRevers = false;   //뒤집을 필요가있는지
 	float elpasedTime = 0;
+
+	bool slotActive = true;
 private:
 	float rotat = 0;
 	float prevRotat = rotat;

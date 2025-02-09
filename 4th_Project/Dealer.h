@@ -5,6 +5,15 @@
 #include "Card.h"
 #include "Deck.h"
 #include "Hand.h"
+enum class DSkill
+{
+	none,
+	reverse,
+	meditation,
+	skillBan,
+	slotBan
+};
+
 class Dealer : public Object, public IClick, public IOnmouse
 {
 public:
@@ -32,9 +41,16 @@ public:
 	bool finishFirst = false;
 	bool finishDraw  = false;
 
-	void Reverse();
+	// 스킬 관련
+	bool reverse();
+	bool meditation();
+	bool skillBan();
+	bool slotBan();
+
+	void SetSkill();
 private:
-	
-	std::function<void(void)> pattern; //딜러 다음패턴 담아둘곳
+	std::function<bool()> pattern; //딜러 다음패턴 담아둘곳
 	int maxScore = 17; //딜러가 카드그만뽑을 상한선
+
+	DSkill previousSkill = DSkill::none;	// 기본 값
 };
