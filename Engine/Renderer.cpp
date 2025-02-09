@@ -219,14 +219,24 @@ void Renderer::D3DDraw()
 
 	if (originalDSV) originalDSV->Release();
 	if (originalRTV) originalRTV->Release();
+	if (currentLayout1) currentLayout1->Release(); // TODO : 규철이한테 물어봐야됨 이거 1회용사용하고 제거해야 되는거 아닌가?
 }
 
 void Renderer::D2DDraw()
-{
-	for (auto& D2DrenderComponent : D2Dwork)
+{ // 여기에다 오브젝트 상태가 true 이면서 레이어 오더가 큰 순서대로 정렬시키는 코드 만들어야 함 
+	std::vector<D2DRenderComponent*> filterRenComponents;
+	std::ranges::copy(D2Dwork | std::views::filter([](auto* comp) { return comp->GetOwner() && comp->GetOwner()->IsActive();}), std::back_inserter(filterRenComponents));
+	// std::back_inserter 이용하여 참조 삽입을 함
+	std::ranges::stable_sort(filterRenComponents, std::less{}, &D2DRenderComponent::bitmapLayerOrder);
+
+	for (auto* bitmapComp : filterRenComponents | std::views::filter([](auto* comp) { return comp->IsBitmap(); }))
 	{
-		if(true == D2DrenderComponent->GetActive())
-			D2DrenderComponent->Draw();
+		bitmapComp->BitDraw();
+	}
+
+	for (auto* fontComp : filterRenComponents | std::views::filter(&D2DRenderComponent::IsFont))
+	{
+		fontComp->FontDraw();
 	}
 }
 
@@ -271,8 +281,7 @@ DXMath::Matrix Renderer::CreateShadowMatrix()
 	// 2. Light direction 계산 및 정규화
 	lightDir.Normalize();
 
-
-		// 3. Look-At 행렬 생성
+	// 3. Look-At 행렬 생성
 	DXMath::Vector3 upVector = DXMath::Vector3(0.0f, 1.0f, 0.0f);
 	DXMath::Matrix lightView = DXMath::Matrix::CreateLookAt(
 		lightPos,                    // 광원 위치

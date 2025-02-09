@@ -15,7 +15,7 @@ void D2DBitMapFontScript::ComponentSetting()
 			startImage = static_cast<D2DBaseObj*>(ownerObject)->start;
 			endImage = static_cast<D2DBaseObj*>(ownerObject)->end;
 
-			std::string basePath = "DialogScene1/Textures/";
+			std::string basePath = "DialogScenes/Textures/";
 			for (int i = startImage; i <= endImage; i++)
 			{
 				std::string filePath =  basePath + std::to_string(i);
@@ -93,7 +93,7 @@ void D2DBitMapFontScript::OnInputProcess(const DX::Keyboard::State& _KeyState, c
 				if (index < csvData.size())
 				{
 					int ChangeBitmapindex = csvData[index].first;
-				  ownerD2D->ChangeBitmap(ChangeBitmapindex - startImage);
+					ownerD2D->ChangeBitmap(ChangeBitmapindex - startImage);
 					displayedText = L"";
 				}
 			}

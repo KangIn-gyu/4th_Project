@@ -82,3 +82,13 @@ void D2DClass::CreateD2DRenderTarget()
 	// ºñÆ®¸ÊÀ» DeviceContextÀÇ ·»´õ Å¸°ÙÀ¸·Î ¼³Á¤
 	D2DDeviceContext->SetTarget(D2DBitmap1.Get());
 }
+
+void D2DClass::Release()
+{
+	Brush->Release();
+	D2DDeviceContext->Release();
+	D2DDevice->Release();
+	D2DFactory1->Release();
+	D2DBitmap1->Release();
+	DWriteFactory->Release();
+}

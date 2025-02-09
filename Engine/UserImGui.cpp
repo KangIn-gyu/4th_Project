@@ -11,6 +11,7 @@
 #include "ShadowRenderer.h"
 
 #include "TransformComponent.h" // 규철이 그림자때문에 추가
+#include "SceneManager.h"
 
 #define TEXT_UTF8(text) reinterpret_cast<const char*>(text) // 한글 출력 매크로 문자열 옆에 접두어 u8해야됨
 
@@ -49,9 +50,10 @@ void UserImGui::Update(const float _deltaTime)
 		ImGui_ImplWin32_NewFrame();
 		ImGui::NewFrame();
 
-		ImGuizmo::BeginFrame();
-		ImGuizmo::SetOrthographic(false);  // 투시 뷰 사용 여부
-		ImGuizmo::SetDrawlist();
+// 규철이가 ImGui 엄청 거슬려하는거 수정
+//		ImGuizmo::BeginFrame();
+//		ImGuizmo::SetOrthographic(false);  // 투시 뷰 사용 여부
+//		ImGuizmo::SetDrawlist();
 
 //	ImGuizmo::SetRect();
 }
@@ -66,9 +68,11 @@ void UserImGui::Render()
 		hierarchy.Run();
 		inspector->Run();
 		ImGuiScene();
+		SceneChange();
 		SRV();
 		light();
 		// 렌더링
+
 		ImGui::Render();
 		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 
@@ -224,6 +228,20 @@ void UserImGui::ImGuiScene()
 
 	ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
 	ImGui::Image((ImTextureID)RENDERER->GetImGuiImageTexture().Get(), ImVec2(viewportPanelSize.x, viewportPanelSize.y), ImVec2{0, 0}, ImVec2{1, 1});
+	ImGui::End();
+}
+
+void UserImGui::SceneChange()
+{
+	std::vector<std::string> sceneNamelist = SCENEMANAGER->GetSceneNameList();
+	ImGui::Begin(TEXT_UTF8(u8"Scene"));
+	for (int i = 0; i < sceneNamelist.size(); i++)
+	{
+		if (ImGui::Button(sceneNamelist[i].c_str()))
+		{
+			SCENEMANAGER->ChangeScene(sceneNamelist[i]);
+		}
+	}
 	ImGui::End();
 }
 

@@ -11,7 +11,6 @@ class SceneManager : public SingletonBase<SceneManager>
 {
 	friend class SingletonBase<SceneManager>;
 public:
-	
 	template<SceneType T>
 	void CreatorScene(std::string_view _SceneName);
 
@@ -24,7 +23,7 @@ public:
 	bool isCurrecntScene();
 	Scene* GetCurrentScene() const { return currentScene; }
 
-
+	std::vector<std::string> GetSceneNameList();
 private:
 	virtual ~SceneManager();
 	void Change(std::string_view _SceneName);

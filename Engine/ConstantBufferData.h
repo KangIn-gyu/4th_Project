@@ -49,9 +49,9 @@ struct alignas(16) CameraBuffer
 	{
 		ValidateConstantBufferSize<CameraBuffer>();
 	}
-	DXMath::Vector3 eyePosition;
+	DXMath::Vector3 eyePosition{};
 	float padding0{};
-	DXMath::Vector3 lightDirection;
+	DXMath::Vector3 lightDirection{};
 	float padding1{};
 };
 
@@ -61,7 +61,7 @@ struct alignas(16) ShadowBuffer
 	{
 		ValidateConstantBufferSize<ShadowBuffer>();
 	}
-	DXMath::Matrix lightviewproj;
+	DXMath::Matrix lightviewproj{};
 };
 
 #define BoneBufferMaxSize 400
@@ -82,21 +82,21 @@ struct alignas(16) ProductBuffer
 		ValidateConstantBufferSize<ProductBuffer>();
 	}
 	float totalTime{};
-	DXMath::Vector3 pad;
+	DXMath::Vector3 pad{};
 };
 
 struct SpotLightData
 {
-	DXMath::Vector3 position;
-	float pad1;
-	DXMath::Vector3 direction;
-	float pad2;
-	DXMath::Vector3 color;
-	float range;
-	float innerCone;
-	float outerCone;
-	float intensity;
-	float pad3;
+	DXMath::Vector3 position{};
+	float pad1{};
+	DXMath::Vector3 direction{};
+	float pad2{};
+	DXMath::Vector3 color{};
+	float range{};
+	float innerCone{};
+	float outerCone{};
+	float intensity{};
+	float pad3{};
 };
 
 struct alignas(16) LightBuffer

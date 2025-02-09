@@ -19,6 +19,7 @@ void Player::Initialize()
 void Player::Update(const float _deltaTime)
 {
 	//std::cout << hand.numCard();
+//	std::cout << hand.numCard();
 }
 
 

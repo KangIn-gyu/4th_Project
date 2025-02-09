@@ -20,7 +20,7 @@ public:
 private:
 	void InitD2D();
 	void CreateD2DRenderTarget();
-
+	void Release();
 public:
 
 private:
@@ -35,7 +35,7 @@ private:
 	ComPtr<ID2D1Factory1>			D2DFactory1;
 	static ComPtr<ID2D1Bitmap1>		D2DBitmap1;
 	static ComPtr<IDWriteFactory5>  DWriteFactory;
-	IDWriteTextFormat*			    DWriteTextFormat; // 기본 텍스트 출력을 위한 Format
+
 };
 
 	// 항상 그래픽 파이프 라인을 생각하자

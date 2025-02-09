@@ -5,7 +5,7 @@
 
 void TitleScene::Enter()
 {
-	auto* map = CreatorObject<D3DBaseObj>("TitleScene/FBX/Map_Lowpoly.fbx", Object::ObjectType::Basic, "TitleScene/FBX/Map_Lowpoly.fbx");
+	auto* map = CreatorObject<D3DBaseObj>("TitleScene/FBX/Map_Lowpoly.fbx", Object::ObjectType::Background, "TitleScene/FBX/Map_Lowpoly.fbx");
 	auto* Evelyn = CreatorObject<D3DAniObj>("TitleScene/FBX/Evelyn.fbx", Object::ObjectType::Basic, "TitleScene/FBX/Evelyn.fbx");
 	
 	// ¸Ê

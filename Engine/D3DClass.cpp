@@ -171,7 +171,7 @@ void D3DClass::MemoryLick()
 	IDXGIDebug* debug = nullptr;
 	GetDebugInterface(IID_PPV_ARGS(&debug));
 
-	OutputDebugStringW(L"----------Starting Live Direct3D Object Dump----------\r\n");
+	OutputDebugStringW(L"----------Starting Live Direct3D Object Dump----------\r\n"); // DXGI_DEBUG_RLO_SUMMARY | DXGI_DEBUG_RLO_DETAIL
 	debug->ReportLiveObjects(DXGI_DEBUG_ALL, DXGI_DEBUG_RLO_SUMMARY); // https://learn.microsoft.com/ko-kr/windows/win32/api/dxgidebug/ne-dxgidebug-dxgi_debug_rlo_flags
 	OutputDebugStringW(L"----------Completed Live Direct3D Object Dump----------\r\n");
 	debug->Release();

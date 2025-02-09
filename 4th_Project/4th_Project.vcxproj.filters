@@ -105,6 +105,9 @@
     <ClInclude Include="DialogScene5.h">
       <Filter>Scene</Filter>
     </ClInclude>
+    <ClInclude Include="SelectionDialogScript.h">
+      <Filter>Script</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -160,7 +163,7 @@
       <Filter>UI</Filter>
     </ClCompile>
     <ClCompile Include="CardRotation.cpp">
-     </ClCompile>
+    </ClCompile>
     <ClCompile Include="SkillButton.cpp">
       <Filter>UI</Filter>
     </ClCompile>
@@ -181,6 +184,9 @@
     </ClCompile>
     <ClCompile Include="DialogScene5.cpp">
       <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectionDialogScript.cpp">
+      <Filter>Script</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

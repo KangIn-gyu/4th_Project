@@ -92,7 +92,6 @@ void Card::Update(const float _deltaTime)
 
 }
 
-
 void Card::Open()
 {
 	if (false == isOpen)

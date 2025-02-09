@@ -18,6 +18,7 @@ public:
 	void SetProjection(float _FovAngleY, float _Near, float _Far);
 	void SetSpeed(const float _speed);
 	void SetRotationSpeed(const float _speed);
+	void MovingFlag(bool _flag) { movingFlag = _flag; }
 
 	virtual void OnInputProcess(const DX::Keyboard::State& _KeyState,
 		const DX::Keyboard::KeyboardStateTracker& _KeyTracker,
@@ -44,5 +45,7 @@ private:
 
 	DXMath::Matrix projectionMatrix {};
 	DXMath::Matrix viewMatrix {};
+
+	bool movingFlag = true; // TODO : true로 되어 있으면 수정해야됨 
 };
 

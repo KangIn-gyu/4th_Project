@@ -53,8 +53,8 @@ private:
 	Player(std::string_view _name, Object::ObjectType _type);
 
 	
-	float love;//호감도 딜러랑만의 호감
-	int   betChip; //베팅떄 걸칩갯수 마우스휠로 조절
+	float love{};    //호감도 딜러랑만의 호감
+	int   betChip{}; //베팅떄 걸칩갯수 마우스휠로 조절
 public:
 	bool turnEnd     = false;
 	bool drawFirst   = false;

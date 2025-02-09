@@ -36,6 +36,4 @@ void Client::Enter()
 	SOUNDSYSTEM->SetVolumeAll(0.5f);
 
 	SCENEMANAGER->ChangeScene("GAMBLE");
-
-
 }

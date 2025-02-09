@@ -78,7 +78,7 @@ public:
 	void ComponentSetting();
 
 	template<class T>
-	void CreateScript(); // 오브젝트 생성하고 부르면 됨
+	T* CreateScript(); // 오브젝트 생성하고 부르면 됨
 
 	// 결국 뺄수밖에 없는 구조 -> 더 좋은 구조가 있겠지만 일단은 이렇게
 	void SetOutlineColor(const DXMath::Vector4& color) { outlineColor = color; }
@@ -148,9 +148,10 @@ T* Object::CreateComponent(Arg&& ... _arguments)
 }
 
 template<class T> 
-void Object::CreateScript()
+T* Object::CreateScript()
 {
 	script = new T(this);
+	return static_cast<T*>(script);
 }
 
 // 타입을 넣고 해당 타입의 벡터를 받을 수 있다. 
