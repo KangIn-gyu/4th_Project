@@ -136,10 +136,10 @@ void D2DRenderComponent::FontDraw()
 {
 	if (font != nullptr)
 	{
+		D2DClass::GetD2DDeviceContext()->DrawTextLayout(font->GetPos(), font->GetTextLayout(), font->GetBrush());
 #if _DEBUG
 		if (font != nullptr) { font->DrawTextBox(); }
 #endif
-		D2DClass::GetD2DDeviceContext()->DrawTextLayout(font->GetPos(), font->GetTextLayout(), font->GetBrush());
 	}
 }
 

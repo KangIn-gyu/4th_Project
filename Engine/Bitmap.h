@@ -21,12 +21,12 @@ public:
 	float GetAlpha() { return alpha; }
 
 	DXMath::Vector2 GetXY() { return DXMath::Vector2(d2dBitmap->GetSize().width, d2dBitmap->GetSize().height); }
-	FadeEffect* fade{};
+
 private:
 	ID2D1Bitmap* d2dBitmap; // 한번에 여러개 넣어 주기 위해서            
 
-	float xPos = 0, yPos = 0, width{}, height;
-	D2D1_RECT_F destRect = { xPos,yPos,width+ xPos,height+ yPos };
+	float xPos = 0, yPos = 0, width{}, height{};
+	D2D1_RECT_F destRect = { xPos, yPos, width+ xPos, height+ yPos };
 
 	float alpha = 1;
 

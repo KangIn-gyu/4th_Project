@@ -44,6 +44,16 @@ void SelectionDialogScript::Update(const float _deltaTime)
 	static float elapsedTime = 0.0f;  // 시간 누적 변수
 	const float interval = 0.1f;      // 글자 추가 간격 (초 단위)
 
+	if (selectButton1->onClick == true || true  == selectButton2->onClick)
+	{
+		selectButton1->onClick = false;
+		selectButton2->onClick = false;
+
+		selectButton1->SetActive(false);
+		selectButton2->SetActive(false);
+		ownerObject->SetActive(false);
+	}
+
 	if (index >= csvData.size()) return;  // 더 이상 출력할 데이터가 없으면 종료
 
 	if (displayedText.length() < csvData[index].second.length())

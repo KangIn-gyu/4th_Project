@@ -1,13 +1,10 @@
 #pragma once
 #include "../Engine/Scene.h"
 
-class Object;
-class TransformComponent;
-class TitleScene : public Scene
+class LoadingScene : public Scene
 {
 public:
-	TitleScene(std::string_view _Name) : Scene(_Name) {}
-
+	LoadingScene(std::string_view _Name) : Scene(_Name) {}
 	virtual void Enter() override;
 	virtual void Update(const float _deltaTime);
 	virtual void FixedUpdate(const float _deltaTime)override {};
@@ -18,10 +15,8 @@ private:
 public:
 
 private:
-	Object* mainCamera{};
-
-	float startZ{};
-	bool movement = true;
-	TransformComponent* cameraComponent{};
+	std::string nextSceneName{};
+	float LoadingTime = 0;
+	float maxLoadingTime = 0;
 };
 

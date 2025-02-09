@@ -51,16 +51,25 @@ void SceneManager::Change(std::string_view _SceneName)
 	auto it = ScenesCollection.find(_SceneName.data());
 	if (it != ScenesCollection.end()) // 해당 씬이 있다면?
 	{
-		if(previousScene != nullptr)
-			previousScene->SetActive(false);
 		currentScene = it->second;
-		if (currentScene != nullptr)
-			currentScene->SetActive(true);
 
-		currentScene->Initialize();
+		if (previousScene != nullptr)
+		{
+			previousScene->SetActive(false);
+		}
+			
+		if (currentScene != nullptr)
+		{
+			currentScene->SetActive(true);
+		}
+
+		currentScene->Initialize(); // 나중에 포토폴리오에 이 내용 꼭 써야됨 잘못되 초기화 방식 ㅠㅠ Initialize 이걸 유니티의 스타트처럼 사용하여 망함
 		currentScene->ResetInformation();
 		currentScene->MainCameraSetting(0); // 메인 카메라 변경
+
+#ifdef IMGUIFLAG	
 		IMGUI->HierarchyCurrentSceneSetting(currentScene); 
+#endif
 	}
 	else
 	{

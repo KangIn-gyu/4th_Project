@@ -42,4 +42,5 @@ void UIButton::OnClick()
 {
 	std::cout << "2d´­·¶À½ " << std::endl;
 	clickFunc();
+	onClick = true;
 }

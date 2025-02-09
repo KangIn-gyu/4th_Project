@@ -22,7 +22,11 @@ public:
 	D2DRenderComponent* imagedata;
 	std::string_view imageFilepath;
 
+	// 버튼이 클릭되었을때 다이얼로그한테 상태 전달용
+	bool onClick = false; 
+
 private:
 	std::function<void(void)> clickFunc;
 	DXMath::Vector2 pos = {150,150};
+
 };

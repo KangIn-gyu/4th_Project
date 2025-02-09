@@ -6,6 +6,7 @@
 #include "TutorialScene.h" // Æ©Åä¸®¾ó
 #include "LobbyScene.h"	   // ·Îºñ¾À
 #include "GambleScene.h"   // °×ºí¾À
+#include "LoadingScene.h"
 
 // ´ÙÀÌ¾ó·Î±×¾À
 #include "DialogScene0.h"

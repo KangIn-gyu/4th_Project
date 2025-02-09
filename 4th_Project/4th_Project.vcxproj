@@ -173,6 +173,7 @@
     <ClInclude Include="GambleButton.h" />
     <ClInclude Include="GambleScene.h" />
     <ClInclude Include="BlackJack.h" />
+    <ClInclude Include="LoadingScene.h" />
     <ClInclude Include="MyGameManager.h" />
     <ClInclude Include="Hand.h" />
     <ClInclude Include="LobbyScene.h" />
@@ -217,6 +218,7 @@
     <ClCompile Include="GambleButton.cpp" />
     <ClCompile Include="GambleScene.cpp" />
     <ClCompile Include="BlackJack.cpp" />
+    <ClCompile Include="LoadingScene.cpp" />
     <ClCompile Include="MyGameManager.cpp" />
     <ClCompile Include="Hand.cpp" />
     <ClCompile Include="LobbyScene.cpp" />

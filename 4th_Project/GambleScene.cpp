@@ -48,7 +48,7 @@ void GambleScene::Enter()
 	BLACKJACK->Setstage(1);
 	CreatorObject<TestObj>("Table", Object::ObjectType::Basic);
 
-	auto test = CreatorObject<TestObj2>("Map", Object::ObjectType::Basic);
+	auto test = CreatorObject<TestObj2>("Map", Object::ObjectType::Background);
 	auto deck = GetGameObject(Object::ObjectType::Basic, "Deck");
 
 	

@@ -76,7 +76,6 @@ void Card::Update(const float _deltaTime)
 
 	}
 
-
 	if (prevRotat != rotat)
 	{
 		//auto quater = GetComponent<TransformComponent>()->GetQuaternion();
@@ -86,10 +85,6 @@ void Card::Update(const float _deltaTime)
 		GetComponent<TransformComponent>()->SetQuaternion(eulerToQuaternion);
 		prevRotat = rotat;
 	}
-
-
-
-
 }
 
 void Card::Open()

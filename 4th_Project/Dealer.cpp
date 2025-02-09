@@ -8,6 +8,7 @@
 #include "../Engine/Model.h"
 #include "../Engine/TimeSystem.h"
 #include "BlackJack.h"
+#include "../Engine/Helper.h"
 
 Dealer::Dealer(std::string_view _name, Object::ObjectType _type) : Object(_name, _type)
 {
@@ -138,11 +139,13 @@ bool Dealer::reverse()
 	if (openSlots.empty()) {
 		return false;
 	}
-	
-	std::random_device rd;
-	std::mt19937 gen(rd());
-	std::uniform_int_distribution<int> distrib(0, openSlots.size() - 1);
-	int randomIndex = distrib(gen);
+
+//	TODO : 강인규가 수정함 25.2.9
+//	std::random_device rd;
+//	std::mt19937 gen(rd());
+//	std::uniform_int_distribution<int> distrib(0, openSlots.size() - 1);
+//	int randomIndex = distrib(gen);
+	int randomIndex = RandomUtil::GetRandomInt(0, openSlots.size() - 1);
 
 	int targetSlot = openSlots[randomIndex];
 	BLACKJACK->player->hand.hand[targetSlot]->Close();
@@ -179,10 +182,13 @@ bool Dealer::slotBan()
 		return false;
 	}
 
-	std::random_device rd;
-	std::mt19937 gen(rd());
-	std::uniform_int_distribution<int> distrib(0, activeSlots.size() - 1);
-	int randomIndex = distrib(gen);
+//  TODO : 강인규가 수정함 랜덤유틸로 mt19937이거 생성하는 비용 줄이기 위해
+//	std::random_device rd;
+//	std::mt19937 gen(rd());
+//	std::uniform_int_distribution<int> distrib(0, activeSlots.size() - 1);
+//	int randomIndex = distrib(gen);
+
+	int randomIndex = RandomUtil::GetRandomInt(0, activeSlots.size() - 1);
 
 	int targetSlot = activeSlots[randomIndex];
 	BLACKJACK->player->hand.hand[targetSlot]->slotActive = false;
@@ -196,14 +202,16 @@ bool Dealer::slotBan()
 void Dealer::SetSkill()
 {
 	static const DSkill allSkills[] = { DSkill::reverse, DSkill::meditation, DSkill::skillBan, DSkill::slotBan };
-	static const size_t skillCount = sizeof(allSkills) / sizeof(DSkill);
 
-	std::random_device rd;
-	std::mt19937 gen(rd());
+//  TODO : 25.2.9  강인규가 수정함
+//	static const size_t skillCount = sizeof(allSkills) / sizeof(DSkill);
+//	std::random_device rd;
+//	std::mt19937 gen(rd());
 
+	int randomIndex = RandomUtil::GetRandomInt(0, 3);
 	DSkill selectedSkill;
 	do {
-		selectedSkill = allSkills[gen() % skillCount];
+		selectedSkill = allSkills[randomIndex];
 	} while (selectedSkill == previousSkill || selectedSkill == DSkill::none);
 
 	previousSkill = selectedSkill;

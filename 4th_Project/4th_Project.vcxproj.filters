@@ -31,6 +31,9 @@
     <Filter Include="Scene\TutorialScene">
       <UniqueIdentifier>{0623843f-2113-4c1d-8a92-a4dc8c2c1ddc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scene\LoadingScene">
+      <UniqueIdentifier>{4967bd6a-1c04-46d9-b66a-c5423a6fae7b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -126,6 +129,9 @@
     <ClInclude Include="TutorialScene.h">
       <Filter>Scene\TutorialScene</Filter>
     </ClInclude>
+    <ClInclude Include="LoadingScene.h">
+      <Filter>Scene\LoadingScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -208,6 +214,9 @@
     </ClCompile>
     <ClCompile Include="TutorialScene.cpp">
       <Filter>Scene\TutorialScene</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadingScene.cpp">
+      <Filter>Scene\LoadingScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

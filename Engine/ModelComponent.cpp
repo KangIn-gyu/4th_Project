@@ -43,16 +43,18 @@ void ModelComponent::ComponentUpdate(const float _deltaTime)
 
         if (true == activeAnimation->GetLoop())
         {
-            //if (progressAnimTime >= activeAnimation->GetTotalTime())
-            //{
-            //    progressAnimTime = 0.f;
+            if (progressAnimTime >= activeAnimation->GetTotalTime())
+            {
+                finished = true;
+                progressAnimTime = 0.f;
                 progressAnimTime = fmod(progressAnimTime, activeAnimation->GetTotalTime());
-            //}
+            }
         }
         else
         {
             if (progressAnimTime >= activeAnimation->GetTotalTime())
             {
+                finished = true;
                 progressAnimTime = activeAnimation->GetTotalTime(); // 애니메이션 끝에 고정
             }
         }
@@ -90,7 +92,7 @@ Transform* ModelComponent::GetTransform()
 void ModelComponent::SetAnimation(int _index)
 {
     progressAnimTime = 0;
-
+    finished = false;
     if (nullptr == modelAnimation)
     {
         return;
