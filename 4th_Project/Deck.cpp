@@ -29,7 +29,7 @@ Deck::Deck(std::string_view _name, Object::ObjectType _type,bool real) : Object(
 		auto randerComponet = GetComponent<RenderComponent>();
 		randerComponet->SetShader(ShaderType::VS, "Shaders/StaticVS.hlsl");
 		randerComponet->SetShader(ShaderType::PS, "Shaders/PixelShaderPS.hlsl");
-		SetEffect(Object::Effect::OutLine);
+		//SetEffect(Object::Effect::OutLine);
 	}
 }
 

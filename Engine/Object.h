@@ -33,6 +33,7 @@ public:
 	{
 		None,
 		OutLine,
+		Banned,
 	};
 	
 	Object(std::string_view _name , Object::ObjectType _type = ObjectType::Basic); // 명시 안해놓으면 기본 오브젝트로 생성
@@ -46,11 +47,19 @@ public:
 	virtual void LateUpdate() {}
 	virtual void ResetInformation() {}  // 용도 : 씬 전환 이후 내부 정보 초기화
 
-	void SetEffect(Effect _effect) { effect = _effect; }
+	void AddEffect(Effect effect) { effects.push_back(effect); }
+	void RemoveEffect(Effect effect) 
+	{
+		auto it = find(effects.begin(), effects.end(), effect);
+		if (it != effects.end()) {
+			effects.erase(it);
+		}
+	}
+
+	std::vector<Effect> GetEffects() { return effects; }
 
 	State GetState() { return state; }
 	ObjectType GetObjectType() { return type; }
-	Effect GetEffect() { return effect; }
 	std::string ObjectTypeToString();
 	
 	const std::string& GetName() { return name; }
@@ -78,6 +87,9 @@ public:
 	template<class T>
 	void CreateScript(); // 오브젝트 생성하고 부르면 됨
 
+	void SetOutlineColor(const DXMath::Vector4& color) { outlineColor = color; }
+	const DXMath::Vector4& GetOutlineColor() const { return outlineColor; }
+
 protected:
 	template<ComponentType T, typename ... Arg> // 함수 오버로드함
 	T* CreateComponent(Arg&&... _arguments);
@@ -96,9 +108,9 @@ private:
 	State state = State::Active;  // 해당 타입은 set 만들면 안됨.
 	bool isActive = true; //일단만듬 인규형 나중에 수정하거나 그냥 두죠 
 	ObjectType type;
-	Effect effect = Effect::None;
+	std::vector<Effect> effects;
 	std::unordered_map<std::type_index, std::vector<Component*>> components;
-	
+	DXMath::Vector4 outlineColor = { 0.0f, 0.0f, 0.0f, 1.0f };
 };
 
 template <typename T, typename... Args>

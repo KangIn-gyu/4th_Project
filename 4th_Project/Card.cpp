@@ -57,7 +57,7 @@ void Card::Init(DXMath::Vector3 _pos)
 	elpasedTime = 0;
 	GetComponent<TransformComponent>()->SetPosition(_pos);
 	SetActive(true);
-	
+	SetOutlineColor({ 0.0f, 1.0f, 0.0f, 1.0f });
 }
 
 void Card::Update(const float _deltaTime)
@@ -200,12 +200,12 @@ void Card::OnClick()
 void Card::OnMouse()
 {
 	//std::cout << "현재 마우스가 " << GetName() << " 오브젝트 위에 있습니다" << std::endl;
-	SetEffect(Object::Effect::OutLine);
+	AddEffect(Object::Effect::OutLine);
 }
 
 void Card::ExitMouse()
 {
-	SetEffect(Object::Effect::None);
+	RemoveEffect(Object::Effect::None);
 }
 
 void Card::OpenA()

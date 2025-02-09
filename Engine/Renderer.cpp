@@ -174,27 +174,26 @@ void Renderer::D3DDraw()
 	cameraData.eyePosition = CameraObject::g_MainCameraObject->GetComponent<TransformComponent>()->GetPosition();
 	cameraData.lightDirection = IMGUI->lightDir;
 
-	ProductBuffer productData;
-	productData.totalTime = TIMESYSTEM->GetTotalTime();
-
-	d3dDeviceContext->PSSetConstantBuffers(5, 1, productBuffer.GetBuffer().GetAddressOf());
+	//ProductBuffer productData;
+	//productData.totalTime = TIMESYSTEM->GetTotalTime();
+	//d3dDeviceContext->PSSetConstantBuffers(5, 1, productBuffer.GetBuffer().GetAddressOf());
 
 	d3dDeviceContext->UpdateSubresource(cameraBuffer.GetBuffer().Get(), 0, nullptr, &cameraData, 0, 0);
-	d3dDeviceContext->UpdateSubresource(productBuffer.GetBuffer().Get(), 0, nullptr, &productData, 0, 0);
-
-	d3dDeviceContext->PSSetConstantBuffers(6, 1, lightBuffer.GetBuffer().GetAddressOf());
+	//d3dDeviceContext->UpdateSubresource(productBuffer.GetBuffer().Get(), 0, nullptr, &productData, 0, 0);
 
 	UpdateSpotLights();
 
 	// 1. 먼저 마스크 패스
 	for (auto& renderComponent : work)
 	{
-		if (renderComponent->GetOwner()->GetEffect() == Object::Effect::OutLine)
+		if (renderComponent->GetOwner()->GetEffects().f)
 		{
 			d3dDeviceContext->OMSetDepthStencilState(outlineMaskState.Get(), 1);
 			RenderObject(renderComponent, false);
 		}
 	}
+
+	d3dDeviceContext->PSSetConstantBuffers(6, 1, lightBuffer.GetBuffer().GetAddressOf());
 
 	// 2. 그 다음 아웃라인 패스
 	for (auto& renderComponent : work)
@@ -457,6 +456,7 @@ void Renderer::RenderObject(RenderComponent* renderComponent, bool isOutlinePass
 		ObjectBuffer objectData;
 		objectData.metalness = material->GetMetalness();
 		objectData.roughness = material->GetRoughness();
+		objectData.outlineColor = renderComponent->GetOwner()->GetOutlineColor();
 		objectData.onOutline = isOutlinePass;
 
 		// Update Matrix Palette if needed
@@ -473,7 +473,7 @@ void Renderer::RenderObject(RenderComponent* renderComponent, bool isOutlinePass
 		}
 
 		// Handle Textures
-		if (!isOutlinePass)  // ?��?��?��?�� ?��?��?��?��?�� ?��?��처�?? ?��?�� ?��?��
+		if (!isOutlinePass)
 		{
 			while (!previousTexturerProcessing.empty())
 			{
