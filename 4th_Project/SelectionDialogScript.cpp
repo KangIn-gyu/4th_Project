@@ -4,6 +4,7 @@
 #include "D2DBaseObj.h"
 #include "../Engine/D2DRenderComponent.h"
 #include "../Engine/SceneManager.h"
+#include "DialogButton.h"
 
 void SelectionDialogScript::ComponentSetting()
 {
@@ -78,7 +79,7 @@ void SelectionDialogScript::ResetInformation()
 	selectButton2->SetActive(false);
 }
 
-void SelectionDialogScript::SetButton(UIButton* _selectbutton1, UIButton* _selectButton2)
+void SelectionDialogScript::SetButton(DialogButton* _selectbutton1, DialogButton* _selectButton2)
 {
 	selectButton1 = _selectbutton1;
 	selectButton2 = _selectButton2;
@@ -87,8 +88,23 @@ void SelectionDialogScript::SetButton(UIButton* _selectbutton1, UIButton* _selec
 	selectButton2->SetActive(false);
 }
 
+void SelectionDialogScript::ButtonChangeIndex(int _index)
+{
+	selectButton1->GetComponent<D2DRenderComponent>()->ChangeBitmap(_index);
+	selectButton2->GetComponent<D2DRenderComponent>()->ChangeBitmap(_index);
+}
+
 void SelectionDialogScript::OnInputProcess(const DX::Keyboard::State& _KeyState, const DX::Keyboard::KeyboardStateTracker& _KeyTracker, const DX::Mouse::State& _MouseState, const DX::Mouse::ButtonStateTracker& _MouseTracker)
 {
+	if (selectButton1->isClick == true || selectButton2->isClick == true)
+	{
+		selectButton1->isClick = false;
+		selectButton2->isClick = false;
+		selectButton1->SetActive(false);
+		selectButton2->SetActive(false);
+		ownerObject->SetActive(false);
+	}
+
 	if (ownerObject->IsActive() == true)
 	{
 		if (_MouseTracker.rightButton == DX::Mouse::ButtonStateTracker::PRESSED)

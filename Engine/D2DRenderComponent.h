@@ -28,11 +28,13 @@ public:
 	DXMath::Vector2 Get2DImageXY();
 	D2D_VECTOR_2F	Get2DImagePos();
 	void			Set2DImagePos(float _x, float _y);
+	void			SetBoundBox(D2D1_RECT_F _box);
 
 	void  			ChangeBitmap(int _index);
 	Bitmap*			GetBitmap(int _index);
 
 	bool IsBitmap() { return drawBitmap; }
+	void IsDiamond(bool) { drawBitmap->isDiamond = TRUE; }
 
 	// 폰트 관련 함수들 데이터 조정
 	void LoadFont(const std::string& _filePath);

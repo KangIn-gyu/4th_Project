@@ -3,6 +3,8 @@
 #include "../Engine/FactorySystem.h"
 #include "Deck.h"
 #include "Card.h"
+#include "D2DBaseObj.h"
+
 BlackJack::BlackJack()
 {
 }
@@ -29,6 +31,7 @@ void BlackJack::RoundStart()
 	ChangeState();
 	endBet = false;
 	canClick = false;
+	dealer->SetSkill();
 }
 
 
@@ -37,7 +40,7 @@ void BlackJack::CheckTurnEnd()
 	ChangeState();
 	if (player->turnEnd == true)   //한 오픈 or HIT시마다 할것들
 	{
-		//dealer->turnCount--;
+		dealer->turnCount--;
 		if (true == player->CheckGameOver())
 		{
 
@@ -47,6 +50,8 @@ void BlackJack::CheckTurnEnd()
 		player->isDrawOne = false;
 		endBet = false;
 		canClick = false;
+		
+		
 	}
 }
 void BlackJack::Bet()
@@ -61,6 +66,7 @@ void BlackJack::Bet()
 }
 void BlackJack::Update(float _deltaTime)
 {
+	//std::cout << dealer->turnCount << std::endl;
 	if (dealer->turnCount <= 0)
 		curTurn = Turn::dealer;
 	if (isRoundOver == false) //라운드시작
@@ -139,6 +145,7 @@ void BlackJack::Update(float _deltaTime)
 				if (dealer->finishFirst == true)
 				{
 					firstTurn = false;
+					dealer->turnCount++;
 				}
 
 			}
@@ -161,11 +168,29 @@ void BlackJack::Update(float _deltaTime)
 
 void BlackJack::DealerTurn(float _deltaTime)
 {
-	
+	//std::cout << " 딜러턴입니다 " << std::endl;
 	//딜러 다이얼로그 출력  선택지선택
-	dealer->Act();
-	std::cout << " 딜러턴입니다 " << std::endl;
-	//다이얼로그 패턴 끝나면 curTurn = Turn::player;
+	DSkill dealerState = dealer->GetState();
+
+	switch(dealerState)
+	{
+	case DSkill::none:
+		break;
+	case DSkill::reverse:
+		dialogs[0]->SetActive(true);
+		break;
+	case DSkill::meditation:
+		dialogs[1]->SetActive(true);
+		break;
+	case DSkill::skillBan:
+		dialogs[2]->SetActive(true);
+		break;
+	case DSkill::slotBan:
+		dialogs[3]->SetActive(true);
+		break;
+	default:
+		break;
+	}
 }
 
 void BlackJack::CheckVictory(float _deltaTime)

@@ -9,6 +9,7 @@
 #include "LoadingScene.h"
 
 // 다이얼로그씬
+#include "DialogIntro.h"
 #include "DialogScene0.h"
 #include "DialogScene1.h"
 #include "DialogScene2.h"

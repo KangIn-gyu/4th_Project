@@ -30,8 +30,11 @@ Object* EventSystem::FindObj(DXMath::Vector3 _rayOrigin, DXMath::Vector3 _rayDir
 				if (obj->IsActive())
 				{
 					auto boxcol = obj->GetComponent<BoxCollider>();
+					
 					if (boxcol != nullptr)
 					{
+						if (boxcol->TouchType == Touch::None)
+							continue;
 						float distance;
 						if (boxcol->IntersectsRay(_rayOrigin, _rayDirection, distance))
 						{

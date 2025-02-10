@@ -162,6 +162,8 @@
     <ClInclude Include="D3DObjScript.h" />
     <ClInclude Include="Dealer.h" />
     <ClInclude Include="Deck.h" />
+    <ClInclude Include="DialogIntro.h" />
+    <ClInclude Include="DialogButton.h" />
     <ClInclude Include="DialogScene0.h" />
     <ClInclude Include="DialogScene1.h" />
     <ClInclude Include="DialogScene2.h" />
@@ -174,6 +176,7 @@
     <ClInclude Include="GambleScene.h" />
     <ClInclude Include="BlackJack.h" />
     <ClInclude Include="LoadingScene.h" />
+    <ClInclude Include="JustFont.h" />
     <ClInclude Include="MyGameManager.h" />
     <ClInclude Include="Hand.h" />
     <ClInclude Include="LobbyScene.h" />
@@ -181,6 +184,8 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="SceneHeaders.h" />
     <ClInclude Include="SelectionDialogScript.h" />
+    <ClInclude Include="SelectionImageScript.h" />
+    <ClInclude Include="SelectionScript.h" />
     <ClInclude Include="SkillButton.h" />
     <ClInclude Include="TestObj.h" />
     <ClInclude Include="TestObj2.h" />
@@ -208,6 +213,8 @@
     <ClCompile Include="D3DObjScript.cpp" />
     <ClCompile Include="Dealer.cpp" />
     <ClCompile Include="Deck.cpp" />
+    <ClCompile Include="DialogIntro.cpp" />
+    <ClCompile Include="DialogButton.cpp" />
     <ClCompile Include="DialogScene0.cpp" />
     <ClCompile Include="DialogScene1.cpp" />
     <ClCompile Include="DialogScene2.cpp" />
@@ -219,6 +226,7 @@
     <ClCompile Include="GambleScene.cpp" />
     <ClCompile Include="BlackJack.cpp" />
     <ClCompile Include="LoadingScene.cpp" />
+    <ClCompile Include="JustFont.cpp" />
     <ClCompile Include="MyGameManager.cpp" />
     <ClCompile Include="Hand.cpp" />
     <ClCompile Include="LobbyScene.cpp" />
@@ -230,6 +238,8 @@
     </ClCompile>
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SelectionDialogScript.cpp" />
+    <ClCompile Include="SelectionImageScript.cpp" />
+    <ClCompile Include="SelectionScript.cpp" />
     <ClCompile Include="SkillButton.cpp" />
     <ClCompile Include="TestObj.cpp" />
     <ClCompile Include="TestObj2.cpp" />

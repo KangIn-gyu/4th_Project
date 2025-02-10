@@ -28,17 +28,19 @@ void SkillButton::Initialize()
 	imagedata->Load2DImage("UI/Button/" + GetName() + "_On.png");     //1  //꺼진상태 or 블링크
 	imagedata->Load2DImage("UI/Button/" + GetName() + "_Toggle.png"); //2  // 마우스올린상태
 	imagedata->Set2DImagePos(pos.x, pos.y);  // "UI/Button/" +Getname() + ".png" or + "_Toggle.png"
-	CreateComponent<BoxCollider>();
+	colliderdata = CreateComponent<BoxCollider>();
 	auto xy = imagedata->Get2DImageXY();
 	DXMath::Vector3 center = { pos.x + xy.x / 2,  pos.y + xy.y / 2, 0.f };
 	DXMath::Vector3 extent = { xy.x / 2 ,xy.y / 2 , 0.1f };
-	GetComponent<BoxCollider>()->SetBox(center, extent, DXMath::Quaternion::Quaternion(0, 0, 0, 1));
+	colliderdata->SetBox(center, extent, DXMath::Quaternion::Quaternion(0, 0, 0, 1));
+	D2D1_RECT_F box = colliderdata->GetBoundBox();
+	imagedata->SetBoundBox(box);
 }
 
 void SkillButton::Update(const float _deltaTime)
 {
 	Object::Update(_deltaTime);
-	if (PLAYER->skillPoint >= cost) //
+	if (PLAYER->skillPoint >= cost && PLAYER->canSkill == true) //
 		ChangeState(gbState::On);
 	else
 		ChangeState(gbState::Off);

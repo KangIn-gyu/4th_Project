@@ -5,6 +5,7 @@
 // D2DBitMapFontScript와 기능은 비슷함 단지 모든 대화를 출력하고선 버튼 2개를 보여줌
 class D2DRenderComponent;
 class UIButton;
+class DialogButton;
 class SelectionDialogScript : public Script, public IinputProcesser
 {
 public:
@@ -16,8 +17,8 @@ public:
 	virtual void ResetInformation();
 
 	// 넣어진 버튼은 상태를 꺼놓음
-	void SetButton(UIButton* _selectButton1, UIButton* _selectButton2);
-
+	void SetButton(DialogButton* _selectButton1, DialogButton* _selectButton2);
+	void ButtonChangeIndex(int _index);
 private:
 	virtual void OnInputProcess(const DX::Keyboard::State& _KeyState,
 		const DX::Keyboard::KeyboardStateTracker& _KeyTracker,
@@ -35,7 +36,7 @@ private:
 	int endImage = 0;
 
 	bool isClicked = false;
-	UIButton* selectButton1{};
-	UIButton* selectButton2{};
+	DialogButton* selectButton1{};
+	DialogButton* selectButton2{};
 };
 

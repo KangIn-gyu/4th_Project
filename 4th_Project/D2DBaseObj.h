@@ -4,7 +4,7 @@
 class D2DBaseObj : public Object
 {
 public:
-	// 기본
+	// 기본DNFBitBitv2
 	D2DBaseObj(std::string_view _name, ObjectType _type);
 	// 비트맵용
 	D2DBaseObj(std::string_view _name, ObjectType _type, std::vector<std::string> _bitmapFilePath);
@@ -12,8 +12,13 @@ public:
 	D2DBaseObj(std::string_view _name, ObjectType _type, std::string _fontFilePath);
 	// 폰트 비트맵, 폰트
 	D2DBaseObj(std::string_view _name, ObjectType _type, std::vector<std::string> _bitmapFilePath, std::string _fontFilePath);
+	// 폰트 비트맵 시작 인덱스, 끝 인덱스, 폰트, CSV)
+	D2DBaseObj(std::string_view _name, ObjectType _type, int _start, int _end, std::string _fontFilePath, std::string _CsvFilePath);
 	// 폰트 비트맵 시작 인덱스, 끝 인덱스, 폰트, CSV, 다음씬 이름
 	D2DBaseObj(std::string_view _name, ObjectType _type, int _start, int _end, std::string _fontFilePath, std::string _CsvFilePath, std::string _sceneName);
+
+	//단순 비트맵1 폰트1
+	D2DBaseObj(std::string_view _name, ObjectType _type, DXMath::Vector2 _pos, std::string _bitmapFilePath, std::string  _fontFilePath);
 	virtual ~D2DBaseObj() = default;
 
 	virtual void Initialize() override;                       // 용도 : 내가 필요한 컴포넌트 생성하는 곳 초기화나
@@ -27,11 +32,13 @@ public:
 private:
 
 public:
+	std::string path;
 	std::vector<std::string> bitmapFilePath;
 	std::string fontFilePath{};
 	std::string CsvFilePath{};
 	std::string sceneName{};
 	int start{}, end{};
+	DXMath::Vector2 pos;
 
 private:
 };

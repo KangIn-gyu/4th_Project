@@ -38,6 +38,9 @@ void Card::Initialize()
 	auto randerComponet = GetComponent<RenderComponent>();
 	randerComponet->SetShader(ShaderType::VS, "Shaders/StaticVS.hlsl");
 	randerComponet->SetShader(ShaderType::PS, "Shaders/PixelShaderPS.hlsl");
+	float eulerAngle = DirectX::XMConvertToRadians(rotat);
+	DXMath::Quaternion eulerToQuaternion = DXMath::Quaternion::CreateFromYawPitchRoll(0.f, eulerAngle, 0.f);
+	GetComponent<TransformComponent>()->SetQuaternion(eulerToQuaternion);
 }
 
 void Card::Init(DXMath::Vector3 _pos)
@@ -45,13 +48,13 @@ void Card::Init(DXMath::Vector3 _pos)
 
 	if (isOpen)
 	{
-		float eulerAngle = DirectX::XMConvertToRadians(rotat -180);
+		float eulerAngle = DirectX::XMConvertToRadians(rotat + 180);
 		DXMath::Quaternion eulerToQuaternion = DXMath::Quaternion::CreateFromYawPitchRoll(0.f, eulerAngle, 0.f);
 		GetComponent<TransformComponent>()->SetQuaternion(eulerToQuaternion);
 	}
 	isOpen = false;
 	needRevers = false;
-	rotat = 0;
+	rotat = 180;
 	prevRotat = rotat;
 	AtoOne = true;
 	isSeleted = false;
@@ -79,10 +82,8 @@ void Card::Update(const float _deltaTime)
 
 	if (prevRotat != rotat)
 	{
-		//auto quater = GetComponent<TransformComponent>()->GetQuaternion();
 		float eulerAngle = DirectX::XMConvertToRadians(rotat);
 		DXMath::Quaternion eulerToQuaternion = DXMath::Quaternion::CreateFromYawPitchRoll(0.f, eulerAngle, 0.f);
-		//newQuat = quater * eulerToQuaternion;
 		GetComponent<TransformComponent>()->SetQuaternion(eulerToQuaternion);
 		prevRotat = rotat;
 	}
@@ -195,6 +196,7 @@ void Card::OnMouse()
 {
 	//std::cout << "현재 마우스가 " << GetName() << " 오브젝트 위에 있습니다" << std::endl;
 	AddEffect(Object::Effect::OutLine);
+
 }
 
 void Card::ExitMouse()

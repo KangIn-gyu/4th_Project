@@ -20,9 +20,9 @@ Client::~Client()
 
 void Client::Enter()
 {
-	SCENEMANAGER->CreatorScene<TestScene>("DialogScene1");
-	SCENEMANAGER->CreatorScene<GambleScene>("GAMBLE");
-	SCENEMANAGER->CreatorScene<TitleScene>("Title");
+	SCENEMANAGER->CreatorScene<TestScene>("TestScene");
+	SCENEMANAGER->CreatorScene<GambleScene>("GambleScene");
+	SCENEMANAGER->CreatorScene<TitleScene>("TitleScene");
 	SCENEMANAGER->CreatorScene<TutorialScene>("TutorialScene");
 	SCENEMANAGER->CreatorScene<DialogScene1>("DialogScene1");
 	SCENEMANAGER->CreatorScene<LobbyScene>("Lobby");
@@ -31,10 +31,10 @@ void Client::Enter()
 	BLACKJACK->player = PLAYER;
 
 	//SCENEMANAGER->ChangeScene("GAMBLE");
-	//ENGINE->CollectionGameManager(MYGAMEMANAGER);
-	SOUNDSYSTEM->SetVolumeAll(0.5f);
+	ENGINE->CollectionGameManager(MYGAMEMANAGER);
+	//SOUNDSYSTEM->SetVolumeAll(0.5f);
 
-	LoadMusic();
+	//LoadMusic();
 	SCENEMANAGER->ChangeScene("Title");
 }
 

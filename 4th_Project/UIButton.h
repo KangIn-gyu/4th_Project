@@ -2,6 +2,7 @@
 #include "../Engine/IClick.h"
 #include "../Engine/Object.h"
 
+class BoxCollider;
 class D2DRenderComponent;
 
 class UIButton :public Object, public IClick
@@ -20,10 +21,10 @@ public:
 	virtual void OnClick() override;
 
 	D2DRenderComponent* imagedata;
+	BoxCollider* colliderdata;
 	std::string_view imageFilepath;
 
-	// 버튼이 클릭되었을때 다이얼로그한테 상태 전달용
-	bool onClick = false; 
+	bool onClick = false; // 클릭시 불과 전달
 
 private:
 	std::function<void(void)> clickFunc;
