@@ -34,6 +34,7 @@ public:
 	Bitmap*			GetBitmap(int _index);
 
 	bool IsBitmap() { return drawBitmap; }
+	void IsDiamond(bool) { drawBitmap->isDiamond = TRUE; }
 
 	// 폰트 관련 함수들 데이터 조정
 	void LoadFont(const std::string& _filePath);

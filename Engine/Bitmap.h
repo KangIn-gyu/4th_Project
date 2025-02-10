@@ -1,7 +1,6 @@
 #pragma once
 #include "IResources.h"
 
-class FadeEffect;
 class Bitmap 
 {
 public:
@@ -23,7 +22,7 @@ public:
 	float GetAlpha() { return alpha; }
 
 	DXMath::Vector2 GetXY() { return DXMath::Vector2(d2dBitmap->GetSize().width, d2dBitmap->GetSize().height); }
-	FadeEffect* fade{};
+	bool isDiamond = FALSE;
 private:
 	ID2D1Bitmap* d2dBitmap; // 한번에 여러개 넣어 주기 위해서            
 

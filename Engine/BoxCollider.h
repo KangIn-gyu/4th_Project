@@ -1,5 +1,7 @@
 #pragma once
 #include "Collider.h"
+#include <d2d1helper.h>
+
 class BoxCollider : public Collider
 {
 public:
@@ -12,14 +14,14 @@ public:
 	D2D1_RECT_F GetBoundBox();
 
 	// 충돌 검사 함수 다른거랑 충돌할일이 있을까
-	bool CheckCollision(const BoxCollider& other) const;
+	//bool CheckCollision(const BoxCollider& other) const;
 	bool Check2D(float mousex, float mousey);
 	virtual void ComponentInitialize() override;                    // 초기화용
 	virtual void ComponentUpdate(const float _deltaTime) override;  // 업데이트
 	// OBB 업데이트 함수
 	//클릭용 레이검사할 함수
 	bool IntersectsRay(const  DXMath::Vector3& rayOrigin, const  DXMath::Vector3& rayDirection, float& distance) const;
-
+	bool isDiamond = FALSE;
 protected:
 private:
 public:

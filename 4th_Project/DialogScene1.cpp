@@ -24,7 +24,7 @@ void DialogScene1::Enter()
 //   dialog->CreateScript<SelectionDialogScript>()->SetButton(testbutton1, testbutton2);
 //   auto testbutton1 = CreatorObject<UIButton>("Skip1", Object::ObjectType::UI, "STAGE1/Textures/Card_0010_CloverJack.png", DXMath::Vector2(900, 450), []() {});
 //   auto testbutton2 = CreatorObject<UIButton>("Skip2", Object::ObjectType::UI, "STAGE1/Textures/Card_0011_CloverQueen.png", DXMath::Vector2(1200, 450), []() {});
-    SOUNDSYSTEM->PlayMusic(eSoundList::Main_Theme, eSoundChannel::BGM);
+    //SOUNDSYSTEM->PlayMusic(eSoundList::Main_Theme, eSoundChannel::BGM);
 }
 
 void DialogScene1::Update(const float _deltaTime)
