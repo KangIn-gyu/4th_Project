@@ -199,6 +199,7 @@ void Card::OnClick()
 void Card::OnMouse()
 {
 	//std::cout << "현재 마우스가 " << GetName() << " 오브젝트 위에 있습니다" << std::endl;
+	SetOutlineColor({ 1,0,0,1 });
 	AddEffect(Object::Effect::OutLine);
 }
 

@@ -12,6 +12,8 @@ public:
 	D2DBaseObj(std::string_view _name, ObjectType _type, std::string _fontFilePath);
 	// 폰트 비트맵, 폰트
 	D2DBaseObj(std::string_view _name, ObjectType _type, std::vector<std::string> _bitmapFilePath, std::string _fontFilePath);
+	// 폰트 비트맵 시작 인덱스, 끝 인덱스, 폰트, CSV)
+	D2DBaseObj(std::string_view _name, ObjectType _type, int _start, int _end, std::string _fontFilePath, std::string _CsvFilePath);
 	// 폰트 비트맵 시작 인덱스, 끝 인덱스, 폰트, CSV, 다음씬 이름
 	D2DBaseObj(std::string_view _name, ObjectType _type, int _start, int _end, std::string _fontFilePath, std::string _CsvFilePath, std::string _sceneName);
 	virtual ~D2DBaseObj() = default;

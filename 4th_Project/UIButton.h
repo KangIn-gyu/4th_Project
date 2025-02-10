@@ -22,6 +22,8 @@ public:
 	D2DRenderComponent* imagedata;
 	std::string_view imageFilepath;
 
+	bool onClick = false; // 클릭시 불과 전달
+
 private:
 	std::function<void(void)> clickFunc;
 	DXMath::Vector2 pos = {150,150};

@@ -26,6 +26,8 @@ Dealer::Dealer(std::string_view _name, Object::ObjectType _type) : Object(_name,
 	auto randerComponet = GetComponent<RenderComponent>();
 	randerComponet->SetShader(ShaderType::VS, "Shaders/VertexShaderVS.hlsl");
 	randerComponet->SetShader(ShaderType::PS, "Shaders/PixelShaderPS.hlsl");
+
+	
 }
 
 void Dealer::Initialize()
@@ -91,10 +93,17 @@ int Dealer::GetScore()
 	return hand.GetScore();
 }
 
-void Dealer::Act()
+bool Dealer::Act()
 {
 	// 여기서 한번 다이얼로그 시작하고 그거에 맞춰서 결과가 true false로 나오고 그게 false일때만 패턴 실행
 	//pattern(); 한번쓰고나면 다른패턴 담아둬야함
+
+	if (true == pattern())
+	{
+		SetSkill();
+		return true;
+	}
+	return false;
 }
 
 void Dealer::OnClick()
@@ -102,7 +111,7 @@ void Dealer::OnClick()
 	std::cout << "누르지 마세요 " << std::endl;
 	std::cout << chip << "\n";
 	//this->~Dealer();
-	slotBan();
+	//SetSkill();
 }
 
 void Dealer::OnMouse()
@@ -126,6 +135,8 @@ void Dealer::OpenOne(float _deltaTime)
 
 bool Dealer::reverse()
 {
+	std::cout << "1\n";
+
 	std::vector<int> openSlots;
 	int cardCount = BLACKJACK->player->hand.numCard();
 	for (int i = 0; i < cardCount; i++) {
@@ -152,18 +163,22 @@ bool Dealer::reverse()
 
 bool Dealer::meditation()
 {
+	std::cout << "2\n";
 	chip *= 1.1f;
 	return true;
 }
 
 bool Dealer::skillBan()
 {
+
+	std::cout << "3\n";
 	BLACKJACK->player->canSkill = false;
 	return true;
 }
 
 bool Dealer::slotBan()
 {
+	std::cout << "4\n";
 	std::vector<int> activeSlots;
 
 	int cardCount = BLACKJACK->player->hand.numCard();
@@ -187,8 +202,6 @@ bool Dealer::slotBan()
 	int targetSlot = activeSlots[randomIndex];
 	BLACKJACK->player->hand.hand[targetSlot]->slotActive = false;
 	BLACKJACK->player->hand.hand[targetSlot]->AddEffect(Object::Effect::Banned);
-
-	return true;
 	
 	return true;
 }
@@ -209,13 +222,13 @@ void Dealer::SetSkill()
 	previousSkill = selectedSkill;
 
 	if (previousSkill == DSkill::reverse)
-		pattern = [this]() { return reverse(); };
+		pattern = [this]() { turnCount = 3;  return reverse(); };
 	else if (previousSkill == DSkill::meditation)
-		pattern = [this]() { return meditation(); };
+		pattern = [this]() { turnCount = 4; return meditation(); };
 	else if (previousSkill == DSkill::skillBan)
-		pattern = [this]() { return skillBan(); };
+		pattern = [this]() { turnCount = 2; return skillBan(); };
 	else if (previousSkill == DSkill::slotBan)
-		pattern = [this]() { return slotBan(); };
+		pattern = [this]() { turnCount = 3; return slotBan(); };
 }
 
 

@@ -38,7 +38,7 @@ void SkillButton::Initialize()
 void SkillButton::Update(const float _deltaTime)
 {
 	Object::Update(_deltaTime);
-	if (PLAYER->skillPoint >= cost) //
+	if (PLAYER->skillPoint >= cost && PLAYER->canSkill == true) //
 		ChangeState(gbState::On);
 	else
 		ChangeState(gbState::Off);

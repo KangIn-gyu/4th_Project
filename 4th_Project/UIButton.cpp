@@ -40,6 +40,7 @@ void UIButton::Update(const float _deltaTime)
 
 void UIButton::OnClick()
 {
+	onClick = true;
 	std::cout << "2d´­·¶À½ " << std::endl;
 	clickFunc();
 }
