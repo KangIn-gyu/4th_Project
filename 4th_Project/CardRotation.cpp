@@ -7,12 +7,20 @@
 
 CardRotation::CardRotation()
 {
+}
+
+void CardRotation::Init(Deck* deckPtr)
+{
+	if (!deckPtr) return;
+	deck = deckPtr;
+
 	// 원형 배치를 위한 설정
 	const float radius = 30.0f;
 	const float angleStep = 360.0f / ACTIVE_SLOTS;  // 10개의 위치에 대한 각도
 	const float startAngle = 90.0f;		// 시작 각도 기준 오른쪽
 
 	// positions 초기화 (마지막 위치는 첫 번째 위치와 동일하게)
+	RotCards.resize(MAX_SLOTS);
 	positions.resize(MAX_SLOTS);
 	for (int i = 0; i < ACTIVE_SLOTS; i++) {
 		float angle = DirectX::XMConvertToRadians(startAngle + (i * angleStep));
@@ -27,13 +35,6 @@ CardRotation::CardRotation()
 
 	slots.resize(MAX_SLOTS);
 	slots[MAX_SLOTS - 1].isActive = false;  // 마지막 슬롯은 비활성화 상태로 시작
-}
-
-
-void CardRotation::Init(Deck* deckPtr)
-{
-	if (!deckPtr) return;
-	deck = deckPtr;
 
 	auto deckTransform = deck->GetComponent<TransformComponent>();
 	if (deckTransform) {
@@ -96,6 +97,10 @@ void CardRotation::RotateCards(std::vector<Card*>& cards)
 	int nextCardIndex = currentCardIndex % cards.size();
 	Card* newCard = cards[nextCardIndex];
 
+	for (int i = 0; i < slots.size(); i++)
+	{
+		RotCards[i] = slots[i].card;
+	}
 	// 모든 슬롯을 순회하면서 업데이트
 	for (int i = 0; i < MAX_SLOTS; i++) {
 		if (slots[i].isActive) {
@@ -137,7 +142,11 @@ void CardRotation::RotateCards(std::vector<Card*>& cards)
 					newTransform->SetPosition(firstPosition);
 				}
 			}
+
 		}
+		
+		
+		//canCard = positions[0];
 	}
 
 	if (completedRotations == ACTIVE_SLOTS) {
@@ -189,8 +198,11 @@ void CardRotation::UpdateCardPositions(float t)
 		toCenter.Normalize();
 
 		// 카드의 기본 90도 x축 회전 유지
-		float pitch = DirectX::XMConvertToRadians(90.0f);
-		float roll = DirectX::XMConvertToRadians(180.0f);
+		float x = 90.0f;
+		float y = 180.f;
+
+		float pitch = DirectX::XMConvertToRadians(x);
+		float roll = DirectX::XMConvertToRadians(y);
 		// 중심을 향하는 y축 회전 계산
 		float yaw = atan2(toCenter.x, toCenter.z);
 

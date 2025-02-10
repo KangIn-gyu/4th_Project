@@ -185,3 +185,21 @@ bool Hand::ShuffleHand()
 
 	return (curHand == HandState::Finish);
 }
+
+void Hand::SkillDraw(Deck* deck, std::string _name)
+{
+	
+	
+	auto it = std::remove_if(deck->cards.begin(), deck->cards.end(),
+		[&](Card* card) {
+			if (card->GetName() == _name) {
+				BLACKJACK->trashDeck->cards.push_back(card); // 먼저 trashDeck에 추가
+				return true; // 삭제 대상
+			}
+			return false; // 유지 대상
+		}
+	);
+
+	deck->cards.erase(it, deck->cards.end()); // 실제 삭제
+		
+}

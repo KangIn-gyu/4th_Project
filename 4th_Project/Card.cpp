@@ -177,7 +177,7 @@ void Card::OnClick()
 			}
 		}
 
-		if (BLACKJACK->GetState() == PlayerState::Skill)
+		if (BLACKJACK->GetState() == PlayerState::Skill && BLACKJACK->player->fasteye)
 		{
 			for (auto card : PLAYER->hand.hand) //
 			{
@@ -189,6 +189,41 @@ void Card::OnClick()
 			}
 		}
 
+		if (BLACKJACK->GetState() == PlayerState::Skill && BLACKJACK->player->useRot)
+		{
+			if (false == BLACKJACK->player->isRotTrash)
+			{
+				for (auto card : PLAYER->hand.hand) //
+				{
+
+					for (int i = 0; i < PLAYER->hand.numCard(); i++)
+					{
+						if (PLAYER->hand.hand[i] != nullptr && PLAYER->hand.hand[i]->GetName() == GetName() && isOpen == false) //누른카드가 패에있고 아직 뒷면이면
+						{
+							PLAYER->hand.hand[i]->SetActive(false);
+							BLACKJACK->trashDeck->cards.push_back(PLAYER->hand.hand[i]);
+							PLAYER->hand.hand[i] = nullptr;  //일단버려 
+							BLACKJACK->player->isRotTrash = true;
+						}
+
+					}
+				}
+			}
+			else
+			{
+				//하나골라서 넣어
+
+				for (auto card : BLACKJACK->player->cardrot.RotCards)
+				{
+					if (card != nullptr && card->GetName() == GetName())
+					{
+						PLAYER->selectCard = this;
+				
+					}
+				}
+				
+			}
+		}
 	}
 }
 

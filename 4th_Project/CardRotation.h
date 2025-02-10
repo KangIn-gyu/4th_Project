@@ -16,12 +16,14 @@ private:
     std::vector<DXMath::Vector3> positions;
     std::vector<CardSlot> slots;
     float timer = 0.0f;
-    const float ROTATION_INTERVAL = 1.f; // 몇 초마다 한 칸씩 이동할지
+    const float ROTATION_INTERVAL = 5.f; // 몇 초마다 한 칸씩 이동할지
     int currentIndex = 0;
     int completedRotations = 0;
     int currentCardIndex = 0;
     DXMath::Vector3 deckPosition;
     Deck* deck = nullptr;
+    
+    
 public:
     CardRotation();
 
@@ -33,5 +35,8 @@ public:
 
     void UpdateCardPositions(float t);
 
+    bool isInit = false;
+    std::vector<Card*> RotCards = {};
+   // Card* canCard = nullptr; //선택가능한카드
 };
 
