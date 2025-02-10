@@ -37,6 +37,7 @@ void Card::Initialize()
 	auto randerComponet = GetComponent<RenderComponent>();
 	randerComponet->SetShader(ShaderType::VS, "Shaders/StaticVS.hlsl");
 	randerComponet->SetShader(ShaderType::PS, "Shaders/PixelShaderPS.hlsl");
+
 }
 
 void Card::Init(DXMath::Vector3 _pos)
@@ -198,8 +199,9 @@ void Card::OnClick()
 
 void Card::OnMouse()
 {
-	//std::cout << "현재 마우스가 " << GetName() << " 오브젝트 위에 있습니다" << std::endl;
+	std::cout << "현재 마우스가 " << GetName() << " 오브젝트 위에 있습니다" << std::endl;
 	AddEffect(Object::Effect::OutLine);
+	
 }
 
 void Card::ExitMouse()

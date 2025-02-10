@@ -180,5 +180,5 @@ void Player::OnInputProcess(const DX::Keyboard::State& _KeyState, const DX::Keyb
 
 void Player::OnBlock(Collider* _myCol, Collider* _otherCol)
 {
-	std::cout << "ºÎµúÇûÀ½" << std::endl;
+	//std::cout << "ºÎµúÇûÀ½" << std::endl;
 }

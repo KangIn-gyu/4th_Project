@@ -45,6 +45,7 @@ void Deck::Init()
 	for (auto card : cards)
 	{
 		card->Init(GetComponent<TransformComponent>()->GetPosition());
+		card->slotActive = true;
 	}
 }
 

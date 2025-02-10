@@ -47,6 +47,12 @@ void BlackJack::CheckTurnEnd()
 		player->isDrawOne = false;
 		endBet = false;
 		canClick = false;
+		
+		for (auto card : player->hand.hand)
+		{
+			card->slotActive = true;
+			card->RemoveEffect(Object::Effect::Banned);
+		}
 	}
 }
 void BlackJack::Bet()
