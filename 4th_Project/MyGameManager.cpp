@@ -8,7 +8,7 @@
 void MyGameManager::Update(float _deltaTime)
 {
 
-	if (SCENEMANAGER.get()->GetCurrentScene()->GetName() == "GAMBLE")
+	if (SCENEMANAGER.get()->GetCurrentScene()->GetName() == "GambleScene")
 	{
 		if (isBtnOn == true)
 		{

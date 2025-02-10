@@ -16,7 +16,7 @@
 #include "GambleButton.h"
 #include "SkillButton.h"
 #include "ToopTip2D.h"
-
+#include "JustFont.h"
 #include "D2DBaseObj.h"
 #include "SelectionDialogScript.h"
 #include "../Engine/D2DRenderComponent.h"
