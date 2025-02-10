@@ -74,6 +74,11 @@ void CardRotation::Init(Deck* deckPtr)
 
 void CardRotation::Update(float deltaTime, std::vector<Card*>& cards)
 {
+	for (int i = 0; i < slots.size(); i++)
+	{
+		RotCards[i] = slots[i].card;
+	}
+
 	timer += deltaTime;
 
 	if (timer >= ROTATION_INTERVAL) {
@@ -88,7 +93,7 @@ void CardRotation::Update(float deltaTime, std::vector<Card*>& cards)
 }
 
 void CardRotation::RotateCards(std::vector<Card*>& cards)
-{
+{	
 	currentIndex = (currentIndex + 1) % MAX_SLOTS;
 	completedRotations++;
 
@@ -97,10 +102,6 @@ void CardRotation::RotateCards(std::vector<Card*>& cards)
 	int nextCardIndex = currentCardIndex % cards.size();
 	Card* newCard = cards[nextCardIndex];
 
-	for (int i = 0; i < slots.size(); i++)
-	{
-		RotCards[i] = slots[i].card;
-	}
 	// 모든 슬롯을 순회하면서 업데이트
 	for (int i = 0; i < MAX_SLOTS; i++) {
 		if (slots[i].isActive) {
