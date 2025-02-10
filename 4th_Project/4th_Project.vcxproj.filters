@@ -64,6 +64,24 @@
     <ClInclude Include="TestScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
+    <ClInclude Include="TutorialScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="LobbyScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogScene1.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogScene2.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogScene3.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
     <ClInclude Include="SceneHeaders.h">
       <Filter>Scene</Filter>
     </ClInclude>
@@ -127,6 +145,18 @@
       <Filter>Scene\TutorialScene</Filter>
     </ClInclude>
     <ClInclude Include="JustFont.h">
+      <Filter>Script</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogIntro.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogButton.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectionImageScript.h">
+      <Filter>Script</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectionScript.h">
       <Filter>Script</Filter>
     </ClInclude>
   </ItemGroup>
@@ -213,6 +243,18 @@
       <Filter>Scene\TutorialScene</Filter>
     </ClCompile>
     <ClCompile Include="JustFont.cpp">
+      <Filter>Script</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogIntro.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogButton.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectionImageScript.cpp">
+      <Filter>Script</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectionScript.cpp">
       <Filter>Script</Filter>
     </ClCompile>
   </ItemGroup>

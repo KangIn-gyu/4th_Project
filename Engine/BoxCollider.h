@@ -20,6 +20,8 @@ public:
 	//나중에 인규형한테 물어보기 따로 해야하는지 
 	~BoxCollider() = default;
 	//쿼터니언으로 회전값 주기 이미 다 쿼터니언이라 걍주면될듯?
+	void SetBox(const DXMath::Vector3 center, const DXMath::Vector3 extents, const DXMath::Quaternion orientation);
+	D2D1_RECT_F GetBoundBox();
 	void SetBox(const DXMath::Vector3 center, const DXMath::Vector3 extents, const DXMath::Quaternion orientation,Type _tpye = Type::None);
 	void DrawBoundBox();
 
@@ -34,6 +36,7 @@ public:
 
 	Touch TouchType = Touch::Basic;
 	Type colliderType = Type::None;
+	bool isDiamond = FALSE;
 protected:
 private:
 public:

@@ -11,7 +11,7 @@ D2DFont::D2DFont()
 
 #if _DEBUG
 	D2DClass::GetD2DDeviceContext()->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::Green), &boxBrush);
-	D2DClass::GetD2DDeviceContext()->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::LightPink), &boundBrush);
+	
 #endif
 }
 
