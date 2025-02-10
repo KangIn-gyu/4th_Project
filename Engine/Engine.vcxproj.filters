@@ -429,6 +429,11 @@
     <ClInclude Include="D2DLoader.h">
       <Filter>4_Resources\D2DLoader</Filter>
     </ClInclude>
+    <ClInclude Include="ColliderManager.h" />
+    <ClInclude Include="IColliderNotify.h" />
+    <ClInclude Include="RandomUtil.h">
+      <Filter>0_Utility\UtilityHeader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WindowApp.cpp">
@@ -650,6 +655,10 @@
     </ClCompile>
     <ClCompile Include="D2DLoader.cpp">
       <Filter>4_Resources\D2DLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="ColliderManager.cpp" />
+    <ClCompile Include="RandomUtil.cpp">
+      <Filter>0_Utility\UtilityHeader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

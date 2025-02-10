@@ -13,16 +13,42 @@
 #include <string>
 #include <string_view>
 
+// 컨테이너
 #include <map>
 #include <vector>
 #include <unordered_map>
+#include <set>
+#include <ranges>
+#include <stack>
 #include <random>
 #include <typeindex>
 
 #include <iostream>
-#include "../Engine/TimeSystem.h"
 
+// 포인터 관련
+#include <memory>
+#include <wrl/client.h>
+using namespace Microsoft::WRL;
+
+// D2D
+#include <d2d1_1.h>
+#include <d2d1helper.h>
+#include <dwrite.h>
+
+// Direct
+#include <d3d11.h>
 #include <directxtk/SimpleMath.h>  // #pragma comment(lib, "d3dx11.lib") 대체됨
+#include <d3dcompiler.h>  // 일단 보류
+#include <dwrite_3.h>
+#include <DirectXTex.h>
+#include <dxgi.h>
+
+#pragma comment(lib, "d3d11.lib")
+#pragma comment(lib, "dxgi.lib")
+#pragma comment(lib,"d3dcompiler.lib")
+
+#pragma comment(lib, "DirectXTK.lib")
+#pragma comment(lib, "DirectXTex.lib")
 namespace DX = DirectX;
 namespace DXMath = DirectX::SimpleMath;
 

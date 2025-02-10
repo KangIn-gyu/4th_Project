@@ -22,8 +22,19 @@ D2DBaseObj::D2DBaseObj(std::string_view _name, ObjectType _type, std::vector<std
 	CreateComponent<D2DRenderComponent>();
 }
 
+D2DBaseObj::D2DBaseObj(std::string_view _name, ObjectType _type, int _start, int _end, std::string _fontFilePath, std::string _CsvFilePath) :start(_start), end(_end), fontFilePath(_fontFilePath), CsvFilePath(_CsvFilePath), Object(_name, _type)
+{
+	CreateComponent<D2DRenderComponent>();
+}
+
 D2DBaseObj::D2DBaseObj(std::string_view _name, ObjectType _type, int _start, int _end, std::string _fontFilePath, std::string _CsvFilePath, std::string _sceneName) :start(_start), end(_end), fontFilePath(_fontFilePath), CsvFilePath(_CsvFilePath), sceneName(_sceneName), Object(_name, _type)
 {
+	CreateComponent<D2DRenderComponent>();
+}
+
+D2DBaseObj::D2DBaseObj(std::string_view _name, ObjectType _type, DXMath::Vector2 _pos, std::string _bitmapFilePath, std::string _fontFilePath) : path(_bitmapFilePath),fontFilePath(_fontFilePath), Object(_name, _type)
+{
+	pos = _pos;
 	CreateComponent<D2DRenderComponent>();
 }
 

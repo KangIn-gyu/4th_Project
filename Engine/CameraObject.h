@@ -14,6 +14,7 @@ public:
 	virtual void FixedUpdate() override {};
 	virtual void LateUpdate() override {};
 
+	void TitleFlag(bool _flag);
 	void MovingFlag(bool _flag);
 
 	std::pair<int, int> GetWindowSize() const;

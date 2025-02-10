@@ -31,6 +31,9 @@
     <Filter Include="Scene\TutorialScene">
       <UniqueIdentifier>{0623843f-2113-4c1d-8a92-a4dc8c2c1ddc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scene\LoadingScene">
+      <UniqueIdentifier>{4967bd6a-1c04-46d9-b66a-c5423a6fae7b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -144,8 +147,23 @@
     <ClInclude Include="TutorialScene.h">
       <Filter>Scene\TutorialScene</Filter>
     </ClInclude>
+    <ClInclude Include="LoadingScene.h">
+      <Filter>Scene\LoadingScene</Filter>
+    </ClInclude>
+    <ClInclude Include="JustFont.h">
+      <Filter>Script</Filter>
+    </ClInclude>
     <ClInclude Include="DialogIntro.h">
       <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogButton.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectionImageScript.h">
+      <Filter>Script</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectionScript.h">
+      <Filter>Script</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -230,8 +248,23 @@
     <ClCompile Include="TutorialScene.cpp">
       <Filter>Scene\TutorialScene</Filter>
     </ClCompile>
+    <ClCompile Include="LoadingScene.cpp">
+      <Filter>Scene\LoadingScene</Filter>
+    </ClCompile>
+    <ClCompile Include="JustFont.cpp">
+      <Filter>Script</Filter>
+    </ClCompile>
     <ClCompile Include="DialogIntro.cpp">
       <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogButton.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectionImageScript.cpp">
+      <Filter>Script</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectionScript.cpp">
+      <Filter>Script</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -189,7 +189,7 @@ public:
     void   SetEndPoint(float _EndPoint) { EndPoint = _EndPoint; }
     void   SetDuration(float   _Duration) { Duration = _Duration; }
 
-    void   Update(const float& _DeltaTime)
+    void Update(const float& _DeltaTime)
     {
         (this->*StepAnimationFunction[Type])(_DeltaTime);
     }

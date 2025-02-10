@@ -28,6 +28,7 @@ public:
 	std::vector<Animation*>* GetAnimations() { return modelAnimation; }
 	int GetActiveAnimationIndex();
 	void StopAnimation();
+	bool IsAnimationFinished() { return finished;}
 
 private:
 	AiNode* DeepCopyNode(AiNode* _originalNode, AiNode* _parentNode);
@@ -44,6 +45,7 @@ private:
 	std::vector<Animation*>* modelAnimation {};
 	Animation* activeAnimation = nullptr;
 	float progressAnimTime{};
+	bool finished = false;
 
 	// º»Ã³¸®
 	MatrixPallete matrixPalletBuffer;

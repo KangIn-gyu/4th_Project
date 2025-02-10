@@ -2,11 +2,11 @@
 #include "Hand.h"
 #include "Card.h"
 #include <algorithm>
-#include <random>
 #include "../Engine/DOTween.h"
 #include "../Engine/TransformComponent.h"
 #include "../Engine/TimeSystem.h"
 #include "BlackJack.h"
+#include "../Engine/Helper.h"
 
 std::vector<DXMath::Vector3> playerSlots = {
 	{-40, 65,0}, {-25, 65,0}, {-10, 65,0}, {5, 65,0},
@@ -154,9 +154,10 @@ bool Hand::ShuffleHand()
 	}
 	if (curHand == HandState::Center && elapsedTime >= 3.0f )  // 중앙으로 모으기 모으면서 카드 값이미 바뀜
 	{
-		std::random_device rd;
-		std::mt19937 g(rd());
-		std::shuffle(hand.begin(), hand.end() - 1, g);  
+		// TODO : 25.2.10 수정함
+		// std::random_device rd;
+		// std::mt19937 g(rd());
+		std::shuffle(hand.begin(), hand.end() - 1, RandomUtil::gen);
 		for (int i = 0; i < numCard(); i++)
 		{
 			auto& cardpos = hand[i]->GetComponent<TransformComponent>()->GetPosition();
@@ -182,6 +183,5 @@ bool Hand::ShuffleHand()
 		
 	}
 
-	
 	return (curHand == HandState::Finish);
 }

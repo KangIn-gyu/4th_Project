@@ -5,6 +5,7 @@
 #include "Card.h"
 #include "Deck.h"
 #include "Hand.h"
+
 enum class DSkill
 {
 	none,
@@ -13,7 +14,6 @@ enum class DSkill
 	skillBan,
 	slotBan
 };
-
 class Dealer : public Object, public IClick, public IOnmouse
 {
 public:
@@ -29,7 +29,7 @@ public:
 	void FirstDraw(Deck* _deck);
 	void CardDraw(Deck* _deck); 
 	int  GetScore();
-	void Act();
+	bool Act();
 	void SetChip(int _num) { chip += _num; }
 	virtual void OnClick() override;
 	virtual void OnMouse() override;
@@ -48,9 +48,13 @@ public:
 	bool slotBan();
 
 	void SetSkill();
+
+	DSkill GetState() { return previousSkill; }
 private:
 	std::function<bool()> pattern; //딜러 다음패턴 담아둘곳
 	int maxScore = 17; //딜러가 카드그만뽑을 상한선
 
 	DSkill previousSkill = DSkill::none;	// 기본 값
+
+
 };

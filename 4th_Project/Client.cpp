@@ -25,15 +25,21 @@ void Client::Enter()
 	SCENEMANAGER->CreatorScene<TitleScene>("TitleScene");
 	SCENEMANAGER->CreatorScene<TutorialScene>("TutorialScene");
 	SCENEMANAGER->CreatorScene<DialogScene1>("DialogScene1");
-	SCENEMANAGER->CreatorScene<LobbyScene>("LobbyScene");
-//	TitleScene* titleScene = new TitleScene("Title");
-//	SceneManager
+	SCENEMANAGER->CreatorScene<LobbyScene>("Lobby");
+	SCENEMANAGER->CreatorScene<LoadingScene>("Loading");
+
 	BLACKJACK->player = PLAYER;
 
 	//SCENEMANAGER->ChangeScene("GAMBLE");
-	//ENGINE->CollectionGameManager(MYGAMEMANAGER);
-	//SOUNDSYSTEM->LoadMusic(eSoundList::Main_Theme, true, "Resource\\STAGE1\\Sounds\\dancer.mp3");
+	ENGINE->CollectionGameManager(MYGAMEMANAGER);
 	//SOUNDSYSTEM->SetVolumeAll(0.5f);
 
-	SCENEMANAGER->ChangeScene("DialogScene1");
+	//LoadMusic();
+	SCENEMANAGER->ChangeScene("TitleScene");
+}
+
+// 사운드 로드하는 짭통
+void Client::LoadMusic()
+{ 
+	SOUNDSYSTEM->LoadMusic(eSoundList::Main_Theme, true, "Resource\\STAGE1\\Sounds\\dancer.mp3");
 }

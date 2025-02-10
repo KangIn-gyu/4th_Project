@@ -160,6 +160,7 @@
     <ClInclude Include="CameraInformationEditor.h" />
     <ClInclude Include="CameraObject.h" />
     <ClInclude Include="Collider.h" />
+    <ClInclude Include="ColliderManager.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Console.h" />
     <ClInclude Include="ConstantBuffer.h" />
@@ -169,9 +170,11 @@
     <ClInclude Include="D2DClass.h" />
     <ClInclude Include="D2DLoader.h" />
     <ClInclude Include="GameManager.h" />
+    <ClInclude Include="IColliderNotify.h" />
     <ClInclude Include="ImageComponent.h" />
     <ClInclude Include="D2DFont.h" />
     <ClInclude Include="D2DRenderComponent.h" />
+    <ClInclude Include="RandomUtil.h" />
     <ClInclude Include="Script.h" />
     <ClInclude Include="TextObject.h" />
     <ClInclude Include="D3DClass.h" />
@@ -247,6 +250,7 @@
     <ClCompile Include="CameraInformationEditor.cpp" />
     <ClCompile Include="CameraObject.cpp" />
     <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="ColliderManager.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Console.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />
@@ -258,6 +262,7 @@
     <ClCompile Include="ImageComponent.cpp" />
     <ClCompile Include="D2DFont.cpp" />
     <ClCompile Include="D2DRenderComponent.cpp" />
+    <ClCompile Include="RandomUtil.cpp" />
     <ClCompile Include="Script.cpp" />
     <ClCompile Include="TextObject.cpp" />
     <ClCompile Include="D3DClass.cpp" />

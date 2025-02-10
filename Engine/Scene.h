@@ -16,6 +16,7 @@ public:
 	virtual void FixedUpdate(const float _deltaTime) {};
 	virtual void RateUpdate(const float _deltaTime) {};
 	virtual void ResetInformation();
+
 	template<succession_Object T, typename ... Arg>
 	T* CreatorObject(std::string_view _name , Object::ObjectType _Type, Arg&& ... _arguments);
 

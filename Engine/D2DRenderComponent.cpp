@@ -126,6 +126,11 @@ void D2DRenderComponent::SetLineSpacing(float _lineSpacing)
 	font->SetLineSpacing(_lineSpacing);
 }
 
+void D2DRenderComponent::SetBitmapAlpha(float _alpha)
+{
+	drawBitmap->SetAlpha(_alpha);
+}
+
 void D2DRenderComponent::SetAlignment(D2DFont::Setting _SortX, D2DFont::Setting _SortY)
 {
 	font->Alignment(_SortX, _SortY);
@@ -168,10 +173,10 @@ void D2DRenderComponent::FontDraw()
 {
 	if (font != nullptr)
 	{
+		D2DClass::GetD2DDeviceContext()->DrawTextLayout(font->GetPos(), font->GetTextLayout(), font->GetBrush());
 #if _DEBUG
 		if (font != nullptr) { font->DrawTextBox(); }
 #endif
-		D2DClass::GetD2DDeviceContext()->DrawTextLayout(font->GetPos(), font->GetTextLayout(), font->GetBrush());
 	}
 }
 

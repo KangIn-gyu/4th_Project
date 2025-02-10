@@ -2,7 +2,7 @@
 #include "Deck.h"
 #include "Card.h"
 #include <algorithm>
-#include <random>
+
 #include "../Engine/RenderComponent.h"
 #include "../Engine/ModelComponent.h"
 #include "../Engine/SceneManager.h"
@@ -10,6 +10,9 @@
 #include "../Engine/FactorySystem.h"
 #include "../Engine/TransformComponent.h"
 #include "BlackJack.h"
+
+#include "../Engine/Helper.h"
+
 Deck::Deck(std::string_view _name, Object::ObjectType _type,bool real) : Object(_name, _type)
 {
 	if (real)
@@ -45,6 +48,8 @@ void Deck::Init()
 	for (auto card : cards)
 	{
 		card->Init(GetComponent<TransformComponent>()->GetPosition());
+		card->slotActive = true;
+		card->RemoveEffect(Object::Effect::Banned);
 	}
 }
 
@@ -81,10 +86,13 @@ Card* Deck::DrawCard(bool Dealer)
 	return card;
 }
 
-void Deck::ShuffleDeck() {
-	std::random_device rd;
-	std::mt19937 g(rd());
-	std::shuffle(cards.begin(), cards.end(), g);
+void Deck::ShuffleDeck()
+{
+//	TODO : 25.2.10 강인규가 수정함
+//	std::random_device rd;
+//	std::mt19937 g(rd());
+
+	std::shuffle(cards.begin(), cards.end(), RandomUtil::gen);
 }
 
 

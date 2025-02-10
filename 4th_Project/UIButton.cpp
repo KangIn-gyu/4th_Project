@@ -61,6 +61,8 @@ void UIButton::SetD2DLayerOrder(int _index)
 
 void UIButton::OnClick()
 {
+	onClick = true;
 	std::cout << "2d´­·¶À½ " << std::endl;
 	clickFunc();
+	onClick = true;
 }

@@ -4,7 +4,7 @@
 class D3DAniObj : public Object
 {
 public:
-	D3DAniObj(std::string_view _name, ObjectType _type, std::string _filePath) : filePath(_filePath), Object(_name, _type) {}
+	D3DAniObj(std::string_view _name, ObjectType _type, std::string _filePath);
 	virtual ~D3DAniObj() = default;
 
 	virtual void Initialize() override;                   // 용도 : 내가 필요한 컴포넌트 생성하는 곳 초기화나

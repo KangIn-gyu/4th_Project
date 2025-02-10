@@ -77,24 +77,26 @@ void D2DBitMapFontScript::OnInputProcess(const DX::Keyboard::State& _KeyState, c
 		{
 			if (index == csvData.size())
 			{
-				index = 0;
-				SCENEMANAGER->ChangeScene(changeSceneName);
-			}
-
-			if (displayedText.length() < csvData[index].second.length())
-			{
-				isClicked = true;
-				ownerD2D->SetDialog(csvData[index].second);
-				displayedText = csvData[index].second;
+			//	index = 0;
+			//	SCENEMANAGER->ChangeScene(changeSceneName);
 			}
 			else
 			{
-				index++;
-				if (index < csvData.size())
+				if (displayedText.length() < csvData[index].second.length())
 				{
-					int ChangeBitmapindex = csvData[index].first;
-					ownerD2D->ChangeBitmap(ChangeBitmapindex - startImage);
-					displayedText = L"";
+					isClicked = true;
+					ownerD2D->SetDialog(csvData[index].second);
+					displayedText = csvData[index].second;
+				}
+				else
+				{
+					index++;
+					if (index < csvData.size())
+					{
+						int ChangeBitmapindex = csvData[index].first;
+						ownerD2D->ChangeBitmap(ChangeBitmapindex - startImage);
+						displayedText = L"";
+					}
 				}
 			}
 		}

@@ -9,6 +9,7 @@ public:
 	~Client();
 	virtual void Enter() override;
 
+	void LoadMusic();
 private:
 
 protected:

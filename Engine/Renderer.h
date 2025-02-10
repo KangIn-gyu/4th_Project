@@ -4,7 +4,6 @@
 #include "D2DClass.h"
 #include "ConstantBuffer.h"
 
-#include "SkyBox.h"
 #include "ShadowRenderer.h"
 #include "ConstantBufferData.h"
 
@@ -71,6 +70,7 @@ private:
 
 	std::stack<int> previousTexturerProcessing;
 //	SkyBox m_skybox;  // TODO : 사용하는 곳이 없어서 주석(규철이 확인 필요)
+
 public:
 	DXMath::Vector3 lightTarget;
 	DXMath::Vector3 lightPos;
