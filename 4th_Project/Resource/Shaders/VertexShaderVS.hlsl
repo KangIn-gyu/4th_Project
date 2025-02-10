@@ -42,7 +42,7 @@ PixelInputType main(VertexInputType input)
     }
     else
     {
-        skinnedPosition = mul(float4(input.Normal, 1.0f), worldMatrix);
+        skinnedPosition = mul(input.Position, worldMatrix);
     }
 	
 	// 정점의 위치를 월드, 뷰, 사영의 순으로 계산합니다.

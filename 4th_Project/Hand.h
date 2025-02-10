@@ -27,9 +27,8 @@ private:
 	bool endShuffle = false;
 	HandState curHand = HandState::Open;
 public:
-	int maxHand; //손패 최대치
+	int maxHand{}; //손패 최대치
 	std::vector<Card*> hand;
-	
 	//핸드의 각위치 정해줘야 하는대 map으로 바꾸기
 };
 

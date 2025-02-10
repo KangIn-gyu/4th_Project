@@ -57,7 +57,19 @@ DXMath::Vector2 D2DRenderComponent::Get2DImageXY()
 void D2DRenderComponent::Set2DImagePos(float _x, float _y)
 {
 	drawBitmap->SetPos(_x, _y);
+	
+	for (auto& bit : imageDatas)
+	{
+		bit->SetPos(_x, _y);
+	}
 }
+
+void D2DRenderComponent::SetBoundBox(D2D1_RECT_F _box)
+{
+	drawBitmap->SetBoundBox(_box);
+}
+
+
 D2D_VECTOR_2F D2DRenderComponent::Get2DImagePos()
 {
 	return { drawBitmap->GetRect().left, drawBitmap->GetRect().top };
@@ -73,7 +85,7 @@ void D2DRenderComponent::ChangeBitmap(int _index)
 
 Bitmap* D2DRenderComponent::GetBitmap(int _index)
 {
-	if (_index > 0 && _index < imageDatas.size())
+	if (_index >= 0 && _index < imageDatas.size())
 	{
 		return imageDatas[_index];
 	}
@@ -118,19 +130,48 @@ void D2DRenderComponent::SetAlignment(D2DFont::Setting _SortX, D2DFont::Setting 
 {
 	font->Alignment(_SortX, _SortY);
 }
-void D2DRenderComponent::Draw()
+
+void D2DRenderComponent::BitDraw()
 {
 	if (drawBitmap != nullptr)
 	{
-		std::cout << drawBitmap->GetAlpha() << std::endl;
+#if _DEBUG
+		if (drawBitmap != nullptr)
+		{
+			ID2D1SolidColorBrush* boundBrush;
+			D2DClass::GetD2DDeviceContext()->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::LightPink), &boundBrush);
+
+			D2D1_RECT_F rect = drawBitmap->GetBoundBox();
+
+			if (drawBitmap->isDiamond)
+			{
+				D2D1_POINT_2F points[5] = {
+				{ (rect.left + rect.right) / 2, rect.top },   // 상단 꼭짓점
+				{ rect.right, (rect.top + rect.bottom) / 2 }, // 오른쪽 꼭짓점
+				{ (rect.left + rect.right) / 2, rect.bottom }, // 하단 꼭짓점
+				{ rect.left, (rect.top + rect.bottom) / 2 },  // 왼쪽 꼭짓점
+				{ (rect.left + rect.right) / 2, rect.top }    // 다시 상단 (닫기)
+				};
+				for (int i = 0; i < 4; ++i)
+				{
+					D2DClass::GetD2DDeviceContext()->DrawLine(points[i], points[i + 1], boundBrush, 10.0f);
+				}
+			}
+			else
+				D2DClass::GetD2DDeviceContext()->DrawRectangle(drawBitmap->GetBoundBox(), boundBrush);
+		}
+#endif
 		D2DClass::GetD2DDeviceContext()->DrawBitmap(drawBitmap->GetImageData(), drawBitmap->GetRect(), drawBitmap->GetAlpha());
 	}
+}
+void D2DRenderComponent::FontDraw()
+{
 	if (font != nullptr)
 	{
 #if _DEBUG
-		if (font != nullptr){ font->DrawTextBox(); }
+		if (font != nullptr) { font->DrawTextBox(); }
 #endif
-		D2DClass::GetD2DDeviceContext()->DrawTextLayout( font->GetPos(), font->GetTextLayout(), font->GetBrush());
+		D2DClass::GetD2DDeviceContext()->DrawTextLayout(font->GetPos(), font->GetTextLayout(), font->GetBrush());
 	}
 }
 

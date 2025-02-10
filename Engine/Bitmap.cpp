@@ -5,6 +5,8 @@
 #include "D2DClass.h"
 #include "D2DLoader.h"
 
+
+
 void Bitmap::Load(std::string_view _filePath)
 {
    d2dBitmap = D2DLOADER->Load(StringConverter::StringToWide(_filePath));
@@ -25,13 +27,12 @@ void Bitmap::SetSize(float _width, float _height)
 
 void Bitmap::SetPos(float _x, float _y)
 {
-    //destRect.left = _x;
-    //destRect.top = _y;
-    //
-    //destRect.right += _x;
-    //destRect.bottom += _y;
 
     xPos = _x;
     yPos = _y;
     destRect = { xPos, yPos, width + xPos,height + yPos };
+}
+void Bitmap::SetBoundBox(D2D1_RECT_F _box)
+{
+    bitmapBoundbox = _box;
 }

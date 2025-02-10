@@ -60,19 +60,17 @@ private:
 	
 	ShadowRenderer shadowRenderer;
 
-
 	ConstantBuffer matrixConstantBuffer;
 	ConstantBuffer objectBuffer;
 	ConstantBuffer cameraBuffer;
 	ConstantBuffer matrixPaletteBuffer;
 	ConstantBuffer productBuffer;
 
-
 	ComPtr<ID3D11SamplerState>	linearWrapSampler;    // LINEAR 
 	ComPtr<ID3D11SamplerState>  pointClampSampler;    // POINT 
 
 	std::stack<int> previousTexturerProcessing;
-	SkyBox m_skybox;
+//	SkyBox m_skybox;  // TODO : 사용하는 곳이 없어서 주석(규철이 확인 필요)
 public:
 	DXMath::Vector3 lightTarget;
 	DXMath::Vector3 lightPos;
@@ -90,7 +88,6 @@ public:
 	ComPtr<ID3D11DepthStencilState> outlineMaskState;
 	ComPtr<ID3D11RasterizerState> outlineRasterizerState;
 	void CreateOutlineStates();
-	void UpdateConstantBuffer();
 
 	std::shared_ptr<Shader> outlineShader;
 

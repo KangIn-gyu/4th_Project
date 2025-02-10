@@ -43,6 +43,4 @@ T* FactorySystem::ObjectCreator(Arg&& ... _arguments)
 			"해당 오브젝트의 생성자 파라미터가 맞지 않습니다.");
 	}
 }
-
 // registerType있는게 확장성으로 좋은데 소규모 프로젝트이기 때문에 간단하게 작성함
-// TODO : 오브젝트 필링 효과를 여기다 만들어야 될가? 고민중

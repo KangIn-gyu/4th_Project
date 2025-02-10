@@ -32,6 +32,7 @@ public:
 	void SetQuaternion(const DXMath::Quaternion _rotation);
 	void SetScale(const DXMath::Vector3 _scale);
 
+	void AddPositon(const DXMath::Vector3 _position);
 	void SetParent(Transform* _parent);
 	Transform* GetParent() { return parent; }
 
@@ -43,7 +44,7 @@ public:
 
 protected:
 	DXMath::Vector3     position;   // 위치
-	DXMath::Quaternion  rotation;   // 회전 (쿼터니언)
+	DXMath::Quaternion  rotation = {0,0,0,1};   // 회전 (쿼터니언)
 	DXMath::Vector3     scale;      // 스케일
 	Transform*			parent{};
 

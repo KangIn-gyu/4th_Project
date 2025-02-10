@@ -30,8 +30,11 @@ Object* EventSystem::FindObj(DXMath::Vector3 _rayOrigin, DXMath::Vector3 _rayDir
 				if (obj->IsActive())
 				{
 					auto boxcol = obj->GetComponent<BoxCollider>();
+					
 					if (boxcol != nullptr)
 					{
+						if (boxcol->TouchType == Touch::None)
+							continue;
 						float distance;
 						if (boxcol->IntersectsRay(_rayOrigin, _rayDirection, distance))
 						{
@@ -122,16 +125,31 @@ void EventSystem::OnmouseEvent()
 	int screenWidth = Engine::GetInstance().get()->GetWindowSize().x;
 	int screenHeight = Engine::GetInstance().get()->GetWindowSize().y;
 
-	DXMath::Ray ray = GenerateRayFromMouse(mouseX, mouseY, screenWidth, screenHeight, CameraObject::g_MainCameraObject->GetViewMatrix()
-		, CameraObject::g_MainCameraObject->GetProjectionMatrix());
-	Object* curobj = FindObj(ray.position, ray.direction);
-	if (curobj != nullptr)
+	Object* curObj = Check2D(mouseX, mouseY);
+	if (curObj == nullptr)
 	{
-		//std::cout << curobj->name << std::endl;
+		DXMath::Ray ray = GenerateRayFromMouse(
+			mouseX, mouseY, screenWidth, screenHeight,
+			CameraObject::g_MainCameraObject->GetViewMatrix(),
+			CameraObject::g_MainCameraObject->GetProjectionMatrix()
+		);
+		curObj = FindObj(ray.position, ray.direction);
 	}
-	IOnmouse* Onmouse = dynamic_cast<IOnmouse*>(curobj);
-	if (Onmouse)
-		Onmouse->OnMouse();
+
+	IOnmouse* curMouse = dynamic_cast<IOnmouse*>(curObj);
+	IOnmouse* preMouse = dynamic_cast<IOnmouse*>(preObj);
+
+	if (preMouse && preMouse != curMouse) {
+		preMouse->ExitMouse();
+	}
+
+
+	if (curMouse) {
+		curMouse->OnMouse();
+	}
+
+
+	preObj = curObj;
 }
 
 void EventSystem::BeginDrag()

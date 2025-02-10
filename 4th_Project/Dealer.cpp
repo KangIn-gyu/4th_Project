@@ -7,9 +7,11 @@
 #include "Deck.h"
 #include "../Engine/Model.h"
 #include "../Engine/TimeSystem.h"
+#include "BlackJack.h"
+
 Dealer::Dealer(std::string_view _name, Object::ObjectType _type) : Object(_name, _type)
 {
-	auto model = CreateComponent<ModelComponent>("STAGE1/FBX/SkinningTest.fbx"); // Evelyn char2 SkinningTest
+	auto model = CreateComponent<ModelComponent>("STAGE1/FBX/SkinningTest.fbx"); // Evelyn char2 SkinningTest Evelyn_LowPoly
 	/*if (model->GetAnimations() != nullptr)
 	{
 		model->SetAnimation(0);
@@ -20,10 +22,12 @@ Dealer::Dealer(std::string_view _name, Object::ObjectType _type) : Object(_name,
 	CreateComponent<BoxCollider>();
 	DXMath::Vector3 extent = GetComponent<ModelComponent>()->GetModel().get()->extent * 0.6;
 	DXMath::Vector3 center = GetComponent<ModelComponent>()->GetModel().get()->center;
-	GetComponent<BoxCollider>()->SetBox(center, extent, GetComponent<TransformComponent>()->GetQuaternion());
+	GetComponent<BoxCollider>()->SetBox(center, extent, GetComponent<TransformComponent>()->GetQuaternion(),Type::Block);
 	auto randerComponet = GetComponent<RenderComponent>();
 	randerComponet->SetShader(ShaderType::VS, "Shaders/VertexShaderVS.hlsl");
 	randerComponet->SetShader(ShaderType::PS, "Shaders/PixelShaderPS.hlsl");
+
+	
 }
 
 void Dealer::Initialize()
@@ -43,7 +47,7 @@ void Dealer::Update(const float _deltaTime)
 		
 	}
 		
-	//std::cout << GetComponent<ModelComponent>()->GetModel().get()->extent.x << std::endl;
+	
 }
 
 
@@ -75,7 +79,7 @@ void Dealer::CardDraw(Deck* _deck)
 		else
 		{
 			Card* card = hand.cardDraw((_deck->DrawCard(true)),{ dealerSlots.x + hand.numCard() * 5.0f, dealerSlots.y + hand.numCard() * 0.1f, dealerSlots.z},true);
-			card->Open();
+			card->MoveOpen();
 		}
 		elapsedTime = 0;
 	}
@@ -89,18 +93,32 @@ int Dealer::GetScore()
 	return hand.GetScore();
 }
 
-void Dealer::Act()
+bool Dealer::Act()
 {
+	// 여기서 한번 다이얼로그 시작하고 그거에 맞춰서 결과가 true false로 나오고 그게 false일때만 패턴 실행
 	//pattern(); 한번쓰고나면 다른패턴 담아둬야함
+
+	if (true == pattern())
+	{
+		SetSkill();
+		return true;
+	}
+	return false;
 }
 
 void Dealer::OnClick()
 {
 	std::cout << "누르지 마세요 " << std::endl;
 	//this->~Dealer();
+	//SetSkill();
 }
 
 void Dealer::OnMouse()
+{
+	
+}
+
+void Dealer::ExitMouse()
 {
 }
 
@@ -109,9 +127,107 @@ void Dealer::OpenOne(float _deltaTime)
 	//1초뒤에 뒤집어야 하나 
 	if (!finishFirst)
 	{
-		hand.hand.back()->Open();
+		hand.hand.back()->MoveOpen();
 	}
 	finishFirst = true;
+}
+
+bool Dealer::reverse()
+{
+	std::cout << "1\n";
+
+	std::vector<int> openSlots;
+	int cardCount = BLACKJACK->player->hand.numCard();
+	for (int i = 0; i < cardCount; i++) {
+		if (BLACKJACK->player->hand.hand[i] != nullptr &&
+			BLACKJACK->player->hand.hand[i]->isOpen) {
+			openSlots.push_back(i);
+		}
+	}
+
+	if (openSlots.empty()) {
+		return false;
+	}
+	
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<int> distrib(0, openSlots.size() - 1);
+	int randomIndex = distrib(gen);
+
+	int targetSlot = openSlots[randomIndex];
+	BLACKJACK->player->hand.hand[targetSlot]->Close();
+
+	return true;
+}
+
+bool Dealer::meditation()
+{
+	std::cout << "2\n";
+	chip *= 1.1f;
+	return true;
+}
+
+bool Dealer::skillBan()
+{
+
+	std::cout << "3\n";
+	BLACKJACK->player->canSkill = false;
+	return true;
+}
+
+bool Dealer::slotBan()
+{
+	std::cout << "4\n";
+	std::vector<int> activeSlots;
+
+	int cardCount = BLACKJACK->player->hand.numCard();
+
+	for (int i = 0; i < cardCount; i++) {
+		if (BLACKJACK->player->hand.hand[i] != nullptr &&
+			BLACKJACK->player->hand.hand[i]->slotActive) {
+			activeSlots.push_back(i);
+		}
+	}
+
+	if (activeSlots.empty()) {
+		return false;
+	}
+
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<int> distrib(0, activeSlots.size() - 1);
+	int randomIndex = distrib(gen);
+
+	int targetSlot = activeSlots[randomIndex];
+	BLACKJACK->player->hand.hand[targetSlot]->slotActive = false;
+	BLACKJACK->player->hand.hand[targetSlot]->AddEffect(Object::Effect::Banned);
+	
+	return true;
+}
+
+void Dealer::SetSkill()
+{
+	static const DSkill allSkills[] = { DSkill::reverse, DSkill::meditation, DSkill::skillBan, DSkill::slotBan };
+	static const size_t skillCount = sizeof(allSkills) / sizeof(DSkill);
+
+	std::random_device rd;
+	std::mt19937 gen(rd());
+
+	DSkill selectedSkill;
+	do {
+		selectedSkill = allSkills[gen() % skillCount];
+	} while (selectedSkill == previousSkill || selectedSkill == DSkill::none);
+
+	previousSkill = selectedSkill;
+
+	if (previousSkill == DSkill::reverse)
+		pattern = [this]() { turnCount = 3;  return reverse(); };
+	else if (previousSkill == DSkill::meditation)
+		pattern = [this]() { turnCount = 4; return meditation(); };
+	else if (previousSkill == DSkill::skillBan)
+		pattern = [this]() { turnCount = 2; return skillBan(); };
+	else if (previousSkill == DSkill::slotBan)
+		pattern = [this]() { turnCount = 3; return slotBan(); };
 }
 
 

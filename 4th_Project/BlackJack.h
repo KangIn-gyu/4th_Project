@@ -8,6 +8,7 @@
 #include "Dealer.h"
 #define BLACKJACK BlackJack::GetInstance().get()
 
+class D2DBaseObj;
 enum class Turn
 {
 	player,
@@ -16,7 +17,7 @@ enum class Turn
 };
 enum class PlayerState   //플레이어 행동상태 
 {
-	OPEN,
+	OPEN,    //기본시작은 open
 	HIT,
 	STAY,
 	Skill,    //
@@ -28,7 +29,7 @@ class BlackJack : public SingletonBase<BlackJack>
 	friend class SingletonBase<BlackJack>;
 	BlackJack();
 public:
-	
+	void SetDialog(D2DBaseObj* dialog) { dialogs.push_back(dialog); }
 
 	void Setstage(int num);   //스테이지 숫자로 스테이지 설정?
 	
@@ -67,16 +68,18 @@ public:
 	bool endBet = false;
 	bool canClick = false;
 	int magnification = 1;
-
+	bool firstTurn = true; //첫턴은 달라서
+	Turn curTurn = Turn::player;
 private:
 	float elapsedTime =0;
-	Turn curTurn = Turn::player;
+
 	PlayerState state = PlayerState::OPEN;
 	PlayerState nextState;
-	bool firstTurn =true; //첫턴은 달라서
+	
 	bool isRoundOver = true; //한 라운드가 끝날떄
 	//bool canChange = true;
-	int betMoney;
+	int* betMoney;
 	 //배율   최종 = 베팅액 * 배율
+	std::vector<D2DBaseObj*> dialogs;
 };
 

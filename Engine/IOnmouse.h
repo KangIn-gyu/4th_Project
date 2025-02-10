@@ -4,5 +4,7 @@ class IOnmouse
 {
 public:
 	virtual void OnMouse() = 0;
+	virtual void ExitMouse() = 0;
 	virtual ~IOnmouse() = default;
+	 
 };

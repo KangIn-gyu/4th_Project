@@ -19,6 +19,8 @@ cbuffer ObjectBuffer : register(b1) // ConstantBuffer ½½·Ô
     float metalness;
     float roughness;
     int   onOutline;
+    int   onBanned;
+    float4 outlineColor;
 };
 
 cbuffer CameraBuffer : register(b2)

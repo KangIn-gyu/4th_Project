@@ -7,7 +7,11 @@
 #include "LobbyScene.h"	   // 로비씬
 #include "GambleScene.h"   // 겜블씬
 
-// 다이얼로그
+// 다이얼로그씬
+#include "DialogIntro.h"
+#include "DialogScene0.h"
 #include "DialogScene1.h"
 #include "DialogScene2.h"
 #include "DialogScene3.h"
+#include "DialogScene4.h"
+#include "DialogScene5.h"

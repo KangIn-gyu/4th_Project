@@ -23,6 +23,11 @@ void CameraObject::Update(const float _deltaTime)
 	
 }
 
+void CameraObject::MovingFlag(bool _flag)
+{
+	GetComponent<CameraCompoent>()->MovingFlag(_flag);
+}
+
 std::pair<int, int> CameraObject::GetWindowSize() const
 {
 	if (nullptr != windowInfo)

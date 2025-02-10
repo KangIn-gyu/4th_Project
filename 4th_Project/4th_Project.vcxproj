@@ -147,6 +147,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Button.h" />
+    <ClInclude Include="CardRotation.h" />
     <ClInclude Include="ClickFunc.h" />
     <ClInclude Include="Card.h" />
     <ClInclude Include="ClickNextBimapScript.h" />
@@ -161,30 +162,42 @@
     <ClInclude Include="D3DObjScript.h" />
     <ClInclude Include="Dealer.h" />
     <ClInclude Include="Deck.h" />
+    <ClInclude Include="DialogIntro.h" />
+    <ClInclude Include="DialogButton.h" />
+    <ClInclude Include="DialogScene0.h" />
     <ClInclude Include="DialogScene1.h" />
     <ClInclude Include="DialogScene2.h" />
     <ClInclude Include="DialogScene3.h" />
+    <ClInclude Include="DialogScene4.h" />
+    <ClInclude Include="DialogScene5.h" />
     <ClInclude Include="FadeEffectScript.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GambleButton.h" />
     <ClInclude Include="GambleScene.h" />
     <ClInclude Include="BlackJack.h" />
+    <ClInclude Include="JustFont.h" />
     <ClInclude Include="MyGameManager.h" />
     <ClInclude Include="Hand.h" />
     <ClInclude Include="LobbyScene.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SceneHeaders.h" />
+    <ClInclude Include="SelectionDialogScript.h" />
+    <ClInclude Include="SelectionImageScript.h" />
+    <ClInclude Include="SelectionScript.h" />
+    <ClInclude Include="SkillButton.h" />
     <ClInclude Include="TestObj.h" />
     <ClInclude Include="TestObj2.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="TitleScene.h" />
+    <ClInclude Include="ToopTip2D.h" />
     <ClInclude Include="TutorialScene.h" />
     <ClInclude Include="UIButton.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="4th_Project.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="CardRotation.cpp" />
     <ClCompile Include="ClickFunc.cpp" />
     <ClCompile Include="Card.cpp" />
     <ClCompile Include="ClickNextBimapScript.cpp" />
@@ -199,12 +212,19 @@
     <ClCompile Include="D3DObjScript.cpp" />
     <ClCompile Include="Dealer.cpp" />
     <ClCompile Include="Deck.cpp" />
+    <ClCompile Include="DialogIntro.cpp" />
+    <ClCompile Include="DialogButton.cpp" />
+    <ClCompile Include="DialogScene0.cpp" />
     <ClCompile Include="DialogScene1.cpp" />
     <ClCompile Include="DialogScene2.cpp" />
     <ClCompile Include="DialogScene3.cpp" />
+    <ClCompile Include="DialogScene4.cpp" />
+    <ClCompile Include="DialogScene5.cpp" />
+    <ClCompile Include="FadeEffectScript.cpp" />
     <ClCompile Include="GambleButton.cpp" />
     <ClCompile Include="GambleScene.cpp" />
     <ClCompile Include="BlackJack.cpp" />
+    <ClCompile Include="JustFont.cpp" />
     <ClCompile Include="MyGameManager.cpp" />
     <ClCompile Include="Hand.cpp" />
     <ClCompile Include="LobbyScene.cpp" />
@@ -215,10 +235,15 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="SelectionDialogScript.cpp" />
+    <ClCompile Include="SelectionImageScript.cpp" />
+    <ClCompile Include="SelectionScript.cpp" />
+    <ClCompile Include="SkillButton.cpp" />
     <ClCompile Include="TestObj.cpp" />
     <ClCompile Include="TestObj2.cpp" />
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="TitleScene.cpp" />
+    <ClCompile Include="ToopTip2D.cpp" />
     <ClCompile Include="TutorialScene.cpp" />
     <ClCompile Include="UIButton.cpp" />
   </ItemGroup>

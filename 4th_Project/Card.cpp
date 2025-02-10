@@ -30,13 +30,16 @@ void Card::Initialize()
 	CreateComponent<RenderComponent>();
 	CreateComponent<BoxCollider>();
 
-	SetEffect(Object::Effect::OutLine);
+	//SetEffect(Object::Effect::OutLine);
 	DXMath::Vector3 extent = GetComponent<ModelComponent>()->GetModel().get()->extent;
 	DXMath::Vector3 center = GetComponent<ModelComponent>()->GetModel().get()->center;
 	GetComponent<BoxCollider>()->SetBox(center, extent, GetComponent<TransformComponent>()->GetQuaternion());
 	auto randerComponet = GetComponent<RenderComponent>();
 	randerComponet->SetShader(ShaderType::VS, "Shaders/StaticVS.hlsl");
 	randerComponet->SetShader(ShaderType::PS, "Shaders/PixelShaderPS.hlsl");
+	float eulerAngle = DirectX::XMConvertToRadians(rotat);
+	DXMath::Quaternion eulerToQuaternion = DXMath::Quaternion::CreateFromYawPitchRoll(0.f, eulerAngle, 0.f);
+	GetComponent<TransformComponent>()->SetQuaternion(eulerToQuaternion);
 }
 
 void Card::Init(DXMath::Vector3 _pos)
@@ -44,20 +47,20 @@ void Card::Init(DXMath::Vector3 _pos)
 
 	if (isOpen)
 	{
-		float eulerAngle = DirectX::XMConvertToRadians(rotat -180);
+		float eulerAngle = DirectX::XMConvertToRadians(rotat + 180);
 		DXMath::Quaternion eulerToQuaternion = DXMath::Quaternion::CreateFromYawPitchRoll(0.f, eulerAngle, 0.f);
 		GetComponent<TransformComponent>()->SetQuaternion(eulerToQuaternion);
 	}
 	isOpen = false;
 	needRevers = false;
-	rotat = 0;
+	rotat = 180;
 	prevRotat = rotat;
 	AtoOne = true;
 	isSeleted = false;
 	elpasedTime = 0;
 	GetComponent<TransformComponent>()->SetPosition(_pos);
 	SetActive(true);
-	
+	SetOutlineColor({ 0.0f, 1.0f, 0.0f, 1.0f });
 }
 
 void Card::Update(const float _deltaTime)
@@ -79,10 +82,8 @@ void Card::Update(const float _deltaTime)
 
 	if (prevRotat != rotat)
 	{
-		//auto quater = GetComponent<TransformComponent>()->GetQuaternion();
 		float eulerAngle = DirectX::XMConvertToRadians(rotat);
 		DXMath::Quaternion eulerToQuaternion = DXMath::Quaternion::CreateFromYawPitchRoll(0.f, eulerAngle, 0.f);
-		//newQuat = quater * eulerToQuaternion;
 		GetComponent<TransformComponent>()->SetQuaternion(eulerToQuaternion);
 		prevRotat = rotat;
 	}
@@ -92,13 +93,11 @@ void Card::Update(const float _deltaTime)
 
 }
 
-
 void Card::Open()
 {
-	if (isOpen == false)
-		needRevers = true;
+	if (false == isOpen)
+		Reverse();
 	isOpen = true;
-
 }
 
 void Card::Close()
@@ -106,6 +105,14 @@ void Card::Close()
 	if(true == isOpen)
 		needRevers = true;
 	isOpen = false;
+}
+
+void Card::MoveOpen()
+{
+	if (false == isOpen)
+		needRevers = true;
+	isOpen = true;
+
 }
 
 void Card::Reverse()
@@ -174,12 +181,32 @@ void Card::OnClick()
 					
 			}
 		}
+
+		if (BLACKJACK->GetState() == PlayerState::Skill)
+		{
+			for (auto card : PLAYER->hand.hand) //
+			{
+
+				if (card != nullptr && card->GetName() == GetName() && isOpen == false) //누른카드가 패에있고 아직 뒷면이면
+				{
+					PLAYER->selectCard = this;
+				}
+			}
+		}
+
 	}
 }
 
 void Card::OnMouse()
 {
 	//std::cout << "현재 마우스가 " << GetName() << " 오브젝트 위에 있습니다" << std::endl;
+	AddEffect(Object::Effect::OutLine);
+
+}
+
+void Card::ExitMouse()
+{
+	RemoveEffect(Object::Effect::OutLine);
 }
 
 void Card::OpenA()
