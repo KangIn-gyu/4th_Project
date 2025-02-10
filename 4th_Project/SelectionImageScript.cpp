@@ -17,6 +17,7 @@ void SelectionImageScript::Update(const float _deltaTime)
 		selectButton1->SetActive(false);
 		selectButton2->SetActive(false);
 		ownerObject->SetActive(false);
+		std::cout << ownerObject->GetName() << '\n';
 	}
 
 	if (ownerObject->IsActive())
