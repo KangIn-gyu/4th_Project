@@ -86,11 +86,19 @@ float4 main(PixelInputType input) : SV_TARGET
     {
         metallic *= metallicSample;
     }
+    else
+    {
+        metallic = 0.4f;
+    }
     
     float roughnessSample = ShininessColor.Sample(samLinear, input.TexCoord).r;
     if (roughnessSample > 0.0f)
     {
         rough *= roughnessSample;
+    }
+    else
+    {
+        rough = 0.7f;
     }
 
     //--------------------------------------------------------------------------------------
@@ -149,7 +157,7 @@ float4 main(PixelInputType input) : SV_TARGET
     //--------------------------------------------------------------------------------------
     // Direct lighting
     float3 diffuse_dir = kD_dir * baseColor / PI;
-    float3 directionalLight = (diffuse_dir + specular_dir) * NdotL_dir * shadowFactor;
+    float3 directionalLight = ((diffuse_dir + specular_dir) * 2.0f) * NdotL_dir * shadowFactor;
     
     // Initialize total lighting
     float3 totalSpotLight = float3(0, 0, 0);
@@ -231,6 +239,8 @@ float4 main(PixelInputType input) : SV_TARGET
     }
     
     float3 color = directionalLight + totalSpotLight + ambient + iblResult + emissive;
+    
+    color *= 1.7f;
     
     color = pow(color, 1.0f / GAMMA);
     color = ACESFilmicToneMapping(color);

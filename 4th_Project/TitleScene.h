@@ -19,9 +19,11 @@ public:
 
 private:
 	Object* mainCamera{};
+	Object* Evelyn;
+	DXMath::Vector3 TargetPosition{};
 
-	float startZ{};
+	float startX{};
 	bool movement = true;
-	TransformComponent* cameraComponent{};
+	TransformComponent* cameraTransformComponent{};
 };
 

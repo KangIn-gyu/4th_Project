@@ -172,7 +172,8 @@ void Renderer::D3DDraw()
 	// 상수버퍼 설정 (렌더 오브젝트 제외)
 	CameraBuffer cameraData;
 	cameraData.eyePosition = CameraObject::g_MainCameraObject->GetComponent<TransformComponent>()->GetPosition();
-	cameraData.lightDirection = IMGUI->lightDir;
+	cameraData.lightDirection = lightPos;
+	cameraData.lightDirection = lightDir;
 
 	//ProductBuffer productData;
 	//productData.totalTime = TIMESYSTEM->GetTotalTime();

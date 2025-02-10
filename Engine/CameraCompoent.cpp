@@ -64,8 +64,10 @@ void CameraCompoent::UpdateViewMatrix()
 	{
 		forward = DXMath::Vector3(0.0f, 0.0f, 1.0f);
 	}
-
-	viewMatrix = DX::XMMatrixLookAtLH(position, position + forward, up);
+	if(title)
+		viewMatrix = DX::XMMatrixLookAtLH(position, lookat, up);
+	else	
+		viewMatrix = DX::XMMatrixLookAtLH(position, position + forward, up);
 }
 
 void CameraCompoent::AddInputVector(const DXMath::Vector3& input)
@@ -110,6 +112,40 @@ void CameraCompoent::SetSpeed(const float _speed)
 void CameraCompoent::SetRotationSpeed(const float _speed)
 {
 	cameraInfo->RotationSpeed = _speed;
+}
+
+void CameraCompoent::LookAt(const DXMath::Vector3& _targetPosition)
+{
+	if (cameraInfo && cameraInfo->cameraTransform)
+	{
+		//DXMath::Vector3 position = cameraInfo->cameraTransform->GetPosition();
+		//DXMath::Vector3 forward = _targetPosition - position;
+		//forward.Normalize();  // 정규화하여 방향 벡터로 변환
+		//
+		//DXMath::Vector3 upVector(0.0f, 1.0f, 0.0f);  // 월드 업 벡터
+		//DXMath::Vector3 right = upVector.Cross(forward);
+		//right.Normalize();
+		//
+		//DXMath::Vector3 up = forward.Cross(right);
+		//up.Normalize();
+		//
+		//// 카메라 변환 설정
+		//DXMath::Matrix lookAtMatrix = DXMath::Matrix(
+		//	right.x, up.x, forward.x, 0.0f,
+		//	right.y, up.y, forward.y, 0.0f,
+		//	right.z, up.z, forward.z, 0.0f,
+		//	0.0f, 0.0f, 0.0f, 1.0f
+		//);
+		//
+		//// 행렬을 쿼터니언으로 변환
+		//DXMath::Quaternion rotation = DX::XMQuaternionRotationMatrix(lookAtMatrix);
+		//
+		//// 기존 트랜스폼 회전 함수 사용
+		//cameraInfo->cameraTransform->SetQuaternion(rotation);
+		lookat = _targetPosition;
+		//UpdateViewMatrix();  // 뷰 행렬 갱신
+	}
+
 }
 
 void CameraCompoent::OnInputProcess(const DX::Keyboard::State& _KeyState, const DX::Keyboard::KeyboardStateTracker& _KeyTracker, const DX::Mouse::State& _MouseState, const DX::Mouse::ButtonStateTracker& _MouseTracker)

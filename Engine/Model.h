@@ -8,7 +8,6 @@ class ModelComponent;
 class Animation;
 class SkeletonInfo;
 struct MatrixPallete;
-
 class Model : public IResources
 {
 	struct ModelData

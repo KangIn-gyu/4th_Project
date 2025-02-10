@@ -19,6 +19,8 @@ public:
 	void SetSpeed(const float _speed);
 	void SetRotationSpeed(const float _speed);
 	void MovingFlag(bool _flag) { movingFlag = _flag; }
+	void LookAt(const DXMath::Vector3& _targetPosition);
+
 
 	virtual void OnInputProcess(const DX::Keyboard::State& _KeyState,
 		const DX::Keyboard::KeyboardStateTracker& _KeyTracker,
@@ -33,12 +35,14 @@ private:
 	void UpdateViewMatrix();
 	void AddInputVector(const DXMath::Vector3& input);
 	void UpdateProjection();
+
 public:
+	bool title = false;
 
 private:
 	float clientWidth  {};
 	float clientHeight {};
-
+	DXMath::Vector3 lookat{};
 	CameraInfo* cameraInfo{};
 
 	DXMath::Vector3 InputVector {};

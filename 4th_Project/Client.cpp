@@ -20,7 +20,7 @@ Client::~Client()
 
 void Client::Enter()
 {
-	SCENEMANAGER->CreatorScene<TestScene>("TEST");
+	SCENEMANAGER->CreatorScene<TestScene>("DialogScene1");
 	SCENEMANAGER->CreatorScene<GambleScene>("GAMBLE");
 	SCENEMANAGER->CreatorScene<TitleScene>("Title");
 	SCENEMANAGER->CreatorScene<TutorialScene>("TutorialScene");

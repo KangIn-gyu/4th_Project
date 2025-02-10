@@ -119,6 +119,11 @@ void D2DRenderComponent::SetLineSpacing(float _lineSpacing)
 	font->SetLineSpacing(_lineSpacing);
 }
 
+void D2DRenderComponent::SetBitmapAlpha(float _alpha)
+{
+	drawBitmap->SetAlpha(_alpha);
+}
+
 void D2DRenderComponent::SetAlignment(D2DFont::Setting _SortX, D2DFont::Setting _SortY)
 {
 	font->Alignment(_SortX, _SortY);

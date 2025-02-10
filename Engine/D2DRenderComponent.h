@@ -43,6 +43,7 @@ public:
 	void SetAlignment(D2DFont::Setting _SortX, D2DFont::Setting _SortY);
 	void SetTextSize(float _FontSize, DWRITE_TEXT_RANGE _textRange = {0, UINT32_MAX});
 	void SetLineSpacing(float _lineSpacing);
+	void SetBitmapAlpha(float _alpha);
 	bool IsFont() { return font; }
 
 	// ÆùÆ®¸Ê°ú ºñÆ®¸Ê Draw ºÐ¸®
