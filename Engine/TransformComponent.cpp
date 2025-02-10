@@ -103,6 +103,11 @@ void TransformComponent::SetPosition(const DXMath::Vector3 _position)
 	transform.SetPosition(_position);
 }
 
+void TransformComponent::AddPosition(const DXMath::Vector3 _position)
+{
+	transform.AddPositon(_position);
+}
+
 void TransformComponent::SetQuaternion(const DXMath::Quaternion _rotation)
 {
 	transform.SetQuaternion(_rotation);

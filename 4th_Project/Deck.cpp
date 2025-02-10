@@ -46,6 +46,7 @@ void Deck::Init()
 	{
 		card->Init(GetComponent<TransformComponent>()->GetPosition());
 		card->slotActive = true;
+		card->RemoveEffect(Object::Effect::Banned);
 	}
 }
 

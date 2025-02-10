@@ -50,8 +50,11 @@ void BlackJack::CheckTurnEnd()
 		
 		for (auto card : player->hand.hand)
 		{
-			card->slotActive = true;
-			card->RemoveEffect(Object::Effect::Banned);
+			if (card != nullptr)
+			{
+				card->slotActive = true;
+				card->RemoveEffect(Object::Effect::Banned);
+			}
 		}
 	}
 }

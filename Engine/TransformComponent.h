@@ -32,6 +32,7 @@ public:
 
 	void SetLocalMatrix(const DXMath::Matrix _localMatrix);
 	void SetPosition(const DXMath::Vector3 _position);
+	void AddPosition(const DXMath::Vector3 _position);
 	void SetQuaternion(const DXMath::Quaternion _rotation);
 	void SetScale(const DXMath::Vector3 _scale);
 	void SetParent(TransformComponent* _parent);

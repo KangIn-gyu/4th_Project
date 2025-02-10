@@ -41,7 +41,7 @@ public:
 
 	bool slotActive = true;
 private:
-	float rotat = 0;
+	float rotat = 180;
 	float prevRotat = rotat;
 	//DXMath::Quaternion newQuat;
 	bool isSeleted = false;  //선택된 카드 표시용 

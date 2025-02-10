@@ -16,7 +16,8 @@
 #include "GambleButton.h"
 #include "SkillButton.h"
 #include "ToopTip2D.h"
-
+#include "D2DBaseObj.h"
+#include "JustFont.h"
 GambleScene::GambleScene(std::string_view _Name) : Scene(_Name)
 {
 	BLACKJACK->player = CreatorObject<Player>("Player", Object::ObjectType::Basic);
@@ -31,6 +32,11 @@ GambleScene::GambleScene(std::string_view _Name) : Scene(_Name)
 	CreatorObject<SkillButton>("Guts", Object::ObjectType::UI, DXMath::Vector2(800, 200), 1, []() {ClickFunc::SetPlayerSkill(PLAYER, PSkill::guts);})->SetActive(false);
 	CreatorObject<SkillButton>("Meditation", Object::ObjectType::UI, DXMath::Vector2(1100, 200), 2, []() {ClickFunc::SetPlayerSkill(PLAYER, PSkill::meditation);})->SetActive(false);
 	CreatorObject<SkillButton>("Insurance", Object::ObjectType::UI, DXMath::Vector2(1500, 200), 5, []() {ClickFunc::SetPlayerSkill(PLAYER, PSkill::Insurance);})->SetActive(false);
+	auto ui = CreatorObject<D2DBaseObj>("RoundBet", Object::ObjectType::UI, DXMath::Vector2{ 300,300 },"UI/RoundBet.png", "Font/DNFBitBitv2.ttf");
+	ui->CreateScript<JustFont>()->SetMessage(BLACKJACK->player->Bet());
+
+
+
 }
 
 
@@ -41,7 +47,7 @@ void GambleScene::Enter()
 	//GetGameObject(Object::ObjectType::Camera)->GetComponent<TransformComponent>()->SetQuaternion(DXMath::Quaternion::Quaternion(0.3f, 0.171f, -0.059f, 0.93f));
 
 	BLACKJACK->dealer = CreatorObject<Dealer>("Dealer", Object::ObjectType::Basic);
-	BLACKJACK->dealer->GetComponent<TransformComponent>()->SetPosition({ 00, -13.0f, 50.0f });
+	BLACKJACK->dealer->GetComponent<TransformComponent>()->SetPosition({ 00, -13.0f, 150.0f });
 	BLACKJACK->deck = CreatorObject<Deck>("Deck", Object::ObjectType::Basic);
 	BLACKJACK->deck->GetComponent<TransformComponent>()->SetPosition({ -60, 65, 0 });
 	BLACKJACK->trashDeck = CreatorObject<Deck>("trashDeck", Object::ObjectType::Basic,false);
@@ -52,7 +58,10 @@ void GambleScene::Enter()
 	auto test = CreatorObject<TestObj2>("Map", Object::ObjectType::Basic);
 	auto deck = GetGameObject(Object::ObjectType::Basic, "Deck");
 
-	
+	Object* camera = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::Camera, 0);
+	TransformComponent* cameratrans = camera->GetComponent<TransformComponent>();
+	cameratrans->SetPosition({ 0,160, -100 });
+	cameratrans->SetQuaternion({0,0,0,1});
 
 	//클릭시 스킬4개 버튼 출력할 버튼
 	

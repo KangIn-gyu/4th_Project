@@ -27,6 +27,12 @@ D2DBaseObj::D2DBaseObj(std::string_view _name, ObjectType _type, int _start, int
 	CreateComponent<D2DRenderComponent>();
 }
 
+D2DBaseObj::D2DBaseObj(std::string_view _name, ObjectType _type, DXMath::Vector2 _pos, std::string _bitmapFilePath, std::string _fontFilePath) : path(_bitmapFilePath),fontFilePath(_fontFilePath), Object(_name, _type)
+{
+	pos = _pos;
+	CreateComponent<D2DRenderComponent>();
+}
+
 void D2DBaseObj::Initialize()
 {
 

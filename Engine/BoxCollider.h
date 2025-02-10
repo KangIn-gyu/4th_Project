@@ -6,6 +6,12 @@ enum class Type
 	None, // 단순 클릭검사등
 	Block, //충돌시 못 넘어가게할것
 };
+
+enum class Touch
+{
+	None, //터치불가능
+	Basic,
+};
 class BoxCollider : public Collider
 {
 public:
@@ -26,6 +32,7 @@ public:
 	//클릭용 레이검사할 함수
 	bool IntersectsRay(const  DXMath::Vector3& rayOrigin, const  DXMath::Vector3& rayDirection, float& distance) const;
 
+	Touch TouchType = Touch::Basic;
 	Type colliderType = Type::None;
 protected:
 private:

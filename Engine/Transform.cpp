@@ -105,6 +105,11 @@ void Transform::SetScale(const DXMath::Vector3 _scale)
 	UpdateTransform();
 }
 
+void Transform::AddPositon(const DXMath::Vector3 _position)
+{
+	position += _position;
+}
+
 void Transform::SetParent(Transform* _parent)
 {
 	if (nullptr != _parent && this != _parent)
@@ -124,18 +129,18 @@ void Transform::AddPithc(const float _value)
 	DX::XMVECTOR qYaw = DX::XMQuaternionRotationAxis(DX::XMVectorSet(0, 1, 0, 0), DX::XMConvertToRadians(_value));
 	// m_quaternion = DX::XMQuaternionMultiply(m_quaternion, qYaw);
 
-	DXMath::Quaternion pitchRotation = DXMath::Quaternion::CreateFromAxisAngle(right, _value);
-	rotation = DXMath::Quaternion::Concatenate(pitchRotation, rotation);
+	DXMath::Quaternion pitchRotation = DXMath::Quaternion::CreateFromAxisAngle(DXMath::Vector3::Right, _value);
+	rotation = DirectX::XMQuaternionMultiply(pitchRotation, rotation);// DXMath::Quaternion::Concatenate(pitchRotation, rotation);
 
 	// 회전 값이 -PI에서 PI 사이로 유지되도록 조정합니다.
-	if (rotation.x > DX::XM_PI)
+	/*if (rotation.x > DX::XM_PI)
 	{ 
 		rotation.x -= DX::XM_2PI;
 	}
 	else if (rotation.x < -DX::XM_PI)
 	{
 		rotation.x += DX::XM_2PI;
-	}
+	}*/
 	UpdateTransform();
 }
 
@@ -143,17 +148,17 @@ void Transform::AddYaw(const float _value)
 {
 	// yaw 값 (y축 회전)을 추가합니다.  // DXMath::Vector3::Up
 	DXMath::Quaternion yawRotation = DXMath::Quaternion::CreateFromAxisAngle(DXMath::Vector3::Up, _value);
-	rotation = DXMath::Quaternion::Concatenate(yawRotation, rotation);
+	rotation =DirectX::XMQuaternionMultiply( yawRotation,rotation);// = DXMath::Quaternion::Concatenate(yawRotation, rotation);
 
 	// 회전 값이 -PI에서 PI 사이로 유지되도록 조정합니다.
-	if (rotation.y > DX::XM_PI)
+	/*if (rotation.y > DX::XM_PI)
 	{
 		rotation.y -= DX::XM_2PI;
 	}
 	else if (rotation.y < -DX::XM_PI)
 	{
 		rotation.y += DX::XM_2PI;
-	}
+	}*/
 
 	UpdateTransform();
 }

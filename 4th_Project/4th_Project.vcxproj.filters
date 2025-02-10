@@ -126,6 +126,9 @@
     <ClInclude Include="TutorialScene.h">
       <Filter>Scene\TutorialScene</Filter>
     </ClInclude>
+    <ClInclude Include="JustFont.h">
+      <Filter>Script</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -208,6 +211,9 @@
     </ClCompile>
     <ClCompile Include="TutorialScene.cpp">
       <Filter>Scene\TutorialScene</Filter>
+    </ClCompile>
+    <ClCompile Include="JustFont.cpp">
+      <Filter>Script</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

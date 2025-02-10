@@ -45,7 +45,7 @@ void Dealer::Update(const float _deltaTime)
 		
 	}
 		
-	//std::cout << GetComponent<ModelComponent>()->GetModel().get()->extent.x << std::endl;
+	
 }
 
 
@@ -100,9 +100,8 @@ void Dealer::Act()
 void Dealer::OnClick()
 {
 	std::cout << "누르지 마세요 " << std::endl;
-	std::cout << chip << "\n";
 	//this->~Dealer();
-	slotBan();
+	//slotBan();
 }
 
 void Dealer::OnMouse()

@@ -76,7 +76,7 @@ private:
 	
 	bool isRoundOver = true; //한 라운드가 끝날떄
 	//bool canChange = true;
-	int betMoney;
+	int* betMoney;
 	 //배율   최종 = 베팅액 * 배율
 };
 
