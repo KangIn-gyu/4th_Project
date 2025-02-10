@@ -15,7 +15,7 @@ void LoadingScene::Update(const float _deltaTime)
 {
 	Scene::Update(_deltaTime);
 
-	LoadingTime += _deltaTime * 10;
+	LoadingTime += _deltaTime;
 	if (LoadingTime >= maxLoadingTime)
 	{
 		LoadingTime = 0;
@@ -26,5 +26,5 @@ void LoadingScene::Update(const float _deltaTime)
 void LoadingScene::ResetInformation()
 {
 	Scene::ResetInformation();
-	maxLoadingTime = RandomUtil::GetRandomFloat(20.0f, 30.0f);
+	maxLoadingTime = RandomUtil::GetRandomFloat(2.0f, 5.0f);
 }

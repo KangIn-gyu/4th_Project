@@ -35,7 +35,7 @@ void Client::Enter()
 	//SOUNDSYSTEM->SetVolumeAll(0.5f);
 
 	//LoadMusic();
-	SCENEMANAGER->ChangeScene("Title");
+	SCENEMANAGER->ChangeScene("TitleScene");
 }
 
 // 사운드 로드하는 짭통

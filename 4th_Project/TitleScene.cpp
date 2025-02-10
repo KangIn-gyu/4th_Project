@@ -63,8 +63,6 @@ void TitleScene::Update(const float _deltaTime)
         movement = false;
         new DOTween(cameraTransformComponent->GetPosition().x, EasingEffect::Linear, StepAnimation::StepLoopPingPong, 20.f, startX, 950.0f);
      }
-
-    std::cout << cameraTransformComponent->GetPosition().z << "\n";
 }
 
 void TitleScene::ResetInformation()

@@ -45,10 +45,10 @@ void SelectionDialogScript::Update(const float _deltaTime)
 	static float elapsedTime = 0.0f;  // 시간 누적 변수
 	const float interval = 0.1f;      // 글자 추가 간격 (초 단위)
 
-	if (selectButton1->onClick == true || true  == selectButton2->onClick)
+	if (selectButton1->isClick == true || true  == selectButton2->isClick)
 	{
-		selectButton1->onClick = false;
-		selectButton2->onClick = false;
+		selectButton1->isClick = false;
+		selectButton2->isClick = false;
 
 		selectButton1->SetActive(false);
 		selectButton2->SetActive(false);
