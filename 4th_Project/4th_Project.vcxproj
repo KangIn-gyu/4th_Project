@@ -187,6 +187,10 @@
     <ClInclude Include="SelectionImageScript.h" />
     <ClInclude Include="SelectionScript.h" />
     <ClInclude Include="SkillButton.h" />
+    <ClInclude Include="TalkScene1.h" />
+    <ClInclude Include="TalkScene2.h" />
+    <ClInclude Include="TalkScene3.h" />
+    <ClInclude Include="TalkScene4.h" />
     <ClInclude Include="TestObj.h" />
     <ClInclude Include="TestObj2.h" />
     <ClInclude Include="TestScene.h" />
@@ -241,6 +245,10 @@
     <ClCompile Include="SelectionImageScript.cpp" />
     <ClCompile Include="SelectionScript.cpp" />
     <ClCompile Include="SkillButton.cpp" />
+    <ClCompile Include="TalkScene1.cpp" />
+    <ClCompile Include="TalkScene2.cpp" />
+    <ClCompile Include="TalkScene3.cpp" />
+    <ClCompile Include="TalkScene4.cpp" />
     <ClCompile Include="TestObj.cpp" />
     <ClCompile Include="TestObj2.cpp" />
     <ClCompile Include="TestScene.cpp" />

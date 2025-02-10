@@ -26,7 +26,7 @@ void FadeEffectScript::Update(const float _deltaTime)
 {
 	if (!active) return;
 	// 어두워지기
-	if (!fadingIn)
+	if (fadingIn)
 	{
 		alpha += _deltaTime * fadeSpeed;
 		ownerD2D->SetAlpha(alpha);
@@ -35,7 +35,7 @@ void FadeEffectScript::Update(const float _deltaTime)
 		// Todo: 여기에다가 씬체인지 부분을 넣던가 씬이 시작되고 마무리될때 함수가 실행되도록 하기 //
 	}
 	// 밝아지기
-	if (fadingIn)
+	if (!fadingIn)
 	{
 		alpha -= _deltaTime * fadeSpeed;
 		ownerD2D->SetAlpha(alpha);
