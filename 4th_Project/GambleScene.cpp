@@ -114,17 +114,20 @@ void GambleScene::Enter()
 
 	auto q1 =  CreatorObject<D2DBaseObj>("Question1", Object::ObjectType::UI);
 	q1->GetComponent<D2DRenderComponent>()->Load2DImage("UI/Question/Question1.png");
+	q1->GetComponent<D2DRenderComponent>()->Set2DImagePos(0, 580);
 	q1->CreateScript<SelectionImageScript>()->SetButton(dialogbutton1, dialogbutton2);
-	
 	auto q2 = CreatorObject<D2DBaseObj>("Question1", Object::ObjectType::UI);
 	q2->GetComponent<D2DRenderComponent>()->Load2DImage("UI/Question/Question2.png");
 	q2->CreateScript<SelectionImageScript>()->SetButton(dialogbutton3, dialogbutton4);
+	q2->GetComponent<D2DRenderComponent>()->Set2DImagePos(0, 580);
 	auto q3 = CreatorObject<D2DBaseObj>("Question1", Object::ObjectType::UI);
 	q3->GetComponent<D2DRenderComponent>()->Load2DImage("UI/Question/Question3.png");
 	q3->CreateScript<SelectionImageScript>()->SetButton(dialogbutton5, dialogbutton6);
+	q3->GetComponent<D2DRenderComponent>()->Set2DImagePos(0, 580);
 	auto q4 = CreatorObject<D2DBaseObj>("Question1", Object::ObjectType::UI);
 	q4->GetComponent<D2DRenderComponent>()->Load2DImage("UI/Question/Question4.png");
 	q4->CreateScript<SelectionImageScript>()->SetButton(dialogbutton7, dialogbutton8);
+	q4->GetComponent<D2DRenderComponent>()->Set2DImagePos(0, 580);
 	
 	BLACKJACK->SetDialog(q1);
 	BLACKJACK->SetDialog(q2);

@@ -64,7 +64,7 @@ void BlackJack::Bet()
 }
 void BlackJack::Update(float _deltaTime)
 {
-	std::cout << dealer->turnCount << std::endl;
+	//std::cout << dealer->turnCount << std::endl;
 	if (dealer->turnCount <= 0)
 		curTurn = Turn::dealer;
 	if (isRoundOver == false) //라운드시작
