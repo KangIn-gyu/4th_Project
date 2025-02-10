@@ -21,7 +21,7 @@ public:
 	void SetAlpha(float _alpha) { alpha = _alpha; }
 	float GetAlpha() { return alpha; }
 
-	DXMath::Vector2 GetXY() { return DXMath::Vector2(d2dBitmap->GetSize().width, d2dBitmap->GetSize().height); }
+	DXMath::Vector2 GetXY() { return DXMath::Vector2(destRect.right- destRect.left, destRect.bottom- destRect.top); }
 	bool isDiamond = FALSE;
 private:
 	ID2D1Bitmap* d2dBitmap; // 한번에 여러개 넣어 주기 위해서            

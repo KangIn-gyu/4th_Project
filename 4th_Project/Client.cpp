@@ -35,5 +35,5 @@ void Client::Enter()
 	//SOUNDSYSTEM->LoadMusic(eSoundList::Main_Theme, true, "Resource\\STAGE1\\Sounds\\dancer.mp3");
 	//SOUNDSYSTEM->SetVolumeAll(0.5f);
 
-	SCENEMANAGER->ChangeScene("GambleScene");
+	SCENEMANAGER->ChangeScene("DialogScene1");
 }
