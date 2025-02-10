@@ -31,7 +31,7 @@ public:
 
 	std::vector<Layer*> NextSceneUseObjcet();
 private:
-	void CreateLayers();
+	void CreateLayers(); 
 	void BasicObject(); // 기본 제공 오브젝트
 
 public:

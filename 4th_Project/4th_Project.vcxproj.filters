@@ -165,6 +165,12 @@
     <ClInclude Include="SelectionScript.h">
       <Filter>Script</Filter>
     </ClInclude>
+    <ClInclude Include="LoopImageChangeScript.h">
+      <Filter>Script</Filter>
+    </ClInclude>
+    <ClInclude Include="ClickChangeSceneScript.h">
+      <Filter>Script</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -264,6 +270,12 @@
       <Filter>Script</Filter>
     </ClCompile>
     <ClCompile Include="SelectionScript.cpp">
+      <Filter>Script</Filter>
+    </ClCompile>
+    <ClCompile Include="LoopImageChangeScript.cpp">
+      <Filter>Script</Filter>
+    </ClCompile>
+    <ClCompile Include="ClickChangeSceneScript.cpp">
       <Filter>Script</Filter>
     </ClCompile>
   </ItemGroup>

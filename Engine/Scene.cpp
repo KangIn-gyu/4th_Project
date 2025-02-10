@@ -10,6 +10,7 @@
 #include "TransformComponent.h"
 #include "ColliderManager.h"
 #include "DOTweenManager.h"
+
 Scene::Scene(std::string_view _Name)
 {
 	sceneName.assign(_Name);
