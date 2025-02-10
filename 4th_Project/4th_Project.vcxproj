@@ -162,6 +162,7 @@
     <ClInclude Include="D3DObjScript.h" />
     <ClInclude Include="Dealer.h" />
     <ClInclude Include="Deck.h" />
+    <ClInclude Include="DialogIntro.h" />
     <ClInclude Include="DialogScene0.h" />
     <ClInclude Include="DialogScene1.h" />
     <ClInclude Include="DialogScene2.h" />
@@ -207,6 +208,7 @@
     <ClCompile Include="D3DObjScript.cpp" />
     <ClCompile Include="Dealer.cpp" />
     <ClCompile Include="Deck.cpp" />
+    <ClCompile Include="DialogIntro.cpp" />
     <ClCompile Include="DialogScene0.cpp" />
     <ClCompile Include="DialogScene1.cpp" />
     <ClCompile Include="DialogScene2.cpp" />

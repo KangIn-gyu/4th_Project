@@ -64,6 +64,24 @@
     <ClInclude Include="TestScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
+    <ClInclude Include="TutorialScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="LobbyScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogScene1.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogScene2.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogScene3.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
     <ClInclude Include="SceneHeaders.h">
       <Filter>Scene</Filter>
     </ClInclude>
@@ -125,6 +143,9 @@
     </ClInclude>
     <ClInclude Include="TutorialScene.h">
       <Filter>Scene\TutorialScene</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogIntro.h">
+      <Filter>Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -208,6 +229,9 @@
     </ClCompile>
     <ClCompile Include="TutorialScene.cpp">
       <Filter>Scene\TutorialScene</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogIntro.cpp">
+      <Filter>Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -20,20 +20,20 @@ Client::~Client()
 
 void Client::Enter()
 {
-	SCENEMANAGER->CreatorScene<TestScene>("TEST");
-	SCENEMANAGER->CreatorScene<GambleScene>("GAMBLE");
-	SCENEMANAGER->CreatorScene<TitleScene>("Title");
+	SCENEMANAGER->CreatorScene<TestScene>("TestScene");
+	SCENEMANAGER->CreatorScene<GambleScene>("GambleScene");
+	SCENEMANAGER->CreatorScene<TitleScene>("TitleScene");
 	SCENEMANAGER->CreatorScene<TutorialScene>("TutorialScene");
 	SCENEMANAGER->CreatorScene<DialogScene1>("DialogScene1");
-	SCENEMANAGER->CreatorScene<LobbyScene>("Lobby");
+	SCENEMANAGER->CreatorScene<LobbyScene>("LobbyScene");
 //	TitleScene* titleScene = new TitleScene("Title");
 //	SceneManager
 	BLACKJACK->player = PLAYER;
 
 	//SCENEMANAGER->ChangeScene("GAMBLE");
 	//ENGINE->CollectionGameManager(MYGAMEMANAGER);
-	SOUNDSYSTEM->LoadMusic(eSoundList::Main_Theme, true, "Resource\\STAGE1\\Sounds\\dancer.mp3");
-	SOUNDSYSTEM->SetVolumeAll(0.5f);
+	//SOUNDSYSTEM->LoadMusic(eSoundList::Main_Theme, true, "Resource\\STAGE1\\Sounds\\dancer.mp3");
+	//SOUNDSYSTEM->SetVolumeAll(0.5f);
 
-	SCENEMANAGER->ChangeScene("GAMBLE");
+	SCENEMANAGER->ChangeScene("GambleScene");
 }

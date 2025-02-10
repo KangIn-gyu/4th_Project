@@ -2,6 +2,7 @@
 #include "../Engine/IClick.h"
 #include "../Engine/Object.h"
 
+class BoxCollider;
 class D2DRenderComponent;
 
 class UIButton :public Object, public IClick
@@ -20,6 +21,7 @@ public:
 	virtual void OnClick() override;
 
 	D2DRenderComponent* imagedata;
+	BoxCollider* colliderdata;
 	std::string_view imageFilepath;
 
 private:
