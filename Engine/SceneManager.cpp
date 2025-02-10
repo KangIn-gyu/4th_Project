@@ -36,6 +36,16 @@ void SceneManager::ChangeScene(std::string_view _SceneName)
 	// TODO : 여기서 다음 씬에 필요한 오브젝트 처리하는걸 실행하면 좋을 거 같음
 }
 
+void SceneManager::AddGameObject(std::string_view _SceneName, Object* _ptr)
+{
+	auto it = ScenesCollection.find(_SceneName.data());
+
+	if (it != ScenesCollection.end())
+	{
+		it->second->AddGameObject(_ptr->GetObjectType(), _ptr);
+	}
+}
+
 bool SceneManager::isCurrecntScene()
 {
 	return currentScene != nullptr;

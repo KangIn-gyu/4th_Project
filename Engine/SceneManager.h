@@ -19,6 +19,7 @@ public:
 	void RateUpdate(const float _deltaTime);
 
 	void ChangeScene(std::string_view _SceneName);
+	void AddGameObject(std::string_view _SceneName, Object* _ptr);
 
 	bool isCurrecntScene();
 	Scene* GetCurrentScene() const { return currentScene; }

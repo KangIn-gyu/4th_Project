@@ -102,6 +102,11 @@ Object* Scene::GetGameObject(Object::ObjectType _Type, int _index)
 	return gameObecjts[static_cast<int>(_Type)]->GetGameObject(_index);
 }
 
+void Scene::AddGameObject(Object::ObjectType _Type, Object* _ptr)
+{
+	gameObecjts[static_cast<int>(_Type)]->AddGameObjcet(_ptr);
+}
+
 std::vector<Layer*> Scene::NextSceneUseObjcet()
 {
 	for (auto& layer : gameObecjts)
