@@ -8,6 +8,7 @@
 #include "GambleScene.h"   // °×ºí¾À
 
 // ´ÙÀÌ¾ó·Î±×¾À
+#include "DialogIntro.h"
 #include "DialogScene0.h"
 #include "DialogScene1.h"
 #include "DialogScene2.h"

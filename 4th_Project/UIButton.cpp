@@ -26,11 +26,15 @@ void UIButton::Initialize()
 	imagedata = CreateComponent<D2DRenderComponent>();
 	imagedata->Load2DImage(imageFilepath);
 	imagedata->Set2DImagePos(pos.x, pos.y);
-	CreateComponent<BoxCollider>();
+
+	colliderdata = CreateComponent<BoxCollider>();
 	auto xy = imagedata->Get2DImageXY();
 	DXMath::Vector3 center = { pos.x + xy.x/2,  pos.y + xy.y/2,    0.f};
 	DXMath::Vector3 extent = { xy.x / 2 ,xy.y / 2 , 0.1f };
-	GetComponent<BoxCollider>()->SetBox(center, extent, DXMath::Quaternion::Quaternion(0,0,0,1));
+
+	colliderdata->SetBox(center, extent, DXMath::Quaternion::Quaternion(0,0,0,1));
+	D2D1_RECT_F box = colliderdata->GetBoundBox();
+	imagedata->SetBoundBox(box);
 }
 
 void UIButton::Update(const float _deltaTime)

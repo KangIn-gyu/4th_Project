@@ -22,21 +22,49 @@ bool BoxCollider::Check2D(float mousex, float mousey)
 	float minY = modelCenter.y - modelExtent.y;
 	float maxY = modelCenter.y + modelExtent.y;
 
-	// 마우스가 AABB 안에 있는지 확인
-	if (mousex >= minX && mousex <= maxX &&
-		mousey >= minY && mousey <= maxY)
+	if (isDiamond)
 	{
-		return true;  // 충돌함
+		float cx = modelCenter.x;
+		float cy = modelCenter.y;
+		float squareSize = maxX - minX;
+		float localX = mousex - cx;
+		float localY = mousey - cy;
+
+		// 마름모 한 변의 길이 (정사각형의 대각선 길이와 관련)
+		float diamondSide = squareSize / sqrt(2);
+
+		// 마우스 좌표를 반시계 방향 45도 회전
+		float rotatedX = 0.7071f * localX + 0.7071f * localY;
+		float rotatedY = -0.7071f * localX + 0.7071f * localY;
+		float halfSize = diamondSide / 2.0f;
+
+		if (rotatedX >= -halfSize && rotatedX <= halfSize &&
+			rotatedY >= -halfSize && rotatedY <= halfSize)
+		{
+			return true; // 마름모 안에 있음
+		}
+	}
+	else
+	{	// 마우스가 AABB 안에 있는지 확인
+		if (mousex >= minX && mousex <= maxX &&
+			mousey >= minY && mousey <= maxY)
+		{
+			return true;  // 충돌함
+		}
 	}
 
 	return false;  // 충돌 안 함
 }
 
-void BoxCollider::DrawBoundBox()
+D2D1_RECT_F BoxCollider::GetBoundBox()
 {
-	D2D1_RECT_F rect = { 0, 0,  obBox.Center.x*2, obBox.Center.y * 2 };
-	D2DFont* b = new D2DFont;
-	D2DClass::GetD2DDeviceContext()->DrawRectangle(&rect, b->GetBoundBrush());
+	float minX = modelCenter.x - modelExtent.x;
+	float maxX = modelCenter.x + modelExtent.x;
+	float minY = modelCenter.y - modelExtent.y;
+	float maxY = modelCenter.y + modelExtent.y;
+	D2D1_RECT_F rect = { minX, minY,  maxX, maxY };
+
+	return rect;
 }
 
 void BoxCollider::ComponentInitialize()

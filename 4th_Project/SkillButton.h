@@ -25,6 +25,7 @@ public:
 	virtual void OnMouse() override;
 	virtual void ExitMouse() override;
 	D2DRenderComponent* imagedata;
+	BoxCollider* colliderdata;
 	std::string_view imageFilepath;
 
 private:
