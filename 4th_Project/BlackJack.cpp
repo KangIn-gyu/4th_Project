@@ -158,10 +158,12 @@ void BlackJack::Update(float _deltaTime)
 		else if(player->chip <= 0 )//딜러 플레이어칩 보고 둘중한개가 0이하면 연출후 다음씬으로 
 		{
 			//player->lose
+			RoundStart();
 		}
 		else if (dealer->chip <= 0)
 		{
 			//dealer->lose
+			RoundStart();
 		}
 	}
 }

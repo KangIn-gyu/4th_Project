@@ -104,6 +104,7 @@ bool Dealer::Act()
 		SetSkill();
 		return true;
 	}
+
 	return false;
 }
 
@@ -172,7 +173,6 @@ bool Dealer::meditation()
 
 bool Dealer::skillBan()
 {
-
 	std::cout << "3\n";
 	BLACKJACK->player->canSkill = false;
 	return true;
@@ -220,22 +220,36 @@ void Dealer::SetSkill()
 //	std::random_device rd;
 //	std::mt19937 gen(rd());
 
-	int randomIndex = RandomUtil::GetRandomInt(0, 3);
+
 	DSkill selectedSkill;
 	do {
+		int randomIndex = RandomUtil::GetRandomInt(1, 4);
 		selectedSkill = allSkills[randomIndex];
 	} while (selectedSkill == previousSkill || selectedSkill == DSkill::none);
 
 	previousSkill = selectedSkill;
 
 	if (previousSkill == DSkill::reverse)
-		pattern = [this]() { turnCount = 3;  return reverse(); };
+	{
+		turnCount = 3;
+		pattern = [this]() { return reverse(); };
+	}
 	else if (previousSkill == DSkill::meditation)
-		pattern = [this]() { turnCount = 4; return meditation(); };
-	else if (previousSkill == DSkill::skillBan)
-		pattern = [this]() { turnCount = 2; return skillBan(); };
+	{
+		turnCount = 4;
+		pattern = [this]() { return meditation();};
+	}
+	else if (previousSkill == DSkill::skillBan) 
+	{
+		turnCount = 2;
+		pattern = [this]() { return skillBan(); };
+	}
+		
 	else if (previousSkill == DSkill::slotBan)
-		pattern = [this]() { turnCount = 3; return slotBan(); };
+	{
+		turnCount = 3;
+		pattern = [this]() { return slotBan(); };
+	}
 }
 
 
