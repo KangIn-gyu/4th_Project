@@ -52,7 +52,9 @@ public:
 	//인슈어런스
 	bool Insurance();
 	
-	void AddInputVec(const DXMath::Vector3& input);
+	void SpPlus() { skillPoint++; }
+	bool AllCurCardOpen(); //현재 장수에서 다오픈한거
+	bool MaxCardOpen(); //맥스까지 다오픈한거
 	// skill 버튼 누르면  스킬 1,2,3,4 버튼등장 -> 플레이어 기력받아와서 기력이없으면 스킬버튼 불가능 ->
 	// 스킬 1,2,3,4 버튼 클릭되면 플레이어  기력-하고 스킬func 바뀌면서 해당스킬 실행
 
@@ -61,12 +63,10 @@ public:
 		const DX::Mouse::State& _MouseState,
 		const DX::Mouse::ButtonStateTracker& _MouseTracker) override;
 	int   betChip = 1000; //베팅떄 걸칩갯수 마우스휠로 조절
+	int   minBet = 1000;
 private:
 	float love{};    //호감도 딜러랑만의 호감
 	
-	DXMath::Vector3 inputVector = {};
-	float speed = 100.0f;
-	float RotationSpeed = 0.004f;
 public:
 	static Player* g_player;
 	bool turnEnd     = false;
@@ -76,8 +76,9 @@ public:
 	bool needDiscard = false;
 	int  openCard  = 0; //d
 	int  skillPoint = 10; 
-	int  chip = 1000; //겜블때 쓸 칩 수,전체 돈
+	int  chip = 100000; //겜블때 쓸 칩 수,전체 돈
 	int score = 0; 
+	bool OnSkill = false; //스킬 발동중
 	Card* selectCard = nullptr;  //스킬 쓸때 손패에서 선택중인 카드
 	Hand hand;
 	std::function<bool()> skill;

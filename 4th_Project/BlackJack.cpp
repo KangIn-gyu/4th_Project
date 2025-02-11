@@ -18,7 +18,7 @@ void BlackJack::Setstage(int num)
 }
 void BlackJack::RoundStart()
 {
-
+	canClick = false;
 	dealer->Init();
 	player->Init();
 	deck->Init();
@@ -32,7 +32,6 @@ void BlackJack::RoundStart()
 	SetState(PlayerState::OPEN);
 	ChangeState();
 	endBet = false;
-	canClick = false;
 	dealer->SetSkill();
 }
 
@@ -40,12 +39,19 @@ void BlackJack::RoundStart()
 void BlackJack::CheckTurnEnd()
 {
 	ChangeState();
+	
 	if (player->turnEnd == true)   //한 오픈 or HIT시마다 할것들
 	{
 		dealer->turnCount--;
+		player->SpPlus();
 		if (true == player->CheckGameOver())
 		{
 			//플레이어가 올오픈이지 확인하는 함수필요
+			SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "PlayerWin")->SetActive(true);
+			SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "BetResult")->SetActive(true);
+			SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "BetMag")->SetActive(true);
+			SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "Result")->SetActive(true);
+		
 		}
 		SetState(PlayerState::OPEN);
 		player->turnEnd = false;
@@ -53,7 +59,15 @@ void BlackJack::CheckTurnEnd()
 		endBet = false;
 		canClick = false;
 		
-		
+		for(auto card : player->hand.hand)
+		{
+			if(card != nullptr)
+				card->slotActive = true;
+		}
+	}
+	if (player->MaxCardOpen() == true) //다 오픈이면
+	{
+		BLACKJACK->SetState(PlayerState::STAY);
 	}
 }
 void BlackJack::Bet()
@@ -176,6 +190,7 @@ void BlackJack::Update(float _deltaTime)
 				{
 					firstTurn = false;
 					dealer->turnCount++;
+					player->skillPoint--;
 				}
 
 			}
@@ -276,6 +291,15 @@ void BlackJack::ShowDown()
 
 void BlackJack::DoubbleDown()
 {
+	if (BLACKJACK->onDoubbleDown == false)
+	{
+		BLACKJACK->magnification *= 2;
+		if (BLACKJACK->magnification >= BLACKJACK->maxmagnification)
+		{
+			BLACKJACK->magnification = BLACKJACK->maxmagnification;
+		}
+		BLACKJACK->onDoubbleDown = true;
+	}
 }
 
 

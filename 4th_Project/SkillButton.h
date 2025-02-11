@@ -29,7 +29,7 @@ public:
 	std::string_view imageFilepath;
 
 private:
-	int cost = 5; //각 스킬 코스트
+	int cost = 0; //각 스킬 코스트
 	gbState curState = gbState::Off;
 	gbState nextState = curState;
 	std::function<void(void)> clickFunc;

@@ -125,7 +125,7 @@ int Card::GetValue()
 		if (AtoOne)
 			return 1;
 		else
-			return 11;
+			return 10;
 	}
 	if (rank == "Jack" || rank == "Queen" || rank == "King") return 10;
 
@@ -179,7 +179,7 @@ void Card::OnClick()
 			}
 		}
 
-		if (BLACKJACK->GetState() == PlayerState::Skill && BLACKJACK->player->fasteye)
+		if (BLACKJACK->GetState() == PlayerState::Skill && BLACKJACK->player->fasteye && BLACKJACK->player->selectCard == nullptr)
 		{
 			for (auto card : PLAYER->hand.hand) //
 			{
@@ -191,7 +191,7 @@ void Card::OnClick()
 			}
 		}
 
-		if (BLACKJACK->GetState() == PlayerState::Skill && BLACKJACK->player->useRot)
+		if (BLACKJACK->GetState() == PlayerState::Skill && BLACKJACK->player->useRot && BLACKJACK->player->selectCard == nullptr)
 		{
 			if (false == BLACKJACK->player->isRotTrash)
 			{
@@ -200,7 +200,7 @@ void Card::OnClick()
 
 					for (int i = 0; i < PLAYER->hand.numCard(); i++)
 					{
-						if (PLAYER->hand.hand[i] != nullptr && PLAYER->hand.hand[i]->GetName() == GetName() && isOpen == false) //누른카드가 패에있고 아직 뒷면이면
+						if (PLAYER->hand.hand[i] != nullptr && PLAYER->hand.hand[i]->GetName() == GetName()) //누른카드가 패에있고 아직 뒷면이면
 						{
 							PLAYER->hand.hand[i]->SetActive(false);
 							BLACKJACK->trashDeck->cards.push_back(PLAYER->hand.hand[i]);
@@ -245,7 +245,8 @@ void Card::OpenA()
 {
 	auto btn1 = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "ButtonTen");
 	auto btn2 = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "ButtonOne");
-	
+	btn1->SetActive(true);
+	btn2->SetActive(true);
 	UIButton* btn11 = dynamic_cast<UIButton*>(btn1);
 	UIButton* btn22 = dynamic_cast<UIButton*>(btn2);
 

@@ -79,9 +79,10 @@ void SkillButton::ChangeState(gbState _state)
 void SkillButton::OnClick()
 {
 	
-	if (curState == gbState::On)
+	if (curState == gbState::On && PLAYER->OnSkill == false)
 	{
 		PLAYER->skillPoint -= cost;
+		PLAYER->OnSkill = true;
 		clickFunc();
 	}
 }

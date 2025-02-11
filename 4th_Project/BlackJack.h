@@ -66,6 +66,7 @@ public:
 	bool endBet = false;
 	bool canClick = false;
 	float magnification;
+	float maxmagnification = 50;
 	bool firstTurn = true; //첫턴은 달라서
 	Turn curTurn = Turn::player;
 
