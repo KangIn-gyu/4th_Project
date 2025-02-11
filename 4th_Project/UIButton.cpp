@@ -64,5 +64,9 @@ void UIButton::OnClick()
 	onClick = true;
 	std::cout << "2d´­·¶À½ " << std::endl;
 	clickFunc();
-	onClick = true;
+}
+
+void UIButton::SetOnClick(std::function<void()> _func)
+{
+	clickFunc = _func;
 }

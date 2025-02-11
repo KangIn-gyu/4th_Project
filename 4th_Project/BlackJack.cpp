@@ -4,6 +4,7 @@
 #include "Deck.h"
 #include "Card.h"
 #include "D2DBaseObj.h"
+#include "../Engine/SceneManager.h"
 
 BlackJack::BlackJack()
 {
@@ -17,11 +18,12 @@ void BlackJack::Setstage(int num)
 
 void BlackJack::RoundStart()
 {
+
 	dealer->Init();
 	player->Init();
 	deck->Init();
 	deck->ShuffleDeck();
-	
+	betMoney = 0;
 	firstTurn = true;
 	curTurn = Turn::player;
 	isRoundOver = false;
@@ -43,7 +45,7 @@ void BlackJack::CheckTurnEnd()
 		dealer->turnCount--;
 		if (true == player->CheckGameOver())
 		{
-
+			//플레이어가 올오픈이지 확인하는 함수필요
 		}
 		SetState(PlayerState::OPEN);
 		player->turnEnd = false;
@@ -58,15 +60,25 @@ void BlackJack::Bet()
 {
 	if (endBet == false) //베팅이 안끝났으면 베팅하고 베팅끝
 	{
-		betMoney = player->Bet();
+		betMoney += *player->Bet();
+		player->betChip = 1000;
 		std::cout << "베팅완료 " << std::endl;
 		endBet = true;
 		canClick = true;
 	}
 }
+
+void BlackJack::CalculateChips()
+{
+	sum =  betMoney * magnification;
+}
+
 void BlackJack::Update(float _deltaTime)
 {
+	player->score = player->GetScore();
+	dealer->score = dealer->GetScore();
 	//std::cout << dealer->turnCount << std::endl;
+	CalculateChips();
 	if (dealer->turnCount <= 0)
 		curTurn = Turn::dealer;
 	if (isRoundOver == false) //라운드시작
@@ -197,27 +209,47 @@ void BlackJack::DealerTurn(float _deltaTime)
 
 void BlackJack::CheckVictory(float _deltaTime)
 {
+	auto DealerWin = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "DealerWin");
+	auto PlayerWin = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "PlayerWin");
+	auto BetResult = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "BetResult");
+	auto BetMag = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "BetMag");
+	auto Result = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "Result");
 	//승패계산
+	
 	if (dealer->GetScore() >= 22)
 	{
 		std::cout << "딜러가 22넘었음  " << " ㅇㅇ" << std::endl;
+		PlayerWin->SetActive(true);
+		BetResult->SetActive(true);
+		BetMag->SetActive(true);
+		Result->SetActive(true);
+
 	}
-	else if (player->GetScore() == dealer->GetScore())
+	else if (player->score == dealer->GetScore())
 	{
 		std::cout << " 둘이 비겼음 쇼다운으로 " << " ㅇㅇ" << std::endl;
 		ShowDown();   //점수 동일하면 쇼다운페이지로	
 	}
-	else if (player->GetScore() > dealer->GetScore())
+	else if (player->score > dealer->GetScore())
 	{
 		std::cout << "플레이어가 이김 " << " ㅇㅇ" << std::endl;
 		//플레이어 윈 연출로
+		PlayerWin->SetActive(true);
+		BetResult->SetActive(true);
+		BetMag->SetActive(true);
+		Result->SetActive(true);
 	}
 	else
 	{
 		std::cout << "딜러가 이김 " << " ㅇㅇ" << std::endl;
 		//딜러윈 연출로
+		DealerWin->SetActive(true);
+		BetResult->SetActive(true);
+		BetMag->SetActive(true);
+		Result->SetActive(true);
 	}
-	isRoundOver = true;
+
+	
 }
 
 void BlackJack::ShowDown()

@@ -89,8 +89,6 @@ int Player::GetScore()
 	return hand.GetScore();
 }
 
-
-
 bool Player::Open2Card()
 {
 	int count = 0;
@@ -263,12 +261,12 @@ void Player::OnInputProcess(const DX::Keyboard::State& _KeyState, const DX::Keyb
 	if (wheelDelta != lastWheelDelta) {
 		if (wheelDelta > lastWheelDelta) {
 			std::cout << "¸¶¿ì½º ÈÙ¾÷ÇÔ " << " ";
-			betChip++;
+			betChip += 100;
 		}
 		// ÈÙÀÌ ¾Æ·¡·Î ±¼·¯°¬À» ¶§
 		else if (wheelDelta < lastWheelDelta) {
 			std::cout << "¸¶¿ì½º ÈÙ ´Ù¿îÇÔ " << " ";
-			betChip--;
+			betChip-= 100;
 		}
 		lastWheelDelta = wheelDelta;
 	}

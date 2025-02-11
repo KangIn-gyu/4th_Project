@@ -20,7 +20,7 @@ void TitleScene::Enter()
 {
     { // 3D Obj
         auto* map = CreatorObject<D3DBaseObj>("TitleScene/FBX/Map_Lowpoly.fbx", Object::ObjectType::Background, "TitleScene/FBX/Map_Lowpoly.fbx");
-        Evelyn = CreatorObject<D3DAniObj>("TitleScene/FBX/Evelyn.fbx", Object::ObjectType::Basic, "TitleScene/FBX/Change Roughness.fbx");
+        Evelyn = CreatorObject<D3DAniObj>("TitleScene/FBX/Evelyn.fbx", Object::ObjectType::Basic, "TitleScene/FBX/Table.fbx");
         Evelyn->GetComponent<TransformComponent>()->SetPosition({ 900, 8, 1270.5});
         TargetPosition = { 900, 107, 1272 };
         mainCamera = GetGameObject(Object::ObjectType::Camera, "MainCamera");

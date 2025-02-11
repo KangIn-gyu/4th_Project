@@ -58,9 +58,10 @@ public:
 		const DX::Keyboard::KeyboardStateTracker& _KeyTracker,
 		const DX::Mouse::State& _MouseState,
 		const DX::Mouse::ButtonStateTracker& _MouseTracker) override;
+	int   betChip = 1000; //베팅떄 걸칩갯수 마우스휠로 조절
 private:
 	float love{};    //호감도 딜러랑만의 호감
-	int   betChip{}; //베팅떄 걸칩갯수 마우스휠로 조절
+	
 	DXMath::Vector3 inputVector = {};
 	float speed = 100.0f;
 	float RotationSpeed = 0.004f;
@@ -74,6 +75,7 @@ public:
 	int  openCard  = 0; //d
 	int  skillPoint = 10; 
 	int  chip = 1000; //겜블때 쓸 칩 수,전체 돈
+	int score = 0; 
 	Card* selectCard = nullptr;  //스킬 쓸때 손패에서 선택중인 카드
 	Hand hand;
 	std::function<bool()> skill;

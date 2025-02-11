@@ -73,7 +73,7 @@ void SceneManager::Change(std::string_view _SceneName)
 			currentScene->SetActive(true);
 		}
 
-		currentScene->Initialize(); // 나중에 포토폴리오에 이 내용 꼭 써야됨 잘못되 초기화 방식 ㅠㅠ Initialize 이걸 유니티의 스타트처럼 사용하여 망함
+		currentScene->Initialize(); // 나중에 포토폴리오에 이 내용 꼭 써야됨 잘못되 초기화 방식 ㅠㅠ Initialize 이걸 유니티의 스타트처럼 사용하여 망함 진짜 반성하세요
 		currentScene->ResetInformation();
 		currentScene->MainCameraSetting(0); // 메인 카메라 변경
 

@@ -45,7 +45,7 @@ void Client::Enter()
 
 	LoadMusic();
 
-	SCENEMANAGER->ChangeScene("TitleScene");
+	SCENEMANAGER->ChangeScene("GambleScene");
 
 }
 

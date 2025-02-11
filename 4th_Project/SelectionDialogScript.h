@@ -18,6 +18,7 @@ public:
 
 	// 넣어진 버튼은 상태를 꺼놓음
 	void SetButton(DialogButton* _selectButton1, DialogButton* _selectButton2);
+	//void SetButton(DialogButton* _selectButton1, DialogButton* _selectButton2, DialogButton* _);
 	void ButtonChangeIndex(int _index);
 private:
 	virtual void OnInputProcess(const DX::Keyboard::State& _KeyState,

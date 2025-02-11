@@ -14,6 +14,7 @@
 #include "../Engine/FactorySystem.h"
 #include "Button.h"
 #include "../Engine/TimeSystem.h"
+#include "UIButton.h"
 Card::Card(std::string_view _name, Object::ObjectType _type,Suit _suit, std::string _rank) : Object(_name, _type)
 {
 	suit = _suit;
@@ -71,7 +72,7 @@ void Card::Update(const float _deltaTime)
 	if (needRevers)
 	{
 		elpasedTime += _deltaTime;   //단순 오픈과 이동후 오픈 구별 가능하게끔  수정필요 *****
-		if (elpasedTime >= 1.0f) 
+		if (elpasedTime >= 0.5f)		// ************************************************************** 수정하3// 
 		{
 			Reverse();
 			needRevers = false;
@@ -113,7 +114,8 @@ void Card::MoveOpen()
 
 void Card::Reverse()
 {
-	new DOTween(rotat, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 1.f, rotat, rotat + 180);
+	// 수정하3 *********************************************************************
+	new DOTween(rotat, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 0.5f, rotat, rotat + 180);
 }
 
 int Card::GetValue()
@@ -241,19 +243,28 @@ void Card::ExitMouse()
 
 void Card::OpenA()
 {
-	auto btn1 = SCENEMANAGER->GetCurrentScene()->CreatorObject<Button>("Ato1", Object::ObjectType::Basic, DXMath::Vector3(0, -50, 0), []() {;});
-	auto btn2 = SCENEMANAGER->GetCurrentScene()->CreatorObject<Button>("Ato2", Object::ObjectType::Basic, DXMath::Vector3(100, -50, 0), []() {;});
-	btn1->SetOnclick([this, btn1, btn2]() {this->AtoOne = true,
-		btn1->SetActive(false),
-		btn2->SetActive(false);});
-		//SCENEMANAGER->GetCurrentScene()->EraseGameObject(Layer::Tag::Basic, btn1),
-		//
-		//SCENEMANAGER->GetCurrentScene()->EraseGameObject(Layer::Tag::Basic, btn2);});// *****
-	btn2->SetOnclick([this, btn1, btn2]() {this->AtoOne = false,
-		btn1->SetActive(false),
-		btn2->SetActive(false);});
-			//SCENEMANAGER->GetCurrentScene()->EraseGameObject(Layer::Tag::Basic, btn1),
-			//SCENEMANAGER->GetCurrentScene()->EraseGameObject(Layer::Tag::Basic, btn2);});// *****
+	auto btn1 = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "ButtonTen");
+	auto btn2 = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "ButtonOne");
+	
+	UIButton* btn11 = dynamic_cast<UIButton*>(btn1);
+	UIButton* btn22 = dynamic_cast<UIButton*>(btn2);
+
+	btn11->SetOnClick([this, btn1, btn2]() {this->AtoOne = false; btn1->SetActive(false); btn2->SetActive(false); });
+	btn22->SetOnClick([this, btn1, btn2]() {this->AtoOne = true; btn1->SetActive(false); btn2->SetActive(false); });
+
+	//ButtonTen->SetOnClick([ButtonTen, ButtonOne]() {ButtonTen->SetActive(false) });
+	//ButtonOne->SetOnClick();
+	//btn1->SetOnclick([this, btn1, btn2]() {this->AtoOne = true,
+	//	btn1->SetActive(false),
+	//	btn2->SetActive(false);});
+	//	//SCENEMANAGER->GetCurrentScene()->EraseGameObject(Layer::Tag::Basic, btn1),
+	//	//
+	//	//SCENEMANAGER->GetCurrentScene()->EraseGameObject(Layer::Tag::Basic, btn2);});// *****
+	//btn2->SetOnclick([this, btn1, btn2]() {this->AtoOne = false,
+	//	btn1->SetActive(false),
+	//	btn2->SetActive(false);});
+	//		//SCENEMANAGER->GetCurrentScene()->EraseGameObject(Layer::Tag::Basic, btn1),
+	//		//SCENEMANAGER->GetCurrentScene()->EraseGameObject(Layer::Tag::Basic, btn2);});// *****
 }
 
 std::string enumToString(Suit _suit)

@@ -24,6 +24,8 @@ public:
 	void SetD2DLayerOrder(int _index);
 	virtual void OnClick() override;
 
+	void SetOnClick(std::function<void()> _func);
+
 	D2DRenderComponent* imagedata;
 	BoxCollider* colliderdata;
 	std::string_view imageFilepath;

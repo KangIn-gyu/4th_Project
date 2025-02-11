@@ -3,8 +3,7 @@
 #include "D2DBaseObj.h"
 #include "../Engine/D2DRenderComponent.h"
 
-
-void JustFont::ComponentSetting()
+JustFont::JustFont(Object* _own) : Script(_own)
 {
 	if (typeid(*ownerObject) == typeid(D2DBaseObj))
 	{
@@ -27,14 +26,54 @@ void JustFont::ComponentSetting()
 	}
 }
 
+void JustFont::ComponentSetting()
+{
+	
+}
+
 void JustFont::Update(const float _deltaTime)
 {
-	std::wstring message;
-	message = std::to_wstring(*value);
-	ownerD2D->SetDialog(message);
+	ownerD2D->GetOwner()->GetName();
+	if (fvalue)
+	{
+		std::wstring value;
+		value = std::to_wstring(*fvalue);
+		std::wstring str;
+		value = value.substr(0, value.find(L'.') + 3);
+		str = message + value;
+		ownerD2D->SetDialog(str);
+	}
+	else if(value)
+	{
+		std::wstring val;
+		val = std::to_wstring(*value);
+		std::wstring str;
+		str = message + val;
+		ownerD2D->SetDialog(str);
+	}
+	else
+	{
+		ownerD2D->SetDialog(message);
+	}
 	
 }
 
 void JustFont::ResetInformation()
 {
 }
+
+void JustFont::SetTextSize(float _FontSize, DWRITE_TEXT_RANGE _textRange)
+{
+	ownerD2D->SetTextSize(_FontSize, _textRange);
+}
+
+void JustFont::SetFontBoxSize(float _width, float _height)
+{
+	ownerD2D->SetFontBoxSize(_width, _height);
+}
+
+void JustFont::SetFontPos(float _X, float _Y)
+{
+	ownerD2D->SetFontPos(_X, _Y);
+}
+

@@ -51,13 +51,14 @@ WindowApp::~WindowApp()
     SafeExtinction::SAFE_DELETE(windowInfo);
 }
 
+bool isDragging;
+bool isClick;
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 LRESULT WindowApp::WndProc(HWND _hWnd, UINT _message, WPARAM _wParam, LPARAM _lParam)
 {
     ImGui_ImplWin32_WndProcHandler(_hWnd, _message, _wParam, _lParam);
     POINT startPoint{ eventSysyem->startPoint };
-    bool isDragging = eventSysyem->isDragging;
-    bool isClick = eventSysyem->isClick;
+
     int dragThresholdX = GetSystemMetrics(SM_CXDRAG) * 5;
     int dragThresholdY = GetSystemMetrics(SM_CYDRAG) * 5; //드래그 임계값 5를바꾸면 드래그 감도?조절
     switch (_message)
@@ -127,6 +128,7 @@ LRESULT WindowApp::WndProc(HWND _hWnd, UINT _message, WPARAM _wParam, LPARAM _lP
         eventSysyem->startPoint.y = DXINPUT.get()->mouseState.y;
         isDragging = false;
         isClick = true;
+        
         break;
     case WM_LBUTTONUP:
         DirectX::Mouse::ProcessMessage(_message, _wParam, _lParam);

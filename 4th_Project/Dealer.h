@@ -31,6 +31,7 @@ public:
 	int  GetScore();
 	bool Act();
 	void SetChip(int _num) { chip += _num; }
+	int* GetChip() { return &chip; }
 	virtual void OnClick() override;
 	virtual void OnMouse() override;
 	virtual void ExitMouse() override;
@@ -50,6 +51,7 @@ public:
 	void SetSkill();
 
 	DSkill GetState() { return previousSkill; }
+	int score = 0;
 private:
 	std::function<bool()> pattern; //딜러 다음패턴 담아둘곳
 	int maxScore = 17; //딜러가 카드그만뽑을 상한선

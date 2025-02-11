@@ -18,15 +18,15 @@ void CardRotation::Init(Deck* deckPtr)
 	const float radius = 30.0f;
 	const float angleStep = 360.0f / ACTIVE_SLOTS;  // 10개의 위치에 대한 각도
 	const float startAngle = 90.0f;		// 시작 각도 기준 오른쪽
-
+	const float xOffSet = 60.0f;
 	// positions 초기화 (마지막 위치는 첫 번째 위치와 동일하게)
 	RotCards.resize(MAX_SLOTS);
 	positions.resize(MAX_SLOTS);
 	for (int i = 0; i < ACTIVE_SLOTS; i++) {
 		float angle = DirectX::XMConvertToRadians(startAngle + (i * angleStep));
 		positions[i] = {
-			radius * cos(angle),
-			90.0f,			// 높이
+			radius * cos(angle) + xOffSet,
+			30.0f,			// 높이
 			radius * sin(angle)
 		};
 	}
@@ -146,7 +146,6 @@ void CardRotation::RotateCards(std::vector<Card*>& cards)
 
 		}
 		
-		
 		//canCard = positions[0];
 	}
 
@@ -193,15 +192,19 @@ void CardRotation::UpdateCardPositions(float t)
         );
         transform->SetPosition(interpolatedPosition);
 
+		const float xOffSet = 60.0f;
+
+		DXMath::Vector3 modifiedCenter = deckPosition;
+		modifiedCenter.x += xOffSet;
+
 		// 카드가 중심을 향하도록 회전 계산
-		DXMath::Vector3 toCenter = deckPosition - interpolatedPosition;
+		DXMath::Vector3 toCenter = modifiedCenter - interpolatedPosition;
 		toCenter.y = 0; // y축 회전만 고려
 		toCenter.Normalize();
 
 		// 카드의 기본 90도 x축 회전 유지
 		float x = 90.0f;
 		float y = 180.f;
-
 		float pitch = DirectX::XMConvertToRadians(x);
 		float roll = DirectX::XMConvertToRadians(y);
 		// 중심을 향하는 y축 회전 계산
