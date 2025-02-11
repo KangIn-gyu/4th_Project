@@ -77,8 +77,7 @@ void D2DBitMapFontScript::OnInputProcess(const DX::Keyboard::State& _KeyState, c
 		{
 			if (index == csvData.size())
 			{
-			//	index = 0;
-			//	SCENEMANAGER->ChangeScene(changeSceneName);
+				ownerD2D->IsFadeIn = TRUE;
 			}
 			else
 			{

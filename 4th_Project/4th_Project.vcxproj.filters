@@ -141,15 +141,6 @@
     <ClInclude Include="LobbyScene.h">
       <Filter>Scene\4. LobbyScene</Filter>
     </ClInclude>
-    <ClInclude Include="DialogScene3.h">
-      <Filter>Scene\2. DialogScene</Filter>
-    </ClInclude>
-    <ClInclude Include="DialogScene1.h">
-      <Filter>Scene\2. DialogScene</Filter>
-    </ClInclude>
-    <ClInclude Include="DialogScene2.h">
-      <Filter>Scene\2. DialogScene</Filter>
-    </ClInclude>
     <ClInclude Include="DialogScene1.h" />
     <ClInclude Include="DialogScene2.h" />
     <ClInclude Include="DialogScene3.h" />
@@ -167,6 +158,15 @@
     </ClInclude>
     <ClInclude Include="TalkScene4.h">
       <Filter>Scene\5. TalkScene</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogScene3.h">
+      <Filter>Scene\2. DialogScene</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogScene1.h">
+      <Filter>Scene\2. DialogScene</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogScene2.h">
+      <Filter>Scene\2. DialogScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
