@@ -64,7 +64,7 @@ void BlackJack::Bet()
 		player->betChip = 1000;
 		std::cout << "베팅완료 " << std::endl;
 		endBet = true;
-		canClick = true;
+			canClick = true;
 	}
 }
 

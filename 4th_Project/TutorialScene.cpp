@@ -50,8 +50,8 @@ void TutorialScene::ResetInformation()
 
 void TutorialScene::OnInputProcess(const DX::Keyboard::State& _KeyState, const DX::Keyboard::KeyboardStateTracker& _KeyTracker, const DX::Mouse::State& _MouseState, const DX::Mouse::ButtonStateTracker& _MouseTracker)
 {
-    if (_KeyState.IsKeyDown(DirectX::Keyboard::Keys::D1))
-    {
-        SCENEMANAGER->ChangeScene("DialogScene1");
-    }
+    //if (_KeyState.IsKeyDown(DirectX::Keyboard::Keys::D1))
+    //{
+    //    SCENEMANAGER->ChangeScene("DialogScene1");
+    //}
 }

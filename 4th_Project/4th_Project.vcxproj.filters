@@ -67,6 +67,9 @@
     <ClInclude Include="Client.h">
       <Filter>Client</Filter>
     </ClInclude>
+    <ClInclude Include="TestScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
     <ClInclude Include="SceneHeaders.h">
       <Filter>Scene</Filter>
     </ClInclude>
@@ -126,39 +129,6 @@
     <ClInclude Include="SelectionScript.h">
       <Filter>Script</Filter>
     </ClInclude>
-    <ClInclude Include="TutorialScene.h">
-      <Filter>Scene\3. TutorialScene</Filter>
-    </ClInclude>
-    <ClInclude Include="TitleScene.h">
-      <Filter>Scene\1. TitleScene</Filter>
-    </ClInclude>
-    <ClInclude Include="DialogIntro.h">
-      <Filter>Scene\2. DialogScene</Filter>
-    </ClInclude>
-    <ClInclude Include="LobbyScene.h">
-      <Filter>Scene\4. LobbyScene</Filter>
-    </ClInclude>
-    <ClInclude Include="TalkScene1.h">
-      <Filter>Scene\5. TalkScene</Filter>
-    </ClInclude>
-    <ClInclude Include="TalkScene2.h">
-      <Filter>Scene\5. TalkScene</Filter>
-    </ClInclude>
-    <ClInclude Include="TalkScene3.h">
-      <Filter>Scene\5. TalkScene</Filter>
-    </ClInclude>
-    <ClInclude Include="TalkScene4.h">
-      <Filter>Scene\5. TalkScene</Filter>
-    </ClInclude>
-    <ClInclude Include="DialogScene3.h">
-      <Filter>Scene\2. DialogScene</Filter>
-    </ClInclude>
-    <ClInclude Include="DialogScene1.h">
-      <Filter>Scene\2. DialogScene</Filter>
-    </ClInclude>
-    <ClInclude Include="DialogScene2.h">
-      <Filter>Scene\2. DialogScene</Filter>
- </ClInclude>
     <ClInclude Include="TutorialScene.h">
       <Filter>Scene\3. TutorialScene</Filter>
     </ClInclude>
@@ -310,22 +280,6 @@
     </ClCompile>
     <ClCompile Include="TalkScene4.cpp">
       <Filter>Scene\5. TalkScene</Filter>
-  </ClCompile>
-    <ClCompile Include="DialogIntro.cpp">
-      <Filter>Scene\2. DialogScene</Filter>
-    </ClCompile>
-    <ClCompile Include="TalkScene1.cpp">
-      <Filter>Scene\5. TalkScene</Filter>
-    </ClCompile>
-    <ClCompile Include="TalkScene2.cpp">
-      <Filter>Scene\5. TalkScene</Filter>
-    </ClCompile>
-    <ClCompile Include="TalkScene3.cpp">
-      <Filter>Scene\5. TalkScene</Filter>
-    </ClCompile>
-    <ClCompile Include="TalkScene4.cpp">
-      <Filter>Scene\5. TalkScene</Filter>
-    </ClCompile>
     </ClCompile>
     <ClCompile Include="LoopImageChangeScript.cpp">
       <Filter>Script</Filter>
@@ -398,6 +352,9 @@
     </ClCompile>
     <ClCompile Include="4th_Project.cpp">
       <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="TestScene.cpp">
+      <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="TestObj.cpp">
       <Filter>Obj\TestObj</Filter>
