@@ -1,7 +1,5 @@
 #pragma once
 
-#include "TestScene.h"    // TODO : 나중에 삭제할 씬
-
 #include "TitleScene.h"	   // 1. 타이틀씬
 #include "TutorialScene.h" // 3. 튜토리얼
 #include "LobbyScene.h"	   // 4. 로비씬

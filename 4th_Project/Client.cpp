@@ -40,6 +40,7 @@ void Client::SceneUpload()
 	SCENEMANAGER->CreatorScene<DialogScene2>("DialogScene2");
 	SCENEMANAGER->CreatorScene<LobbyScene>("LobbyScene");
 	// TODO : talkscene 1,2,3,4,5
+	
 	SCENEMANAGER->CreatorScene<GambleScene>("GambleScene");
 
 	SCENEMANAGER->CreatorScene<DialogScene3>("DialogScene3");
@@ -59,14 +60,11 @@ void Client::SceneUpload()
 	LoadMusic();
 
 	SCENEMANAGER->ChangeScene("DialogIntroScene");
-
 }
-
 
 void Client::LoadMusic()
 { 
 	{
 		SOUNDSYSTEM->LoadMusic(eSoundList::Main_Theme, true, "Resource\\TitleScene\\Sounds\\Title.wav");
 	}
-	
 }

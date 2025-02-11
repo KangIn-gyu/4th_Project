@@ -195,7 +195,6 @@
     <ClInclude Include="TalkScene4.h" />
     <ClInclude Include="TestObj.h" />
     <ClInclude Include="TestObj2.h" />
-    <ClInclude Include="TestScene.h" />
     <ClInclude Include="TitleScene.h" />
     <ClInclude Include="ToopTip2D.h" />
     <ClInclude Include="TutorialScene.h" />
@@ -255,7 +254,6 @@
     <ClCompile Include="TalkScene4.cpp" />
     <ClCompile Include="TestObj.cpp" />
     <ClCompile Include="TestObj2.cpp" />
-    <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="ToopTip2D.cpp" />
     <ClCompile Include="TutorialScene.cpp" />

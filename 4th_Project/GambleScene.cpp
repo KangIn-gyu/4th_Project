@@ -24,9 +24,19 @@
 #include "../Engine/Engine.h"
 #include "SelectionImageScript.h"
 #include "SelectionScript.h"
-
+#include "../Engine/ModelComponent.h"
 GambleScene::GambleScene(std::string_view _Name) : Scene(_Name)
 {
+}
+
+
+void GambleScene::Enter()
+{
+	// TODO: 다이얼로그로 넘어갈떄 지금이 첫번쨰 겜블인지 두번쨰인지 알아야함. 정보저장이던 넘기기던 플래그를 세워야함.
+	// TODO: 그리고 플레이어의 행동력 0 체크로 선택지 버튼을 출력함.
+	
+	//GetGameObject(Object::ObjectType::Camera)->GetComponent<TransformComponent>()->SetPosition({ -30.0f, 130.0f, -83.0f });
+	//GetGameObject(Object::ObjectType::Camera)->GetComponent<TransformComponent>()->SetQuaternion(DXMath::Quaternion::Quaternion(0.3f, 0.171f, -0.059f, 0.93f));
 	BLACKJACK->player = CreatorObject<Player>("Player", Object::ObjectType::Basic);
 	CreatorObject<UIButton>("Bet", Object::ObjectType::UI, "UI/Button/Bet.png", DXMath::Vector2(500, 50), []() {BLACKJACK->Bet();});
 	CreatorObject<GambleButton>("Open", Object::ObjectType::UI, DXMath::Vector2(800, 0), []() {ClickFunc::OpenButton();});
@@ -39,12 +49,13 @@ GambleScene::GambleScene(std::string_view _Name) : Scene(_Name)
 	CreatorObject<SkillButton>("Guts", Object::ObjectType::UI, DXMath::Vector2(800, 200), 1, []() {ClickFunc::SetPlayerSkill(PLAYER, PSkill::guts);})->SetActive(false);
 	CreatorObject<SkillButton>("Meditation", Object::ObjectType::UI, DXMath::Vector2(1100, 200), 2, []() {ClickFunc::SetPlayerSkill(PLAYER, PSkill::meditation);})->SetActive(false);
 	CreatorObject<SkillButton>("Insurance", Object::ObjectType::UI, DXMath::Vector2(1500, 200), 5, []() {ClickFunc::SetPlayerSkill(PLAYER, PSkill::Insurance);})->SetActive(false);
-	auto ui = CreatorObject<D2DBaseObj>("RoundBet", Object::ObjectType::UI, DXMath::Vector2{ 300,300 },"UI/RoundBet.png", "Font/DNFBitBitv2.ttf");
+	auto ui = CreatorObject<D2DBaseObj>("RoundBet", Object::ObjectType::UI, DXMath::Vector2{ 300,300 }, "UI/RoundBet.png", "Font/DNFBitBitv2.ttf");
 	ui->CreateScript<JustFont>()->SetMessage(BLACKJACK->player->Bet());
 
 	BLACKJACK->dealer = CreatorObject<Dealer>("Dealer", Object::ObjectType::Basic);
 	BLACKJACK->dealer->GetComponent<TransformComponent>()->SetPosition({ 00, -13.0f, 150.0f });
 	BLACKJACK->deck = CreatorObject<Deck>("Deck", Object::ObjectType::Basic);
+
 	BLACKJACK->deck->GetComponent<TransformComponent>()->SetPosition({ -60, 65, 0 });
 	BLACKJACK->trashDeck = CreatorObject<Deck>("trashDeck", Object::ObjectType::Basic, false);
 
@@ -140,17 +151,6 @@ GambleScene::GambleScene(std::string_view _Name) : Scene(_Name)
 	BLACKJACK->SetDialog(q2);
 	BLACKJACK->SetDialog(q3);
 	BLACKJACK->SetDialog(q4);
-
-}
-
-
-void GambleScene::Enter()
-{
-	// TODO: 다이얼로그로 넘어갈떄 지금이 첫번쨰 겜블인지 두번쨰인지 알아야함. 정보저장이던 넘기기던 플래그를 세워야함.
-	// TODO: 그리고 플레이어의 행동력 0 체크로 선택지 버튼을 출력함.
-	
-	//GetGameObject(Object::ObjectType::Camera)->GetComponent<TransformComponent>()->SetPosition({ -30.0f, 130.0f, -83.0f });
-	//GetGameObject(Object::ObjectType::Camera)->GetComponent<TransformComponent>()->SetQuaternion(DXMath::Quaternion::Quaternion(0.3f, 0.171f, -0.059f, 0.93f));
 }
 
 
@@ -161,12 +161,12 @@ void GambleScene::Update(const float _deltaTime)
 	__super::Update(_deltaTime);
 	
 	BLACKJACK->Update(_deltaTime * 2.0);
-	
 }
 
 void GambleScene::ResetInformation()
 {
 	Scene::ResetInformation();
 	//GambleScene::Enter();
+//	dealer->GetComponent<ModelComponent>()->SetAnimation(1);
 }
 

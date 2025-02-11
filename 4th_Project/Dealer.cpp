@@ -12,7 +12,8 @@
 
 Dealer::Dealer(std::string_view _name, Object::ObjectType _type) : Object(_name, _type)
 {
-	auto model = CreateComponent<ModelComponent>("STAGE1/FBX/SkinningTest.fbx"); // Evelyn char2 SkinningTest Evelyn_LowPoly
+	auto model = CreateComponent<ModelComponent>("Common/FBX/Evelyn.fbx"); // Evelyn char2 SkinningTest Evelyn_LowPoly
+	model->SetAnimation(1);
 	/*if (model->GetAnimations() != nullptr)
 	{
 		model->SetAnimation(0);
@@ -250,6 +251,11 @@ void Dealer::SetSkill()
 		turnCount = 3;
 		pattern = [this]() { return slotBan(); };
 	}
+}
+
+void Dealer::CardAnimation()
+{
+
 }
 
 

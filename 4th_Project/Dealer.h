@@ -49,6 +49,9 @@ public:
 
 	void SetSkill();
 
+	// 딜러 애니메이션 처리
+	void CardAnimation();
+
 	DSkill GetState() { return previousSkill; }
 private:
 	std::function<bool()> pattern; //딜러 다음패턴 담아둘곳

@@ -8,7 +8,15 @@
 void LoadingScene::Enter()
 {
 	loadingImage = CreatorObject<D2DBaseObj>("LoadingImage", Object::ObjectType::UI);
-	loadingImage->GetComponent<D2DRenderComponent>()->Load2DImage("LoadingScene/UI/98.png");	
+	auto* d2dRender = loadingImage->GetComponent<D2DRenderComponent>();
+	d2dRender->Load2DImage("LoadingScene/UI/Loading_0.png");
+	d2dRender->Load2DImage("LoadingScene/UI/Loading_1.png");
+	d2dRender->Load2DImage("LoadingScene/UI/Loading_2.png");
+	d2dRender->Load2DImage("LoadingScene/UI/Loading_3.png");
+	d2dRender->Load2DImage("LoadingScene/UI/Loading_4.png");
+	d2dRender->Load2DImage("LoadingScene/UI/Loading_5.png");
+	d2dRender->Load2DImage("LoadingScene/UI/Loading_6.png");
+	d2dRender->Load2DImage("LoadingScene/UI/Loading_7.png");
 	loadingImage->SetActive(false);
 }
 
@@ -29,4 +37,6 @@ void LoadingScene::ResetInformation()
 	Scene::ResetInformation();
 	maxLoadingTime = RandomUtil::GetRandomFloat(2.0f, 5.0f);
 	loadingImage->SetActive(true);
+	auto* d2dRender = loadingImage->GetComponent<D2DRenderComponent>();
+	d2dRender->ChangeBitmap(RandomUtil::GetRandomInt(0 , 7));
 }
