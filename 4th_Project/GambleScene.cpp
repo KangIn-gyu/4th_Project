@@ -43,7 +43,7 @@ void GambleScene::Enter()
 	//GetGameObject(Object::ObjectType::Camera)->GetComponent<TransformComponent>()->SetPosition({ -30.0f, 130.0f, -83.0f });
 	//GetGameObject(Object::ObjectType::Camera)->GetComponent<TransformComponent>()->SetQuaternion(DXMath::Quaternion::Quaternion(0.3f, 0.171f, -0.059f, 0.93f));
 
-	BLACKJACK->dealer->GetComponent<TransformComponent>()->SetPosition({ 00, -13.0f, -400.0f });
+	BLACKJACK->dealer->GetComponent<TransformComponent>()->SetPosition({ 0.0f, 6.0f, -400.0f });
 
 	BLACKJACK->deck = CreatorObject<Deck>("Deck", Object::ObjectType::Basic);
 	BLACKJACK->deck->GetComponent<TransformComponent>()->SetPosition({ -60, 105, -500 });
@@ -54,8 +54,6 @@ void GambleScene::Enter()
 
 	auto test = CreatorObject<TestObj2>("Map", Object::ObjectType::Background);
 	auto deck = GetGameObject(Object::ObjectType::Basic, "Deck");
-
-
 
 	//클릭시 스킬4개 버튼 출력할 버튼
 	CreatorObject<ToopTip2D>("Handfaster_ToolTip", Object::ObjectType::UI, DXMath::Vector2(1460, 370))->SetActive(false);
@@ -184,7 +182,6 @@ void GambleScene::Enter()
 		[skilldialog4_2]() { skilldialog4_2->SetActive(true);  BLACKJACK->dealer->Act(); BLACKJACK->curTurn = Turn::player; });
 
 	auto q1 = CreatorObject<D2DBaseObj>("Question1", Object::ObjectType::UI);
-	q1 = CreatorObject<D2DBaseObj>("Question1", Object::ObjectType::UI);
 	q1->GetComponent<D2DRenderComponent>()->Load2DImage("UI/Question/Question1.png");
 	q1->GetComponent<D2DRenderComponent>()->Set2DImagePos(0, 580);
 	q1->CreateScript<SelectionImageScript>()->SetButton(dialogbutton1, dialogbutton2);
@@ -206,7 +203,6 @@ void GambleScene::Enter()
 	q4->GetComponent<D2DRenderComponent>()->Load2DImage("UI/Question/Question4.png");
 	q4->CreateScript<SelectionImageScript>()->SetButton(dialogbutton7, dialogbutton8);
 	q4->GetComponent<D2DRenderComponent>()->Set2DImagePos(0, 580);
-
 	q4->SetActive(false);
 
 	BLACKJACK->SetDialog(q1);
@@ -249,6 +245,14 @@ void GambleScene::ResetInformation()
 	GetGameObject(Object::ObjectType::UI, "Result")->SetActive(false);
 	GetGameObject(Object::ObjectType::UI, "ButtonTen")->SetActive(false);
 	GetGameObject(Object::ObjectType::UI, "ButtonOne")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "Handfaster_ToolTip")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "Guts_ToolTip")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "Meditation_ToolTip")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "Insurance_ToolTip")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "Question1")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "Question2")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "Question3")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "Question4")->SetActive(false);
 
 	// 왜 여기 선언 해야하는지 진짜모름
 	Object* camera = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::Camera, 0);
