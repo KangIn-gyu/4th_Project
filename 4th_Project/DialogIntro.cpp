@@ -9,7 +9,7 @@
 void DialogIntro::Enter()
 {
     // Font/DialogScene.ttf  // GyeonggiMillenniumBackground_Regular
-    auto* dialog = CreatorObject<D2DBaseObj>("DialogIntro", Object::ObjectType::UI,
+    dialog = CreatorObject<D2DBaseObj>("DialogIntro", Object::ObjectType::UI,
         7, 23, "Font/GyeonggiMillenniumBackground_Regular.ttf", "DialogScenes/CSV/Intro.csv");
     dialog->CreateScript<D2DBitMapFontScript>();
 
@@ -18,7 +18,7 @@ void DialogIntro::Enter()
         "TutorialScene/UI/UI 43_Skip.png", DXMath::Vector2(1730, 50), DXMath::Vector2(150, 45),
         []() {SCENEMANAGER->ChangeScene("DialogScene0");});
 
-    // 페이드효과
+    // 페이드효과 밝아지기
     fading = CreatorObject<D2DBaseObj>("Fade", Object::ObjectType::UI);
     fading->GetComponent<D2DRenderComponent>()->Load2DImage("UI/FadeImage.png");
     fading->CreateScript<FadeEffectScript>()->StartFadeOut();
@@ -30,5 +30,11 @@ void DialogIntro::Enter()
 void DialogIntro::Update(const float _deltaTime)
 {
     Scene::Update(_deltaTime);
-    if (fading->GetComponent<D2DRenderComponent>()->IsFadeIn){ fading->CreateScript<FadeEffectScript>()->StartFadeIn("DialogScene0"); }
+    // 어두워지기
+    if (true == dialog->GetComponent<D2DRenderComponent>()->IsFadeIn)
+    {
+        std::cout << "페이드 인이 불값이 됨\n";
+	    static_cast<FadeEffectScript*>(fading->script)->StartFadeIn("DialogScene0");
+        dialog->GetComponent<D2DRenderComponent>()->IsFadeIn = false;
+    }
 }

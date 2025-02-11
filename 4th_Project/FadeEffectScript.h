@@ -17,7 +17,7 @@ public:
 private:
     D2DRenderComponent* ownerD2D;
 
-    float alpha=0;       // 현재 알파 값 (0.0 ~ 1.0)
+    float alpha= 0;       // 현재 알파 값 (0.0 ~ 1.0)
     float fadeSpeed=0.1;   // 페이드 속도
     bool active = TRUE;
     bool fadingIn = FALSE;
