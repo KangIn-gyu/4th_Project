@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "DialogIntro.h"
 
 #include "D2DBitMapFontScript.h" // ½ºÅ©¸³Æ®

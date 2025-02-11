@@ -18,7 +18,7 @@ DialogScene0::DialogScene0(std::string_view _Name) : Scene(_Name)
 
     dialog->SetActive(false);
 
-    // ÆäÀÌµåÈ¿°ú
+    // í˜ì´ë“œíš¨ê³¼
     fading = CreatorObject<D2DBaseObj>("Fade", Object::ObjectType::UI);
     fading->GetComponent<D2DRenderComponent>()->Load2DImage("UI/FadeImage.png");
     fading->SetD2DLayerOrder(5);

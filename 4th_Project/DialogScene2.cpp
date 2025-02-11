@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "DialogScene2.h"
 #include "D2DBaseObj.h"
-#include "D2DBitMapFontScript.h" // Ω∫≈©∏≥∆Æ
+#include "D2DBitMapFontScript.h" // Ïä§ÌÅ¨Î¶ΩÌä∏
 #include "UIButton.h"
 #include "../Engine/SceneManager.h"
 DialogScene2::DialogScene2(std::string_view _Name) : Scene(_Name)

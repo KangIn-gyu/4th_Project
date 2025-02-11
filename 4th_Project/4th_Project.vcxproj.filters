@@ -158,6 +158,39 @@
     </ClInclude>
     <ClInclude Include="DialogScene2.h">
       <Filter>Scene\2. DialogScene</Filter>
+ </ClInclude>
+    <ClInclude Include="TutorialScene.h">
+      <Filter>Scene\3. TutorialScene</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScene.h">
+      <Filter>Scene\1. TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogIntro.h">
+      <Filter>Scene\2. DialogScene</Filter>
+    </ClInclude>
+    <ClInclude Include="LobbyScene.h">
+      <Filter>Scene\4. LobbyScene</Filter>
+    </ClInclude>
+    <ClInclude Include="TalkScene1.h">
+      <Filter>Scene\5. TalkScene</Filter>
+    </ClInclude>
+    <ClInclude Include="TalkScene2.h">
+      <Filter>Scene\5. TalkScene</Filter>
+    </ClInclude>
+    <ClInclude Include="TalkScene3.h">
+      <Filter>Scene\5. TalkScene</Filter>
+    </ClInclude>
+    <ClInclude Include="TalkScene4.h">
+      <Filter>Scene\5. TalkScene</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogScene3.h">
+      <Filter>Scene\2. DialogScene</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogScene1.h">
+      <Filter>Scene\2. DialogScene</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogScene2.h">
+      <Filter>Scene\2. DialogScene</Filter>
     </ClInclude>
     <ClInclude Include="LoopImageChangeScript.h">
       <Filter>Script</Filter>
@@ -263,6 +296,22 @@
     <ClCompile Include="SelectionScript.cpp">
       <Filter>Script</Filter>
     </ClCompile>
+
+    <ClCompile Include="DialogIntro.cpp">
+      <Filter>Scene\2. DialogScene</Filter>
+    </ClCompile>
+    <ClCompile Include="TalkScene1.cpp">
+      <Filter>Scene\5. TalkScene</Filter>
+    </ClCompile>
+    <ClCompile Include="TalkScene2.cpp">
+      <Filter>Scene\5. TalkScene</Filter>
+    </ClCompile>
+    <ClCompile Include="TalkScene3.cpp">
+      <Filter>Scene\5. TalkScene</Filter>
+    </ClCompile>
+    <ClCompile Include="TalkScene4.cpp">
+      <Filter>Scene\5. TalkScene</Filter>
+  </ClCompile>
     <ClCompile Include="DialogIntro.cpp">
       <Filter>Scene\2. DialogScene</Filter>
     </ClCompile>
@@ -283,7 +332,7 @@
     </ClCompile>
     <ClCompile Include="ClickChangeSceneScript.cpp">
       <Filter>Script</Filter>
-    </ClCompile>
+  </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Client">
