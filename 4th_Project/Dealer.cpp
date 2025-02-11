@@ -251,10 +251,7 @@ void Dealer::SetSkill()
 	}
 }
 
-void Dealer::CardAnimation()
-{
 
-}
 
 
 
