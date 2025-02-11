@@ -27,8 +27,10 @@ public:
 	virtual void Update(const float _deltaTime);
 	virtual void FixedUpdate() {}
 	virtual void LateUpdate() {}
-
+	virtual void ResetInformation();
 	virtual void OnBlock(Collider* _myCol, Collider* _otherCol) override;
+	virtual void EnterRayCollision(Collider* _otherCol) override;
+	virtual void EndRayCollision(Collider* _otherCol)override;
 	static Player* GetInstance() { return g_player; }
 	void Init();
 	void FirstDraw(Deck* _deck);

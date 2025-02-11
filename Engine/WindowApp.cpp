@@ -51,15 +51,20 @@ WindowApp::~WindowApp()
     SafeExtinction::SAFE_DELETE(windowInfo);
 }
 
+bool isDragging = false;
+bool isClick = false;
+int dragThresholdX;
+int dragThresholdY;
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 LRESULT WindowApp::WndProc(HWND _hWnd, UINT _message, WPARAM _wParam, LPARAM _lParam)
 {
     ImGui_ImplWin32_WndProcHandler(_hWnd, _message, _wParam, _lParam);
+   
     POINT startPoint{ eventSysyem->startPoint };
-    bool isDragging = eventSysyem->isDragging;
-    bool isClick = eventSysyem->isClick;
-    int dragThresholdX = GetSystemMetrics(SM_CXDRAG) * 5;
-    int dragThresholdY = GetSystemMetrics(SM_CYDRAG) * 5; //드래그 임계값 5를바꾸면 드래그 감도?조절
+    /*isDragging = eventSysyem->isDragging;
+    isClick = eventSysyem->isClick;*/
+    dragThresholdX = GetSystemMetrics(SM_CXDRAG) * 5;
+    dragThresholdY = GetSystemMetrics(SM_CYDRAG) * 5; //드래그 임계값 5를바꾸면 드래그 감도?조절
     switch (_message)
     {
     case WM_DESTROY:
@@ -122,24 +127,25 @@ LRESULT WindowApp::WndProc(HWND _hWnd, UINT _message, WPARAM _wParam, LPARAM _lP
         }
         break;
     case WM_LBUTTONDOWN:
+
         DirectX::Mouse::ProcessMessage(_message, _wParam, _lParam);
         eventSysyem->startPoint.x = DXINPUT.get()->mouseState.x;
         eventSysyem->startPoint.y = DXINPUT.get()->mouseState.y;
-        isDragging = false;
         isClick = true;
+        isDragging = false;
         break;
     case WM_LBUTTONUP:
         DirectX::Mouse::ProcessMessage(_message, _wParam, _lParam);
         //eventSysyem->checkClickobj(DXINPUT.get()->mouseState.x, DXINPUT.get()->mouseState.y);
-        if (isDragging)
+        if (isClick)
+        {
+            eventSysyem->checkClickobj(DXINPUT.get()->mouseState.x, DXINPUT.get()->mouseState.y);
+        }
+        else if(isDragging)
         {
             // 드래그 종료 처리
             eventSysyem->isDragging = false;
-            EventSystem::GetInstance().get()->EndDrag();
-        }
-        else if (isClick)
-        {
-            EventSystem::GetInstance().get()->checkClickobj(DXINPUT.get()->mouseState.x, DXINPUT.get()->mouseState.y);
+            eventSysyem->EndDrag();
         }
         break;
     case WM_RBUTTONDOWN:

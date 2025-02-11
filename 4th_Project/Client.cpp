@@ -44,7 +44,7 @@ void Client::Enter()
 	SOUNDSYSTEM->SetVolumeAll(0.5f);
 
 	LoadMusic();
-	SCENEMANAGER->ChangeScene("TitleScene");
+	SCENEMANAGER->ChangeScene("GambleScene");
 }
 
 // 사운드 로드하는 짭통
