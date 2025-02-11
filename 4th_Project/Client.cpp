@@ -20,8 +20,16 @@ Client::~Client()
 
 void Client::Enter()
 {
-	SCENEMANAGER->CreatorScene<TestScene>("TestScene"); // 나중에 지워야 됨
-	
+//	SCENEMANAGER->CreatorScene<TestScene>("TestScene"); // 나중에 지워야 됨
+	SCENEMANAGER->CreatorScene<LoadingScene>("LoadingScene");
+	SCENEMANAGER->ChangeScene("LoadingScene");
+
+	SOUNDSYSTEM->SetVolumeAll(0.5f);
+	LoadMusic();
+}
+
+void Client::SceneUpload()
+{
 	SCENEMANAGER->CreatorScene<TitleScene>("TitleScene");
 	SCENEMANAGER->CreatorScene<DialogIntro>("DialogIntroScene");
 	SCENEMANAGER->CreatorScene<DialogScene0>("DialogScene0");
@@ -36,15 +44,10 @@ void Client::Enter()
 	SCENEMANAGER->CreatorScene<DialogScene4>("DialogScene4");
 	SCENEMANAGER->CreatorScene<DialogScene5>("DialogScene5");
 	// TODO : 엔딩 추가 해야됨
-	SCENEMANAGER->CreatorScene<LoadingScene>("LoadingScene");
 
 	BLACKJACK->player = PLAYER;
 
 	ENGINE->CollectionGameManager(MYGAMEMANAGER);
-	SOUNDSYSTEM->SetVolumeAll(0.5f);
-
-	LoadMusic();
-	SCENEMANAGER->ChangeScene("TitleScene");
 }
 
 // 사운드 로드하는 짭통

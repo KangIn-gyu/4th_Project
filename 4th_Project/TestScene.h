@@ -17,6 +17,7 @@ private:
 
 public:
 	CardRotation cardrot;
+
 private:
 	virtual void OnInputProcess(const DX::Keyboard::State& _KeyState,
 		const DX::Keyboard::KeyboardStateTracker& _KeyTracker,

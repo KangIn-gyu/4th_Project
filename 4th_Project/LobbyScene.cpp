@@ -30,3 +30,7 @@ void LobbyScene::Update(const float _deltaTime)
 {
     Scene::Update(_deltaTime);
 }
+
+void LobbyScene::ResetInformation()
+{
+}
