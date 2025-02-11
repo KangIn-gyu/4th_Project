@@ -125,8 +125,8 @@ void GambleScene::Enter()
 	ui9->SetActive(false); ui10->SetActive(false); ui11->SetActive(false); });
 
 
-	auto* ButtonTen = CreatorObject<UIButton>("ButtonTen", Object::ObjectType::UI, "UI/Button10.png", DXMath::Vector2{ 1000,900 }, []() {});
-	auto* ButtonOne = CreatorObject<UIButton>("ButtonOne", Object::ObjectType::UI, "UI/Button1.png", DXMath::Vector2{ 920,900 }, []() {});
+	auto* ButtonTen = CreatorObject<UIButton>("ButtonTen", Object::ObjectType::UI, "UI/Button10.png", DXMath::Vector2{ 1000,800 }, []() {});
+	auto* ButtonOne = CreatorObject<UIButton>("ButtonOne", Object::ObjectType::UI, "UI/Button1.png", DXMath::Vector2{ 920,800 }, []() {});
 
 	// ui 테스트용
 	CreatorObject<UIButton>("PlayerFace", Object::ObjectType::UI, "UI/PlayerFace.png", DXMath::Vector2{ 1620, 50 }, []() {});
@@ -253,6 +253,14 @@ void GambleScene::ResetInformation()
 	GetGameObject(Object::ObjectType::UI, "Question2")->SetActive(false);
 	GetGameObject(Object::ObjectType::UI, "Question3")->SetActive(false);
 	GetGameObject(Object::ObjectType::UI, "Question4")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "Pattern1_1")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "Pattern1_2")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "Pattern2_1")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "Pattern2_2")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "Pattern3_1")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "Pattern3_2")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "Pattern4_1")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "Pattern4_2")->SetActive(false);
 
 	// 왜 여기 선언 해야하는지 진짜모름
 	Object* camera = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::Camera, 0);
