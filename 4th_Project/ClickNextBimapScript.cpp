@@ -34,13 +34,13 @@ void ClickNextBimapScript::OnInputProcess(const DX::Keyboard::State& _KeyState, 
 	if (_MouseTracker.leftButton == DX::Mouse::ButtonStateTracker::PRESSED)
 	{
 
-		if (index > 0 && index <= bitmapSize)
+		if (_MouseState.x <= 960 && index > 0 && index <= bitmapSize)
 		{
 			index--;
 			ownerD2D->ChangeBitmap(index);
 		}
 	
-		if (index >= 0 && index < bitmapSize)
+		if (_MouseState.x > 960 && index >= 0 && index < bitmapSize)
 		{
 			index++;
 			ownerD2D->ChangeBitmap(index);

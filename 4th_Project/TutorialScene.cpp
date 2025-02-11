@@ -20,7 +20,6 @@ TutorialScene::TutorialScene(std::string_view _Name) : Scene(_Name)
     }
     tutorialBitmap = CreatorObject<D2DBaseObj>("TutorialScene", Object::ObjectType::UI, bitmapFilePaths);
     tutorialBitmap->CreateScript<ClickNextBimapScript>();
-    tutorialBitmap->SetActive(false);
 
     //SOUNDSYSTEM->StopMusic(eSoundChannel::BGM);
 
@@ -32,10 +31,14 @@ TutorialScene::TutorialScene(std::string_view _Name) : Scene(_Name)
     fading = CreatorObject<D2DBaseObj>("Fade", Object::ObjectType::UI);
     fading->GetComponent<D2DRenderComponent>()->Load2DImage("UI/FadeImage.png");
     fading->CreateScript<FadeEffectScript>()->StartFadeOut();
+
+    tutorialBitmap->SetD2DLayerOrder(0);
     fading->SetD2DLayerOrder(5);
+    skipbutton->SetD2DLayerOrder(1);
 
+    tutorialBitmap->SetActive(false);
+    fading->SetActive(false);
     skipbutton->SetActive(false);
-
 }
 void TutorialScene::Enter()
 {
@@ -48,14 +51,14 @@ void TutorialScene::Update(const float _deltaTime)
 
 void TutorialScene::ResetInformation()
 {
-    skipbutton->SetActive(true);
+    Scene::ResetInformation();
     tutorialBitmap->SetActive(true);
+    fading->SetActive(true);
+    skipbutton->SetActive(true);
+    static_cast<FadeEffectScript*>(fading->script)->StartFadeOut();
 }
 
 void TutorialScene::OnInputProcess(const DX::Keyboard::State& _KeyState, const DX::Keyboard::KeyboardStateTracker& _KeyTracker, const DX::Mouse::State& _MouseState, const DX::Mouse::ButtonStateTracker& _MouseTracker)
 {
-    if (_KeyState.IsKeyDown(DirectX::Keyboard::Keys::D1))
-    {
-        SCENEMANAGER->ChangeScene("DialogScene1");
-    }
+    
 }

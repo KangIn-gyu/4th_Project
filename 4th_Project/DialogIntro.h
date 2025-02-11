@@ -1,6 +1,7 @@
 #pragma once
 #include "../Engine/Scene.h"
 
+class UIButton;
 class D2DBaseObj;
 class DialogIntro : public Scene
 {
@@ -16,7 +17,7 @@ public:
 private:
 	D2DBaseObj* fading;
 	D2DBaseObj* dialog;
-
+	UIButton* skipbutton{};
 public:
 
 private:

@@ -2,6 +2,7 @@
 #include "../Engine/Scene.h"
 #include "../Engine/DirectXInput.h"
 
+class UIButton;
 class D2DBaseObj;
 
 class DialogScene1 : public Scene
@@ -17,6 +18,7 @@ public:
 private:
 	D2DBaseObj* fading;
 	D2DBaseObj* dialog;
+	UIButton* skipbutton{};
 public:
 
 private:
