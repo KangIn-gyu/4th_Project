@@ -13,7 +13,7 @@ void DialogScene5::Enter()
 
     dialog->CreateScript<D2DBitMapFontScript>();
     CreatorObject<UIButton>("Skip", Object::ObjectType::UI,
-        "TutorialScene/UI/UI 43_Skip.png", DXMath::Vector2(50, 50),
+        "TutorialScene/UI/UI 43_Skip.png", DXMath::Vector2(1730, 50), DXMath::Vector2(150, 45),
         []() {SCENEMANAGER->ChangeScene("DialogScene2");});
 }
 
