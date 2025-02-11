@@ -159,7 +159,6 @@
     <ClInclude Include="CameraCompoent.h" />
     <ClInclude Include="CameraInformationEditor.h" />
     <ClInclude Include="CameraObject.h" />
-    <ClInclude Include="CircleCollider.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="ColliderManager.h" />
     <ClInclude Include="Component.h" />
@@ -176,7 +175,6 @@
     <ClInclude Include="D2DFont.h" />
     <ClInclude Include="D2DRenderComponent.h" />
     <ClInclude Include="RandomUtil.h" />
-    <ClInclude Include="RayCollier.h" />
     <ClInclude Include="Script.h" />
     <ClInclude Include="TextObject.h" />
     <ClInclude Include="D3DClass.h" />
@@ -251,7 +249,6 @@
     <ClCompile Include="CameraCompoent.cpp" />
     <ClCompile Include="CameraInformationEditor.cpp" />
     <ClCompile Include="CameraObject.cpp" />
-    <ClCompile Include="CircleCollider.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="ColliderManager.cpp" />
     <ClCompile Include="Component.cpp" />
@@ -266,7 +263,6 @@
     <ClCompile Include="D2DFont.cpp" />
     <ClCompile Include="D2DRenderComponent.cpp" />
     <ClCompile Include="RandomUtil.cpp" />
-    <ClCompile Include="RayCollier.cpp" />
     <ClCompile Include="Script.cpp" />
     <ClCompile Include="TextObject.cpp" />
     <ClCompile Include="D3DClass.cpp" />

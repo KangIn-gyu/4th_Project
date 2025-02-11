@@ -6,17 +6,15 @@
 #include "Object.h"
 #include "TransformComponent.h"
 #include "ColliderManager.h"
-#include "CircleCollider.h"
-void BoxCollider::SetBox(const DXMath::Vector3 center, const DXMath::Vector3 extents, const DXMath::Quaternion orientation, ActiveType _type)
+void BoxCollider::SetBox(const DXMath::Vector3 center, const DXMath::Vector3 extents, const DXMath::Quaternion orientation,Type _type)
 {
 	obBox.Center = center;
-	modelCenter = center;
+	modelCenter = center; 
 	obBox.Extents = extents;
 	modelExtent = extents;
 	obBox.Orientation = orientation;
 	colliderType = _type;
-	coltype = ColliderType::Box;
-	if (colliderType == ActiveType::Block)
+	if (colliderType == Type::Block)
 	{
 		CollidersManager->AddCollider(this);
 		//블럭인것만 모으기
@@ -25,18 +23,9 @@ void BoxCollider::SetBox(const DXMath::Vector3 center, const DXMath::Vector3 ext
 
 bool BoxCollider::CheckCollision(Collider* _other)
 {
-	if (_other->coltype == ColliderType::Box) //어차피 서클에서 처리할거니까 이렇게만
-	{
-		BoxCollider* boxcol = dynamic_cast<BoxCollider*>(_other);
-		if (_other != nullptr)
-			return obBox.Intersects(boxcol->obBox);
-	}
-	else
-	{
-		CircleCollider* circle = dynamic_cast<CircleCollider*>(_other);
-		if (_other != nullptr)
-			return obBox.Intersects(circle->Circle);
-	}
+	BoxCollider* boxcol = dynamic_cast<BoxCollider*>(_other);
+	if(_other != nullptr)
+		return obBox.Intersects(boxcol->obBox);
 
 }
 
@@ -91,8 +80,6 @@ D2D1_RECT_F BoxCollider::GetBoundBox()
 
 	return rect;
 }
-
-
 
 void BoxCollider::ComponentInitialize()
 {

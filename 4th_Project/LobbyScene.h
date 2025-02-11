@@ -4,19 +4,17 @@
 class LobbyScene : public Scene
 {
 public:
-	LobbyScene(std::string_view _Name);  
-
+	LobbyScene(std::string_view _Name) : Scene(_Name) {}
 
 	virtual void Enter() override;
 	virtual void Update(const float _deltaTime);
-	virtual void ResetInformation();
 	virtual void FixedUpdate(const float _deltaTime)override {};
 	virtual void RateUpdate(const float _deltaTime)override {};
 
 private:
 
 	
-	float startX;  //플레이어 이동거리 제한인가
+	float startX;
 	float startZ;
 	float endX;
 	float endZ;

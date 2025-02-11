@@ -5,6 +5,7 @@
 #include "Card.h"
 #include "Deck.h"
 #include "Hand.h"
+
 enum class DSkill
 {
 	none,
@@ -47,6 +48,7 @@ public:
 	bool slotBan();
 
 	void SetSkill();
+
 	DSkill GetState() { return previousSkill; }
 private:
 	std::function<bool()> pattern; //딜러 다음패턴 담아둘곳

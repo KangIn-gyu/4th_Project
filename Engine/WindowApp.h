@@ -7,7 +7,6 @@
 
 #include "Console.h"
 
-
 //목적 : 기반 클래스 이걸 상속해서 윈도우 생성
 struct WindowInfo;
 class WindowApp
@@ -40,5 +39,4 @@ private:
 
 	std::string windowClassName = "4th_Project";
 	std::string gameName;
-	
 };

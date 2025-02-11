@@ -82,6 +82,7 @@ Object* EventSystem::Check2D(int _mouseX, int _mouseY)
 void EventSystem::checkClickobj(int _mouseX, int _mouseY)
 {
 
+	//std::cout << " 클릭 감지됨" << std::endl;
 
 
 	//일단 상수 나중에 받아오기

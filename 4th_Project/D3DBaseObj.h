@@ -4,7 +4,7 @@
 class D3DBaseObj : public Object
 {
 public:
-	D3DBaseObj(std::string_view _name, ObjectType _type, std::string _filePath);
+	D3DBaseObj(std::string_view _name, ObjectType _type ,std::string _filePath) : filePath(_filePath), Object(_name, _type) {}
 	virtual ~D3DBaseObj() = default;
 
 	virtual void Initialize() override;                   // 용도 : 내가 필요한 컴포넌트 생성하는 곳 초기화나

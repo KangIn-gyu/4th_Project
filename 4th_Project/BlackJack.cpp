@@ -14,6 +14,7 @@ void BlackJack::Setstage(int num)
 	dealer->SetChip(num * 100);
 	RoundStart();
 }
+
 void BlackJack::RoundStart()
 {
 	dealer->Init();
