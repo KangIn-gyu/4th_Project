@@ -47,8 +47,11 @@ void D2DBitMapFontScript::Update(const float _deltaTime)
 	static float elapsedTime = 0.0f;  // 시간 누적 변수
 	const float interval = 0.1f;      // 글자 추가 간격 (초 단위)
 
-	if (index >= csvData.size()) return;  // 더 이상 출력할 데이터가 없으면 종료
-
+	if (index >= csvData.size())
+	{
+		return;
+		// 더 이상 출력할 데이터가 없으면 종료
+	}
 	if (displayedText.length() < csvData[index].second.length())
 	{
 		elapsedTime += _deltaTime;
@@ -73,11 +76,15 @@ void D2DBitMapFontScript::OnInputProcess(const DX::Keyboard::State& _KeyState, c
 {
 	if (ownerObject->IsActive() == true)
 	{
-		if (_MouseTracker.rightButton == DX::Mouse::ButtonStateTracker::PRESSED)
+		if (_MouseTracker.leftButton == DX::Mouse::ButtonStateTracker::PRESSED)
 		{
 			if (index == csvData.size())
 			{
-				ownerD2D->IsFadeIn = TRUE;
+				if (true == isClicked)
+				{
+					isClicked = false;
+					ownerD2D->IsFadeIn = TRUE;
+				}
 			}
 			else
 			{

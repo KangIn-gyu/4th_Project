@@ -6,7 +6,7 @@ class TransformComponent;
 class TitleScene : public Scene
 {
 public:
-	TitleScene(std::string_view _Name) : Scene(_Name) {}
+	TitleScene(std::string_view _Name);
 
 	virtual void Enter() override;
 	virtual void Update(const float _deltaTime);

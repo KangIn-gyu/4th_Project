@@ -7,12 +7,9 @@
 void FadeEffectScript::ComponentSetting()
 {
 	ownerD2D = ownerObject->GetComponent<D2DRenderComponent>();
-	std::vector<std::string>& bitmapFilePath = static_cast<D2DBaseObj*>(ownerObject)->bitmapFilePath; // 비트맵 처리
-	for (int i = 0; i < bitmapFilePath.size(); i++)
-	{
-		ownerD2D->Load2DImage(bitmapFilePath[i]);
-	}
+
 }
+
 void FadeEffectScript::SetFadeSpeed(float speed)
 {
 	fadeSpeed = speed;
@@ -20,6 +17,7 @@ void FadeEffectScript::SetFadeSpeed(float speed)
 // 어두워지기
 void FadeEffectScript::StartFadeIn(std::string _sceneName)
 {
+	std::cout << "알파값이 수정됨\n";
 	alpha = 0.0f; fadingIn = true; active = true;
 	sceneName = _sceneName;
 }
@@ -37,7 +35,8 @@ void FadeEffectScript::Update(const float _deltaTime)
 		ownerD2D->SetAlpha(alpha);
 		if (alpha >= 1.0f)
 		{
-			alpha = 1.0f;
+			std::cout << "페이드 인 들어옴\n";
+			alpha = 0.0f;
 			SCENEMANAGER->ChangeScene(sceneName);
 		}
 
@@ -50,7 +49,7 @@ void FadeEffectScript::Update(const float _deltaTime)
 		ownerD2D->SetAlpha(alpha);
 		if (alpha <= 0.0f)
 		{
-			alpha = 0.0f;  active = false;
+			alpha = 0.0f;
 		}
 	}
 }

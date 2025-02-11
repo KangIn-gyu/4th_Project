@@ -16,12 +16,17 @@
 #include "../Engine/SoundSystem.h"
 #include "ClickChangeSceneScript.h"
 
+TitleScene::TitleScene(std::string_view _Name) : Scene(_Name)
+{
+
+}
+
 void TitleScene::Enter()
 {
     { // 3D Obj
         auto* map = CreatorObject<D3DBaseObj>("TitleScene/FBX/Map_Lowpoly.fbx", Object::ObjectType::Background, "TitleScene/FBX/Map_Lowpoly.fbx");
-        Evelyn = CreatorObject<D3DAniObj>("TitleScene/FBX/Evelyn.fbx", Object::ObjectType::Basic, "TitleScene/FBX/Change Roughness.fbx");
-        Evelyn->GetComponent<TransformComponent>()->SetPosition({ 900, 8, 1270.5});
+        Evelyn = CreatorObject<D3DAniObj>("TitleScene/FBX/Evelyn.fbx", Object::ObjectType::Basic, "TitleScene/FBX/Evelyn.fbx");
+        Evelyn->GetComponent<TransformComponent>()->SetPosition({ 900, 8, 1270.5 });
         TargetPosition = { 900, 107, 1272 };
         mainCamera = GetGameObject(Object::ObjectType::Camera, "MainCamera");
         static_cast<CameraObject*>(mainCamera)->TitleFlag(true);
@@ -36,25 +41,25 @@ void TitleScene::Enter()
     }
 
     { // 2D Obj 타이틀 UI 만들기
-      auto* titleLogo = CreatorObject<D2DBaseObj>("titleLogo", Object::ObjectType::UI);
-      titleLogo->SetD2DLayerOrder(1);
-      D2DRenderComponent* LogoD2DRenderComponent = titleLogo->GetComponent<D2DRenderComponent>();
-      LogoD2DRenderComponent->Load2DImage("TitleScene/UI/1_Logo_Og.png");
-      LogoD2DRenderComponent->Set2DImagePos(200, 100);
+        auto* titleLogo = CreatorObject<D2DBaseObj>("titleLogo", Object::ObjectType::UI);
+        titleLogo->SetD2DLayerOrder(1);
+        D2DRenderComponent* LogoD2DRenderComponent = titleLogo->GetComponent<D2DRenderComponent>();
+        LogoD2DRenderComponent->Load2DImage("TitleScene/UI/1_Logo_Og.png");
+        LogoD2DRenderComponent->Set2DImagePos(200, 100);
 
-      std::vector<std::string> bitmapFilePath = {{"TitleScene/UI/0_Button_Click To Start_Toggle.png"}};
-  
-      auto* titleClick = CreatorObject<D2DBaseObj>("titleClick", Object::ObjectType::UI, bitmapFilePath);
-      D2DRenderComponent* titleClickD2DRenderComponent = titleClick->GetComponent<D2DRenderComponent>();
-      titleClickD2DRenderComponent->Load2DImage("TitleScene/UI/0_Button_Click To Start_Toggle.png");
-      titleClickD2DRenderComponent->Set2DImagePos(700, 900);
+        std::vector<std::string> bitmapFilePath = { {"TitleScene/UI/0_Button_Click To Start_Toggle.png"} };
 
-      auto* Backgraund = CreatorObject<D2DBaseObj>("titleBackgraund", Object::ObjectType::UI);
-      Backgraund->sceneName = "DialogIntroScene";
-      Backgraund->CreateScript<ClickChangeSceneScript>();
-      D2DRenderComponent* BackgraundD2DRenderComponent = Backgraund->GetComponent<D2DRenderComponent>();
-      BackgraundD2DRenderComponent->Load2DImage("TitleScene/UI/2_Backgraund_Fog.png");
-      BackgraundD2DRenderComponent->SetAlpha(0.3f);
+        auto* titleClick = CreatorObject<D2DBaseObj>("titleClick", Object::ObjectType::UI, bitmapFilePath);
+        D2DRenderComponent* titleClickD2DRenderComponent = titleClick->GetComponent<D2DRenderComponent>();
+        titleClickD2DRenderComponent->Load2DImage("TitleScene/UI/0_Button_Click To Start_Toggle.png");
+        titleClickD2DRenderComponent->Set2DImagePos(700, 900);
+
+        auto* Backgraund = CreatorObject<D2DBaseObj>("titleBackgraund", Object::ObjectType::UI);
+        Backgraund->sceneName = "DialogIntroScene";
+        Backgraund->CreateScript<ClickChangeSceneScript>();
+        D2DRenderComponent* BackgraundD2DRenderComponent = Backgraund->GetComponent<D2DRenderComponent>();
+        BackgraundD2DRenderComponent->Load2DImage("TitleScene/UI/2_Backgraund_Fog.png");
+        BackgraundD2DRenderComponent->SetAlpha(0.3f);
     }
 }
 
