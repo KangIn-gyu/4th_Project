@@ -9,7 +9,8 @@
 
 #include "UIButton.h"
 #include "../Engine/SoundSystem.h"
-void TutorialScene::Enter()
+
+TutorialScene::TutorialScene(std::string_view _Name) : Scene(_Name)
 {
     std::vector<std::string> bitmapFilePaths;
     std::string basePath = "TutorialScene/Textures/";
@@ -17,15 +18,23 @@ void TutorialScene::Enter()
     {
         bitmapFilePaths.push_back(basePath + std::to_string(i) + "_Tutorial.png");
     }
-	auto* tutorialBitmap = CreatorObject<D2DBaseObj>("TutorialScene", Object::ObjectType::UI, bitmapFilePaths);
+    tutorialBitmap = CreatorObject<D2DBaseObj>("TutorialScene", Object::ObjectType::UI, bitmapFilePaths);
     tutorialBitmap->CreateScript<ClickNextBimapScript>();
+    tutorialBitmap->SetActive(false);
+
     //SOUNDSYSTEM->StopMusic(eSoundChannel::BGM);
 
     //static_cast<FadeEffectScript*>(test->script)->StartFadeOut();
-    // ½Å¾Æ / ¼¼È¯ ¿À¸é ¹öÆ° ¹°¾îº¸±â
-    CreatorObject<UIButton>("Skip", Object::ObjectType::UI,
+    // ì‹ ì•„ / ì„¸í™˜ ì˜¤ë©´ ë²„íŠ¼ ë¬¼ì–´ë³´ê¸°
+    skipbutton = CreatorObject<UIButton>("Skip", Object::ObjectType::UI,
         "TutorialScene/UI/UI 43_Skip.png", DXMath::Vector2(1730, 50), DXMath::Vector2(150, 45),
         []() {SCENEMANAGER->ChangeScene("DialogScene2");});
+
+    skipbutton->SetActive(false);
+
+}
+void TutorialScene::Enter()
+{
 }
 
 void TutorialScene::Update(const float _deltaTime)
@@ -35,7 +44,8 @@ void TutorialScene::Update(const float _deltaTime)
 
 void TutorialScene::ResetInformation()
 {
-
+    skipbutton->SetActive(true);
+    tutorialBitmap->SetActive(true);
 }
 
 void TutorialScene::OnInputProcess(const DX::Keyboard::State& _KeyState, const DX::Keyboard::KeyboardStateTracker& _KeyTracker, const DX::Mouse::State& _MouseState, const DX::Mouse::ButtonStateTracker& _MouseTracker)

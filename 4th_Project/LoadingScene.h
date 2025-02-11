@@ -1,6 +1,7 @@
 #pragma once
 #include "../Engine/Scene.h"
 
+class D2DBaseObj;
 class LoadingScene : public Scene
 {
 public:
@@ -18,5 +19,6 @@ private:
 	std::string nextSceneName{};
 	float LoadingTime = 0;
 	float maxLoadingTime = 0;
+	D2DBaseObj* loadingImage;
 };
 

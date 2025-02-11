@@ -22,6 +22,7 @@ public:
 	WindowInfo* GetWindowInfo();
 
 	virtual void Enter() {}; // 씬 로드 하는 곳
+	virtual void SceneUpload() {};
 	void SetWindowSize(int _width, int _height);
 private:
 	void Initialize();

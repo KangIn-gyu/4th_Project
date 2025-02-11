@@ -1,7 +1,9 @@
 #pragma once
 #include "../Engine/Scene.h"
 
-class Object;
+class D3DBaseObj;
+class D3DAniObj;
+class D2DBaseObj;
 class TransformComponent;
 class TitleScene : public Scene
 {
@@ -19,7 +21,12 @@ public:
 
 private:
 	Object* mainCamera{};
-	Object* Evelyn;
+	D3DAniObj* Evelyn{};
+	D3DBaseObj* map{};
+	D2DBaseObj* titleLogo{};
+	D2DBaseObj* titleClick{};
+	D2DBaseObj* Backgraund{};
+
 	DXMath::Vector3 TargetPosition{};
 
 	float startX{};
