@@ -10,6 +10,7 @@
 #include "../Engine/CameraCompoent.h"
 #include "../Engine/ModelComponent.h"
 #include "../Engine/RenderComponent.h"
+#include "../Engine/TimeSystem.h"
 Player* Player::g_player = nullptr;
 
 Player::Player(std::string_view _name, Object::ObjectType _type) : Object(_name, _type)
@@ -133,7 +134,7 @@ void Player::SetSkill(PSkill _skill)
 
 bool Player::fastEye()
 {
-
+	fasteye = true;
 	
 	if (selectCard != nullptr)  //카드 선택 완료했으면
 	{
@@ -149,6 +150,7 @@ bool Player::fastEye()
 		if (true == selectCard->RevereseSec(3.0f))
 		{
 			selectCard = nullptr;
+			fasteye = false;
 			return true;
 		}
 	}
@@ -185,8 +187,59 @@ bool Player::meditation()
 
 bool Player::Insurance()
 {
-	
-	return true;
+	useRot = true;
+
+	if (false == isRotTrash)
+	{
+		//한개 버려라
+		for (auto card : hand.hand)
+		{
+			if(card != nullptr)
+				card->AddEffect(Object::Effect::OutLine);
+			//고르3버릴거 
+		}
+	}
+	else
+	{
+		for (auto card : hand.hand)
+		{
+			if (card != nullptr)
+				card->RemoveEffect(Object::Effect::OutLine);
+			//고르3버릴거 
+		}
+
+		if(selectCard == nullptr)
+		{
+			if (cardrot.isInit == false)
+			{
+				cardrot.Init(BLACKJACK->deck);
+				cardrot.isInit = true;
+			}
+
+			cardrot.Update(TIMESYSTEM.get()->GetFloatDeltaTime(), BLACKJACK->deck->cards);
+		}
+		else
+		{
+			for (auto card : cardrot.RotCards)
+			{
+				if (card != nullptr)
+				{
+					card->GetComponent<TransformComponent>()->SetPosition(BLACKJACK->deck->GetComponent<TransformComponent>()->GetPosition());
+					float eulerAngle = DirectX::XMConvertToRadians(180);
+					DXMath::Quaternion eulerToQuaternion = DXMath::Quaternion::CreateFromYawPitchRoll(0.f, eulerAngle, 0.f);
+					card->GetComponent<TransformComponent>()->SetQuaternion(eulerToQuaternion);
+				}
+			}
+			
+			hand.cardDraw(selectCard);
+			selectCard->MoveOpen();
+			hand.SkillDraw(BLACKJACK->deck, selectCard->GetName());
+			useRot = false;
+			return true;
+		}
+	}
+
+	return false;
 }
 
 

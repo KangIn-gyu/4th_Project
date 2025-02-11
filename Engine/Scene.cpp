@@ -10,6 +10,7 @@
 #include "TransformComponent.h"
 #include "ColliderManager.h"
 #include "DOTweenManager.h"
+
 Scene::Scene(std::string_view _Name)
 {
 	sceneName.assign(_Name);
@@ -99,6 +100,11 @@ Object* Scene::GetGameObject(Object::ObjectType _Type, std::string_view _name)
 Object* Scene::GetGameObject(Object::ObjectType _Type, int _index)
 {
 	return gameObecjts[static_cast<int>(_Type)]->GetGameObject(_index);
+}
+
+void Scene::AddGameObject(Object::ObjectType _Type, Object* _ptr)
+{
+	gameObecjts[static_cast<int>(_Type)]->AddGameObjcet(_ptr);
 }
 
 std::vector<Layer*> Scene::NextSceneUseObjcet()

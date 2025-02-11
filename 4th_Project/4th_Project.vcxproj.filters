@@ -142,11 +142,23 @@
       <Filter>Scene\4. LobbyScene</Filter>
     </ClInclude>
     <ClInclude Include="DialogScene1.h" />
+     <Filter>Scene\2. DialogScene</Filter>
+    </ClInclude>
     <ClInclude Include="DialogScene2.h" />
+  <Filter>Scene\2. DialogScene</Filter>
+    </ClInclude>
     <ClInclude Include="DialogScene3.h" />
+<Filter>Scene\2. DialogScene</Filter>
+    </ClInclude>
     <ClInclude Include="LobbyScene.h" />
+  <Filter>Scene\4. LobbyScene</Filter>
+    </ClInclude>
     <ClInclude Include="TitleScene.h" />
+ <Filter>Scene\1. TitleScene</Filter>
+    </ClInclude>
     <ClInclude Include="TutorialScene.h" />
+<Filter>Scene\3. TutorialScene</Filter>
+    </ClInclude>
     <ClInclude Include="TalkScene1.h">
       <Filter>Scene\5. TalkScene</Filter>
     </ClInclude>
@@ -167,6 +179,12 @@
     </ClInclude>
     <ClInclude Include="DialogScene2.h">
       <Filter>Scene\2. DialogScene</Filter>
+ </ClInclude>
+    <ClInclude Include="LoopImageChangeScript.h">
+      <Filter>Script</Filter>
+    </ClInclude>
+    <ClInclude Include="ClickChangeSceneScript.h">
+      <Filter>Script</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -266,6 +284,7 @@
     <ClCompile Include="SelectionScript.cpp">
       <Filter>Script</Filter>
     </ClCompile>
+
     <ClCompile Include="DialogIntro.cpp">
       <Filter>Scene\2. DialogScene</Filter>
     </ClCompile>
@@ -280,6 +299,13 @@
     </ClCompile>
     <ClCompile Include="TalkScene4.cpp">
       <Filter>Scene\5. TalkScene</Filter>
+  </ClCompile>
+    <ClCompile Include="LoopImageChangeScript.cpp">
+      <Filter>Script</Filter>
+    </ClCompile>
+    <ClCompile Include="ClickChangeSceneScript.cpp">
+      <Filter>Script</Filter>
+  </ClCompile>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

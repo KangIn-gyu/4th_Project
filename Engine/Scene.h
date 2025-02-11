@@ -29,9 +29,11 @@ public:
 	Object* GetGameObject(Object::ObjectType _Type, std::string_view _name);
 	Object* GetGameObject(Object::ObjectType _Type, int _index = 0);
 
+	void AddGameObject(Object::ObjectType _Type, Object* _ptr);
+
 	std::vector<Layer*> NextSceneUseObjcet();
 private:
-	void CreateLayers();
+	void CreateLayers(); 
 	void BasicObject(); // 기본 제공 오브젝트
 
 public:

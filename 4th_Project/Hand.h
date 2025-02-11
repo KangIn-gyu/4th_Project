@@ -1,5 +1,6 @@
 #pragma once
 #include "Card.h"
+#include "Deck.h"
 enum class HandState
 {
 	Base,   //제일 처음
@@ -21,6 +22,7 @@ public:
 	int numCard();
 	bool ShuffleHand();
 	void SetState(HandState _state) { curHand = _state; }
+	void SkillDraw(Deck* deck,std::string _name);
 private:
 	float elapsedTime = 0;
 	bool isSenter = false;

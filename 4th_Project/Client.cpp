@@ -20,7 +20,7 @@ Client::~Client()
 
 void Client::Enter()
 {
-	SCENEMANAGER->CreatorScene<TestScene>("TestScene"); // ³ªÁß¿¡ Áö¿ö¾ß µÊ
+	SCENEMANAGER->CreatorScene<TestScene>("TestScene"); // ë‚˜ì¤‘ì— ì§€ì›Œì•¼ ë¨
 
 	SCENEMANAGER->CreatorScene<TitleScene>("TitleScene");
 	SCENEMANAGER->CreatorScene<DialogIntro>("DialogIntroScene");
@@ -35,7 +35,7 @@ void Client::Enter()
 	SCENEMANAGER->CreatorScene<DialogScene3>("DialogScene3");
 	SCENEMANAGER->CreatorScene<DialogScene4>("DialogScene4");
 	SCENEMANAGER->CreatorScene<DialogScene5>("DialogScene5");
-	// TODO : ¿£µù Ãß°¡ ÇØ¾ßµÊ
+	// TODO : ì—”ë”© ì¶”ê°€ í•´ì•¼ë¨
 	SCENEMANAGER->CreatorScene<LoadingScene>("LoadingScene");
 
 	BLACKJACK->player = PLAYER;
@@ -44,11 +44,16 @@ void Client::Enter()
 	SOUNDSYSTEM->SetVolumeAll(0.5f);
 
 	LoadMusic();
-	SCENEMANAGER->ChangeScene("DialogIntroScene");
+
+	SCENEMANAGER->ChangeScene("TitleScene");
+
 }
 
-// »ç¿îµå ·ÎµåÇÏ´Â Â¬Åë
+// ì‚¬ìš´ë“œ ë¡œë“œí•˜ëŠ” ì§­í†µ
 void Client::LoadMusic()
 { 
-	SOUNDSYSTEM->LoadMusic(eSoundList::Main_Theme, true, "Resource\\STAGE1\\Sounds\\dancer.mp3");
+	{ // íƒ€ì´í‹€
+		SOUNDSYSTEM->LoadMusic(eSoundList::Main_Theme, true, "Resource\\TitleScene\\Sounds\\Title.wav");
+	}
+	
 }

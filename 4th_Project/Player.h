@@ -6,10 +6,10 @@
 #include "Card.h"
 #include "../Engine/IColliderNotify.h"
 #include "../Engine/DirectXInput.h"
-
+#include "CardRotation.h"
 #define PLAYER Player::GetInstance()
 
-
+class CardRotation;
 class TransformComponent;
 enum class PSkill
 {
@@ -80,6 +80,11 @@ public:
 
 	TransformComponent* cameraTransform = nullptr;
 	bool canSkill = true;
+	bool useRot = false; //회전문스킬 사용중
+	bool isRotTrash = false; //회전문중 버렸다
+	bool fasteye = false;
+	CardRotation cardrot;
+
 };
 
 
