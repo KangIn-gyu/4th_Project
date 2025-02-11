@@ -11,6 +11,7 @@ public:
 	virtual void FixedUpdate(const float _deltaTime)override {};
 	virtual void RateUpdate(const float _deltaTime)override {};
 	virtual void ResetInformation();
+	void NextScene(std::string_view _Name) { nextSceneName = _Name; }
 private:
 
 public:

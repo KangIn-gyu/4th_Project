@@ -21,6 +21,7 @@
 #include "SelectionDialogScript.h"
 #include "../Engine/D2DRenderComponent.h"
 #include "DialogButton.h"
+#include "LoadingScene.h"
 #include "../Engine/Engine.h"
 #include "SelectionImageScript.h"
 #include "SelectionScript.h"
@@ -262,5 +263,8 @@ void GambleScene::ResetInformation()
 	GetGameObject(Object::ObjectType::Basic, "Deck")->GetComponent<TransformComponent>()->SetPosition({ -60, 105, -500 });
 	//GambleScene::Enter();
 	//dealer->GetComponent<ModelComponent>()->SetAnimation(1);
+
+
+	static_cast<LoadingScene*>(SCENEMANAGER->GetScene("LoadingScene"))->NextScene("TitleScene");
 }
 

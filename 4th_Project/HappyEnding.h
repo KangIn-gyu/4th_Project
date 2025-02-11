@@ -1,14 +1,13 @@
 #pragma once
 #include "../Engine/Scene.h"
-
 class UIButton;
 class D2DBaseObj;
-class TalkScene4 : public Scene
+class HappyEnding : public Scene
 {
 public:
-	TalkScene4(std::string_view _Name);
+	HappyEnding(std::string_view _Name);
 
-	virtual void Enter() {}
+	virtual void Enter() override;
 	virtual void Update(const float _deltaTime);
 	virtual void FixedUpdate(const float _deltaTime)override {};
 	virtual void RateUpdate(const float _deltaTime)override {};
@@ -22,4 +21,5 @@ public:
 private:
 
 };
+
 
