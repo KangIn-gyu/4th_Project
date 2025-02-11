@@ -23,7 +23,7 @@ void LobbyScene::Enter()
 {
 	
 	BLACKJACK->player = CreatorObject<Player>("Player", Object::ObjectType::Basic);
-	CreatorObject<D3DBaseObj>("Map", Object::ObjectType::Background, "TitleScene/FBX/Map_Lowpoly.fbx");
+	CreatorObject<D3DBaseObj>("Map", Object::ObjectType::Background, "Common/FBX/Map_test_Lowpoly.fbx");
 	auto Evelyn2 = CreatorObject<Dealer>("Dealer", Object::ObjectType::Basic);
 	Evelyn2->GetComponent<TransformComponent>()->SetPosition({ 900, 8, 1270.5 });
 	CreatorObject<ToopTip2D>("Handfaster_ToolTip", Object::ObjectType::UI, DXMath::Vector2(1400, 500))->SetActive(false);
