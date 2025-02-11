@@ -9,10 +9,10 @@
 #include "../Engine/Helper.h"
 
 std::vector<DXMath::Vector3> playerSlots = {
-	{-40, 65,0}, {-25, 65,0}, {-10, 65,0}, {5, 65,0},
-	{20, 65,0}, {35, 65,0}, {50, 65,0}
+	{-40, 105,-500}, {-25, 105,-500}, {-10, 105,-500}, {5, 105, -500},
+	{20, 105,-500}, {35, 105,-500}, {50, 105,-500}
 }; //이건 어쩌지
-DXMath::Vector3 dealerSlots = {-20,65.0f,20.0f};
+DXMath::Vector3 dealerSlots = {-20,105.f,-480.0f};
 void Hand::Init(int num)
 {
 	maxHand = num;

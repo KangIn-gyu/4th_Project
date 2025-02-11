@@ -28,7 +28,7 @@ TitleScene::TitleScene(std::string_view _Name) : Scene(_Name)
         TargetPosition = { 900, 107, 1272 };
         mainCamera = GetGameObject(Object::ObjectType::Camera, "MainCamera");
         static_cast<CameraObject*>(mainCamera)->TitleFlag(true);
-        // 트랜스폼 
+        // Ʈ������ 
         cameraTransformComponent = mainCamera->GetComponent<TransformComponent>();
         cameraTransformComponent->SetPosition({ 902.0f, 140.0f, 1154 });
 
@@ -38,7 +38,7 @@ TitleScene::TitleScene(std::string_view _Name) : Scene(_Name)
         startX = cameraTransformComponent->GetPosition().x;
     }
 
-    { // 2D Obj 타이틀 UI 만들기
+    { // 2D Obj Ÿ��Ʋ UI �����
         titleLogo = CreatorObject<D2DBaseObj>("titleLogo", Object::ObjectType::UI);
         titleLogo->SetD2DLayerOrder(1);
         D2DRenderComponent* LogoD2DRenderComponent = titleLogo->GetComponent<D2DRenderComponent>();
@@ -73,7 +73,7 @@ void TitleScene::Update(const float _deltaTime)
 {
     Scene::Update(_deltaTime);
 
-    // cameraMoveTween이 null이 아니면 계속 업데이트
+    // cameraMoveTween�� null�� �ƴϸ� ��� ������Ʈ
      if (movement)
      { 
         movement = false;
@@ -92,7 +92,7 @@ void TitleScene::ResetInformation()
     auto* cameraComponent = mainCamera->GetComponent<CameraCompoent>();
     cameraComponent->LookAt(TargetPosition);
 
-    movement = true; // DOTween 처리
+    movement = true; // DOTween ó��
 
     static_cast<CameraObject*>(mainCamera)->MovingFlag(false);
 

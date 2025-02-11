@@ -31,7 +31,9 @@ class BlackJack : public SingletonBase<BlackJack>
 public:
 	void SetDialog(D2DBaseObj* dialog) { dialogs.push_back(dialog); }
 
-	void Setstage(int num);   //스테이지 숫자로 스테이지 설정?
+	void SetResultImage(D2DBaseObj* image) {}
+
+	void Setstage(int num =1);   //스테이지 숫자로 스테이지 설정?
 	
 	void Update(float _deltaTime);
 	
@@ -53,13 +55,9 @@ public:
 	void RoundStart(); //라운드 시작시  덱초기화, 플레이어6장주기  
 	void CheckTurnEnd();  //플레이어가 행동했는지 확인
 	void Bet();
-	int Getmagnification() 
-	{ 
-		if (onDoubbleDown)
-			return magnification * 2;
-		else
-			return magnification;
-	}
+	void CalculateChips();
+
+
 	Deck* deck;
 	Deck* trashDeck;
 	Player* player;
@@ -67,18 +65,23 @@ public:
 	bool onDoubbleDown = false;
 	bool endBet = false;
 	bool canClick = false;
-	int magnification = 1;
+	float magnification;
 	bool firstTurn = true; //첫턴은 달라서
 	Turn curTurn = Turn::player;
+
+	int betMoney = 0;
+
+	int sum = 0;
+
+	bool isRoundOver = true; //한 라운드가 끝날떄
 private:
 	float elapsedTime =0;
 
 	PlayerState state = PlayerState::OPEN;
 	PlayerState nextState;
-	
-	bool isRoundOver = true; //한 라운드가 끝날떄
+
 	//bool canChange = true;
-	int* betMoney;
+
 	 //배율   최종 = 베팅액 * 배율
 	std::vector<D2DBaseObj*> dialogs;
 

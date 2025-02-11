@@ -84,9 +84,10 @@ public:
 	void SetOutlineColor(const DXMath::Vector4& color) { outlineColor = color; }
 	const DXMath::Vector4& GetOutlineColor() const { return outlineColor; }
 
-protected:
 	template<ComponentType T, typename ... Arg> // 함수 오버로드함
 	T* CreateComponent(Arg&&... _arguments);
+protected:
+
 
 private:
 	void ClearComponents();

@@ -35,7 +35,7 @@ void D2DRenderComponent::Load2DImage(std::string_view _filePath)
 	Bitmap* newBitmap = new Bitmap;
 	newBitmap->Load(_filePath);
 	if (imageDatas.size() == 0)
-	{ // 사이즈가 0일때는 자동으로 그릴 비트맵 설정하게 처리한거임
+	{ // ?�이즈�? 0?�때???�동?�로 그릴 비트�??�정?�게 처리?�거??
 		drawBitmap = newBitmap;
 	}
 	imageDatas.push_back(newBitmap);
@@ -92,7 +92,7 @@ Bitmap* D2DRenderComponent::GetBitmap(int _index)
 }
 
 void D2DRenderComponent::LoadFont(const std::string& _filePath)
-{	// TODO : 다시 만들어야 됨
+{	// TODO : ?�시 만들?�야 ??
 	font = FONTMANAGER->LoadFont(_filePath);
 }
 
@@ -151,11 +151,11 @@ void D2DRenderComponent::BitDraw()
 			if (drawBitmap->isDiamond)
 			{
 				D2D1_POINT_2F points[5] = {
-				{ (rect.left + rect.right) / 2, rect.top },   // 상단 꼭짓점
-				{ rect.right, (rect.top + rect.bottom) / 2 }, // 오른쪽 꼭짓점
-				{ (rect.left + rect.right) / 2, rect.bottom }, // 하단 꼭짓점
-				{ rect.left, (rect.top + rect.bottom) / 2 },  // 왼쪽 꼭짓점
-				{ (rect.left + rect.right) / 2, rect.top }    // 다시 상단 (닫기)
+				{ (rect.left + rect.right) / 2, rect.top },   // ?�단 �?��??
+				{ rect.right, (rect.top + rect.bottom) / 2 }, // ?�른�?�?��??
+				{ (rect.left + rect.right) / 2, rect.bottom }, // ?�단 �?��??
+				{ rect.left, (rect.top + rect.bottom) / 2 },  // ?�쪽 �?��??
+				{ (rect.left + rect.right) / 2, rect.top }    // ?�시 ?�단 (?�기)
 				};
 				for (int i = 0; i < 4; ++i)
 				{

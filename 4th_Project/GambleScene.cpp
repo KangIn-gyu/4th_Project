@@ -24,6 +24,8 @@
 #include "../Engine/Engine.h"
 #include "SelectionImageScript.h"
 #include "SelectionScript.h"
+#include "../Engine/CameraCompoent.h"
+
 #include "../Engine/ModelComponent.h"
 GambleScene::GambleScene(std::string_view _Name) : Scene(_Name)
 {
@@ -48,13 +50,16 @@ void GambleScene::Enter()
 {
 	// TODO: 다이얼로그로 넘어갈떄 지금이 첫번쨰 겜블인지 두번쨰인지 알아야함. 정보저장이던 넘기기던 플래그를 세워야함.
 	// TODO: 그리고 플레이어의 행동력 0 체크로 선택지 버튼을 출력함.
+
 	BLACKJACK->player = CreatorObject<Player>("Player", Object::ObjectType::Basic);
 	//GetGameObject(Object::ObjectType::Camera)->GetComponent<TransformComponent>()->SetPosition({ -30.0f, 130.0f, -83.0f });
 	//GetGameObject(Object::ObjectType::Camera)->GetComponent<TransformComponent>()->SetQuaternion(DXMath::Quaternion::Quaternion(0.3f, 0.171f, -0.059f, 0.93f));
 
-	BLACKJACK->dealer = CreatorObject<Dealer>("Dealer", Object::ObjectType::Basic);
-	BLACKJACK->dealer->GetComponent<TransformComponent>()->SetPosition({ 00, -13.0f, 150.0f });
+	BLACKJACK->dealer->GetComponent<TransformComponent>()->SetPosition({ 00, -13.0f, -400.0f });
+
 	BLACKJACK->deck = CreatorObject<Deck>("Deck", Object::ObjectType::Basic);
+	BLACKJACK->deck->GetComponent<TransformComponent>()->SetPosition({ -60, 105, -500 });
+	BLACKJACK->trashDeck = CreatorObject<Deck>("trashDeck", Object::ObjectType::Basic, false);
 
 	BLACKJACK->deck->GetComponent<TransformComponent>()->SetPosition({ -60, 65, 0 });
 	BLACKJACK->trashDeck = CreatorObject<Deck>("trashDeck", Object::ObjectType::Basic, false);
@@ -66,7 +71,12 @@ void GambleScene::Enter()
 	auto deck = GetGameObject(Object::ObjectType::Basic, "Deck");
 
 	Object* camera = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::Camera, 0);
+	camera->GetComponent<CameraCompoent>()->MovingFlag(false);
 	TransformComponent* cameratrans = camera->GetComponent<TransformComponent>();
+	cameratrans->SetPosition({ 0,140, -580 });
+	float angle = DirectX::XMConvertToRadians(10.0f);
+	DXMath::Quaternion quat = DXMath::Quaternion::CreateFromYawPitchRoll(0.0f, angle, 0.0f);
+	cameratrans->SetQuaternion(quat);
 	cameratrans->SetPosition({ 0,160, -100 });
 	cameratrans->SetQuaternion({ 0,0,0,1 });
 
@@ -137,6 +147,7 @@ void GambleScene::Enter()
 	auto dialogbutton8 = CreatorObject<DialogButton>("Pattern4_2", Object::ObjectType::UI, DXMath::Vector2(1200, 450),
 		[skilldialog4_2]() { skilldialog4_2->SetActive(true);  BLACKJACK->dealer->Act(); BLACKJACK->curTurn = Turn::player; });
 
+	auto q1 = CreatorObject<D2DBaseObj>("Question1", Object::ObjectType::UI);
 	q1 = CreatorObject<D2DBaseObj>("Question1", Object::ObjectType::UI);
 	q1->GetComponent<D2DRenderComponent>()->Load2DImage("UI/Question/Question1.png");
 	q1->GetComponent<D2DRenderComponent>()->Set2DImagePos(0, 580);
@@ -159,6 +170,7 @@ void GambleScene::Enter()
 	q4->GetComponent<D2DRenderComponent>()->Load2DImage("UI/Question/Question4.png");
 	q4->CreateScript<SelectionImageScript>()->SetButton(dialogbutton7, dialogbutton8);
 	q4->GetComponent<D2DRenderComponent>()->Set2DImagePos(0, 580);
+
 	q4->SetActive(false);
 
 	BLACKJACK->SetDialog(q1);
@@ -173,13 +185,34 @@ void GambleScene::Update(const float _deltaTime)
 {
 	//MYGAMEMANAGER->Update(_deltaTime);
 	__super::Update(_deltaTime);
-	
+
 	BLACKJACK->Update(_deltaTime * 2.0);
 }
 
 void GambleScene::ResetInformation()
 {
 	Scene::ResetInformation();
+	GetGameObject(Object::ObjectType::UI, "Meditation")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "Insurance")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "DealerWin")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "PlayerWin")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "Handfaster_ToolTip")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "Guts_ToolTip")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "Meditation_ToolTip")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "Insurance_ToolTip")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "Skill1_1_Dialog")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "Skill1_2_Dialog")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "Skill2_1_Dialog")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "Skill2_2_Dialog")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "Skill3_1_Dialog")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "Skill3_2Dialog")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "Skill4_1_Dialog")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "Skill4_2_Dialog")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "BetResult")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "BetMag")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "Result")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "ButtonTen")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "ButtonOne")->SetActive(false);
 	//GambleScene::Enter();
 //	dealer->GetComponent<ModelComponent>()->SetAnimation(1);
 }

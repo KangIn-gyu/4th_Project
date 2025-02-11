@@ -249,6 +249,7 @@ void Dealer::SetSkill()
 		turnCount = 3;
 		pattern = [this]() { return slotBan(); };
 	}
+
 }
 
 
