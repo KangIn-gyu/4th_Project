@@ -16,23 +16,26 @@
     <Filter Include="Scene">
       <UniqueIdentifier>{2b35123f-8814-4a6c-b931-6ebd42129bda}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene\DialogScene">
-      <UniqueIdentifier>{29bc1a80-bf40-4d6b-b8db-f384d0914438}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scene\GambleScene">
-      <UniqueIdentifier>{213508e3-d542-4a54-a146-e0ab94678ffd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scene\LobbyScene">
-      <UniqueIdentifier>{53eb4966-39eb-4cb9-ba4d-d07c270f0086}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scene\TitleScene">
+    <Filter Include="Scene\1. TitleScene">
       <UniqueIdentifier>{d27566d4-d245-45fe-b36b-e1f1e7edf4ac}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene\TutorialScene">
+    <Filter Include="Scene\0. LoadingScene">
+      <UniqueIdentifier>{4967bd6a-1c04-46d9-b66a-c5423a6fae7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\2. DialogScene">
+      <UniqueIdentifier>{29bc1a80-bf40-4d6b-b8db-f384d0914438}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\3. TutorialScene">
       <UniqueIdentifier>{0623843f-2113-4c1d-8a92-a4dc8c2c1ddc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene\LoadingScene">
-      <UniqueIdentifier>{4967bd6a-1c04-46d9-b66a-c5423a6fae7b}</UniqueIdentifier>
+    <Filter Include="Scene\4. LobbyScene">
+      <UniqueIdentifier>{53eb4966-39eb-4cb9-ba4d-d07c270f0086}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\5. TalkScene">
+      <UniqueIdentifier>{61aa98e5-cf83-49fc-9c24-840fdd063d94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\666. GambleScene">
+      <UniqueIdentifier>{213508e3-d542-4a54-a146-e0ab94678ffd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -63,27 +66,6 @@
     </ClInclude>
     <ClInclude Include="Client.h">
       <Filter>Client</Filter>
-    </ClInclude>
-    <ClInclude Include="TestScene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="TutorialScene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="LobbyScene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="TitleScene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="DialogScene1.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="DialogScene2.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="DialogScene3.h">
-      <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="SceneHeaders.h">
       <Filter>Scene</Filter>
@@ -118,43 +100,22 @@
       <Filter>Script</Filter>
     </ClInclude>
     <ClInclude Include="DialogScene0.h">
-      <Filter>Scene\DialogScene</Filter>
-    </ClInclude>
-    <ClInclude Include="DialogScene1.h">
-      <Filter>Scene\DialogScene</Filter>
-    </ClInclude>
-    <ClInclude Include="DialogScene2.h">
-      <Filter>Scene\DialogScene</Filter>
-    </ClInclude>
-    <ClInclude Include="DialogScene3.h">
-      <Filter>Scene\DialogScene</Filter>
+      <Filter>Scene\2. DialogScene</Filter>
     </ClInclude>
     <ClInclude Include="DialogScene4.h">
-      <Filter>Scene\DialogScene</Filter>
+      <Filter>Scene\2. DialogScene</Filter>
     </ClInclude>
     <ClInclude Include="DialogScene5.h">
-      <Filter>Scene\DialogScene</Filter>
+      <Filter>Scene\2. DialogScene</Filter>
     </ClInclude>
     <ClInclude Include="GambleScene.h">
-      <Filter>Scene\GambleScene</Filter>
-    </ClInclude>
-    <ClInclude Include="LobbyScene.h">
-      <Filter>Scene\LobbyScene</Filter>
-    </ClInclude>
-    <ClInclude Include="TitleScene.h">
-      <Filter>Scene\TitleScene</Filter>
-    </ClInclude>
-    <ClInclude Include="TutorialScene.h">
-      <Filter>Scene\TutorialScene</Filter>
+      <Filter>Scene\666. GambleScene</Filter>
     </ClInclude>
     <ClInclude Include="LoadingScene.h">
-      <Filter>Scene\LoadingScene</Filter>
+      <Filter>Scene\0. LoadingScene</Filter>
     </ClInclude>
     <ClInclude Include="JustFont.h">
       <Filter>Script</Filter>
-    </ClInclude>
-    <ClInclude Include="DialogIntro.h">
-      <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="DialogButton.h">
       <Filter>UI</Filter>
@@ -164,6 +125,39 @@
     </ClInclude>
     <ClInclude Include="SelectionScript.h">
       <Filter>Script</Filter>
+    </ClInclude>
+    <ClInclude Include="TutorialScene.h">
+      <Filter>Scene\3. TutorialScene</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScene.h">
+      <Filter>Scene\1. TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogIntro.h">
+      <Filter>Scene\2. DialogScene</Filter>
+    </ClInclude>
+    <ClInclude Include="LobbyScene.h">
+      <Filter>Scene\4. LobbyScene</Filter>
+    </ClInclude>
+    <ClInclude Include="TalkScene1.h">
+      <Filter>Scene\5. TalkScene</Filter>
+    </ClInclude>
+    <ClInclude Include="TalkScene2.h">
+      <Filter>Scene\5. TalkScene</Filter>
+    </ClInclude>
+    <ClInclude Include="TalkScene3.h">
+      <Filter>Scene\5. TalkScene</Filter>
+    </ClInclude>
+    <ClInclude Include="TalkScene4.h">
+      <Filter>Scene\5. TalkScene</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogScene3.h">
+      <Filter>Scene\2. DialogScene</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogScene1.h">
+      <Filter>Scene\2. DialogScene</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogScene2.h">
+      <Filter>Scene\2. DialogScene</Filter>
     </ClInclude>
     <ClInclude Include="LoopImageChangeScript.h">
       <Filter>Script</Filter>
@@ -225,43 +219,40 @@
       <Filter>Script</Filter>
     </ClCompile>
     <ClCompile Include="DialogScene0.cpp">
-      <Filter>Scene\DialogScene</Filter>
+      <Filter>Scene\2. DialogScene</Filter>
     </ClCompile>
     <ClCompile Include="DialogScene1.cpp">
-      <Filter>Scene\DialogScene</Filter>
+      <Filter>Scene\2. DialogScene</Filter>
     </ClCompile>
     <ClCompile Include="DialogScene2.cpp">
-      <Filter>Scene\DialogScene</Filter>
+      <Filter>Scene\2. DialogScene</Filter>
     </ClCompile>
     <ClCompile Include="DialogScene3.cpp">
-      <Filter>Scene\DialogScene</Filter>
+      <Filter>Scene\2. DialogScene</Filter>
     </ClCompile>
     <ClCompile Include="DialogScene4.cpp">
-      <Filter>Scene\DialogScene</Filter>
+      <Filter>Scene\2. DialogScene</Filter>
     </ClCompile>
     <ClCompile Include="DialogScene5.cpp">
-      <Filter>Scene\DialogScene</Filter>
+      <Filter>Scene\2. DialogScene</Filter>
     </ClCompile>
     <ClCompile Include="GambleScene.cpp">
-      <Filter>Scene\GambleScene</Filter>
+      <Filter>Scene\666. GambleScene</Filter>
     </ClCompile>
     <ClCompile Include="LobbyScene.cpp">
-      <Filter>Scene\LobbyScene</Filter>
+      <Filter>Scene\4. LobbyScene</Filter>
     </ClCompile>
     <ClCompile Include="TitleScene.cpp">
-      <Filter>Scene\TitleScene</Filter>
+      <Filter>Scene\1. TitleScene</Filter>
     </ClCompile>
     <ClCompile Include="TutorialScene.cpp">
-      <Filter>Scene\TutorialScene</Filter>
+      <Filter>Scene\3. TutorialScene</Filter>
     </ClCompile>
     <ClCompile Include="LoadingScene.cpp">
-      <Filter>Scene\LoadingScene</Filter>
+      <Filter>Scene\0. LoadingScene</Filter>
     </ClCompile>
     <ClCompile Include="JustFont.cpp">
       <Filter>Script</Filter>
-    </ClCompile>
-    <ClCompile Include="DialogIntro.cpp">
-      <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="DialogButton.cpp">
       <Filter>UI</Filter>
@@ -271,6 +262,21 @@
     </ClCompile>
     <ClCompile Include="SelectionScript.cpp">
       <Filter>Script</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogIntro.cpp">
+      <Filter>Scene\2. DialogScene</Filter>
+    </ClCompile>
+    <ClCompile Include="TalkScene1.cpp">
+      <Filter>Scene\5. TalkScene</Filter>
+    </ClCompile>
+    <ClCompile Include="TalkScene2.cpp">
+      <Filter>Scene\5. TalkScene</Filter>
+    </ClCompile>
+    <ClCompile Include="TalkScene3.cpp">
+      <Filter>Scene\5. TalkScene</Filter>
+    </ClCompile>
+    <ClCompile Include="TalkScene4.cpp">
+      <Filter>Scene\5. TalkScene</Filter>
     </ClCompile>
     <ClCompile Include="LoopImageChangeScript.cpp">
       <Filter>Script</Filter>
@@ -343,9 +349,6 @@
     </ClCompile>
     <ClCompile Include="4th_Project.cpp">
       <Filter>Main</Filter>
-    </ClCompile>
-    <ClCompile Include="TestScene.cpp">
-      <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="TestObj.cpp">
       <Filter>Obj\TestObj</Filter>

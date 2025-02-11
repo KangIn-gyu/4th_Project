@@ -81,5 +81,8 @@ private:
 	int* betMoney;
 	 //배율   최종 = 베팅액 * 배율
 	std::vector<D2DBaseObj*> dialogs;
+
+	bool firstAni = true;
+	bool secondAni = true;
 };
 

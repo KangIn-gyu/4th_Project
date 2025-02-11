@@ -5,6 +5,7 @@
 #include "Card.h"
 #include "D2DBaseObj.h"
 
+#include "../Engine/ModelComponent.h"
 BlackJack::BlackJack()
 {
 }
@@ -119,8 +120,26 @@ void BlackJack::Update(float _deltaTime)
 		else //첫턴에만 실행할거
 		{
 			elapsedTime += _deltaTime;
+			
 			if ( player->drawFirst == false && elapsedTime >= 1.0)
 			{
+				if (true == firstAni)
+				{
+					firstAni = false;
+					dealer->GetComponent<ModelComponent>()->SetAnimation(8); //  TODO : 여기는 애니메이션 보류
+				}
+			
+				if (secondAni == true  && true == dealer->GetComponent<ModelComponent>()->IsAnimationFinished())
+				{
+					dealer->GetComponent<ModelComponent>()->SetAnimation(5);
+					secondAni = false;
+				}
+			
+				if (true == dealer->GetComponent<ModelComponent>()->IsAnimationFinished() && secondAni == false)
+				{ // TODO : 애니메이션 시간 
+					dealer->GetComponent<ModelComponent>()->SetAnimation(4);
+				}
+
 				player->FirstDraw(deck); //1초에한장 딜레이주기 카드위치선정 ******
 				elapsedTime = 0;
 			}

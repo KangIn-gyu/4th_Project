@@ -18,6 +18,7 @@ public:
 	//È®ÀÎ¿ë
 	void showDeck();
 	std::vector<Card*> cards;
+	bool _real;
 private:
 
 	

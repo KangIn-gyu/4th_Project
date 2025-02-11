@@ -24,6 +24,8 @@ public:
 	bool isCurrecntScene();
 	Scene* GetCurrentScene() const { return currentScene; }
 
+	Scene* GetScene(std::string_view _SceneName);
+
 	std::vector<std::string> GetSceneNameList();
 private:
 	virtual ~SceneManager();

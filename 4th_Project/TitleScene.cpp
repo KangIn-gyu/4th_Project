@@ -20,9 +20,11 @@ TitleScene::TitleScene(std::string_view _Name) : Scene(_Name)
 {
     { // 3D Obj
         map = CreatorObject<D3DBaseObj>("Common/FBX/Map_Lowpoly.fbx", Object::ObjectType::Background, "Common/FBX/Map_test_Lowpoly.fbx");
+        map->SetActive(false);
 
         Evelyn = CreatorObject<D3DAniObj>("Common/FBX/Evelyn.fbx", Object::ObjectType::Basic, "Common/FBX/Evelyn.fbx");
         Evelyn->GetComponent<TransformComponent>()->SetPosition({ 900, 8, 1270.5 });
+ 
         TargetPosition = { 900, 107, 1272 };
         mainCamera = GetGameObject(Object::ObjectType::Camera, "MainCamera");
         static_cast<CameraObject*>(mainCamera)->TitleFlag(true);
@@ -83,6 +85,12 @@ void TitleScene::ResetInformation()
 {
     Scene::ResetInformation();
     Evelyn->GetComponent<ModelComponent>()->SetAnimation(7);
+
+    cameraTransformComponent = mainCamera->GetComponent<TransformComponent>();
+    cameraTransformComponent->SetPosition({ 902.0f, 140.0f, 1154 });
+    cameraTransformComponent->SetQuaternion({ 0.0f, 0.0f, 0.0f, 1.0f });
+    auto* cameraComponent = mainCamera->GetComponent<CameraCompoent>();
+    cameraComponent->LookAt(TargetPosition);
 
     movement = true; // DOTween Ã³¸®
 

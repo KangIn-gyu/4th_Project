@@ -2,6 +2,7 @@
 #include "../Engine/Scene.h"
 
 class D2DBaseObj;
+class Dealer;
 class GambleScene : public Scene
 {
 public:
@@ -21,4 +22,6 @@ private:
 	D2DBaseObj* q2{};
 	D2DBaseObj* q3{};
 	D2DBaseObj* q4{};
+
+	Dealer* dealer{};
 };

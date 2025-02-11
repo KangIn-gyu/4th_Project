@@ -20,7 +20,19 @@ Deck::Deck(std::string_view _name, Object::ObjectType _type,bool real) : Object(
 		for (Suit suit : { Suit::Spade, Suit::Diamond, Suit::Heart, Suit::Clover }) {
 			// 모든 값 순회
 			for (std::string rank : { "Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King" }) {
-				auto newcard = SCENEMANAGER->GetCurrentScene()->CreatorObject<Card>((enumToString(suit) + "_" + rank), Object::ObjectType::Basic, suit, rank);
+				//auto newcard = SCENEMANAGER->GetCurrentScene()->CreatorObject<Card>((enumToString(suit) + "_" + rank), Object::ObjectType::Basic, suit, rank);
+				auto scene = SCENEMANAGER->GetScene("GambleScene");
+				auto scene2 = SCENEMANAGER->GetCurrentScene();
+				
+				if (scene == nullptr)
+				{
+					int a = 4;
+				}
+				else
+				{
+					int a = 5;
+				}
+				auto newcard = SCENEMANAGER->GetScene("GambleScene")->CreatorObject<Card>((enumToString(suit) + "_" + rank), Object::ObjectType::Basic, suit, rank);
 				//auto newcard = SCENEMANAGER->GetCurrentScene()->ObjectCreator<Card>((enumToString(suit) + rank), Object::ObjectType::Basic, suit, "A");
 				newcard->GetComponent<TransformComponent>()->SetPosition(GetComponent<TransformComponent>()->GetPosition());
 				cards.push_back(newcard);

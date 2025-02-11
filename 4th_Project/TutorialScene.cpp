@@ -27,7 +27,7 @@ TutorialScene::TutorialScene(std::string_view _Name) : Scene(_Name)
     //static_cast<FadeEffectScript*>(test->script)->StartFadeOut();
     // 신아 / 세환 오면 버튼 물어보기
     skipbutton = CreatorObject<UIButton>("Skip", Object::ObjectType::UI,
-        "TutorialScene/UI/UI 43_Skip.png", DXMath::Vector2(50, 50),
+        "TutorialScene/UI/UI 43_Skip.png", DXMath::Vector2(1730, 50), DXMath::Vector2(150, 45),
         []() {SCENEMANAGER->ChangeScene("DialogScene2");});
 
     skipbutton->SetActive(false);
