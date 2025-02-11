@@ -99,7 +99,7 @@ void TitleScene::ResetInformation()
     RENDERER->lightTarget = { 900 , 100 , 1272 };
     RENDERER->lightPos = { 0, 100,0 };
     RENDERER->lightDir = { 0, -1.0f , 0 };
-
+    RENDERER->upColor = true;
     SOUNDSYSTEM->PlayMusic(eSoundList::Main_Theme, eSoundChannel::BGM);
 
     map->SetActive(true);

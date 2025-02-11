@@ -41,7 +41,7 @@ cbuffer ShadowBuffer : register(b4)
 
 cbuffer ProductBuffer : register(b5)
 {
-    float totalTime;
+    int UpColor;
 }
 
 struct SpotLightData
