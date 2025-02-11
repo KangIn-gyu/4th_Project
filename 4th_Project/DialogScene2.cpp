@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "DialogScene2.h"
 #include "D2DBaseObj.h"
-#include "D2DBitMapFontScript.h" // ½ºÅ©¸³Æ®
+#include "D2DBitMapFontScript.h" // ìŠ¤í¬ë¦½íŠ¸
 #include "UIButton.h"
 #include "../Engine/SceneManager.h"
 DialogScene2::DialogScene2(std::string_view _Name) : Scene(_Name)
@@ -10,8 +10,8 @@ DialogScene2::DialogScene2(std::string_view _Name) : Scene(_Name)
         22, 40, "Font/GyeonggiMillenniumBackground_Regular.ttf", "DialogScenes/CSV/Scene2.csv", "LobbyScene");
 
     dialog->CreateScript<D2DBitMapFontScript>();
-    CreatorObject<UIButton>("Skip", Object::ObjectType::UI,
-        "TutorialScene/UI/UI 43_Skip.png", DXMath::Vector2(50, 50),
+    CreatorObject<UIButton>("Skip", Object::ObjectType::UI, 
+        "TutorialScene/UI/UI 43_Skip.png", DXMath::Vector2(1730, 50), DXMath::Vector2(150, 45),
         []() {SCENEMANAGER->ChangeScene("LobbyScene");});
     dialog->SetActive(false);
 }

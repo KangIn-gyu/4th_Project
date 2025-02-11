@@ -13,7 +13,7 @@ public:
 	virtual void RateUpdate(const float _deltaTime)override {};
 	virtual void ResetInformation();
 private:
-
+	D2DBaseObj* fading;
 public:
 
 private:

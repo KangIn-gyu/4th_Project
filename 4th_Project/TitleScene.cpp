@@ -20,13 +20,15 @@ TitleScene::TitleScene(std::string_view _Name) : Scene(_Name)
 {
     { // 3D Obj
         map = CreatorObject<D3DBaseObj>("Common/FBX/Map_Lowpoly.fbx", Object::ObjectType::Background, "Common/FBX/Map_test_Lowpoly.fbx");
+        map->SetActive(false);
 
         Evelyn = CreatorObject<D3DAniObj>("Common/FBX/Evelyn.fbx", Object::ObjectType::Basic, "Common/FBX/Evelyn.fbx");
         Evelyn->GetComponent<TransformComponent>()->SetPosition({ 900, 8, 1270.5 });
+ 
         TargetPosition = { 900, 107, 1272 };
         mainCamera = GetGameObject(Object::ObjectType::Camera, "MainCamera");
         static_cast<CameraObject*>(mainCamera)->TitleFlag(true);
-        // ∆Æ∑£Ω∫∆˚ 
+        // Ìä∏ÎûúÏä§Ìèº 
         cameraTransformComponent = mainCamera->GetComponent<TransformComponent>();
         cameraTransformComponent->SetPosition({ 902.0f, 140.0f, 1154 });
 
@@ -36,7 +38,7 @@ TitleScene::TitleScene(std::string_view _Name) : Scene(_Name)
         startX = cameraTransformComponent->GetPosition().x;
     }
 
-    { // 2D Obj ≈∏¿Ã∆≤ UI ∏∏µÈ±‚
+    { // 2D Obj ÌÉÄÏù¥ÌãÄ UI ÎßåÎì§Í∏∞
         titleLogo = CreatorObject<D2DBaseObj>("titleLogo", Object::ObjectType::UI);
         titleLogo->SetD2DLayerOrder(1);
         D2DRenderComponent* LogoD2DRenderComponent = titleLogo->GetComponent<D2DRenderComponent>();
@@ -71,7 +73,7 @@ void TitleScene::Update(const float _deltaTime)
 {
     Scene::Update(_deltaTime);
 
-    // cameraMoveTween¿Ã null¿Ã æ∆¥œ∏È ∞Ëº” æ˜µ•¿Ã∆Æ
+    // cameraMoveTweenÏù¥ nullÏù¥ ÏïÑÎãàÎ©¥ Í≥ÑÏÜç ÏóÖÎç∞Ïù¥Ìä∏
      if (movement)
      { 
         movement = false;
@@ -84,7 +86,13 @@ void TitleScene::ResetInformation()
     Scene::ResetInformation();
     Evelyn->GetComponent<ModelComponent>()->SetAnimation(7);
 
-    movement = true; // DOTween √≥∏Æ
+    cameraTransformComponent = mainCamera->GetComponent<TransformComponent>();
+    cameraTransformComponent->SetPosition({ 902.0f, 140.0f, 1154 });
+    cameraTransformComponent->SetQuaternion({ 0.0f, 0.0f, 0.0f, 1.0f });
+    auto* cameraComponent = mainCamera->GetComponent<CameraCompoent>();
+    cameraComponent->LookAt(TargetPosition);
+
+    movement = true; // DOTween Ï≤òÎ¶¨
 
     static_cast<CameraObject*>(mainCamera)->MovingFlag(false);
 

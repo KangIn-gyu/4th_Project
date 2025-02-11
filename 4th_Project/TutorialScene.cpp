@@ -25,9 +25,9 @@ TutorialScene::TutorialScene(std::string_view _Name) : Scene(_Name)
     //SOUNDSYSTEM->StopMusic(eSoundChannel::BGM);
 
     //static_cast<FadeEffectScript*>(test->script)->StartFadeOut();
-    // ½Å¾Æ / ¼¼È¯ ¿À¸é ¹öÆ° ¹°¾îº¸±â
+    // ì‹ ì•„ / ì„¸í™˜ ì˜¤ë©´ ë²„íŠ¼ ë¬¼ì–´ë³´ê¸°
     skipbutton = CreatorObject<UIButton>("Skip", Object::ObjectType::UI,
-        "TutorialScene/UI/UI 43_Skip.png", DXMath::Vector2(50, 50),
+        "TutorialScene/UI/UI 43_Skip.png", DXMath::Vector2(1730, 50), DXMath::Vector2(150, 45),
         []() {SCENEMANAGER->ChangeScene("DialogScene2");});
 
     skipbutton->SetActive(false);
