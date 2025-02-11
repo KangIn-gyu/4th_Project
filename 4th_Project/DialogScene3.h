@@ -1,6 +1,5 @@
 #pragma once
 #include "../Engine/Scene.h"
-
 class D2DBaseObj;
 class DialogScene3 : public Scene
 {
@@ -14,9 +13,10 @@ public:
 	virtual void RateUpdate(const float _deltaTime)override {};
 	virtual void ResetInformation() override;
 private:
-
+	D2DBaseObj* fading;
+	D2DBaseObj* dialog;
 public:
 
 private:
-	D2DBaseObj* dialog{};
+
 };

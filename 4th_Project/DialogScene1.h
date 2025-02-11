@@ -3,6 +3,7 @@
 #include "../Engine/DirectXInput.h"
 
 class D2DBaseObj;
+
 class DialogScene1 : public Scene
 {
 public:
@@ -14,10 +15,11 @@ public:
 	virtual void RateUpdate(const float _deltaTime)override {};
 	virtual void ResetInformation();
 private:
-
+	D2DBaseObj* fading;
+	D2DBaseObj* dialog;
 public:
 
 private:
-	D2DBaseObj* dialog;
+
 };
 

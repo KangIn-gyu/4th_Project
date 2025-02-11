@@ -14,7 +14,7 @@ DialogIntro::DialogIntro(std::string_view _Name) : Scene(_Name)
 {
     // Font/DialogScene.ttf  // GyeonggiMillenniumBackground_Regular
     dialog = CreatorObject<D2DBaseObj>("DialogIntro", Object::ObjectType::UI,
-        7, 23, "Font/GyeonggiMillenniumBackground_Regular.ttf", "DialogScenes/CSV/Intro.csv");
+        7, 23, "Font/Basic.ttf", "DialogScenes/CSV/Intro.csv");
     dialog->CreateScript<D2DBitMapFontScript>();
 
     // 스킵버튼

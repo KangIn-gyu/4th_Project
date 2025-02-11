@@ -32,8 +32,13 @@ void DialogScene0::Enter()
 
 void DialogScene0::Update(const float _deltaTime)
 {
-    Scene::Update(_deltaTime);
-    if (fading->GetComponent<D2DRenderComponent>()->IsFadeIn) { fading->CreateScript<FadeEffectScript>()->StartFadeIn("DialogScene1"); }
+    Scene::Update(_deltaTime);  // 어두워지기
+    if (true == dialog->GetComponent<D2DRenderComponent>()->IsFadeIn)
+    {
+        std::cout << "페이드 인이 불값이 됨\n";
+        static_cast<FadeEffectScript*>(fading->script)->StartFadeIn("DialogScene1");
+        dialog->GetComponent<D2DRenderComponent>()->IsFadeIn = false;
+    }
 }
 
 void DialogScene0::ResetInformation()

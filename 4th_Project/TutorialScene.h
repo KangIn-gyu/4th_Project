@@ -26,5 +26,6 @@ public:
 private:
 	UIButton* skipbutton{};
 	D2DBaseObj* tutorialBitmap{};
+	D2DBaseObj* fading;
 };
 

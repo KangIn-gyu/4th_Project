@@ -14,6 +14,7 @@ public:
 	virtual void ResetInformation();
 private:
 	D2DBaseObj* fading;
+	D2DBaseObj* dialog;
 public:
 
 private:

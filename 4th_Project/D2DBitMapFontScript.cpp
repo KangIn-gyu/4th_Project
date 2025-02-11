@@ -83,6 +83,7 @@ void D2DBitMapFontScript::OnInputProcess(const DX::Keyboard::State& _KeyState, c
 				if (true == isClicked)
 				{
 					isClicked = false;
+					ownerD2D->SetDialog(L"");
 					ownerD2D->IsFadeIn = TRUE;
 				}
 			}
