@@ -16,7 +16,7 @@ struct WindowInfo
 class TransformComponent;
 struct CameraInfo
 { // 해당 정보는 카메라컴포넌트에 있음
-	float Speed = 100.f;
+	float Speed = 150.f;
 	float RotationSpeed = 0.004f;
 
 	// 트랜스폼 고민중
