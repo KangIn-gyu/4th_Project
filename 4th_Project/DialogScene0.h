@@ -14,6 +14,7 @@ public:
 	virtual void RateUpdate(const float _deltaTime)override {};
 private:
 	D2DBaseObj* fading;
+	D2DBaseObj* dialog;
 public:
 
 private:

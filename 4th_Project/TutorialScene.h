@@ -1,6 +1,8 @@
 #pragma once
 #include "../Engine/Scene.h"
 #include "../Engine/DirectXInput.h" // 테스트용으로 만듬
+class D2DBaseObj;
+
 class TutorialScene : public Scene , public IinputProcesser
 {
 public:
@@ -21,6 +23,6 @@ private:
 public:
 
 private:
-
+	D2DBaseObj* fading;
 };
 
