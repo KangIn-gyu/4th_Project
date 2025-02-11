@@ -9,7 +9,8 @@
 
 #include "UIButton.h"
 #include "../Engine/SoundSystem.h"
-void TutorialScene::Enter()
+
+TutorialScene::TutorialScene(std::string_view _Name) : Scene(_Name)
 {
     std::vector<std::string> bitmapFilePaths;
     std::string basePath = "TutorialScene/Textures/";
@@ -17,19 +18,27 @@ void TutorialScene::Enter()
     {
         bitmapFilePaths.push_back(basePath + std::to_string(i) + "_Tutorial.png");
     }
-	auto* tutorialBitmap = CreatorObject<D2DBaseObj>("TutorialScene", Object::ObjectType::UI, bitmapFilePaths);
+    tutorialBitmap = CreatorObject<D2DBaseObj>("TutorialScene", Object::ObjectType::UI, bitmapFilePaths);
     tutorialBitmap->CreateScript<ClickNextBimapScript>();
+    tutorialBitmap->SetActive(false);
+
     //SOUNDSYSTEM->StopMusic(eSoundChannel::BGM);
 
-    CreatorObject<UIButton>("Skip", Object::ObjectType::UI,
+    skipbutton = CreatorObject<UIButton>("Skip", Object::ObjectType::UI,
         "TutorialScene/UI/UI 43_Skip.png", DXMath::Vector2(1730, 50), DXMath::Vector2(150, 45),
         []() {SCENEMANAGER->ChangeScene("DialogScene2");});
 
-    // ÆäÀÌµåÈ¿°ú ¹à¾ÆÁö±â
+    // í˜ì´ë“œíš¨ê³¼ ë°ì•„ì§€ê¸°
     fading = CreatorObject<D2DBaseObj>("Fade", Object::ObjectType::UI);
     fading->GetComponent<D2DRenderComponent>()->Load2DImage("UI/FadeImage.png");
     fading->CreateScript<FadeEffectScript>()->StartFadeOut();
     fading->SetD2DLayerOrder(5);
+
+    skipbutton->SetActive(false);
+
+}
+void TutorialScene::Enter()
+{
 }
 
 void TutorialScene::Update(const float _deltaTime)
@@ -39,7 +48,8 @@ void TutorialScene::Update(const float _deltaTime)
 
 void TutorialScene::ResetInformation()
 {
-
+    skipbutton->SetActive(true);
+    tutorialBitmap->SetActive(true);
 }
 
 void TutorialScene::OnInputProcess(const DX::Keyboard::State& _KeyState, const DX::Keyboard::KeyboardStateTracker& _KeyTracker, const DX::Mouse::State& _MouseState, const DX::Mouse::ButtonStateTracker& _MouseTracker)

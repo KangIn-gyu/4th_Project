@@ -7,7 +7,7 @@ class D2DBaseObj;
 class DialogScene1 : public Scene
 {
 public:
-	DialogScene1(std::string_view _Name) : Scene(_Name) {}
+	DialogScene1(std::string_view _Name);
 
 	virtual void Enter() override;
 	virtual void Update(const float _deltaTime);

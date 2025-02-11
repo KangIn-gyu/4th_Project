@@ -56,6 +56,11 @@ void Engine::Loop()
             }
 
             Render(deltaTime); // 시간이 과연 필요할가? 일단 보류
+            if (true == fraudulentLoading)
+            {
+                fraudulentLoading = false;
+                clientApp->SceneUpload();
+            }
         }
     }
 

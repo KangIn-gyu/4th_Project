@@ -5,10 +5,10 @@
 #include "FadeEffectScript.h"
 #include "../Engine/SceneManager.h"
 #include "UIButton.h"
-void DialogScene4::Enter()
+DialogScene4::DialogScene4(std::string_view _Name) : Scene(_Name)
 {
     // Font/DialogScene.ttf  // GyeonggiMillenniumBackground_Regular
-    auto* dialog = CreatorObject<D2DBaseObj>("DialogScene4", Object::ObjectType::UI,
+   dialog = CreatorObject<D2DBaseObj>("DialogScene4", Object::ObjectType::UI,
         0, 69, "Font/GyeonggiMillenniumBackground_Regular.ttf", "DialogScenes/CSV/Scene4.csv");
 
     dialog->CreateScript<D2DBitMapFontScript>();
@@ -21,6 +21,13 @@ void DialogScene4::Enter()
     fading->GetComponent<D2DRenderComponent>()->Load2DImage("UI/FadeImage.png");
     fading->CreateScript<FadeEffectScript>()->StartFadeOut();
     fading->SetD2DLayerOrder(5);
+
+    dialog->SetActive(false);
+}
+
+void DialogScene4::Enter()
+{
+
 }
 
 void DialogScene4::Update(const float _deltaTime)
@@ -33,4 +40,10 @@ void DialogScene4::Update(const float _deltaTime)
         static_cast<FadeEffectScript*>(fading->script)->StartFadeIn("LobbyScene");
         dialog->GetComponent<D2DRenderComponent>()->IsFadeIn = false;
     }
+}
+}
+
+void DialogScene4::ResetInformation()
+{
+    dialog->SetActive(true);
 }

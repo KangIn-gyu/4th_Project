@@ -1,12 +1,16 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "DialogIntro.h"
-#include "D2DBaseObj.h"
+
 #include "D2DBitMapFontScript.h" // ½ºÅ©¸³Æ®
 #include "FadeEffectScript.h"
+
 #include "../Engine/SceneManager.h"
-#include "UIButton.h"
 #include "../Engine/SoundSystem.h"
-void DialogIntro::Enter()
+
+#include "UIButton.h"
+#include "D2DBaseObj.h"
+
+DialogIntro::DialogIntro(std::string_view _Name) : Scene(_Name)
 {
     // Font/DialogScene.ttf  // GyeonggiMillenniumBackground_Regular
     dialog = CreatorObject<D2DBaseObj>("DialogIntro", Object::ObjectType::UI,
@@ -21,9 +25,9 @@ void DialogIntro::Enter()
     // 페이드효과 밝아지기
     fading = CreatorObject<D2DBaseObj>("Fade", Object::ObjectType::UI);
     fading->GetComponent<D2DRenderComponent>()->Load2DImage("UI/FadeImage.png");
-    fading->CreateScript<FadeEffectScript>()->StartFadeOut();
+    fading->CreateScript<FadeEffectScript>();
     fading->SetD2DLayerOrder(5);
-
+    fading->SetActive(false);
     //SOUNDSYSTEM->PlayMusic(eSoundList::Main_Theme, eSoundChannel::BGM);
 }
 
@@ -37,4 +41,11 @@ void DialogIntro::Update(const float _deltaTime)
 	    static_cast<FadeEffectScript*>(fading->script)->StartFadeIn("DialogScene0");
         dialog->GetComponent<D2DRenderComponent>()->IsFadeIn = false;
     }
+}
+
+void DialogIntro::ResetInformation()
+{
+    dialog->SetActive(true);
+    fading->SetActive(true);
+    static_cast<FadeEffectScript*>(fading->script)->StartFadeOut();
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include "../Engine/Scene.h"
 
+class D2DBaseObj;
 class LobbyScene : public Scene
 {
 public:
@@ -10,10 +11,9 @@ public:
 	virtual void Update(const float _deltaTime);
 	virtual void FixedUpdate(const float _deltaTime)override {};
 	virtual void RateUpdate(const float _deltaTime)override {};
-
+	virtual void ResetInformation();
 private:
 
-	
 	float startX;
 	float startZ;
 	float endX;

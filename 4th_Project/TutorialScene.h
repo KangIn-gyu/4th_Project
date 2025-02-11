@@ -1,12 +1,13 @@
 #pragma once
 #include "../Engine/Scene.h"
 #include "../Engine/DirectXInput.h" // 테스트용으로 만듬
-class D2DBaseObj;
 
+class D2DBaseObj;
+class UIButton;
 class TutorialScene : public Scene , public IinputProcesser
 {
 public:
-	TutorialScene(std::string_view _Name) : Scene(_Name) {}
+	TutorialScene(std::string_view _Name);
 
 	virtual void Enter() override;
 	virtual void Update(const float _deltaTime);
@@ -23,6 +24,8 @@ private:
 public:
 
 private:
+	UIButton* skipbutton{};
+	D2DBaseObj* tutorialBitmap{};
 	D2DBaseObj* fading;
 };
 

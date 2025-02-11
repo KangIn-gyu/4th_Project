@@ -67,22 +67,20 @@ void UserImGui::Render()
 		ConsoleMenu();
 		hierarchy.Run();
 		inspector->Run();
-		ImGuiScene();
+//		ImGuiScene();
 		SceneChange();
-		SRV();
-		light();
+//		SRV();
+//		light();
 		// ·»´õ¸µ
 
 		ImGui::Render();
 		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
-
 		// ¸ÖÆ¼ ºäÆ÷Æ® ·»´õ¸µ Ã³¸®
 		if (io->ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
 		{
 			ImGui::UpdatePlatformWindows();
 			ImGui::RenderPlatformWindowsDefault();
-		}
-	
+		}	
 }
 
 void UserImGui::SetWindowSize(int _width, int _height)

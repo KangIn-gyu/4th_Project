@@ -7,8 +7,9 @@
 
 void LoadingScene::Enter()
 {
-	auto* loadingImage = CreatorObject<D2DBaseObj>("LoadingImage", Object::ObjectType::UI);
-	loadingImage->GetComponent<D2DRenderComponent>()->Load2DImage("LoadingScene/UI/98.png");		
+	loadingImage = CreatorObject<D2DBaseObj>("LoadingImage", Object::ObjectType::UI);
+	loadingImage->GetComponent<D2DRenderComponent>()->Load2DImage("LoadingScene/UI/98.png");	
+	loadingImage->SetActive(false);
 }
 
 void LoadingScene::Update(const float _deltaTime)
@@ -19,7 +20,7 @@ void LoadingScene::Update(const float _deltaTime)
 	if (LoadingTime >= maxLoadingTime)
 	{
 		LoadingTime = 0;
-		SCENEMANAGER->ChangeScene("TutorialScene");
+		SCENEMANAGER->ChangeScene("TitleScene");
 	}
 }
 
@@ -27,4 +28,5 @@ void LoadingScene::ResetInformation()
 {
 	Scene::ResetInformation();
 	maxLoadingTime = RandomUtil::GetRandomFloat(2.0f, 5.0f);
+	loadingImage->SetActive(true);
 }

@@ -5,11 +5,11 @@
 #include "FadeEffectScript.h"
 #include "../Engine/SceneManager.h"
 #include "UIButton.h"
-void DialogScene5::Enter()
+DialogScene5::DialogScene5(std::string_view _Name) : Scene(_Name)
 {
     // TODO: 엔딩의 분기점값을 얻어야한다.
     // Font/DialogScene.ttf  // GyeonggiMillenniumBackground_Regular
-    auto* dialog = CreatorObject<D2DBaseObj>("DialogScene5", Object::ObjectType::UI,
+    dialog = CreatorObject<D2DBaseObj>("DialogScene5", Object::ObjectType::UI,
         0, 90, "Font/GyeonggiMillenniumBackground_Regular.ttf", "DialogScenes/CSV/Scene5.csv");
 
     dialog->CreateScript<D2DBitMapFontScript>();
@@ -22,6 +22,13 @@ void DialogScene5::Enter()
     fading->GetComponent<D2DRenderComponent>()->Load2DImage("UI/FadeImage.png");
     fading->CreateScript<FadeEffectScript>()->StartFadeOut();
     fading->SetD2DLayerOrder(5);
+   dialog->SetActive(false); 
+}
+
+void DialogScene5::Enter()
+{
+    // TODO: 엔딩의 분기점값을 얻어야한다.
+    // Font/DialogScene.ttf  // GyeonggiMillenniumBackground_Regular
 }
 
 void DialogScene5::Update(const float _deltaTime)
@@ -34,4 +41,10 @@ void DialogScene5::Update(const float _deltaTime)
         static_cast<FadeEffectScript*>(fading->script)->StartFadeIn("LobbyScene");
         dialog->GetComponent<D2DRenderComponent>()->IsFadeIn = false;
     }
+}
+}
+
+void DialogScene5::ResetInformation()
+{
+    dialog->SetActive(true);
 }
