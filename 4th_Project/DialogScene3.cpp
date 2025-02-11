@@ -4,10 +4,11 @@
 #include "D2DBitMapFontScript.h" // 스크립트
 #include "../Engine/SceneManager.h"
 #include "UIButton.h"
+#include "../Engine/SoundSystem.h"
 DialogScene3::DialogScene3(std::string_view _Name) : Scene(_Name)
 {
     dialog = CreatorObject<D2DBaseObj>("DialogScene3", Object::ObjectType::UI,
-        39, 56, "Font/GyeonggiMillenniumBackground_Regular.ttf", "DialogScenes/CSV/Scene3csv", "GambleScene");
+        39, 56, "Font/GyeonggiMillenniumBackground_Regular.ttf", "DialogScenes/CSV/Scene3.csv", "GambleScene");
 
     dialog->CreateScript<D2DBitMapFontScript>();
     CreatorObject<UIButton>("Skip", Object::ObjectType::UI,
@@ -28,4 +29,6 @@ void DialogScene3::Update(const float _deltaTime)
 void DialogScene3::ResetInformation()
 {
     dialog->SetActive(true);
+    SOUNDSYSTEM->StopMusic(eSoundChannel::BGM);
+    SOUNDSYSTEM->PlayMusic(eSoundList::Scene3, eSoundChannel::BGM);
 }

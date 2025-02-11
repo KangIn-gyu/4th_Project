@@ -28,7 +28,7 @@ TitleScene::TitleScene(std::string_view _Name) : Scene(_Name)
         TargetPosition = { 900, 107, 1272 };
         mainCamera = GetGameObject(Object::ObjectType::Camera, "MainCamera");
         static_cast<CameraObject*>(mainCamera)->TitleFlag(true);
-        // Ʈ������ 
+
         cameraTransformComponent = mainCamera->GetComponent<TransformComponent>();
         cameraTransformComponent->SetPosition({ 902.0f, 140.0f, 1154 });
 
@@ -38,7 +38,7 @@ TitleScene::TitleScene(std::string_view _Name) : Scene(_Name)
         startX = cameraTransformComponent->GetPosition().x;
     }
 
-    { // 2D Obj Ÿ��Ʋ UI �����
+    { // 2D Obj
         titleLogo = CreatorObject<D2DBaseObj>("titleLogo", Object::ObjectType::UI);
         titleLogo->SetD2DLayerOrder(1);
         D2DRenderComponent* LogoD2DRenderComponent = titleLogo->GetComponent<D2DRenderComponent>();
@@ -73,7 +73,6 @@ void TitleScene::Update(const float _deltaTime)
 {
     Scene::Update(_deltaTime);
 
-    // cameraMoveTween�� null�� �ƴϸ� ��� ������Ʈ
      if (movement)
      { 
         movement = false;
@@ -92,7 +91,7 @@ void TitleScene::ResetInformation()
     auto* cameraComponent = mainCamera->GetComponent<CameraCompoent>();
     cameraComponent->LookAt(TargetPosition);
 
-    movement = true; // DOTween ó��
+    movement = true; 
 
     static_cast<CameraObject*>(mainCamera)->MovingFlag(false);
 
@@ -100,7 +99,7 @@ void TitleScene::ResetInformation()
     RENDERER->lightPos = { 0, 100,0 };
     RENDERER->lightDir = { 0, -1.0f , 0 };
 
-    SOUNDSYSTEM->PlayMusic(eSoundList::Main_Theme, eSoundChannel::BGM);
+    SOUNDSYSTEM->PlayMusic(eSoundList::TitleScene, eSoundChannel::BGM);
 
     map->SetActive(true);
     Evelyn->SetActive(true);

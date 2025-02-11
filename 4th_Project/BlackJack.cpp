@@ -100,9 +100,7 @@ void BlackJack::Update(float _deltaTime)
 						{
 							player->turnEnd = true;
 						}
-						
 					}
-
 				}
 				else if (state == PlayerState::Skill)
 				{
@@ -132,22 +130,20 @@ void BlackJack::Update(float _deltaTime)
 		{
 			elapsedTime += _deltaTime;
 			
-			if ( player->drawFirst == false && elapsedTime >= 1.0)
+			if ( player->drawFirst == false && elapsedTime >= 2.360)
 			{
-				if (true == firstAni)
+				if (true == firstAni)  // TODO : 애니메이션 처리
 				{
 					firstAni = false;
 					dealer->GetComponent<ModelComponent>()->SetAnimation(8); //  TODO : 여기는 애니메이션 보류
-				}
-			
+				}		
 				if (secondAni == true  && true == dealer->GetComponent<ModelComponent>()->IsAnimationFinished())
 				{
 					dealer->GetComponent<ModelComponent>()->SetAnimation(5);
 					secondAni = false;
 				}
-			
 				if (true == dealer->GetComponent<ModelComponent>()->IsAnimationFinished() && secondAni == false)
-				{ // TODO : 애니메이션 시간 
+				{ 
 					dealer->GetComponent<ModelComponent>()->SetAnimation(4);
 				}
 

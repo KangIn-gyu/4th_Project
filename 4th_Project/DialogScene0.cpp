@@ -5,6 +5,7 @@
 #include "FadeEffectScript.h"
 #include "UIButton.h"
 #include "../Engine/SceneManager.h"
+#include "../Engine/SoundSystem.h"
 
 DialogScene0::DialogScene0(std::string_view _Name) : Scene(_Name)
 {
@@ -41,4 +42,6 @@ void DialogScene0::ResetInformation()
     dialog->SetActive(true);
     fading->SetActive(true);
     static_cast<FadeEffectScript*>(fading->script)->StartFadeOut();
+    SOUNDSYSTEM->StopMusic(eSoundChannel::BGM);
+    SOUNDSYSTEM->PlayMusic(eSoundList::Scene0, eSoundChannel::BGM);
 }

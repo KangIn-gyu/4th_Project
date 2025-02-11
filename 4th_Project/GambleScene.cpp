@@ -55,8 +55,6 @@ void GambleScene::Enter()
 	auto test = CreatorObject<TestObj2>("Map", Object::ObjectType::Background);
 	auto deck = GetGameObject(Object::ObjectType::Basic, "Deck");
 
-
-
 	//클릭시 스킬4개 버튼 출력할 버튼
 	CreatorObject<ToopTip2D>("Handfaster_ToolTip", Object::ObjectType::UI, DXMath::Vector2(1460, 370))->SetActive(false);
 	CreatorObject<ToopTip2D>("Guts_ToolTip", Object::ObjectType::UI, DXMath::Vector2(1430, 430))->SetActive(false);

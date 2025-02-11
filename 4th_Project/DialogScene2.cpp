@@ -4,6 +4,7 @@
 #include "D2DBitMapFontScript.h" // 스크립트
 #include "UIButton.h"
 #include "../Engine/SceneManager.h"
+#include "../Engine/SoundSystem.h"
 DialogScene2::DialogScene2(std::string_view _Name) : Scene(_Name)
 {
     dialog = CreatorObject<D2DBaseObj>("DialogScene2", Object::ObjectType::UI,
@@ -29,4 +30,6 @@ void DialogScene2::Update(const float _deltaTime)
 void DialogScene2::ResetInformation()
 {
     dialog->SetActive(true);
+    SOUNDSYSTEM->StopMusic(eSoundChannel::BGM);
+    SOUNDSYSTEM->PlayMusic(eSoundList::Scene2, eSoundChannel::BGM);
 }

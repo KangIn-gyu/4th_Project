@@ -47,5 +47,6 @@ void DialogScene1::ResetInformation()
 {
     Scene::ResetInformation();
     dialog->SetActive(true);
-    ///SOUNDSYSTEM->PlayMusic(eSoundList::Main_Theme, eSoundChannel::BGM);
+    SOUNDSYSTEM->StopMusic(eSoundChannel::BGM);
+    SOUNDSYSTEM->PlayMusic(eSoundList::Scene1, eSoundChannel::BGM);
 }
