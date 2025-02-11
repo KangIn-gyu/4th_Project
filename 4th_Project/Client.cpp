@@ -21,7 +21,7 @@ Client::~Client()
 void Client::Enter()
 {
 
-//	SCENEMANAGER->CreatorScene<TestScene>("TestScene"); // 나중에 지워야 됨
+//	SCENEMANAGER->CreatorScene<TestScene>("TestScene"); // ���߿� ������ ��
 	SCENEMANAGER->CreatorScene<LoadingScene>("LoadingScene");
 	SCENEMANAGER->ChangeScene("LoadingScene");
 
@@ -31,7 +31,7 @@ void Client::Enter()
 
 void Client::SceneUpload()
 {
-//	SCENEMANAGER->CreatorScene<TestScene>("TestScene"); // ?섏쨷??吏?뚯빞 ??
+//	SCENEMANAGER->CreatorScene<TestScene>("TestScene"); // ?�중??지?�야 ??
 	SCENEMANAGER->CreatorScene<TitleScene>("TitleScene");
 	SCENEMANAGER->CreatorScene<DialogIntro>("DialogIntroScene");
 	SCENEMANAGER->CreatorScene<DialogScene0>("DialogScene0");
@@ -47,7 +47,7 @@ void Client::SceneUpload()
 	SCENEMANAGER->CreatorScene<DialogScene4>("DialogScene4");
 	SCENEMANAGER->CreatorScene<DialogScene5>("DialogScene5");
 
-	// TODO : 엔딩 추가 해야됨
+	// TODO : ���� �߰� �ؾߵ�
 
 	SCENEMANAGER->CreatorScene<LoadingScene>("LoadingScene");
 

@@ -9,7 +9,6 @@
 #include "../Engine/TimeSystem.h"
 #include "BlackJack.h"
 #include "../Engine/Helper.h"
-
 Dealer::Dealer(std::string_view _name, Object::ObjectType _type) : Object(_name, _type)
 {
 	auto model = CreateComponent<ModelComponent>("Common/FBX/Evelyn.fbx"); // Evelyn char2 SkinningTest Evelyn_LowPoly
@@ -22,13 +21,12 @@ Dealer::Dealer(std::string_view _name, Object::ObjectType _type) : Object(_name,
 	CreateComponent<RenderComponent>();
 
 	CreateComponent<BoxCollider>();
-	DXMath::Vector3 extent = GetComponent<ModelComponent>()->GetModel().get()->extent * 0.6;
+	DXMath::Vector3 extent = GetComponent<ModelComponent>()->GetModel().get()->extent * 1.0;
 	DXMath::Vector3 center = GetComponent<ModelComponent>()->GetModel().get()->center;
-	GetComponent<BoxCollider>()->SetBox(center, extent, GetComponent<TransformComponent>()->GetQuaternion(),Type::Block);
+	GetComponent<BoxCollider>()->SetBox(center, extent, GetComponent<TransformComponent>()->GetQuaternion(), ActiveType::Block);
 	auto randerComponet = GetComponent<RenderComponent>();
 	randerComponet->SetShader(ShaderType::VS, "Shaders/VertexShaderVS.hlsl");
 	randerComponet->SetShader(ShaderType::PS, "Shaders/PixelShaderPS.hlsl");
-
 	
 }
 
@@ -257,5 +255,6 @@ void Dealer::CardAnimation()
 {
 
 }
+
 
 

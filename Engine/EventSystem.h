@@ -24,7 +24,7 @@ public:
 	void StayDrag();
 	void EndDrag();
 	Object* Check2D(int _mouseX, int _mouseY);
-	POINT startPoint;
+	POINT startPoint = {0,0};
 	int dragThresholdX;
 	int dragThresholdY;
 	bool isDragging;

@@ -1,17 +1,7 @@
 #pragma once
 #include "Collider.h"
 #include <d2d1helper.h>
-enum class Type
-{
-	None, // 단순 클릭검사등
-	Block, //충돌시 못 넘어가게할것
-};
 
-enum class Touch
-{
-	None, //터치불가능
-	Basic,
-};
 class BoxCollider : public Collider
 {
 public:
@@ -22,7 +12,7 @@ public:
 	//쿼터니언으로 회전값 주기 이미 다 쿼터니언이라 걍주면될듯?
 	//void SetBox(const DXMath::Vector3 center, const DXMath::Vector3 extents, const DXMath::Quaternion orientation);
 	D2D1_RECT_F GetBoundBox();
-	void SetBox(const DXMath::Vector3 center, const DXMath::Vector3 extents, const DXMath::Quaternion orientation,Type _tpye = Type::None);
+	void SetBox(const DXMath::Vector3 center, const DXMath::Vector3 extents, const DXMath::Quaternion orientation, ActiveType _type = ActiveType::None);
 	//void DrawBoundBox();
 
 	// 충돌 검사 함수 다른거랑 충돌할일이 있을까
@@ -35,13 +25,13 @@ public:
 	bool IntersectsRay(const  DXMath::Vector3& rayOrigin, const  DXMath::Vector3& rayDirection, float& distance) const;
 
 	Touch TouchType = Touch::Basic;
-	Type colliderType = Type::None;
+	ActiveType colliderType = ActiveType::None;
 	bool isDiamond = FALSE;
+	DirectX::BoundingOrientedBox obBox; //계산때쓸 움직인지점 센터
 protected:
 private:
 public:
 private:
-	DirectX::BoundingOrientedBox obBox; //계산때쓸 움직인지점 센터
 	DXMath::Vector3 modelCenter;	   //모델고유센터
 	DXMath::Vector3 modelExtent;
 	DXMath::Vector3 objScale;

@@ -5,7 +5,6 @@
 #include "Card.h"
 #include "Deck.h"
 #include "Hand.h"
-
 enum class DSkill
 {
 	none,
@@ -48,9 +47,6 @@ public:
 	bool slotBan();
 
 	void SetSkill();
-
-	// 딜러 애니메이션 처리
-	void CardAnimation();
 
 	DSkill GetState() { return previousSkill; }
 private:

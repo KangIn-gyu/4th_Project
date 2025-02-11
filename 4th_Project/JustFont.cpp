@@ -30,8 +30,8 @@ void JustFont::ComponentSetting()
 void JustFont::Update(const float _deltaTime)
 {
 	std::wstring message;
-	message = std::to_wstring(*value);
-	ownerD2D->SetDialog(message);
+	//message = std::to_wstring(*value);
+	//ownerD2D->SetDialog(message);
 	
 }
 
