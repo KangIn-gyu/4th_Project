@@ -45,5 +45,11 @@ void ClickNextBimapScript::OnInputProcess(const DX::Keyboard::State& _KeyState, 
 			index++;
 			ownerD2D->ChangeBitmap(index);
 		}
+
+		if (_MouseState.x > 960 && index == bitmapSize && isClicked == true)
+		{
+			isClicked = false;
+			ownerD2D->IsFadeIn = TRUE;
+		}
 	}
 }

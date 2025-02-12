@@ -48,8 +48,12 @@ void TutorialScene::Enter()
 void TutorialScene::Update(const float _deltaTime)
 {
     Scene::Update(_deltaTime);
+    if (true == tutorialBitmap->GetComponent<D2DRenderComponent>()->IsFadeIn)
+    {
+        static_cast<FadeEffectScript*>(fading->script)->StartFadeIn("LoadingScene");
+        tutorialBitmap->GetComponent<D2DRenderComponent>()->IsFadeIn = false;
+    }
 }
-
 void TutorialScene::ResetInformation()
 {
     Scene::ResetInformation();
