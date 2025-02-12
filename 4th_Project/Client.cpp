@@ -46,7 +46,14 @@ void Client::SceneUpload()
 	SCENEMANAGER->CreatorScene<DialogScene4>("DialogScene4");
 	SCENEMANAGER->CreatorScene<DialogScene5>("DialogScene5");
 
-	SCENEMANAGER->CreatorScene<DialogScene5>("EndingScene");
+	SCENEMANAGER->CreatorScene<EndingScene>("EndingScene");
+	SCENEMANAGER->CreatorScene<EndingChoice>("EndingChoice");
+	SCENEMANAGER->CreatorScene<BadEnding>("BadEnding");
+	SCENEMANAGER->CreatorScene<HappyEnding>("HappyEnding");
+	SCENEMANAGER->CreatorScene<Epilogue>("Epilogue");
+	SCENEMANAGER->CreatorScene<CreditScene>("CreditScene");
+
+
 	// TODO : ���� �߰� �ؾߵ�
 
 	BLACKJACK->player = PLAYER;

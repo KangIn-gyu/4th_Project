@@ -7,8 +7,6 @@
 #include "UIButton.h"
 HappyEnding::HappyEnding(std::string_view _Name) : Scene(_Name)
 {
-    // TODO: 엔딩의 분기점값을 얻어야한다.
-
     dialog = CreatorObject<D2DBaseObj>("HappyEnding", Object::ObjectType::UI,
         22, 103, "Font/GyeonggiMillenniumBackground_Regular.ttf", "DialogScenes/CSV/HappyEnding.csv");
 
@@ -20,7 +18,7 @@ HappyEnding::HappyEnding(std::string_view _Name) : Scene(_Name)
     // 페이드효과 밝아지기
     fading = CreatorObject<D2DBaseObj>("Fade", Object::ObjectType::UI);
     fading->GetComponent<D2DRenderComponent>()->Load2DImage("UI/FadeImage.png");
-    fading->CreateScript<FadeEffectScript>()->StartFadeOut();
+    fading->CreateScript<FadeEffectScript>();
 
     dialog->SetD2DLayerOrder(0);
     fading->SetD2DLayerOrder(5);
@@ -33,7 +31,6 @@ HappyEnding::HappyEnding(std::string_view _Name) : Scene(_Name)
 
 void HappyEnding::Enter()
 {
-    // TODO: 엔딩의 분기점값을 얻어야한다.
 }
 
 void HappyEnding::Update(const float _deltaTime)
