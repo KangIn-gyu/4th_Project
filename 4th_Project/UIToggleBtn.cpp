@@ -56,11 +56,16 @@ void UIToggleBtn::OnClick()
 
 void UIToggleBtn::OnMouse()
 {
-	SOUNDSYSTEM->PlayMusic(eSoundList::SE_Button_Hover, eSoundChannel::Effect);
+	if (isOn == true)
+	{
+		SOUNDSYSTEM->PlayMusic(eSoundList::SE_Button_Hover, eSoundChannel::Effect);
+		isOn = false;
+	}
 	imagedata->ChangeBitmap(1); //마우스올리면 1로
 }
 
 void UIToggleBtn::ExitMouse()
 {
+	isOn = true;
 	imagedata->ChangeBitmap(0); //마우스올리면 1로
 }

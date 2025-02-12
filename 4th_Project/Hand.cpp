@@ -52,7 +52,7 @@ Card* Hand::cardDraw(Card* _card,DXMath::Vector3 _pos, bool dealer)
 {
 	//_pos로 옮기기
 
-	SOUNDSYSTEM->PlayMusic(eSoundList::SE_Card_Pick, eSoundChannel::Effect);
+	SOUNDSYSTEM->PlayMusic(eSoundList::SE_Card_Unfold, eSoundChannel::Effect3);
 	auto& cardpos = _card->GetComponent<TransformComponent>()->GetPosition();
 
 	if (false == dealer)

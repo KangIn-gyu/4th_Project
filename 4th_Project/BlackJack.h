@@ -104,6 +104,10 @@ public:
 	int sum = 0;
 	int showDownCount = 0;
 	bool isRoundOver = true; //한 라운드가 끝날떄
+
+	bool isOn = false;
+
+
 private:
 	float elapsedTime =0;
 

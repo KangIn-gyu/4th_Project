@@ -26,6 +26,7 @@ void BlackJack::Setstage(int num)
 }
 void BlackJack::RoundStart()
 {
+	SOUNDSYSTEM->PlayMusic(eSoundList::GameScene, eSoundChannel::BGM);
 	canClick = false;
 	dealer->Init();
 	player->Init();
@@ -45,6 +46,8 @@ void BlackJack::RoundStart()
 
 	player->canSkill = true;
 
+	isOn = true;
+
 	for (auto card : player->hand.hand)
 	{
 		if (card != nullptr)
@@ -56,7 +59,7 @@ void BlackJack::RoundStart()
 void BlackJack::CheckTurnEnd()
 {
 	ChangeState();
-	
+
 	if (player->turnEnd == true)   //한 오픈 or HIT시마다 할것들
 	{
 		dealer->turnCount--;
@@ -74,9 +77,9 @@ void BlackJack::CheckTurnEnd()
 		canClick = false;
 		player->canSkill = true;
 
-		for(auto card : player->hand.hand)
+		for (auto card : player->hand.hand)
 		{
-			if(card != nullptr)
+			if (card != nullptr)
 				card->slotActive = true;
 		}
 	}
@@ -102,7 +105,7 @@ void BlackJack::Bet()
 
 void BlackJack::CalculateChips()
 {
-	sum =  betMoney * magnification;
+	sum = betMoney * magnification;
 }
 
 void BlackJack::StageWin()
@@ -128,9 +131,9 @@ void BlackJack::PlayerWin()
 	BetResult->SetActive(true);
 	BetMag->SetActive(true);
 	Result->SetActive(true);
-	
-	// SceneManager().changer(DialogScene4)
-		//  static_cast<LoadingScene*>(SCENEMANAGER->GetScene("LoadingScene"))->NextScene("DialogScene4");
+
+	//SOUNDSYSTEM->StopMusic(eSoundChannel::BGM);
+	//SOUNDSYSTEM->PlayMusic(eSoundList::VS_Win, eSoundChannel::BGM);
 }
 
 void BlackJack::DealerWin()
@@ -150,9 +153,9 @@ void BlackJack::DealerWin()
 	BetMag->SetActive(true);
 	Result->SetActive(true);
 	//재도전 버튼 and 로비로 버튼 뛰우기
-	
-	SOUNDSYSTEM->StopMusic(eSoundChannel::BGM);
-	SOUNDSYSTEM->PlayMusic(eSoundList::GameOver, eSoundChannel::BGM);
+
+	//SOUNDSYSTEM->StopMusic(eSoundChannel::BGM);
+	//SOUNDSYSTEM->PlayMusic(eSoundList::VS_Lose, eSoundChannel::BGM);
 }
 
 void BlackJack::Update(float _deltaTime)
@@ -161,6 +164,12 @@ void BlackJack::Update(float _deltaTime)
 	dealer->score = dealer->GetScore();
 	//std::cout << dealer->turnCount << std::endl;
 	CalculateChips();
+	if(dealer->turnCount == 0 && isOn == true)
+	{
+		SOUNDSYSTEM->PlayMusic(eSoundList::SE_Finger, eSoundChannel::Effect2);
+		isOn = false;
+	}
+
 	if (dealer->turnCount <= 0)
 		curTurn = Turn::dealer;
 	if (isRoundOver == false) //라운드시작
@@ -170,7 +179,7 @@ void BlackJack::Update(float _deltaTime)
 			if (curTurn == Turn::player)
 			{
 				CheckTurnEnd();
-				if (state == PlayerState::OPEN) 
+				if (state == PlayerState::OPEN)
 				{
 					//모든카드가 open 상태일경우 처리필요
 				}
@@ -187,12 +196,12 @@ void BlackJack::Update(float _deltaTime)
 				else if (state == PlayerState::Skill)
 				{
 					canClick = true;
-					if(true == player->ActiveSkill())
+					if (true == player->ActiveSkill())
 						SetState(PlayerState::OPEN);
 				}
 				else if (state == PlayerState::STAY)
 				{
-					curTurn = Turn::CheckVictory; 
+					curTurn = Turn::CheckVictory;
 				}
 			}
 			else if (curTurn == Turn::dealer)
@@ -219,23 +228,23 @@ void BlackJack::Update(float _deltaTime)
 		else //첫턴에만 실행할거
 		{
 			elapsedTime += _deltaTime;
-			
-			if ( player->drawFirst == false && elapsedTime >= 2.3)
+
+			if (player->drawFirst == false && elapsedTime >= 2.3)
 			{
 				if (true == firstAni)  // TODO : 애니메이션 처리
 				{
 					IdleAni = false;
 					firstAni = false;
 					dealer->GetComponent<ModelComponent>()->SetAnimation(8); //  TODO : 여기는 애니메이션 보류
-				}		
-				if (secondAni == true  && true == dealer->GetComponent<ModelComponent>()->IsAnimationFinished())
+				}
+				if (secondAni == true && true == dealer->GetComponent<ModelComponent>()->IsAnimationFinished())
 				{
 					SOUNDSYSTEM->PlayMusic(eSoundList::SE_Card_Unfold, eSoundChannel::Effect);
 					dealer->GetComponent<ModelComponent>()->SetAnimation(5);
 					secondAni = false;
 				}
 				if (true == dealer->GetComponent<ModelComponent>()->IsAnimationFinished() && secondAni == false)
-				{ 
+				{
 					dealer->GetComponent<ModelComponent>()->SetAnimation(4);
 					IdleAni = true;
 				}
@@ -244,11 +253,11 @@ void BlackJack::Update(float _deltaTime)
 				elapsedTime = 0;
 			}
 			//3초뒤에 플레이어카드  뒤집고 섞는 연출 필요
-			if (player->drawFirst == true  && player->Shuffle == false)
+			if (player->drawFirst == true && player->Shuffle == false)
 			{
 				player->ShuffleHand();
 				elapsedTime = 0;
-				if(player->Shuffle)
+				if (player->Shuffle)
 					canClick = true;
 			}
 
@@ -272,10 +281,10 @@ void BlackJack::Update(float _deltaTime)
 		}
 	}
 	else  //라운드끝났으면 다시 라운드시작
-	{	
-		if(player->chip > 0 && dealer->chip > 0)
+	{
+		if (player->chip > 0 && dealer->chip > 0)
 			RoundStart(); //둘다 0보다많으면 라운드 다시시작
-		else if(player->chip <= 0 )//딜러 플레이어칩 보고 둘중한개가 0이하면 연출후 다음씬으로 
+		else if (player->chip <= 0)//딜러 플레이어칩 보고 둘중한개가 0이하면 연출후 다음씬으로 
 		{
 			StageWin();
 			//RoundStart();
@@ -298,10 +307,9 @@ void BlackJack::DealerTurn(float _deltaTime)
 	//딜러 다이얼로그 출력  선택지선택
 	DSkill dealerState = dealer->GetState();
 
-	switch(dealerState)
+	switch (dealerState)
 	{
 	case DSkill::none:
-
 		break;
 	case DSkill::reverse:
 		dialogs[0]->SetActive(true);
@@ -324,11 +332,8 @@ void BlackJack::CheckVictory(float _deltaTime)
 {
 
 	//승패계산
-	
-
 	if (dealer->GetScore() >= 22)
 	{
-		SOUNDSYSTEM->PlayMusic(eSoundList::VS_Blackjack, eSoundChannel::Voice);
 		PlayerWin();
 	}
 	else if (player->score == dealer->GetScore())
@@ -340,6 +345,16 @@ void BlackJack::CheckVictory(float _deltaTime)
 		//플레이어 윈 연출로
 		PlayerWin();
 	}
+	else if (dealer->GetScore() == 21)
+	{
+		SOUNDSYSTEM->PlayMusic(eSoundList::VS_Blackjack, eSoundChannel::Voice);
+		DealerWin();
+	}
+	else if (player->GetScore() == 21)
+	{
+		SOUNDSYSTEM->PlayMusic(eSoundList::VS_Blackjack, eSoundChannel::Voice);
+		PlayerWin();
+	}
 	else
 	{
 		std::cout << "딜러가 이김 " << " ㅇㅇ" << std::endl;
@@ -347,7 +362,6 @@ void BlackJack::CheckVictory(float _deltaTime)
 		DealerWin();
 	}
 
-	
 }
 
 
@@ -359,7 +373,7 @@ void BlackJack::ShowDown()
 	//카드 한장씩 뽑기-> 동점일경우 계속
 	player->hand.handReset();
 	dealer->hand.handReset();  //각핸드 리셋하고
-	
+
 	if (true == IsShowDown)
 	{
 		IsShowDown = false;
@@ -388,8 +402,8 @@ void BlackJack::ShowDown()
 			SOUNDSYSTEM->PlayMusic(eSoundList::VS_Lose, eSoundChannel::Voice);
 			DealerWin(); //딜러가이김
 		}
-	}	
-	
+	}
+
 }
 
 void BlackJack::DoubbleDown()

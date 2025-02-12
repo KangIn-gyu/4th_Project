@@ -91,7 +91,12 @@ void SkillButton::OnClick()
 
 void SkillButton::OnMouse()
 {
-	SOUNDSYSTEM->PlayMusic(eSoundList::SE_Button_Hover, eSoundChannel::Effect);
+	if (isOn == true)
+	{
+		SOUNDSYSTEM->PlayMusic(eSoundList::SE_Button_Hover, eSoundChannel::Effect);
+		isOn = false;
+	}
+
 	if (nextState != gbState::On || curState != gbState::On) // //ÅøÆÁÃâ·Â*****
 		ChangeState(gbState::Toggle);
 
@@ -101,7 +106,7 @@ void SkillButton::OnMouse()
 
 void SkillButton::ExitMouse()
 {
-
+	isOn = true;
 	if (nextState != gbState::On)                       
 		ChangeState(gbState::Off);
 
