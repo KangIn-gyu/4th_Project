@@ -60,7 +60,7 @@ struct SpotLightData
 
 cbuffer LightBuffer : register(b6)
 {
-    SpotLightData spotLights[7];
+    SpotLightData spotLights[8];
     int LIGHT_NUM;
 }
 

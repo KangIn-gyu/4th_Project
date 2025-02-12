@@ -105,7 +105,7 @@ struct alignas(16) LightBuffer
 	{
 		ValidateConstantBufferSize<LightBuffer>();
 	}
-	SpotLightData spotLights[7];
+	SpotLightData spotLights[8];
 	int LIGHT_NUM;
 	DXMath::Vector3 pad[3];
 };
