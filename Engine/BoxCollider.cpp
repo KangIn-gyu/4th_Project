@@ -7,6 +7,7 @@
 #include "TransformComponent.h"
 #include "ColliderManager.h"
 #include "CircleCollider.h"
+
 void BoxCollider::SetBox(const DXMath::Vector3 center, const DXMath::Vector3 extents, const DXMath::Quaternion orientation, ActiveType _type)
 {
 	obBox.Center = center;
