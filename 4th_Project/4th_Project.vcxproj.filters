@@ -171,6 +171,12 @@
     <ClInclude Include="BettingButton.h">
       <Filter>UI</Filter>
     </ClInclude>
+    <ClInclude Include="CreditScene.h">
+      <Filter>Scene\7. EndingScene</Filter>
+    </ClInclude>
+    <ClInclude Include="EndingChoice.h">
+      <Filter>Scene\7. EndingScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -295,6 +301,12 @@
     </ClCompile>
     <ClCompile Include="BettingButton.cpp">
       <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CreditScene.cpp">
+      <Filter>Scene\7. EndingScene</Filter>
+    </ClCompile>
+    <ClCompile Include="EndingChoice.cpp">
+      <Filter>Scene\7. EndingScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

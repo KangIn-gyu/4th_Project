@@ -1,21 +1,17 @@
 #include "pch.h"
-#include "Epilogue.h"
+#include "CreditScene.h"
 #include "D2DBaseObj.h"
 #include "D2DBitMapFontScript.h" // 스크립트
 #include "FadeEffectScript.h"
 #include "../Engine/SceneManager.h"
 #include "UIButton.h"
-Epilogue::Epilogue(std::string_view _Name) : Scene(_Name)
+CreditScene::CreditScene(std::string_view _Name) : Scene(_Name)
 {
-    // TODO: 크레딧 이미지 넣기
 
-    dialog = CreatorObject<D2DBaseObj>("Epilogue", Object::ObjectType::UI,
-        1, 111, "Font/GyeonggiMillenniumBackground_Regular.ttf", "DialogScenes/CSV/Epilogue.csv");
-
+    dialog = CreatorObject<D2DBaseObj>("CreditScene", Object::ObjectType::UI,
+        1, 111, "Font/GyeonggiMillenniumBackground_Regular.ttf", "DialogScenes/CSV/CreditScene.csv");
     dialog->CreateScript<D2DBitMapFontScript>();
-    skipbutton = CreatorObject<UIButton>("Skip", Object::ObjectType::UI,
-        "TutorialScene/UI/UI 43_Skip.png", DXMath::Vector2(1730, 50), DXMath::Vector2(150, 45),
-        []() {SCENEMANAGER->ChangeScene("CreditScene");});
+
 
     // 페이드효과 밝아지기
     fading = CreatorObject<D2DBaseObj>("Fade", Object::ObjectType::UI);
@@ -24,34 +20,31 @@ Epilogue::Epilogue(std::string_view _Name) : Scene(_Name)
 
     dialog->SetD2DLayerOrder(0);
     fading->SetD2DLayerOrder(5);
-    skipbutton->SetD2DLayerOrder(1);
 
     dialog->SetActive(false);
     fading->SetActive(false);
-    skipbutton->SetActive(false);
 }
 
-void Epilogue::Enter()
+void CreditScene::Enter()
 {
 }
 
-void Epilogue::Update(const float _deltaTime)
+void CreditScene::Update(const float _deltaTime)
 {
     Scene::Update(_deltaTime);
     // 어두워지기
     if (true == dialog->GetComponent<D2DRenderComponent>()->IsFadeIn)
     {
-        static_cast<FadeEffectScript*>(fading->script)->StartFadeIn("CreditScene");
+        static_cast<FadeEffectScript*>(fading->script)->StartFadeIn("LobbyScene");
         dialog->GetComponent<D2DRenderComponent>()->IsFadeIn = false;
     }
 }
 
 
-void Epilogue::ResetInformation()
+void CreditScene::ResetInformation()
 {
     Scene::ResetInformation();
     dialog->SetActive(true);
     fading->SetActive(true);
-    skipbutton->SetActive(true);
     static_cast<FadeEffectScript*>(fading->script)->StartFadeOut();
 }

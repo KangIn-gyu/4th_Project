@@ -31,6 +31,8 @@ public:
 	virtual void OnMouse() override;
 	virtual void ExitMouse() override;
 
+	void SetD2DLayerOrder(int _index);
+
 	D2DRenderComponent* imagedata;
 	std::string_view imageFilepath;
 

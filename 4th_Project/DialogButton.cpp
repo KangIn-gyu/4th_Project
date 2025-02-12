@@ -74,3 +74,8 @@ void DialogButton::ExitMouse()
 	if (nextState != dbState::Click)
 		ChangeState(dbState::Off);
 }
+
+void DialogButton::SetD2DLayerOrder(int _index)
+{
+	GetComponent<D2DRenderComponent>()->bitmapLayerOrder = _index;
+}
