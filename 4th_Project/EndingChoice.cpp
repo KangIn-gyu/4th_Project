@@ -6,6 +6,7 @@
 #include "FadeEffectScript.h"
 #include "../Engine/SceneManager.h"
 #include "UIButton.h"
+#include "../Engine/SoundSystem.h"
 EndingChoice::EndingChoice(std::string_view _Name) : Scene(_Name)
 {
     dialog = CreatorObject<D2DBaseObj>("EndingChoice", Object::ObjectType::UI,
@@ -47,4 +48,7 @@ void EndingChoice::ResetInformation()
     fading->SetActive(true);
     happyButton->SetActive(true);
     badButton->SetActive(true);
+
+    SOUNDSYSTEM->StopMusic(eSoundChannel::BGM);
+    SOUNDSYSTEM->PlayMusic(eSoundList::Ending, eSoundChannel::BGM);
 }
