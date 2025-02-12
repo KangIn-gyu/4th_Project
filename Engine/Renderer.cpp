@@ -266,7 +266,10 @@ std::pair<int, int> Renderer::GetWindowsSize()
 
 void Renderer::SetWindowSize()
 {
-	D3DGraphics->ChangeWindowSize();
+	if (nullptr != D3DGraphics.get())
+	{
+		D3DGraphics->ChangeWindowSize();
+	}
 }
 
 ComPtr<ID3D11ShaderResourceView> Renderer::GetImGuiImageTexture()

@@ -1,8 +1,10 @@
 #pragma once
 #include "../Engine/Scene.h"
 
+class UIButton;
 class D2DBaseObj;
 class Dealer;
+
 class LobbyScene : public Scene
 {
 public:
@@ -25,5 +27,8 @@ public:
 
 private:
 	Dealer* dealer{};
+	UIButton* matchButton;
+	UIButton* talkButton;
+	D2DBaseObj* fading;
 };
 

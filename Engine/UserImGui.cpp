@@ -86,7 +86,12 @@ void UserImGui::Render()
 void UserImGui::SetWindowSize(int _width, int _height)
 {
 	windowsSize = { _width , _height };
-	io->DisplaySize = ImVec2(static_cast<float>(_width), static_cast<float>(_height));
+#ifdef IMGUIFLAG
+	if (nullptr != io)
+	{
+		io->DisplaySize = ImVec2(static_cast<float>(_width), static_cast<float>(_height));
+	}
+#endif
 }
 
 void UserImGui::MenuBar()

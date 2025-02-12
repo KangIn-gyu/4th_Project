@@ -15,7 +15,7 @@
 #include "LoopImageChangeScript.h"
 #include "../Engine/SoundSystem.h"
 #include "ClickChangeSceneScript.h"
-
+#include "../Engine/SceneManager.h"
 TitleScene::TitleScene(std::string_view _Name) : Scene(_Name)
 {
     { // 3D Obj
@@ -91,6 +91,8 @@ void TitleScene::ResetInformation()
     Backgraund->SetActive(true);
 
     Evelyn->GetComponent<TransformComponent>()->SetPosition({ 900, 8, 1270.5 });
+    Object* camera = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::Camera, 0);
+    camera->GetComponent<CameraCompoent>()->MovingFlag(true);
     Evelyn->GetComponent<ModelComponent>()->SetAnimation(7);
 
     cameraTransformComponent = mainCamera->GetComponent<TransformComponent>();

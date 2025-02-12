@@ -243,7 +243,7 @@ float4 main(PixelInputType input) : SV_TARGET
     color *= 1.7f;
     
     color = pow(color, 1.0f / GAMMA);
-    color = ACESFilmicToneMapping(color);
+    color = Uncharted2ToneMapping(color);
     
     //--------------------------------------------------------------------------------------
     // Alpha Handling

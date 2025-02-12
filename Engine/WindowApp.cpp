@@ -72,12 +72,16 @@ LRESULT WindowApp::WndProc(HWND _hWnd, UINT _message, WPARAM _wParam, LPARAM _lP
         break;
     case WM_SIZE:
     {
+        UINT newWidth = LOWORD(_lParam);
+        UINT newHeight = HIWORD(_lParam);
+
         if (nullptr != WindowApp::console)
         { // 여기서 윈도우 사이즈 변경에 대해서 다 처리함
-            UINT newWidth = LOWORD(_lParam);
-            UINT newHeight = HIWORD(_lParam);
-            ENGINE->SetWindowSize(newWidth, newHeight);
             IMGUI->SetWindowSize(newWidth, newHeight);
+        }
+        if (nullptr != ENGINE->clientApp)
+        {
+            ENGINE->SetWindowSize(newWidth, newHeight);
         }
     }
         break;
@@ -136,7 +140,6 @@ LRESULT WindowApp::WndProc(HWND _hWnd, UINT _message, WPARAM _wParam, LPARAM _lP
         break;
     case WM_LBUTTONUP:
         DirectX::Mouse::ProcessMessage(_message, _wParam, _lParam);
-        //eventSysyem->checkClickobj(DXINPUT.get()->mouseState.x, DXINPUT.get()->mouseState.y);
         if (isClick)
         {
             eventSysyem->checkClickobj(DXINPUT.get()->mouseState.x, DXINPUT.get()->mouseState.y);
@@ -168,11 +171,6 @@ LRESULT WindowApp::WndProc(HWND _hWnd, UINT _message, WPARAM _wParam, LPARAM _lP
         break;
 
     case WM_DPICHANGED:
-    //    if (ImGui::GetIO().ConfigFlags & ImGuiConfigFlags_DpiEnableScaleViewports)
-    //    {
-    //        const RECT* suggested_rect = (RECT*)_lParam;
-    //        ::SetWindowPos(_hWnd, nullptr, suggested_rect->left, suggested_rect->top, suggested_rect->right - suggested_rect->left, suggested_rect->bottom - suggested_rect->top, SWP_NOZORDER | SWP_NOACTIVATE);
-    //    }
         break;
     default:
         return DefWindowProc(_hWnd, _message, _wParam, _lParam);
@@ -193,7 +191,10 @@ void WindowApp::SetWindowSize(int _width ,int _height)
 {
     windowInfo->screenWidth = _width;
     windowInfo->screenHeight = _height;
+
+#ifdef IMGUIFLAG
     IMGUI->SetWindowSize(_width, _height);
+#endif
 }
 
 void WindowApp::Initialize()

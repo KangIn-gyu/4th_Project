@@ -37,7 +37,7 @@ DialogIntro::DialogIntro(std::string_view _Name) : Scene(_Name)
     fading->SetActive(false);
     skipbutton->SetActive(false);
 
-    //SOUNDSYSTEM->PlayMusic(eSoundList::Main_Theme, eSoundChannel::BGM);
+  
 }
 
 void DialogIntro::Update(const float _deltaTime)

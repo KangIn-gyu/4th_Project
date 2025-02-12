@@ -51,6 +51,8 @@ void Client::SceneUpload()
 	SCENEMANAGER->CreatorScene<TalkScene3>("TalkScene3");
 	SCENEMANAGER->CreatorScene<TalkScene4>("TalkScene4");
 
+
+
 	// TODO : ���� �߰� �ؾߵ�
 
 	BLACKJACK->player = PLAYER;

@@ -31,6 +31,7 @@
 #include "../Engine/Helper.h"
 #include "../Engine/SoundSystem.h"
 
+#include "UIToggleBtn.h"
 GambleScene::GambleScene(std::string_view _Name) : Scene(_Name)
 {
 }
@@ -119,11 +120,11 @@ void GambleScene::Enter()
 	static_cast<JustFont*>(ui11->script)->SetTextSize(100.0f);
 
 	DealerWin->SetOnClick([DealerWin, ui9, ui10, ui11]()
-		{ BLACKJACK->isRoundOver = true; DealerWin->SetActive(false);
+		{ BLACKJACK->distribution(false); BLACKJACK->isRoundOver = true; DealerWin->SetActive(false);
 	ui9->SetActive(false); ui10->SetActive(false); ui11->SetActive(false); });
 
 	PlayerWin->SetOnClick([PlayerWin, ui9, ui10, ui11]()
-		{ BLACKJACK->isRoundOver = true; PlayerWin->SetActive(false);
+		{ BLACKJACK->distribution(true);BLACKJACK->isRoundOver = true; PlayerWin->SetActive(false);
 	ui9->SetActive(false); ui10->SetActive(false); ui11->SetActive(false); });
 
 
@@ -211,6 +212,9 @@ void GambleScene::Enter()
 	BLACKJACK->SetDialog(q2);
 	BLACKJACK->SetDialog(q3);
 	BLACKJACK->SetDialog(q4);
+
+	CreatorObject<UIToggleBtn>("Bet", Object::ObjectType::UI, DXMath::Vector2( 1870,860 ), []() {});
+	CreatorObject<UIToggleBtn>("BetDown", Object::ObjectType::UI, DXMath::Vector2( 1870,950), []() {});
 }
 
 
@@ -273,8 +277,8 @@ void GambleScene::ResetInformation()
 	TransformComponent* cameratrans = camera->GetComponent<TransformComponent>();
 	float angle = DirectX::XMConvertToRadians(10.0f);
 	DXMath::Quaternion quat = DXMath::Quaternion::CreateFromYawPitchRoll(0.0f, angle, 0.0f);
-	cameratrans->SetQuaternion(quat);
 	cameratrans->SetPosition({ 0, 140, -580 });
+	cameratrans->SetQuaternion(quat);
 
 	GetGameObject(Object::ObjectType::Basic, "Deck")->GetComponent<TransformComponent>()->SetPosition({ -60, 105, -500 });
 	//GambleScene::Enter();

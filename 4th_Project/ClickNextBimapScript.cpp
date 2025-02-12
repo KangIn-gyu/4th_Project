@@ -8,6 +8,7 @@ void ClickNextBimapScript::ComponentSetting()
 {// 걍 하드 코딩 함
 	if (typeid(*ownerObject) == typeid(D2DBaseObj))
 	{
+		isClicked = true;
 		ownerD2D = ownerObject->GetComponent<D2DRenderComponent>(); // 매번 GetComponent하기 귀찮아서
 		std::vector<std::string>& bitmapFilePath = static_cast<D2DBaseObj*>(ownerObject)->bitmapFilePath;
 		bitmapSize = bitmapFilePath.size();
