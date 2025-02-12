@@ -57,4 +57,6 @@ void DialogIntro::ResetInformation()
     fading->SetActive(true);
     skipbutton->SetActive(true);
     static_cast<FadeEffectScript*>(fading->script)->StartFadeOut();
+    SOUNDSYSTEM->StopMusic(eSoundChannel::BGM);
+    SOUNDSYSTEM->PlayMusic(eSoundList::DialogIntro, eSoundChannel::BGM);
 }

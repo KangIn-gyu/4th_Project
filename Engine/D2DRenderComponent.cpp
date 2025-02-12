@@ -35,7 +35,7 @@ void D2DRenderComponent::Load2DImage(std::string_view _filePath)
 	Bitmap* newBitmap = new Bitmap;
 	newBitmap->Load(_filePath);
 	if (imageDatas.size() == 0)
-	{ // ?¬ì´ì¦ˆê? 0?¼ë•Œ???ë™?¼ë¡œ ê·¸ë¦´ ë¹„íŠ¸ë§??¤ì •?˜ê²Œ ì²˜ë¦¬?œê±°??
+	{ 
 		drawBitmap = newBitmap;
 	}
 	imageDatas.push_back(newBitmap);

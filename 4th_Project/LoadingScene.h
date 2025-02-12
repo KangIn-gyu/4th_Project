@@ -11,6 +11,8 @@ public:
 	virtual void FixedUpdate(const float _deltaTime)override {};
 	virtual void RateUpdate(const float _deltaTime)override {};
 	virtual void ResetInformation();
+
+
 private:
 
 public:
