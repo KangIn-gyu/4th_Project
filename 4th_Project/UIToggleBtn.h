@@ -32,7 +32,5 @@ public:
 	DXMath::Vector2 pos = { 150,150 };
 	float elapsedTime = 0;
 
-	bool isOn = false;
-
 };
 

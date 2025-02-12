@@ -20,8 +20,6 @@ enum class eSoundChannel
 	BGM = 0,
 	Effect = 1,
 	Voice = 2,
-	Effect2 = 3,
-	Effect3 = 4,
 	Size = 3
 };
 

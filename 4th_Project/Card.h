@@ -40,8 +40,6 @@ public:
 	float elpasedTime = 0;
 
 	bool slotActive = true;
-
-	bool isOn = false;
 private:
 	float rotat = 180;
 	float prevRotat = rotat;

@@ -72,7 +72,7 @@ void Card::Update(const float _deltaTime)
 
 	if (needRevers)
 	{
-		elpasedTime += _deltaTime;      //단순 오픈과 이동후 오픈 구별 가능하게끔  수정필요 *****
+		elpasedTime += _deltaTime;   //단순 오픈과 이동후 오픈 구별 가능하게끔  수정필요 *****
 		if (elpasedTime >= 0.5f)		// ************************************************************** 수정하3// 
 		{
 			Reverse();
@@ -93,7 +93,6 @@ void Card::Update(const float _deltaTime)
 
 void Card::Open()
 {
-	SOUNDSYSTEM->PlayMusic(eSoundList::SE_Card_Pick, eSoundChannel::Effect2);
 	if (false == isOpen)
 		Reverse();
 	isOpen = true;
@@ -108,7 +107,6 @@ void Card::Close()
 
 void Card::MoveOpen()
 {
-	SOUNDSYSTEM->PlayMusic(eSoundList::SE_Card_Gather, eSoundChannel::Effect2);
 	if (false == isOpen)
 		needRevers = true;
 	isOpen = true;
@@ -117,7 +115,6 @@ void Card::MoveOpen()
 
 void Card::Reverse()
 {
-	SOUNDSYSTEM->PlayMusic(eSoundList::SE_Card_Flap, eSoundChannel::Effect3);
 	// 수정하3 *********************************************************************
 	new DOTween(rotat, EasingEffect::OutExpo, StepAnimation::StepOnceForward, 0.5f, rotat, rotat + 180);
 }
@@ -138,6 +135,7 @@ int Card::GetValue()
 
 bool Card::RevereseSec(float _sec)
 {
+	SOUNDSYSTEM->PlayMusic(eSoundList::SE_Card_Flap, eSoundChannel::BGM);
 	Open();
 	float delta = TIMESYSTEM.get()->GetFloatDeltaTime();
 	reversTime += delta;
@@ -236,19 +234,12 @@ void Card::OnClick()
 void Card::OnMouse()
 {
 	//std::cout << "현재 마우스가 " << GetName() << " 오브젝트 위에 있습니다" << std::endl;
-	if (isOn == true)
-	{
-		SOUNDSYSTEM->PlayMusic(eSoundList::SE_Card_Pick, eSoundChannel::Effect2);
-		isOn = false;
-	}
-	
 	AddEffect(Object::Effect::OutLine);
 
 }
 
 void Card::ExitMouse()
 {
-	isOn = true;
 	RemoveEffect(Object::Effect::OutLine);
 }
 

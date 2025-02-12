@@ -1,6 +1,6 @@
 #pragma once
 #include "SingletonBase.h"
-#include <chrono>
+
 #define TIMESYSTEM TimeSystem::GetInstance()
 
 class TimeSystem : public SingletonBase<TimeSystem>

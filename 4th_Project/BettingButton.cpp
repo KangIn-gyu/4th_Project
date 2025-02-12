@@ -84,18 +84,6 @@ void BettingButton::OnClick()
 	if (BLACKJACK->firstTurn == false)
 	{
 		BLACKJACK->Bet();
-		if (BLACKJACK->betType == BetType::Fold)
-		{
-			SOUNDSYSTEM->PlayMusic(eSoundList::VS_Fold, eSoundChannel::Voice);
-		}
-		else if (BLACKJACK->betType == BetType::Raise)
-		{
-			SOUNDSYSTEM->PlayMusic(eSoundList::VS_Raise, eSoundChannel::Voice);
-		}
-		else
-		{
-			SOUNDSYSTEM->PlayMusic(eSoundList::SE_All_In, eSoundChannel::Voice);
-		}
 	}
 }
 

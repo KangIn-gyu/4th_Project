@@ -25,7 +25,7 @@ void Client::Enter()
 	SCENEMANAGER->CreatorScene<LoadingScene>("LoadingScene");
 	SCENEMANAGER->ChangeScene("LoadingScene");
 	static_cast<LoadingScene*>(SCENEMANAGER->GetScene("LoadingScene"))->NextScene("TitleScene");
-	SOUNDSYSTEM->SetVolumeAll(0.2f);
+	SOUNDSYSTEM->SetVolumeAll(0.5f);
 	LoadMusic();
 }
 
@@ -53,7 +53,7 @@ void Client::SceneUpload()
 
 	ENGINE->CollectionGameManager(MYGAMEMANAGER);
 
-	SOUNDSYSTEM->SetVolumeAll(0.2f);
+	SOUNDSYSTEM->SetVolumeAll(0.5f);
 
 	LoadMusic();
 }
@@ -115,8 +115,4 @@ void Client::LoadMusic()
 		SOUNDSYSTEM->LoadMusic(eSoundList::VS_Win, false, "Resource\\GambleScene\\Sounds\\VS_Win.wav");
 		SOUNDSYSTEM->LoadMusic(eSoundList::VS_Lose, false, "Resource\\GambleScene\\Sounds\\VS_Lose.wav");
 	}
-
-
-	// 사운드 채널별 설정
-	SOUNDSYSTEM->SetVolume(0.1f, 0);
 }

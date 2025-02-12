@@ -20,6 +20,5 @@ public:
 	PlayerState pre;
 	bool wasPressed = false;
 	bool isBtnOn = false;
-
 };
 

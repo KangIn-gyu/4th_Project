@@ -27,8 +27,7 @@ public:
 	D2DRenderComponent* imagedata;
 	BoxCollider* colliderdata;
 	std::string_view imageFilepath;
-	
-	bool isOn = false;
+
 private:
 	int cost = 0; //각 스킬 코스트
 	gbState curState = gbState::Off;

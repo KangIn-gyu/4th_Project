@@ -75,7 +75,7 @@ void GambleScene::Enter()
 	CreatorObject<ToopTip2D>("Guts_ToolTip", Object::ObjectType::UI, DXMath::Vector2(1430, 430))->SetActive(false);
 	CreatorObject<ToopTip2D>("Meditation_ToolTip", Object::ObjectType::UI, DXMath::Vector2(1430, 490))->SetActive(false);
 	CreatorObject<ToopTip2D>("Insurance_ToolTip", Object::ObjectType::UI, DXMath::Vector2(1460, 550))->SetActive(false);
-	auto DoubleDownImg = CreatorObject<UIButton>("DoubleDownImage", Object::ObjectType::UI, "GambleScene/UI/Double_Down_Banner.png", DXMath::Vector2{ 0, 500 }, []() { });
+	auto DoubleDownImg = CreatorObject<UIButton>("DoubleDownImage", Object::ObjectType::UI, "GambleScene/UI/Double_Down_Banner.png", DXMath::Vector2{ 0, 500 }, []() {});
 	auto ShowDownImg = CreatorObject<UIButton>("ShowDownImage", Object::ObjectType::UI, "GambleScene/UI/Show_Down_Banner.png", DXMath::Vector2{ 0, 500 }, []() {});
 	CreatorObject<GambleButton>("Open", Object::ObjectType::UI, DXMath::Vector2(1650, 360), []() {ClickFunc::OpenButton(); });
 	CreatorObject<GambleButton>("Hit", Object::ObjectType::UI, DXMath::Vector2(1745, 440), []() {ClickFunc::HitButton(); SOUNDSYSTEM->PlayMusic(eSoundList::VS_Hit, eSoundChannel::Voice);});
@@ -142,7 +142,7 @@ void GambleScene::Enter()
 		{ BLACKJACK->distribution(true);BLACKJACK->isRoundOver = true; PlayerWin->SetActive(false);
 	ui9->SetActive(false); ui10->SetActive(false); ui11->SetActive(false); });
 
-	DoubleDownImg->SetOnClick([DoubleDownImg]() {DoubleDownImg->SetActive(false); });
+	DoubleDownImg->SetOnClick([DoubleDownImg]() {DoubleDownImg->SetActive(false);});
 	ShowDownImg->SetOnClick([ShowDownImg]() {ShowDownImg->SetActive(false);});
 
 	auto SetCamera = CreatorObject<UIButton>("SetCamera", Object::ObjectType::UI, "UI/Set_Camera_Button.png", DXMath::Vector2{ 0,964 }, []() {});
@@ -185,24 +185,24 @@ void GambleScene::Enter()
 	skilldialog4_2->SetActive(false);
 
 	auto dialogbutton1 = CreatorObject<DialogButton>("Pattern1_1", Object::ObjectType::UI, DXMath::Vector2(100, 450),
-		[skilldialog1_1, this]() { skilldialog1_1->SetActive(true); BLACKJACK->curTurn = Turn::player; BLACKJACK->dealer->SetSkill(); BLACKJACK->dealer->GetComponent<ModelComponent>()->SetAnimation(this->success[RandomUtil::GetRandomInt(0, 1)]); BLACKJACK->isOn = true; });
+		[skilldialog1_1, this]() { skilldialog1_1->SetActive(true); BLACKJACK->curTurn = Turn::player; BLACKJACK->dealer->SetSkill(); BLACKJACK->dealer->GetComponent<ModelComponent>()->SetAnimation(this->success[RandomUtil::GetRandomInt(0,1)]); });
 	auto dialogbutton2 = CreatorObject<DialogButton>("Pattern1_2", Object::ObjectType::UI, DXMath::Vector2(1200, 450),
-		[skilldialog1_2, this]() { skilldialog1_2->SetActive(true); BLACKJACK->dealer->Act(); BLACKJACK->curTurn = Turn::player;  BLACKJACK->dealer->GetComponent<ModelComponent>()->SetAnimation(this->failure[RandomUtil::GetRandomInt(0, 1)]); BLACKJACK->isOn = true; });
+		[skilldialog1_2, this]() { skilldialog1_2->SetActive(true); BLACKJACK->dealer->Act(); BLACKJACK->curTurn = Turn::player;  BLACKJACK->dealer->GetComponent<ModelComponent>()->SetAnimation(this->failure[RandomUtil::GetRandomInt(0, 1)]);});
 
 	auto dialogbutton3 = CreatorObject<DialogButton>("Pattern2_1", Object::ObjectType::UI, DXMath::Vector2(100, 450),
-		[skilldialog2_1, this]() {skilldialog2_1->SetActive(true); BLACKJACK->curTurn = Turn::player; BLACKJACK->dealer->SetSkill(); BLACKJACK->dealer->GetComponent<ModelComponent>()->SetAnimation(this->success[RandomUtil::GetRandomInt(0, 1)]); BLACKJACK->isOn = true; });
+		[skilldialog2_1, this]() {skilldialog2_1->SetActive(true); BLACKJACK->curTurn = Turn::player; BLACKJACK->dealer->SetSkill(); BLACKJACK->dealer->GetComponent<ModelComponent>()->SetAnimation(this->success[RandomUtil::GetRandomInt(0, 1)]); });
 	auto dialogbutton4 = CreatorObject<DialogButton>("Pattern2_2", Object::ObjectType::UI, DXMath::Vector2(1200, 450),
-		[skilldialog2_2, this ]() { skilldialog2_2->SetActive(true);  BLACKJACK->dealer->Act(); BLACKJACK->curTurn = Turn::player; BLACKJACK->dealer->GetComponent<ModelComponent>()->SetAnimation(this->failure[RandomUtil::GetRandomInt(0, 1)]); BLACKJACK->isOn = true; });
+		[skilldialog2_2, this ]() { skilldialog2_2->SetActive(true);  BLACKJACK->dealer->Act(); BLACKJACK->curTurn = Turn::player; BLACKJACK->dealer->GetComponent<ModelComponent>()->SetAnimation(this->failure[RandomUtil::GetRandomInt(0, 1)]);});
 
 	auto dialogbutton5 = CreatorObject<DialogButton>("Pattern3_1", Object::ObjectType::UI, DXMath::Vector2(100, 450),
-		[skilldialog3_1, this]() {skilldialog3_1->SetActive(true); BLACKJACK->curTurn = Turn::player; BLACKJACK->dealer->SetSkill(); BLACKJACK->dealer->GetComponent<ModelComponent>()->SetAnimation(this->success[RandomUtil::GetRandomInt(0, 1)]); BLACKJACK->isOn = true; });
+		[skilldialog3_1, this]() {skilldialog3_1->SetActive(true); BLACKJACK->curTurn = Turn::player; BLACKJACK->dealer->SetSkill(); BLACKJACK->dealer->GetComponent<ModelComponent>()->SetAnimation(this->success[RandomUtil::GetRandomInt(0, 1)]);});
 	auto dialogbutton6 = CreatorObject<DialogButton>("Pattern3_2", Object::ObjectType::UI, DXMath::Vector2(1200, 450),
-		[skilldialog3_2, this]() { skilldialog3_2->SetActive(true);  BLACKJACK->dealer->Act(); BLACKJACK->curTurn = Turn::player;  BLACKJACK->dealer->GetComponent<ModelComponent>()->SetAnimation(this->failure[RandomUtil::GetRandomInt(0, 1)]); BLACKJACK->isOn = true; });
+		[skilldialog3_2, this]() { skilldialog3_2->SetActive(true);  BLACKJACK->dealer->Act(); BLACKJACK->curTurn = Turn::player;  BLACKJACK->dealer->GetComponent<ModelComponent>()->SetAnimation(this->failure[RandomUtil::GetRandomInt(0, 1)]);});
 
 	auto dialogbutton7 = CreatorObject<DialogButton>("Pattern4_1", Object::ObjectType::UI, DXMath::Vector2(100, 450),
-		[skilldialog4_1, this]() {skilldialog4_1->SetActive(true); BLACKJACK->curTurn = Turn::player; BLACKJACK->dealer->SetSkill(); BLACKJACK->dealer->GetComponent<ModelComponent>()->SetAnimation(this->success[RandomUtil::GetRandomInt(0, 1)]); BLACKJACK->isOn = true; });
+		[skilldialog4_1, this]() {skilldialog4_1->SetActive(true); BLACKJACK->curTurn = Turn::player; BLACKJACK->dealer->SetSkill(); BLACKJACK->dealer->GetComponent<ModelComponent>()->SetAnimation(this->success[RandomUtil::GetRandomInt(0, 1)]);});
 	auto dialogbutton8 = CreatorObject<DialogButton>("Pattern4_2", Object::ObjectType::UI, DXMath::Vector2(1200, 450),
-		[skilldialog4_2, this]() { skilldialog4_2->SetActive(true);  BLACKJACK->dealer->Act(); BLACKJACK->curTurn = Turn::player; BLACKJACK->dealer->GetComponent<ModelComponent>()->SetAnimation(this->failure[RandomUtil::GetRandomInt(0, 1)]); BLACKJACK->isOn = true; });
+		[skilldialog4_2, this]() { skilldialog4_2->SetActive(true);  BLACKJACK->dealer->Act(); BLACKJACK->curTurn = Turn::player; BLACKJACK->dealer->GetComponent<ModelComponent>()->SetAnimation(this->failure[RandomUtil::GetRandomInt(0, 1)]); });
 
 	auto q1 = CreatorObject<D2DBaseObj>("Question1", Object::ObjectType::UI);
 	q1->GetComponent<D2DRenderComponent>()->Load2DImage("UI/Question/Question1.png");
