@@ -117,6 +117,10 @@ void BlackJack::PlayerWin()
 {
 	IsShowDown = true;
 	firstAni = true;
+	secondAni = true;
+	IdleAni = false;
+	IsShowDown = true;
+
 	auto DealerWin = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "DealerWin");
 	auto PlayerWin = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "PlayerWin");
 	auto BetResult = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "BetResult");
@@ -129,6 +133,8 @@ void BlackJack::PlayerWin()
 	BetMag->SetActive(true);
 	Result->SetActive(true);
 	
+	SOUNDSYSTEM->PlayMusic(eSoundList::VS_Win, eSoundChannel::Voice);
+
 	// SceneManager().changer(DialogScene4)
 		//  static_cast<LoadingScene*>(SCENEMANAGER->GetScene("LoadingScene"))->NextScene("DialogScene4");
 }
@@ -137,6 +143,9 @@ void BlackJack::DealerWin()
 {
 	IsShowDown = true;
 	firstAni = true;
+	secondAni = true;
+	IdleAni = false;
+	IsShowDown = true;
 
 	auto DealerWin = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "DealerWin");
 	auto PlayerWin = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "PlayerWin");
@@ -150,9 +159,6 @@ void BlackJack::DealerWin()
 	BetMag->SetActive(true);
 	Result->SetActive(true);
 	//재도전 버튼 and 로비로 버튼 뛰우기
-	
-	SOUNDSYSTEM->StopMusic(eSoundChannel::BGM);
-	SOUNDSYSTEM->PlayMusic(eSoundList::GameOver, eSoundChannel::BGM);
 }
 
 void BlackJack::Update(float _deltaTime)
@@ -379,13 +385,11 @@ void BlackJack::ShowDown()
 		{
 			SOUNDSYSTEM->StopMusic(eSoundChannel::BGM);
 			SOUNDSYSTEM->PlayMusic(eSoundList::GameScene, eSoundChannel::BGM);
-			SOUNDSYSTEM->PlayMusic(eSoundList::VS_Win, eSoundChannel::Voice);
 			PlayerWin();
 		}
 		else
 		{
 			SOUNDSYSTEM->PlayMusic(eSoundList::GameScene, eSoundChannel::BGM);
-			SOUNDSYSTEM->PlayMusic(eSoundList::VS_Lose, eSoundChannel::Voice);
 			DealerWin(); //딜러가이김
 		}
 	}	

@@ -21,6 +21,7 @@ LobbyScene::LobbyScene(std::string_view _Name) : Scene(_Name)
 {
 	
 }
+
 void LobbyScene::Enter()
 {
 	AddGameObject(Object::ObjectType::Basic, BLACKJACK->dealer);
@@ -79,8 +80,6 @@ void LobbyScene::Enter()
 	talkButton->SetActive(false);
 	matchButton->SetActive(false);
 	fading->SetActive(false);
-
-	
 }
 
 void LobbyScene::Update(const float _deltaTime)

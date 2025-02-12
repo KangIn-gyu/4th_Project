@@ -136,11 +136,11 @@ void GambleScene::Enter()
 
 	DealerWin->SetOnClick([DealerWin, ui9, ui10, ui11]()
 		{ BLACKJACK->distribution(false); BLACKJACK->isRoundOver = true; DealerWin->SetActive(false);
-	ui9->SetActive(false); ui10->SetActive(false); ui11->SetActive(false); });
+	ui9->SetActive(false); ui10->SetActive(false); ui11->SetActive(false); 	SOUNDSYSTEM->PlayMusic(eSoundList::VS_Lose, eSoundChannel::Voice); });
 
 	PlayerWin->SetOnClick([PlayerWin, ui9, ui10, ui11]()
 		{ BLACKJACK->distribution(true);BLACKJACK->isRoundOver = true; PlayerWin->SetActive(false);
-	ui9->SetActive(false); ui10->SetActive(false); ui11->SetActive(false); });
+	ui9->SetActive(false); ui10->SetActive(false); ui11->SetActive(false);	SOUNDSYSTEM->PlayMusic(eSoundList::VS_Win, eSoundChannel::Voice); });
 
 	DoubleDownImg->SetOnClick([DoubleDownImg]() {DoubleDownImg->SetActive(false);});
 	ShowDownImg->SetOnClick([ShowDownImg]() {ShowDownImg->SetActive(false);});
@@ -243,6 +243,13 @@ void GambleScene::Update(const float _deltaTime)
 {
 	//MYGAMEMANAGER->Update(_deltaTime);
 	__super::Update(_deltaTime);
+
+	Object* camera = GetGameObject(Object::ObjectType::Camera, 0);
+	TransformComponent* cameratrans = camera->GetComponent<TransformComponent>();
+	float angle = DirectX::XMConvertToRadians(20.0f);
+	DXMath::Quaternion quat = DXMath::Quaternion::CreateFromYawPitchRoll(0.0f, angle, 0.0f);
+	cameratrans->SetQuaternion(quat);
+	cameratrans->SetPosition({ 0, 165, -580 });
 
 	BLACKJACK->Update(_deltaTime * 2.0);
 }
