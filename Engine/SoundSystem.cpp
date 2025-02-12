@@ -80,12 +80,24 @@ bool SoundSystem::isChannelPlaying(eSoundChannel channel) {
 
 SoundSystem::SoundSystem() : mSystem(), mChannel{}, mSoundList{}, mVolume()
 {
-	// FMOD 시스템 초기화 예외 처리
 	FMOD_RESULT result = System_Create(&mSystem);
-	assert(result == FMOD_OK && "FMOD: System_Create failed");
+	if (result != FMOD_OK)
+	{
+		// 에러 처리 로직 (로깅 또는 예외 발생)
+		throw std::runtime_error("FMOD: System_Create failed");
+	}
 
 	result = mSystem->init(6, FMOD_INIT_NORMAL, 0);
-	assert(result == FMOD_OK && "FMOD: System initialization failed");
+	if (result != FMOD_OK)
+	{
+		// 실패 시 시스템 정리
+		if (mSystem)
+		{
+			mSystem->release();
+			mSystem = nullptr;
+		}
+		throw std::runtime_error("FMOD: System initialization failed");
+	}
 }
 
 SoundSystem::~SoundSystem()

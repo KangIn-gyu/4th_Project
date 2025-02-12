@@ -6,6 +6,7 @@
 #include "LoopImageChangeScript.h"
 #include "../Engine/SceneManager.h"
 #include "UIButton.h"
+#include "../Engine/SoundSystem.h"
 CreditScene::CreditScene(std::string_view _Name) : Scene(_Name)
 {
     std::vector<std::string> img =
@@ -43,4 +44,7 @@ void CreditScene::ResetInformation()
     fading->SetActive(true);
     loopImg->SetActive(true);
     static_cast<FadeEffectScript*>(fading->script)->StartFadeOut();
+
+    SOUNDSYSTEM->StopMusic(eSoundChannel::BGM);
+    SOUNDSYSTEM->PlayMusic(eSoundList::Credit, eSoundChannel::BGM);
 }

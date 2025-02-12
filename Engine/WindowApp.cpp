@@ -84,7 +84,7 @@ LRESULT WindowApp::WndProc(HWND _hWnd, UINT _message, WPARAM _wParam, LPARAM _lP
             ENGINE->SetWindowSize(newWidth, newHeight);
         }
     }
-        break;
+    break;
     case WM_EXITSIZEMOVE:
     {
         if (nullptr != WindowApp::console)

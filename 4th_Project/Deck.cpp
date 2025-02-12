@@ -105,7 +105,6 @@ Card* Deck::DrawCard(bool Dealer)
 
 void Deck::ShuffleDeck()
 {
-	SOUNDSYSTEM->PlayMusic(eSoundList::SE_Card_Gather, eSoundChannel::BGM);
 	std::shuffle(cards.begin(), cards.end(), RandomUtil::gen);
 }
 

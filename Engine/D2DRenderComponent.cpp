@@ -92,7 +92,7 @@ Bitmap* D2DRenderComponent::GetBitmap(int _index)
 }
 
 void D2DRenderComponent::LoadFont(const std::string& _filePath)
-{	// TODO : ?�시 만들?�야 ??
+{	
 	font = FONTMANAGER->LoadFont(_filePath);
 }
 

@@ -39,7 +39,8 @@ void ColliderManager::CollisionCheck()
             {
                 if (col->GetActive() == false)
                     continue;
-
+                if (col->coltouch == Touch::None)
+                    continue;
                 if (ray->GetOwner()->GetName() == col->GetOwner()->GetName())
                     continue;
 

@@ -17,6 +17,7 @@ public:
 	virtual void FixedUpdate() {}
 	virtual void LateUpdate() {}
 
+	void SetOnClick(std::function<void()> _func);
 	void SetD2DLayerOrder(int _index);
 
 
@@ -31,6 +32,8 @@ public:
 	std::function<void(void)> clickFunc;
 	DXMath::Vector2 pos = { 150,150 };
 	float elapsedTime = 0;
+
+	bool isOn = false;
 
 };
 

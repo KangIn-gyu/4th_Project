@@ -60,17 +60,13 @@ void Layer::Destroy()
 
 Layer::~Layer()
 {
-	std::vector<Object*> delObjects;
-
 	for (auto& data : objects)
 	{
-		if (data->GetName() != "Evelyn" || data->GetName() != "Player")
+		if (nullptr != data)
 		{
-			delObjects.push_back(data);
+			SafeExtinction::SAFE_DELETE(data);
 		}
 	}
-
-	SafeExtinction::SAFE_CLEAR_CONTAINER(delObjects);
 }
 
 void Layer::AddGameObjcet(Object* _gameObject)

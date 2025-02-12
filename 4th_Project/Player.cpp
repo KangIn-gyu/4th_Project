@@ -13,6 +13,8 @@
 #include "../Engine/RayCollier.h"
 #include "../Engine/CircleCollider.h"
 #include "../Engine/BoxCollider.h"
+#include "../Engine/SoundSystem.h"
+
 Player* Player::g_player = nullptr;
 
 Player::Player(std::string_view _name, Object::ObjectType _type) : Object(_name, _type)
@@ -320,6 +322,7 @@ void Player::OnInputProcess(const DX::Keyboard::State& _KeyState, const DX::Keyb
 			if (wheelDelta > lastWheelDelta) {
 				std::cout << "마우스 휠업함 " << " ";
 				betChip += 100;
+				SOUNDSYSTEM->PlayMusic(eSoundList::SE_Bet, eSoundChannel::Effect);
 				if (betChip >= chip)
 				{
 					betChip = chip;
@@ -330,6 +333,7 @@ void Player::OnInputProcess(const DX::Keyboard::State& _KeyState, const DX::Keyb
 			else if (wheelDelta < lastWheelDelta) {
 				std::cout << "마우스 휠 다운함 " << " ";
 				betChip -= 100;
+				SOUNDSYSTEM->PlayMusic(eSoundList::SE_Bet, eSoundChannel::Effect);
 				if (!BLACKJACK->firstBet)
 					minBet = 0;
 				if (betChip <= minBet)
@@ -403,6 +407,47 @@ void Player::OnInputProcess(const DX::Keyboard::State& _KeyState, const DX::Keyb
 			DXINPUT->mouse->SetMode(DX::Mouse::MODE_RELATIVE);
 			DXINPUT->mouse->SetVisible(false);
 		}
+
+		if (_KeyState.IsKeyDown(DirectX::Keyboard::Keys::D1))
+		{
+			BLACKJACK->curStage = 0;  //아직 한번도안함
+			love = 20 * BLACKJACK->curStage +20;
+		}
+		else if (_KeyState.IsKeyDown(DirectX::Keyboard::Keys::D2))
+		{
+			BLACKJACK->curStage = 1;  //한번이김
+			love = 20 * BLACKJACK->curStage + 20;
+		}
+		else if (_KeyState.IsKeyDown(DirectX::Keyboard::Keys::D3))
+		{
+			BLACKJACK->curStage = 2;  //두번이김
+			love = 20 * BLACKJACK->curStage + 20;
+		}
+		else if (_KeyState.IsKeyDown(DirectX::Keyboard::Keys::D4))
+		{
+			BLACKJACK->curStage = 3;  //3번이김
+			love = 20 * BLACKJACK->curStage + 20;
+		}
+	}
+
+	if (SCENEMANAGER->GetCurrentScene()->GetName() == "GambleScene")
+	{
+		if (_KeyState.IsKeyDown(DirectX::Keyboard::Keys::D7))
+		{
+			BLACKJACK->needReset = true;      //해당라운드 초기화 비슷
+			BLACKJACK->elapsedTime = 0;
+		}
+		else if (_KeyState.IsKeyDown(DirectX::Keyboard::Keys::D8))
+		{
+			BLACKJACK->needResetRound = true;
+			BLACKJACK->elapsedTime = 0;
+			        //해당스테이지 초기화
+		}
+		else if (_KeyState.IsKeyDown(DirectX::Keyboard::Keys::D9))
+		{
+			BLACKJACK->StageWin();                 //해당스테이지 클리어
+		}
+		
 	}
 }
 
@@ -486,6 +531,7 @@ void Player::EnterRayCollision(Collider* _otherCol)
 		{
 			SCENEMANAGER->GetCurrentScene()->GetGameObject(ObjectType::UI, "TalkButton")->SetActive(true);
 			SCENEMANAGER->GetCurrentScene()->GetGameObject(ObjectType::UI, "REMatchButton")->SetActive(true);
+			SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "hogamdo")->SetActive(true);
 			std::cout << _otherCol->GetOwner()->GetName() + " 쳐다보는중임" << std::endl;
 		}
 	}
@@ -499,6 +545,7 @@ void Player::EndRayCollision(Collider* _otherCol)
 		{
 			SCENEMANAGER->GetCurrentScene()->GetGameObject(ObjectType::UI, "TalkButton")->SetActive(false);
 			SCENEMANAGER->GetCurrentScene()->GetGameObject(ObjectType::UI, "REMatchButton")->SetActive(false);
+			SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "hogamdo")->SetActive(false);
 			std::cout << _otherCol->GetOwner()->GetName() + " 쳐다보기멈추무ㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜ" << std::endl;
 		}
 	}

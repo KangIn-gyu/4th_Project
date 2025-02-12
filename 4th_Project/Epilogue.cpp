@@ -5,6 +5,7 @@
 #include "FadeEffectScript.h"
 #include "../Engine/SceneManager.h"
 #include "UIButton.h"
+#include "../Engine/SoundSystem.h"
 Epilogue::Epilogue(std::string_view _Name) : Scene(_Name)
 {
     // TODO: 크레딧 이미지 넣기
@@ -54,4 +55,7 @@ void Epilogue::ResetInformation()
     fading->SetActive(true);
     skipbutton->SetActive(true);
     static_cast<FadeEffectScript*>(fading->script)->StartFadeOut();
+
+    SOUNDSYSTEM->StopMusic(eSoundChannel::BGM);
+    SOUNDSYSTEM->PlayMusic(eSoundList::Epilogue, eSoundChannel::BGM);
 }

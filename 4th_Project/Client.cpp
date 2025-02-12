@@ -25,7 +25,7 @@ void Client::Enter()
 	SCENEMANAGER->CreatorScene<LoadingScene>("LoadingScene");
 	SCENEMANAGER->ChangeScene("LoadingScene");
 	static_cast<LoadingScene*>(SCENEMANAGER->GetScene("LoadingScene"))->NextScene("TitleScene");
-	SOUNDSYSTEM->SetVolumeAll(0.5f);
+	SOUNDSYSTEM->SetVolumeAll(0.2f);
 	LoadMusic();
 }
 
@@ -60,7 +60,7 @@ void Client::SceneUpload()
 
 	ENGINE->CollectionGameManager(MYGAMEMANAGER);
 
-	SOUNDSYSTEM->SetVolumeAll(0.5f);
+	SOUNDSYSTEM->SetVolumeAll(0.2f);
 
 	LoadMusic();
 }
@@ -75,7 +75,8 @@ void Client::LoadMusic()
 
 	{ // Dialog
 		//BGM
-		SOUNDSYSTEM->LoadMusic(eSoundList::DialogIntro, true, "Resource\\DialogScenes\\Sounds\\Epilogue_Dialogue_BGM.wav");
+		SOUNDSYSTEM->LoadMusic(eSoundList::DialogIntro, true, "Resource\\DialogScenes\\Sounds\\Intro.wav");
+		SOUNDSYSTEM->LoadMusic(eSoundList::Epilogue, true, "Resource\\DialogScenes\\Sounds\\Epilogue_Dialogue_BGM.wav");
 		SOUNDSYSTEM->LoadMusic(eSoundList::Scene0,		true, "Resource\\DialogScenes\\Sounds\\Scene0_dialogue_BGM.wav");
 		SOUNDSYSTEM->LoadMusic(eSoundList::Scene1,		true, "Resource\\DialogScenes\\Sounds\\Scene1_Dialogue_BGM.wav");
 		SOUNDSYSTEM->LoadMusic(eSoundList::Scene2,		true, "Resource\\DialogScenes\\Sounds\\Scene2_Dialogue_BGM.wav");
@@ -84,7 +85,7 @@ void Client::LoadMusic()
 		SOUNDSYSTEM->LoadMusic(eSoundList::Scene5,		true, "Resource\\DialogScenes\\Sounds\\Scene5_Dialogue_BGM.wav");
 		SOUNDSYSTEM->LoadMusic(eSoundList::Ending,		true, "Resource\\DialogScenes\\Sounds\\Ending_Dialogue_BGM.wav");
 		SOUNDSYSTEM->LoadMusic(eSoundList::BadEnding,	true, "Resource\\DialogScenes\\Sounds\\BadEnding_Dialogue_BGM.mp3");
-		
+		SOUNDSYSTEM->LoadMusic(eSoundList::HappyEnding, true, "Resource\\DialogScenes\\Sounds\\HappyEnding_Dialogue_BGM.wav");
 	}
 
 	{ // 버튼 SFX
@@ -122,4 +123,7 @@ void Client::LoadMusic()
 		SOUNDSYSTEM->LoadMusic(eSoundList::VS_Win, false, "Resource\\GambleScene\\Sounds\\VS_Win.wav");
 		SOUNDSYSTEM->LoadMusic(eSoundList::VS_Lose, false, "Resource\\GambleScene\\Sounds\\VS_Lose.wav");
 	}
+
+	// 사운드 채널별 설정
+	SOUNDSYSTEM->SetVolume(0.1f, 0);
 }

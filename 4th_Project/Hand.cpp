@@ -52,7 +52,7 @@ Card* Hand::cardDraw(Card* _card,DXMath::Vector3 _pos, bool dealer)
 {
 	//_pos로 옮기기
 
-	SOUNDSYSTEM->PlayMusic(eSoundList::SE_Card_Pick, eSoundChannel::Effect);
+	SOUNDSYSTEM->PlayMusic(eSoundList::SE_Card_Unfold, eSoundChannel::Effect3);
 	auto& cardpos = _card->GetComponent<TransformComponent>()->GetPosition();
 
 	if (false == dealer)
@@ -159,9 +159,6 @@ bool Hand::ShuffleHand()
 	}
 	if (curHand == HandState::Center && elapsedTime >= 3.0f )  // 중앙으로 모으기 모으면서 카드 값이미 바뀜
 	{
-		// TODO : 25.2.10 수정함
-		// std::random_device rd;
-		// std::mt19937 g(rd());
 		std::shuffle(hand.begin(), hand.end() - 1, RandomUtil::gen);
 		for (int i = 0; i < numCard(); i++)
 		{
@@ -193,7 +190,6 @@ bool Hand::ShuffleHand()
 
 void Hand::SkillDraw(Deck* deck, std::string _name)
 {
-	
 	
 	auto it = std::remove_if(deck->cards.begin(), deck->cards.end(),
 		[&](Card* card) {

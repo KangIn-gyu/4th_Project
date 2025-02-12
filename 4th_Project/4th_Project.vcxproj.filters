@@ -177,6 +177,8 @@
     <ClInclude Include="EndingChoice.h">
       <Filter>Scene\7. EndingScene</Filter>
     </ClInclude>
+    <ClInclude Include="JustBox.h" />
+    <ClInclude Include="hogamdo.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -308,6 +310,8 @@
     <ClCompile Include="EndingChoice.cpp">
       <Filter>Scene\7. EndingScene</Filter>
     </ClCompile>
+    <ClCompile Include="JustBox.cpp" />
+    <ClCompile Include="hogamdo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Client">

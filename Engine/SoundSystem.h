@@ -20,7 +20,9 @@ enum class eSoundChannel
 	BGM = 0,
 	Effect = 1,
 	Voice = 2,
-	Size = 3
+	Effect2 = 3,
+	Effect3 = 4,
+	Size = 5
 };
 
 enum class eSoundList
@@ -59,6 +61,8 @@ enum class eSoundList
 	SE_All_In,
 	SE_Bet,
 	Credit,
+	HappyEnding,
+	Epilogue,
 	Size
 };
 
