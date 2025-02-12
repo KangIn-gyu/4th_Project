@@ -6,6 +6,8 @@
 #include "BlackJack.h"
 #include "../Engine/TimeSystem.h"
 #include "../Engine/SceneManager.h"
+#include "../Engine/SoundSystem.h"
+
 SkillButton::SkillButton(std::string_view _name, Object::ObjectType _type, DXMath::Vector2 _pos, int _cost,std::function<void()> _func) :Object(_name, _type)
 {
 	pos = _pos;
@@ -78,7 +80,7 @@ void SkillButton::ChangeState(gbState _state)
 
 void SkillButton::OnClick()
 {
-	
+	SOUNDSYSTEM->PlayMusic(eSoundList::SE_Button_Click, eSoundChannel::Effect);
 	if (curState == gbState::On && PLAYER->OnSkill == false)
 	{
 		PLAYER->skillPoint -= cost;
@@ -89,6 +91,7 @@ void SkillButton::OnClick()
 
 void SkillButton::OnMouse()
 {
+	SOUNDSYSTEM->PlayMusic(eSoundList::SE_Button_Hover, eSoundChannel::Effect);
 	if (nextState != gbState::On || curState != gbState::On) // //ÅøÆÁÃâ·Â*****
 		ChangeState(gbState::Toggle);
 

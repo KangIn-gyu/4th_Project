@@ -4,6 +4,8 @@
 #include "../Engine/BoxCollider.h"
 #include "BlackJack.h"
 #include "../Engine/TimeSystem.h"
+#include "../Engine/SoundSystem.h"
+
 UIToggleBtn::UIToggleBtn(std::string_view _name, Object::ObjectType _type, DXMath::Vector2 _pos, std::function<void()> _func) :Object(_name, _type)
 {
 	pos = _pos;
@@ -41,11 +43,13 @@ void UIToggleBtn::Update(const float _deltaTime)
 
 void UIToggleBtn::OnClick()
 {
+	SOUNDSYSTEM->PlayMusic(eSoundList::SE_Button_Click, eSoundChannel::Effect);
 	clickFunc();
 }
 
 void UIToggleBtn::OnMouse()
 {
+	SOUNDSYSTEM->PlayMusic(eSoundList::SE_Button_Hover, eSoundChannel::Effect);
 	imagedata->ChangeBitmap(1); //마우스올리면 1로
 }
 
