@@ -95,7 +95,7 @@ void GambleScene::Enter()
 	ui6->CreateScript<JustFont>()->SetMessage(&BLACKJACK->player->score);
 
 	auto ui7 = CreatorObject<D2DBaseObj>("RoundBet", Object::ObjectType::UI, DXMath::Vector2{ 1600, 1000 }, "UI/RaiseBar.png", "Font/GyeonggiMillenniumBackground_Regular.ttf");
-	ui7->CreateScript<JustFont>()->SetMessage(&if (BLACKJACK->player->betChip <= 999) { BLACKJACK->player->betChip == 1000; });
+	ui7->CreateScript<JustFont>()->SetMessage(&BLACKJACK->player->betChip);
 
 	CreatorObject<UIButton>("DealerChip", Object::ObjectType::UI, "UI/Chip.png", DXMath::Vector2{ 1580, 1000 }, []() {});
 
