@@ -1,21 +1,17 @@
 #include "pch.h"
-#include "DialogScene4.h"
+#include "CreditScene.h"
 #include "D2DBaseObj.h"
 #include "D2DBitMapFontScript.h" // 스크립트
 #include "FadeEffectScript.h"
 #include "../Engine/SceneManager.h"
 #include "UIButton.h"
-#include "../Engine/SoundSystem.h"
-DialogScene4::DialogScene4(std::string_view _Name) : Scene(_Name)
+CreditScene::CreditScene(std::string_view _Name) : Scene(_Name)
 {
-    // Font/DialogScene.ttf  // GyeonggiMillenniumBackground_Regular
-    dialog = CreatorObject<D2DBaseObj>("DialogScene4", Object::ObjectType::UI,
-        0, 69, "Font/GyeonggiMillenniumBackground_Regular.ttf", "DialogScenes/CSV/Scene4.csv");
 
+    dialog = CreatorObject<D2DBaseObj>("CreditScene", Object::ObjectType::UI,
+        1, 111, "Font/GyeonggiMillenniumBackground_Regular.ttf", "DialogScenes/CSV/CreditScene.csv");
     dialog->CreateScript<D2DBitMapFontScript>();
-    skipbutton = CreatorObject<UIButton>("Skip", Object::ObjectType::UI,
-        "TutorialScene/UI/UI 43_Skip.png", DXMath::Vector2(1730, 50), DXMath::Vector2(150, 45),
-        []() {SCENEMANAGER->ChangeScene("LobbyScene");});
+
 
     // 페이드효과 밝아지기
     fading = CreatorObject<D2DBaseObj>("Fade", Object::ObjectType::UI);
@@ -24,19 +20,16 @@ DialogScene4::DialogScene4(std::string_view _Name) : Scene(_Name)
 
     dialog->SetD2DLayerOrder(0);
     fading->SetD2DLayerOrder(5);
-    skipbutton->SetD2DLayerOrder(1);
 
     dialog->SetActive(false);
     fading->SetActive(false);
-    skipbutton->SetActive(false);
 }
 
-void DialogScene4::Enter()
+void CreditScene::Enter()
 {
-
 }
 
-void DialogScene4::Update(const float _deltaTime)
+void CreditScene::Update(const float _deltaTime)
 {
     Scene::Update(_deltaTime);
     // 어두워지기
@@ -47,13 +40,11 @@ void DialogScene4::Update(const float _deltaTime)
     }
 }
 
-void DialogScene4::ResetInformation()
+
+void CreditScene::ResetInformation()
 {
     Scene::ResetInformation();
     dialog->SetActive(true);
     fading->SetActive(true);
-    skipbutton->SetActive(true);
     static_cast<FadeEffectScript*>(fading->script)->StartFadeOut();
-    SOUNDSYSTEM->StopMusic(eSoundChannel::BGM);
-    SOUNDSYSTEM->PlayMusic(eSoundList::Scene4, eSoundChannel::BGM);
 }

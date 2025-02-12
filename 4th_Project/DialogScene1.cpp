@@ -21,7 +21,7 @@ DialogScene1::DialogScene1(std::string_view _Name) : Scene(_Name)
     // 페이드효과 밝아지기
     fading = CreatorObject<D2DBaseObj>("Fade", Object::ObjectType::UI);
     fading->GetComponent<D2DRenderComponent>()->Load2DImage("UI/FadeImage.png");
-    fading->CreateScript<FadeEffectScript>()->StartFadeOut();
+    fading->CreateScript<FadeEffectScript>();
 
 
     skipbutton = CreatorObject<UIButton>("Skip", Object::ObjectType::UI,

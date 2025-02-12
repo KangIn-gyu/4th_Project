@@ -14,3 +14,10 @@
 #include "DialogScene3.h"
 #include "DialogScene4.h"
 #include "DialogScene5.h"
+
+#include "EndingScene.h"
+#include "EndingChoice.h"
+#include "Epilogue.h"
+#include "HappyEnding.h"
+#include "BadEnding.h"
+#include "CreditScene.h"
