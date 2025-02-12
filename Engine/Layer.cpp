@@ -64,7 +64,7 @@ Layer::~Layer()
 
 	for (auto& data : objects)
 	{
-		if (data->GetName() !=  "Evelyn")
+		if (data->GetName() != "Evelyn" || data->GetName() != "Player")
 		{
 			delObjects.push_back(data);
 		}

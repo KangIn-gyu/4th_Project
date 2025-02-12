@@ -45,7 +45,8 @@ void GambleScene::Enter()
 	// TODO: 다이얼로그로 넘어갈떄 지금이 첫번쨰 겜블인지 두번쨰인지 알아야함. 정보저장이던 넘기기던 플래그를 세워야함.
 	// TODO: 그리고 플레이어의 행동력 0 체크로 선택지 버튼을 출력함.
 
-	BLACKJACK->player = CreatorObject<Player>("Player", Object::ObjectType::Basic);
+	AddGameObject(Object::ObjectType::Basic, BLACKJACK->player);
+	//BLACKJACK->player = CreatorObject<Player>("Player", Object::ObjectType::Basic);
 	//BLACKJACK->dealer = CreatorObject<Dealer>("Dealer", Object::ObjectType::Basic);
 	//GetGameObject(Object::ObjectType::Camera)->GetComponent<TransformComponent>()->SetPosition({ -30.0f, 130.0f, -83.0f });
 	//GetGameObject(Object::ObjectType::Camera)->GetComponent<TransformComponent>()->SetQuaternion(DXMath::Quaternion::Quaternion(0.3f, 0.171f, -0.059f, 0.93f));
