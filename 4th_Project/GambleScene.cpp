@@ -30,7 +30,7 @@
 #include "../Engine/Renderer.h"
 #include "../Engine/Helper.h"
 #include "../Engine/SoundSystem.h"
-
+#include "BettingButton.h"
 #include "UIToggleBtn.h"
 GambleScene::GambleScene(std::string_view _Name) : Scene(_Name)
 {
@@ -87,7 +87,7 @@ void GambleScene::Enter()
 	auto ui3 = CreatorObject<D2DBaseObj>("Skill_Energe", Object::ObjectType::UI, DXMath::Vector2{ 1650, 220 }, "UI/Skill_Energe.png", "Font/GyeonggiMillenniumBackground_Regular.ttf");
 	ui3->CreateScript<JustFont>()->SetMessage(&BLACKJACK->player->skillPoint);
 
-	CreatorObject<UIButton>("ALLIN", Object::ObjectType::UI, "UI/Button/ALL_IN.png", DXMath::Vector2(1600, 850), []() {  if (BLACKJACK->firstTurn == false) { BLACKJACK->Bet(); } });
+	CreatorObject<BettingButton>("Bet", Object::ObjectType::UI, DXMath::Vector2(1600, 850), []() {   });
 
 	auto ui4 = CreatorObject<D2DBaseObj>("PlayerChipBox", Object::ObjectType::UI, DXMath::Vector2{ 1120, 120 }, "UI/ChipBox.png", "Font/GyeonggiMillenniumBackground_Regular.ttf");
 	ui4->CreateScript<JustFont>()->SetMessage(&BLACKJACK->player->chip);
@@ -215,8 +215,8 @@ void GambleScene::Enter()
 	BLACKJACK->SetDialog(q3);
 	BLACKJACK->SetDialog(q4);
 
-	CreatorObject<UIToggleBtn>("Bet", Object::ObjectType::UI, DXMath::Vector2( 1870,860 ), []() {});
-	CreatorObject<UIToggleBtn>("BetDown", Object::ObjectType::UI, DXMath::Vector2( 1870,950), []() {});
+	//CreatorObject<UIToggleBtn>("Bet", Object::ObjectType::UI, DXMath::Vector2( 1870,860 ), []() {});
+	//CreatorObject<UIToggleBtn>("BetDown", Object::ObjectType::UI, DXMath::Vector2( 1870,950), []() {});
 }
 
 

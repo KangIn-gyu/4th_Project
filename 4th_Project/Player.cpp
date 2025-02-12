@@ -321,6 +321,10 @@ void Player::OnInputProcess(const DX::Keyboard::State& _KeyState, const DX::Keyb
 			if (wheelDelta > lastWheelDelta) {
 				std::cout << "∏∂øÏΩ∫ »Ÿæ˜«‘ " << " ";
 				betChip += 100;
+				if (betChip >= chip)
+				{
+					betChip = chip;
+				}
 
 			}
 			// »Ÿ¿Ã æ∆∑°∑Œ ±º∑Ø∞¨¿ª ∂ß

@@ -5,6 +5,7 @@
 #include "UIButton.h"
 #include "BlackJack.h"
 #include "GambleButton.h"
+#include "BettingButton.h"
 void MyGameManager::Update(float _deltaTime)
 {
 
@@ -25,6 +26,27 @@ void MyGameManager::Update(float _deltaTime)
 			setSkillBtn(false);
 		}
 		UpdateGambleButton();
+
+		Object* Bet = SCENEMANAGER.get()->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "Bet");
+		BettingButton* Betbtn = dynamic_cast<BettingButton*>(Bet);
+		
+		if (BLACKJACK->magnification == BLACKJACK->maxmagnification || BLACKJACK->betMoney == BLACKJACK->player->chip) //ÃÑ°É¸°µ·ÀÌ¶û ÇÃ·¹ÀÌ¾î º¸À¯Ä¨ÀÌ¶û°°À¸¸é
+		{
+			Betbtn->index = 2;
+			BLACKJACK->betType = BetType::AllIn;
+		}
+		else if(BLACKJACK->player->betChip == 0)
+		{
+			Betbtn->index = 0;
+			BLACKJACK->betType = BetType::Fold;
+		}
+		else
+		{
+			Betbtn->index = 1;
+			BLACKJACK->betType = BetType::Raise;
+		}
+		
+		
 	}
 
 	

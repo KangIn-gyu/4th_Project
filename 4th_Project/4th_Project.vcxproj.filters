@@ -183,6 +183,9 @@
     <ClInclude Include="UIToggleBtn.h">
       <Filter>UI</Filter>
     </ClInclude>
+    <ClInclude Include="BettingButton.h">
+      <Filter>UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -315,6 +318,9 @@
       <Filter>Scene\7. EndingScene</Filter>
     </ClCompile>
     <ClCompile Include="UIToggleBtn.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="BettingButton.cpp">
       <Filter>UI</Filter>
     </ClCompile>
   </ItemGroup>
