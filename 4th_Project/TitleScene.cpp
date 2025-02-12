@@ -83,11 +83,20 @@ void TitleScene::Update(const float _deltaTime)
 void TitleScene::ResetInformation()
 {
     Scene::ResetInformation();
+    map->SetActive(true);
+    Evelyn->SetActive(true);
+
+    titleLogo->SetActive(true);
+    titleClick->SetActive(true);
+    Backgraund->SetActive(true);
+
+    Evelyn->GetComponent<TransformComponent>()->SetPosition({ 900, 8, 1270.5 });
     Evelyn->GetComponent<ModelComponent>()->SetAnimation(7);
 
     cameraTransformComponent = mainCamera->GetComponent<TransformComponent>();
     cameraTransformComponent->SetPosition({ 902.0f, 140.0f, 1154 });
     cameraTransformComponent->SetQuaternion({ 0.0f, 0.0f, 0.0f, 1.0f });
+
     auto* cameraComponent = mainCamera->GetComponent<CameraCompoent>();
     cameraComponent->LookAt(TargetPosition);
 
@@ -100,11 +109,4 @@ void TitleScene::ResetInformation()
     RENDERER->lightDir = { 0, -1.0f , 0 };
     RENDERER->upColor = true;
     SOUNDSYSTEM->PlayMusic(eSoundList::TitleScene, eSoundChannel::BGM);
-
-    map->SetActive(true);
-    Evelyn->SetActive(true);
-
-    titleLogo->SetActive(true);
-    titleClick->SetActive(true);
-    Backgraund->SetActive(true);
 }

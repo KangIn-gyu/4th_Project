@@ -144,10 +144,11 @@ void BlackJack::Update(float _deltaTime)
 		{
 			elapsedTime += _deltaTime;
 			
-			if ( player->drawFirst == false && elapsedTime >= 2.360)
+			if ( player->drawFirst == false && elapsedTime >= 2.3)
 			{
 				if (true == firstAni)  // TODO : 애니메이션 처리
 				{
+					IdleAni = false;
 					firstAni = false;
 					dealer->GetComponent<ModelComponent>()->SetAnimation(8); //  TODO : 여기는 애니메이션 보류
 				}		
@@ -159,6 +160,7 @@ void BlackJack::Update(float _deltaTime)
 				if (true == dealer->GetComponent<ModelComponent>()->IsAnimationFinished() && secondAni == false)
 				{ 
 					dealer->GetComponent<ModelComponent>()->SetAnimation(4);
+					IdleAni = true;
 				}
 
 				player->FirstDraw(deck); //1초에한장 딜레이주기 카드위치선정 ******
@@ -206,6 +208,11 @@ void BlackJack::Update(float _deltaTime)
 			//dealer->lose
 			RoundStart();
 		}
+	}
+
+	if (true == IdleAni && dealer->GetComponent<ModelComponent>()->IsAnimationFinished())
+	{
+		dealer->GetComponent<ModelComponent>()->SetAnimation(1);
 	}
 }
 

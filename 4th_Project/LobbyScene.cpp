@@ -37,11 +37,12 @@ void LobbyScene::ResetInformation()
 	//
 	//SCENEMANAGER.get()->GetCurrentScene()->GetGameObject(Object::ObjectType::Basic,"TitleScene/FBX/Evelyn.fbx")->GetComponent<ModelComponent>()->SetAnimation(8);
 	SOUNDSYSTEM->StopMusic(eSoundChannel::BGM);
+	SOUNDSYSTEM->PlayMusic(eSoundList::Lobby, eSoundChannel::BGM);
 	// TOOD : 노래 넣어야 됨
 	
 	dealer->GetComponent<ModelComponent>()->SetAnimation(1); // 기본 애니메이션 추가
-	Object* camera = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::Camera, 0);
+	Object* camera = GetGameObject(Object::ObjectType::Camera, 0);
 	TransformComponent* cameratrans = camera->GetComponent<TransformComponent>();
 	cameratrans->SetPosition({ 0,160, -100 });
-	cameratrans->SetQuaternion({ 0,0,0,1 });
+	cameratrans->SetQuaternion({ 0, 0, 0, 1 });
 }

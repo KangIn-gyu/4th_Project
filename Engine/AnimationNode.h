@@ -46,5 +46,6 @@ private:
 
 	std::string nodeName;
 	float animationDuration; // 애니메이션의 총 시간
+
 };
 
