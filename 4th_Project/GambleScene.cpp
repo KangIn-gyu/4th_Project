@@ -75,9 +75,9 @@ void GambleScene::Enter()
 	CreatorObject<ToopTip2D>("Guts_ToolTip", Object::ObjectType::UI, DXMath::Vector2(1430, 430))->SetActive(false);
 	CreatorObject<ToopTip2D>("Meditation_ToolTip", Object::ObjectType::UI, DXMath::Vector2(1430, 490))->SetActive(false);
 	CreatorObject<ToopTip2D>("Insurance_ToolTip", Object::ObjectType::UI, DXMath::Vector2(1460, 550))->SetActive(false);
-	auto DoubleDownImg = CreatorObject<UIButton>("DoubleDownImage", Object::ObjectType::UI, "GambleScene/UI/Double_Down_Banner.png", DXMath::Vector2{ 0, 230 }, []() { });
+	auto DoubleDownImg = CreatorObject<UIButton>("DoubleDownImage", Object::ObjectType::UI, "GambleScene/UI/Double_Down_Banner.png", DXMath::Vector2{ 0, 330 }, []() { });
 	DoubleDownImg->SetD2DLayerOrder(5);
-	auto ShowDownImg = CreatorObject<UIButton>("ShowDownImage", Object::ObjectType::UI, "GambleScene/UI/Show_Down_Banner.png", DXMath::Vector2{ 0, 300 }, []() {});
+	auto ShowDownImg = CreatorObject<UIButton>("ShowDownImage", Object::ObjectType::UI, "GambleScene/UI/Show_Down_Banner.png", DXMath::Vector2{ 0, 330 }, []() {});
 	ShowDownImg->SetD2DLayerOrder(5);
 	CreatorObject<GambleButton>("Open", Object::ObjectType::UI, DXMath::Vector2(1650, 360), []() {ClickFunc::OpenButton(); });
 	CreatorObject<GambleButton>("Hit", Object::ObjectType::UI, DXMath::Vector2(1745, 440), []() {ClickFunc::HitButton(); SOUNDSYSTEM->PlayMusic(eSoundList::VS_Hit, eSoundChannel::Voice);});
@@ -103,6 +103,9 @@ void GambleScene::Enter()
 	ui33->CreateScript<JustFont>()->SetMessage(&BLACKJACK->dealer->turnCount);
 
 	CreatorObject<BettingButton>("Bet", Object::ObjectType::UI, DXMath::Vector2(1600, 850), []() {   });
+
+	CreatorObject<UIButton>("PlayerBar", Object::ObjectType::UI, "UI/UI_Player Bar.png", DXMath::Vector2{ 1120, 170 }, []() {});
+	CreatorObject<UIButton>("DealerBar", Object::ObjectType::UI, "UI/UI_Player Bar.png", DXMath::Vector2{ 320, 170 }, []() {});
 
 	auto ui4 = CreatorObject<D2DBaseObj>("PlayerChipBox", Object::ObjectType::UI, DXMath::Vector2{ 1120, 120 }, "UI/ChipBox.png", "Font/GyeonggiMillenniumBackground_Regular.ttf");
 	ui4->CreateScript<JustFont>()->SetMessage(&BLACKJACK->player->chip);
