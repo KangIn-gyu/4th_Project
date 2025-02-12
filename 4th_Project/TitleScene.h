@@ -2,8 +2,8 @@
 #include "../Engine/Scene.h"
 
 class D3DBaseObj;
-class D3DAniObj;
 class D2DBaseObj;
+class Dealer;
 class TransformComponent;
 class TitleScene : public Scene
 {
@@ -21,7 +21,6 @@ public:
 
 private:
 	Object* mainCamera{};
-	D3DAniObj* Evelyn{};
 	D3DBaseObj* map{};
 	D2DBaseObj* titleLogo{};
 	D2DBaseObj* titleClick{};

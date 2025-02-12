@@ -32,8 +32,8 @@ Player::Player(std::string_view _name, Object::ObjectType _type) : Object(_name,
 	GetComponent<RayCollier>()->SetNotify(this);
 
 	//GetComponent<TransformComponent>()->GetPosition();
-	
-	
+
+
 }
 void Player::Initialize()
 {
@@ -42,13 +42,13 @@ void Player::Initialize()
 }
 void Player::ResetInformation()
 {
-	
+
 }
 
 void Player::Update(const float _deltaTime)
 {
-	
-	
+
+
 	GetComponent<TransformComponent>()->SetPosition(cameraTransform->GetPosition());
 	GetComponent<TransformComponent>()->SetQuaternion(cameraTransform->GetQuaternion());
 
@@ -115,13 +115,13 @@ bool Player::Open2Card()
 
 void Player::ShuffleHand()
 {
-	
+
 	/*for (int i = 0; i < hand.numCard(); i++)
 	{
 		hand.hand[i]->GetComponent<TransformComponent>()->SetPosition(playerSlots[i]);
 	}*/
 
-	if(true == hand.ShuffleHand())
+	if (true == hand.ShuffleHand())
 		Shuffle = true;
 }
 
@@ -145,7 +145,7 @@ void Player::SetSkill(PSkill _skill)
 bool Player::fastEye()
 {
 	fasteye = true;
-	
+
 	if (AllCurCardOpen() == true)
 	{
 		skillPoint += 3;
@@ -183,7 +183,7 @@ bool Player::fastEye()
 				card->SetOutlineColor({ 1,0,0,0 });
 				card->AddEffect(Object::Effect::OutLine);
 				//빨간색 테두리 생성bool변수 설정
-				
+
 
 			}
 		}
@@ -219,7 +219,7 @@ bool Player::Insurance()
 		//한개 버려라
 		for (auto card : hand.hand)
 		{
-			if(card != nullptr)
+			if (card != nullptr)
 				card->AddEffect(Object::Effect::OutLine);
 			//고르3버릴거 
 		}
@@ -233,7 +233,7 @@ bool Player::Insurance()
 			//고르3버릴거 
 		}
 
-		if(selectCard == nullptr)
+		if (selectCard == nullptr)
 		{
 			if (cardrot.isInit == false)
 			{
@@ -255,10 +255,14 @@ bool Player::Insurance()
 					card->GetComponent<TransformComponent>()->SetQuaternion(eulerToQuaternion);
 				}
 			}
-			
+
 			hand.cardDraw(selectCard);
 			selectCard->MoveOpen();
 			hand.SkillDraw(BLACKJACK->deck, selectCard->GetName());
+			if (selectCard->rank == "Ace")
+			{
+				selectCard->OpenA();
+			}
 			useRot = false;
 			selectCard = nullptr;
 			OnSkill = false;
@@ -277,7 +281,7 @@ bool Player::AllCurCardOpen()
 		if (card != nullptr && card->isOpen == true)
 			count++;
 	}
-	if(count == hand.numCard())
+	if (count == hand.numCard())
 		return true;
 }
 
@@ -318,15 +322,69 @@ void Player::OnInputProcess(const DX::Keyboard::State& _KeyState, const DX::Keyb
 			else if (wheelDelta < lastWheelDelta) {
 				std::cout << "마우스 휠 다운함 " << " ";
 				betChip -= 100;
+				if (!BLACKJACK->firstBet)
+					minBet = 0;
 				if (betChip <= minBet)
 					betChip = minBet;
 			}
 			lastWheelDelta = wheelDelta;
 		}
 	}
+
+	if (useRot == true)
+	{
+		uint32_t currentX = static_cast<uint32_t>(mouseState.x);
+		uint32_t currentY = static_cast<uint32_t>(mouseState.y);
+		static DirectX::XMUINT2 lastMousePos = { currentX, currentY };
+
+		if (mouseState.leftButton)
+		{
+			int deltaX = mouseState.x - lastMousePos.x;
+
+			const float DRAG_SENSITIVITY = 0.5f;
+
+			if (deltaX < -1)
+			{
+				cardrot.ROTATION_INTERVAL -= std::abs(deltaX) * DRAG_SENSITIVITY;
+				if (cardrot.ROTATION_INTERVAL < 10.f)
+					cardrot.ROTATION_INTERVAL = 10.0f;
+			}
+			else if (deltaX > 1)
+			{
+				// cardrot.value를 증가시킴 (예시 값)
+				cardrot.ROTATION_INTERVAL += deltaX * DRAG_SENSITIVITY;
+				if (cardrot.ROTATION_INTERVAL > 0.5f)
+					cardrot.ROTATION_INTERVAL = 0.5f;
+			}
+		}
+		else
+		{
+			float deltaTime = TIMESYSTEM->GetFloatDeltaTime();
+			if (cardrot.ROTATION_INTERVAL != cardrot.REAL_INTERVAL)
+			{
+				// 최대 변화량 제한
+				const float maxChange = 0.1f;  // 한 프레임당 최대 변화량
+
+				float diff = (cardrot.REAL_INTERVAL - cardrot.ROTATION_INTERVAL) * 1.0f * deltaTime;
+				// 변화량을 제한
+				diff = std::clamp(diff, -maxChange * deltaTime, maxChange * deltaTime);
+
+				// 제한된 변화량을 적용
+				cardrot.ROTATION_INTERVAL = cardrot.ROTATION_INTERVAL + diff;
+
+				// 너무 작은 차이는 그냥 기본값으로 설정
+				if (abs(cardrot.ROTATION_INTERVAL - cardrot.REAL_INTERVAL) < 0.01f)
+				{
+					cardrot.ROTATION_INTERVAL = cardrot.REAL_INTERVAL;
+				}
+			}
+
+
+			lastMousePos = { currentX, currentY };
+		}
+	}
+
 }
-
-
 
 
 void Player::OnBlock(Collider* _myCol, Collider* _otherCol)
@@ -404,19 +462,19 @@ void Player::EnterRayCollision(Collider* _otherCol)
 {
 	if (SCENEMANAGER->GetCurrentScene()->GetName() == "LobbyScene")
 	{
-		if (_otherCol->GetOwner()->GetName() == "Dealer")
+		if (_otherCol->GetOwner()->GetName() == "Evelyn")
 		{
 			SCENEMANAGER->GetCurrentScene()->GetGameObject(ObjectType::UI, "Handfaster_ToolTip")->SetActive(true);
 			std::cout << _otherCol->GetOwner()->GetName() + " 쳐다보는중임" << std::endl;
 		}
 	}
-	
+
 }
 void Player::EndRayCollision(Collider* _otherCol)
 {
 	if (SCENEMANAGER->GetCurrentScene()->GetName() == "LobbyScene")
 	{
-		if (_otherCol->GetOwner()->GetName() == "Dealer")
+		if (_otherCol->GetOwner()->GetName() == "Evelyn")
 		{
 			SCENEMANAGER->GetCurrentScene()->GetGameObject(ObjectType::UI, "Handfaster_ToolTip")->SetActive(false);
 		}

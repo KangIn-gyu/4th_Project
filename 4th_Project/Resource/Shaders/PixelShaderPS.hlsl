@@ -240,10 +240,18 @@ float4 main(PixelInputType input) : SV_TARGET
     
     float3 color = directionalLight + totalSpotLight + ambient + iblResult + emissive;
     
-    color *= 1.7f;
+    if(UpColor)
+    {
+        color *= 1.7f;
+    }
+    else
+    {
+        color *= 1.0f;
+    }
     
     color = pow(color, 1.0f / GAMMA);
-    color = ACESFilmicToneMapping(color);
+    
+    color = Uncharted2ToneMapping(color);
     
     //--------------------------------------------------------------------------------------
     // Alpha Handling

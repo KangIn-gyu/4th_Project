@@ -15,6 +15,8 @@
 #include "LoopImageChangeScript.h"
 #include "../Engine/SoundSystem.h"
 #include "ClickChangeSceneScript.h"
+#include "Dealer.h"
+#include "BlackJack.h"
 
 TitleScene::TitleScene(std::string_view _Name) : Scene(_Name)
 {
@@ -22,8 +24,8 @@ TitleScene::TitleScene(std::string_view _Name) : Scene(_Name)
         map = CreatorObject<D3DBaseObj>("Common/FBX/Map_Lowpoly.fbx", Object::ObjectType::Background, "Common/FBX/Map_test_Lowpoly.fbx");
         map->SetActive(false);
 
-        Evelyn = CreatorObject<D3DAniObj>("Common/FBX/Evelyn.fbx", Object::ObjectType::Basic, "Common/FBX/Evelyn.fbx");
-        Evelyn->GetComponent<TransformComponent>()->SetPosition({ 900, 8, 1270.5 });
+        BLACKJACK->dealer = CreatorObject<Dealer>("Evelyn", Object::ObjectType::Basic);
+        BLACKJACK->dealer->GetComponent<TransformComponent>()->SetPosition({ 900, 8, 1270.5 });
  
         TargetPosition = { 900, 107, 1272 };
         mainCamera = GetGameObject(Object::ObjectType::Camera, "MainCamera");
@@ -83,7 +85,10 @@ void TitleScene::Update(const float _deltaTime)
 void TitleScene::ResetInformation()
 {
     Scene::ResetInformation();
-    Evelyn->GetComponent<ModelComponent>()->SetAnimation(7);
+    //RENDERER->ClearSpotLight();
+
+    BLACKJACK->dealer->GetComponent<ModelComponent>()->SetAnimation(7);
+    BLACKJACK->dealer->GetComponent<TransformComponent>()->SetPosition({ 900, 8, 1270.5 });
 
     cameraTransformComponent = mainCamera->GetComponent<TransformComponent>();
     cameraTransformComponent->SetPosition({ 902.0f, 140.0f, 1154 });
@@ -101,8 +106,31 @@ void TitleScene::ResetInformation()
     RENDERER->upColor = true;
     SOUNDSYSTEM->PlayMusic(eSoundList::TitleScene, eSoundChannel::BGM);
 
+    SpotLightData test2;
+    test2.position = DXMath::Vector3(900.0f, 300.0f, 1290.0f);
+    test2.direction = DXMath::Vector3(0.0f, -1.0f, 0.5f);
+    test2.color = DXMath::Vector3(1.0f, 1.0f, 1.0f);
+    test2.range = 500.0f;
+    test2.innerCone = cos(DX::XMConvertToRadians(45.0f));
+    test2.outerCone = cos(DX::XMConvertToRadians(60.0f));
+    test2.intensity = 500.0f;
+
+    //RENDERER->AddSpotLight(test2);
+
+    SpotLightData test3;
+    test3.position = DXMath::Vector3(900.0f, 300.0f, 990.0f);
+    test3.direction = DXMath::Vector3(0.0f, 0.0f, 1.0f);
+    test3.color = DXMath::Vector3(1.0f, 1.0f, 1.0f);
+    test3.range = 500.0f;
+    test3.innerCone = cos(DX::XMConvertToRadians(89.0f));
+    test3.outerCone = cos(DX::XMConvertToRadians(90.0f));
+    test3.intensity = 500.0f;
+
+    //RENDERER->AddSpotLight(test3);
+
+
     map->SetActive(true);
-    Evelyn->SetActive(true);
+    BLACKJACK->dealer->SetActive(true);
 
     titleLogo->SetActive(true);
     titleClick->SetActive(true);

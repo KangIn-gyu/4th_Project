@@ -37,15 +37,15 @@ GambleScene::GambleScene(std::string_view _Name) : Scene(_Name)
 
 void GambleScene::Enter()
 {
+	AddGameObject(Object::ObjectType::Basic, BLACKJACK->dealer);
+
 	// TODO: 다이얼로그로 넘어갈떄 지금이 첫번쨰 겜블인지 두번쨰인지 알아야함. 정보저장이던 넘기기던 플래그를 세워야함.
 	// TODO: 그리고 플레이어의 행동력 0 체크로 선택지 버튼을 출력함.
 
 	BLACKJACK->player = CreatorObject<Player>("Player", Object::ObjectType::Basic);
-	BLACKJACK->dealer = CreatorObject<Dealer>("Dealer", Object::ObjectType::Basic);
+	//BLACKJACK->dealer = CreatorObject<Dealer>("Dealer", Object::ObjectType::Basic);
 	//GetGameObject(Object::ObjectType::Camera)->GetComponent<TransformComponent>()->SetPosition({ -30.0f, 130.0f, -83.0f });
 	//GetGameObject(Object::ObjectType::Camera)->GetComponent<TransformComponent>()->SetQuaternion(DXMath::Quaternion::Quaternion(0.3f, 0.171f, -0.059f, 0.93f));
-
-	BLACKJACK->dealer->GetComponent<TransformComponent>()->SetPosition({ 0.0f, 6.0f, -400.0f });
 
 	BLACKJACK->deck = CreatorObject<Deck>("Deck", Object::ObjectType::Basic);
 	BLACKJACK->deck->GetComponent<TransformComponent>()->SetPosition({ -60, 105, -500 });
@@ -90,7 +90,7 @@ void GambleScene::Enter()
 	auto ui5 = CreatorObject<D2DBaseObj>("DealerChipBox", Object::ObjectType::UI, DXMath::Vector2{ 320, 120 }, "UI/ChipBox.png", "Font/GyeonggiMillenniumBackground_Regular.ttf");
 	ui5->CreateScript<JustFont>()->SetMessage(&BLACKJACK->dealer->chip);
 	// 딜러 칩 어디서 설정하는지 그거 순서 문제
-	auto ui6 = CreatorObject<D2DBaseObj>("PlayerNum", Object::ObjectType::UI, DXMath::Vector2{ 380, 850 }, "UI/Num.png", "Font/GyeonggiMillenniumBackground_Regular.ttf");
+	auto ui6 = CreatorObject<D2DBaseObj>("PlayerNum", Object::ObjectType::UI, DXMath::Vector2{ 1480, 850 }, "UI/Num.png", "Font/GyeonggiMillenniumBackground_Regular.ttf");
 	ui6->CreateScript<JustFont>()->SetMessage(&BLACKJACK->player->score);
 
 	auto ui7 = CreatorObject<D2DBaseObj>("RoundBet", Object::ObjectType::UI, DXMath::Vector2{ 1600, 1000 }, "UI/RaiseBar.png", "Font/GyeonggiMillenniumBackground_Regular.ttf");
@@ -98,7 +98,7 @@ void GambleScene::Enter()
 
 	CreatorObject<UIButton>("DealerChip", Object::ObjectType::UI, "UI/Chip.png", DXMath::Vector2{ 1580, 1000 }, []() {});
 
-	auto ui8 = CreatorObject<D2DBaseObj>("DealerNum", Object::ObjectType::UI, DXMath::Vector2{ 580, 520 }, "UI/Num.png", "Font/GyeonggiMillenniumBackground_Regular.ttf");
+	auto ui8 = CreatorObject<D2DBaseObj>("DealerNum", Object::ObjectType::UI, DXMath::Vector2{ 1150, 370 }, "UI/Num.png", "Font/GyeonggiMillenniumBackground_Regular.ttf");
 	ui8->CreateScript<JustFont>()->SetMessage(&BLACKJACK->dealer->score);
 
 	auto* DealerWin = CreatorObject<UIButton>("DealerWin", Object::ObjectType::UI, "UI/Lose.png", DXMath::Vector2{ 0,200 }, []() {});
@@ -163,22 +163,22 @@ void GambleScene::Enter()
 	skilldialog4_2->SetActive(false);
 
 	auto dialogbutton1 = CreatorObject<DialogButton>("Pattern1_1", Object::ObjectType::UI, DXMath::Vector2(100, 450),
-		[skilldialog1_1]() {skilldialog1_1->SetActive(true); BLACKJACK->curTurn = Turn::player; BLACKJACK->dealer->SetSkill(); });
+		[skilldialog1_1]() {skilldialog1_1->SetActive(true); BLACKJACK->curTurn = Turn::player; BLACKJACK->dealer->SetSkill(); BLACKJACK->player->SpPlus(); });
 	auto dialogbutton2 = CreatorObject<DialogButton>("Pattern1_2", Object::ObjectType::UI, DXMath::Vector2(1200, 450),
 		[skilldialog1_2]() { skilldialog1_2->SetActive(true); BLACKJACK->dealer->Act(); BLACKJACK->curTurn = Turn::player; });
 
 	auto dialogbutton3 = CreatorObject<DialogButton>("Pattern2_1", Object::ObjectType::UI, DXMath::Vector2(100, 450),
-		[skilldialog2_1]() {skilldialog2_1->SetActive(true); BLACKJACK->curTurn = Turn::player; BLACKJACK->dealer->SetSkill(); });
+		[skilldialog2_1]() {skilldialog2_1->SetActive(true); BLACKJACK->curTurn = Turn::player; BLACKJACK->dealer->SetSkill(); BLACKJACK->player->SpPlus(); });
 	auto dialogbutton4 = CreatorObject<DialogButton>("Pattern2_2", Object::ObjectType::UI, DXMath::Vector2(1200, 450),
 		[skilldialog2_2]() { skilldialog2_2->SetActive(true);  BLACKJACK->dealer->Act(); BLACKJACK->curTurn = Turn::player; });
 
 	auto dialogbutton5 = CreatorObject<DialogButton>("Pattern3_1", Object::ObjectType::UI, DXMath::Vector2(100, 450),
-		[skilldialog3_1]() {skilldialog3_1->SetActive(true); BLACKJACK->curTurn = Turn::player; BLACKJACK->dealer->SetSkill(); });
+		[skilldialog3_1]() {skilldialog3_1->SetActive(true); BLACKJACK->curTurn = Turn::player; BLACKJACK->dealer->SetSkill(); BLACKJACK->player->SpPlus();});
 	auto dialogbutton6 = CreatorObject<DialogButton>("Pattern3_2", Object::ObjectType::UI, DXMath::Vector2(1200, 450),
 		[skilldialog3_2]() { skilldialog3_2->SetActive(true);  BLACKJACK->dealer->Act(); BLACKJACK->curTurn = Turn::player; });
 
 	auto dialogbutton7 = CreatorObject<DialogButton>("Pattern4_1", Object::ObjectType::UI, DXMath::Vector2(100, 450),
-		[skilldialog4_1]() {skilldialog4_1->SetActive(true); BLACKJACK->curTurn = Turn::player; BLACKJACK->dealer->SetSkill(); });
+		[skilldialog4_1]() {skilldialog4_1->SetActive(true); BLACKJACK->curTurn = Turn::player; BLACKJACK->dealer->SetSkill(); BLACKJACK->player->SpPlus(); });
 	auto dialogbutton8 = CreatorObject<DialogButton>("Pattern4_2", Object::ObjectType::UI, DXMath::Vector2(1200, 450),
 		[skilldialog4_2]() { skilldialog4_2->SetActive(true);  BLACKJACK->dealer->Act(); BLACKJACK->curTurn = Turn::player; });
 
@@ -210,6 +210,7 @@ void GambleScene::Enter()
 	BLACKJACK->SetDialog(q2);
 	BLACKJACK->SetDialog(q3);
 	BLACKJACK->SetDialog(q4);
+
 }
 
 
@@ -226,6 +227,7 @@ void GambleScene::ResetInformation()
 {
 	Scene::ResetInformation();
 	RENDERER->upColor = false;
+	//RENDERER->ClearSpotLight();
 	GetGameObject(Object::ObjectType::UI, "Meditation")->SetActive(false);
 	GetGameObject(Object::ObjectType::UI, "Insurance")->SetActive(false);
 	GetGameObject(Object::ObjectType::UI, "DealerWin")->SetActive(false);
@@ -263,15 +265,24 @@ void GambleScene::ResetInformation()
 	GetGameObject(Object::ObjectType::UI, "Pattern3_2")->SetActive(false);
 	GetGameObject(Object::ObjectType::UI, "Pattern4_1")->SetActive(false);
 	GetGameObject(Object::ObjectType::UI, "Pattern4_2")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "Handfaster_ToolTip")->GetComponent<D2DRenderComponent>()->bitmapLayerOrder = 5;
+	GetGameObject(Object::ObjectType::UI, "Guts_ToolTip")->GetComponent<D2DRenderComponent>()->bitmapLayerOrder = 5;
+	GetGameObject(Object::ObjectType::UI, "Meditation_ToolTip")->GetComponent<D2DRenderComponent>()->bitmapLayerOrder = 5;
+	GetGameObject(Object::ObjectType::UI, "Insurance_ToolTip")->GetComponent<D2DRenderComponent>()->bitmapLayerOrder = 5;
+
 
 	// 왜 여기 선언 해야하는지 진짜모름
-	Object* camera = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::Camera, 0);
+	Object* camera = GetGameObject(Object::ObjectType::Camera, 0);
 	camera->GetComponent<CameraCompoent>()->MovingFlag(false);
 	TransformComponent* cameratrans = camera->GetComponent<TransformComponent>();
-	float angle = DirectX::XMConvertToRadians(10.0f);
+	float angle = DirectX::XMConvertToRadians(30.0f);
 	DXMath::Quaternion quat = DXMath::Quaternion::CreateFromYawPitchRoll(0.0f, angle, 0.0f);
 	cameratrans->SetQuaternion(quat);
-	cameratrans->SetPosition({ 0, 140, -580 });
+	cameratrans->SetPosition({ 0, 165, -580 });
+
+	BLACKJACK->dealer->GetComponent<TransformComponent>()->SetPosition({ 0.0f, 6.0f, -400.0f });
+	BLACKJACK->dealer->GetComponent<ModelComponent>()->SetAnimation(1);
+	BLACKJACK->dealer->SetActive(true);
 
 	GetGameObject(Object::ObjectType::Basic, "Deck")->GetComponent<TransformComponent>()->SetPosition({ -60, 105, -500 });
 	//GambleScene::Enter();

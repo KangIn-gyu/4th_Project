@@ -88,13 +88,13 @@ float2 IntegrateBRDF(float NdotV, float roughness)
 // Uncharted 2 톤매핑 - 게임용으로 최적화된 톤매핑
 float3 Uncharted2ToneMapping(float3 color)
 {
-    float A = 0.15; // 숄더 형태 조절
-    float B = 0.50; // 대비 조절
-    float C = 0.10; // 선형 부분 조절
-    float D = 0.20; // 토 형태 조절
-    float E = 0.02; // 블랙 레벨
-    float F = 0.30; // 전체 밝기 스케일
-    float W = 11.2; // 화이트포인트 값
+    float A = 0.15; // 0.10 → 0.15 (하이라이트 부분 조절)
+    float B = 0.45; // 0.50 → 0.45 (대비를 약간 낮춰서 중간톤 보정)
+    float C = 0.10; // 유지
+    float D = 0.20; // 유지
+    float E = 0.03; // 0.02 → 0.03 (어두운 부분 깊이감 증가)
+    float F = 0.28; // 0.30 → 0.28 (전체 밝기 미세 조정)
+    float W = 11.2; // 유지
    
    // 메인 톤매핑 커브 계산
     float3 curr = ((color * (A * color + C * B) + D * E) / (color * (A * color + B) + D * F)) - E / F;
@@ -102,6 +102,12 @@ float3 Uncharted2ToneMapping(float3 color)
    // 화이트포인트 기준 스케일 계산
     float3 whiteScale = 1.0f / (((W * (A * W + C * B) + D * E) / (W * (A * W + B) + D * F)) - E / F);
    
+    color.x *= 1.6f;
+
+    color.y *= 1.1f;
+    
+    color.z *= 0.5f;
+    
    // 최종 색상 반환
     return curr * whiteScale;
 }
@@ -109,11 +115,13 @@ float3 Uncharted2ToneMapping(float3 color)
 // ACES Filmic 톤매핑 - 영화 산업 표준의 톤매핑 커브
 float3 ACESFilmicToneMapping(float3 color)
 {
-    float a = 2.51f; // 숄더(밝은 부분) 조절
-    float b = 0.03f; // 토(어두운 부분) 조절
-    float c = 2.43f; // 미드톤 대비 조절
-    float d = 0.59f; // 전체 밝기 조절
-    float e = 0.14f; // 블랙 레벨 조절
+    float a = 2.0f; // 숄더(밝은 부분) 조절
+    float b = 0.10f; // 토(어두운 부분) 조절
+    float c = 3.2f; // 미드톤 대비 조절
+    float d = 0.28f; // 전체 밝기 조절
+    float e = 0.35f; // 블랙 레벨 조절
+    
+
    
    // ACES 근사값 공식 적용 후 0~1 범위로 클램프
     return saturate((color * (a * color + b)) / (color * (c * color + d) + e));

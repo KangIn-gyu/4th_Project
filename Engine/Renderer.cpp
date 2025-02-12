@@ -51,27 +51,65 @@ void Renderer::Initialize(WindowInfo* _windowInfo)
 	productBuffer.Create(sizeof(ProductBuffer));
 	lightBuffer.Create(sizeof(LightBuffer), ConstantBuffer::Usage::DYNAMIC);
 
+	// 테이블 조명
 	SpotLightData test;
-	test.position = DXMath::Vector3(900, 8, 1270.5);
+	test.position = DXMath::Vector3(0.0f, 200.0f, -350.0f);
 	test.direction = DXMath::Vector3(0.0f, -1.0f, 0.0f);
-	test.color = DXMath::Vector3(0.0f, 0.0f, 1.0f);
-	test.range = 100.0f;
-	test.innerCone = cos(DX::XMConvertToRadians(30.0f));
-	test.outerCone = cos(DX::XMConvertToRadians(45.0f));
+	test.color = DXMath::Vector3(1.0f, 1.0f, 1.0f);
+	test.range = 500.0f;
+	test.innerCone = cos(DX::XMConvertToRadians(45.0f));
+	test.outerCone = cos(DX::XMConvertToRadians(60.0f));
 	test.intensity = 100.0f;
 
-	//AddSpotLight(test);
+	 AddSpotLight(test);
 
-	SpotLightData test2;
-	test2.position = DXMath::Vector3(300.0f, 100.0f, 0.0f);
-	test2.direction = DXMath::Vector3(0.0f, -1.0f, 0.0f);
-	test2.color = DXMath::Vector3(1.0f, 0.0f, 1.0f);
-	test2.range = 100.0f;
-	test2.innerCone = cos(DX::XMConvertToRadians(30.0f));
-	test2.outerCone = cos(DX::XMConvertToRadians(45.0f));
-	test2.intensity = 100.0f;
+	 // 겜블 얼굴 조명
+	 SpotLightData test2;
+	 test2.position = DXMath::Vector3(0.0f, 130.0f, -580.0f);
+	 test2.direction = DXMath::Vector3(0.0f, 0.0f, 1.0f);
+	 test2.color = DXMath::Vector3(1.0f, 1.0f, 0.5f);
+	 test2.range = 500.0f;
+	 test2.innerCone = cos(DX::XMConvertToRadians(89.0f));
+	 test2.outerCone = cos(DX::XMConvertToRadians(90.0f));
+	 test2.intensity = 100.0f;
+	 
+	 AddSpotLight(test2);
 
-	//AddSpotLight(test2);
+	 // 겜블 판
+	 SpotLightData test5;
+	 test5.position = DXMath::Vector3(0.0f, 130.0f, -580.0f);
+	 test5.direction = DXMath::Vector3(0.0f, -1.0f, 0.0f);
+	 test5.color = DXMath::Vector3(1.0f, 1.0f, 0.5f);
+	 test5.range = 500.0f;
+	 test5.innerCone = cos(DX::XMConvertToRadians(89.0f));
+	 test5.outerCone = cos(DX::XMConvertToRadians(90.0f));
+	 test5.intensity = 100.0f;
+
+	 AddSpotLight(test5);
+
+
+	 // 얼굴 조명
+	 SpotLightData test3;
+	 test3.position = DXMath::Vector3(900.0f, 150.0f, 1140.0f);
+	 test3.direction = DXMath::Vector3(0.0f, 0.0f, 1.0f);
+	 test3.color = DXMath::Vector3(1.0f, 1.0f, 0.5f);
+	 test3.range = 500.0f;
+	 test3.innerCone = cos(DX::XMConvertToRadians(15.0f));
+	 test3.outerCone = cos(DX::XMConvertToRadians(16.0f));
+	 test3.intensity = 100.0f;
+
+	 AddSpotLight(test3);
+
+	 // 가운데 조명
+	 SpotLightData test4;
+	 test4.position = DXMath::Vector3(0.0f, 500.0f, 450.0f);
+	 test4.direction = DXMath::Vector3(0.0f, -1.0f, 0.0f);
+	 test4.color = DXMath::Vector3(1.0f, 1.0f, 0.5f);
+	 test4.range = 500.0f;
+	 test4.innerCone = cos(DX::XMConvertToRadians(15.0f));
+	 test4.outerCone = cos(DX::XMConvertToRadians(100.0f));
+	 test4.intensity = 2000.0f;
+	 AddSpotLight(test4);
 
 	D3DGraphics->CreateSamplerState(D3D11_FILTER_MIN_MAG_MIP_LINEAR, D3D11_TEXTURE_ADDRESS_WRAP, linearWrapSampler);
 	D3DGraphics->CreateSamplerState(D3D11_FILTER_MIN_MAG_MIP_POINT, D3D11_TEXTURE_ADDRESS_CLAMP, pointClampSampler);

@@ -125,7 +125,7 @@ int Card::GetValue()
 		if (AtoOne)
 			return 1;
 		else
-			return 10;
+			return 11;
 	}
 	if (rank == "Jack" || rank == "Queen" || rank == "King") return 10;
 

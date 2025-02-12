@@ -28,6 +28,7 @@ class BlackJack : public SingletonBase<BlackJack>
 {
 	friend class SingletonBase<BlackJack>;
 	BlackJack();
+	~BlackJack();
 public:
 	void SetDialog(D2DBaseObj* dialog) { dialogs.push_back(dialog); }
 
@@ -69,7 +70,7 @@ public:
 	float maxmagnification = 50;
 	bool firstTurn = true; //첫턴은 달라서
 	Turn curTurn = Turn::player;
-
+	bool firstBet = true;
 	int betMoney = 0;
 
 	int sum = 0;

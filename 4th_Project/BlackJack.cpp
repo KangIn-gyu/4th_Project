@@ -5,10 +5,16 @@
 #include "Card.h"
 #include "D2DBaseObj.h"
 #include "../Engine/SceneManager.h"
-
 #include "../Engine/ModelComponent.h"
+#include "../Engine/Helper.h"
+
 BlackJack::BlackJack()
 {
+}
+
+BlackJack::~BlackJack()
+{
+
 }
 
 void BlackJack::Setstage(int num)
@@ -33,6 +39,7 @@ void BlackJack::RoundStart()
 	ChangeState();
 	endBet = false;
 	dealer->SetSkill();
+	firstBet = true;
 }
 
 
@@ -58,7 +65,8 @@ void BlackJack::CheckTurnEnd()
 		player->isDrawOne = false;
 		endBet = false;
 		canClick = false;
-		
+		player->canSkill = true;
+
 		for(auto card : player->hand.hand)
 		{
 			if(card != nullptr)
@@ -70,15 +78,17 @@ void BlackJack::CheckTurnEnd()
 		BLACKJACK->SetState(PlayerState::STAY);
 	}
 }
+
 void BlackJack::Bet()
 {
 	if (endBet == false) //베팅이 안끝났으면 베팅하고 베팅끝
 	{
+		firstBet = false;
 		betMoney += *player->Bet();
-		player->betChip = 1000;
+		player->betChip = 0;
 		std::cout << "베팅완료 " << std::endl;
 		endBet = true;
-			canClick = true;
+		canClick = true;
 	}
 }
 
