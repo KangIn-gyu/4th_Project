@@ -9,6 +9,9 @@
 #include "../Engine/TimeSystem.h"
 #include "BlackJack.h"
 #include "../Engine/Helper.h"
+#include "../Engine/SoundSystem.h"
+
+
 Dealer::Dealer(std::string_view _name, Object::ObjectType _type) : Object(_name, _type)
 {
 	auto model = CreateComponent<ModelComponent>("Common/FBX/Evelyn.fbx"); // Evelyn char2 SkinningTest Evelyn_LowPoly
@@ -187,8 +190,6 @@ bool Dealer::slotBan()
 		return false;
 	}
 
-
-
 	int randomIndex = RandomUtil::GetRandomInt(0, activeSlots.size() - 1);
 
 	int targetSlot = activeSlots[randomIndex];
@@ -231,7 +232,6 @@ void Dealer::SetSkill()
 		turnCount = 2;
 		pattern = [this]() { return skillBan(); };
 	}
-		
 	else if (previousSkill == DSkill::slotBan)
 	{
 		turnCount = 3;
@@ -239,8 +239,4 @@ void Dealer::SetSkill()
 	}
 
 }
-
-
-
-
 

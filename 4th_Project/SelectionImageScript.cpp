@@ -38,5 +38,4 @@ void SelectionImageScript::SetButton(DialogButton* _selectButton1, DialogButton*
 	selectButton1->SetActive(false);
 	selectButton2 = _selectButton2;
 	selectButton2->SetActive(false);
-
 }

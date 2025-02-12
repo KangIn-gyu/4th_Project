@@ -36,6 +36,7 @@ public:
 	BoxCollider* colliderdata;
 	std::string_view imageFilepath;
 	
+	bool isOn = false;
 private:
 	gbState curState = gbState::Off;
 	gbState nextState = curState;

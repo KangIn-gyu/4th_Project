@@ -91,7 +91,11 @@ void GambleButton::OnClick()
 void GambleButton::OnMouse()
 {
 	// TODO : 사운드 변경 필요
-	SOUNDSYSTEM->PlayMusic(eSoundList::SE_Button_Hover, eSoundChannel::Effect);
+	if (isOn == true)
+	{
+		SOUNDSYSTEM->PlayMusic(eSoundList::SE_Button_Hover, eSoundChannel::Effect);
+		isOn = false;
+	}
 
 	if(nextState != gbState::On || curState != gbState::On)
 		ChangeState(gbState::Toggle);
@@ -99,6 +103,7 @@ void GambleButton::OnMouse()
 
 void GambleButton::ExitMouse()
 {
+	isOn = true;
 	if(nextState != gbState::On)
 		ChangeState(gbState::Off);
 }

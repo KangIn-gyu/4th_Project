@@ -13,6 +13,8 @@
 #include "../Engine/RayCollier.h"
 #include "../Engine/CircleCollider.h"
 #include "../Engine/BoxCollider.h"
+#include "../Engine/SoundSystem.h"
+
 Player* Player::g_player = nullptr;
 
 Player::Player(std::string_view _name, Object::ObjectType _type) : Object(_name, _type)
@@ -320,6 +322,7 @@ void Player::OnInputProcess(const DX::Keyboard::State& _KeyState, const DX::Keyb
 			if (wheelDelta > lastWheelDelta) {
 				std::cout << "마우스 휠업함 " << " ";
 				betChip += 100;
+				SOUNDSYSTEM->PlayMusic(eSoundList::SE_Bet, eSoundChannel::Effect);
 				if (betChip >= chip)
 				{
 					betChip = chip;
@@ -330,6 +333,7 @@ void Player::OnInputProcess(const DX::Keyboard::State& _KeyState, const DX::Keyb
 			else if (wheelDelta < lastWheelDelta) {
 				std::cout << "마우스 휠 다운함 " << " ";
 				betChip -= 100;
+				SOUNDSYSTEM->PlayMusic(eSoundList::SE_Bet, eSoundChannel::Effect);
 				if (!BLACKJACK->firstBet)
 					minBet = 0;
 				if (betChip <= minBet)
