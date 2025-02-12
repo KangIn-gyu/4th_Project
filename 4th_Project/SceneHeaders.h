@@ -14,9 +14,3 @@
 #include "DialogScene3.h"
 #include "DialogScene4.h"
 #include "DialogScene5.h"
-
-// 5. ≈‰≈©æ¿
-#include "TalkScene1.h"
-#include "TalkScene2.h"
-#include "TalkScene3.h"
-#include "TalkScene4.h"

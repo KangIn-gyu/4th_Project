@@ -10,12 +10,12 @@ BadEnding::BadEnding(std::string_view _Name) : Scene(_Name)
     // TODO: 엔딩의 분기점값을 얻어야한다.
 
     dialog = CreatorObject<D2DBaseObj>("BadEnding", Object::ObjectType::UI,
-        0, 98, "Font/GyeonggiMillenniumBackground_Regular.ttf", "DialogScenes/CSV/Scene5.csv");
+        0, 98, "Font/GyeonggiMillenniumBackground_Regular.ttf", "DialogScenes/CSV/BadEnding.csv");
 
     dialog->CreateScript<D2DBitMapFontScript>();
     skipbutton = CreatorObject<UIButton>("Skip", Object::ObjectType::UI,
         "TutorialScene/UI/UI 43_Skip.png", DXMath::Vector2(1730, 50), DXMath::Vector2(150, 45),
-        []() {SCENEMANAGER->ChangeScene("LobbyScene");});
+        []() {SCENEMANAGER->ChangeScene("GambleScene");});
 
     // 페이드효과 밝아지기
     fading = CreatorObject<D2DBaseObj>("Fade", Object::ObjectType::UI);
@@ -42,7 +42,7 @@ void BadEnding::Update(const float _deltaTime)
     // 어두워지기
     if (true == dialog->GetComponent<D2DRenderComponent>()->IsFadeIn)
     {
-        static_cast<FadeEffectScript*>(fading->script)->StartFadeIn("LobbyScene");
+        static_cast<FadeEffectScript*>(fading->script)->StartFadeIn("GambleScene");
         dialog->GetComponent<D2DRenderComponent>()->IsFadeIn = false;
     }
 }

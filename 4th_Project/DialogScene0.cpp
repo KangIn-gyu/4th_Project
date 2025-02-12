@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "DialogScene0.h"
 #include "D2DBaseObj.h"
+
 #include "D2DBitMapFontScript.h"
 #include "FadeEffectScript.h"
 #include "UIButton.h"
@@ -17,7 +18,6 @@ DialogScene0::DialogScene0(std::string_view _Name) : Scene(_Name)
         "TutorialScene/UI/UI 43_Skip.png", DXMath::Vector2(1730, 50), DXMath::Vector2(150, 45),
         []() {SCENEMANAGER->ChangeScene("DialogScene1");});
 
-    // ?섏씠?쒗슚怨?
     fading = CreatorObject<D2DBaseObj>("Fade", Object::ObjectType::UI);
     fading->GetComponent<D2DRenderComponent>()->Load2DImage("UI/FadeImage.png");
     fading->CreateScript<FadeEffectScript>();
