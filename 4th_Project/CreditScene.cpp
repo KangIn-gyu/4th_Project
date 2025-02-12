@@ -8,12 +8,6 @@
 #include "../Engine/SoundSystem.h"
 CreditScene::CreditScene(std::string_view _Name) : Scene(_Name)
 {
-
-    dialog = CreatorObject<D2DBaseObj>("CreditScene", Object::ObjectType::UI,
-        1, 111, "Font/GyeonggiMillenniumBackground_Regular.ttf", "DialogScenes/CSV/CreditScene.csv");
-    dialog->CreateScript<D2DBitMapFontScript>();
-
-
     // 페이드효과 밝아지기
     fading = CreatorObject<D2DBaseObj>("Fade", Object::ObjectType::UI);
     fading->GetComponent<D2DRenderComponent>()->Load2DImage("UI/FadeImage.png");

@@ -22,13 +22,13 @@ void BettingButton::Initialize()
 {
 	Object::Initialize();
 	imagedata->Load2DImage("UI/Button/Fold.png");        //0  3   6   i index 0 = fold
-	imagedata->Load2DImage("UI/Button/Fold_Line.png");     //1  4   7  index 1 = Raise
+	imagedata->Load2DImage("UI/Button/Fold_Toggle.png");     //1  4   7  index 1 = Raise
 	imagedata->Load2DImage("UI/Button/Fold_Toggle.png"); //2  5   8    index 2 = All in
 	imagedata->Load2DImage("UI/Button/Raise.png");
-	imagedata->Load2DImage("UI/Button/Raise_Line.png");
+	imagedata->Load2DImage("UI/Button/Raise_Toggle.png");
 	imagedata->Load2DImage("UI/Button/Raise_Toggle.png");
 	imagedata->Load2DImage("UI/Button/All In.png");       
-	imagedata->Load2DImage("UI/Button/All In_Line.png");  
+	imagedata->Load2DImage("UI/Button/All In_Toggle.png");  
 	imagedata->Load2DImage("UI/Button/All In_Toggle.png");
 	imagedata->Set2DImagePos(pos.x, pos.y);  
 	colliderdata = CreateComponent<BoxCollider>();
@@ -44,12 +44,23 @@ void BettingButton::Update(const float _deltaTime)
 {
 	Object::Update(_deltaTime);
 
+	if (BLACKJACK->endBet != true)
+	{
+		ChangeState(gbState::On);
+	}
+	else
+	{
+		ChangeState(gbState::Off);
+	}
 	ChangeBit();
 }
 
 void BettingButton::Blink()
 {
-	
+		float delta = TIMESYSTEM.get()->GetFloatDeltaTime();
+		elapsedTime += delta;
+		int n = static_cast<int>(fmod(elapsedTime, 1.0f) >= 0.5f); // 0.5초마다 0  1 전환
+		imagedata->ChangeBitmap(index * 3 + n);
 }
 
 void BettingButton::ChangeBit()
@@ -60,7 +71,7 @@ void BettingButton::ChangeBit()
 	switch (curState)
 	{
 	case gbState::On:
-		imagedata->ChangeBitmap(index * 3 + 1); //0 + 1        3+1    6+1   1   4  7
+		Blink(); //0 + 1        3+1    6+1   1   4  7
 		break;
 	case gbState::Toggle:
 		imagedata->ChangeBitmap(index * 3 + 2);

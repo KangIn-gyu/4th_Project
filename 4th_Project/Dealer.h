@@ -29,7 +29,7 @@ public:
 	void CardDraw(Deck* _deck); 
 	int  GetScore();
 	bool Act();
-	void SetChip(int _num) { chip += _num; }
+	void SetChip(int _num) { chip = _num; }
 	int* GetChip() { return &chip; }
 	virtual void OnClick() override;
 	virtual void OnMouse() override;
@@ -37,7 +37,7 @@ public:
 	void OpenOne(float _deltaTime);
 	int turnCount = 3;     //행동카운트
 	Hand hand;
-	int chip =1000; //딜러칩 스테이지 시작때 채워줌
+	int chip =0; //딜러칩 스테이지 시작때 채워줌
 	bool finishFirst = false;
 	bool finishDraw  = false;
 

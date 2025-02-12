@@ -47,11 +47,11 @@ void Client::SceneUpload()
 	SCENEMANAGER->CreatorScene<DialogScene5>("DialogScene5");
 
 	SCENEMANAGER->CreatorScene<EndingScene>("EndingScene");
-	SCENEMANAGER->CreatorScene<EndingScene>("EndingChoice");
+	SCENEMANAGER->CreatorScene<EndingChoice>("EndingChoice");
 	SCENEMANAGER->CreatorScene<BadEnding>("BadEnding");
 	SCENEMANAGER->CreatorScene<HappyEnding>("HappyEnding");
 	SCENEMANAGER->CreatorScene<Epilogue>("Epilogue");
-	SCENEMANAGER->CreatorScene<BadEnding>("CreditScene");
+	SCENEMANAGER->CreatorScene<CreditScene>("CreditScene");
 
 
 	// TODO : ���� �߰� �ؾߵ�
