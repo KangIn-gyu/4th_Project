@@ -4,6 +4,7 @@
 #include "../Engine/D2DRenderComponent.h"
 #include "../Engine/SceneManager.h"
 #include "../Engine/Helper.h"
+#include "../Engine/SoundSystem.h"
 
 void LoadingScene::Enter()
 {
@@ -35,8 +36,9 @@ void LoadingScene::Update(const float _deltaTime)
 void LoadingScene::ResetInformation()
 {
 	Scene::ResetInformation();
+	SOUNDSYSTEM->StopMusic(eSoundChannel::BGM);
 	maxLoadingTime = RandomUtil::GetRandomFloat(2.0f, 5.0f);
 	loadingImage->SetActive(true);
 	auto* d2dRender = loadingImage->GetComponent<D2DRenderComponent>();
-	d2dRender->ChangeBitmap(RandomUtil::GetRandomInt(0 , 7));
+	d2dRender->ChangeBitmap(RandomUtil::GetRandomInt(0, 7));
 }

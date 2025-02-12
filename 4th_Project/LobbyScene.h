@@ -2,6 +2,7 @@
 #include "../Engine/Scene.h"
 
 class D2DBaseObj;
+class Dealer;
 class LobbyScene : public Scene
 {
 public:
@@ -23,6 +24,6 @@ private:
 public:
 
 private:
-
+	Dealer* dealer{};
 };
 

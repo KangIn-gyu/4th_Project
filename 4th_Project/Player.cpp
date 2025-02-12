@@ -62,7 +62,9 @@ void Player::Init()
 	isDrawOne = false;
 	Shuffle = false;
 	needDiscard = false;
+	canSkill = true;
 	openCard = 0; //
+	skillPoint = 10;
 	hand.handReset();
 }
 
@@ -144,6 +146,14 @@ bool Player::fastEye()
 {
 	fasteye = true;
 	
+	if (AllCurCardOpen() == true)
+	{
+		skillPoint += 3;
+		selectCard = nullptr;
+		fasteye = false;
+		OnSkill = false;
+		return true;
+	}
 	if (selectCard != nullptr)  //카드 선택 완료했으면
 	{
 		for (auto card : hand.hand)
@@ -159,6 +169,7 @@ bool Player::fastEye()
 		{
 			selectCard = nullptr;
 			fasteye = false;
+			OnSkill = false;
 			return true;
 		}
 	}
@@ -184,12 +195,18 @@ bool Player::fastEye()
 bool Player::guts()
 {
 	BLACKJACK->magnification *= 2;
+	if (BLACKJACK->magnification >= BLACKJACK->maxmagnification)
+	{
+		BLACKJACK->magnification = BLACKJACK->maxmagnification;
+	}
+	OnSkill = false;
 	return true;
 }
 
 bool Player::meditation()
 {
 	chip *= 1.1f;
+	OnSkill = false;
 	return true;
 }
 
@@ -243,12 +260,39 @@ bool Player::Insurance()
 			selectCard->MoveOpen();
 			hand.SkillDraw(BLACKJACK->deck, selectCard->GetName());
 			useRot = false;
+			selectCard = nullptr;
+			OnSkill = false;
 			return true;
 		}
 	}
 
 	return false;
 }
+
+bool Player::AllCurCardOpen()
+{
+	int count = 0;
+	for (auto card : hand.hand)
+	{
+		if (card != nullptr && card->isOpen == true)
+			count++;
+	}
+	if(count == hand.numCard())
+		return true;
+}
+
+bool Player::MaxCardOpen()
+{
+	int count = 0;
+	for (auto card : hand.hand)
+	{
+		if (card != nullptr && card->isOpen == true)
+			count++;
+	}
+	if (count == hand.maxHand)
+		return true;
+}
+
 
 
 bool Player::ActiveSkill()
@@ -262,17 +306,23 @@ void Player::OnInputProcess(const DX::Keyboard::State& _KeyState, const DX::Keyb
 	static int lastWheelDelta = 0;
 	const DX::Mouse::State& mouseState = DXINPUT->mouse->GetState();
 	int wheelDelta = mouseState.scrollWheelValue;
-	if (wheelDelta != lastWheelDelta) {
-		if (wheelDelta > lastWheelDelta) {
-			std::cout << "마우스 휠업함 " << " ";
-			betChip += 100;
+	if (BLACKJACK->endBet == false && BLACKJACK->firstTurn == false)
+	{
+		if (wheelDelta != lastWheelDelta) {
+			if (wheelDelta > lastWheelDelta) {
+				std::cout << "마우스 휠업함 " << " ";
+				betChip += 100;
+
+			}
+			// 휠이 아래로 굴러갔을 때
+			else if (wheelDelta < lastWheelDelta) {
+				std::cout << "마우스 휠 다운함 " << " ";
+				betChip -= 100;
+				if (betChip <= minBet)
+					betChip = minBet;
+			}
+			lastWheelDelta = wheelDelta;
 		}
-		// 휠이 아래로 굴러갔을 때
-		else if (wheelDelta < lastWheelDelta) {
-			std::cout << "마우스 휠 다운함 " << " ";
-			betChip-= 100;
-		}
-		lastWheelDelta = wheelDelta;
 	}
 }
 
@@ -281,66 +331,69 @@ void Player::OnInputProcess(const DX::Keyboard::State& _KeyState, const DX::Keyb
 
 void Player::OnBlock(Collider* _myCol, Collider* _otherCol)
 {
-	std::cout << "부딪혔음" << std::endl;
-
-	
-	DirectX::BoundingOrientedBox otherBox = dynamic_cast<BoxCollider*>(_otherCol)->obBox;
-
-	
-	CircleCollider* circleCol = dynamic_cast<CircleCollider*>(_myCol);
-	BoxCollider* boxCol = dynamic_cast<BoxCollider*>(_otherCol);
-
-	if (!circleCol || !boxCol) return; // 캐스팅 실패 시 리턴
-
-	// OBB 정보 가져오기
-	DirectX::SimpleMath::Vector3 boxCenter = boxCol->obBox.Center;
-	DirectX::SimpleMath::Vector3 boxExtents = boxCol->obBox.Extents;
-	DirectX::SimpleMath::Quaternion boxRotation = boxCol->obBox.Orientation;
-
-	// 원의 중심과 반지름
-	DirectX::SimpleMath::Vector3 circleCenter = circleCol->Circle.Center;
-	float circleRadius = circleCol->Circle.Radius;
-
-	// OBB의 축을 구함 (로컬 -> 월드 변환)
-	DirectX::SimpleMath::Matrix rotationMatrix = DirectX::SimpleMath::Matrix::CreateFromQuaternion(boxRotation);
-	DirectX::SimpleMath::Vector3 right = rotationMatrix.Right();    // X축
-	DirectX::SimpleMath::Vector3 up = rotationMatrix.Up();          // Y축
-	DirectX::SimpleMath::Vector3 forward = rotationMatrix.Forward();// Z축
-
-	// 원의 중심에서 OBB 중심으로 향하는 벡터
-	DirectX::SimpleMath::Vector3 localVec = circleCenter - boxCenter;
-
-	// OBB 좌표계에서 가장 가까운 점을 찾기 위해 각 축에 대해 클램핑
-	DirectX::SimpleMath::Vector3 closestPoint = boxCenter;
-
-	closestPoint += (std::clamp)(localVec.Dot(right), -boxExtents.x, boxExtents.x) * right;
-	closestPoint += (std::clamp)(localVec.Dot(up), -boxExtents.y, boxExtents.y) * up;
-	closestPoint += (std::clamp)(localVec.Dot(forward), -boxExtents.z, boxExtents.z) * forward;
-
-	// 원의 중심과 가장 가까운 점 사이의 거리 벡터 구하기
-	DirectX::SimpleMath::Vector3 pushDir = circleCenter - closestPoint;
-
-	float dist = pushDir.Length();
-
-	// 침투 여부 확인
-	if (dist < circleRadius)
+	if (SCENEMANAGER->GetCurrentScene()->GetName() == "LobbyScene")
 	{
-		// 침투 깊이 계산
-		float penetrationDepth = circleRadius - dist;
-
-		// 정규화된 방향 벡터
-		pushDir.Normalize();
-
-		// 침투 깊이만큼 되돌리기
-
-		DXMath::Vector3 pos = pushDir * penetrationDepth;
-
-		// 원의 새로운 위치 적용
+		std::cout << "부딪혔음" << std::endl;
 
 
-		cameraTransform->SetPosition(cameraTransform->GetPosition() + pos);
-		GetComponent<TransformComponent>()->SetPosition(cameraTransform->GetPosition());
+		DirectX::BoundingOrientedBox otherBox = dynamic_cast<BoxCollider*>(_otherCol)->obBox;
 
+
+		CircleCollider* circleCol = dynamic_cast<CircleCollider*>(_myCol);
+		BoxCollider* boxCol = dynamic_cast<BoxCollider*>(_otherCol);
+
+		if (!circleCol || !boxCol) return; // 캐스팅 실패 시 리턴
+
+		// OBB 정보 가져오기
+		DirectX::SimpleMath::Vector3 boxCenter = boxCol->obBox.Center;
+		DirectX::SimpleMath::Vector3 boxExtents = boxCol->obBox.Extents;
+		DirectX::SimpleMath::Quaternion boxRotation = boxCol->obBox.Orientation;
+
+		// 원의 중심과 반지름
+		DirectX::SimpleMath::Vector3 circleCenter = circleCol->Circle.Center;
+		float circleRadius = circleCol->Circle.Radius;
+
+		// OBB의 축을 구함 (로컬 -> 월드 변환)
+		DirectX::SimpleMath::Matrix rotationMatrix = DirectX::SimpleMath::Matrix::CreateFromQuaternion(boxRotation);
+		DirectX::SimpleMath::Vector3 right = rotationMatrix.Right();    // X축
+		DirectX::SimpleMath::Vector3 up = rotationMatrix.Up();          // Y축
+		DirectX::SimpleMath::Vector3 forward = rotationMatrix.Forward();// Z축
+
+		// 원의 중심에서 OBB 중심으로 향하는 벡터
+		DirectX::SimpleMath::Vector3 localVec = circleCenter - boxCenter;
+
+		// OBB 좌표계에서 가장 가까운 점을 찾기 위해 각 축에 대해 클램핑
+		DirectX::SimpleMath::Vector3 closestPoint = boxCenter;
+
+		closestPoint += (std::clamp)(localVec.Dot(right), -boxExtents.x, boxExtents.x) * right;
+		closestPoint += (std::clamp)(localVec.Dot(up), -boxExtents.y, boxExtents.y) * up;
+		closestPoint += (std::clamp)(localVec.Dot(forward), -boxExtents.z, boxExtents.z) * forward;
+
+		// 원의 중심과 가장 가까운 점 사이의 거리 벡터 구하기
+		DirectX::SimpleMath::Vector3 pushDir = circleCenter - closestPoint;
+
+		float dist = pushDir.Length();
+
+		// 침투 여부 확인
+		if (dist < circleRadius)
+		{
+			// 침투 깊이 계산
+			float penetrationDepth = circleRadius - dist;
+
+			// 정규화된 방향 벡터
+			pushDir.Normalize();
+
+			// 침투 깊이만큼 되돌리기
+
+			DXMath::Vector3 pos = pushDir * penetrationDepth;
+
+			// 원의 새로운 위치 적용
+
+
+			cameraTransform->SetPosition(cameraTransform->GetPosition() + pos);
+			GetComponent<TransformComponent>()->SetPosition(cameraTransform->GetPosition());
+
+		}
 	}
 }
 
@@ -349,19 +402,23 @@ void Player::OnBlock(Collider* _myCol, Collider* _otherCol)
 
 void Player::EnterRayCollision(Collider* _otherCol)
 {
-
-	if (_otherCol->GetOwner()->GetName() == "Dealer")
+	if (SCENEMANAGER->GetCurrentScene()->GetName() == "LobbyScene")
 	{
-		SCENEMANAGER->GetCurrentScene()->GetGameObject(ObjectType::UI, "Handfaster_ToolTip")->SetActive(true);
-		std::cout << _otherCol->GetOwner()->GetName() + " 쳐다보는중임" << std::endl;
+		if (_otherCol->GetOwner()->GetName() == "Dealer")
+		{
+			SCENEMANAGER->GetCurrentScene()->GetGameObject(ObjectType::UI, "Handfaster_ToolTip")->SetActive(true);
+			std::cout << _otherCol->GetOwner()->GetName() + " 쳐다보는중임" << std::endl;
+		}
 	}
 	
 }
 void Player::EndRayCollision(Collider* _otherCol)
 {
-
-	if (_otherCol->GetOwner()->GetName() == "Dealer")
+	if (SCENEMANAGER->GetCurrentScene()->GetName() == "LobbyScene")
 	{
-		SCENEMANAGER->GetCurrentScene()->GetGameObject(ObjectType::UI, "Handfaster_ToolTip")->SetActive(false);
+		if (_otherCol->GetOwner()->GetName() == "Dealer")
+		{
+			SCENEMANAGER->GetCurrentScene()->GetGameObject(ObjectType::UI, "Handfaster_ToolTip")->SetActive(false);
+		}
 	}
 }

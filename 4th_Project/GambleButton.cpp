@@ -81,7 +81,7 @@ void GambleButton::ChangeState(gbState _state)
 void GambleButton::OnClick()
 {
 	//블랙잭의 상태에 따라조건 stay 누를수있는조건 skill 조건 ㅇ
-	if(BLACKJACK->firstTurn == false)
+	if(BLACKJACK->firstTurn == false && PLAYER->OnSkill == false)
 		clickFunc();
 }
 

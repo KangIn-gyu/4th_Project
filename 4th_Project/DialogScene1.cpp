@@ -60,4 +60,7 @@ void DialogScene1::ResetInformation()
     skipbutton->SetActive(true);
     static_cast<FadeEffectScript*>(fading->script)->StartFadeOut();
     static_cast<LoadingScene*>(SCENEMANAGER->GetScene("LoadingScene"))->NextScene("TutorialScene");
+
+    SOUNDSYSTEM->StopMusic(eSoundChannel::BGM);
+    SOUNDSYSTEM->PlayMusic(eSoundList::Scene1, eSoundChannel::BGM);
 }

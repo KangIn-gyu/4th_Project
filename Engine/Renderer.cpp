@@ -52,7 +52,7 @@ void Renderer::Initialize(WindowInfo* _windowInfo)
 	lightBuffer.Create(sizeof(LightBuffer), ConstantBuffer::Usage::DYNAMIC);
 
 	SpotLightData test;
-	test.position = DXMath::Vector3(0.0f, 100.0f, 0.0f);
+	test.position = DXMath::Vector3(900, 8, 1270.5);
 	test.direction = DXMath::Vector3(0.0f, -1.0f, 0.0f);
 	test.color = DXMath::Vector3(0.0f, 0.0f, 1.0f);
 	test.range = 100.0f;
@@ -60,7 +60,7 @@ void Renderer::Initialize(WindowInfo* _windowInfo)
 	test.outerCone = cos(DX::XMConvertToRadians(45.0f));
 	test.intensity = 100.0f;
 
-	AddSpotLight(test);
+	//AddSpotLight(test);
 
 	SpotLightData test2;
 	test2.position = DXMath::Vector3(300.0f, 100.0f, 0.0f);
@@ -71,7 +71,7 @@ void Renderer::Initialize(WindowInfo* _windowInfo)
 	test2.outerCone = cos(DX::XMConvertToRadians(45.0f));
 	test2.intensity = 100.0f;
 
-	AddSpotLight(test2);
+	//AddSpotLight(test2);
 
 	D3DGraphics->CreateSamplerState(D3D11_FILTER_MIN_MAG_MIP_LINEAR, D3D11_TEXTURE_ADDRESS_WRAP, linearWrapSampler);
 	D3DGraphics->CreateSamplerState(D3D11_FILTER_MIN_MAG_MIP_POINT, D3D11_TEXTURE_ADDRESS_CLAMP, pointClampSampler);
@@ -175,12 +175,12 @@ void Renderer::D3DDraw()
 	cameraData.lightDirection = lightPos;
 	cameraData.lightDirection = lightDir;
 
-	//ProductBuffer productData;
-	//productData.totalTime = TIMESYSTEM->GetTotalTime();
-	//d3dDeviceContext->PSSetConstantBuffers(5, 1, productBuffer.GetBuffer().GetAddressOf());
+	ProductBuffer productData;
+	productData.UpColor = upColor;
+	d3dDeviceContext->PSSetConstantBuffers(5, 1, productBuffer.GetBuffer().GetAddressOf());
 
 	d3dDeviceContext->UpdateSubresource(cameraBuffer.GetBuffer().Get(), 0, nullptr, &cameraData, 0, 0);
-	//d3dDeviceContext->UpdateSubresource(productBuffer.GetBuffer().Get(), 0, nullptr, &productData, 0, 0);
+	d3dDeviceContext->UpdateSubresource(productBuffer.GetBuffer().Get(), 0, nullptr, &productData, 0, 0);
 
 	UpdateSpotLights();
 

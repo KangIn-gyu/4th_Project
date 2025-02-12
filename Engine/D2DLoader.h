@@ -14,6 +14,7 @@ public:
 private:
 	D2DLoader();
 	~D2DLoader();
+
 public:
 
 private:

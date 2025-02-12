@@ -31,7 +31,6 @@ void Client::Enter()
 
 void Client::SceneUpload()
 {
-//	SCENEMANAGER->CreatorScene<TestScene>("TestScene"); // ?�중??지?�야 ??
 	SCENEMANAGER->CreatorScene<TitleScene>("TitleScene");
 	SCENEMANAGER->CreatorScene<DialogIntro>("DialogIntroScene");
 	SCENEMANAGER->CreatorScene<DialogScene0>("DialogScene0");
@@ -61,12 +60,23 @@ void Client::SceneUpload()
 	SOUNDSYSTEM->SetVolumeAll(0.5f);
 
 	LoadMusic();
-
 }
 
 void Client::LoadMusic()
 { 
 	{
-		SOUNDSYSTEM->LoadMusic(eSoundList::Main_Theme, true, "Resource\\TitleScene\\Sounds\\Title.wav");
+		SOUNDSYSTEM->LoadMusic(eSoundList::TitleScene, true, "Resource\\TitleScene\\Sounds\\Title.wav");
+	}
+
+	{
+		SOUNDSYSTEM->LoadMusic(eSoundList::DialogIntro, true, "Resource\\DialogScenes\\Sounds\\Epilogue_Dialogue_BGM.wav");
+		SOUNDSYSTEM->LoadMusic(eSoundList::Scene0,		true, "Resource\\DialogScenes\\Sounds\\Scene0_dialogue_BGM.wav");
+		SOUNDSYSTEM->LoadMusic(eSoundList::Scene1,		true, "Resource\\DialogScenes\\Sounds\\Scene1_Dialogue_BGM.wav");
+		SOUNDSYSTEM->LoadMusic(eSoundList::Scene2,		true, "Resource\\DialogScenes\\Sounds\\Scene2_Dialogue_BGM.wav");
+		SOUNDSYSTEM->LoadMusic(eSoundList::Scene3,		true, "Resource\\DialogScenes\\Sounds\\Scene3_Dialogue_BGM.wav");
+		SOUNDSYSTEM->LoadMusic(eSoundList::Scene4,		true, "Resource\\DialogScenes\\Sounds\\Scene4_Dialogue_BGM.wav");
+		SOUNDSYSTEM->LoadMusic(eSoundList::Scene5,		true, "Resource\\DialogScenes\\Sounds\\Scene5_Dialogue_BGM.wav");
+		SOUNDSYSTEM->LoadMusic(eSoundList::Ending,		true, "Resource\\DialogScenes\\Sounds\\Ending_Dialogue_BGM.wav");
+		SOUNDSYSTEM->LoadMusic(eSoundList::BadEnding,	true, "Resource\\DialogScenes\\Sounds\\BadEnding_Dialogue_BGM.mp3");
 	}
 }

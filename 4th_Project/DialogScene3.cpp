@@ -5,6 +5,7 @@
 #include "FadeEffectScript.h"
 #include "../Engine/SceneManager.h"
 #include "UIButton.h"
+#include "../Engine/SoundSystem.h"
 DialogScene3::DialogScene3(std::string_view _Name) : Scene(_Name)
 {
     // Font/DialogScene.ttf  // GyeonggiMillenniumBackground_Regular
@@ -54,4 +55,6 @@ void DialogScene3::ResetInformation()
     fading->SetActive(true);
     skipbutton->SetActive(true);
     static_cast<FadeEffectScript*>(fading->script)->StartFadeOut();
+    SOUNDSYSTEM->StopMusic(eSoundChannel::BGM);
+    SOUNDSYSTEM->PlayMusic(eSoundList::Scene3, eSoundChannel::BGM);
 }

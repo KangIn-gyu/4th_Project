@@ -6,6 +6,7 @@
 #include "LoadingScene.h"
 #include "UIButton.h"
 #include "../Engine/SceneManager.h"
+#include "../Engine/SoundSystem.h"
 DialogScene2::DialogScene2(std::string_view _Name) : Scene(_Name)
 {
     // Font/DialogScene.ttf  // GyeonggiMillenniumBackground_Regular
@@ -55,4 +56,7 @@ void DialogScene2::ResetInformation()
     skipbutton->SetActive(true);
     static_cast<FadeEffectScript*>(fading->script)->StartFadeOut();
     static_cast<LoadingScene*>(SCENEMANAGER->GetScene("LoadingScene"))->NextScene("LobbyScene");
+
+    SOUNDSYSTEM->StopMusic(eSoundChannel::BGM);
+    SOUNDSYSTEM->PlayMusic(eSoundList::Scene2, eSoundChannel::BGM);
 }

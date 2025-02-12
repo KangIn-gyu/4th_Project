@@ -26,8 +26,17 @@ enum class eSoundChannel
 enum class eSoundList
 {
 	Void = 0,
-	Main_Theme = 1, //사용
-	Size = 2
+	TitleScene = 1, //사용
+	DialogIntro = 2, //사용
+	Scene0 = 3,
+	Scene1 = 4,
+	Scene2 = 5,
+	Scene3,
+	Scene4,
+	Scene5,
+	Ending,
+	BadEnding,
+	Size
 };
 
 class SoundSystem : public SingletonBase<SoundSystem>

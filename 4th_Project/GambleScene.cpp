@@ -26,8 +26,9 @@
 #include "SelectionImageScript.h"
 #include "SelectionScript.h"
 #include "../Engine/CameraCompoent.h"
-
 #include "../Engine/ModelComponent.h"
+#include "../Engine/Renderer.h"
+
 GambleScene::GambleScene(std::string_view _Name) : Scene(_Name)
 {
 }
@@ -44,7 +45,7 @@ void GambleScene::Enter()
 	//GetGameObject(Object::ObjectType::Camera)->GetComponent<TransformComponent>()->SetPosition({ -30.0f, 130.0f, -83.0f });
 	//GetGameObject(Object::ObjectType::Camera)->GetComponent<TransformComponent>()->SetQuaternion(DXMath::Quaternion::Quaternion(0.3f, 0.171f, -0.059f, 0.93f));
 
-	BLACKJACK->dealer->GetComponent<TransformComponent>()->SetPosition({ 00, -13.0f, -400.0f });
+	BLACKJACK->dealer->GetComponent<TransformComponent>()->SetPosition({ 0.0f, 6.0f, -400.0f });
 
 	BLACKJACK->deck = CreatorObject<Deck>("Deck", Object::ObjectType::Basic);
 	BLACKJACK->deck->GetComponent<TransformComponent>()->SetPosition({ -60, 105, -500 });
@@ -56,20 +57,17 @@ void GambleScene::Enter()
 	auto test = CreatorObject<TestObj2>("Map", Object::ObjectType::Background);
 	auto deck = GetGameObject(Object::ObjectType::Basic, "Deck");
 
-
-
 	//클릭시 스킬4개 버튼 출력할 버튼
 	CreatorObject<ToopTip2D>("Handfaster_ToolTip", Object::ObjectType::UI, DXMath::Vector2(1460, 370))->SetActive(false);
 	CreatorObject<ToopTip2D>("Guts_ToolTip", Object::ObjectType::UI, DXMath::Vector2(1430, 430))->SetActive(false);
 	CreatorObject<ToopTip2D>("Meditation_ToolTip", Object::ObjectType::UI, DXMath::Vector2(1430, 490))->SetActive(false);
 	CreatorObject<ToopTip2D>("Insurance_ToolTip", Object::ObjectType::UI, DXMath::Vector2(1460, 550))->SetActive(false);
 
-	CreatorObject<UIButton>("Bet", Object::ObjectType::UI, "UI/Button/Bet.png", DXMath::Vector2(500, 50), []() {BLACKJACK->Bet(); });
 	CreatorObject<GambleButton>("Open", Object::ObjectType::UI, DXMath::Vector2(1650, 360), []() {ClickFunc::OpenButton(); });
 	CreatorObject<GambleButton>("Hit", Object::ObjectType::UI, DXMath::Vector2(1745, 440), []() {ClickFunc::HitButton(); });
 	CreatorObject<GambleButton>("Skill", Object::ObjectType::UI, DXMath::Vector2(1650, 520), []() {ClickFunc::OnSetSkillBtn(); });
 	CreatorObject<GambleButton>("Stay", Object::ObjectType::UI, DXMath::Vector2(1650, 680), []() {ClickFunc::StayButton(); });
-	CreatorObject<GambleButton>("DoubleDown", Object::ObjectType::UI, DXMath::Vector2(1745, 600), []() {});
+	CreatorObject<GambleButton>("DoubleDown", Object::ObjectType::UI, DXMath::Vector2(1745, 600), []() { BLACKJACK->DoubbleDown();});
 
 	CreatorObject<SkillButton>("Handfaster", Object::ObjectType::UI, DXMath::Vector2(1460, 470), 3, []() {ClickFunc::SetPlayerSkill(PLAYER, PSkill::fastEye); })->SetActive(false);
 	CreatorObject<SkillButton>("Guts", Object::ObjectType::UI, DXMath::Vector2(1430, 530), 1, []() {ClickFunc::SetPlayerSkill(PLAYER, PSkill::guts); })->SetActive(false);
@@ -85,7 +83,7 @@ void GambleScene::Enter()
 	auto ui3 = CreatorObject<D2DBaseObj>("Skill_Energe", Object::ObjectType::UI, DXMath::Vector2{ 1650, 220 }, "UI/Skill_Energe.png", "Font/GyeonggiMillenniumBackground_Regular.ttf");
 	ui3->CreateScript<JustFont>()->SetMessage(&BLACKJACK->player->skillPoint);
 
-	CreatorObject<UIButton>("ALLIN", Object::ObjectType::UI, "UI/Button/ALL_IN.png", DXMath::Vector2(1600, 850), []() {});
+	CreatorObject<UIButton>("ALLIN", Object::ObjectType::UI, "UI/Button/ALL_IN.png", DXMath::Vector2(1600, 850), []() {  if (BLACKJACK->firstTurn == false) { BLACKJACK->Bet(); } });
 
 	auto ui4 = CreatorObject<D2DBaseObj>("PlayerChipBox", Object::ObjectType::UI, DXMath::Vector2{ 1120, 120 }, "UI/ChipBox.png", "Font/GyeonggiMillenniumBackground_Regular.ttf");
 	ui4->CreateScript<JustFont>()->SetMessage(&BLACKJACK->player->chip);
@@ -96,11 +94,11 @@ void GambleScene::Enter()
 	ui6->CreateScript<JustFont>()->SetMessage(&BLACKJACK->player->score);
 
 	auto ui7 = CreatorObject<D2DBaseObj>("RoundBet", Object::ObjectType::UI, DXMath::Vector2{ 1600, 1000 }, "UI/RaiseBar.png", "Font/GyeonggiMillenniumBackground_Regular.ttf");
-	ui7->CreateScript<JustFont>()->SetMessage(BLACKJACK->player->Bet());
+	ui7->CreateScript<JustFont>()->SetMessage(&BLACKJACK->player->betChip);
 
 	CreatorObject<UIButton>("DealerChip", Object::ObjectType::UI, "UI/Chip.png", DXMath::Vector2{ 1580, 1000 }, []() {});
 
-	auto ui8 = CreatorObject<D2DBaseObj>("DealerNum", Object::ObjectType::UI, DXMath::Vector2{ 680, 620 }, "UI/Num.png", "Font/GyeonggiMillenniumBackground_Regular.ttf");
+	auto ui8 = CreatorObject<D2DBaseObj>("DealerNum", Object::ObjectType::UI, DXMath::Vector2{ 580, 520 }, "UI/Num.png", "Font/GyeonggiMillenniumBackground_Regular.ttf");
 	ui8->CreateScript<JustFont>()->SetMessage(&BLACKJACK->dealer->score);
 
 	auto* DealerWin = CreatorObject<UIButton>("DealerWin", Object::ObjectType::UI, "UI/Lose.png", DXMath::Vector2{ 0,200 }, []() {});
@@ -128,8 +126,8 @@ void GambleScene::Enter()
 	ui9->SetActive(false); ui10->SetActive(false); ui11->SetActive(false); });
 
 
-	auto* ButtonTen = CreatorObject<UIButton>("ButtonTen", Object::ObjectType::UI, "UI/Button10.png", DXMath::Vector2{ 1000,900 }, []() {});
-	auto* ButtonOne = CreatorObject<UIButton>("ButtonOne", Object::ObjectType::UI, "UI/Button1.png", DXMath::Vector2{ 920,900 }, []() {});
+	auto* ButtonTen = CreatorObject<UIButton>("ButtonTen", Object::ObjectType::UI, "UI/Button10.png", DXMath::Vector2{ 1000,800 }, []() {});
+	auto* ButtonOne = CreatorObject<UIButton>("ButtonOne", Object::ObjectType::UI, "UI/Button1.png", DXMath::Vector2{ 850,800 }, []() {});
 
 	// ui 테스트용
 	CreatorObject<UIButton>("PlayerFace", Object::ObjectType::UI, "UI/PlayerFace.png", DXMath::Vector2{ 1620, 50 }, []() {});
@@ -185,7 +183,6 @@ void GambleScene::Enter()
 		[skilldialog4_2]() { skilldialog4_2->SetActive(true);  BLACKJACK->dealer->Act(); BLACKJACK->curTurn = Turn::player; });
 
 	auto q1 = CreatorObject<D2DBaseObj>("Question1", Object::ObjectType::UI);
-	q1 = CreatorObject<D2DBaseObj>("Question1", Object::ObjectType::UI);
 	q1->GetComponent<D2DRenderComponent>()->Load2DImage("UI/Question/Question1.png");
 	q1->GetComponent<D2DRenderComponent>()->Set2DImagePos(0, 580);
 	q1->CreateScript<SelectionImageScript>()->SetButton(dialogbutton1, dialogbutton2);
@@ -207,7 +204,6 @@ void GambleScene::Enter()
 	q4->GetComponent<D2DRenderComponent>()->Load2DImage("UI/Question/Question4.png");
 	q4->CreateScript<SelectionImageScript>()->SetButton(dialogbutton7, dialogbutton8);
 	q4->GetComponent<D2DRenderComponent>()->Set2DImagePos(0, 580);
-
 	q4->SetActive(false);
 
 	BLACKJACK->SetDialog(q1);
@@ -229,6 +225,7 @@ void GambleScene::Update(const float _deltaTime)
 void GambleScene::ResetInformation()
 {
 	Scene::ResetInformation();
+	RENDERER->upColor = false;
 	GetGameObject(Object::ObjectType::UI, "Meditation")->SetActive(false);
 	GetGameObject(Object::ObjectType::UI, "Insurance")->SetActive(false);
 	GetGameObject(Object::ObjectType::UI, "DealerWin")->SetActive(false);
@@ -250,10 +247,26 @@ void GambleScene::ResetInformation()
 	GetGameObject(Object::ObjectType::UI, "Result")->SetActive(false);
 	GetGameObject(Object::ObjectType::UI, "ButtonTen")->SetActive(false);
 	GetGameObject(Object::ObjectType::UI, "ButtonOne")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "Handfaster_ToolTip")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "Guts_ToolTip")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "Meditation_ToolTip")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "Insurance_ToolTip")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "Question1")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "Question2")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "Question3")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "Question4")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "Pattern1_1")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "Pattern1_2")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "Pattern2_1")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "Pattern2_2")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "Pattern3_1")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "Pattern3_2")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "Pattern4_1")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "Pattern4_2")->SetActive(false);
 
 	// 왜 여기 선언 해야하는지 진짜모름
 	Object* camera = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::Camera, 0);
-	camera->GetComponent<CameraCompoent>()->MovingFlag(true);
+	camera->GetComponent<CameraCompoent>()->MovingFlag(false);
 	TransformComponent* cameratrans = camera->GetComponent<TransformComponent>();
 	float angle = DirectX::XMConvertToRadians(10.0f);
 	DXMath::Quaternion quat = DXMath::Quaternion::CreateFromYawPitchRoll(0.0f, angle, 0.0f);
