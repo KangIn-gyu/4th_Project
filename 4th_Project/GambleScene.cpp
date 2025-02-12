@@ -78,6 +78,7 @@ void GambleScene::Enter()
 	auto DoubleDownImg = CreatorObject<UIButton>("DoubleDownImage", Object::ObjectType::UI, "GambleScene/UI/Double_Down_Banner.png", DXMath::Vector2{ 0, 330 }, []() { });
 	DoubleDownImg->SetD2DLayerOrder(5);
 	auto ShowDownImg = CreatorObject<UIButton>("ShowDownImage", Object::ObjectType::UI, "GambleScene/UI/Show_Down_Banner.png", DXMath::Vector2{ 0, 330 }, []() {});
+	ShowDownImg->SetOnClick([ShowDownImg]() {ShowDownImg->SetActive(false); });
 	ShowDownImg->SetD2DLayerOrder(5);
 	CreatorObject<GambleButton>("Open", Object::ObjectType::UI, DXMath::Vector2(1650, 360), []() {ClickFunc::OpenButton(); });
 	CreatorObject<GambleButton>("Hit", Object::ObjectType::UI, DXMath::Vector2(1745, 440), []() {ClickFunc::HitButton(); SOUNDSYSTEM->PlayMusic(eSoundList::VS_Hit, eSoundChannel::Voice);});

@@ -31,8 +31,11 @@ void Hand::handReset(bool dealer)
 	{
 		while(!hand.empty())
 		{
-			if(hand.back() !=nullptr) 
+			if (hand.back() != nullptr)
+			{
 				BLACKJACK->trashDeck->cards.push_back(hand.back());
+				hand.back()->GetComponent<TransformComponent>()->SetPosition(BLACKJACK->deck->GetComponent<TransformComponent>()->GetPosition());
+			}
 			hand.pop_back();
 		}
 	}
@@ -41,7 +44,10 @@ void Hand::handReset(bool dealer)
 		for (int i = 0; i < maxHand; i++)
 		{
 			if (hand[i] != nullptr)
+			{
 				BLACKJACK->trashDeck->cards.push_back(hand[i]);
+				hand[i]->GetComponent<TransformComponent>()->SetPosition(BLACKJACK->deck->GetComponent<TransformComponent>()->GetPosition());
+			}
 			hand[i] = nullptr;
 		}
 	}
