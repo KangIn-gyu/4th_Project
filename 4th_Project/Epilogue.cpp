@@ -7,10 +7,10 @@
 #include "UIButton.h"
 Epilogue::Epilogue(std::string_view _Name) : Scene(_Name)
 {
-    // TODO: 엔딩의 분기점값을 얻어야한다.
+    // TODO: 크레딧 이미지 넣기
 
     dialog = CreatorObject<D2DBaseObj>("Epilogue", Object::ObjectType::UI,
-        1, 111, "Font/GyeonggiMillenniumBackground_Regular.ttf", "DialogScenes/CSV/Scene5.csv");
+        1, 111, "Font/GyeonggiMillenniumBackground_Regular.ttf", "DialogScenes/CSV/Epilogue.csv");
 
     dialog->CreateScript<D2DBitMapFontScript>();
     skipbutton = CreatorObject<UIButton>("Skip", Object::ObjectType::UI,

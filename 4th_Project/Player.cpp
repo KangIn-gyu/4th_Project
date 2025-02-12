@@ -481,10 +481,10 @@ void Player::EnterRayCollision(Collider* _otherCol)
 {
 	if (SCENEMANAGER->GetCurrentScene()->GetName() == "LobbyScene")
 	{
-		if (_otherCol->GetOwner()->GetName() == "Evelyn")
+		if (_otherCol->GetOwner()->GetName() == "Evelyn" && SCENEMANAGER->isTalking == false) /////&&
 		{
-			SCENEMANAGER->GetCurrentScene()->GetGameObject(ObjectType::UI, "Talk")->SetActive(true);
-			SCENEMANAGER->GetCurrentScene()->GetGameObject(ObjectType::UI, "REMatch")->SetActive(true);
+			SCENEMANAGER->GetCurrentScene()->GetGameObject(ObjectType::UI, "TalkButton")->SetActive(true);
+			SCENEMANAGER->GetCurrentScene()->GetGameObject(ObjectType::UI, "REMatchButton")->SetActive(true);
 			std::cout << _otherCol->GetOwner()->GetName() + " 쳐다보는중임" << std::endl;
 		}
 	}
@@ -496,8 +496,8 @@ void Player::EndRayCollision(Collider* _otherCol)
 	{
 		if (_otherCol->GetOwner()->GetName() == "Evelyn")
 		{
-			SCENEMANAGER->GetCurrentScene()->GetGameObject(ObjectType::UI, "Talk")->SetActive(false);
-			SCENEMANAGER->GetCurrentScene()->GetGameObject(ObjectType::UI, "REMatch")->SetActive(false);
+			SCENEMANAGER->GetCurrentScene()->GetGameObject(ObjectType::UI, "TalkButton")->SetActive(false);
+			SCENEMANAGER->GetCurrentScene()->GetGameObject(ObjectType::UI, "REMatchButton")->SetActive(false);
 			std::cout << _otherCol->GetOwner()->GetName() + " 쳐다보기멈추무ㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜ" << std::endl;
 		}
 	}

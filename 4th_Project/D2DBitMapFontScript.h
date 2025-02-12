@@ -14,6 +14,7 @@ public:
 	virtual void ComponentSetting() override;               // 컴포넌트가 다 생성된 이후 수치 조정하는것
 	virtual void Update(const float _deltaTime) override;  // 업데이트
 	virtual void ResetInformation();
+	void Reset();
 
 private:
 	virtual void OnInputProcess(const DX::Keyboard::State& _KeyState,
