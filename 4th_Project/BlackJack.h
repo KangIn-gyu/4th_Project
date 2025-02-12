@@ -110,5 +110,7 @@ private:
 	bool firstAni = true;
 	bool secondAni = true;
 	bool IdleAni = false;
+
+	bool IsShowDown = true;
 };
 

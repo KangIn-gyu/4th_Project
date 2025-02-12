@@ -617,7 +617,6 @@ void FBXLoader::ShowIndexBuffer()
 
 void FBXLoader::NodeAndMeshIndex(const std::string_view _filePath)
 {
-	std::cout << "노드와 매쉬 인덱스 맞는지 확인하는 코드" << '\n';
 	for (auto& data : aiNodeMap[_filePath.data()])
 	{
 		std::cout << data->GetName() << "\n";

@@ -7,6 +7,7 @@
 #include "../Engine/SceneManager.h"
 #include "../Engine/ModelComponent.h"
 #include "../Engine/Helper.h"
+#include "../Engine/SoundSystem.h"
 
 BlackJack::BlackJack()
 {
@@ -106,6 +107,8 @@ void BlackJack::StageLose()
 
 void BlackJack::PlayerWin()
 {
+	IsShowDown = true;
+	firstAni = true;
 	auto DealerWin = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "DealerWin");
 	auto PlayerWin = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "PlayerWin");
 	auto BetResult = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "BetResult");
@@ -113,7 +116,6 @@ void BlackJack::PlayerWin()
 	auto Result = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "Result");
 
 
-	
 	PlayerWin->SetActive(true);
 	BetResult->SetActive(true);
 	BetMag->SetActive(true);
@@ -125,6 +127,9 @@ void BlackJack::PlayerWin()
 
 void BlackJack::DealerWin()
 {
+	IsShowDown = true;
+	firstAni = true;
+
 	auto DealerWin = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "DealerWin");
 	auto PlayerWin = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "PlayerWin");
 	auto BetResult = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "BetResult");
@@ -137,7 +142,9 @@ void BlackJack::DealerWin()
 	BetMag->SetActive(true);
 	Result->SetActive(true);
 	//재도전 버튼 and 로비로 버튼 뛰우기
-	//
+	
+	SOUNDSYSTEM->StopMusic(eSoundChannel::BGM);
+	SOUNDSYSTEM->PlayMusic(eSoundList::GameOver, eSoundChannel::BGM);
 }
 
 void BlackJack::Update(float _deltaTime)
@@ -207,6 +214,7 @@ void BlackJack::Update(float _deltaTime)
 				}		
 				if (secondAni == true  && true == dealer->GetComponent<ModelComponent>()->IsAnimationFinished())
 				{
+					SOUNDSYSTEM->PlayMusic(eSoundList::SE_Card_Unfold, eSoundChannel::Effect);
 					dealer->GetComponent<ModelComponent>()->SetAnimation(5);
 					secondAni = false;
 				}
@@ -303,6 +311,7 @@ void BlackJack::CheckVictory(float _deltaTime)
 	if (dealer->GetScore() >= 22)
 	{
 		std::cout << "딜러가 22넘었음  " << " ㅇㅇ" << std::endl;
+		SOUNDSYSTEM->PlayMusic(eSoundList::VS_Blackjack, eSoundChannel::Voice);
 		PlayerWin();
 
 	}
@@ -336,6 +345,13 @@ void BlackJack::ShowDown()
 	player->hand.handReset();
 	dealer->hand.handReset();  //각핸드 리셋하고
 	
+	if (true == IsShowDown)
+	{
+		IsShowDown = false;
+		SOUNDSYSTEM->StopMusic(eSoundChannel::BGM);
+		SOUNDSYSTEM->PlayMusic(eSoundList::DoubleDown, eSoundChannel::BGM);
+	}
+
 	if (player->hand.GetScore() == dealer->hand.GetScore())  //다를떄까지 반복
 	{
 		player->hand.cardDraw(deck->DrawCard(false), { showpslot.x + showDownCount * 15.0f,showpslot.y, showpslot.z }, true);
@@ -346,10 +362,15 @@ void BlackJack::ShowDown()
 	{
 		if (player->hand.GetScore() < dealer->hand.GetScore()) //작은쪽이 이기는거
 		{
+			SOUNDSYSTEM->StopMusic(eSoundChannel::BGM);
+			SOUNDSYSTEM->PlayMusic(eSoundList::GameScene, eSoundChannel::BGM);
+			SOUNDSYSTEM->PlayMusic(eSoundList::VS_Win, eSoundChannel::Voice);
 			PlayerWin();
 		}
 		else
 		{
+			SOUNDSYSTEM->PlayMusic(eSoundList::GameScene, eSoundChannel::BGM);
+			SOUNDSYSTEM->PlayMusic(eSoundList::VS_Lose, eSoundChannel::Voice);
 			DealerWin(); //딜러가이김
 		}
 	}	
@@ -358,6 +379,9 @@ void BlackJack::ShowDown()
 
 void BlackJack::DoubbleDown()
 {
+	SOUNDSYSTEM->StopMusic(eSoundChannel::BGM);
+	SOUNDSYSTEM->PlayMusic(eSoundList::DoubleDown, eSoundChannel::BGM);
+
 	if (BLACKJACK->onDoubbleDown == false)
 	{
 		BLACKJACK->magnification *= 2;

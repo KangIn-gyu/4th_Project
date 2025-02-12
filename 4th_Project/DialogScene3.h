@@ -2,6 +2,7 @@
 #include "../Engine/Scene.h"
 class UIButton;
 class D2DBaseObj;
+class D2DBitMapFontScript;
 class DialogScene3 : public Scene
 {
 
@@ -20,5 +21,7 @@ private:
 public:
 
 private:
-
+	D2DBitMapFontScript* script{};
+	bool eventFlag1 = true;
+	bool eventFlag2 = true;
 };

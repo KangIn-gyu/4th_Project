@@ -68,10 +68,10 @@ void GambleScene::Enter()
 	CreatorObject<ToopTip2D>("Insurance_ToolTip", Object::ObjectType::UI, DXMath::Vector2(1460, 550))->SetActive(false);
 
 	CreatorObject<GambleButton>("Open", Object::ObjectType::UI, DXMath::Vector2(1650, 360), []() {ClickFunc::OpenButton(); });
-	CreatorObject<GambleButton>("Hit", Object::ObjectType::UI, DXMath::Vector2(1745, 440), []() {ClickFunc::HitButton(); });
+	CreatorObject<GambleButton>("Hit", Object::ObjectType::UI, DXMath::Vector2(1745, 440), []() {ClickFunc::HitButton(); SOUNDSYSTEM->PlayMusic(eSoundList::VS_Hit, eSoundChannel::Voice);});
 	CreatorObject<GambleButton>("Skill", Object::ObjectType::UI, DXMath::Vector2(1650, 520), []() {ClickFunc::OnSetSkillBtn(); });
-	CreatorObject<GambleButton>("Stay", Object::ObjectType::UI, DXMath::Vector2(1650, 680), []() {ClickFunc::StayButton(); });
-	CreatorObject<GambleButton>("DoubleDown", Object::ObjectType::UI, DXMath::Vector2(1745, 600), []() { BLACKJACK->DoubbleDown();});
+	CreatorObject<GambleButton>("Stay", Object::ObjectType::UI, DXMath::Vector2(1650, 680), []() {ClickFunc::StayButton(); SOUNDSYSTEM->PlayMusic(eSoundList::VS_Stay, eSoundChannel::Voice);});
+	CreatorObject<GambleButton>("DoubleDown", Object::ObjectType::UI, DXMath::Vector2(1745, 600), []() { BLACKJACK->DoubbleDown(); SOUNDSYSTEM->PlayMusic(eSoundList::VS_Double_Down, eSoundChannel::Voice);});
 
 	CreatorObject<SkillButton>("Handfaster", Object::ObjectType::UI, DXMath::Vector2(1460, 470), 3, []() {ClickFunc::SetPlayerSkill(PLAYER, PSkill::fastEye); })->SetActive(false);
 	CreatorObject<SkillButton>("Guts", Object::ObjectType::UI, DXMath::Vector2(1430, 530), 1, []() {ClickFunc::SetPlayerSkill(PLAYER, PSkill::guts); })->SetActive(false);
@@ -87,7 +87,8 @@ void GambleScene::Enter()
 	auto ui3 = CreatorObject<D2DBaseObj>("Skill_Energe", Object::ObjectType::UI, DXMath::Vector2{ 1650, 220 }, "UI/Skill_Energe.png", "Font/GyeonggiMillenniumBackground_Regular.ttf");
 	ui3->CreateScript<JustFont>()->SetMessage(&BLACKJACK->player->skillPoint);
 
-	CreatorObject<UIButton>("ALLIN", Object::ObjectType::UI, "UI/Button/ALL_IN.png", DXMath::Vector2(1600, 850), []() {  if (BLACKJACK->firstTurn == false) { BLACKJACK->Bet(); } });
+	CreatorObject<UIButton>("ALLIN", Object::ObjectType::UI, "UI/Button/ALL_IN.png", DXMath::Vector2(1600, 850), 
+		[]() {  if (BLACKJACK->firstTurn == false) {  BLACKJACK->Bet(); } });
 
 	auto ui4 = CreatorObject<D2DBaseObj>("PlayerChipBox", Object::ObjectType::UI, DXMath::Vector2{ 1120, 120 }, "UI/ChipBox.png", "Font/GyeonggiMillenniumBackground_Regular.ttf");
 	ui4->CreateScript<JustFont>()->SetMessage(&BLACKJACK->player->chip);
@@ -232,8 +233,10 @@ void GambleScene::Update(const float _deltaTime)
 void GambleScene::ResetInformation()
 {
 	Scene::ResetInformation();
+
 	SOUNDSYSTEM->StopMusic(eSoundChannel::BGM);
 	SOUNDSYSTEM->PlayMusic(eSoundList::GameScene, eSoundChannel::BGM);
+
 	RENDERER->upColor = false;
 	//RENDERER->ClearSpotLight();
 	GetGameObject(Object::ObjectType::UI, "Meditation")->SetActive(false);
@@ -284,10 +287,11 @@ void GambleScene::ResetInformation()
 	camera->GetComponent<CameraCompoent>()->MovingFlag(false);
 	TransformComponent* cameratrans = camera->GetComponent<TransformComponent>();
 	float angle = DirectX::XMConvertToRadians(30.0f);
-	DXMath::Quaternion quat = DXMath::Quaternion::CreateFromYawPitchRoll(0.0f, angle, 0.0f);
 	cameratrans->SetPosition({ 0, 140, -580 });
-	cameratrans->SetQuaternion(quat);
-	cameratrans->SetPosition({ 0, 165, -580 });
+	cameratrans->SetQuaternion({ 0,0,0,1 });
+//	DXMath::Quaternion quat = DXMath::Quaternion::CreateFromYawPitchRoll(0.0f, angle, 0.0f);
+//	cameratrans->SetQuaternion(quat);
+
 
 	BLACKJACK->dealer->GetComponent<TransformComponent>()->SetPosition({ 0.0f, 6.0f, -400.0f });
 	BLACKJACK->dealer->GetComponent<ModelComponent>()->SetAnimation(1);

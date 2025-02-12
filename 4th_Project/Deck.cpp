@@ -12,6 +12,7 @@
 #include "BlackJack.h"
 
 #include "../Engine/Helper.h"
+#include "../Engine/SoundSystem.h"
 
 Deck::Deck(std::string_view _name, Object::ObjectType _type,bool real) : Object(_name, _type)
 {
@@ -104,10 +105,7 @@ Card* Deck::DrawCard(bool Dealer)
 
 void Deck::ShuffleDeck()
 {
-//	TODO : 25.2.10 강인규가 수정함
-//	std::random_device rd;
-//	std::mt19937 g(rd());
-
+	SOUNDSYSTEM->PlayMusic(eSoundList::SE_Card_Gather, eSoundChannel::BGM);
 	std::shuffle(cards.begin(), cards.end(), RandomUtil::gen);
 }
 

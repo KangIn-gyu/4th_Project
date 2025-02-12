@@ -15,6 +15,7 @@
 #include "Button.h"
 #include "../Engine/TimeSystem.h"
 #include "UIButton.h"
+#include "../Engine/SoundSystem.h"
 Card::Card(std::string_view _name, Object::ObjectType _type,Suit _suit, std::string _rank) : Object(_name, _type)
 {
 	suit = _suit;
@@ -134,6 +135,7 @@ int Card::GetValue()
 
 bool Card::RevereseSec(float _sec)
 {
+	SOUNDSYSTEM->PlayMusic(eSoundList::SE_Card_Flap, eSoundChannel::BGM);
 	Open();
 	float delta = TIMESYSTEM.get()->GetFloatDeltaTime();
 	reversTime += delta;

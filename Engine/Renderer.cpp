@@ -130,7 +130,7 @@ void Renderer::Update(float _deltaTime)
 
 void Renderer::Render()
 {
-	D3DGraphics->BeginDraw({ 0.0f , 0.0f , 0.0f , 1.0f });
+	D3DGraphics->BeginDraw({ 0.0f , 0.0f , 0.0f , 0.0f });
 #ifdef IMGUIFLAG
 	D3DGraphics->BeginDraw(IMGUI->GetBackGroundColor());
 #endif

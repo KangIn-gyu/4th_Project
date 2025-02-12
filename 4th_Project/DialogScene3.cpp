@@ -29,6 +29,8 @@ DialogScene3::DialogScene3(std::string_view _Name) : Scene(_Name)
     dialog->SetActive(false);
     fading->SetActive(false);
     skipbutton->SetActive(false);
+
+    script = static_cast<D2DBitMapFontScript*>(dialog->script);
 }
 
 void DialogScene3::Enter()
@@ -45,6 +47,20 @@ void DialogScene3::Update(const float _deltaTime)
         static_cast<FadeEffectScript*>(fading->script)->StartFadeIn("LobbyScene");
         dialog->GetComponent<D2DRenderComponent>()->IsFadeIn = false;
     }
+
+    if (script->index == 2 && eventFlag1 == true)
+    {
+        eventFlag1 = false;
+        SOUNDSYSTEM->StopMusic(eSoundChannel::BGM);
+        SOUNDSYSTEM->PlayMusic(eSoundList::SE_Finger, eSoundChannel::Effect);
+    }
+
+    if (script->index == 44 && eventFlag2 == true)
+    {
+        eventFlag2 = false;
+        SOUNDSYSTEM->PlayMusic(eSoundList::SE_Finger, eSoundChannel::Effect);
+        SOUNDSYSTEM->PlayMusic(eSoundList::Scene3, eSoundChannel::BGM);
+    }
 }
 
 
@@ -54,6 +70,7 @@ void DialogScene3::ResetInformation()
     dialog->SetActive(true);
     fading->SetActive(true);
     skipbutton->SetActive(true);
+    script->ResetInformation();
     static_cast<FadeEffectScript*>(fading->script)->StartFadeOut();
     SOUNDSYSTEM->StopMusic(eSoundChannel::BGM);
     SOUNDSYSTEM->PlayMusic(eSoundList::Scene3, eSoundChannel::BGM);

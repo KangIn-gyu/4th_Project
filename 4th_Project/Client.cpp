@@ -104,7 +104,9 @@ void Client::LoadMusic()
 		// SFX
 		SOUNDSYSTEM->LoadMusic(eSoundList::SE_Card_Pick, false, "Resource\\GambleScene\\Sounds\\SE_Card_Pick.wav");
 		SOUNDSYSTEM->LoadMusic(eSoundList::SE_Finger, false, "Resource\\GambleScene\\Sounds\\SE_Finger Flip.wav");
+		SOUNDSYSTEM->LoadMusic(eSoundList::SE_Card_Flap, false, "Resource\\GambleScene\\Sounds\\SE_Card_Flap.wav");
 		SOUNDSYSTEM->LoadMusic(eSoundList::SE_Card_Unfold, false, "Resource\\GambleScene\\Sounds\\SE_Card_Unfold.wav");
+		SOUNDSYSTEM->LoadMusic(eSoundList::SE_Card_Gather, false, "Resource\\GambleScene\\Sounds\\SE_Card_Gather.wav");
 		SOUNDSYSTEM->LoadMusic(eSoundList::SE_All_In, false, "Resource\\GambleScene\\Sounds\\SE_All In.wav");
 		SOUNDSYSTEM->LoadMusic(eSoundList::SE_Bet, false, "Resource\\GambleScene\\Sounds\\SE_Bet.wav");
 

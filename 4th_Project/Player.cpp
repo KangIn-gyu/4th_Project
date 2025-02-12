@@ -475,8 +475,6 @@ void Player::OnBlock(Collider* _myCol, Collider* _otherCol)
 }
 
 
-
-
 void Player::EnterRayCollision(Collider* _otherCol)
 {
 	if (SCENEMANAGER->GetCurrentScene()->GetName() == "LobbyScene")

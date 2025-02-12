@@ -7,6 +7,7 @@
 #include "../Engine/TimeSystem.h"
 #include "BlackJack.h"
 #include "../Engine/Helper.h"
+#include "../Engine/SoundSystem.h"
 
 std::vector<DXMath::Vector3> playerSlots = {
 	{-40, 105,-500}, {-25, 105,-500}, {-10, 105,-500}, {5, 105, -500},
@@ -50,6 +51,8 @@ void Hand::handReset(bool dealer)
 Card* Hand::cardDraw(Card* _card,DXMath::Vector3 _pos, bool dealer)
 {
 	//_pos로 옮기기
+
+	SOUNDSYSTEM->PlayMusic(eSoundList::SE_Card_Pick, eSoundChannel::Effect);
 	auto& cardpos = _card->GetComponent<TransformComponent>()->GetPosition();
 
 	if (false == dealer)
