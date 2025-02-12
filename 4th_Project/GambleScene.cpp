@@ -233,8 +233,8 @@ void GambleScene::Enter()
 	BLACKJACK->SetDialog(q3);
 	BLACKJACK->SetDialog(q4);
 
-	//CreatorObject<UIToggleBtn>("Bet", Object::ObjectType::UI, DXMath::Vector2( 1870,860 ), []() {});
-	//CreatorObject<UIToggleBtn>("BetDown", Object::ObjectType::UI, DXMath::Vector2( 1870,950), []() {});
+	CreatorObject<UIToggleBtn>("RE Start_Button", Object::ObjectType::UI, DXMath::Vector2(700, 500), []() {static_cast<LoadingScene*>(SCENEMANAGER->GetScene("LoadingScene"))->NextScene("GambleScene"); BLACKJACK->player->chip = 100000; SCENEMANAGER->ChangeScene("LoadingScene"); });
+	CreatorObject<UIToggleBtn>("ToTitle_Button", Object::ObjectType::UI, DXMath::Vector2( 1100,500), []() {static_cast<LoadingScene*>(SCENEMANAGER->GetScene("LoadingScene"))->NextScene("TitleScene");SCENEMANAGER->ChangeScene("LoadingScene");});
 }
 
 
@@ -299,7 +299,8 @@ void GambleScene::ResetInformation()
 	GetGameObject(Object::ObjectType::UI, "Guts_ToolTip")->GetComponent<D2DRenderComponent>()->bitmapLayerOrder = 5;
 	GetGameObject(Object::ObjectType::UI, "Meditation_ToolTip")->GetComponent<D2DRenderComponent>()->bitmapLayerOrder = 5;
 	GetGameObject(Object::ObjectType::UI, "Insurance_ToolTip")->GetComponent<D2DRenderComponent>()->bitmapLayerOrder = 5;
-
+	GetGameObject(Object::ObjectType::UI, "RE Start_Button")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "ToTitle_Button")->SetActive(false);
 	if (isSet == true)
 	{
 		GetGameObject(Object::ObjectType::UI, "SetCamera")->SetActive(false);
