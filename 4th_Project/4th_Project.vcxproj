@@ -181,6 +181,8 @@
     <ClInclude Include="GambleScene.h" />
     <ClInclude Include="BlackJack.h" />
     <ClInclude Include="HappyEnding.h" />
+    <ClInclude Include="hogamdo.h" />
+    <ClInclude Include="JustBox.h" />
     <ClInclude Include="LoadingScene.h" />
     <ClInclude Include="JustFont.h" />
     <ClInclude Include="LoopImageChangeScript.h" />
@@ -238,6 +240,8 @@
     <ClCompile Include="GambleScene.cpp" />
     <ClCompile Include="BlackJack.cpp" />
     <ClCompile Include="HappyEnding.cpp" />
+    <ClCompile Include="hogamdo.cpp" />
+    <ClCompile Include="JustBox.cpp" />
     <ClCompile Include="LoadingScene.cpp" />
     <ClCompile Include="JustFont.cpp" />
     <ClCompile Include="LoopImageChangeScript.cpp" />

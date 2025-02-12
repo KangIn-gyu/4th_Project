@@ -60,7 +60,7 @@ void MyGameManager::UpdateGambleButton()
 	Object* hitBtn = SCENEMANAGER.get()->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "Hit");
 	Object* stayBtn = SCENEMANAGER.get()->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "Stay");
 	Object* skillBtn = SCENEMANAGER.get()->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "Skill");
-
+	Object* doubleBtn = SCENEMANAGER.get()->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "DoubleDown");
 	// 모든 버튼을 기본적으로 Off로 설정
 
 	if (pre != cur)
@@ -73,24 +73,35 @@ void MyGameManager::UpdateGambleButton()
 			dynamic_cast<GambleButton*>(hitBtn)->ChangeState(gbState::Off);
 			dynamic_cast<GambleButton*>(stayBtn)->ChangeState(gbState::Off);
 			dynamic_cast<GambleButton*>(skillBtn)->ChangeState(gbState::Off);
+			dynamic_cast<GambleButton*>(doubleBtn)->ChangeState(gbState::Off);
 			break;
 		case PlayerState::HIT:
 			dynamic_cast<GambleButton*>(openBtn)->ChangeState(gbState::Off);
 			dynamic_cast<GambleButton*>(hitBtn)->ChangeState(gbState::On);
 			dynamic_cast<GambleButton*>(stayBtn)->ChangeState(gbState::Off);
 			dynamic_cast<GambleButton*>(skillBtn)->ChangeState(gbState::Off);
+			dynamic_cast<GambleButton*>(doubleBtn)->ChangeState(gbState::Off);
 			break;
 		case PlayerState::STAY:
 			dynamic_cast<GambleButton*>(openBtn)->ChangeState(gbState::Off);
 			dynamic_cast<GambleButton*>(hitBtn)->ChangeState(gbState::Off);
 			dynamic_cast<GambleButton*>(stayBtn)->ChangeState(gbState::On);
 			dynamic_cast<GambleButton*>(skillBtn)->ChangeState(gbState::Off);
+			dynamic_cast<GambleButton*>(doubleBtn)->ChangeState(gbState::Off);
+			break;
+		case PlayerState::DobbleDown:
+			dynamic_cast<GambleButton*>(openBtn)->ChangeState(gbState::Off);
+			dynamic_cast<GambleButton*>(hitBtn)->ChangeState(gbState::Off);
+			dynamic_cast<GambleButton*>(stayBtn)->ChangeState(gbState::Off);
+			dynamic_cast<GambleButton*>(skillBtn)->ChangeState(gbState::Off);
+			dynamic_cast<GambleButton*>(doubleBtn)->ChangeState(gbState::On);
 			break;
 		case PlayerState::Skill:
 			dynamic_cast<GambleButton*>(openBtn)->ChangeState(gbState::Off);
 			dynamic_cast<GambleButton*>(hitBtn)->ChangeState(gbState::Off);
 			dynamic_cast<GambleButton*>(stayBtn)->ChangeState(gbState::Off);
 			dynamic_cast<GambleButton*>(skillBtn)->ChangeState(gbState::On);
+			dynamic_cast<GambleButton*>(doubleBtn)->ChangeState(gbState::Off);
 			break;
 		default:
 			break;

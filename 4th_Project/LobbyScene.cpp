@@ -17,6 +17,8 @@
 #include "ToopTip2D.h"
 #include "../Engine/CameraCompoent.h"
 #include "UIToggleBtn.h"
+#include "JustBox.h"
+#include "hogamdo.h"
 LobbyScene::LobbyScene(std::string_view _Name) : Scene(_Name)
 {
 	
@@ -68,6 +70,7 @@ void LobbyScene::Enter()
 	matchButton = CreatorObject<UIToggleBtn>("REMatchButton", Object::ObjectType::UI,
 		DXMath::Vector2(1400, 500), []() {SCENEMANAGER->ChangeScene("LoadingScene");});
 
+	CreatorObject<hogamdo>("hogamdo", Object::ObjectType::UI, DXMath::Vector2(1330, 350));
 	fading = CreatorObject<D2DBaseObj>("Fade", Object::ObjectType::UI);
 	fading->GetComponent<D2DRenderComponent>()->Load2DImage("UI/FadeImage.png");
 	fading->CreateScript<FadeEffectScript>();
@@ -80,6 +83,10 @@ void LobbyScene::Enter()
 	matchButton->SetActive(false);
 	fading->SetActive(false);
 
+	CreatorObject<JustBox>("Box1", Object::ObjectType::Basic, DXMath::Vector3(300, 0, 700), DXMath::Vector3(3000, 500, 100), DXMath::Vector3(0, 0, 0));
+	CreatorObject<JustBox>("Box2", Object::ObjectType::Basic, DXMath::Vector3(300, 0, 1250), DXMath::Vector3(3000, 500, 100), DXMath::Vector3(0, 0, 0));
+	CreatorObject<JustBox>("Box3", Object::ObjectType::Basic, DXMath::Vector3(-400, 0, 1250), DXMath::Vector3(100, 500, 2000), DXMath::Vector3(0, 0, 0));
+	CreatorObject<JustBox>("Box4", Object::ObjectType::Basic, DXMath::Vector3(1300, 0, 1250), DXMath::Vector3(100, 500, 2000), DXMath::Vector3(0, 0, 0));
 	
 }
 
@@ -108,7 +115,7 @@ void LobbyScene::ResetInformation()
 
 	camera->GetComponent<CameraCompoent>()->MovingFlag(true);
 	TransformComponent* cameratrans = camera->GetComponent<TransformComponent>();
-	cameratrans->SetPosition({ 0, 160, -100 });
+	cameratrans->SetPosition({ 800, 160, 1000 });
 	cameratrans->SetQuaternion({ 0,0,0,1 });
 
 
@@ -117,6 +124,7 @@ void LobbyScene::ResetInformation()
 	talk2->SetActive(false);
 	talk3->SetActive(false);
 	talk4->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "hogamdo")->SetActive(false);
 	static_cast<FadeEffectScript*>(fading->script)->StartFadeOut();
 	static_cast<LoadingScene*>(SCENEMANAGER->GetScene("LoadingScene"))->NextScene("GambleScene");
 

@@ -64,7 +64,7 @@ void GambleScene::Enter()
 	BLACKJACK->deck->GetComponent<TransformComponent>()->SetPosition({ -60, 105, -500 });
 	BLACKJACK->trashDeck = CreatorObject<Deck>("trashDeck", Object::ObjectType::Basic, false);
 
-	BLACKJACK->Setstage(1);
+	BLACKJACK->Setstage();
 	CreatorObject<TestObj>("Table", Object::ObjectType::Basic);
 
 	auto test = CreatorObject<TestObj2>("Map", Object::ObjectType::Background);
@@ -81,7 +81,7 @@ void GambleScene::Enter()
 	CreatorObject<GambleButton>("Hit", Object::ObjectType::UI, DXMath::Vector2(1745, 440), []() {ClickFunc::HitButton(); SOUNDSYSTEM->PlayMusic(eSoundList::VS_Hit, eSoundChannel::Voice);});
 	CreatorObject<GambleButton>("Skill", Object::ObjectType::UI, DXMath::Vector2(1650, 520), []() {ClickFunc::OnSetSkillBtn(); });
 	CreatorObject<GambleButton>("Stay", Object::ObjectType::UI, DXMath::Vector2(1650, 680), []() {ClickFunc::StayButton(); SOUNDSYSTEM->PlayMusic(eSoundList::VS_Stay, eSoundChannel::Voice);});
-	CreatorObject<GambleButton>("DoubleDown", Object::ObjectType::UI, DXMath::Vector2(1745, 600), [DoubleDownImg]() { BLACKJACK->DoubbleDown(); DoubleDownImg->SetActive(true); SOUNDSYSTEM->PlayMusic(eSoundList::VS_Double_Down, eSoundChannel::Voice);});
+	CreatorObject<GambleButton>("DoubleDown", Object::ObjectType::UI, DXMath::Vector2(1745, 600), [DoubleDownImg]() { BLACKJACK->DoubbleDown(); DoubleDownImg->SetActive(true); SOUNDSYSTEM->PlayMusic(eSoundList::VS_Double_Down, eSoundChannel::Voice); ClickFunc::DoubleDown(); });
 
 	CreatorObject<SkillButton>("Handfaster", Object::ObjectType::UI, DXMath::Vector2(1460, 470), 3, []() {ClickFunc::SetPlayerSkill(PLAYER, PSkill::fastEye); })->SetActive(false);
 	CreatorObject<SkillButton>("Guts", Object::ObjectType::UI, DXMath::Vector2(1430, 530), 1, []() {ClickFunc::SetPlayerSkill(PLAYER, PSkill::guts); })->SetActive(false);
@@ -148,8 +148,8 @@ void GambleScene::Enter()
 	auto SetCamera = CreatorObject<UIButton>("SetCamera", Object::ObjectType::UI, "UI/Set_Camera_Button.png", DXMath::Vector2{ 0,964 }, []() {});
 	SetCamera->SetOnClick([SetCamera, cameratrans, this]() {  isSet = true; cameratrans->SetPosition({ 0, 165, -580 });   SetCamera->SetActive(false);});
 
-	auto* ButtonTen = CreatorObject<UIButton>("ButtonTen", Object::ObjectType::UI, "UI/Button10.png", DXMath::Vector2{ 1000,800 }, []() {});
-	auto* ButtonOne = CreatorObject<UIButton>("ButtonOne", Object::ObjectType::UI, "UI/Button1.png", DXMath::Vector2{ 850,800 }, []() {});
+	auto* ButtonTen = CreatorObject<UIButton>("ButtonTen", Object::ObjectType::UI, "UI/Button10.png", DXMath::Vector2{ 1000,900 }, []() {});
+	auto* ButtonOne = CreatorObject<UIButton>("ButtonOne", Object::ObjectType::UI, "UI/Button1.png", DXMath::Vector2{ 850,900 }, []() {});
 
 	// ui 테스트용
 	CreatorObject<UIButton>("PlayerFace", Object::ObjectType::UI, "UI/PlayerFace.png", DXMath::Vector2{ 1620, 50 }, []() {});
@@ -275,6 +275,7 @@ void GambleScene::ResetInformation()
 	GetGameObject(Object::ObjectType::UI, "BetResult")->SetActive(false);
 	GetGameObject(Object::ObjectType::UI, "BetMag")->SetActive(false);
 	GetGameObject(Object::ObjectType::UI, "Result")->SetActive(false);
+
 	GetGameObject(Object::ObjectType::UI, "ButtonTen")->SetActive(false);
 	GetGameObject(Object::ObjectType::UI, "ButtonOne")->SetActive(false);
 	GetGameObject(Object::ObjectType::UI, "Handfaster_ToolTip")->SetActive(false);
@@ -313,7 +314,8 @@ void GambleScene::ResetInformation()
 	DXMath::Quaternion quat = DXMath::Quaternion::CreateFromYawPitchRoll(0.0f, angle, 0.0f);
 	cameratrans->SetQuaternion(quat);
 	cameratrans->SetPosition({ 0, 165, -580 });
-	BLACKJACK->Setstage(BLACKJACK->curStage+1);
+	BLACKJACK->Setstage();
+	//BLACKJACK->StageWin();
 	BLACKJACK->dealer->GetComponent<TransformComponent>()->SetPosition({ 0.0f, 6.0f, -400.0f });
 	BLACKJACK->dealer->GetComponent<ModelComponent>()->SetAnimation(1);
 	BLACKJACK->dealer->SetActive(true);
@@ -321,7 +323,7 @@ void GambleScene::ResetInformation()
 	GetGameObject(Object::ObjectType::Basic, "Deck")->GetComponent<TransformComponent>()->SetPosition({ -60, 105, -500 });
 	//GambleScene::Enter();
 
-	static_cast<LoadingScene*>(SCENEMANAGER->GetScene("LoadingScene"))->NextScene("TitleScene");
+	//static_cast<LoadingScene*>(SCENEMANAGER->GetScene("LoadingScene"))->NextScene("TitleScene");
 
 	BLACKJACK->dealer->GetComponent<ModelComponent>()->SetAnimation(1);
 	BLACKJACK->dealer->GetComponent<TransformComponent>()->SetPosition({ 0.0f, 6.0f, -400.0f });

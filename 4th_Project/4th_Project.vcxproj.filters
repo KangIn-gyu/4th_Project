@@ -171,6 +171,8 @@
     <ClInclude Include="BettingButton.h">
       <Filter>UI</Filter>
     </ClInclude>
+    <ClInclude Include="JustBox.h" />
+    <ClInclude Include="hogamdo.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -296,6 +298,8 @@
     <ClCompile Include="BettingButton.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="JustBox.cpp" />
+    <ClCompile Include="hogamdo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Client">

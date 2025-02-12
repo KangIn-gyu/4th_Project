@@ -90,6 +90,7 @@ void TitleScene::ResetInformation()
 
     BLACKJACK->dealer->GetComponent<ModelComponent>()->SetAnimation(7);
     BLACKJACK->dealer->GetComponent<TransformComponent>()->SetPosition({ 900, 8, 1270.5 });
+    BLACKJACK->curStage = 0; //타이틀씬 가면 플레이어 클리어횟수 초기화
     map->SetActive(true);
 
     titleLogo->SetActive(true);

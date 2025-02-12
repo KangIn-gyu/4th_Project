@@ -48,7 +48,7 @@ void ClickFunc::SetPlayerSkill(Player* player, PSkill _skill)
 void ClickFunc::DoubleDown()
 {
 	//더블다운 컷신넣기 *****
-	BLACKJACK->onDoubbleDown = true;
+	BLACKJACK->SetState(PlayerState::DobbleDown);
 }
 
 void ClickFunc::OnSetSkillBtn()
