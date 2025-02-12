@@ -25,7 +25,6 @@
 #include "SelectionImageScript.h"
 #include "SelectionScript.h"
 #include "../Engine/CameraCompoent.h"
-
 #include "../Engine/ModelComponent.h"
 #include "../Engine/Renderer.h"
 
@@ -63,7 +62,6 @@ void GambleScene::Enter()
 	CreatorObject<ToopTip2D>("Meditation_ToolTip", Object::ObjectType::UI, DXMath::Vector2(1430, 490))->SetActive(false);
 	CreatorObject<ToopTip2D>("Insurance_ToolTip", Object::ObjectType::UI, DXMath::Vector2(1460, 550))->SetActive(false);
 
-	CreatorObject<UIButton>("Bet", Object::ObjectType::UI, "UI/Button/Bet.png", DXMath::Vector2(500, 50), []() {  if (BLACKJACK->firstTurn == false) { BLACKJACK->Bet(); } });
 	CreatorObject<GambleButton>("Open", Object::ObjectType::UI, DXMath::Vector2(1650, 360), []() {ClickFunc::OpenButton(); });
 	CreatorObject<GambleButton>("Hit", Object::ObjectType::UI, DXMath::Vector2(1745, 440), []() {ClickFunc::HitButton(); });
 	CreatorObject<GambleButton>("Skill", Object::ObjectType::UI, DXMath::Vector2(1650, 520), []() {ClickFunc::OnSetSkillBtn(); });
@@ -84,7 +82,7 @@ void GambleScene::Enter()
 	auto ui3 = CreatorObject<D2DBaseObj>("Skill_Energe", Object::ObjectType::UI, DXMath::Vector2{ 1650, 220 }, "UI/Skill_Energe.png", "Font/GyeonggiMillenniumBackground_Regular.ttf");
 	ui3->CreateScript<JustFont>()->SetMessage(&BLACKJACK->player->skillPoint);
 
-	CreatorObject<UIButton>("ALLIN", Object::ObjectType::UI, "UI/Button/ALL_IN.png", DXMath::Vector2(1600, 850), []() {});
+	CreatorObject<UIButton>("ALLIN", Object::ObjectType::UI, "UI/Button/ALL_IN.png", DXMath::Vector2(1600, 850), []() {  if (BLACKJACK->firstTurn == false) { BLACKJACK->Bet(); } });
 
 	auto ui4 = CreatorObject<D2DBaseObj>("PlayerChipBox", Object::ObjectType::UI, DXMath::Vector2{ 1120, 120 }, "UI/ChipBox.png", "Font/GyeonggiMillenniumBackground_Regular.ttf");
 	ui4->CreateScript<JustFont>()->SetMessage(&BLACKJACK->player->chip);
