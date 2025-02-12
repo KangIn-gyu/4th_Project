@@ -38,7 +38,7 @@ Deck::Deck(std::string_view _name, Object::ObjectType _type,bool real) : Object(
 				cards.push_back(newcard);
 			}
 		}
-		CreateComponent<ModelComponent>("STAGE1/FBX/Card/" + GetName() + ".fbx");
+		CreateComponent<ModelComponent>("GambleScene/FBX/" + GetName() + ".fbx");
 		CreateComponent<RenderComponent>();
 
 		auto randerComponet = GetComponent<RenderComponent>();

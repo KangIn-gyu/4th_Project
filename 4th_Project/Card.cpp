@@ -28,7 +28,7 @@ Card::~Card()
 void Card::Initialize()
 {
 	//CreateComponent<ModelComponent>("STAGE1/FBX/Card/Clover_Ace.fbx");  // char2 / gun // asdq
-	CreateComponent<ModelComponent>("STAGE1/FBX/Card/" + GetName() + ".fbx");
+	CreateComponent<ModelComponent>("GambleScene/FBX/" + GetName() + ".fbx");
 	CreateComponent<RenderComponent>();
 	CreateComponent<BoxCollider>();
 

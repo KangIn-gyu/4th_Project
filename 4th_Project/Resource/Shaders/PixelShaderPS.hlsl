@@ -240,14 +240,7 @@ float4 main(PixelInputType input) : SV_TARGET
     
     float3 color = directionalLight + totalSpotLight + ambient + iblResult + emissive;
     
-    if(UpColor)
-    {
-        color *= 1.7f;
-    }
-    else
-    {
-        color *= 1.0f;
-    }
+    color *= 1.7f;
     
     color = pow(color, 1.0f / GAMMA);
     color = ACESFilmicToneMapping(color);
