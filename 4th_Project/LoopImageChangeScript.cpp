@@ -2,6 +2,7 @@
 #include "LoopImageChangeScript.h"
 #include "D2DBaseObj.h"
 #include "../Engine/D2DRenderComponent.h"
+#include "../Engine/SceneManager.h"
 
 void LoopImageChangeScript::ComponentSetting()
 {
@@ -21,8 +22,7 @@ void LoopImageChangeScript::ComponentSetting()
 void LoopImageChangeScript::Update(const float _deltaTime)
 {
 	static float elapsedTime = 0.0f;  // 시간 누적 변수
-	const float interval = 0.25f;
-
+	static float endTime = 0.0f;  // 시간 누적 변수
 
 	elapsedTime += _deltaTime;
 	if (elapsedTime >= interval)
@@ -32,10 +32,21 @@ void LoopImageChangeScript::Update(const float _deltaTime)
 
 		if (index == bitmapFilePath.size())
 		{
-			index = 0;
+			endImg = true;
 		}
-		ownerD2D->ChangeBitmap(index);
-	
+		else
+		{
+			ownerD2D->ChangeBitmap(index);	
+		}
+	}
+	if (endImg==true)
+	{
+		endTime += _deltaTime;
+		if (endTime >= 6.5f)
+		{
+			endTime = 0.0f;
+			SCENEMANAGER->ChangeScene("TitleScene");
+		}
 	}
 }
 
@@ -43,6 +54,8 @@ void LoopImageChangeScript::ResetInformation()
 {
 	ownerObject->SetActive(true);
 	ownerD2D->Set2DImagePos(posX, posY);
+	index = 0;
+	endImg = false;
 }
 
 void LoopImageChangeScript::Set2DImagePos(float _x, float _y)

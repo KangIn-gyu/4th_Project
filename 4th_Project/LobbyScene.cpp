@@ -7,14 +7,12 @@
 #include "D3DBaseObj.h"
 #include "../Engine/SceneManager.h"
 #include "../Engine/SoundSystem.h"
-#include "D3DAniObj.h"
 #include "../Engine/ModelComponent.h"
 #include "Dealer.h"
 #include "Player.h"
 #include "BlackJack.h"
 #include "FadeEffectScript.h"
 #include "LoadingScene.h"
-#include "ToopTip2D.h"
 #include "../Engine/CameraCompoent.h"
 #include "UIToggleBtn.h"
 #include "JustBox.h"
@@ -65,11 +63,11 @@ void LobbyScene::Enter()
 	mth = BLACKJACK->curStage;
 
 	talkButton = CreatorObject<UIToggleBtn>("TalkButton", Object::ObjectType::UI,
-		DXMath::Vector2(1400, 700), [this]() { static_cast<D2DBitMapFontScript*>(dialogs[mth]->script)->Reset(); dialogs[mth]->SetActive(true); SCENEMANAGER->isTalking = true;});
+		DXMath::Vector2(1400, 700), [this]() {static_cast<D2DBitMapFontScript*>(dialogs[this->mth]->script)->Reset(); dialogs[this->mth]->SetActive(true); SCENEMANAGER->isTalking = true;});
 
 	//	매치버튼 -> 로딩거치기 
 	matchButton = CreatorObject<UIToggleBtn>("REMatchButton", Object::ObjectType::UI,
-		DXMath::Vector2(1400, 500), []() {SCENEMANAGER->ChangeScene("LoadingScene");});
+		DXMath::Vector2(1400, 500), [this]() { this->gamestage++; SCENEMANAGER->ChangeScene("LoadingScene");});
 
 	CreatorObject<hogamdo>("hogamdo", Object::ObjectType::UI, DXMath::Vector2(1330, 350));
 	fading = CreatorObject<D2DBaseObj>("Fade", Object::ObjectType::UI);
@@ -119,6 +117,7 @@ void LobbyScene::ResetInformation()
 	cameratrans->SetPosition({ 800, 160, 1000 });
 	cameratrans->SetQuaternion({ 0,0,0,1 });
 
+	mth = BLACKJACK->curStage;
 
 	fading->SetActive(true);
 	talk1->SetActive(false);

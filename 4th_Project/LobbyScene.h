@@ -37,5 +37,6 @@ private:
 	D2DBaseObj* talk4{};
 	
 	int mth = 0;
+	int gamestage = -1;
 };
 

@@ -20,6 +20,8 @@ private:
 	D2DRenderComponent* ownerD2D;
 	std::vector<std::string> bitmapFilePath;
 	float posX{}, posY{};
+	float interval = 5.0f;
 	int index = {};
+	bool endImg = false;
 };
 
