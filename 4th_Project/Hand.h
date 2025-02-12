@@ -36,3 +36,5 @@ public:
 
 extern std::vector<DXMath::Vector3> playerSlots;
 extern DXMath::Vector3 dealerSlots;  //딜러는 첫위치만 있음됨
+extern DXMath::Vector3 showpslot;
+extern DXMath::Vector3 showdslot;

@@ -12,7 +12,9 @@ std::vector<DXMath::Vector3> playerSlots = {
 	{-40, 105,-500}, {-25, 105,-500}, {-10, 105,-500}, {5, 105, -500},
 	{20, 105,-500}, {35, 105,-500}, {50, 105,-500}
 }; //이건 어쩌지
-DXMath::Vector3 dealerSlots = {-20,105.f,-480.0f};
+DXMath::Vector3 dealerSlots = { -20, 105.f, -480.0f};
+DXMath::Vector3 showpslot =   { -40, 105.f, -500.0f };
+DXMath::Vector3 showdslot =   { -40, 105.f, -480.0f };
 void Hand::Init(int num)
 {
 	maxHand = num;

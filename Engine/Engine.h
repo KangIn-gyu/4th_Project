@@ -37,9 +37,10 @@ private:
 
 // 변수
 public:
+	WindowApp* clientApp{}; // 더블 프리 때문에 원시 포인터로 처리함
 
 private:
-	WindowApp* clientApp {}; // 더블 프리 때문에 원시 포인터로 처리함
+
 	GameManager* clientGameManager{};
 
 	std::shared_ptr<Renderer> graphicsSystem {};
