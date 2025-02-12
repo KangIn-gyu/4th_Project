@@ -103,9 +103,7 @@ void LobbyScene::ResetInformation()
 	GetGameObject(Object::ObjectType::UI, "TalkButton")->SetActive(false);
 	GetGameObject(Object::ObjectType::UI, "REMatchButton")->SetActive(false);
 	Object* camera = GetGameObject(Object::ObjectType::Camera, 0);
-	Object* camera = GetGameObject(Object::ObjectType::Camera, 0);
 
-	Object* camera = GetGameObject(Object::ObjectType::Camera, 0);
 	camera->GetComponent<CameraCompoent>()->MovingFlag(true);
 	TransformComponent* cameratrans = camera->GetComponent<TransformComponent>();
 	cameratrans->SetPosition({ 0, 160, -100 });
