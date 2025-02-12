@@ -31,25 +31,25 @@ void LobbyScene::Enter()
 
 	{
 		talk1 = CreatorObject<D2DBaseObj>("Talk1", Object::ObjectType::UI,
-			112, 112, "Font/GyeonggiMillenniumBackground_Regular.ttf", "DialogScenes/CSV/Talk_1.csv");
+			116, 116, "Font/GyeonggiMillenniumBackground_Regular.ttf", "DialogScenes/CSV/Talk_1.csv");
 		talk1->CreateScript<D2DBitMapFontScript>();
 		talk1->SetActive(false);
 		talk1->SetD2DLayerOrder(0);
 
 		talk2 = CreatorObject<D2DBaseObj>("Talk2", Object::ObjectType::UI,
-			112, 112, "Font/GyeonggiMillenniumBackground_Regular.ttf", "DialogScenes/CSV/Talk_2.csv");
+			117, 117, "Font/GyeonggiMillenniumBackground_Regular.ttf", "DialogScenes/CSV/Talk_2.csv");
 		talk2->CreateScript<D2DBitMapFontScript>();
 		talk2->SetActive(false);
 		talk2->SetD2DLayerOrder(0);
 
 		talk3 = CreatorObject<D2DBaseObj>("Talk3", Object::ObjectType::UI,
-			112, 112, "Font/GyeonggiMillenniumBackground_Regular.ttf", "DialogScenes/CSV/Talk_3.csv");
+			118, 118, "Font/GyeonggiMillenniumBackground_Regular.ttf", "DialogScenes/CSV/Talk_3.csv");
 		talk3->CreateScript<D2DBitMapFontScript>();
 		talk3->SetActive(false);
 		talk3->SetD2DLayerOrder(0);
 
 		talk4 = CreatorObject<D2DBaseObj>("Talk4", Object::ObjectType::UI,
-			112, 112, "Font/GyeonggiMillenniumBackground_Regular.ttf", "DialogScenes/CSV/Talk_4.csv");
+			119, 119, "Font/GyeonggiMillenniumBackground_Regular.ttf", "DialogScenes/CSV/Talk_4.csv");
 		talk4->CreateScript<D2DBitMapFontScript>();
 		talk4->SetActive(false);
 		talk4->SetD2DLayerOrder(0);
