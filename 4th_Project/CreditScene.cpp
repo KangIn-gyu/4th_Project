@@ -13,10 +13,8 @@ CreditScene::CreditScene(std::string_view _Name) : Scene(_Name)
     fading->GetComponent<D2DRenderComponent>()->Load2DImage("UI/FadeImage.png");
     fading->CreateScript<FadeEffectScript>();
 
-    dialog->SetD2DLayerOrder(0);
     fading->SetD2DLayerOrder(5);
 
-    dialog->SetActive(false);
     fading->SetActive(false);
 }
 
@@ -28,18 +26,12 @@ void CreditScene::Update(const float _deltaTime)
 {
     Scene::Update(_deltaTime);
     // 어두워지기
-    if (true == dialog->GetComponent<D2DRenderComponent>()->IsFadeIn)
-    {
-        static_cast<FadeEffectScript*>(fading->script)->StartFadeIn("LobbyScene");
-        dialog->GetComponent<D2DRenderComponent>()->IsFadeIn = false;
-    }
 }
 
 
 void CreditScene::ResetInformation()
 {
     Scene::ResetInformation();
-    dialog->SetActive(true);
     fading->SetActive(true);
     static_cast<FadeEffectScript*>(fading->script)->StartFadeOut();
 
