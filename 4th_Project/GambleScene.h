@@ -19,6 +19,7 @@ public:
 	int success[2] = { 0, 2 };
 	int failure[2] = { 3, 6 };
 
+	bool isSet = false;
 private:
 	D2DBaseObj* q1{};
 	D2DBaseObj* q2{};

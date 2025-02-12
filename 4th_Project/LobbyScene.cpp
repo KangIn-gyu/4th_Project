@@ -91,22 +91,24 @@ void LobbyScene::ResetInformation()
 {
 	Scene::ResetInformation();
 	
+	
 	//SCENEMANAGER.get()->GetCurrentScene()->GetGameObject(Object::ObjectType::Basic,"TitleScene/FBX/Evelyn.fbx")->GetComponent<ModelComponent>()->SetAnimation(8);
 	SOUNDSYSTEM->StopMusic(eSoundChannel::BGM);
 	SOUNDSYSTEM->PlayMusic(eSoundList::Lobby, eSoundChannel::BGM);
-	// TOOD : 노래 넣어야 됨
+
 
 	BLACKJACK->dealer->SetActive(true);
 	BLACKJACK->dealer->GetComponent<TransformComponent>()->SetPosition({ 900, 8, 1250.5 });
 	BLACKJACK->dealer->GetComponent<ModelComponent>()->SetAnimation(1); // 기본 애니메이션 추가
-
 	GetGameObject(Object::ObjectType::UI, "TalkButton")->SetActive(false);
 	GetGameObject(Object::ObjectType::UI, "REMatchButton")->SetActive(false);
 	Object* camera = GetGameObject(Object::ObjectType::Camera, 0);
+	Object* camera = GetGameObject(Object::ObjectType::Camera, 0);
 
+	Object* camera = GetGameObject(Object::ObjectType::Camera, 0);
 	camera->GetComponent<CameraCompoent>()->MovingFlag(true);
 	TransformComponent* cameratrans = camera->GetComponent<TransformComponent>();
-	cameratrans->SetPosition({ 0,160, -100 });
+	cameratrans->SetPosition({ 0, 160, -100 });
 	cameratrans->SetQuaternion({ 0,0,0,1 });
 
 
@@ -118,5 +120,4 @@ void LobbyScene::ResetInformation()
 	static_cast<FadeEffectScript*>(fading->script)->StartFadeOut();
 	static_cast<LoadingScene*>(SCENEMANAGER->GetScene("LoadingScene"))->NextScene("GambleScene");
 
-	SOUNDSYSTEM->StopMusic(eSoundChannel::BGM);
 }

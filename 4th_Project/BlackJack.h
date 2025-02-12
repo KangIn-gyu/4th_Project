@@ -23,6 +23,12 @@ enum class PlayerState   //플레이어 행동상태
 	Skill,    //
 };
 
+enum class BetType
+{
+	Fold,
+	Raise,
+	AllIn
+};
 std::string stateToString(PlayerState _state);
 class BlackJack : public SingletonBase<BlackJack>
 {
@@ -38,6 +44,7 @@ public:
 	
 	void Update(float _deltaTime);
 	
+	BetType betType = BetType::Raise;
 	PlayerState GetState() const { return state; }
 	std::string getstatestring() { return stateToString(state); } //실험용 지울거
 	void SetState(PlayerState _state) { nextState = _state; } //다음꺼 세팅해주고
@@ -57,7 +64,7 @@ public:
 		if (_playerWin)
 		{
 			player->chip += sum;
-			dealer->chip - +sum;
+			dealer->chip -= sum;
 
 		}
 		else
@@ -66,6 +73,7 @@ public:
 			dealer->chip += sum;
 		}
 	};
+
 	void CheckVictory(float _deltaTime); 
 	void ShowDown();   //승패 계산떄 숫자합이 같으면 발생
 	void DoubbleDown();
@@ -110,5 +118,7 @@ private:
 	bool firstAni = true;
 	bool secondAni = true;
 	bool IdleAni = false;
+
+	bool IsShowDown = true;
 };
 

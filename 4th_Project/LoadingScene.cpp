@@ -37,6 +37,8 @@ void LoadingScene::ResetInformation()
 {
 	Scene::ResetInformation();
 	SOUNDSYSTEM->StopMusic(eSoundChannel::BGM);
+	SOUNDSYSTEM->PlayMusic(eSoundList::SE_Finger, eSoundChannel::Effect);
+
 	maxLoadingTime = RandomUtil::GetRandomFloat(2.0f, 5.0f);
 	loadingImage->SetActive(true);
 	auto* d2dRender = loadingImage->GetComponent<D2DRenderComponent>();

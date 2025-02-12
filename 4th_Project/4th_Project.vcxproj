@@ -147,6 +147,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BadEnding.h" />
+    <ClInclude Include="BettingButton.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="CardRotation.h" />
     <ClInclude Include="ClickChangeSceneScript.h" />
@@ -204,6 +205,7 @@
   <ItemGroup>
     <ClCompile Include="4th_Project.cpp" />
     <ClCompile Include="BadEnding.cpp" />
+    <ClCompile Include="BettingButton.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="CardRotation.cpp" />
     <ClCompile Include="ClickChangeSceneScript.cpp" />

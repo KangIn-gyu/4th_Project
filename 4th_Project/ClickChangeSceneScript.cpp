@@ -21,15 +21,15 @@ void ClickChangeSceneScript::ResetInformation()
 
 void ClickChangeSceneScript::OnInputProcess(const DX::Keyboard::State& _KeyState, const DX::Keyboard::KeyboardStateTracker& _KeyTracker, const DX::Mouse::State& _MouseState, const DX::Mouse::ButtonStateTracker& _MouseTracker)
 {
-//	if (ownerObject->IsActive() == true)
-//	{
-//		if (_MouseTracker.rightButton == DX::Mouse::ButtonStateTracker::PRESSED || _MouseTracker.leftButton == DX::Mouse::ButtonStateTracker::PRESSED)
-//		{
-//			std::string changeSceneName = static_cast<D2DBaseObj*>(ownerObject)->sceneName;
-//			if (!changeSceneName.empty())
-//			{
-//				SCENEMANAGER->ChangeScene(changeSceneName);
-//			}
-//		}
-//	}
+	if (ownerObject->IsActive() == true)
+	{
+		if (_MouseTracker.rightButton == DX::Mouse::ButtonStateTracker::PRESSED || _MouseTracker.leftButton == DX::Mouse::ButtonStateTracker::PRESSED)
+		{
+			std::string changeSceneName = static_cast<D2DBaseObj*>(ownerObject)->sceneName;
+			if (!changeSceneName.empty())
+			{
+				SCENEMANAGER->ChangeScene(changeSceneName);
+			}
+		}
+	}
 }

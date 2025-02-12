@@ -41,8 +41,10 @@ TutorialScene::TutorialScene(std::string_view _Name) : Scene(_Name)
     fading->SetActive(false);
     skipbutton->SetActive(false);
 }
+
 void TutorialScene::Enter()
 {
+
 }
 
 void TutorialScene::Update(const float _deltaTime)
@@ -62,6 +64,9 @@ void TutorialScene::ResetInformation()
     skipbutton->SetActive(true);
     static_cast<FadeEffectScript*>(fading->script)->StartFadeOut();
     static_cast<LoadingScene*>(SCENEMANAGER->GetScene("LoadingScene"))->NextScene("DialogScene2");
+
+    SOUNDSYSTEM->StopMusic(eSoundChannel::BGM);
+    SOUNDSYSTEM->PlayMusic(eSoundList::Scene1, eSoundChannel::BGM);
 }
 
 void TutorialScene::OnInputProcess(const DX::Keyboard::State& _KeyState, const DX::Keyboard::KeyboardStateTracker& _KeyTracker, const DX::Mouse::State& _MouseState, const DX::Mouse::ButtonStateTracker& _MouseTracker)

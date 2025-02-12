@@ -23,13 +23,14 @@ private:
 		const DX::Mouse::ButtonStateTracker& _MouseTracker);
 
 public:
+	int index = 0;
 
 private:
 	D2DRenderComponent* ownerD2D;
 	std::wstring displayedText;
 	std::vector<std::pair<int, std::wstring>> csvData;
 	std::string changeSceneName;
-	int index = 0;
+
 	bool isClicked = false;
 
 	int startImage = 0;
