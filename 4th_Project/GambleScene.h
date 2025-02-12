@@ -16,6 +16,8 @@ private:
 	virtual void ResetInformation();
 
 public:
+	int success[2] = { 0, 2 };
+	int failure[2] = { 3, 6 };
 
 private:
 	D2DBaseObj* q1{};
@@ -23,5 +25,7 @@ private:
 	D2DBaseObj* q3{};
 	D2DBaseObj* q4{};
 
-	Dealer* dealer{};
+
+	// 버튼 클릭시 패턴 랜덤으로 넣기 위해 처리
+
 };

@@ -45,7 +45,6 @@ void ModelComponent::ComponentUpdate(const float _deltaTime)
         {
             if (progressAnimTime >= activeAnimation->GetTotalTime())
             {
-                finished = true;
                 progressAnimTime = 0.f;
                 progressAnimTime = fmod(progressAnimTime, activeAnimation->GetTotalTime());
             }
@@ -54,11 +53,17 @@ void ModelComponent::ComponentUpdate(const float _deltaTime)
         {
             if (progressAnimTime >= activeAnimation->GetTotalTime())
             {
-                finished = true;
+                finished = true; 
                 progressAnimTime = activeAnimation->GetTotalTime(); // 애니메이션 끝에 고정
+                activeAnimation = nullptr;
             }
         }
-        activeAnimation->SetCurrTime(progressAnimTime);
+
+        if(nullptr != activeAnimation)
+        {
+            activeAnimation->SetCurrTime(progressAnimTime);
+        }
+
     }
 
     rootNode->Update(_deltaTime, progressAnimTime); // 애니메이션 프로세스 시간 넣어야 됨
@@ -138,6 +143,7 @@ void ModelComponent::StopAnimation()
 {
     activeAnimation = nullptr;
 }
+
 
 AiNode* ModelComponent::DeepCopyNode(AiNode* _originalNode, AiNode* _parentNode)
 {

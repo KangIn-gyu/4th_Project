@@ -10,7 +10,7 @@ Epilogue::Epilogue(std::string_view _Name) : Scene(_Name)
     // TODO: 엔딩의 분기점값을 얻어야한다.
 
     dialog = CreatorObject<D2DBaseObj>("Epilogue", Object::ObjectType::UI,
-        0, 90, "Font/GyeonggiMillenniumBackground_Regular.ttf", "DialogScenes/CSV/Scene5.csv");
+        1, 111, "Font/GyeonggiMillenniumBackground_Regular.ttf", "DialogScenes/CSV/Scene5.csv");
 
     dialog->CreateScript<D2DBitMapFontScript>();
     skipbutton = CreatorObject<UIButton>("Skip", Object::ObjectType::UI,

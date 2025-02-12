@@ -180,6 +180,9 @@
     <ClInclude Include="HappyEnding.h">
       <Filter>Scene\7. EndingScene</Filter>
     </ClInclude>
+    <ClInclude Include="UIToggleBtn.h">
+      <Filter>UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -310,6 +313,9 @@
     </ClCompile>
     <ClCompile Include="Epilogue.cpp">
       <Filter>Scene\7. EndingScene</Filter>
+    </ClCompile>
+    <ClCompile Include="UIToggleBtn.cpp">
+      <Filter>UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

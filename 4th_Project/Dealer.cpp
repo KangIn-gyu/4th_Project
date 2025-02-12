@@ -33,7 +33,6 @@ Dealer::Dealer(std::string_view _name, Object::ObjectType _type) : Object(_name,
 void Dealer::Initialize()
 {
 	//CreateComponent<ModelComponent>("STAGE1/FBX/char2.fbx");  // char2 / gun // asdq
-	
 
 }
 
@@ -46,11 +45,8 @@ void Dealer::Update(const float _deltaTime)
 		OpenOne(_deltaTime);
 		
 	}
-		
 	
 }
-
-
 
 void Dealer::Init()
 {
@@ -150,11 +146,7 @@ bool Dealer::reverse()
 		return false;
 	}
 
-//	TODO : 강인규가 수정함 25.2.9
-//	std::random_device rd;
-//	std::mt19937 gen(rd());
-//	std::uniform_int_distribution<int> distrib(0, openSlots.size() - 1);
-//	int randomIndex = distrib(gen);
+
 	int randomIndex = RandomUtil::GetRandomInt(0, openSlots.size() - 1);
 
 	int targetSlot = openSlots[randomIndex];
@@ -195,11 +187,7 @@ bool Dealer::slotBan()
 		return false;
 	}
 
-//  TODO : 강인규가 수정함 랜덤유틸로 mt19937이거 생성하는 비용 줄이기 위해
-//	std::random_device rd;
-//	std::mt19937 gen(rd());
-//	std::uniform_int_distribution<int> distrib(0, activeSlots.size() - 1);
-//	int randomIndex = distrib(gen);
+
 
 	int randomIndex = RandomUtil::GetRandomInt(0, activeSlots.size() - 1);
 

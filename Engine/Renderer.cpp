@@ -304,7 +304,10 @@ std::pair<int, int> Renderer::GetWindowsSize()
 
 void Renderer::SetWindowSize()
 {
-	D3DGraphics->ChangeWindowSize();
+	if (nullptr != D3DGraphics.get())
+	{
+		D3DGraphics->ChangeWindowSize();
+	}
 }
 
 ComPtr<ID3D11ShaderResourceView> Renderer::GetImGuiImageTexture()
@@ -444,6 +447,9 @@ void Renderer::RenderObject(RenderComponent* renderComponent, bool isOutlinePass
 {
 	if (renderComponent->GetActive() == false)
 		return;
+
+	std::cout << renderComponent->GetOwner()->GetName() << "\n";
+
 	auto d3dDeviceContext = D3DGraphics->GetD3DDeviceContext();
 	auto* modelData = renderComponent->GetModelData()->GetModelData();
 	std::unordered_map<std::string, AiNode*>* nodeData = renderComponent->GetNodeData();

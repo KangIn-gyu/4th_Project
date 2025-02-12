@@ -48,8 +48,24 @@ public:
 			state = nextState;
 		}
 	};
+
 	void DealerTurn(float _deltaTime); //딜러턴 시작? 딜러 카운트가0이됬을떄 딜러턴끝나면 다시 플레이어턴
 
+	// 칩분배 
+	void distribution(bool _playerWin)
+	{ 
+		if (_playerWin)
+		{
+			player->chip += sum;
+			dealer->chip - +sum;
+
+		}
+		else
+		{
+			player->chip -= sum;
+			dealer->chip += sum;
+		}
+	};
 	void CheckVictory(float _deltaTime); 
 	void ShowDown();   //승패 계산떄 숫자합이 같으면 발생
 	void DoubbleDown();
@@ -58,7 +74,10 @@ public:
 	void Bet();
 	void CalculateChips();
 
-
+	void StageWin();
+	void StageLose();
+	void PlayerWin();
+	void DealerWin();
 	Deck* deck;
 	Deck* trashDeck;
 	Player* player;
@@ -71,10 +90,11 @@ public:
 	bool firstTurn = true; //첫턴은 달라서
 	Turn curTurn = Turn::player;
 	bool firstBet = true;
+	int WinStage = 0;
 	int betMoney = 0;
-
+	int curStage = 0; //1스테이지부터?
 	int sum = 0;
-
+	int showDownCount = 0;
 	bool isRoundOver = true; //한 라운드가 끝날떄
 private:
 	float elapsedTime =0;
@@ -89,5 +109,6 @@ private:
 
 	bool firstAni = true;
 	bool secondAni = true;
+	bool IdleAni = false;
 };
 

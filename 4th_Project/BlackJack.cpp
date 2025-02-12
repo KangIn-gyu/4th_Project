@@ -19,6 +19,7 @@ BlackJack::~BlackJack()
 
 void BlackJack::Setstage(int num)
 {
+	curStage = num;
 	dealer->SetChip(num * 100);
 	RoundStart();
 }
@@ -54,10 +55,7 @@ void BlackJack::CheckTurnEnd()
 		if (true == player->CheckGameOver())
 		{
 			//플레이어가 올오픈이지 확인하는 함수필요
-			SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "PlayerWin")->SetActive(true);
-			SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "BetResult")->SetActive(true);
-			SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "BetMag")->SetActive(true);
-			SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "Result")->SetActive(true);
+			DealerWin();
 		
 		}
 		SetState(PlayerState::OPEN);
@@ -75,7 +73,8 @@ void BlackJack::CheckTurnEnd()
 	}
 	if (player->MaxCardOpen() == true) //다 오픈이면
 	{
-		BLACKJACK->SetState(PlayerState::STAY);
+
+		curTurn = Turn::CheckVictory;
 	}
 }
 
@@ -95,6 +94,50 @@ void BlackJack::Bet()
 void BlackJack::CalculateChips()
 {
 	sum =  betMoney * magnification;
+}
+
+void BlackJack::StageWin()
+{
+}
+
+void BlackJack::StageLose()
+{
+}
+
+void BlackJack::PlayerWin()
+{
+	auto DealerWin = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "DealerWin");
+	auto PlayerWin = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "PlayerWin");
+	auto BetResult = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "BetResult");
+	auto BetMag = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "BetMag");
+	auto Result = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "Result");
+
+
+	
+	PlayerWin->SetActive(true);
+	BetResult->SetActive(true);
+	BetMag->SetActive(true);
+	Result->SetActive(true);
+	
+	// SceneManager().changer(DialogScene4)
+		//  static_cast<LoadingScene*>(SCENEMANAGER->GetScene("LoadingScene"))->NextScene("DialogScene4");
+}
+
+void BlackJack::DealerWin()
+{
+	auto DealerWin = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "DealerWin");
+	auto PlayerWin = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "PlayerWin");
+	auto BetResult = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "BetResult");
+	auto BetMag = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "BetMag");
+	auto Result = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "Result");
+
+
+	DealerWin->SetActive(true);
+	BetResult->SetActive(true);
+	BetMag->SetActive(true);
+	Result->SetActive(true);
+	//재도전 버튼 and 로비로 버튼 뛰우기
+	//
 }
 
 void BlackJack::Update(float _deltaTime)
@@ -154,10 +197,11 @@ void BlackJack::Update(float _deltaTime)
 		{
 			elapsedTime += _deltaTime;
 			
-			if ( player->drawFirst == false && elapsedTime >= 2.360)
+			if ( player->drawFirst == false && elapsedTime >= 2.3)
 			{
 				if (true == firstAni)  // TODO : 애니메이션 처리
 				{
+					IdleAni = false;
 					firstAni = false;
 					dealer->GetComponent<ModelComponent>()->SetAnimation(8); //  TODO : 여기는 애니메이션 보류
 				}		
@@ -169,6 +213,7 @@ void BlackJack::Update(float _deltaTime)
 				if (true == dealer->GetComponent<ModelComponent>()->IsAnimationFinished() && secondAni == false)
 				{ 
 					dealer->GetComponent<ModelComponent>()->SetAnimation(4);
+					IdleAni = true;
 				}
 
 				player->FirstDraw(deck); //1초에한장 딜레이주기 카드위치선정 ******
@@ -208,14 +253,18 @@ void BlackJack::Update(float _deltaTime)
 			RoundStart(); //둘다 0보다많으면 라운드 다시시작
 		else if(player->chip <= 0 )//딜러 플레이어칩 보고 둘중한개가 0이하면 연출후 다음씬으로 
 		{
-			//player->lose
-			RoundStart();
+			StageWin();
+			//RoundStart();
 		}
 		else if (dealer->chip <= 0)
 		{
-			//dealer->lose
-			RoundStart();
+			StageLose();
 		}
+	}
+
+	if (true == IdleAni && dealer->GetComponent<ModelComponent>()->IsAnimationFinished())
+	{
+		dealer->GetComponent<ModelComponent>()->SetAnimation(1);
 	}
 }
 
@@ -248,20 +297,13 @@ void BlackJack::DealerTurn(float _deltaTime)
 
 void BlackJack::CheckVictory(float _deltaTime)
 {
-	auto DealerWin = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "DealerWin");
-	auto PlayerWin = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "PlayerWin");
-	auto BetResult = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "BetResult");
-	auto BetMag = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "BetMag");
-	auto Result = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "Result");
+
 	//승패계산
 	
 	if (dealer->GetScore() >= 22)
 	{
 		std::cout << "딜러가 22넘었음  " << " ㅇㅇ" << std::endl;
-		PlayerWin->SetActive(true);
-		BetResult->SetActive(true);
-		BetMag->SetActive(true);
-		Result->SetActive(true);
+		PlayerWin();
 
 	}
 	else if (player->score == dealer->GetScore())
@@ -273,26 +315,45 @@ void BlackJack::CheckVictory(float _deltaTime)
 	{
 		std::cout << "플레이어가 이김 " << " ㅇㅇ" << std::endl;
 		//플레이어 윈 연출로
-		PlayerWin->SetActive(true);
-		BetResult->SetActive(true);
-		BetMag->SetActive(true);
-		Result->SetActive(true);
+		PlayerWin();
 	}
 	else
 	{
 		std::cout << "딜러가 이김 " << " ㅇㅇ" << std::endl;
 		//딜러윈 연출로
-		DealerWin->SetActive(true);
-		BetResult->SetActive(true);
-		BetMag->SetActive(true);
-		Result->SetActive(true);
+		DealerWin();
 	}
 
 	
 }
 
+
 void BlackJack::ShowDown()
 {
+	//컷씬 뛰우고
+	//배율 X2 최대치 제한있는지 확인
+	//카드 한장씩 뽑기-> 동점일경우 계속
+	player->hand.handReset();
+	dealer->hand.handReset();  //각핸드 리셋하고
+	
+	if (player->hand.GetScore() == dealer->hand.GetScore())  //다를떄까지 반복
+	{
+		player->hand.cardDraw(deck->DrawCard(false), { showpslot.x + showDownCount * 15.0f,showpslot.y, showpslot.z }, true);
+		dealer->hand.cardDraw(deck->DrawCard(true), { showdslot.x + showDownCount * 15.0f,showdslot.y, showdslot.z }, true);
+		showDownCount++;
+	}
+	else //다르면 승페계싼
+	{
+		if (player->hand.GetScore() < dealer->hand.GetScore()) //작은쪽이 이기는거
+		{
+			PlayerWin();
+		}
+		else
+		{
+			DealerWin(); //딜러가이김
+		}
+	}	
+	
 }
 
 void BlackJack::DoubbleDown()

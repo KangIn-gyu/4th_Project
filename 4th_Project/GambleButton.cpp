@@ -5,6 +5,8 @@
 #include "../Engine/BoxCollider.h"
 #include "BlackJack.h"
 #include "../Engine/TimeSystem.h"
+#include "../Engine/SoundSystem.h"
+
 GambleButton::GambleButton(std::string_view _name, Object::ObjectType _type,DXMath::Vector2 _pos, std::function<void()> _func) :Object(_name, _type)
 {
 	pos = _pos;
@@ -81,12 +83,14 @@ void GambleButton::ChangeState(gbState _state)
 void GambleButton::OnClick()
 {
 	//블랙잭의 상태에 따라조건 stay 누를수있는조건 skill 조건 ㅇ
+	SOUNDSYSTEM->PlayMusic(eSoundList::SE_Button_Click, eSoundChannel::Effect);
 	if(BLACKJACK->firstTurn == false && PLAYER->OnSkill == false)
 		clickFunc();
 }
 
 void GambleButton::OnMouse()
 {
+	SOUNDSYSTEM->PlayMusic(eSoundList::SE_Button_Hover, eSoundChannel::Effect);
 	if(nextState != gbState::On || curState != gbState::On)
 		ChangeState(gbState::Toggle);
 }

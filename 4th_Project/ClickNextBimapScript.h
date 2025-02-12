@@ -4,7 +4,7 @@
 
 class Object;
 class D2DRenderComponent;
-class ClickNextBimapScript : public Script , public IinputProcesser
+class ClickNextBimapScript : public Script, public IinputProcesser
 {
 public:
 	ClickNextBimapScript(Object* _own) : Script(_own) {};
@@ -29,4 +29,3 @@ private:
 	int bitmapSize = 0;
 	int index = 0;
 };
-

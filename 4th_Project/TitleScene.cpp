@@ -18,6 +18,7 @@
 #include "Dealer.h"
 #include "BlackJack.h"
 
+#include "../Engine/SceneManager.h"
 TitleScene::TitleScene(std::string_view _Name) : Scene(_Name)
 {
     { // 3D Obj
@@ -89,10 +90,19 @@ void TitleScene::ResetInformation()
 
     BLACKJACK->dealer->GetComponent<ModelComponent>()->SetAnimation(7);
     BLACKJACK->dealer->GetComponent<TransformComponent>()->SetPosition({ 900, 8, 1270.5 });
+    map->SetActive(true);
+
+    titleLogo->SetActive(true);
+    titleClick->SetActive(true);
+    Backgraund->SetActive(true);
+
+    Object* camera = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::Camera, 0);
+    camera->GetComponent<CameraCompoent>()->MovingFlag(true);
 
     cameraTransformComponent = mainCamera->GetComponent<TransformComponent>();
     cameraTransformComponent->SetPosition({ 902.0f, 140.0f, 1154 });
     cameraTransformComponent->SetQuaternion({ 0.0f, 0.0f, 0.0f, 1.0f });
+
     auto* cameraComponent = mainCamera->GetComponent<CameraCompoent>();
     cameraComponent->LookAt(TargetPosition);
 
