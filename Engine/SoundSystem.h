@@ -22,7 +22,7 @@ enum class eSoundChannel
 	Voice = 2,
 	Effect2 = 3,
 	Effect3 = 4,
-	Size = 3
+	Size = 5
 };
 
 enum class eSoundList

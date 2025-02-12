@@ -124,7 +124,6 @@ void Client::LoadMusic()
 		SOUNDSYSTEM->LoadMusic(eSoundList::VS_Lose, false, "Resource\\GambleScene\\Sounds\\VS_Lose.wav");
 	}
 
-
 	// 사운드 채널별 설정
 	SOUNDSYSTEM->SetVolume(0.1f, 0);
 }
