@@ -72,6 +72,12 @@ void D2DBitMapFontScript::ResetInformation()
 	ownerD2D->SetDialog(displayedText);
 }
 
+void D2DBitMapFontScript::Reset()
+{
+	index = 0;
+	displayedText = L"";
+	ownerD2D->SetDialog(displayedText);
+}
 void D2DBitMapFontScript::OnInputProcess(const DX::Keyboard::State& _KeyState, const DX::Keyboard::KeyboardStateTracker& _KeyTracker, const DX::Mouse::State& _MouseState, const DX::Mouse::ButtonStateTracker& _MouseTracker)
 {
 	if (ownerObject->IsActive() == true)
@@ -83,8 +89,12 @@ void D2DBitMapFontScript::OnInputProcess(const DX::Keyboard::State& _KeyState, c
 				if (true == isClicked)
 				{
 					ownerD2D->SetDialog( L"");
+					ownerObject->SetActive(false);
+					SCENEMANAGER->isTalking = false;
 					isClicked = false;
 					ownerD2D->IsFadeIn = TRUE;
+					index = 0;
+					return;
 				}
 			}
 			else

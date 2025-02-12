@@ -32,7 +32,7 @@ private:
 	void Change(std::string_view _SceneName);
 
 public:
-	
+	bool isTalking = false;
 private:
 	Scene* currentScene{}; // 현재 씬
 	std::unordered_map<std::string, Scene*> ScenesCollection; // 씬 저장하는 곳

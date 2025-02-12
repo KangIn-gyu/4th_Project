@@ -7,7 +7,7 @@
 #include "UIButton.h"
 EndingScene::EndingScene(std::string_view _Name) : Scene(_Name)
 {
-    // TODO: 엔딩의 분기점값을 얻어야한다.
+    // TODO: 엔딩의 분기 버튼을 만들어야함.
 
     dialog = CreatorObject<D2DBaseObj>("EndingScene", Object::ObjectType::UI,
         0, 92, "Font/GyeonggiMillenniumBackground_Regular.ttf", "DialogScenes/CSV/Ending.csv");

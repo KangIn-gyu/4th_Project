@@ -31,9 +31,6 @@
     <Filter Include="Scene\4. LobbyScene">
       <UniqueIdentifier>{53eb4966-39eb-4cb9-ba4d-d07c270f0086}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene\5. TalkScene">
-      <UniqueIdentifier>{61aa98e5-cf83-49fc-9c24-840fdd063d94}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Scene\666. GambleScene">
       <UniqueIdentifier>{213508e3-d542-4a54-a146-e0ab94678ffd}</UniqueIdentifier>
     </Filter>
@@ -140,18 +137,6 @@
     </ClInclude>
     <ClInclude Include="LobbyScene.h">
       <Filter>Scene\4. LobbyScene</Filter>
-    </ClInclude>
-    <ClInclude Include="TalkScene1.h">
-      <Filter>Scene\5. TalkScene</Filter>
-    </ClInclude>
-    <ClInclude Include="TalkScene2.h">
-      <Filter>Scene\5. TalkScene</Filter>
-    </ClInclude>
-    <ClInclude Include="TalkScene3.h">
-      <Filter>Scene\5. TalkScene</Filter>
-    </ClInclude>
-    <ClInclude Include="TalkScene4.h">
-      <Filter>Scene\5. TalkScene</Filter>
     </ClInclude>
     <ClInclude Include="DialogScene3.h">
       <Filter>Scene\2. DialogScene</Filter>
@@ -286,18 +271,6 @@
     </ClCompile>
     <ClCompile Include="DialogIntro.cpp">
       <Filter>Scene\2. DialogScene</Filter>
-    </ClCompile>
-    <ClCompile Include="TalkScene1.cpp">
-      <Filter>Scene\5. TalkScene</Filter>
-    </ClCompile>
-    <ClCompile Include="TalkScene2.cpp">
-      <Filter>Scene\5. TalkScene</Filter>
-    </ClCompile>
-    <ClCompile Include="TalkScene3.cpp">
-      <Filter>Scene\5. TalkScene</Filter>
-    </ClCompile>
-    <ClCompile Include="TalkScene4.cpp">
-      <Filter>Scene\5. TalkScene</Filter>
     </ClCompile>
     <ClCompile Include="LoopImageChangeScript.cpp">
       <Filter>Script</Filter>

@@ -24,11 +24,18 @@ private:
 	float endX;
 	float endZ;
 public:
-
+	std::vector<D2DBaseObj*> dialogs;
 private:
 	Dealer* dealer{};
 	UIToggleBtn* matchButton;
 	UIToggleBtn* talkButton;
 	D2DBaseObj* fading;
+	
+	D2DBaseObj* talk1{};
+	D2DBaseObj* talk2{};
+	D2DBaseObj* talk3{};
+	D2DBaseObj* talk4{};
+	
+	int mth = 0;
 };
 
