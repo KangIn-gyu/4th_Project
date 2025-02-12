@@ -75,8 +75,10 @@ void GambleScene::Enter()
 	CreatorObject<ToopTip2D>("Guts_ToolTip", Object::ObjectType::UI, DXMath::Vector2(1430, 430))->SetActive(false);
 	CreatorObject<ToopTip2D>("Meditation_ToolTip", Object::ObjectType::UI, DXMath::Vector2(1430, 490))->SetActive(false);
 	CreatorObject<ToopTip2D>("Insurance_ToolTip", Object::ObjectType::UI, DXMath::Vector2(1460, 550))->SetActive(false);
-	auto DoubleDownImg = CreatorObject<UIButton>("DoubleDownImage", Object::ObjectType::UI, "GambleScene/UI/Double_Down_Banner.png", DXMath::Vector2{ 0, 500 }, []() { });
-	auto ShowDownImg = CreatorObject<UIButton>("ShowDownImage", Object::ObjectType::UI, "GambleScene/UI/Show_Down_Banner.png", DXMath::Vector2{ 0, 500 }, []() {});
+	auto DoubleDownImg = CreatorObject<UIButton>("DoubleDownImage", Object::ObjectType::UI, "GambleScene/UI/Double_Down_Banner.png", DXMath::Vector2{ 0, 230 }, []() { });
+	DoubleDownImg->SetD2DLayerOrder(5);
+	auto ShowDownImg = CreatorObject<UIButton>("ShowDownImage", Object::ObjectType::UI, "GambleScene/UI/Show_Down_Banner.png", DXMath::Vector2{ 0, 300 }, []() {});
+	ShowDownImg->SetD2DLayerOrder(5);
 	CreatorObject<GambleButton>("Open", Object::ObjectType::UI, DXMath::Vector2(1650, 360), []() {ClickFunc::OpenButton(); });
 	CreatorObject<GambleButton>("Hit", Object::ObjectType::UI, DXMath::Vector2(1745, 440), []() {ClickFunc::HitButton(); SOUNDSYSTEM->PlayMusic(eSoundList::VS_Hit, eSoundChannel::Voice);});
 	CreatorObject<GambleButton>("Skill", Object::ObjectType::UI, DXMath::Vector2(1650, 520), []() {ClickFunc::OnSetSkillBtn(); });
@@ -301,8 +303,8 @@ void GambleScene::ResetInformation()
 	GetGameObject(Object::ObjectType::UI, "Pattern3_2")->SetActive(false);
 	GetGameObject(Object::ObjectType::UI, "Pattern4_1")->SetActive(false);
 	GetGameObject(Object::ObjectType::UI, "Pattern4_2")->SetActive(false);
-	GetGameObject(Object::ObjectType::UI, "DoubleDownImage")->SetActive(false);
-	GetGameObject(Object::ObjectType::UI, "ShowDownImage")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "DoubleDownImage")->SetActive(true);
+	GetGameObject(Object::ObjectType::UI, "ShowDownImage")->SetActive(true);
 	GetGameObject(Object::ObjectType::UI, "Handfaster_ToolTip")->GetComponent<D2DRenderComponent>()->bitmapLayerOrder = 5;
 	GetGameObject(Object::ObjectType::UI, "Guts_ToolTip")->GetComponent<D2DRenderComponent>()->bitmapLayerOrder = 5;
 	GetGameObject(Object::ObjectType::UI, "Meditation_ToolTip")->GetComponent<D2DRenderComponent>()->bitmapLayerOrder = 5;
