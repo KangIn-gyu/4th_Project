@@ -23,7 +23,7 @@ void UIToggleBtn::Initialize()
 	Object::Initialize();
 	imagedata->Load2DImage("UI/Button/" + GetName() + ".png"); //0
 	//imagedata->Load2DImage("UI/Button/" + GetName() + "_On.png");     //1
-	imagedata->Load2DImage("UI/Button/" + GetName() + "_Toggle.png"); //2
+	imagedata->Load2DImage("UI/Button/" + GetName() + "_Toggle.png"); //1
 	imagedata->Set2DImagePos(pos.x, pos.y);  // "UI/Button/" +Getname() + ".png" or + "_Toggle.png"
 	colliderdata = CreateComponent<BoxCollider>();
 	auto xy = imagedata->Get2DImageXY();
@@ -40,6 +40,13 @@ void UIToggleBtn::Update(const float _deltaTime)
 
 }
 
+
+void UIToggleBtn::SetD2DLayerOrder(int _index)
+{
+
+	imagedata->bitmapLayerOrder = _index;
+
+}
 
 void UIToggleBtn::OnClick()
 {

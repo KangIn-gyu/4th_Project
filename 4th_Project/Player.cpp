@@ -383,6 +383,10 @@ void Player::OnInputProcess(const DX::Keyboard::State& _KeyState, const DX::Keyb
 					cardrot.ROTATION_INTERVAL = cardrot.REAL_INTERVAL;
 				}
 			}
+		}
+		lastMousePos = { currentX, currentY };
+	}
+
 	if (SCENEMANAGER->GetCurrentScene()->GetName() == "LobbyScene")
 	{
 
@@ -400,11 +404,6 @@ void Player::OnInputProcess(const DX::Keyboard::State& _KeyState, const DX::Keyb
 }
 
 
-			lastMousePos = { currentX, currentY };
-		}
-	}
-
-}
 
 
 void Player::OnBlock(Collider* _myCol, Collider* _otherCol)
@@ -484,7 +483,8 @@ void Player::EnterRayCollision(Collider* _otherCol)
 	{
 		if (_otherCol->GetOwner()->GetName() == "Evelyn")
 		{
-			SCENEMANAGER->GetCurrentScene()->GetGameObject(ObjectType::UI, "Handfaster_ToolTip")->SetActive(true);
+			SCENEMANAGER->GetCurrentScene()->GetGameObject(ObjectType::UI, "Talk")->SetActive(true);
+			SCENEMANAGER->GetCurrentScene()->GetGameObject(ObjectType::UI, "REMatch")->SetActive(true);
 			std::cout << _otherCol->GetOwner()->GetName() + " 쳐다보는중임" << std::endl;
 		}
 	}
@@ -496,7 +496,9 @@ void Player::EndRayCollision(Collider* _otherCol)
 	{
 		if (_otherCol->GetOwner()->GetName() == "Evelyn")
 		{
-			SCENEMANAGER->GetCurrentScene()->GetGameObject(ObjectType::UI, "Handfaster_ToolTip")->SetActive(false);
+			SCENEMANAGER->GetCurrentScene()->GetGameObject(ObjectType::UI, "Talk")->SetActive(false);
+			SCENEMANAGER->GetCurrentScene()->GetGameObject(ObjectType::UI, "REMatch")->SetActive(false);
+			std::cout << _otherCol->GetOwner()->GetName() + " 쳐다보기멈추무ㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜ" << std::endl;
 		}
 	}
 }

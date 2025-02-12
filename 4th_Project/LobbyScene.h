@@ -4,7 +4,7 @@
 class UIButton;
 class D2DBaseObj;
 class Dealer;
-
+class UIToggleBtn;
 class LobbyScene : public Scene
 {
 public:
@@ -27,8 +27,8 @@ public:
 
 private:
 	Dealer* dealer{};
-	UIButton* matchButton;
-	UIButton* talkButton;
+	UIToggleBtn* matchButton;
+	UIToggleBtn* talkButton;
 	D2DBaseObj* fading;
 };
 

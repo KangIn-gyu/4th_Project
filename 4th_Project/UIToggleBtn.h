@@ -17,6 +17,8 @@ public:
 	virtual void FixedUpdate() {}
 	virtual void LateUpdate() {}
 
+	void SetD2DLayerOrder(int _index);
+
 
 	virtual void OnClick() override;
 	virtual void OnMouse() override;
