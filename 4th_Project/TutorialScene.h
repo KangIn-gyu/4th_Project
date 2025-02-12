@@ -4,7 +4,7 @@
 
 class D2DBaseObj;
 class UIButton;
-class TutorialScene : public Scene , public IinputProcesser
+class TutorialScene : public Scene, public IinputProcesser
 {
 public:
 	TutorialScene(std::string_view _Name);
@@ -26,5 +26,6 @@ public:
 private:
 	UIButton* skipbutton{};
 	D2DBaseObj* tutorialBitmap{};
+	D2DBaseObj* fading;
 };
 
