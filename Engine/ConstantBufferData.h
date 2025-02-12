@@ -81,7 +81,7 @@ struct alignas(16) ProductBuffer
 	{
 		ValidateConstantBufferSize<ProductBuffer>();
 	}
-	float totalTime{};
+	int UpColor{};
 	DXMath::Vector3 pad{};
 };
 

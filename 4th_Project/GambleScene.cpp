@@ -27,6 +27,8 @@
 #include "../Engine/CameraCompoent.h"
 
 #include "../Engine/ModelComponent.h"
+#include "../Engine/Renderer.h"
+
 GambleScene::GambleScene(std::string_view _Name) : Scene(_Name)
 {
 }
@@ -93,11 +95,11 @@ void GambleScene::Enter()
 	ui6->CreateScript<JustFont>()->SetMessage(&BLACKJACK->player->score);
 
 	auto ui7 = CreatorObject<D2DBaseObj>("RoundBet", Object::ObjectType::UI, DXMath::Vector2{ 1600, 1000 }, "UI/RaiseBar.png", "Font/GyeonggiMillenniumBackground_Regular.ttf");
-	ui7->CreateScript<JustFont>()->SetMessage(BLACKJACK->player->Bet());
+	ui7->CreateScript<JustFont>()->SetMessage(&BLACKJACK->player->betChip);
 
 	CreatorObject<UIButton>("DealerChip", Object::ObjectType::UI, "UI/Chip.png", DXMath::Vector2{ 1580, 1000 }, []() {});
 
-	auto ui8 = CreatorObject<D2DBaseObj>("DealerNum", Object::ObjectType::UI, DXMath::Vector2{ 680, 620 }, "UI/Num.png", "Font/GyeonggiMillenniumBackground_Regular.ttf");
+	auto ui8 = CreatorObject<D2DBaseObj>("DealerNum", Object::ObjectType::UI, DXMath::Vector2{ 580, 520 }, "UI/Num.png", "Font/GyeonggiMillenniumBackground_Regular.ttf");
 	ui8->CreateScript<JustFont>()->SetMessage(&BLACKJACK->dealer->score);
 
 	auto* DealerWin = CreatorObject<UIButton>("DealerWin", Object::ObjectType::UI, "UI/Lose.png", DXMath::Vector2{ 0,200 }, []() {});
@@ -224,6 +226,7 @@ void GambleScene::Update(const float _deltaTime)
 void GambleScene::ResetInformation()
 {
 	Scene::ResetInformation();
+	RENDERER->upColor = false;
 	GetGameObject(Object::ObjectType::UI, "Meditation")->SetActive(false);
 	GetGameObject(Object::ObjectType::UI, "Insurance")->SetActive(false);
 	GetGameObject(Object::ObjectType::UI, "DealerWin")->SetActive(false);
@@ -264,7 +267,7 @@ void GambleScene::ResetInformation()
 
 	// 왜 여기 선언 해야하는지 진짜모름
 	Object* camera = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::Camera, 0);
-	camera->GetComponent<CameraCompoent>()->MovingFlag(true);
+	camera->GetComponent<CameraCompoent>()->MovingFlag(false);
 	TransformComponent* cameratrans = camera->GetComponent<TransformComponent>();
 	float angle = DirectX::XMConvertToRadians(10.0f);
 	DXMath::Quaternion quat = DXMath::Quaternion::CreateFromYawPitchRoll(0.0f, angle, 0.0f);

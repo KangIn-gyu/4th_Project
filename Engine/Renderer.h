@@ -39,6 +39,8 @@ public:
 	ConstantBuffer* GetMatrixPaletteBuffer() { return &matrixPaletteBuffer; }
 
 	DXMath::Matrix CreateShadowMatrix();
+
+	bool upColor = false;
 private:
 	Renderer() {}
 	~Renderer() { work.clear(); }
