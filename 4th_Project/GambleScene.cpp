@@ -303,8 +303,8 @@ void GambleScene::ResetInformation()
 	GetGameObject(Object::ObjectType::UI, "Pattern3_2")->SetActive(false);
 	GetGameObject(Object::ObjectType::UI, "Pattern4_1")->SetActive(false);
 	GetGameObject(Object::ObjectType::UI, "Pattern4_2")->SetActive(false);
-	GetGameObject(Object::ObjectType::UI, "DoubleDownImage")->SetActive(true);
-	GetGameObject(Object::ObjectType::UI, "ShowDownImage")->SetActive(true);
+	GetGameObject(Object::ObjectType::UI, "DoubleDownImage")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "ShowDownImage")->SetActive(false);
 	GetGameObject(Object::ObjectType::UI, "Handfaster_ToolTip")->GetComponent<D2DRenderComponent>()->bitmapLayerOrder = 5;
 	GetGameObject(Object::ObjectType::UI, "Guts_ToolTip")->GetComponent<D2DRenderComponent>()->bitmapLayerOrder = 5;
 	GetGameObject(Object::ObjectType::UI, "Meditation_ToolTip")->GetComponent<D2DRenderComponent>()->bitmapLayerOrder = 5;
