@@ -203,6 +203,7 @@
     <ClInclude Include="ToopTip2D.h" />
     <ClInclude Include="TutorialScene.h" />
     <ClInclude Include="UIButton.h" />
+    <ClInclude Include="UIToggleBtn.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="4th_Project.cpp" />
@@ -266,6 +267,7 @@
     <ClCompile Include="ToopTip2D.cpp" />
     <ClCompile Include="TutorialScene.cpp" />
     <ClCompile Include="UIButton.cpp" />
+    <ClCompile Include="UIToggleBtn.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.vcxproj">

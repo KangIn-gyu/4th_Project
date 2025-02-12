@@ -83,7 +83,10 @@ WindowInfo* Engine::GetWindowInfo() const
 void Engine::SetWindowSize(int _width, int _height)
 {
     clientApp->SetWindowSize(_width, _height);
-    graphicsSystem->SetWindowSize();
+    if (nullptr != graphicsSystem.get())
+    {
+        graphicsSystem->SetWindowSize();
+    }
 }
 
 DXMath::Vector2 Engine::GetWindowSize()

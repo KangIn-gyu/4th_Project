@@ -127,7 +127,12 @@ void Player::ShuffleHand()
 
 bool Player::CheckGameOver()
 {
-	return (GetScore() >= 22);
+
+	if (MaxCardOpen() == true)
+	{
+		if (GetScore() >= 22)
+			return true;
+	}
 }
 
 void Player::SetSkill(PSkill _skill)
@@ -322,6 +327,20 @@ void Player::OnInputProcess(const DX::Keyboard::State& _KeyState, const DX::Keyb
 					betChip = minBet;
 			}
 			lastWheelDelta = wheelDelta;
+		}
+	}
+	if (SCENEMANAGER->GetCurrentScene()->GetName() == "LobbyScene")
+	{
+
+		if (_KeyState.IsKeyDown(DirectX::Keyboard::Keys::LeftControl)) //*****
+		{
+			DXINPUT->mouse->SetMode(DX::Mouse::MODE_ABSOLUTE);
+			DXINPUT->mouse->SetVisible(true);
+		}
+		else
+		{
+			DXINPUT->mouse->SetMode(DX::Mouse::MODE_RELATIVE);
+			DXINPUT->mouse->SetVisible(false);
 		}
 	}
 }

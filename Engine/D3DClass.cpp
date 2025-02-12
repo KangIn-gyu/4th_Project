@@ -232,7 +232,7 @@ void D3DClass::CreateDepthStencilBuffer()
 	// ±íÀÌ ½ºÅÙ½Ç ºä »ý¼º
 	HR_T(D3DDevice->CreateDepthStencilView(depthStencilBuffer.Get(), &descDSV, depthStencilView.GetAddressOf()));
 	// ·»´õ Å¸ÄÏ ¼³Á¤
-//	D3DDeviceContext->OMSetRenderTargets(1, renderTargetView.GetAddressOf(), depthStencilView.Get());
+	D3DDeviceContext->OMSetRenderTargets(1, renderTargetView.GetAddressOf(), depthStencilView.Get());
 }
 
 void D3DClass::ExtractFinalImage()

@@ -13,7 +13,7 @@
 #include "Player.h"
 #include "BlackJack.h"
 #include "ToopTip2D.h"
-
+#include "../Engine/CameraCompoent.h"
 LobbyScene::LobbyScene(std::string_view _Name) : Scene(_Name)
 {
 	
@@ -34,13 +34,15 @@ void LobbyScene::Update(const float _deltaTime)
 
 void LobbyScene::ResetInformation()
 {
-	//
+
+	
 	//SCENEMANAGER.get()->GetCurrentScene()->GetGameObject(Object::ObjectType::Basic,"TitleScene/FBX/Evelyn.fbx")->GetComponent<ModelComponent>()->SetAnimation(8);
 	SOUNDSYSTEM->StopMusic(eSoundChannel::BGM);
 	// TOOD : 노래 넣어야 됨
 	
 	dealer->GetComponent<ModelComponent>()->SetAnimation(1); // 기본 애니메이션 추가
 	Object* camera = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::Camera, 0);
+	camera->GetComponent<CameraCompoent>()->MovingFlag(true);
 	TransformComponent* cameratrans = camera->GetComponent<TransformComponent>();
 	cameratrans->SetPosition({ 0,160, -100 });
 	cameratrans->SetQuaternion({ 0,0,0,1 });

@@ -27,21 +27,21 @@ WindowApp::WindowApp(HINSTANCE _hInstance, std::string_view _gameName, int _scre
 
 // 강인규가 잠시 수정해놓음 25.2.8 
 #if(_DEBUG) // 창모드일 경우 안나오게
-   //if(true == _windoweMode)
-   //{
-   //    console = new Console;
-   //    RECT mainWindowRect {};
-   //
-   //    if (nullptr != windowInfo->hWnd)
-   //    {
-   //        GetWindowRect(windowInfo->hWnd, &mainWindowRect);
-   //    }
-   //    int consoleX = mainWindowRect.right;                            // 메인 창의 오른쪽 끝
-   //    int consoleY = mainWindowRect.top;                              // 메인 창의 Y 위치
-   //    int consoleWidth = 400;                                         // 콘솔 창 너비
-   //    int consoleHeight = mainWindowRect.bottom - mainWindowRect.top; // 메인 창과 동일한 높이
-   //    console->CreateConsole(consoleX, consoleY, consoleWidth, consoleHeight);
-   //} // 추후 계획 ImGui에 넣어서 버튼 클릭하면 나오게 처리할 예정
+   if(true == _windoweMode)
+   {
+       console = new Console;
+       RECT mainWindowRect {};
+   
+       if (nullptr != windowInfo->hWnd)
+       {
+           GetWindowRect(windowInfo->hWnd, &mainWindowRect);
+       }
+       int consoleX = mainWindowRect.right;                            // 메인 창의 오른쪽 끝
+       int consoleY = mainWindowRect.top;                              // 메인 창의 Y 위치
+       int consoleWidth = 400;                                         // 콘솔 창 너비
+       int consoleHeight = mainWindowRect.bottom - mainWindowRect.top; // 메인 창과 동일한 높이
+       console->CreateConsole(consoleX, consoleY, consoleWidth, consoleHeight);
+   } // 추후 계획 ImGui에 넣어서 버튼 클릭하면 나오게 처리할 예정
 #endif
 }
 
@@ -72,12 +72,16 @@ LRESULT WindowApp::WndProc(HWND _hWnd, UINT _message, WPARAM _wParam, LPARAM _lP
         break;
     case WM_SIZE:
     {
+        UINT newWidth = LOWORD(_lParam);
+        UINT newHeight = HIWORD(_lParam);
+
         if (nullptr != WindowApp::console)
         { // 여기서 윈도우 사이즈 변경에 대해서 다 처리함
-            UINT newWidth = LOWORD(_lParam);
-            UINT newHeight = HIWORD(_lParam);
-            ENGINE->SetWindowSize(newWidth, newHeight);
             IMGUI->SetWindowSize(newWidth, newHeight);
+        }
+        if (nullptr != ENGINE->clientApp)
+        {
+            ENGINE->SetWindowSize(newWidth, newHeight);
         }
     }
         break;
@@ -136,7 +140,6 @@ LRESULT WindowApp::WndProc(HWND _hWnd, UINT _message, WPARAM _wParam, LPARAM _lP
         break;
     case WM_LBUTTONUP:
         DirectX::Mouse::ProcessMessage(_message, _wParam, _lParam);
-        //eventSysyem->checkClickobj(DXINPUT.get()->mouseState.x, DXINPUT.get()->mouseState.y);
         if (isClick)
         {
             eventSysyem->checkClickobj(DXINPUT.get()->mouseState.x, DXINPUT.get()->mouseState.y);
@@ -168,11 +171,6 @@ LRESULT WindowApp::WndProc(HWND _hWnd, UINT _message, WPARAM _wParam, LPARAM _lP
         break;
 
     case WM_DPICHANGED:
-    //    if (ImGui::GetIO().ConfigFlags & ImGuiConfigFlags_DpiEnableScaleViewports)
-    //    {
-    //        const RECT* suggested_rect = (RECT*)_lParam;
-    //        ::SetWindowPos(_hWnd, nullptr, suggested_rect->left, suggested_rect->top, suggested_rect->right - suggested_rect->left, suggested_rect->bottom - suggested_rect->top, SWP_NOZORDER | SWP_NOACTIVATE);
-    //    }
         break;
     default:
         return DefWindowProc(_hWnd, _message, _wParam, _lParam);
@@ -193,7 +191,10 @@ void WindowApp::SetWindowSize(int _width ,int _height)
 {
     windowInfo->screenWidth = _width;
     windowInfo->screenHeight = _height;
+
+#ifdef IMGUIFLAG
     IMGUI->SetWindowSize(_width, _height);
+#endif
 }
 
 void WindowApp::Initialize()

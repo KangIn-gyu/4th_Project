@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "CameraCompoent.h"
 #include "CameraObject.h"
 
@@ -14,7 +14,7 @@
 
 CameraCompoent::~CameraCompoent()
 {
-	std::cout << "CameraCompoent »èÁ¦" << std::endl;
+	std::cout << "CameraCompoent ì‚­ì œ" << std::endl;
 	SafeExtinction::SAFE_DELETE(cameraInfo);
 }
 
@@ -22,13 +22,13 @@ void CameraCompoent::ComponentInitialize()
 {
 	CameraObject* camerObj = static_cast<CameraObject*>(owner);
 	if (nullptr != camerObj && Object::ObjectType::Camera == camerObj->GetObjectType())
-	{ // ¿ÀºêÁ§Æ® Å¸ÀÔÀÌ Ä«¸Ş¶óÀÏ °æ¿ì
+	{ // ì˜¤ë¸Œì íŠ¸ íƒ€ì…ì´ ì¹´ë©”ë¼ì¼ ê²½ìš°
 		cameraInfo->cameraTransform = camerObj->GetComponent<TransformComponent>();
 		SetProjection(cameraInfo->FovAngleY, cameraInfo->Near, cameraInfo->Far);
 		UpdateViewMatrix();
 	}
 	else
-	{ // ¾Æ´Ï¸é »èÁ¦
+	{ // ì•„ë‹ˆë©´ ì‚­ì œ
 		delete GetOwner();
 		owner = nullptr;
 	}
@@ -47,7 +47,7 @@ void CameraCompoent::ComponentUpdate(const float _deltaTime)
 	}
 	DXMath::Quaternion currentRotation = cameraInfo->cameraTransform->GetQuaternion();
 
-	// ÄõÅÍ´Ï¾ğÀ» ¿ÀÀÏ·¯ °¢À¸·Î º¯È¯ (Yaw, Pitch, Roll)
+	// ì¿¼í„°ë‹ˆì–¸ì„ ì˜¤ì¼ëŸ¬ ê°ìœ¼ë¡œ ë³€í™˜ (Yaw, Pitch, Roll)
 	DXMath::Vector3 euler = currentRotation.ToEuler();
 	
 	euler.x = std::clamp(euler.x, -0.5f, 0.5f);
@@ -129,16 +129,16 @@ void CameraCompoent::LookAt(const DXMath::Vector3& _targetPosition)
 	{
 		//DXMath::Vector3 position = cameraInfo->cameraTransform->GetPosition();
 		//DXMath::Vector3 forward = _targetPosition - position;
-		//forward.Normalize();  // Á¤±ÔÈ­ÇÏ¿© ¹æÇâ º¤ÅÍ·Î º¯È¯
+		//forward.Normalize();  // ì •ê·œí™”í•˜ì—¬ ë°©í–¥ ë²¡í„°ë¡œ ë³€í™˜
 		//
-		//DXMath::Vector3 upVector(0.0f, 1.0f, 0.0f);  // ¿ùµå ¾÷ º¤ÅÍ
+		//DXMath::Vector3 upVector(0.0f, 1.0f, 0.0f);  // ì›”ë“œ ì—… ë²¡í„°
 		//DXMath::Vector3 right = upVector.Cross(forward);
 		//right.Normalize();
 		//
 		//DXMath::Vector3 up = forward.Cross(right);
 		//up.Normalize();
 		//
-		//// Ä«¸Ş¶ó º¯È¯ ¼³Á¤
+		//// ì¹´ë©”ë¼ ë³€í™˜ ì„¤ì •
 		//DXMath::Matrix lookAtMatrix = DXMath::Matrix(
 		//	right.x, up.x, forward.x, 0.0f,
 		//	right.y, up.y, forward.y, 0.0f,
@@ -146,13 +146,13 @@ void CameraCompoent::LookAt(const DXMath::Vector3& _targetPosition)
 		//	0.0f, 0.0f, 0.0f, 1.0f
 		//);
 		//
-		//// Çà·ÄÀ» ÄõÅÍ´Ï¾ğÀ¸·Î º¯È¯
+		//// í–‰ë ¬ì„ ì¿¼í„°ë‹ˆì–¸ìœ¼ë¡œ ë³€í™˜
 		//DXMath::Quaternion rotation = DX::XMQuaternionRotationMatrix(lookAtMatrix);
 		//
-		//// ±âÁ¸ Æ®·£½ºÆû È¸Àü ÇÔ¼ö »ç¿ë
+		//// ê¸°ì¡´ íŠ¸ëœìŠ¤í¼ íšŒì „ í•¨ìˆ˜ ì‚¬ìš©
 		//cameraInfo->cameraTransform->SetQuaternion(rotation);
 		lookat = _targetPosition;
-		//UpdateViewMatrix();  // ºä Çà·Ä °»½Å
+		//UpdateViewMatrix();  // ë·° í–‰ë ¬ ê°±ì‹ 
 	}
 
 }
@@ -184,11 +184,11 @@ void CameraCompoent::OnInputProcess(const DX::Keyboard::State& _KeyState, const 
 		}
 
 		if (_KeyState.IsKeyDown(DirectX::Keyboard::Keys::Space))
-		{	// E Å° - À§·Î ÀÌµ¿
+		{	// E í‚¤ - ìœ„ë¡œ ì´ë™
 			//AddInputVector(up);
 		}
 		else if (_KeyState.IsKeyDown(DirectX::Keyboard::Keys::LeftShift))
-		{	// Q Å° - ¾Æ·¡·Î ÀÌµ¿
+		{	// Q í‚¤ - ì•„ë˜ë¡œ ì´ë™
 			//AddInputVector(-up);
 		}
 
@@ -198,24 +198,12 @@ void CameraCompoent::OnInputProcess(const DX::Keyboard::State& _KeyState, const 
 		}
 		
 		
-
-		if (_KeyState.IsKeyDown(DirectX::Keyboard::Keys::LeftControl))
-		{
-			DXINPUT->mouse->SetMode(DX::Mouse::MODE_ABSOLUTE);
-			DXINPUT->mouse->SetVisible(true);
-		}
-		else
-		{
-			DXINPUT->mouse->SetMode(DX::Mouse::MODE_RELATIVE);
-			DXINPUT->mouse->SetVisible(true);
-		}
-		
 		//DXINPUT->mouse->SetMode(_MouseState.rightButton ? DX::Mouse::MODE_RELATIVE : DX::Mouse::MODE_ABSOLUTE);
 		//DXINPUT->mouse->SetMode(_KeyState.IsKeyUp(DirectX::Keyboard::Keys::LeftAlt) ? DX::Mouse::MODE_RELATIVE : DX::Mouse::MODE_ABSOLUTE);
 		if (_MouseState.positionMode == DX::Mouse::MODE_RELATIVE)
 		{
 			DXMath::Vector3 delta = DXMath::Vector3(float(_MouseState.x), float(_MouseState.y), 0.f) * cameraInfo->RotationSpeed;
-			// ±¸ÇÑ ÀÌµ¿·®À¸·Î È¸Àü
+			// êµ¬í•œ ì´ë™ëŸ‰ìœ¼ë¡œ íšŒì „
 			//std::cout << delta.y << std::endl;
 			cameraInfo->cameraTransform->AddYaw(delta.x);
 	
@@ -228,7 +216,8 @@ void CameraCompoent::OnInputProcess(const DX::Keyboard::State& _KeyState, const 
 			UpdateViewMatrix();
 		}
 
-	}	
+	}
+	
 }
 
 DXMath::Vector3 CameraCompoent::GetForward()
