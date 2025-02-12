@@ -47,11 +47,8 @@ void Player::ResetInformation()
 
 void Player::Update(const float _deltaTime)
 {
-
-
 	GetComponent<TransformComponent>()->SetPosition(cameraTransform->GetPosition());
 	GetComponent<TransformComponent>()->SetQuaternion(cameraTransform->GetQuaternion());
-
 }
 
 
@@ -271,6 +268,8 @@ bool Player::Insurance()
 			useRot = false;
 			selectCard = nullptr;
 			OnSkill = false;
+			isRotTrash = false;
+			cardrot.isInit = false;
 			return true;
 		}
 	}

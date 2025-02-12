@@ -192,10 +192,10 @@ void CameraCompoent::OnInputProcess(const DX::Keyboard::State& _KeyState, const 
 			//AddInputVector(-up);
 		}
 
-		if (_KeyState.IsKeyDown(DirectX::Keyboard::Keys::Escape))
-		{
-			PostQuitMessage(0);
-		}
+		//if (_KeyState.IsKeyDown(DirectX::Keyboard::Keys::Escape))
+		//{
+		//	PostQuitMessage(0);
+		//}
 		
 		
 		//DXINPUT->mouse->SetMode(_MouseState.rightButton ? DX::Mouse::MODE_RELATIVE : DX::Mouse::MODE_ABSOLUTE);

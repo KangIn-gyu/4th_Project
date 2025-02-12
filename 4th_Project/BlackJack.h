@@ -73,6 +73,7 @@ public:
 			dealer->chip += sum;
 		}
 	};
+
 	void CheckVictory(float _deltaTime); 
 	void ShowDown();   //승패 계산떄 숫자합이 같으면 발생
 	void DoubbleDown();
