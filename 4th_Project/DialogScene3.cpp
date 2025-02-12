@@ -10,7 +10,7 @@ DialogScene3::DialogScene3(std::string_view _Name) : Scene(_Name)
 {
     // Font/DialogScene.ttf  // GyeonggiMillenniumBackground_Regular
     dialog = CreatorObject<D2DBaseObj>("DialogScene3", Object::ObjectType::UI,
-        39, 56, "Font/GyeonggiMillenniumBackground_Regular.ttf", "DialogScenes/CSV/Scene3csv");
+        39, 56, "Font/GyeonggiMillenniumBackground_Regular.ttf", "DialogScenes/CSV/Scene3.csv");
 
     dialog->CreateScript<D2DBitMapFontScript>();
     skipbutton = CreatorObject<UIButton>("Skip", Object::ObjectType::UI,

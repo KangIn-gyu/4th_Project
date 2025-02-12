@@ -1,32 +1,26 @@
-ï»¿#include "pch.h"
-#include "TalkScene3.h"
-
-#include "D2DBitMapFontScript.h" // Â½ÂºÃ…Â©Â¸Â³Ã†Â®
-#include "FadeEffectScript.h"
-
-#include "../Engine/SceneManager.h"
-#include "../Engine/SoundSystem.h"
-
-#include "UIButton.h"
+#include "pch.h"
+#include "BadEnding.h"
 #include "D2DBaseObj.h"
-
-TalkScene3::TalkScene3(std::string_view _Name) : Scene(_Name)
+#include "D2DBitMapFontScript.h" // ½ºÅ©¸³Æ®
+#include "FadeEffectScript.h"
+#include "../Engine/SceneManager.h"
+#include "UIButton.h"
+BadEnding::BadEnding(std::string_view _Name) : Scene(_Name)
 {
-    // Font/DialogScene.ttf  // GyeonggiMillenniumBackground_Regular
-    dialog = CreatorObject<D2DBaseObj>("TalkScene3", Object::ObjectType::UI,
-        112, 112, "Font/GyeonggiMillenniumBackground_Regular.ttf", "DialogScenes/CSV/Talk_3.csv");
-    dialog->CreateScript<D2DBitMapFontScript>();
+    // TODO: ¿£µùÀÇ ºĞ±âÁ¡°ªÀ» ¾ò¾î¾ßÇÑ´Ù.
 
-    // ìŠ¤í‚µë²„íŠ¼
+    dialog = CreatorObject<D2DBaseObj>("BadEnding", Object::ObjectType::UI,
+        0, 90, "Font/GyeonggiMillenniumBackground_Regular.ttf", "DialogScenes/CSV/Scene5.csv");
+
+    dialog->CreateScript<D2DBitMapFontScript>();
     skipbutton = CreatorObject<UIButton>("Skip", Object::ObjectType::UI,
         "TutorialScene/UI/UI 43_Skip.png", DXMath::Vector2(1730, 50), DXMath::Vector2(150, 45),
         []() {SCENEMANAGER->ChangeScene("LobbyScene");});
 
-    // í˜ì´ë“œíš¨ê³¼ ë°ì•„ì§€ê¸°
+    // ÆäÀÌµåÈ¿°ú ¹à¾ÆÁö±â
     fading = CreatorObject<D2DBaseObj>("Fade", Object::ObjectType::UI);
     fading->GetComponent<D2DRenderComponent>()->Load2DImage("UI/FadeImage.png");
-    fading->CreateScript<FadeEffectScript>();
-
+    fading->CreateScript<FadeEffectScript>()->StartFadeOut();
 
     dialog->SetD2DLayerOrder(0);
     fading->SetD2DLayerOrder(5);
@@ -35,14 +29,17 @@ TalkScene3::TalkScene3(std::string_view _Name) : Scene(_Name)
     dialog->SetActive(false);
     fading->SetActive(false);
     skipbutton->SetActive(false);
-
-    //SOUNDSYSTEM->PlayMusic(eSoundList::Main_Theme, eSoundChannel::BGM);
 }
 
-void TalkScene3::Update(const float _deltaTime)
+void BadEnding::Enter()
+{
+    // TODO: ¿£µùÀÇ ºĞ±âÁ¡°ªÀ» ¾ò¾î¾ßÇÑ´Ù.
+}
+
+void BadEnding::Update(const float _deltaTime)
 {
     Scene::Update(_deltaTime);
-    // ì–´ë‘ì›Œì§€ê¸°
+    // ¾îµÎ¿öÁö±â
     if (true == dialog->GetComponent<D2DRenderComponent>()->IsFadeIn)
     {
         static_cast<FadeEffectScript*>(fading->script)->StartFadeIn("LobbyScene");
@@ -50,7 +47,8 @@ void TalkScene3::Update(const float _deltaTime)
     }
 }
 
-void TalkScene3::ResetInformation()
+
+void BadEnding::ResetInformation()
 {
     Scene::ResetInformation();
     dialog->SetActive(true);

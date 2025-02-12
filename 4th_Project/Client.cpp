@@ -24,7 +24,7 @@ void Client::Enter()
 //	SCENEMANAGER->CreatorScene<TestScene>("TestScene"); // ���߿� ������ ��
 	SCENEMANAGER->CreatorScene<LoadingScene>("LoadingScene");
 	SCENEMANAGER->ChangeScene("LoadingScene");
-
+	static_cast<LoadingScene*>(SCENEMANAGER->GetScene("LoadingScene"))->NextScene("TitleScene");
 	SOUNDSYSTEM->SetVolumeAll(0.5f);
 	LoadMusic();
 }
@@ -45,6 +45,13 @@ void Client::SceneUpload()
 	SCENEMANAGER->CreatorScene<DialogScene3>("DialogScene3");
 	SCENEMANAGER->CreatorScene<DialogScene4>("DialogScene4");
 	SCENEMANAGER->CreatorScene<DialogScene5>("DialogScene5");
+
+	SCENEMANAGER->CreatorScene<TalkScene1>("TalkScene1");
+	SCENEMANAGER->CreatorScene<TalkScene2>("TalkScene2");
+	SCENEMANAGER->CreatorScene<TalkScene3>("TalkScene3");
+	SCENEMANAGER->CreatorScene<TalkScene4>("TalkScene4");
+
+	// TODO : ���� �߰� �ؾߵ�
 
 	BLACKJACK->player = PLAYER;
 

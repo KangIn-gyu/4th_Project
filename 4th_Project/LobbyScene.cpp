@@ -20,7 +20,6 @@ LobbyScene::LobbyScene(std::string_view _Name) : Scene(_Name)
 }
 void LobbyScene::Enter()
 {
-	
 	BLACKJACK->player = CreatorObject<Player>("Player", Object::ObjectType::Basic);
 	CreatorObject<D3DBaseObj>("Map", Object::ObjectType::Background, "Common/FBX/Map_test_Lowpoly.fbx");
 	dealer = CreatorObject<Dealer>("Dealer", Object::ObjectType::Basic);

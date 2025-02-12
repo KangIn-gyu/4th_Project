@@ -37,6 +37,9 @@
     <Filter Include="Scene\666. GambleScene">
       <UniqueIdentifier>{213508e3-d542-4a54-a146-e0ab94678ffd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scene\7. EndingScene">
+      <UniqueIdentifier>{ed57dbe4-7ff0-437a-973c-c06dca18c38c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -66,9 +69,6 @@
     </ClInclude>
     <ClInclude Include="Client.h">
       <Filter>Client</Filter>
-    </ClInclude>
-    <ClInclude Include="TestScene.h">
-      <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="SceneHeaders.h">
       <Filter>Scene</Filter>
@@ -167,6 +167,18 @@
     </ClInclude>
     <ClInclude Include="ClickChangeSceneScript.h">
       <Filter>Script</Filter>
+    </ClInclude>
+    <ClInclude Include="EndingScene.h">
+      <Filter>Scene\7. EndingScene</Filter>
+    </ClInclude>
+    <ClInclude Include="BadEnding.h">
+      <Filter>Scene\7. EndingScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Epilogue.h">
+      <Filter>Scene\7. EndingScene</Filter>
+    </ClInclude>
+    <ClInclude Include="HappyEnding.h">
+      <Filter>Scene\7. EndingScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -287,6 +299,18 @@
     <ClCompile Include="ClickChangeSceneScript.cpp">
       <Filter>Script</Filter>
     </ClCompile>
+    <ClCompile Include="EndingScene.cpp">
+      <Filter>Scene\7. EndingScene</Filter>
+    </ClCompile>
+    <ClCompile Include="HappyEnding.cpp">
+      <Filter>Scene\7. EndingScene</Filter>
+    </ClCompile>
+    <ClCompile Include="BadEnding.cpp">
+      <Filter>Scene\7. EndingScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Epilogue.cpp">
+      <Filter>Scene\7. EndingScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Client">
@@ -352,9 +376,6 @@
     </ClCompile>
     <ClCompile Include="4th_Project.cpp">
       <Filter>Main</Filter>
-    </ClCompile>
-    <ClCompile Include="TestScene.cpp">
-      <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="TestObj.cpp">
       <Filter>Obj\TestObj</Filter>

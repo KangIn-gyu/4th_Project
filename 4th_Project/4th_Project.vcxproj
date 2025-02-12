@@ -146,6 +146,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BadEnding.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="CardRotation.h" />
     <ClInclude Include="ClickChangeSceneScript.h" />
@@ -171,11 +172,14 @@
     <ClInclude Include="DialogScene3.h" />
     <ClInclude Include="DialogScene4.h" />
     <ClInclude Include="DialogScene5.h" />
+    <ClInclude Include="EndingScene.h" />
+    <ClInclude Include="Epilogue.h" />
     <ClInclude Include="FadeEffectScript.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GambleButton.h" />
     <ClInclude Include="GambleScene.h" />
     <ClInclude Include="BlackJack.h" />
+    <ClInclude Include="HappyEnding.h" />
     <ClInclude Include="LoadingScene.h" />
     <ClInclude Include="JustFont.h" />
     <ClInclude Include="LoopImageChangeScript.h" />
@@ -202,6 +206,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="4th_Project.cpp" />
+    <ClCompile Include="BadEnding.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="CardRotation.cpp" />
     <ClCompile Include="ClickChangeSceneScript.cpp" />
@@ -227,10 +232,13 @@
     <ClCompile Include="DialogScene3.cpp" />
     <ClCompile Include="DialogScene4.cpp" />
     <ClCompile Include="DialogScene5.cpp" />
+    <ClCompile Include="EndingScene.cpp" />
+    <ClCompile Include="Epilogue.cpp" />
     <ClCompile Include="FadeEffectScript.cpp" />
     <ClCompile Include="GambleButton.cpp" />
     <ClCompile Include="GambleScene.cpp" />
     <ClCompile Include="BlackJack.cpp" />
+    <ClCompile Include="HappyEnding.cpp" />
     <ClCompile Include="LoadingScene.cpp" />
     <ClCompile Include="JustFont.cpp" />
     <ClCompile Include="LoopImageChangeScript.cpp" />

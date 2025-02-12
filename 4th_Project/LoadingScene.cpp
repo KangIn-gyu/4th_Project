@@ -29,7 +29,7 @@ void LoadingScene::Update(const float _deltaTime)
 	if (LoadingTime >= maxLoadingTime)
 	{
 		LoadingTime = 0;
-		SCENEMANAGER->ChangeScene("TitleScene");
+		SCENEMANAGER->ChangeScene(nextSceneName);
 	}
 }
 

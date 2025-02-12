@@ -25,6 +25,7 @@ public:
 
 private:
 	D2DRenderComponent* ownerD2D;
+	bool isClicked = false;
 	int bitmapSize = 0;
 	int index = 0;
 };

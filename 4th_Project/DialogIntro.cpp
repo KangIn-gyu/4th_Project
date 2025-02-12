@@ -9,6 +9,7 @@
 
 #include "UIButton.h"
 #include "D2DBaseObj.h"
+#include "LoadingScene.h"
 
 DialogIntro::DialogIntro(std::string_view _Name) : Scene(_Name)
 {
@@ -20,7 +21,7 @@ DialogIntro::DialogIntro(std::string_view _Name) : Scene(_Name)
     // 스킵버튼
     skipbutton = CreatorObject<UIButton>("Skip", Object::ObjectType::UI,
         "TutorialScene/UI/UI 43_Skip.png", DXMath::Vector2(1730, 50), DXMath::Vector2(150, 45),
-        []() {SCENEMANAGER->ChangeScene("DialogScene0");});
+        []() {SCENEMANAGER->ChangeScene("LoadingScene");});
 
     // 페이드효과 밝아지기
     fading = CreatorObject<D2DBaseObj>("Fade", Object::ObjectType::UI);
@@ -45,7 +46,7 @@ void DialogIntro::Update(const float _deltaTime)
     // 어두워지기
     if (true == dialog->GetComponent<D2DRenderComponent>()->IsFadeIn)
     {
-        static_cast<FadeEffectScript*>(fading->script)->StartFadeIn("DialogScene0");
+        static_cast<FadeEffectScript*>(fading->script)->StartFadeIn("LoadingScene");
         dialog->GetComponent<D2DRenderComponent>()->IsFadeIn = false;
     }
 }
@@ -57,6 +58,9 @@ void DialogIntro::ResetInformation()
     fading->SetActive(true);
     skipbutton->SetActive(true);
     static_cast<FadeEffectScript*>(fading->script)->StartFadeOut();
+    static_cast<LoadingScene*>(SCENEMANAGER->GetScene("LoadingScene"))->NextScene("DialogScene0");
+
     SOUNDSYSTEM->StopMusic(eSoundChannel::BGM);
     SOUNDSYSTEM->PlayMusic(eSoundList::DialogIntro, eSoundChannel::BGM);
+
 }
