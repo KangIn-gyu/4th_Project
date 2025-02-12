@@ -66,12 +66,13 @@ void GambleScene::Enter()
 	CreatorObject<ToopTip2D>("Guts_ToolTip", Object::ObjectType::UI, DXMath::Vector2(1430, 430))->SetActive(false);
 	CreatorObject<ToopTip2D>("Meditation_ToolTip", Object::ObjectType::UI, DXMath::Vector2(1430, 490))->SetActive(false);
 	CreatorObject<ToopTip2D>("Insurance_ToolTip", Object::ObjectType::UI, DXMath::Vector2(1460, 550))->SetActive(false);
-
+	auto DoubleDownImg = CreatorObject<UIButton>("DoubleDownImage", Object::ObjectType::UI, "GambleScene/UI/Double_Down_Banner.png", DXMath::Vector2{ 0, 500 }, []() {});
+	auto ShowDownImg = CreatorObject<UIButton>("ShowDownImage", Object::ObjectType::UI, "GambleScene/UI/Show_Down_Banner.png", DXMath::Vector2{ 0, 500 }, []() {});
 	CreatorObject<GambleButton>("Open", Object::ObjectType::UI, DXMath::Vector2(1650, 360), []() {ClickFunc::OpenButton(); });
 	CreatorObject<GambleButton>("Hit", Object::ObjectType::UI, DXMath::Vector2(1745, 440), []() {ClickFunc::HitButton(); });
 	CreatorObject<GambleButton>("Skill", Object::ObjectType::UI, DXMath::Vector2(1650, 520), []() {ClickFunc::OnSetSkillBtn(); });
 	CreatorObject<GambleButton>("Stay", Object::ObjectType::UI, DXMath::Vector2(1650, 680), []() {ClickFunc::StayButton(); });
-	CreatorObject<GambleButton>("DoubleDown", Object::ObjectType::UI, DXMath::Vector2(1745, 600), []() { BLACKJACK->DoubbleDown();});
+	CreatorObject<GambleButton>("DoubleDown", Object::ObjectType::UI, DXMath::Vector2(1745, 600), [DoubleDownImg]() { BLACKJACK->DoubbleDown(); DoubleDownImg->SetActive(true); });
 
 	CreatorObject<SkillButton>("Handfaster", Object::ObjectType::UI, DXMath::Vector2(1460, 470), 3, []() {ClickFunc::SetPlayerSkill(PLAYER, PSkill::fastEye); })->SetActive(false);
 	CreatorObject<SkillButton>("Guts", Object::ObjectType::UI, DXMath::Vector2(1430, 530), 1, []() {ClickFunc::SetPlayerSkill(PLAYER, PSkill::guts); })->SetActive(false);
@@ -129,7 +130,8 @@ void GambleScene::Enter()
 		{ BLACKJACK->distribution(true);BLACKJACK->isRoundOver = true; PlayerWin->SetActive(false);
 	ui9->SetActive(false); ui10->SetActive(false); ui11->SetActive(false); });
 
-
+	DoubleDownImg->SetOnClick([DoubleDownImg]() {DoubleDownImg->SetActive(false);});
+	ShowDownImg->SetOnClick([ShowDownImg]() {ShowDownImg->SetActive(false);});
 	auto* ButtonTen = CreatorObject<UIButton>("ButtonTen", Object::ObjectType::UI, "UI/Button10.png", DXMath::Vector2{ 1000,800 }, []() {});
 	auto* ButtonOne = CreatorObject<UIButton>("ButtonOne", Object::ObjectType::UI, "UI/Button1.png", DXMath::Vector2{ 850,800 }, []() {});
 
@@ -273,6 +275,8 @@ void GambleScene::ResetInformation()
 	GetGameObject(Object::ObjectType::UI, "Pattern3_2")->SetActive(false);
 	GetGameObject(Object::ObjectType::UI, "Pattern4_1")->SetActive(false);
 	GetGameObject(Object::ObjectType::UI, "Pattern4_2")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "DoubleDownImage")->SetActive(false);
+	GetGameObject(Object::ObjectType::UI, "ShowDownImage")->SetActive(false);
 	GetGameObject(Object::ObjectType::UI, "Handfaster_ToolTip")->GetComponent<D2DRenderComponent>()->bitmapLayerOrder = 5;
 	GetGameObject(Object::ObjectType::UI, "Guts_ToolTip")->GetComponent<D2DRenderComponent>()->bitmapLayerOrder = 5;
 	GetGameObject(Object::ObjectType::UI, "Meditation_ToolTip")->GetComponent<D2DRenderComponent>()->bitmapLayerOrder = 5;

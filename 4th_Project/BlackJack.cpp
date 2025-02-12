@@ -55,8 +55,8 @@ void BlackJack::CheckTurnEnd()
 		if (true == player->CheckGameOver())
 		{
 			//플레이어가 올오픈이지 확인하는 함수필요
-			DealerWin();
-		
+			//DealerWin();
+			curTurn = Turn::CheckVictory;
 		}
 		SetState(PlayerState::OPEN);
 		player->turnEnd = false;
@@ -84,7 +84,7 @@ void BlackJack::Bet()
 	{
 		firstBet = false;
 		betMoney += *player->Bet();
-		player->betChip = 0;
+		player->betChip = 1000;
 		std::cout << "베팅완료 " << std::endl;
 		endBet = true;
 		canClick = true;
@@ -186,10 +186,18 @@ void BlackJack::Update(float _deltaTime)
 			}
 			else if (curTurn == Turn::CheckVictory)
 			{
-				dealer->CardDraw(deck);
-				if (dealer->finishDraw == true)
+
+				if (true == player->CheckGameOver())
 				{
-					CheckVictory(_deltaTime);
+					DealerWin();
+				}
+				else
+				{
+					dealer->CardDraw(deck);
+					if (dealer->finishDraw == true)
+					{
+						CheckVictory(_deltaTime);
+					}
 				}
 			}
 		}
@@ -300,6 +308,7 @@ void BlackJack::CheckVictory(float _deltaTime)
 
 	//승패계산
 	
+
 	if (dealer->GetScore() >= 22)
 	{
 		std::cout << "딜러가 22넘었음  " << " ㅇㅇ" << std::endl;
@@ -311,7 +320,7 @@ void BlackJack::CheckVictory(float _deltaTime)
 		std::cout << " 둘이 비겼음 쇼다운으로 " << " ㅇㅇ" << std::endl;
 		ShowDown();   //점수 동일하면 쇼다운페이지로	
 	}
-	else if (player->score > dealer->GetScore())
+	else if (player->score > dealer->GetScore() && player->score <= 21)
 	{
 		std::cout << "플레이어가 이김 " << " ㅇㅇ" << std::endl;
 		//플레이어 윈 연출로
@@ -330,6 +339,7 @@ void BlackJack::CheckVictory(float _deltaTime)
 
 void BlackJack::ShowDown()
 {
+	SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "ShowDownImage")->SetActive(true);
 	//컷씬 뛰우고
 	//배율 X2 최대치 제한있는지 확인
 	//카드 한장씩 뽑기-> 동점일경우 계속
