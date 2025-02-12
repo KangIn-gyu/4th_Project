@@ -50,6 +50,14 @@ void GambleScene::Enter()
 	//GetGameObject(Object::ObjectType::Camera)->GetComponent<TransformComponent>()->SetPosition({ -30.0f, 130.0f, -83.0f });
 	//GetGameObject(Object::ObjectType::Camera)->GetComponent<TransformComponent>()->SetQuaternion(DXMath::Quaternion::Quaternion(0.3f, 0.171f, -0.059f, 0.93f));
 
+	Object* camera = GetGameObject(Object::ObjectType::Camera, 0);
+	camera->GetComponent<CameraCompoent>()->MovingFlag(false);
+	TransformComponent* cameratrans = camera->GetComponent<TransformComponent>();
+	float angle = DirectX::XMConvertToRadians(30.0f);
+	DXMath::Quaternion quat = DXMath::Quaternion::CreateFromYawPitchRoll(0.0f, angle, 0.0f);
+	cameratrans->SetQuaternion(quat);
+	cameratrans->SetPosition({ 0, 185, -600 });
+
 	BLACKJACK->dealer->GetComponent<TransformComponent>()->SetPosition({ 0.0f, 6.0f, -400.0f });
 	BLACKJACK->deck = CreatorObject<Deck>("Deck", Object::ObjectType::Basic);
 	BLACKJACK->deck->GetComponent<TransformComponent>()->SetPosition({ -60, 105, -500 });
@@ -87,6 +95,9 @@ void GambleScene::Enter()
 
 	auto ui3 = CreatorObject<D2DBaseObj>("Skill_Energe", Object::ObjectType::UI, DXMath::Vector2{ 1650, 220 }, "UI/Skill_Energe.png", "Font/GyeonggiMillenniumBackground_Regular.ttf");
 	ui3->CreateScript<JustFont>()->SetMessage(&BLACKJACK->player->skillPoint);
+
+	auto ui33 = CreatorObject<D2DBaseObj>("Dealer_TurnCount", Object::ObjectType::UI, DXMath::Vector2{ 1170, 250 }, "GambleScene/UI/UI_Test_27.png", "Font/GyeonggiMillenniumBackground_Regular.ttf");
+	ui33->CreateScript<JustFont>()->SetMessage(&BLACKJACK->dealer->turnCount);
 
 	CreatorObject<UIButton>("ALLIN", Object::ObjectType::UI, "UI/Button/ALL_IN.png", DXMath::Vector2(1600, 850), []() {  if (BLACKJACK->firstTurn == false) { BLACKJACK->Bet(); } });
 
@@ -132,6 +143,10 @@ void GambleScene::Enter()
 
 	DoubleDownImg->SetOnClick([DoubleDownImg]() {DoubleDownImg->SetActive(false);});
 	ShowDownImg->SetOnClick([ShowDownImg]() {ShowDownImg->SetActive(false);});
+
+	auto SetCamera = CreatorObject<UIButton>("SetCamera", Object::ObjectType::UI, "UI/Set_Camera_Button.png", DXMath::Vector2{ 0,964 }, []() {});
+	SetCamera->SetOnClick([SetCamera, cameratrans, this]() {  isSet = true; cameratrans->SetPosition({ 0, 165, -580 });   SetCamera->SetActive(false);});
+
 	auto* ButtonTen = CreatorObject<UIButton>("ButtonTen", Object::ObjectType::UI, "UI/Button10.png", DXMath::Vector2{ 1000,800 }, []() {});
 	auto* ButtonOne = CreatorObject<UIButton>("ButtonOne", Object::ObjectType::UI, "UI/Button1.png", DXMath::Vector2{ 850,800 }, []() {});
 
@@ -282,14 +297,16 @@ void GambleScene::ResetInformation()
 	GetGameObject(Object::ObjectType::UI, "Meditation_ToolTip")->GetComponent<D2DRenderComponent>()->bitmapLayerOrder = 5;
 	GetGameObject(Object::ObjectType::UI, "Insurance_ToolTip")->GetComponent<D2DRenderComponent>()->bitmapLayerOrder = 5;
 
-
+	if (isSet == true)
+	{
+		GetGameObject(Object::ObjectType::UI, "SetCamera")->SetActive(false);
+	}
 	// 왜 여기 선언 해야하는지 진짜모름
 	Object* camera = GetGameObject(Object::ObjectType::Camera, 0);
 	camera->GetComponent<CameraCompoent>()->MovingFlag(false);
 	TransformComponent* cameratrans = camera->GetComponent<TransformComponent>();
-	float angle = DirectX::XMConvertToRadians(30.0f);
+	float angle = DirectX::XMConvertToRadians(20.0f);
 	DXMath::Quaternion quat = DXMath::Quaternion::CreateFromYawPitchRoll(0.0f, angle, 0.0f);
-	cameratrans->SetPosition({ 0, 140, -580 });
 	cameratrans->SetQuaternion(quat);
 	cameratrans->SetPosition({ 0, 165, -580 });
 
