@@ -46,6 +46,13 @@ void Client::SceneUpload()
 	SCENEMANAGER->CreatorScene<DialogScene4>("DialogScene4");
 	SCENEMANAGER->CreatorScene<DialogScene5>("DialogScene5");
 
+	SCENEMANAGER->CreatorScene<EndingScene>("EndingScene");
+	SCENEMANAGER->CreatorScene<EndingChoice>("EndingChoice");
+	SCENEMANAGER->CreatorScene<BadEnding>("BadEnding");
+	SCENEMANAGER->CreatorScene<HappyEnding>("HappyEnding");
+	SCENEMANAGER->CreatorScene<Epilogue>("Epilogue");
+	SCENEMANAGER->CreatorScene<CreditScene>("CreditScene");
+
 
 	// TODO : ���� �߰� �ؾߵ�
 
@@ -68,7 +75,8 @@ void Client::LoadMusic()
 
 	{ // Dialog
 		//BGM
-		SOUNDSYSTEM->LoadMusic(eSoundList::DialogIntro, true, "Resource\\DialogScenes\\Sounds\\Epilogue_Dialogue_BGM.wav");
+		SOUNDSYSTEM->LoadMusic(eSoundList::DialogIntro, true, "Resource\\DialogScenes\\Sounds\\Intro.wav");
+		SOUNDSYSTEM->LoadMusic(eSoundList::Epilogue, true, "Resource\\DialogScenes\\Sounds\\Epilogue_Dialogue_BGM.wav");
 		SOUNDSYSTEM->LoadMusic(eSoundList::Scene0,		true, "Resource\\DialogScenes\\Sounds\\Scene0_dialogue_BGM.wav");
 		SOUNDSYSTEM->LoadMusic(eSoundList::Scene1,		true, "Resource\\DialogScenes\\Sounds\\Scene1_Dialogue_BGM.wav");
 		SOUNDSYSTEM->LoadMusic(eSoundList::Scene2,		true, "Resource\\DialogScenes\\Sounds\\Scene2_Dialogue_BGM.wav");
@@ -77,7 +85,7 @@ void Client::LoadMusic()
 		SOUNDSYSTEM->LoadMusic(eSoundList::Scene5,		true, "Resource\\DialogScenes\\Sounds\\Scene5_Dialogue_BGM.wav");
 		SOUNDSYSTEM->LoadMusic(eSoundList::Ending,		true, "Resource\\DialogScenes\\Sounds\\Ending_Dialogue_BGM.wav");
 		SOUNDSYSTEM->LoadMusic(eSoundList::BadEnding,	true, "Resource\\DialogScenes\\Sounds\\BadEnding_Dialogue_BGM.mp3");
-		
+		SOUNDSYSTEM->LoadMusic(eSoundList::HappyEnding, true, "Resource\\DialogScenes\\Sounds\\HappyEnding_Dialogue_BGM.wav");
 	}
 
 	{ // 버튼 SFX

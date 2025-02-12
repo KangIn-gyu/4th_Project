@@ -155,6 +155,7 @@
     <ClInclude Include="Card.h" />
     <ClInclude Include="ClickNextBimapScript.h" />
     <ClInclude Include="Client.h" />
+    <ClInclude Include="CreditScene.h" />
     <ClInclude Include="D2DBaseObj.h" />
     <ClInclude Include="D2DBitMapFontScript.h" />
     <ClInclude Include="D3DAniObj.h" />
@@ -173,6 +174,7 @@
     <ClInclude Include="DialogScene3.h" />
     <ClInclude Include="DialogScene4.h" />
     <ClInclude Include="DialogScene5.h" />
+    <ClInclude Include="EndingChoice.h" />
     <ClInclude Include="EndingScene.h" />
     <ClInclude Include="Epilogue.h" />
     <ClInclude Include="FadeEffectScript.h" />
@@ -181,6 +183,8 @@
     <ClInclude Include="GambleScene.h" />
     <ClInclude Include="BlackJack.h" />
     <ClInclude Include="HappyEnding.h" />
+    <ClInclude Include="hogamdo.h" />
+    <ClInclude Include="JustBox.h" />
     <ClInclude Include="LoadingScene.h" />
     <ClInclude Include="JustFont.h" />
     <ClInclude Include="LoopImageChangeScript.h" />
@@ -213,6 +217,7 @@
     <ClCompile Include="Card.cpp" />
     <ClCompile Include="ClickNextBimapScript.cpp" />
     <ClCompile Include="Client.cpp" />
+    <ClCompile Include="CreditScene.cpp" />
     <ClCompile Include="D2DBaseObj.cpp" />
     <ClCompile Include="D2DBitMapFontScript.cpp" />
     <ClCompile Include="D3DAniObj.cpp" />
@@ -231,6 +236,7 @@
     <ClCompile Include="DialogScene3.cpp" />
     <ClCompile Include="DialogScene4.cpp" />
     <ClCompile Include="DialogScene5.cpp" />
+    <ClCompile Include="EndingChoice.cpp" />
     <ClCompile Include="EndingScene.cpp" />
     <ClCompile Include="Epilogue.cpp" />
     <ClCompile Include="FadeEffectScript.cpp" />
@@ -238,6 +244,8 @@
     <ClCompile Include="GambleScene.cpp" />
     <ClCompile Include="BlackJack.cpp" />
     <ClCompile Include="HappyEnding.cpp" />
+    <ClCompile Include="hogamdo.cpp" />
+    <ClCompile Include="JustBox.cpp" />
     <ClCompile Include="LoadingScene.cpp" />
     <ClCompile Include="JustFont.cpp" />
     <ClCompile Include="LoopImageChangeScript.cpp" />

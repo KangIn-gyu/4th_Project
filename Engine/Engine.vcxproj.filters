@@ -701,12 +701,6 @@
     <FxCompile Include="..\4th_Project\Resource\Shaders\VertexShaderVS.hlsl">
       <Filter>리소스 파일</Filter>
     </FxCompile>
-    <FxCompile Include="..\4th_Project\Resource\Shaders\SkyBoxVS.hlsl">
-      <Filter>리소스 파일</Filter>
-    </FxCompile>
-    <FxCompile Include="..\4th_Project\Resource\Shaders\SkyBoxPS.hlsl">
-      <Filter>리소스 파일</Filter>
-    </FxCompile>
     <FxCompile Include="..\4th_Project\Resource\Shaders\ShadowVS.hlsl">
       <Filter>리소스 파일</Filter>
     </FxCompile>

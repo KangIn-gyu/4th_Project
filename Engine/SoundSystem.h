@@ -61,6 +61,8 @@ enum class eSoundList
 	SE_All_In,
 	SE_Bet,
 	Credit,
+	HappyEnding,
+	Epilogue,
 	Size
 };
 

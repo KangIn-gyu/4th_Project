@@ -17,6 +17,7 @@ public:
 	virtual void FixedUpdate() {}
 	virtual void LateUpdate() {}
 
+	void SetOnClick(std::function<void()> _func);
 	void SetD2DLayerOrder(int _index);
 
 

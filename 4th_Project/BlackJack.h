@@ -20,6 +20,7 @@ enum class PlayerState   //플레이어 행동상태
 	OPEN,    //기본시작은 open
 	HIT,
 	STAY,
+	DobbleDown,
 	Skill,    //
 };
 
@@ -38,9 +39,14 @@ class BlackJack : public SingletonBase<BlackJack>
 public:
 	void SetDialog(D2DBaseObj* dialog) { dialogs.push_back(dialog); }
 
+	bool needReset = false;
+	void ResetStage();
+
+	bool needResetRound = false;
+	void ResetRound();
 	void SetResultImage(D2DBaseObj* image) {}
 
-	void Setstage(int num =1);   //스테이지 숫자로 스테이지 설정?
+	void Setstage();   //스테이지 숫자로 스테이지 설정?
 	
 	void Update(float _deltaTime);
 	
@@ -63,14 +69,31 @@ public:
 	{ 
 		if (_playerWin)
 		{
-			player->chip += sum;
-			dealer->chip -= sum;
+			if (dealer->chip >= sum)
+			{
+				player->chip += sum;
+				dealer->chip -= sum;
+			}
+			else
+			{
+				player->chip += sum;
+				dealer->chip -= dealer->chip;
+			}
+			
 
 		}
 		else
 		{
-			player->chip -= sum;
-			dealer->chip += sum;
+			if (player->chip >= sum)
+			{
+				player->chip -= sum;
+				dealer->chip += sum;
+			}
+			else
+			{
+				player->chip -= player->chip;
+				dealer->chip += sum;
+			}
 		}
 	};
 
@@ -101,15 +124,19 @@ public:
 	int WinStage = 0;
 	int betMoney = 0;
 	int curStage = 0; //1스테이지부터?
+	int numGame = 0; //플레이한 게임수 0 1 2 3
 	int sum = 0;
 	int showDownCount = 0;
+	int numRound = 0;
 	bool isRoundOver = true; //한 라운드가 끝날떄
 
 	bool isOn = false;
 
 
+	bool isGameOver = false;
+	float elapsedTime = 0;
 private:
-	float elapsedTime =0;
+	
 
 	PlayerState state = PlayerState::OPEN;
 	PlayerState nextState;

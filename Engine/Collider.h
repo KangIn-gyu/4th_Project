@@ -38,6 +38,7 @@ private:
 
 public:
 	ColliderType coltype;
+	Touch coltouch = Touch::Basic;
 	IColliderNotify* notify = nullptr;
 	Collider* preCollision = nullptr; //이전충돌
 	Collider* curCollision = nullptr; //지금

@@ -41,6 +41,11 @@ void UIToggleBtn::Update(const float _deltaTime)
 }
 
 
+void UIToggleBtn::SetOnClick(std::function<void()> _func)
+{
+	clickFunc = _func;
+}
+
 void UIToggleBtn::SetD2DLayerOrder(int _index)
 {
 

@@ -64,8 +64,9 @@ public:
 		const DX::Mouse::ButtonStateTracker& _MouseTracker) override;
 	int   betChip = 1000; //베팅떄 걸칩갯수 마우스휠로 조절
 	int   minBet = 1000;
+	float love = 20;    //호감도 딜러랑만의 호감
 private:
-	float love{};    //호감도 딜러랑만의 호감
+	
 	
 public:
 	static Player* g_player;
@@ -75,8 +76,8 @@ public:
 	bool Shuffle     = false;
 	bool needDiscard = false;
 	int  openCard  = 0; //d
-	int  skillPoint = 10; 
-	int  chip = 100000; //겜블때 쓸 칩 수,전체 돈
+	int  skillPoint = 1; 
+	int  chip = 1000000; //겜블때 쓸 칩 수,전체 돈
 	int score = 0; 
 	bool OnSkill = false; //스킬 발동중
 	Card* selectCard = nullptr;  //스킬 쓸때 손패에서 선택중인 카드
