@@ -27,7 +27,7 @@ TitleScene::TitleScene(std::string_view _Name) : Scene(_Name)
 
         BLACKJACK->dealer = CreatorObject<Dealer>("Evelyn", Object::ObjectType::Basic);
         BLACKJACK->dealer->GetComponent<TransformComponent>()->SetPosition({ 900, 8, 1270.5 });
- 
+        BLACKJACK->player = CreatorObject<Player>("Player", Object::ObjectType::Basic);
         TargetPosition = { 900, 107, 1272 };
         mainCamera = GetGameObject(Object::ObjectType::Camera, "MainCamera");
         static_cast<CameraObject*>(mainCamera)->TitleFlag(true);
@@ -141,7 +141,7 @@ void TitleScene::ResetInformation()
 
     map->SetActive(true);
     BLACKJACK->dealer->SetActive(true);
-
+    BLACKJACK->player->SetActive(true);
     titleLogo->SetActive(true);
     titleClick->SetActive(true);
     Backgraund->SetActive(true);

@@ -37,12 +37,12 @@ Player::Player(std::string_view _name, Object::ObjectType _type) : Object(_name,
 }
 void Player::Initialize()
 {
-	Object* camera = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::Camera, 0);
-	cameraTransform = camera->GetComponent<TransformComponent>();
+	
 }
 void Player::ResetInformation()
 {
-
+	Object* camera = SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::Camera, 0);
+	cameraTransform = camera->GetComponent<TransformComponent>();
 }
 
 void Player::Update(const float _deltaTime)

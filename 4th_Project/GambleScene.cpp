@@ -253,7 +253,7 @@ void GambleScene::ResetInformation()
 
 	SOUNDSYSTEM->StopMusic(eSoundChannel::BGM);
 	SOUNDSYSTEM->PlayMusic(eSoundList::GameScene, eSoundChannel::BGM);
-
+	
 	RENDERER->upColor = false;
 	//RENDERER->ClearSpotLight();
 	GetGameObject(Object::ObjectType::UI, "Meditation")->SetActive(false);
@@ -312,11 +312,11 @@ void GambleScene::ResetInformation()
 	DXMath::Quaternion quat = DXMath::Quaternion::CreateFromYawPitchRoll(0.0f, angle, 0.0f);
 	cameratrans->SetQuaternion(quat);
 	cameratrans->SetPosition({ 0, 165, -580 });
-
+	BLACKJACK->Setstage(BLACKJACK->curStage+1);
 	BLACKJACK->dealer->GetComponent<TransformComponent>()->SetPosition({ 0.0f, 6.0f, -400.0f });
 	BLACKJACK->dealer->GetComponent<ModelComponent>()->SetAnimation(1);
 	BLACKJACK->dealer->SetActive(true);
-
+	BLACKJACK->player->SetActive(true);
 	GetGameObject(Object::ObjectType::Basic, "Deck")->GetComponent<TransformComponent>()->SetPosition({ -60, 105, -500 });
 	//GambleScene::Enter();
 

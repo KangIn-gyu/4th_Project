@@ -24,7 +24,8 @@ LobbyScene::LobbyScene(std::string_view _Name) : Scene(_Name)
 void LobbyScene::Enter()
 {
 	AddGameObject(Object::ObjectType::Basic, BLACKJACK->dealer);
-	BLACKJACK->player = CreatorObject<Player>("Player", Object::ObjectType::Basic);
+	AddGameObject(Object::ObjectType::Basic, BLACKJACK->player);
+
 	CreatorObject<D3DBaseObj>("Map", Object::ObjectType::Background, "Common/FBX/Map_test_Lowpoly.fbx");
 
 	{
@@ -98,6 +99,7 @@ void LobbyScene::ResetInformation()
 
 
 	BLACKJACK->dealer->SetActive(true);
+	BLACKJACK->player->SetActive(true);
 	BLACKJACK->dealer->GetComponent<TransformComponent>()->SetPosition({ 900, 8, 1250.5 });
 	BLACKJACK->dealer->GetComponent<ModelComponent>()->SetAnimation(1); // 기본 애니메이션 추가
 	GetGameObject(Object::ObjectType::UI, "TalkButton")->SetActive(false);
