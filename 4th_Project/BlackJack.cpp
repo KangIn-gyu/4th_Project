@@ -32,6 +32,7 @@ void BlackJack::ResetStage()
 		RoundStart();
 		player->skillPoint = 1;
 		needReset = false;
+		magnification = 1.0f;
 		elapsedTime = 0;
 	}
 }
@@ -159,8 +160,12 @@ void BlackJack::Bet()
 		firstBet = false;
 		betMoney += *player->Bet();
 		int num = *player->Bet();
-		num = num / 1000;
-		magnification += num * 0.1f;
+		{
+			num = num / 1000;
+			magnification += num * 0.01f;
+			//magnification 
+		}
+
 		player->betChip = 1000;
 		std::cout << "베팅완료 " << std::endl;
 		endBet = true;
@@ -442,6 +447,7 @@ void BlackJack::DealerTurn(float _deltaTime)
 	default:
 		dealer->turnCount = 2;
 		curTurn = Turn::player;
+		//dialogs[1]->SetActive(true);
 		break;
 	}
 }
@@ -449,6 +455,11 @@ void BlackJack::DealerTurn(float _deltaTime)
 void BlackJack::CheckVictory(float _deltaTime)
 {
 
+	if (IsShowDown == false)
+	{
+		ShowDown();   //점수 동일하면 쇼다운페이지로	
+		return;
+	}
 	//승패계산
 	if (dealer->GetScore() >= 22)
 	{
@@ -457,6 +468,7 @@ void BlackJack::CheckVictory(float _deltaTime)
 	else if (player->score == dealer->GetScore())
 	{
 		ShowDown();   //점수 동일하면 쇼다운페이지로	
+		return;
 	}
 	else if (player->score > dealer->GetScore() && player->score <= 21)
 	{
@@ -485,38 +497,52 @@ void BlackJack::CheckVictory(float _deltaTime)
 
 void BlackJack::ShowDown()
 {
-	SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "ShowDownImage")->SetActive(true);
 	//컷씬 뛰우고
 	//배율 X2 최대치 제한있는지 확인
 	//카드 한장씩 뽑기-> 동점일경우 계속
-	player->hand.handReset();
-	dealer->hand.handReset();  //각핸드 리셋하고
 
 	if (true == IsShowDown)
 	{
+		SCENEMANAGER->GetCurrentScene()->GetGameObject(Object::ObjectType::UI, "ShowDownImage")->SetActive(true);
+		player->hand.handReset();
+		dealer->hand.handReset(true);  //각핸드 리셋하고
 		IsShowDown = false;
 		SOUNDSYSTEM->StopMusic(eSoundChannel::BGM);
 		SOUNDSYSTEM->PlayMusic(eSoundList::DoubleDown, eSoundChannel::BGM);
 	}
 
-	if (player->hand.GetScore() == dealer->hand.GetScore())  //다를떄까지 반복
+	float delta = TIMESYSTEM->GetFloatDeltaTime();
+	elapsedTime += delta;
+	player->hand.numCard();
+	
+	if (elapsedTime >= 1.0f)
 	{
-		player->hand.cardDraw(deck->DrawCard(false), { showpslot.x + showDownCount * 15.0f,showpslot.y, showpslot.z }, true);
-		dealer->hand.cardDraw(deck->DrawCard(true), { showdslot.x + showDownCount * 15.0f,showdslot.y, showdslot.z }, true);
-		showDownCount++;
-	}
-	else //다르면 승페계싼
-	{
-		if (player->hand.GetScore() < dealer->hand.GetScore()) //작은쪽이 이기는거
+	
+		if (player->hand.numCard() <=1 && player->hand.GetScore() == dealer->hand.GetScore())  //다를떄까지 반복
 		{
-			SOUNDSYSTEM->StopMusic(eSoundChannel::BGM);
-			SOUNDSYSTEM->PlayMusic(eSoundList::GameScene, eSoundChannel::BGM);
-			PlayerWin();
+			player->hand.cardDraw(deck->DrawCard(false), { showpslot.x + showDownCount * 15.0f,showpslot.y, showpslot.z }, true);
+			dealer->hand.cardDraw(deck->DrawCard(true), { showdslot.x + showDownCount * 15.0f,showdslot.y, showdslot.z }, true);
+			showDownCount++;
+			elapsedTime = 0;
 		}
-		else
+		else //다르면 승페계싼
 		{
-			SOUNDSYSTEM->PlayMusic(eSoundList::GameScene, eSoundChannel::BGM);
-			DealerWin(); //딜러가이김
+			if (player->hand.GetScore() < dealer->hand.GetScore()) //작은쪽이 이기는거
+			{
+				IsShowDown = true;
+				BLACKJACK->isRoundOver = true;
+				SOUNDSYSTEM->StopMusic(eSoundChannel::BGM);
+				SOUNDSYSTEM->PlayMusic(eSoundList::GameScene, eSoundChannel::BGM);
+				PlayerWin();
+			}
+			else if(player->hand.GetScore() > dealer->hand.GetScore())
+			{
+				IsShowDown = true;
+				BLACKJACK->isRoundOver = true;
+				SOUNDSYSTEM->PlayMusic(eSoundList::GameScene, eSoundChannel::BGM);
+				DealerWin(); //딜러가이김
+			}
+			elapsedTime = 0;
 		}
 	}
 
