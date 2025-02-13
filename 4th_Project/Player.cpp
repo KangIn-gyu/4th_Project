@@ -321,7 +321,7 @@ void Player::OnInputProcess(const DX::Keyboard::State& _KeyState, const DX::Keyb
 		if (wheelDelta != lastWheelDelta) {
 			if (wheelDelta > lastWheelDelta) {
 				std::cout << "∏∂øÏΩ∫ »Ÿæ˜«‘ " << " ";
-				betChip += 100;
+				betChip += 1000;
 				SOUNDSYSTEM->PlayMusic(eSoundList::SE_Bet, eSoundChannel::Effect);
 				if (betChip >= chip)
 				{
@@ -332,7 +332,7 @@ void Player::OnInputProcess(const DX::Keyboard::State& _KeyState, const DX::Keyb
 			// »Ÿ¿Ã æ∆∑°∑Œ ±º∑Ø∞¨¿ª ∂ß
 			else if (wheelDelta < lastWheelDelta) {
 				std::cout << "∏∂øÏΩ∫ »Ÿ ¥ŸøÓ«‘ " << " ";
-				betChip -= 100;
+				betChip -= 1000;
 				SOUNDSYSTEM->PlayMusic(eSoundList::SE_Bet, eSoundChannel::Effect);
 				if (!BLACKJACK->firstBet)
 					minBet = 0;

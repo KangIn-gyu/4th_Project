@@ -55,7 +55,7 @@ void BlackJack::ResetRound()
 		curTurn = Turn::player;
 		isRoundOver = false;
 		onDoubbleDown = false;
-		magnification = 1.0f + numRound * 0.1;
+		magnification += numRound * 0.1;
 		SetState(PlayerState::OPEN);
 		ChangeState();
 		endBet = false;
@@ -80,6 +80,7 @@ void BlackJack::Setstage()
 		isGameOver = false;
 		dealer->SetChip(curStage * 1000000 + 1000000);
 		RoundStart();
+		magnification = 1.0f;
 		player->skillPoint = 1;
 		elapsedTime = 0;
 }
@@ -97,7 +98,7 @@ void BlackJack::RoundStart()
 	curTurn = Turn::player;
 	isRoundOver = false;
 	onDoubbleDown = false;
-	magnification = 1.0f + numRound *0.1;
+	magnification += numRound *0.1;
 	SetState(PlayerState::OPEN);
 	ChangeState();
 	endBet = false;
@@ -156,6 +157,9 @@ void BlackJack::Bet()
 	{
 		firstBet = false;
 		betMoney += *player->Bet();
+		int num = *player->Bet();
+		num = num / 1000;
+		magnification += num * 0.1f;
 		player->betChip = 1000;
 		std::cout << "베팅완료 " << std::endl;
 		endBet = true;
@@ -418,8 +422,9 @@ void BlackJack::DealerTurn(float _deltaTime)
 	switch (dealerState)
 	{
 	case DSkill::none:
-		dealer->turnCount = 3;
-		dialogs[0]->SetActive(true);
+		dealer->turnCount = 2;
+		curTurn = Turn::player;
+		//dialogs[0]->SetActive(true);
 		break;
 	case DSkill::reverse:
 		dialogs[0]->SetActive(true);
@@ -435,7 +440,7 @@ void BlackJack::DealerTurn(float _deltaTime)
 		break;
 	default:
 		dealer->turnCount = 2;
-		dialogs[1]->SetActive(true);
+		curTurn = Turn::player;
 		break;
 	}
 }
