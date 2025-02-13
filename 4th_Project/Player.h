@@ -77,7 +77,7 @@ public:
 	bool needDiscard = false;
 	int  openCard  = 0; //d
 	int  skillPoint = 1; 
-	int  chip = 1000000; //겜블때 쓸 칩 수,전체 돈
+	int  chip = 100000; //겜블때 쓸 칩 수,전체 돈
 	int score = 0; 
 	bool OnSkill = false; //스킬 발동중
 	Card* selectCard = nullptr;  //스킬 쓸때 손패에서 선택중인 카드
