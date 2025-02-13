@@ -37,6 +37,9 @@
     <Filter Include="Scene\7. EndingScene">
       <UniqueIdentifier>{ed57dbe4-7ff0-437a-973c-c06dca18c38c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="리소스">
+      <UniqueIdentifier>{9f6d93c8-be0f-4bbe-9aa2-ac0d70b97960}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -179,6 +182,7 @@
     </ClInclude>
     <ClInclude Include="JustBox.h" />
     <ClInclude Include="hogamdo.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -405,5 +409,11 @@
     <ClCompile Include="BlackJack.cpp">
       <Filter>Client\BlackJack</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="4th_Project.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\x64\Release\Evelyn_Face_20.ico" />
   </ItemGroup>
 </Project>
