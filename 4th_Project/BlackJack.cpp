@@ -28,7 +28,7 @@ void BlackJack::ResetStage()
 	{
 		numRound = 0;
 		isGameOver = false;
-		dealer->SetChip(curStage * 1000000 + 1000000);
+		dealer->SetChip(curStage * 100000 + 100000);
 		RoundStart();
 		player->skillPoint = 1;
 		needReset = false;
@@ -79,7 +79,7 @@ void BlackJack::Setstage()
 {
 		numRound = 0;
 		isGameOver = false;
-		dealer->SetChip(curStage * 1000000 + 1000000);
+		dealer->SetChip(curStage * 100000 + 100000);
 		RoundStart();
 		player->skillPoint = 1;
 		magnification = 1.0f;
@@ -162,7 +162,7 @@ void BlackJack::Bet()
 		int num = *player->Bet();
 		{
 			num = num / 1000;
-			magnification += num * 0.01f;
+			magnification += num * 0.1f;
 			//magnification 
 		}
 
