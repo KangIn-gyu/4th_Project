@@ -98,6 +98,7 @@ void BlackJack::RoundStart()
 	curTurn = Turn::player;
 	isRoundOver = false;
 	onDoubbleDown = false;
+	magnification = 1.0f;
 	magnification += numRound *0.1;
 	SetState(PlayerState::OPEN);
 	ChangeState();
