@@ -280,9 +280,6 @@
   <ItemGroup>
     <ResourceCompile Include="4th_Project.rc" />
   </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\x64\Release\Evelyn_Face_20.ico" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
 </Project>
